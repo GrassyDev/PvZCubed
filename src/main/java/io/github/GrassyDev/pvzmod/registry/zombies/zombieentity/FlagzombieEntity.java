@@ -1,11 +1,10 @@
-package net.fabricmc.example.registry.zombies.zombieentity;
+package io.github.GrassyDev.pvzmod.registry.zombies.zombieentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.*;
-import net.fabricmc.example.registry.plants.plantentity.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -192,9 +191,9 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
             }
 
             if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
-                this.playSound(ExampleMod.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
                 HypnoFlagzombieEntity hypnoFlagzombieEntity = (HypnoFlagzombieEntity)PvZEntity.HYPNOFLAGZOMBIE.create(world);
-                hypnoFlagzombieEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+                hypnoFlagzombieEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoFlagzombieEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFlagzombieEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoFlagzombieEntity.setAiDisabled(this.isAiDisabled());
                 if (this.hasCustomName()) {
@@ -204,7 +203,7 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
 
                 hypnoFlagzombieEntity.setPersistent();
                 serverWorld.spawnEntityAndPassengers(hypnoFlagzombieEntity);
-                this.remove();
+                this.remove(RemovalReason.DISCARDED);
             }
 
             if (source.getAttacker() instanceof LivingEntity) {
@@ -216,11 +215,11 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
     }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
     protected SoundEvent getHurtSound() {
-        return ExampleMod.SILENCEVENET;
+        return PvZCubed.SILENCEVENET;
     }
 
     protected SoundEvent getStepSound() {
@@ -245,26 +244,28 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
         this.setCanBreakDoors(nbt.getBoolean("CanBreakDoors"));
     }
 
-    public void onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
-        super.onKilledOther(serverWorld, livingEntity);
-        if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
-            if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
-                return;
-            }
+	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
+		super.onKilledOther(serverWorld, livingEntity);
+		boolean bl = super.onKilledOther(serverWorld, livingEntity);
+		if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
+			if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
+				return bl;
+			}
 
-            VillagerEntity villagerEntity = (VillagerEntity)livingEntity;
-            ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity)villagerEntity.method_29243(EntityType.ZOMBIE_VILLAGER, false);
-            zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
-            zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
-            zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
-            zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
-            zombieVillagerEntity.setXp(villagerEntity.getExperience());
-            if (!this.isSilent()) {
-                serverWorld.syncWorldEvent((PlayerEntity)null, 1026, this.getBlockPos(), 0);
-            }
-        }
+			VillagerEntity villagerEntity = (VillagerEntity) livingEntity;
+			ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity) villagerEntity.convertTo(EntityType.ZOMBIE_VILLAGER, false);
+			zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
+			zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
+			zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
+			zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
+			zombieVillagerEntity.setXp(villagerEntity.getExperience());
+			if (!this.isSilent()) {
+				serverWorld.syncWorldEvent((PlayerEntity) null, 1026, this.getBlockPos(), 0);
+			}
+		}
 
-    }
+		return bl;
+	}
 
     @Override
     public void registerControllers(AnimationData data)
@@ -319,7 +320,7 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     @Override
@@ -328,7 +329,7 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
     }
 
     protected SoundEvent getCastSpellSound() {
-        return ExampleMod.ENTITYRISINGEVENT;
+        return PvZCubed.ENTITYRISINGEVENT;
     }
 
     protected void mobTick() {
@@ -356,7 +357,7 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
 
         private summonZombieGoal() {
             super();
-            this.closeZombiePredicate = (new TargetPredicate()).setBaseMaxDistance(16.0D).includeHidden().ignoreDistanceScalingFactor().includeInvulnerable().includeTeammates();
+            this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
         }
 
         public boolean canStart() {
@@ -391,7 +392,7 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
 
             for(int b = 0; b < 1; ++b) { // 1 Screendoor
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 0.1, -2 + FlagzombieEntity.this.random.nextInt(10));
-                ScreendoorEntity screendoorEntity = (ScreendoorEntity)PvZEntity.SCREEENDOOR.create(FlagzombieEntity.this.world);
+                ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(FlagzombieEntity.this.world);
                 screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 screendoorEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound) null);
                 screendoorEntity.setOwner(FlagzombieEntity.this);
@@ -424,7 +425,7 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
         }
 
         protected SoundEvent getSoundPrepare() {
-            return ExampleMod.GRAVERISINGEVENT;
+            return PvZCubed.GRAVERISINGEVENT;
         }
 
         protected Spell getSpell() {
@@ -433,7 +434,7 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
-        private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
             super(mob, false);

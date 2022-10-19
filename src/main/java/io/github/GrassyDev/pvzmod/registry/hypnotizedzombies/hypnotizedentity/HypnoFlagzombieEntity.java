@@ -1,18 +1,14 @@
-package net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.ModBlocks;
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.FlagzombieEntity;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
@@ -88,7 +84,7 @@ public HypnoFlagzombieEntity(World world) {
         this.goalSelector.add(1, new HypnoFlagzombieEntity.summonZombieGoal());
     this.targetSelector.add(2, new HypnoFlagzombieEntity.TrackOwnerTargetGoal(this));
     this.goalSelector.add(1, new HypnoFlagzombieAttackGoal(this, 1.0D, true));
-    this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+    this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
         return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                 !(livingEntity instanceof HypnoFlagzombieEntity);
     }));
@@ -111,7 +107,7 @@ public void setOwner(MobEntity owner) {
 }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
 protected SoundEvent getStepSound() {
@@ -156,12 +152,12 @@ public AnimationFactory getFactory()
 
 @Override
 public boolean canSpawn(WorldView worldreader) {
-    return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+    return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
 }
 
     @Override
     protected SoundEvent getCastSpellSound() {
-        return ExampleMod.ENTITYRISINGEVENT;
+        return PvZCubed.ENTITYRISINGEVENT;
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
@@ -188,8 +184,8 @@ public boolean canSpawn(WorldView worldreader) {
 
         private summonZombieGoal() {
             super();
-            this.closeZombiePredicate = (new TargetPredicate()).setBaseMaxDistance(16.0D).includeHidden().ignoreDistanceScalingFactor().includeInvulnerable().includeTeammates();
-        }
+			this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
+		}
 
         public boolean canStart() {
             if (HypnoFlagzombieEntity.this.spawning) {
@@ -257,7 +253,7 @@ public boolean canSpawn(WorldView worldreader) {
         }
 
         protected SoundEvent getSoundPrepare() {
-            return ExampleMod.GRAVERISINGEVENT;
+            return PvZCubed.GRAVERISINGEVENT;
         }
 
         protected Spell getSpell() {

@@ -1,5 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry;
 
+import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.BasicGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -189,12 +191,9 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 
-		EntityRendererRegistry.register(PvZEntity.BASICGRAVESTONE, (dispatcher, context) -> {
-			return new BasicGraveRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.BASICGRAVESTONE, BasicGraveRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.NIGHTGRAVESTONE, (dispatcher, context) -> {
-			return new NightGraveRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.NIGHTGRAVESTONE, NightGraveRenderer::new);
+
 	}
 }

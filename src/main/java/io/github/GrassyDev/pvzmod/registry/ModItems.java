@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.itemclasses.*;
 import net.fabricmc.example.registry.toolclasses.PlantKillingMaterial;
 import net.fabricmc.example.registry.toolclasses.PlantKillingShovel;
 import net.minecraft.item.BlockItem;

@@ -1,13 +1,16 @@
 package io.github.GrassyDev.pvzmod.registry;
 
+import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.example.registry.gravestones.gravestoneentity.BasicGraveEntity;
 import net.fabricmc.example.registry.gravestones.gravestoneentity.NightGraveEntity;
 import net.fabricmc.example.registry.gravestones.renderers.BasicGraveRenderer;
 import net.fabricmc.example.registry.gravestones.renderers.NightGraveRenderer;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity..QuiltEntityTypeBuilder;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -322,169 +325,194 @@ public class PvZEntity implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        FabricDefaultAttributeRegistry.register(PEASHOOTER, PeashooterEntity.createPeashooterAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.PEASHOOTER,
+		PeashooterEntity.createPeashooterAttributes();
+        EntityRendererRegistry.register(PvZEntity.PEASHOOTER,
                 (entityRenderDispatcher, context) -> new PeashooterEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(SUNFLOWER, SunflowerEntity.createSunflowerAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.SUNFLOWER,
+		SunflowerEntity.createSunflowerAttributes();
+        EntityRendererRegistry.register(PvZEntity.SUNFLOWER,
                 (entityRenderDispatcher, context) -> new SunflowerEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(CHERRYBOMB, CherrybombEntity.createCherrybombAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.CHERRYBOMB,
+		CherrybombEntity.createCherrybombAttributes();
+        EntityRendererRegistry.register(PvZEntity.CHERRYBOMB,
                 (entityRenderDispatcher, context) -> new CherrybombEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(WALLNUT, WallnutEntity.createWallnutAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.WALLNUT,
+        WallnutEntity.createWallnutAttributes());
+        EntityRendererRegistry.register(PvZEntity.WALLNUT,
                 (entityRenderDispatcher, context) -> new WallnutEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(POTATOMINE, PotatomineEntity.createPotatomineAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.POTATOMINE,
+
+		PotatomineEntity.createPotatomineAttributes();
+        EntityRendererRegistry.register(PvZEntity.POTATOMINE,
                 (entityRenderDispatcher, context) -> new PotatomineEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(UNARMEDPOTATOMINE, UnarmedPotatomineEntity.createUnarmedPotatomineAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.UNARMEDPOTATOMINE,
+
+		UnarmedPotatomineEntity.createUnarmedPotatomineAttributes();
+        EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE,
                 (entityRenderDispatcher, context) -> new UnarmedPotatomineEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(SNOWPEA, SnowpeaEntity.createSnowpeaAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.SNOWPEA,
+
+		SnowpeaEntity.createSnowpeaAttributes();
+        EntityRendererRegistry.register(PvZEntity.SNOWPEA,
                 (entityRenderDispatcher, context) -> new SnowpeaEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(CHOMPER, ChomperEntity.createChomperAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.CHOMPER,
+		ChomperEntity.createChomperAttributes();
+        EntityRendererRegistry.register(PvZEntity.CHOMPER,
                 (entityRenderDispatcher, context) -> new ChomperEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(REPEATER, RepeaterEntity.createRepeaterAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.REPEATER,
+		RepeaterEntity.createRepeaterAttributes();
+        EntityRendererRegistry.register(PvZEntity.REPEATER,
                 (entityRenderDispatcher, context) -> new RepeaterEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(PUFFSHROOM, PuffshroomEntity.createPuffshroomAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.PUFFSHROOM,
+		PuffshroomEntity.createPuffshroomAttributes();
+        EntityRendererRegistry.register(PvZEntity.PUFFSHROOM,
                 (entityRenderDispatcher, context) -> new PuffshroomEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(SUNSHROOM, SunshroomEntity.createSunshroomAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.SUNSHROOM,
+		SunshroomEntity.createSunshroomAttributes();
+        EntityRendererRegistry.register(PvZEntity.SUNSHROOM,
                 (entityRenderDispatcher, context) -> new SunshroomEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(FUMESHROOM, FumeshroomEntity.createFumeshroomAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.FUMESHROOM,
+		FumeshroomEntity.createFumeshroomAttributes();
+        EntityRendererRegistry.register(PvZEntity.FUMESHROOM,
                 (entityRenderDispatcher, context) -> new FumeshroomEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(GRAVEBUSTER, GravebusterEntity.createGravebusterAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.GRAVEBUSTER,
+		GravebusterEntity.createGravebusterAttributes();
+        EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER,
                 (entityRenderDispatcher, context) -> new GravebusterEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(HYPNOSHROOM, HypnoshroomEntity.createHypnoshroomAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOSHROOM,
+		HypnoshroomEntity.createHypnoshroomAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM,
                 (entityRenderDispatcher, context) -> new HypnoshroomEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(SCAREDYSHROOM, ScaredyshroomEntity.createScaredyshroomAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.SCAREDYSHROOM,
+		ScaredyshroomEntity.createScaredyshroomAttributes();
+        EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM,
                 (entityRenderDispatcher, context) -> new ScaredyshroomEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(ICESHROOM, IceshroomEntity.createIceshroomAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.ICESHROOM,
+		IceshroomEntity.createIceshroomAttributes();
+        EntityRendererRegistry.register(PvZEntity.ICESHROOM,
                 (entityRenderDispatcher, context) -> new IceshroomEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(DOOMSHROOM, DoomshroomEntity.createDoomshroomAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.DOOMSHROOM,
+		DoomshroomEntity.createDoomshroomAttributes();
+        EntityRendererRegistry.register(PvZEntity.DOOMSHROOM,
                 (entityRenderDispatcher, context) -> new DoomshroomEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(THREEPEATER, ThreepeaterEntity.createThreepeaterAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.THREEPEATER,
+		ThreepeaterEntity.createThreepeaterAttributes();
+        EntityRendererRegistry.register(PvZEntity.THREEPEATER,
                 (entityRenderDispatcher, context) -> new ThreepeaterEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(FLAMINGPEA, FlamingpeaEntity.createFlamingpeaAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.FLAMINGPEA,
+		FlamingpeaEntity.createFlamingpeaAttributes();
+        EntityRendererRegistry.register(PvZEntity.FLAMINGPEA,
                 (entityRenderDispatcher, context) -> new FlamingpeaEntityRenderer(entityRenderDispatcher));
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
-        FabricDefaultAttributeRegistry.register(BROWNCOAT, BrowncoatEntity.createBrowncoatAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.BROWNCOAT,
+		BrowncoatEntity.createBrowncoatAttributes();
+        EntityRendererRegistry.register(PvZEntity.BROWNCOAT,
                 (entityRenderDispatcher, context) -> new BrowncoatEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOBROWNCOAT, HypnoBrowncoatEntity.createHypnoBrowncoatAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOBROWNCOAT,
+
+		HypnoBrowncoatEntity.createHypnoBrowncoatAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOBROWNCOAT,
                 (entityRenderDispatcher, context) -> new HypnoBrowncoatEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(FLAGZOMBIE, FlagzombieEntity.createFlagzombieZombieAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.FLAGZOMBIE,
+
+		FlagzombieEntity.createFlagzombieZombieAttributes();
+        EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE,
                 (entityRenderDispatcher, context) -> new FlagzombieEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOFLAGZOMBIE, HypnoFlagzombieEntity.createHypnoFlagzombieAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOFLAGZOMBIE,
+
+		HypnoFlagzombieEntity.createHypnoFlagzombieAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOFLAGZOMBIE,
                 (entityRenderDispatcher, context) -> new HypnoFlagzombieEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(CONEHEAD, ConeheadEntity.createConeheadAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.CONEHEAD,
+
+		ConeheadEntity.createConeheadAttributes();
+        EntityRendererRegistry.register(PvZEntity.CONEHEAD,
                 (entityRenderDispatcher, context) -> new ConeheadEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOCONEHEAD, HypnoConeheadEntity.createHypnoConeheadAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOCONEHEAD,
+
+		HypnoConeheadEntity.createHypnoConeheadAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOCONEHEAD,
                 (entityRenderDispatcher, context) -> new HypnoConeheadEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(POLEVAULTING, PoleVaultingEntity.createPoleVaultingAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.POLEVAULTING,
+
+		PoleVaultingEntity.createPoleVaultingAttributes();
+        EntityRendererRegistry.register(PvZEntity.POLEVAULTING,
                 (entityRenderDispatcher, context) -> new PoleVaultingEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOPOLEVAULTING, HypnoPoleVaultingEntity.createHypnoPoleVaultingAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOPOLEVAULTING,
+
+		HypnoPoleVaultingEntity.createHypnoPoleVaultingAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOPOLEVAULTING,
                 (entityRenderDispatcher, context) -> new HypnoPoleVaultingEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(BUCKETHEAD, BucketheadEntity.createBucketheadAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.BUCKETHEAD,
+
+		BucketheadEntity.createBucketheadAttributes();
+        EntityRendererRegistry.register(PvZEntity.BUCKETHEAD,
                 (entityRenderDispatcher, context) -> new BucketheadEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOBUCKETHEAD, HypnoBucketheadEntity.createHypnoBucketheadAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOBUCKETHEAD,
+
+		HypnoBucketheadEntity.createHypnoBucketheadAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOBUCKETHEAD,
                 (entityRenderDispatcher, context) -> new HypnoBucketheadEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(NEWSPAPER, NewspaperEntity.createNewspaperAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.NEWSPAPER,
+
+		NewspaperEntity.createNewspaperAttributes();
+        EntityRendererRegistry.register(PvZEntity.NEWSPAPER,
                 (entityRenderDispatcher, context) -> new NewspaperEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNONEWSPAPER, HypnoNewspaperEntity.createHypnoNewspaperAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNONEWSPAPER,
+
+		HypnoNewspaperEntity.createHypnoNewspaperAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNONEWSPAPER,
                 (entityRenderDispatcher, context) -> new HypnoNewspaperEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(SCREEENDOOR, ScreendoorEntity.createScreendoorAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.SCREEENDOOR,
+
+		ScreendoorEntity.createScreendoorAttributes();
+        EntityRendererRegistry.register(PvZEntity.SCREEENDOOR,
                 (entityRenderDispatcher, context) -> new ScreendoorEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOSCREENDOOR, HypnoScreendoorEntity.createHypnoScreendoorAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOSCREENDOOR,
+
+		HypnoScreendoorEntity.createHypnoScreendoorAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOSCREENDOOR,
                 (entityRenderDispatcher, context) -> new HypnoScreendoorEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(FOOTBALL, FootballEntity.createFootballAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.FOOTBALL,
+
+		FootballEntity.createFootballAttributes();
+        EntityRendererRegistry.register(PvZEntity.FOOTBALL,
                 (entityRenderDispatcher, context) -> new FootballEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOFOOTBALL, HypnoFootballEntity.createHypnoFootballAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOFOOTBALL,
+
+		HypnoFootballEntity.createHypnoFootballAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL,
                 (entityRenderDispatcher, context) -> new HypnoFootballEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(BERSERKER, BerserkerEntity.createBerserkerAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.BERSERKER,
+
+		BerserkerEntity.createBerserkerAttributes();
+        EntityRendererRegistry.register(PvZEntity.BERSERKER,
                 (entityRenderDispatcher, context) -> new BerserkerEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOBERSERKER, HypnoBerserkerEntity.createHypnoBerserkerAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOBERSERKER,
+
+		HypnoBerserkerEntity.createHypnoBerserkerAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER,
                 (entityRenderDispatcher, context) -> new HypnoBerserkerEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(DANCINGZOMBIE, DancingZombieEntity.createDancingZombieAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.DANCINGZOMBIE,
+
+		DancingZombieEntity.createDancingZombieAttributes();
+        EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE,
                 (entityRenderDispatcher, context) -> new DancingZombieEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNODANCINGZOMBIE, HypnoDancingZombieEntity.createHypnoDancingZombieAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNODANCINGZOMBIE,
+
+		HypnoDancingZombieEntity.createHypnoDancingZombieAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNODANCINGZOMBIE,
                 (entityRenderDispatcher, context) -> new HypnoDancingZombieEntityRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(BACKUPDANCER, BackupDancerEntity.createBackupDancerAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.BACKUPDANCER,
+
+		BackupDancerEntity.createBackupDancerAttributes();
+        EntityRendererRegistry.register(PvZEntity.BACKUPDANCER,
                 (entityRenderDispatcher, context) -> new BackupDancerEntityRenderer(entityRenderDispatcher));
-        FabricDefaultAttributeRegistry.register(HYPNOBACKUPDANCER, HypnoBackupDancerEntity.createHypnoBackupDancerAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.HYPNOBACKUPDANCER,
+
+		HypnoBackupDancerEntity.createHypnoBackupDancerAttributes();
+        EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER,
                 (entityRenderDispatcher, context) -> new HypnoBackupDancerEntityRenderer(entityRenderDispatcher));
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
-        FabricDefaultAttributeRegistry.register(BASICGRAVESTONE, BasicGraveEntity.createBasicGraveAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.BASICGRAVESTONE,
+		BasicGraveEntity.createBasicGraveAttributes();
+        EntityRendererRegistry.register(PvZEntity.BASICGRAVESTONE,
                 (entityRenderDispatcher, context) -> new BasicGraveRenderer(entityRenderDispatcher));
 
-        FabricDefaultAttributeRegistry.register(NIGHTGRAVESTONE, NightGraveEntity.createNightGraveAttributes());
-        EntityRendererRegistry.INSTANCE.register(PvZEntity.NIGHTGRAVESTONE,
+		NightGraveEntity.createNightGraveAttributes();
+        EntityRendererRegistry.register(PvZEntity.NIGHTGRAVESTONE,
                 (entityRenderDispatcher, context) -> new NightGraveRenderer(entityRenderDispatcher));
 
         Spawns.init();

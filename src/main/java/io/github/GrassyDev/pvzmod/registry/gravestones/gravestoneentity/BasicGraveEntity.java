@@ -1,8 +1,8 @@
-package net.fabricmc.example.registry.gravestones.gravestoneentity;
+package io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity;
 
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.*;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -35,7 +35,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
 
     double tiltchance = this.random.nextDouble();
 
-    public BasicGraveEntity(EntityType<? extends BasicGraveEntity> entityType, World world) {
+    public BasicGraveEntity(EntityType<BasicGraveEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 25;
@@ -63,7 +63,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
     }
 
     protected void initGoals() {
-        this.targetSelector.add(1, new FollowTargetGoal(this, PlayerEntity.class, false, false));
+        this.targetSelector.add(1, new TargetGoal(this, PlayerEntity.class, false, false));
         this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
         this.initCustomGoals();
     }
@@ -151,11 +151,11 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     protected SoundEvent getCastSpellSound() {
-        return ExampleMod.ENTITYRISINGEVENT;
+        return PvZCubed.ENTITYRISINGEVENT;
     }
 
     class summonZombieGoal extends BasicGraveEntity.CastSpellGoal {
@@ -163,8 +163,8 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
 
         private summonZombieGoal() {
             super();
-            this.closeZombiePredicate = (new TargetPredicate()).setBaseMaxDistance(16.0D).includeHidden().ignoreDistanceScalingFactor().includeInvulnerable().includeTeammates();
-        }
+			this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
+		}
 
         public boolean canStart() {
             if (!super.canStart()) {
@@ -260,7 +260,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
         }
 
         protected SoundEvent getSoundPrepare() {
-            return ExampleMod.GRAVERISINGEVENT;
+            return PvZCubed.GRAVERISINGEVENT;
         }
 
         protected BasicGraveEntity.Spell getSpell() {
@@ -269,7 +269,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
-        private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
             super(mob, false);

@@ -1,4 +1,4 @@
-package net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 
@@ -24,7 +24,7 @@ public class HypnoPoleVaultingAttackGoal extends MeleeAttackGoal {
    public void tick() {
       super.tick();
       ++this.ticks;
-      if (this.ticks >= 5 && this.method_28348() < this.method_28349() / 2) {
+      if (this.ticks >= 5 && this.getCooldown() < this.getMaxCooldown() / 2) {
          this.pvzombie.setAttacking(true);
       } else {
          this.pvzombie.setAttacking(false);

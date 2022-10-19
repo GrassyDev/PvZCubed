@@ -1,9 +1,8 @@
-package net.fabricmc.example.registry.zombies.zombieentity;
+package io.github.GrassyDev.pvzmod.registry.zombies.zombieentity;
 
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.*;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.*;
-import net.fabricmc.example.registry.plants.plantentity.*;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoBucketheadEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -11,7 +10,6 @@ import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
@@ -26,7 +24,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
@@ -181,9 +178,9 @@ public class BucketheadEntity extends HostileEntity implements IAnimatable {
             }
 
             if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
-                this.playSound(ExampleMod.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoBucketheadEntity hypnoBucketheadEntity = (HypnoBucketheadEntity)PvZEntity.HYPNOBUCKETHEAD.create(world);
-                hypnoBucketheadEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+                HypnoBucketheadEntity hypnoBucketheadEntity = (HypnoBucketheadEntity) PvZEntity.HYPNOBUCKETHEAD.create(world);
+                hypnoBucketheadEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoBucketheadEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoBucketheadEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoBucketheadEntity.setAiDisabled(this.isAiDisabled());
                 if (this.hasCustomName()) {
@@ -193,7 +190,7 @@ public class BucketheadEntity extends HostileEntity implements IAnimatable {
 
                 hypnoBucketheadEntity.setPersistent();
                 serverWorld.spawnEntityAndPassengers(hypnoBucketheadEntity);
-                this.remove();
+                this.remove(RemovalReason.DISCARDED);
             }
 
             return true;
@@ -201,11 +198,11 @@ public class BucketheadEntity extends HostileEntity implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
     protected SoundEvent getHurtSound() {
-        return ExampleMod.SILENCEVENET;
+        return PvZCubed.SILENCEVENET;
     }
 
     protected SoundEvent getStepSound() {
@@ -230,26 +227,28 @@ public class BucketheadEntity extends HostileEntity implements IAnimatable {
         this.setCanBreakDoors(nbt.getBoolean("CanBreakDoors"));
     }
 
-    public void onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
-        super.onKilledOther(serverWorld, livingEntity);
-        if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
-            if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
-                return;
-            }
+	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
+		super.onKilledOther(serverWorld, livingEntity);
+		boolean bl = super.onKilledOther(serverWorld, livingEntity);
+		if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
+			if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
+				return bl;
+			}
 
-            VillagerEntity villagerEntity = (VillagerEntity)livingEntity;
-            ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity)villagerEntity.method_29243(EntityType.ZOMBIE_VILLAGER, false);
-            zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
-            zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
-            zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
-            zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
-            zombieVillagerEntity.setXp(villagerEntity.getExperience());
-            if (!this.isSilent()) {
-                serverWorld.syncWorldEvent((PlayerEntity)null, 1026, this.getBlockPos(), 0);
-            }
-        }
+			VillagerEntity villagerEntity = (VillagerEntity) livingEntity;
+			ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity) villagerEntity.convertTo(EntityType.ZOMBIE_VILLAGER, false);
+			zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
+			zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
+			zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
+			zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
+			zombieVillagerEntity.setXp(villagerEntity.getExperience());
+			if (!this.isSilent()) {
+				serverWorld.syncWorldEvent((PlayerEntity) null, 1026, this.getBlockPos(), 0);
+			}
+		}
 
-    }
+		return bl;
+	}
 
     @Override
     public void registerControllers(AnimationData data)
@@ -299,11 +298,11 @@ public class BucketheadEntity extends HostileEntity implements IAnimatable {
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
-        private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
             super(mob, false);

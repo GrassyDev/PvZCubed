@@ -1,8 +1,11 @@
-package net.fabricmc.example.registry.zombies.zombieentity;
+package io.github.GrassyDev.pvzmod.registry.zombies.zombieentity;
 
 import java.util.Random;
 import java.util.function.Predicate;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoBrowncoatEntity;
 import net.fabricmc.example.ExampleMod;
 import net.fabricmc.example.registry.*;
 import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.*;
@@ -180,9 +183,9 @@ public class BrowncoatEntity extends HostileEntity implements IAnimatable {
             }
 
             if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
-                this.playSound(ExampleMod.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoBrowncoatEntity hypnotizedZombie = (HypnoBrowncoatEntity)PvZEntity.HYPNOBROWNCOAT.create(world);
-                hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+                HypnoBrowncoatEntity hypnotizedZombie = (HypnoBrowncoatEntity) PvZEntity.HYPNOBROWNCOAT.create(world);
+                hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnotizedZombie.setAiDisabled(this.isAiDisabled());
                 if (this.hasCustomName()) {
@@ -192,7 +195,7 @@ public class BrowncoatEntity extends HostileEntity implements IAnimatable {
 
                 hypnotizedZombie.setPersistent();
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
-                this.remove();
+                this.remove(RemovalReason.DISCARDED);
             }
 
             return true;
@@ -200,11 +203,11 @@ public class BrowncoatEntity extends HostileEntity implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
     protected SoundEvent getHurtSound() {
-        return ExampleMod.SILENCEVENET;
+        return PvZCubed.SILENCEVENET;
     }
 
     protected SoundEvent getStepSound() {
@@ -242,26 +245,28 @@ public class BrowncoatEntity extends HostileEntity implements IAnimatable {
 
     }
 
-    public void onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
-        super.onKilledOther(serverWorld, livingEntity);
-        if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
-            if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
-                return;
-            }
+	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
+		super.onKilledOther(serverWorld, livingEntity);
+		boolean bl = super.onKilledOther(serverWorld, livingEntity);
+		if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
+			if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
+				return bl;
+			}
 
-            VillagerEntity villagerEntity = (VillagerEntity) livingEntity;
-            ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity) villagerEntity.method_29243(EntityType.ZOMBIE_VILLAGER, false);
-            zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
-            zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
-            zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
-            zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
-            zombieVillagerEntity.setXp(villagerEntity.getExperience());
-            if (!this.isSilent()) {
-                serverWorld.syncWorldEvent((PlayerEntity) null, 1026, this.getBlockPos(), 0);
-            }
-        }
+			VillagerEntity villagerEntity = (VillagerEntity) livingEntity;
+			ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity) villagerEntity.convertTo(EntityType.ZOMBIE_VILLAGER, false);
+			zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
+			zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
+			zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
+			zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
+			zombieVillagerEntity.setXp(villagerEntity.getExperience());
+			if (!this.isSilent()) {
+				serverWorld.syncWorldEvent((PlayerEntity) null, 1026, this.getBlockPos(), 0);
+			}
+		}
 
-    }
+		return bl;
+	}
 
 
     @Override
@@ -312,11 +317,11 @@ public class BrowncoatEntity extends HostileEntity implements IAnimatable {
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
-        private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
             super(mob, false);

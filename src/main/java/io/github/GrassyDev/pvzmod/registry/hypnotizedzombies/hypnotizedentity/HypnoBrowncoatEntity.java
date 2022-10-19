@@ -1,15 +1,11 @@
-package net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.ModBlocks;
-import net.fabricmc.example.registry.PvZEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;

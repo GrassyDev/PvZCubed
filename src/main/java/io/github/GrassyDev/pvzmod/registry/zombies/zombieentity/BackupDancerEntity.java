@@ -1,9 +1,8 @@
-package net.fabricmc.example.registry.zombies.zombieentity;
+package io.github.GrassyDev.pvzmod.registry.zombies.zombieentity;
 
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.*;
-import net.fabricmc.example.registry.plants.plantentity.*;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoBackupDancerEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -14,7 +13,6 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -83,38 +81,37 @@ public class BackupDancerEntity extends HostileEntity implements IAnimatable {
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
         this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
         //////////////////////////////////
-        this.targetSelector.add(1, new FollowTargetGoal(this, WallnutEntity.class, false, true));
-        this.targetSelector.add(2, new FollowTargetGoal(this, ChomperEntity.class, false, true));
-        this.targetSelector.add(2, new FollowTargetGoal(this, GravebusterEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, PlayerEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, PeashooterEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, IceshroomEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, DoomshroomEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, ScaredyshroomEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, ThreepeaterEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, SnowpeaEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, SunflowerEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, SunshroomEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, PotatomineEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, UnarmedPotatomineEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, RepeaterEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, PuffshroomEntity.class, false, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, FumeshroomEntity.class, false, true));
-        this.targetSelector.add(4, new FollowTargetGoal(this, MerchantEntity.class, false, true));
-        this.targetSelector.add(2, new FollowTargetGoal(this, IronGolemEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, WallnutEntity.class, false, true));
+        this.targetSelector.add(2, new TargetGoal(this, ChomperEntity.class, false, true));
+        this.targetSelector.add(2, new TargetGoal(this, GravebusterEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, PlayerEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, PeashooterEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, IceshroomEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, DoomshroomEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, ScaredyshroomEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, ThreepeaterEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, SnowpeaEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, SunflowerEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, SunshroomEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, PotatomineEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, UnarmedPotatomineEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, RepeaterEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, PuffshroomEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal(this, FumeshroomEntity.class, false, true));
+        this.targetSelector.add(4, new TargetGoal(this, MerchantEntity.class, false, true));
         ////////// Hypnotized Zombie targets ///////
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoshroomEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoBrowncoatEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoFlagzombieEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoConeheadEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoPoleVaultingEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoBucketheadEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoNewspaperEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoScreendoorEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoFootballEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoBerserkerEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoDancingZombieEntity.class, false, true));
-        this.targetSelector.add(1, new FollowTargetGoal(this, HypnoBackupDancerEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoshroomEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoBrowncoatEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoFlagzombieEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoConeheadEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoPoleVaultingEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoBucketheadEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoNewspaperEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoScreendoorEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoFootballEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoBerserkerEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoDancingZombieEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal(this, HypnoBackupDancerEntity.class, false, true));
     }
     public static DefaultAttributeContainer.Builder createBackupDancerAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
@@ -172,9 +169,9 @@ public class BackupDancerEntity extends HostileEntity implements IAnimatable {
             }
 
             if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
-                this.playSound(ExampleMod.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
                 HypnoBackupDancerEntity hypnotizedZombie = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(world);
-                hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+                hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnotizedZombie.setAiDisabled(this.isAiDisabled());
                 if (this.hasCustomName()) {
@@ -184,7 +181,7 @@ public class BackupDancerEntity extends HostileEntity implements IAnimatable {
 
                 hypnotizedZombie.setPersistent();
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
-                this.remove();
+                this.remove(RemovalReason.DISCARDED);
             }
 
             return true;
@@ -192,11 +189,11 @@ public class BackupDancerEntity extends HostileEntity implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
     protected SoundEvent getHurtSound() {
-        return ExampleMod.SILENCEVENET;
+        return PvZCubed.SILENCEVENET;
     }
 
     protected SoundEvent getStepSound() {
@@ -234,15 +231,16 @@ public class BackupDancerEntity extends HostileEntity implements IAnimatable {
 
     }
 
-    public void onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
+    public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
         super.onKilledOther(serverWorld, livingEntity);
+		boolean bl = super.onKilledOther(serverWorld, livingEntity);
         if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
             if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
-                return;
+				return bl;
             }
 
             VillagerEntity villagerEntity = (VillagerEntity) livingEntity;
-            ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity) villagerEntity.method_29243(EntityType.ZOMBIE_VILLAGER, false);
+            ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity) villagerEntity.convertTo(EntityType.ZOMBIE_VILLAGER, false);
             zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
             zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
             zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
@@ -253,7 +251,8 @@ public class BackupDancerEntity extends HostileEntity implements IAnimatable {
             }
         }
 
-    }
+		return bl;
+	}
 
 
     @Override
@@ -282,10 +281,6 @@ public class BackupDancerEntity extends HostileEntity implements IAnimatable {
         return (EntityData)entityData;
     }
 
-    public static boolean method_29936(Random random) {
-        return random.nextFloat() < 1F;
-    }
-
     static {
         DOOR_BREAK_DIFFICULTY_CHECKER = (difficulty) -> {
             return difficulty == Difficulty.HARD;
@@ -304,11 +299,11 @@ public class BackupDancerEntity extends HostileEntity implements IAnimatable {
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
-        private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
             super(mob, false);

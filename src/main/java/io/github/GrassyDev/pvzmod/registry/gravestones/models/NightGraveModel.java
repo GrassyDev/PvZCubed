@@ -1,26 +1,25 @@
-package net.fabricmc.example.registry.gravestones.models;
+package io.github.GrassyDev.pvzmod.registry.gravestones.models;
 
-import net.fabricmc.example.registry.gravestones.gravestoneentity.BasicGraveEntity;
-import net.fabricmc.example.registry.gravestones.gravestoneentity.NightGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class NightGraveModel extends AnimatedGeoModel<NightGraveEntity> {
 
     @Override
-    public Identifier getModelLocation(NightGraveEntity object)
+    public Identifier getModelResource(NightGraveEntity object)
     {
         return new Identifier("pvzcubed", "geo/nightgravestone.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(NightGraveEntity object)
+    public Identifier getTextureResource(NightGraveEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/gravestone/nightgravestone.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(NightGraveEntity object)
+    public Identifier getAnimationResource(NightGraveEntity object)
     {
         return new Identifier ("pvzcubed", "animations/gravestone.json");
     }

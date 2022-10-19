@@ -1,8 +1,5 @@
-package net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.DancingZombieEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;

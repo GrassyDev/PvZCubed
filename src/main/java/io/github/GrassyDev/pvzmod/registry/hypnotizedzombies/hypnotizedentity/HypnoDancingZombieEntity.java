@@ -1,7 +1,7 @@
-package net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -29,9 +29,6 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-
-import java.util.Random;
-import java.util.function.Predicate;
 
 public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implements IAnimatable {
     private MobEntity owner;
@@ -75,7 +72,7 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
         this.goalSelector.add(1, new HypnoDancingZombieEntity.summonZombieGoal());
         this.targetSelector.add(2, new HypnoDancingZombieEntity.TrackOwnerTargetGoal(this));
         this.goalSelector.add(1, new HypnoDancingZombieAttackGoal(this, 1.0D, true));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -98,11 +95,11 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
     }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
     protected SoundEvent getHurtSound() {
-        return ExampleMod.SILENCEVENET;
+        return PvZCubed.SILENCEVENET;
     }
 
     protected SoundEvent getStepSound() {
@@ -159,7 +156,7 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     @Override
@@ -168,7 +165,7 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
     }
 
     protected SoundEvent getCastSpellSound() {
-        return ExampleMod.ENTITYRISINGEVENT;
+        return PvZCubed.ENTITYRISINGEVENT;
     }
 
     @Override
@@ -202,8 +199,8 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
 
         private summonZombieGoal() {
             super();
-            this.closeZombiePredicate = (new TargetPredicate()).setBaseMaxDistance(16.0D).includeHidden().ignoreDistanceScalingFactor().includeInvulnerable().includeTeammates();
-        }
+			this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
+		}
 
         public boolean canStart() {
             if (HypnoDancingZombieEntity.this.dancing) {
@@ -261,7 +258,7 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
             }
             for(int t = 0; t < 1; ++t) { // 1 backup
                 BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(+0, 0.1, -1);
-                HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
+                HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity) PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 hypnoBackupDancerEntity.setOwner(HypnoDancingZombieEntity.this);
@@ -271,7 +268,7 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
         }
 
         protected SoundEvent getSoundPrepare() {
-            return ExampleMod.ZOMBIEDANCINGEVENT;
+            return PvZCubed.ZOMBIEDANCINGEVENT;
         }
 
         protected Spell getSpell() {

@@ -1,11 +1,10 @@
-package net.fabricmc.example.registry.zombies.zombieentity;
+package io.github.GrassyDev.pvzmod.registry.zombies.zombieentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFootballEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.*;
-import net.fabricmc.example.registry.plants.plantentity.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -15,7 +14,6 @@ import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -182,9 +180,9 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
             }
 
             if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
-                this.playSound(ExampleMod.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoFootballEntity hypnoFootballEntity = (HypnoFootballEntity)PvZEntity.HYPNOFOOTBALL.create(world);
-                hypnoFootballEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+                HypnoFootballEntity hypnoFootballEntity = (HypnoFootballEntity) PvZEntity.HYPNOFOOTBALL.create(world);
+                hypnoFootballEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoFootballEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFootballEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoFootballEntity.setAiDisabled(this.isAiDisabled());
                 if (this.hasCustomName()) {
@@ -194,7 +192,7 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
 
                 hypnoFootballEntity.setPersistent();
                 serverWorld.spawnEntityAndPassengers(hypnoFootballEntity);
-                this.remove();
+                this.remove(RemovalReason.DISCARDED);
             }
 
             return true;
@@ -202,11 +200,11 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
     protected SoundEvent getHurtSound() {
-        return ExampleMod.SILENCEVENET;
+        return PvZCubed.SILENCEVENET;
     }
 
     protected SoundEvent getStepSound() {
@@ -231,26 +229,28 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
         this.setCanBreakDoors(nbt.getBoolean("CanBreakDoors"));
     }
 
-    public void onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
-        super.onKilledOther(serverWorld, livingEntity);
-        if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
-            if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
-                return;
-            }
+	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
+		super.onKilledOther(serverWorld, livingEntity);
+		boolean bl = super.onKilledOther(serverWorld, livingEntity);
+		if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
+			if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
+				return bl;
+			}
 
-            VillagerEntity villagerEntity = (VillagerEntity)livingEntity;
-            ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity)villagerEntity.method_29243(EntityType.ZOMBIE_VILLAGER, false);
-            zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
-            zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
-            zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
-            zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
-            zombieVillagerEntity.setXp(villagerEntity.getExperience());
-            if (!this.isSilent()) {
-                serverWorld.syncWorldEvent((PlayerEntity)null, 1026, this.getBlockPos(), 0);
-            }
-        }
+			VillagerEntity villagerEntity = (VillagerEntity) livingEntity;
+			ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity) villagerEntity.convertTo(EntityType.ZOMBIE_VILLAGER, false);
+			zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound) null);
+			zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
+			zombieVillagerEntity.setGossipData((NbtElement) villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
+			zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
+			zombieVillagerEntity.setXp(villagerEntity.getExperience());
+			if (!this.isSilent()) {
+				serverWorld.syncWorldEvent((PlayerEntity) null, 1026, this.getBlockPos(), 0);
+			}
+		}
 
-    }
+		return bl;
+	}
 
     public void tickMovement() {
         super.tickMovement();
@@ -265,7 +265,7 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
 
     public boolean tryAttack(Entity target) {
         int i = this.attackTicksLeft;
-        if (!this.hasStatusEffect(ExampleMod.FROZEN)) {
+        if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
             if (this.firstAttack) {
                 if (i <= 0) {
                     if (this.hasStatusEffect(StatusEffects.WEAKNESS)) {
@@ -274,9 +274,9 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
                         float f = 184f;
                         boolean bl = target.damage(DamageSource.mob(this), f);
                         if (bl) {
-                            this.dealDamage(this, target);
+                            this.applyDamageEffects(this, target);
                         }
-                        this.playSound(SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1.0F);
+                        this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
                         this.firstAttack = false;
                         return bl;
                     } else {
@@ -285,9 +285,9 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
                         float f = 180f;
                         boolean bl = target.damage(DamageSource.mob(this), f);
                         if (bl) {
-                            this.dealDamage(this, target);
+                            this.applyDamageEffects(this, target);
                         }
-                        this.playSound(SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, 0.5F, 1.0F);
+                        this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 0.5F, 1.0F);
                         this.firstAttack = false;
                         return bl;
                     }
@@ -301,7 +301,7 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
                     float f = this.getAttackDamage();
                     boolean bl = target.damage(DamageSource.mob(this), f);
                     if (bl) {
-                        this.dealDamage(this, target);
+                        this.applyDamageEffects(this, target);
                     }
                     return bl;
                 } else {
@@ -381,11 +381,11 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
-        private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
             super(mob, false);

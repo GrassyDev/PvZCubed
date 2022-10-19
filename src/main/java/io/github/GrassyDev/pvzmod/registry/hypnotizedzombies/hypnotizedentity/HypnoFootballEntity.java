@@ -1,10 +1,8 @@
-package net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.ModBlocks;
-import net.fabricmc.example.registry.PvZEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
@@ -108,36 +106,37 @@ public static DefaultAttributeContainer.Builder createHypnoFootballAttributes() 
 
     public boolean tryAttack(Entity target) {
         int i = this.attackTicksLeft;
-        if (this.firstAttack) {
-            if (i <= 0) {
-                this.attackTicksLeft = 20;
-                this.world.sendEntityStatus(this, (byte) 4);
-                float f = this.getAttackDamage() + 354f;
-                boolean bl = target.damage(DamageSource.mob(this), f);
-                if (bl) {
-                    this.dealDamage(this, target);
-                }
-                this.playSound(SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1.0F);
-                this.firstAttack = false;
-                return bl;
-            } else {
-                return false;
-            }
-        }
-        else {
-            if (i <= 0) {
-                this.attackTicksLeft = 20;
-                this.world.sendEntityStatus(this, (byte) 4);
-                float f = this.getAttackDamage();
-                boolean bl = target.damage(DamageSource.mob(this), f);
-                if (bl) {
-                    this.dealDamage(this, target);
-                }
-                return bl;
-            } else {
-                return false;
-            }
-        }
+		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
+			if (this.firstAttack) {
+				if (i <= 0) {
+					this.attackTicksLeft = 20;
+					this.world.sendEntityStatus(this, (byte) 4);
+					float f = this.getAttackDamage() + 354f;
+					boolean bl = target.damage(DamageSource.mob(this), f);
+					if (bl) {
+						this.applyDamageEffects(this, target);
+					}
+					this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+					this.firstAttack = false;
+					return bl;
+				} else {
+					return false;
+				}
+			} else {
+				if (i <= 0) {
+					this.attackTicksLeft = 20;
+					this.world.sendEntityStatus(this, (byte) 4);
+					float f = this.getAttackDamage();
+					boolean bl = target.damage(DamageSource.mob(this), f);
+					if (bl) {
+						this.applyDamageEffects(this, target);
+					}
+					return bl;
+				} else {
+					return false;
+				}
+			}
+		}
     }
 
     protected void mobTick() {
@@ -214,7 +213,7 @@ public AnimationFactory getFactory()
 
 @Override
 public boolean canSpawn(WorldView worldreader) {
-    return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+    return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
 }
 
 class TrackOwnerTargetGoal extends TrackTargetGoal {

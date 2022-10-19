@@ -1,4 +1,4 @@
-package net.fabricmc.example.registry.zombies.zombieentity;
+package io.github.GrassyDev.pvzmod.registry.zombies.zombieentity;
 
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 
@@ -24,7 +24,7 @@ public class DancingZombieAttackGoal extends MeleeAttackGoal {
    public void tick() {
       super.tick();
       ++this.ticks;
-      if (this.ticks >= 5 && this.method_28348() < this.method_28349() / 2) {
+      if (this.ticks >= 5 && this.getCooldown() < this.getMaxCooldown() / 2) {
          this.pvzombie.setAttacking(true);
       } else {
          this.pvzombie.setAttacking(false);
