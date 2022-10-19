@@ -1,7 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.itemclasses;
 
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.plants.projectileentity.FumeEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,11 +24,11 @@ public class FumeItem extends Item {
             FumeEntity proj = new FumeEntity(PvZEntity.FUME, world);
             proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
             proj.setOwner(user);
-            proj.setProperties(user, user.pitch, user.yaw, 0, 0.75f, 0);
+            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.75f, 0);
             world.spawnEntity(proj);
         }
 
-        if (!user.abilities.creativeMode) {
+        if (!user.getAbilities().creativeMode) {
             itemStack.decrement(1); // decrements itemStack if user is not in creative mode
             user.getItemCooldownManager().set(this, 20);
         }

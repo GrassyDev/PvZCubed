@@ -1,7 +1,8 @@
 package io.github.GrassyDev.pvzmod.registry.itemclasses;
 
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.plants.plantentity.GravebusterEntity;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.GravebusterEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -46,7 +47,7 @@ public class GraveBusterSeeds extends Item {
             Box box = PvZEntity.GRAVEBUSTER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    GravebusterEntity gravebusterEntity = (GravebusterEntity) PvZEntity.GRAVEBUSTER.create(serverWorld, itemStack.getTag(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    GravebusterEntity gravebusterEntity = (GravebusterEntity) PvZEntity.GRAVEBUSTER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (gravebusterEntity == null) {
                         return ActionResult.FAIL;
                     }

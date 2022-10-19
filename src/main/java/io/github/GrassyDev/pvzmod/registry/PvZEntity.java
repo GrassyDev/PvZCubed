@@ -1,6 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry;
 
-import io.github.GrassyDev.pvzmod.init.Spawns;
 import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.BasicGraveRenderer;
@@ -475,7 +474,6 @@ public class PvZEntity implements ModInitializer {
 		NightGraveEntity.createNightGraveAttributes();
         EntityRendererRegistry.register(PvZEntity.NIGHTGRAVESTONE, NightGraveRenderer::new);
 
-        Spawns.init();
 
     }
 }

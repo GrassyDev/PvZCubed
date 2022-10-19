@@ -1,7 +1,8 @@
 package io.github.GrassyDev.pvzmod.registry.itemclasses;
 
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.gravestones.gravestoneentity.BasicGraveEntity;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,12 +32,10 @@ public class BasicGraveSpawn extends Item {
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
         Box box = PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-            if (world.isSpaceEmpty((Entity) null, box, (entity) -> {
-                return true;
-            }) && world.getOtherEntities((Entity) null, box).isEmpty()) {
+             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    BasicGraveEntity basicGraveEntity = (BasicGraveEntity) PvZEntity.BASICGRAVESTONE.create(serverWorld, itemStack.getTag(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    BasicGraveEntity basicGraveEntity = (BasicGraveEntity) PvZEntity.BASICGRAVESTONE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (basicGraveEntity == null) {
                         return ActionResult.FAIL;
                     }

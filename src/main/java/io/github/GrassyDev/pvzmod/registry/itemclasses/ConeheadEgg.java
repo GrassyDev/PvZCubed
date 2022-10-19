@@ -1,7 +1,8 @@
 package io.github.GrassyDev.pvzmod.registry.itemclasses;
 
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.ConeheadEntity;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ConeheadEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +35,7 @@ public class ConeheadEgg extends Item {
             if (world.isSpaceEmpty((Entity) null) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(serverWorld, itemStack.getTag(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (coneheadEntity == null) {
                         return ActionResult.FAIL;
                     }
