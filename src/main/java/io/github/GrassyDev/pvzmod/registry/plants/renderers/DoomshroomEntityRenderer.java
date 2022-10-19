@@ -1,4 +1,4 @@
-package net.fabricmc.example.registry.plants.renderers;
+package io.github.GrassyDev.pvzmod.registry.plants.rendererspackage io.github.GrassyDev.pvzmod.registry.plants.renderers;
 
 import net.fabricmc.example.registry.plants.models.CherrybombEntityModel;
 import net.fabricmc.example.registry.plants.models.DoomshroomEntityModel;
@@ -12,8 +12,8 @@ import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
  */
 public class DoomshroomEntityRenderer extends GeoEntityRenderer<DoomshroomEntity> {
 
-    public DoomshroomEntityRenderer(EntityRenderDispatcher renderManager) {
-        super(renderManager, new DoomshroomEntityModel());
+    public DoomshroomEntityRenderer(EntityRendererFactory.Context ctx) {
+		super(ctx, new DoomshroomEntityModel());
         this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
     }
 

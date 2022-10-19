@@ -1,7 +1,6 @@
-package net.fabricmc.example.registry.zombies.models;
+package io.github.GrassyDev.pvzmod.registry.zombies.models;
 
-import net.fabricmc.example.registry.zombies.zombieentity.BucketheadEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.FootballEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.FootballEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -11,19 +10,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class FootballEntityModel extends AnimatedGeoModel<FootballEntity> {
 
     @Override
-    public Identifier getModelLocation(FootballEntity object)
+    public Identifier getModelResource(FootballEntity object)
     {
         return new Identifier("pvzcubed", "geo/football.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(FootballEntity object)
+    public Identifier getTextureResource(FootballEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/football/football.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(FootballEntity object)
+    public Identifier getAnimationResource(FootballEntity object)
     {
         return new Identifier ("pvzcubed", "animations/football.json");
     }

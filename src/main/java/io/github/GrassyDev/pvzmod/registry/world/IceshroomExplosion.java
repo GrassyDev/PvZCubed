@@ -1,11 +1,11 @@
-package net.fabricmc.example.registry.world;
+package io.github.GrassyDev.pvzmod.registry.world;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.TntEntity;
@@ -99,12 +99,12 @@ public class IceshroomExplosion extends Explosion {
         for(int x = 0; x < list.size(); ++x) {
             Entity entity = list.get(x);
             if (!entity.isImmuneToExplosion()) {
-                double y = MathHelper.sqrt(entity.squaredDistanceTo(vec3d)) / q;
+                double y = Math.sqrt(entity.squaredDistanceTo(vec3d)) / q;
                 if (y <= 1.0D) {
                     double z = entity.getX() - this.x;
                     double aa = (entity instanceof TntEntity ? entity.getY() : entity.getEyeY()) - this.y;
                     double ab = entity.getZ() - this.z;
-                    double ac = MathHelper.sqrt(z * z + aa * aa + ab * ab);
+                    double ac = Math.sqrt(z * z + aa * aa + ab * ab);
                     if (ac != 0.0D) {
                         z /= ac;
                         aa /= ac;
@@ -116,7 +116,7 @@ public class IceshroomExplosion extends Explosion {
                             entity.damage(this.getDamageSource(), 4f);
                             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 1000)));
                             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WEAKNESS, 200, 1000)));
-                            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(ExampleMod.FROZEN, 200, 0)));
+                            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 0)));
                         }
                     }
                 }

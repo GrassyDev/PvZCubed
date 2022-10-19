@@ -5,13 +5,9 @@ import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRende
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.registry.gravestones.renderers.BasicGraveRenderer;
-import net.fabricmc.example.registry.gravestones.renderers.NightGraveRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.MinecraftClient;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-import org.quiltmc.qsl.entity.networking.impl.QuiltEntityNetworkingInitializer;
 
 import java.util.UUID;
 

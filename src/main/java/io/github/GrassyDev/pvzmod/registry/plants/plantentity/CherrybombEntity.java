@@ -1,21 +1,21 @@
-package net.fabricmc.example.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
+
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvironmentInterface;
 import net.fabricmc.api.EnvironmentInterfaces;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.world.PvZExplosion;
-import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -38,6 +38,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.explosion.Explosion;
+import net.minecraft.client.render.entity.feature.ConditionalOverlayOwner;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -49,9 +50,9 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 @EnvironmentInterfaces({@EnvironmentInterface(
         value = EnvType.CLIENT,
-        itf = SkinOverlayOwner.class
+        itf = ConditionalOverlayOwner.class
 )})
-public class CherrybombEntity extends GolemEntity implements IAnimatable, SkinOverlayOwner {
+public class CherrybombEntity extends GolemEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "peacontroller";
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
@@ -95,7 +96,7 @@ public class CherrybombEntity extends GolemEntity implements IAnimatable, SkinOv
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -142,7 +143,7 @@ public class CherrybombEntity extends GolemEntity implements IAnimatable, SkinOv
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -164,7 +165,7 @@ public class CherrybombEntity extends GolemEntity implements IAnimatable, SkinOv
         int i = this.getFuseSpeed();
         this.goalSelector.add(2, new CherryIgniteGoal(this));
         this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -238,7 +239,7 @@ public class CherrybombEntity extends GolemEntity implements IAnimatable, SkinOv
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
         if (this.isAlive()) {
             this.lastFuseTime = this.currentFuseTime;
@@ -283,21 +284,18 @@ public class CherrybombEntity extends GolemEntity implements IAnimatable, SkinOv
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     public boolean tryAttack(Entity target) {
         return true;
     }
 
-    public boolean shouldRenderOverlay() {
-        return (Boolean)this.dataTracker.get(CHARGED);
-    }
 
     @Environment(EnvType.CLIENT)
     public float getClientFuseTime(float timeDelta) {
@@ -317,12 +315,11 @@ public class CherrybombEntity extends GolemEntity implements IAnimatable, SkinOv
             PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 2.5f, null, Explosion.DestructionType.NONE);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(true);
-            float f = this.shouldRenderOverlay() ? 2.0F : 1.0F;
             Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
             this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-            this.playSound(ExampleMod.CHERRYBOMBEXPLOSIONEVENT, 1F, 1F);
+            this.playSound(PvZCubed.CHERRYBOMBEXPLOSIONEVENT, 1F, 1F);
             this.dead = true;
-            this.remove();
+            this.remove(RemovalReason.KILLED);
             this.spawnEffectsCloud();
         }
 
@@ -368,7 +365,7 @@ public class CherrybombEntity extends GolemEntity implements IAnimatable, SkinOv
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     static {

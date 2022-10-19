@@ -1,19 +1,17 @@
-package net.fabricmc.example.registry.zombies.renderers;
+package io.github.GrassyDev.pvzmod.registry.zombies.renderers;
 
-import net.fabricmc.example.registry.zombies.models.BackupDancerEntityModel;
-import net.fabricmc.example.registry.zombies.models.DancingZombieEntityModel;
-import net.fabricmc.example.registry.zombies.zombieentity.BackupDancerEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.DancingZombieEntity;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.zombies.models.BackupDancerEntityModel;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.BackupDancerEntity;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 /*
  * A renderer is used to provide an entity model, shadow size, and texture.
  */
 public class BackupDancerEntityRenderer extends GeoEntityRenderer<BackupDancerEntity> {
 
-    public BackupDancerEntityRenderer(EntityRenderDispatcher renderManager) {
-        super(renderManager, new BackupDancerEntityModel());
+    public BackupDancerEntityRenderer(EntityRendererFactory.Context ctx) {
+		super(ctx, new BackupDancerEntityModel());
         this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
     }
 

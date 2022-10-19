@@ -2,10 +2,11 @@ package io.github.GrassyDev.pvzmod.registry.plants.projectileentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -51,12 +52,12 @@ public class SporeEntity extends ThrownItemEntity {
         super.tick();
         if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
 
         if (!this.world.isClient && this.age == 7) {
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 
@@ -76,7 +77,7 @@ public class SporeEntity extends ThrownItemEntity {
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
         else if ((entity instanceof ConeheadEntity) ||
                 (entity instanceof FootballEntity) ||
@@ -86,7 +87,7 @@ public class SporeEntity extends ThrownItemEntity {
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
@@ -95,7 +96,7 @@ public class SporeEntity extends ThrownItemEntity {
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 
@@ -121,7 +122,7 @@ public class SporeEntity extends ThrownItemEntity {
         super.onBlockHit(blockHitResult);
         if (!this.world.isClient) {
             this.world.sendEntityStatus(this, (byte)3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 

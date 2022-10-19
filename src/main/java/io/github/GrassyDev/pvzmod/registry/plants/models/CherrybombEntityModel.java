@@ -1,26 +1,25 @@
-package net.fabricmc.example.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.models;
 
-import net.fabricmc.example.registry.plants.plantentity.CherrybombEntity;
-import net.fabricmc.example.registry.plants.plantentity.PeashooterEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.CherrybombEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class CherrybombEntityModel extends AnimatedGeoModel<CherrybombEntity> {
 
     @Override
-    public Identifier getModelLocation(CherrybombEntity object)
+    public Identifier getModelResource(CherrybombEntity object)
     {
         return new Identifier("pvzcubed", "geo/cherrybomb.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(CherrybombEntity object)
+    public Identifier getTextureResource(CherrybombEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/cherrybomb/cherrybomb.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(CherrybombEntity object)
+    public Identifier getAnimationResource(CherrybombEntity object)
     {
         return new Identifier ("pvzcubed", "animations/cherrybomb.json");
     }

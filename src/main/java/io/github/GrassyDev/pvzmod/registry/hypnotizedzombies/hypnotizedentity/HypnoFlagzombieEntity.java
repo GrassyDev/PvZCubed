@@ -161,7 +161,8 @@ public boolean canSpawn(WorldView worldreader) {
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
-    private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+
+	private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
     public TrackOwnerTargetGoal(PathAwareEntity mob) {
         super(mob, false);

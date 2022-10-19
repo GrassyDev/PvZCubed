@@ -1,46 +1,20 @@
-package net.fabricmc.example.registry.world;
+package io.github.GrassyDev.pvzmod.registry.world;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.plants.plantentity.CherrybombEntity;
-import net.fabricmc.example.registry.plants.plantentity.PeashooterEntity;
-import net.fabricmc.example.registry.plants.plantentity.SunflowerEntity;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.enchantment.ProtectionEnchantment;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.decoration.ItemFrameEntity;
-import net.minecraft.entity.decoration.painting.PaintingEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.WaterFluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
-import net.minecraft.world.explosion.ExplosionBehavior;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -117,12 +91,12 @@ public class PvZExplosion extends Explosion {
         for(int x = 0; x < list.size(); ++x) {
             Entity entity = list.get(x);
             if (!entity.isImmuneToExplosion()) {
-                double y = MathHelper.sqrt(entity.squaredDistanceTo(vec3d)) / q;
+                double y = Math.sqrt(entity.squaredDistanceTo(vec3d)) / q;
                 if (y <= 1.0D) {
                     double z = entity.getX() - this.x;
                     double aa = (entity instanceof TntEntity ? entity.getY() : entity.getEyeY()) - this.y;
                     double ab = entity.getZ() - this.z;
-                    double ac = MathHelper.sqrt(z * z + aa * aa + ab * ab);
+                    double ac = Math.sqrt(z * z + aa * aa + ab * ab);
                     if (ac != 0.0D) {
                         z /= ac;
                         aa /= ac;

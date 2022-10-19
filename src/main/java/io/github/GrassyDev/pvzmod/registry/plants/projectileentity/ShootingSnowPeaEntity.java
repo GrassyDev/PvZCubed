@@ -2,12 +2,12 @@ package io.github.GrassyDev.pvzmod.registry.plants.projectileentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.NewspaperEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.NewspaperEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.ScreendoorEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -53,12 +53,12 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity {
         super.tick();
         if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
 
         if (!this.world.isClient && this.age == 7) {
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 
@@ -76,14 +76,14 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity {
             entity.playSound(PvZCubed.BUCKETHITEVENT, 0.7F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
         else if (entity instanceof NewspaperEntity) {
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.PEAHITEVENT, 0.7F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
@@ -93,7 +93,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity {
             entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.7F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 
@@ -119,7 +119,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity {
         super.onBlockHit(blockHitResult);
         if (!this.world.isClient) {
             this.world.sendEntityStatus(this, (byte)3);
-            this.remove(RemovalReason.KILLED);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 

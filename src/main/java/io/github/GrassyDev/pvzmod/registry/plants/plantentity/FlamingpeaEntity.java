@@ -1,4 +1,4 @@
-package net.fabricmc.example.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -1,6 +1,6 @@
-package net.fabricmc.example.registry.zombies.models;
+package io.github.GrassyDev.pvzmod.registry.zombies.models;
 
-import net.fabricmc.example.registry.zombies.zombieentity.BucketheadEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.BucketheadEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -10,19 +10,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class BucketheadEntityModel extends AnimatedGeoModel<BucketheadEntity> {
 
     @Override
-    public Identifier getModelLocation(BucketheadEntity object)
+    public Identifier getModelResource(BucketheadEntity object)
     {
         return new Identifier("pvzcubed", "geo/buckethead.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(BucketheadEntity object)
+    public Identifier getTextureResource(BucketheadEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/browncoat/buckethead.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(BucketheadEntity object)
+    public Identifier getAnimationResource(BucketheadEntity object)
     {
         return new Identifier ("pvzcubed", "animations/newbrowncoat.json");
     }

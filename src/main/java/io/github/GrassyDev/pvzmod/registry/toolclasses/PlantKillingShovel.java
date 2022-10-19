@@ -1,4 +1,4 @@
-package net.fabricmc.example.registry.toolclasses;
+package io.github.GrassyDev.pvzmod.registry.toolclasses;
 
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;

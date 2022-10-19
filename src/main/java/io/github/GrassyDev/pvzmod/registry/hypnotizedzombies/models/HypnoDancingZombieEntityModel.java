@@ -1,26 +1,25 @@
-package net.fabricmc.example.registry.hypnotizedzombies.models;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.models;
 
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.DancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class HypnoDancingZombieEntityModel extends AnimatedGeoModel<HypnoDancingZombieEntity> {
 
     @Override
-    public Identifier getModelLocation(HypnoDancingZombieEntity object)
+    public Identifier getModelResource(HypnoDancingZombieEntity object)
     {
         return new Identifier("pvzcubed", "geo/dancingzombie.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(HypnoDancingZombieEntity object)
+    public Identifier getTextureResource(HypnoDancingZombieEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/dancingzombie/dancingzombie_hypnotized.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(HypnoDancingZombieEntity object)
+    public Identifier getAnimationResource(HypnoDancingZombieEntity object)
     {
         return new Identifier ("pvzcubed", "animations/dancingzombie.json");
     }

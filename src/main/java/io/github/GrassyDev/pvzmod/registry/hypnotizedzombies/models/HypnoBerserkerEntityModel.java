@@ -1,8 +1,6 @@
-package net.fabricmc.example.registry.hypnotizedzombies.models;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.models;
 
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoBerserkerEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.BerserkerEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.FootballEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoBerserkerEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -12,19 +10,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class HypnoBerserkerEntityModel extends AnimatedGeoModel<HypnoBerserkerEntity> {
 
     @Override
-    public Identifier getModelLocation(HypnoBerserkerEntity object)
+    public Identifier getModelResource(HypnoBerserkerEntity object)
     {
         return new Identifier("pvzcubed", "geo/berserker.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(HypnoBerserkerEntity object)
+    public Identifier getTextureResource(HypnoBerserkerEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/football/berserker_hypnotized.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(HypnoBerserkerEntity object)
+    public Identifier getAnimationResource(HypnoBerserkerEntity object)
     {
         return new Identifier ("pvzcubed", "animations/football.json");
     }

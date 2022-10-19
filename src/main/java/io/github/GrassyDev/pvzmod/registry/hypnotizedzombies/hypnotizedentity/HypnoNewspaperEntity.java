@@ -1,5 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
@@ -65,7 +67,7 @@ public HypnoNewspaperEntity(World world) {
 protected void initCustomGoals() {
     this.targetSelector.add(2, new HypnoNewspaperEntity.TrackOwnerTargetGoal(this));
     this.goalSelector.add(1, new HypnoNewspaperAttackGoal(this, 1.0D, true));
-    this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+    this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
         return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                 !(livingEntity instanceof HypnoFlagzombieEntity);
     }));
@@ -88,7 +90,7 @@ public void setOwner(MobEntity owner) {
 }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
 protected SoundEvent getStepSound() {
@@ -133,11 +135,11 @@ public AnimationFactory getFactory()
 
 @Override
 public boolean canSpawn(WorldView worldreader) {
-    return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+    return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
 }
 
 class TrackOwnerTargetGoal extends TrackTargetGoal {
-    private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+	private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
     public TrackOwnerTargetGoal(PathAwareEntity mob) {
         super(mob, false);

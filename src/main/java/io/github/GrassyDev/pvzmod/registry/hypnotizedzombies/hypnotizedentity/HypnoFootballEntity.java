@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -13,6 +14,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
@@ -79,7 +81,7 @@ public HypnoFootballEntity(World world) {
 protected void initCustomGoals() {
     this.targetSelector.add(2, new HypnoFootballEntity.TrackOwnerTargetGoal(this));
     this.goalSelector.add(1, new HypnoFootballAttackGoal(this, 1.0D, true));
-    this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+    this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
         return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                 !(livingEntity instanceof HypnoFlagzombieEntity);
     }));
@@ -104,21 +106,34 @@ public static DefaultAttributeContainer.Builder createHypnoFootballAttributes() 
         return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
     }
 
-    public boolean tryAttack(Entity target) {
-        int i = this.attackTicksLeft;
+	public boolean tryAttack(Entity target) {
+		int i = this.attackTicksLeft;
 		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
 			if (this.firstAttack) {
 				if (i <= 0) {
-					this.attackTicksLeft = 20;
-					this.world.sendEntityStatus(this, (byte) 4);
-					float f = this.getAttackDamage() + 354f;
-					boolean bl = target.damage(DamageSource.mob(this), f);
-					if (bl) {
-						this.applyDamageEffects(this, target);
+					if (this.hasStatusEffect(StatusEffects.WEAKNESS)) {
+						this.attackTicksLeft = 20;
+						this.world.sendEntityStatus(this, (byte) 4);
+						float f = 184f;
+						boolean bl = target.damage(DamageSource.mob(this), f);
+						if (bl) {
+							this.applyDamageEffects(this, target);
+						}
+						this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+						this.firstAttack = false;
+						return bl;
+					} else {
+						this.attackTicksLeft = 20;
+						this.world.sendEntityStatus(this, (byte) 4);
+						float f = 180f;
+						boolean bl = target.damage(DamageSource.mob(this), f);
+						if (bl) {
+							this.applyDamageEffects(this, target);
+						}
+						this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 0.5F, 1.0F);
+						this.firstAttack = false;
+						return bl;
 					}
-					this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-					this.firstAttack = false;
-					return bl;
 				} else {
 					return false;
 				}
@@ -136,8 +151,10 @@ public static DefaultAttributeContainer.Builder createHypnoFootballAttributes() 
 					return false;
 				}
 			}
+		}  else {
+			return false;
 		}
-    }
+	}
 
     protected void mobTick() {
         if (this.firstAttack) {
@@ -168,7 +185,7 @@ public void setOwner(MobEntity owner) {
 }
 
     protected SoundEvent getAmbientSound() {
-        return ExampleMod.ZOMBIEMOANEVENT;
+        return PvZCubed.ZOMBIEMOANEVENT;
     }
 
 protected SoundEvent getStepSound() {
@@ -217,7 +234,7 @@ public boolean canSpawn(WorldView worldreader) {
 }
 
 class TrackOwnerTargetGoal extends TrackTargetGoal {
-    private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+	private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
     public TrackOwnerTargetGoal(PathAwareEntity mob) {
         super(mob, false);

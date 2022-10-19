@@ -1,26 +1,25 @@
-package net.fabricmc.example.registry.hypnotizedzombies.models;
+package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.models;
 
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoBrowncoatEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoConeheadEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoConeheadEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class HypnoConeheadEntityModel extends AnimatedGeoModel<HypnoConeheadEntity> {
 
     @Override
-    public Identifier getModelLocation(HypnoConeheadEntity object)
+    public Identifier getModelResource(HypnoConeheadEntity object)
     {
         return new Identifier("pvzcubed", "geo/conehead.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(HypnoConeheadEntity object)
+    public Identifier getTextureResource(HypnoConeheadEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/browncoat/conehead_hypnotized.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(HypnoConeheadEntity object)
+    public Identifier getAnimationResource(HypnoConeheadEntity object)
     {
         return new Identifier ("pvzcubed", "animations/newbrowncoat.json");
     }

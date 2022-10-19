@@ -114,27 +114,6 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
         return EntityGroup.UNDEAD;
     }
 
-    public void onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
-        super.onKilledOther(serverWorld, livingEntity);
-        if ((serverWorld.getDifficulty() == Difficulty.NORMAL || serverWorld.getDifficulty() == Difficulty.HARD) && livingEntity instanceof VillagerEntity) {
-            if (serverWorld.getDifficulty() != Difficulty.HARD && this.random.nextBoolean()) {
-                return;
-            }
-
-            VillagerEntity villagerEntity = (VillagerEntity)livingEntity;
-            ZombieVillagerEntity zombieVillagerEntity = (ZombieVillagerEntity)villagerEntity.method_29243(EntityType.ZOMBIE_VILLAGER, false);
-            zombieVillagerEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(zombieVillagerEntity.getBlockPos()), SpawnReason.CONVERSION, new ZombieEntity.ZombieData(false, true), (NbtCompound)null);
-            zombieVillagerEntity.setVillagerData(villagerEntity.getVillagerData());
-            zombieVillagerEntity.setGossipData((NbtElement)villagerEntity.getGossip().serialize(NbtOps.INSTANCE).getValue());
-            zombieVillagerEntity.setOfferData(villagerEntity.getOffers().toNbt());
-            zombieVillagerEntity.setXp(villagerEntity.getExperience());
-            if (!this.isSilent()) {
-                serverWorld.syncWorldEvent((PlayerEntity)null, 1026, this.getBlockPos(), 0);
-            }
-        }
-
-    }
-
     @Override
     public void registerControllers(AnimationData data)
     {
@@ -178,7 +157,7 @@ public class HypnoDancingZombieEntity extends SpellcastingIllagerEntity implemen
     }
 
     class TrackOwnerTargetGoal extends TrackTargetGoal {
-        private final TargetPredicate TRACK_OWNER_PREDICATE = (new TargetPredicate()).includeHidden().ignoreDistanceScalingFactor();
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
             super(mob, false);

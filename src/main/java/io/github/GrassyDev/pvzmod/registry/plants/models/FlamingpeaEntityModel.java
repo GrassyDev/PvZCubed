@@ -1,26 +1,25 @@
-package net.fabricmc.example.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.models;
 
-import net.fabricmc.example.registry.plants.plantentity.FlamingpeaEntity;
-import net.fabricmc.example.registry.plants.plantentity.PeashooterEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.FlamingpeaEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class FlamingpeaEntityModel extends AnimatedGeoModel<FlamingpeaEntity> {
 
     @Override
-    public Identifier getModelLocation(FlamingpeaEntity object)
+    public Identifier getModelResource(FlamingpeaEntity object)
     {
         return new Identifier("pvzcubed", "geo/flamingpea.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(FlamingpeaEntity object)
+    public Identifier getTextureResource(FlamingpeaEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/peashooter/flamingpea.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(FlamingpeaEntity object)
+    public Identifier getAnimationResource(FlamingpeaEntity object)
     {
         return new Identifier ("pvzcubed", "animations/peashooter.json");
     }

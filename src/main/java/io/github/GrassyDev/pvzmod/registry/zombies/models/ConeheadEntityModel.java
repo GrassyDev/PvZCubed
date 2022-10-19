@@ -1,6 +1,6 @@
-package net.fabricmc.example.registry.zombies.models;
+package io.github.GrassyDev.pvzmod.registry.zombies.models;
 
-import net.fabricmc.example.registry.zombies.zombieentity.ConeheadEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ConeheadEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -10,19 +10,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class ConeheadEntityModel extends AnimatedGeoModel<ConeheadEntity> {
 
     @Override
-    public Identifier getModelLocation(ConeheadEntity object)
+    public Identifier getModelResource(ConeheadEntity object)
     {
         return new Identifier("pvzcubed", "geo/conehead.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(ConeheadEntity object)
+    public Identifier getTextureResource(ConeheadEntity object)
     {
         return new Identifier("pvzcubed", "textures/entity/browncoat/conehead.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(ConeheadEntity object)
+    public Identifier getAnimationResource(ConeheadEntity object)
     {
         return new Identifier ("pvzcubed", "animations/newbrowncoat.json");
     }

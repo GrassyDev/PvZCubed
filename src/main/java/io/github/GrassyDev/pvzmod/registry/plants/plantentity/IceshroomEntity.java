@@ -1,5 +1,6 @@
-package net.fabricmc.example.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvironmentInterface;
@@ -345,9 +346,9 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
             float f = this.shouldRenderOverlay() ? 2.0F : 1.0F;
             Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
             this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-            this.playSound(ExampleMod.SNOWPEAHITEVENT, 2F, 1F);
+            this.playSound(PvZCubed.SNOWPEAHITEVENT, 2F, 1F);
             this.dead = true;
-            this.remove();
+            this.remove(RemovalReason.KILLED);
         }
 
     }
