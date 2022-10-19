@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "pvzcubed:items/potatomine_seed_packet"
+  }
+}

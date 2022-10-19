@@ -1,0 +1,132 @@
+{
+  "itemGroup.pvzcubed.plants": "Plants",
+
+  "item.pvzcubed.plantfood": "Plant Food",
+
+  "entity.pvzcubed.sunflower": "Sunflower",
+  "item.pvzcubed.smallsun": "Small Sun",
+  "item.pvzcubed.sun": "Sun",
+  "item.pvzcubed.largesun": "Large Sun",
+  "item.pvzcubed.sunflower_seed_packet": "Sunflower Seed Packet",
+
+  "entity.pvzcubed.peashooter": "Peashooter",
+  "item.pvzcubed.pea": "Pea",
+  "item.pvzcubed.peashooter_seed_packet": "Peashooter Seed Packet",
+
+  "entity.pvzcubed.cherrybomb": "Cherry Bomb",
+  "item.pvzcubed.cherrybomb_seed_packet": "Cherry Bomb Seed Packet",
+
+  "entity.pvzcubed.wallnut": "Wall-nut",
+  "item.pvzcubed.wallnut_seed_packet": "Wall-nut Seed Packet",
+
+  "entity.pvzcubed.potatomine": "Potato Mine",
+  "entity.pvzcubed.unarmedpotatomine": "Potato Mine",
+  "item.pvzcubed.potatomine_seed_packet": "Potato Mine Seed Packet",
+
+  "entity.pvzcubed.snowpea": "Snow Pea",
+  "item.pvzcubed.snowpeaproj": "Snow Pea",
+  "item.pvzcubed.snowpea_seed_packet": "Snow Pea Seed Packet",
+
+  "entity.pvzcubed.chomper": "Chomper",
+  "item.pvzcubed.chomper_seed_packet": "Chomper Seed Packet",
+
+  "entity.pvzcubed.repeater": "Repeater",
+  "item.pvzcubed.repeater_seed_packet": "Repeater Seed Packet",
+  "item.pvzcubed.repea": "Double Peas",
+
+  "entity.pvzcubed.puffshroom": "Puff-shroom",
+  "item.pvzcubed.puffshroom_seed_packet": "Puff-shroom Seed Packet",
+  "item.pvzcubed.spore": "Spore",
+
+  "entity.pvzcubed.sunshroom": "Sun-shroom",
+  "item.pvzcubed.sunshroom_seed_packet": "Sun-shroom Seed Packet",
+
+  "entity.pvzcubed.fumeshroom": "Fume-shroom",
+  "item.pvzcubed.fumeshroom_seed_packet": "Fume-shroom Seed Packet",
+  "item.pvzcubed.fume": "Fume",
+
+  "entity.pvzcubed.gravebuster": "Grave Buster",
+  "item.pvzcubed.gravebuster_seed_packet": "Grave Buster Seed Packet",
+
+  "entity.pvzcubed.hypnoshroom": "Hypno-shroom",
+  "item.pvzcubed.hypnoshroom_seed_packet": "Hypno-shroom Seed Packet",
+
+  "entity.pvzcubed.scaredyshroom": "Scaredy-shroom",
+  "item.pvzcubed.scaredyshroom_seed_packet": "Scaredy-shroom Seed Packet",
+
+  "entity.pvzcubed.iceshroom": "Ice-shroom",
+  "item.pvzcubed.iceshroom_seed_packet": "Ice-shroom Seed Packet",
+
+  "entity.pvzcubed.doomshroom": "Doom-shroom",
+  "item.pvzcubed.doomshroom_seed_packet": "Doom-shroom Seed Packet",
+
+  "entity.pvzcubed.threepeater": "Threepeater",
+  "item.pvzcubed.threepeater_seed_packet": "Threepeater Seed Packet",
+  "item.pvzcubed.tripea": "Triple Peas",
+
+
+  "itemGroup.pvzcubed.zombies": "Zombies",
+
+  "entity.pvzcubed.browncoat": "Browncoat",
+  "item.pvzcubed.browncoat_egg": "Browncoat",
+  "entity.pvzcubed.browncoat_hypnotized": "Hypnotized Browncoat",
+
+  "entity.pvzcubed.flagzombie": "Flag Zombie",
+  "item.pvzcubed.flagzombie_egg": "Flag Zombie",
+  "entity.pvzcubed.flagzombie_hypnotized": "Hypnotized Flag Zombie",
+
+  "entity.pvzcubed.conehead": "Conehead Zombie",
+  "item.pvzcubed.conehead_egg": "Conehead Zombie",
+  "entity.pvzcubed.conehead_hypnotized": "Hypnotized Conehead",
+
+  "entity.pvzcubed.polevaulting": "Pole Vaulting Zombie",
+  "item.pvzcubed.polevaulting_egg": "Pole Vaulting Zombie",
+  "entity.pvzcubed.polevaulting_hypnotized": "Hypnotized Pole Vaulting Zombie",
+
+  "entity.pvzcubed.buckethead": "Buckethead Zombie",
+  "item.pvzcubed.buckethead_egg": "Buckethead Zombie",
+  "entity.pvzcubed.buckethead_hypnotized": "Hypnotized Buckethead",
+
+  "entity.pvzcubed.screendoor": "Screen Door Zombie",
+  "item.pvzcubed.screendoor_egg": "Screen Door Zombie",
+  "entity.pvzcubed.screendoor_hypnotized": "Hypnotized Screen Door Zombie",
+
+  "entity.pvzcubed.newspaper": "Newspaper Zombie",
+  "item.pvzcubed.newspaper_egg": "Newspaper Zombie",
+  "entity.pvzcubed.newspaper_hypnotized": "Hypnotized Newspaper Zombie",
+
+  "entity.pvzcubed.football": "Football Zombie",
+  "item.pvzcubed.football_egg": "Football Zombie",
+  "entity.pvzcubed.football_hypnotized": "Hypnotized Football Zombie",
+
+  "entity.pvzcubed.berserker": "Berserker",
+  "item.pvzcubed.berserker_egg": "Berserker",
+  "entity.pvzcubed.berserker_hypnotized": "Hypnotized Berserker",
+
+  "entity.pvzcubed.dancing_zombie": "Dancing Zombie",
+  "item.pvzcubed.dancingzombie_egg": "Dancing Zombie",
+  "entity.pvzcubed.dancing_zombie_hypnotized": "Hypnotized Dancing Zombie",
+
+  "entity.pvzcubed.backup_dancer": "Backup Dancer",
+  "item.pvzcubed.backupdancer_egg": "Backup Dancer",
+  "entity.pvzcubed.backup_dancer_hypnotized": "Hypnotized Backup Dancer",
+
+  "item.pvzcubed.wave_flag": "Wave Flag",
+  "item.pvzcubed.cone": "Cone",
+
+  "itemGroup.pvzcubed.graves": "Graves",
+
+  "entity.pvzcubed.basicgrave": "Basic Gravestone",
+  "item.pvzcubed.basicgrave_spawn": "Basic Gravestone",
+
+  "entity.pvzcubed.nightgrave": "Night Gravestone",
+  "item.pvzcubed.nightgrave_spawn": "Night Gravestone",
+
+  "itemGroup.pvzcubed.blocks": "PvZ Blocks",
+
+  "block.pvzcubed.grass_tile": "Grass Tile",
+  "block.pvzcubed.dark_grass_tile": "Dark Grass Tile",
+  "block.pvzcubed.night_tile": "Night Tile",
+  "block.pvzcubed.dark_night_tile": "Dark Night Tile"
+
+}

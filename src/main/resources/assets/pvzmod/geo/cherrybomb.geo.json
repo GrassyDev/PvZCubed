@@ -1,0 +1,73 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "mainhead",
+					"pivot": [-1, 1, -2],
+					"cubes": [
+						{"origin": [-7, 1, -7], "size": [6, 8, 6], "uv": [0, 0]},
+						{"origin": [-7, 2, -8], "size": [6, 6, 1], "uv": [28, 7]},
+						{"origin": [-7.5, 5, -8.5], "size": [2, 2, 3], "uv": [20, 37]},
+						{"origin": [-2.5, 4, -8.5], "size": [3, 3, 3], "uv": [0, 36]},
+						{"origin": [-7, 2, -1], "size": [6, 6, 1], "uv": [24, 0]},
+						{"origin": [-1, 2, -7], "size": [1, 6, 6], "uv": [14, 20]},
+						{"origin": [-8, 2, -7], "size": [1, 6, 6], "uv": [20, 8]}
+					]
+				},
+				{
+					"name": "mainhead2",
+					"pivot": [7, 1, 6],
+					"cubes": [
+						{"origin": [1, 2, 1], "size": [5, 7, 5], "uv": [0, 14]},
+						{"origin": [1, 3, 0], "size": [5, 5, 1], "uv": [30, 26]},
+						{"origin": [1, 3, 6], "size": [5, 5, 1], "uv": [22, 20]},
+						{"origin": [6, 3, 1], "size": [1, 5, 5], "uv": [23, 27]},
+						{"origin": [0, 3, 1], "size": [1, 5, 5], "uv": [0, 26]},
+						{"origin": [5.1, 5.5, 5.1], "size": [2, 1, 2], "uv": [0, 42]},
+						{"origin": [4.5, 4, -0.5], "size": [3, 3, 3], "uv": [0, 36]}
+					]
+				},
+				{
+					"name": "leaf",
+					"pivot": [-4, 9, -4]
+				},
+				{
+					"name": "backstem",
+					"parent": "leaf",
+					"pivot": [3.5, 9, 3.5],
+					"cubes": [
+						{"origin": [3, 8, 3], "size": [1, 10, 1], "pivot": [3.5, 9, 3.5], "rotation": [39, 45, 2], "uv": [12, 32]}
+					]
+				},
+				{
+					"name": "frontstem",
+					"parent": "leaf",
+					"pivot": [-4, 9, -4],
+					"cubes": [
+						{"origin": [-4.5, 8, -4.5], "size": [1, 10, 1], "pivot": [-4, 9, -4], "rotation": [-26, 19, 20], "uv": [16, 32]}
+					]
+				},
+				{
+					"name": "leaves",
+					"parent": "frontstem",
+					"pivot": [-0.5, 16, -0.5],
+					"cubes": [
+						{"origin": [-2.6, 15.9, -1.1], "size": [4, 5, 1], "pivot": [-0.5, 16, -0.5], "rotation": [67.5, -12.5, -142.5], "uv": [53, 18]},
+						{"origin": [-2.5, 16.4, -1.1], "size": [4, 5, 1], "pivot": [-0.5, 16, -0.5], "rotation": [-20, 47.5, 62.5], "uv": [53, 18]},
+						{"origin": [-2, 16, -1], "size": [4, 5, 1], "pivot": [-0.5, 16, -0.5], "rotation": [-27.5, -37.5, -12.5], "uv": [53, 18]}
+					]
+				}
+			]
+		}
+	]
+}

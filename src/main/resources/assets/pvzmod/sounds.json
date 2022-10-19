@@ -1,0 +1,192 @@
+{
+  "pea.hit": {
+    "sounds": [
+      "pvzcubed:pea_hit"
+    ]
+  },
+  "flaming.pea.hit": {
+    "sounds": [
+      "pvzcubed:flaming_pea_hit"
+    ]
+  },
+  "repea.hit": {
+    "sounds": [
+      "pvzcubed:repea_hit"
+    ]
+  },
+  "flaming.repea.hit": {
+    "sounds": [
+      "pvzcubed:flaming_repea_hit"
+    ]
+  },
+  "tripea.hit": {
+    "sounds": [
+      "pvzcubed:tripea_hit"
+    ]
+  },
+  "flaming.tripea.hit": {
+    "sounds": [
+      "pvzcubed:flaming_tripea_hit"
+    ]
+  },
+  "gatlingpea.hit": {
+    "sounds": [
+      "pvzcubed:gatlingpea_hit"
+    ]
+  },
+  "flaming.gatlingpea.hit": {
+    "sounds": [
+      "pvzcubed:flaming_gatlingpea_hit"
+    ]
+  },
+  "snowpea.hit": {
+    "sounds": [
+      "pvzcubed:snowpea_hit"
+    ]
+  },
+  "chomper.chomp": {
+    "sounds": [
+      "pvzcubed:chomper_chomp"
+    ]
+  },
+  "gravebuster.eating": {
+    "sounds": [
+      "pvzcubed:gravebuster_eating"
+    ]
+  },
+  "hypnoshroom.hypnotizing": {
+    "sounds": [
+      "pvzcubed:hypnotizing"
+    ]
+  },
+  "bucket.hit": {
+    "sounds": [
+      "pvzcubed:bucket_hit"
+    ]
+  },
+  "repea.bucket.hit": {
+    "sounds": [
+      "pvzcubed:repea_bucket_hit"
+    ]
+  },
+  "tripea.bucket.hit": {
+    "sounds": [
+      "pvzcubed:tripea_bucket_hit"
+    ]
+  },
+  "gatlingpea.bucket.hit": {
+    "sounds": [
+      "pvzcubed:gatlingpea_bucket_hit"
+    ]
+  },
+  "cone.hit": {
+    "sounds": [
+      "pvzcubed:cone_hit"
+    ]
+  },
+  "repea.cone.hit": {
+    "sounds": [
+      "pvzcubed:repea_cone_hit"
+    ]
+  },
+  "tripea.cone.hit": {
+    "sounds": [
+      "pvzcubed:tripea_cone_hit"
+    ]
+  },
+  "gatlingpea.cone.hit": {
+    "sounds": [
+      "pvzcubed:gatlingpea_cone_hit"
+    ]
+  },
+  "fumeshroom.shoot": {
+    "sounds": [
+      "pvzcubed:fumeshroom_shoot"
+    ]
+  },
+  "gatlingpea.shoot": {
+    "sounds": [
+      "pvzcubed:gatlingpea_shoot"
+    ]
+  },
+  "mushroom.shoot": {
+    "sounds": [
+      "pvzcubed:mushroom_shoot"
+    ]
+  },
+  "pea.shoot": {
+    "sounds": [
+      "pvzcubed:pea_shoot"
+    ]
+  },
+  "repea.shoot": {
+    "sounds": [
+      "pvzcubed:repea_shoot"
+    ]
+  },
+  "tripea.shoot": {
+    "sounds": [
+      "pvzcubed:tripea_shoot"
+    ]
+  },
+  "snowpea.shoot": {
+    "sounds": [
+      "pvzcubed:snowpea_shoot"
+    ]
+  },
+  "cherrybomb.explosion": {
+    "sounds": [
+      "pvzcubed:cherrybomb_explosion"
+    ]
+  },
+  "potatomine.explosion": {
+    "sounds": [
+      "pvzcubed:potatomine_explosion"
+    ]
+  },
+  "doomshroom.explosion": {
+    "sounds": [
+      "pvzcubed:doomshroom_explosion"
+    ]
+  },
+  "grave.rising": {
+    "sounds": [
+      "pvzcubed:grave_rising"
+    ]
+  },
+  "plant.planted": {
+    "sounds": [
+      "pvzcubed:plant_planted"
+    ]
+  },
+  "entity.rising": {
+    "sounds": [
+      "pvzcubed:entity_rising"
+    ]
+  },
+  "sun.drop": {
+    "sounds": [
+      "pvzcubed:sun_drop"
+    ]
+  },
+  "zombie.bite": {
+    "sounds": [
+      "pvzcubed:zombie_bite"
+    ]
+  },
+  "zombie.moan": {
+    "sounds": [
+      "pvzcubed:zombie_moan"
+    ]
+  },
+  "zombie.dancing": {
+    "sounds": [
+      "pvzcubed:zombie_dancing"
+    ]
+  },
+  "silence": {
+    "sounds": [
+      "pvzcubed:silence"
+    ]
+  }
+}

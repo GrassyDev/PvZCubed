@@ -1,0 +1,20 @@
+package net.fabricmc.example.registry.hypnotizedzombies.renderers;
+
+import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoBrowncoatEntity;
+import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFootballEntity;
+import net.fabricmc.example.registry.hypnotizedzombies.models.HypnoBrowncoatEntityModel;
+import net.fabricmc.example.registry.hypnotizedzombies.models.HypnoFootballEntityModel;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
+
+/*
+ * A renderer is used to provide an entity model, shadow size, and texture.
+ */
+public class HypnoFootballEntityRenderer extends GeoEntityRenderer<HypnoFootballEntity> {
+
+    public HypnoFootballEntityRenderer(EntityRenderDispatcher renderManager) {
+        super(renderManager, new HypnoFootballEntityModel());
+        this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
+    }
+
+}

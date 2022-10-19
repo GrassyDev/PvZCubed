@@ -13,6 +13,7 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
@@ -33,6 +34,22 @@ dependencies {
 	// Quilted Fabric API will automatically pull in the correct QSL version.
 	modImplementation libs.quilted.fabric.api
 	// modImplementation libs.bundles.quilted.fabric.api // If you wish to use Fabric API's deprecated modules, you can replace the above line with this one
+	modImplementation "org.quiltmc:qsl:3.0.0-beta.18+1.19.2"
+	// or, for a more generic version using gradle.properties:
+	modImplementation "org.quiltmc:qsl:${qsl_version}+${minecraft_version}"
+
+	// QSL Library Example
+	modImplementation "org.quiltmc.qsl:core:3.0.0-beta.18+1.19.2"
+
+	// QSL Module Example
+	modImplementation "org.quiltmc.qsl.core:resource_loader:3.0.0-beta.18+1.19.2"
+
+	// Quilted Fabric API Example
+	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:4.0.0-beta.15+0.63.0-1.19.2"
+	// Or
+	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${quilted_fabric_api_version}-${minecraft_version}"
+
+	modImplementation 'software.bernie.geckolib:geckolib-quilt-1.19:3.1.25'
 }
 
 processResources {

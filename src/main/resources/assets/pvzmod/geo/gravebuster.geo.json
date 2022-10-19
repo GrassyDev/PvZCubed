@@ -1,0 +1,112 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "bb_main",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-10, 0, -10], "size": [20, 2, 20], "uv": [0, 0]},
+						{"origin": [-9, 2, -9], "size": [18, 2, 18], "uv": [0, 23]}
+					]
+				},
+				{
+					"name": "first",
+					"pivot": [0, 7, 0],
+					"cubes": [
+						{"origin": [-8, 4, -8], "size": [16, 3, 16], "uv": [61, 0]}
+					]
+				},
+				{
+					"name": "second",
+					"pivot": [0, 7, 0],
+					"cubes": [
+						{"origin": [-8.75, 6.5, -8.5], "size": [17, 4, 17], "pivot": [0, 6.5, 0], "rotation": [-2.5, 0, 0], "uv": [52, 50]}
+					]
+				},
+				{
+					"name": "third",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 9.75, -8.5], "size": [16, 3, 16], "pivot": [0, 4.5, 0], "rotation": [-2.5, 0, 0], "uv": [49, 72]}
+					]
+				},
+				{
+					"name": "fourth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8.5, 12, -8.5], "size": [17, 4, 17], "pivot": [0, 11.5, 0], "rotation": [2.5, 0, 0], "uv": [56, 27]}
+					]
+				},
+				{
+					"name": "fifth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 15.5, -8], "size": [16, 3, 16], "uv": [0, 67]}
+					]
+				},
+				{
+					"name": "sixth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8.5, 18.5, -8.5], "size": [17, 5, 17], "pivot": [0, 18.5, 0], "rotation": [-7.5, 0, 0], "uv": [0, 44]}
+					]
+				},
+				{
+					"name": "teeth",
+					"pivot": [0, 21, 0],
+					"cubes": [
+						{"origin": [-8, 18.5, -8], "size": [16, 1, 16], "uv": [0, 87]}
+					]
+				},
+				{
+					"name": "seventh",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-7.5, 21, -7.5], "size": [15, 6, 15], "pivot": [0, 23.5, 0], "rotation": [0, 0, 10], "uv": [50, 92]}
+					]
+				},
+				{
+					"name": "eigth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6.5, 25, -7], "size": [14, 3, 14], "pivot": [0, 23.5, 0], "rotation": [0, 0, -5], "uv": [100, 78]}
+					]
+				},
+				{
+					"name": "nineth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6.5, 26.5, -6.5], "size": [13, 3, 13], "pivot": [0, 26.5, 0], "rotation": [0, 0, 12.5], "uv": [98, 101]}
+					]
+				},
+				{
+					"name": "tenth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-5.5, 27.5, -6], "size": [12, 3, 12], "pivot": [0, 27.5, 0], "rotation": [0, 0, -7.5], "uv": [104, 49]}
+					]
+				},
+				{
+					"name": "spikes",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [0, 0, -11], "size": [0.25, 33, 22], "pivot": [0, 0, 0], "rotation": [-180, 0, 180], "uv": [62, 145]},
+						{"origin": [-0.25, 0, -15], "size": [0.25, 33, 30], "pivot": [0, 0, 0], "rotation": [0, -45, 0], "uv": [0, 137]},
+						{"origin": [0, 0, -15], "size": [0.25, 33, 30], "pivot": [0, 0, 0], "rotation": [0, 45, 0], "uv": [0, 137]},
+						{"origin": [0, 0, -11], "size": [0.25, 33, 22], "pivot": [0, 0, 0], "rotation": [0, 90, 0], "uv": [62, 145]}
+					]
+				}
+			]
+		}
+	]
+}

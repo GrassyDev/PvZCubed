@@ -1,0 +1,50 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "bb_main",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-7, 0, 1], "size": [14, 12, 4], "uv": [0, 0]},
+						{"origin": [-6, 12, 1], "size": [12, 2, 4], "uv": [29, 32]},
+						{"origin": [-5, 14, 1], "size": [10, 1, 4], "uv": [33, 13]},
+						{"origin": [-3, 15, 1], "size": [6, 1, 4], "uv": [33, 19]},
+						{"origin": [-6, 0, -7], "size": [12, 2, 8], "uv": [0, 17]},
+						{"origin": [-5, 2, -6], "size": [10, 1, 6], "uv": [0, 28]}
+					]
+				},
+				{
+					"name": "grass",
+					"pivot": [-2.5, 3, -2],
+					"cubes": [
+						{"origin": [-4, 3, -2], "size": [3, 2, 0.25], "uv": [0, 17]}
+					]
+				},
+				{
+					"name": "flower1",
+					"pivot": [3.5, 3, -4],
+					"cubes": [
+						{"origin": [2, 3, -4], "size": [3, 3, 0.25], "pivot": [3.5, 3, -4], "rotation": [-77.39557, 7.32123, 1.63219], "uv": [0, 21]}
+					]
+				},
+				{
+					"name": "flower2",
+					"pivot": [-2.25, 3, -5],
+					"cubes": [
+						{"origin": [-2.00068, 2.96524, -6.00058], "size": [3, 3, 0.25], "pivot": [-0.50068, 2.96524, -6.00058], "rotation": [-84.59039, -22.40972, -2.06754], "uv": [0, 21]}
+					]
+				}
+			]
+		}
+	]
+}

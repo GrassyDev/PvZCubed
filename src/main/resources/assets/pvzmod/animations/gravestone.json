@@ -1,0 +1,103 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"gravestone.idle": {
+			"loop": true,
+			"animation_length": 4.04167,
+			"bones": {
+				"grass": {
+					"rotation": {
+						"0.0": {
+							"vector": [-10, 5, 0]
+						},
+						"0.0417": {
+							"vector": [-10, 5, 0],
+							"easing": "easeInSine"
+						},
+						"2.0": {
+							"vector": [10, 0, 0],
+							"easing": "easeOutSine"
+						},
+						"4.0": {
+							"vector": [-10, 5, 0],
+							"easing": "easeInSine"
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1.1042, 1]
+						},
+						"0.0417": {
+							"vector": [1, 1.1042, 1],
+							"easing": "easeInSine"
+						},
+						"2.0": {
+							"vector": [1, 1.0022, 1],
+							"easing": "easeOutSine"
+						},
+						"4.0": {
+							"vector": [1, 1.1042, 1],
+							"easing": "easeInSine"
+						}
+					}
+				}
+			}
+		},
+		"gravestone.idle2": {
+			"loop": true,
+			"animation_length": 4.04167,
+			"bones": {
+				"grass": {
+					"rotation": {
+						"0.0": {
+							"vector": [-10, 5, 0]
+						},
+						"0.0417": {
+							"vector": [-10, 5, 0],
+							"easing": "easeInSine"
+						},
+						"2.0": {
+							"vector": [10, 0, 0],
+							"easing": "easeOutSine"
+						},
+						"4.0": {
+							"vector": [-10, 5, 0],
+							"easing": "easeInSine"
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1.1042, 1]
+						},
+						"0.0417": {
+							"vector": [1, 1.1042, 1],
+							"easing": "easeInSine"
+						},
+						"2.0": {
+							"vector": [1, 1.0022, 1],
+							"easing": "easeOutSine"
+						},
+						"4.0": {
+							"vector": [1, 1.1042, 1],
+							"easing": "easeInSine"
+						}
+					}
+				},
+				"grave": {
+					"rotation": {
+						"vector": [-5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -3, 0]
+					}
+				}
+			}
+		}
+	}
+}
