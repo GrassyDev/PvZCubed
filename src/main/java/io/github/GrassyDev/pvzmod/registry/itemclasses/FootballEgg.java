@@ -45,7 +45,7 @@ public class FootballEgg extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     footballEntity.refreshPositionAndAngles(footballEntity.getX(), footballEntity.getY(), footballEntity.getZ(), f, 0.0F);
                     world.spawnEntity(footballEntity);
-                    world.playSound((PlayerEntity) null, footballEntity.getX(), footballEntity.getY(), footballEntity.getZ(), ExampleMod.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, footballEntity.getX(), footballEntity.getY(), footballEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 itemStack.decrement(1);

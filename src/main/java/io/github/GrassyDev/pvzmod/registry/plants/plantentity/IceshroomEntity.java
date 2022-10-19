@@ -1,18 +1,14 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.world.IceshroomExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.api.EnvironmentInterface;
-import net.fabricmc.api.EnvironmentInterfaces;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.world.IceshroomExplosion;
-import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -45,11 +41,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.Optional;
 import java.util.Random;
 
-@EnvironmentInterfaces({@EnvironmentInterface(
-        value = EnvType.CLIENT,
-        itf = SkinOverlayOwner.class
-)})
-public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOverlayOwner {
+public class IceshroomEntity extends GolemEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "icecontroller";
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
@@ -98,7 +90,7 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -145,7 +137,7 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -167,7 +159,7 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
         int i = this.getFuseSpeed();
         this.goalSelector.add(2, new IceIgniteGoal(this));
         this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -241,7 +233,7 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
         if (this.isAlive()) {
             this.lastFuseTime = this.currentFuseTime;
@@ -251,7 +243,7 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
 
             int i = this.getFuseSpeed();
             if (i > 0 && this.currentFuseTime == 0) {
-                this.playSound(ExampleMod.SILENCEVENET, 1.0F, 0.5F);
+                this.playSound(PvZCubed.SILENCEVENET, 1.0F, 0.5F);
             }
 
             this.currentFuseTime += i;
@@ -277,7 +269,7 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
     }
 
     protected void mobTick() {
-        float f = this.getBrightnessAtEyes();
+        float f = this.getLightLevelDependentValue();
         if (f > 0.5f) {
             this.isAsleep = true;
             this.world.sendEntityStatus(this, (byte) 13);
@@ -309,21 +301,18 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     public boolean tryAttack(Entity target) {
         return true;
     }
 
-    public boolean shouldRenderOverlay() {
-        return (Boolean)this.dataTracker.get(CHARGED);
-    }
 
     @Environment(EnvType.CLIENT)
     public float getClientFuseTime(float timeDelta) {
@@ -343,7 +332,6 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
             IceshroomExplosion explosion = new IceshroomExplosion(world, this, this.getX(), this.getY(), this.getZ(), 5f, null, Explosion.DestructionType.NONE);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(true);
-            float f = this.shouldRenderOverlay() ? 2.0F : 1.0F;
             Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
             this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
             this.playSound(PvZCubed.SNOWPEAHITEVENT, 2F, 1F);
@@ -372,7 +360,7 @@ public class IceshroomEntity extends GolemEntity implements IAnimatable, SkinOve
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     static {

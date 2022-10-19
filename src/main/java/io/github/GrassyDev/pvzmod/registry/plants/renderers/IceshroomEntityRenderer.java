@@ -1,7 +1,7 @@
-package io.github.GrassyDev.pvzmod.registry.plants.rendererspackage io.github.GrassyDev.pvzmod.registry.plants.renderers;
+package io.github.GrassyDev.pvzmod.registry.plants.renderers;
 
 import io.github.GrassyDev.pvzmod.registry.plants.models.IceshroomEntityModel;
-import net.fabricmc.example.registry.plants.plantentity.IceshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.IceshroomEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 

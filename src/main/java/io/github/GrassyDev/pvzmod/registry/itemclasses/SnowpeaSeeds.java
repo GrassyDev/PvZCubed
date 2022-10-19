@@ -59,7 +59,7 @@ public class SnowpeaSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     snowpeaEntity.refreshPositionAndAngles(snowpeaEntity.getX(), snowpeaEntity.getY(), snowpeaEntity.getZ(), f, 0.0F);
                     world.spawnEntity(snowpeaEntity);
-                    world.playSound((PlayerEntity) null, snowpeaEntity.getX(), snowpeaEntity.getY(), snowpeaEntity.getZ(), ExampleMod.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, snowpeaEntity.getX(), snowpeaEntity.getY(), snowpeaEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 PlayerEntity user = context.getPlayer();

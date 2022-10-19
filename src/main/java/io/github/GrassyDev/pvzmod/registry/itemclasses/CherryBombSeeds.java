@@ -59,7 +59,7 @@ public class CherryBombSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     cherrybombEntity.refreshPositionAndAngles(cherrybombEntity.getX(), cherrybombEntity.getY(), cherrybombEntity.getZ(), f, 0.0F);
                     world.spawnEntity(cherrybombEntity);
-                    world.playSound((PlayerEntity) null, cherrybombEntity.getX(), cherrybombEntity.getY(), cherrybombEntity.getZ(), ExampleMod.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, cherrybombEntity.getX(), cherrybombEntity.getY(), cherrybombEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 PlayerEntity user = context.getPlayer();

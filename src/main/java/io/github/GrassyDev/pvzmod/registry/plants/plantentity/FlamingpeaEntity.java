@@ -1,17 +1,16 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingFlamingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.plants.projectileentity.ShootingFlamingPeaEntity;
-import net.fabricmc.example.registry.plants.projectileentity.ShootingPeaEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -22,8 +21,13 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -48,7 +52,6 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
     private static final TrackedData<Byte> SNOW_GOLEM_FLAGS;
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
     private String controllerName = "peacontroller";
-    public int shot;
     public int healingTime;
 
     public FlamingpeaEntity(EntityType<? extends FlamingpeaEntity> entityType, World world) {
@@ -101,7 +104,7 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
     }
 
@@ -122,7 +125,7 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -162,7 +165,7 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -183,7 +186,7 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
     protected void initGoals() {
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(30) + 25, 15.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -211,16 +214,14 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
     public void attack(LivingEntity target, float pullProgress) {
         if (!this.isInsideWaterOrBubbleColumn()) {
             ShootingFlamingPeaEntity shootingFlamingPeaEntity = new ShootingFlamingPeaEntity(this.world, this);
-            double d = this.squaredDistanceTo(target);
-            double e = target.getX() - this.getX();
-            double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
-            double g = target.getZ() - this.getZ();
-            float h = MathHelper.sqrt(MathHelper.sqrt(d)) * 0.5F;
-            shootingFlamingPeaEntity.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+			double d = target.getX() - this.getX();
+			double e = target.getBodyY(0.3333333333333333) - shootingFlamingPeaEntity.getY();
+			double f = target.getZ() - this.getZ();
+			double g = Math.sqrt(d * d + f * f);
+            shootingFlamingPeaEntity.setVelocity(d, e + g * 0.20000000298023224, f, 2.2F, 0);
             shootingFlamingPeaEntity.updatePosition(shootingFlamingPeaEntity.getX(), this.getY() + 1D, shootingFlamingPeaEntity.getZ());
             if (target.isAlive()) {
-                this.shot = 1;
-                this.playSound(ExampleMod.PEASHOOTEVENT, 0.3F, 1);
+                this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
                 this.world.spawnEntity(shootingFlamingPeaEntity);
             }
         }
@@ -258,12 +259,12 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     @Environment(EnvType.CLIENT)
@@ -277,7 +278,7 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     static {

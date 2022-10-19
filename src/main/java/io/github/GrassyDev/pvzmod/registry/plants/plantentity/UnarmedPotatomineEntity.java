@@ -1,19 +1,17 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoBackupDancerEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvironmentInterface;
 import net.fabricmc.api.EnvironmentInterfaces;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoBrowncoatEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.world.PvZExplosion;
-import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -45,17 +43,10 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
 
-@EnvironmentInterfaces({@EnvironmentInterface(
-        value = EnvType.CLIENT,
-        itf = SkinOverlayOwner.class
-)})
-public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable, SkinOverlayOwner {
+public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "potatocontroller";
     private static final TrackedData<Integer> FUSE_SPEED;
@@ -96,7 +87,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -143,7 +134,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -164,7 +155,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
     protected void initGoals() {
         int i = this.getFuseSpeed();
         this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -242,9 +233,9 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
             }
 
             if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
-                this.playSound(ExampleMod.ENTITYRISINGEVENT, 1.5F, 1.0F);
-                PotatomineEntity potatomineEntity = (PotatomineEntity) PvZEntity.POTATOMINE.create(world);
-                potatomineEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+                this.playSound(PvZCubed.ENTITYRISINGEVENT, 1.5F, 1.0F);
+				PotatomineEntity potatomineEntity = (PotatomineEntity) PvZEntity.POTATOMINE.create(world);
+                potatomineEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 potatomineEntity.initialize(serverWorld, world.getLocalDifficulty(potatomineEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 potatomineEntity.setAiDisabled(this.isAiDisabled());
                 if (this.hasCustomName()) {
@@ -254,7 +245,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
 
                 potatomineEntity.setPersistent();
                 serverWorld.spawnEntityAndPassengers(potatomineEntity);
-                this.remove();
+                this.remove(RemovalReason.DISCARDED);
             }
 
             return true;
@@ -265,7 +256,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
         super.tick();
         if (this.isAlive() && --this.potatoPreparingTime <= 0) {
             this.lastFuseTime = this.currentFuseTime;
-            ((LivingEntity) this).addStatusEffect((new StatusEffectInstance(ExampleMod.HYPNOTIZED, 999, 1))); // applies a status effect
+            ((LivingEntity) this).addStatusEffect((new StatusEffectInstance(PvZCubed.HYPNOTIZED, 999, 1))); // applies a status effect
             if (this.getIgnited()) {
                 this.setFuseSpeed(1);
             }
@@ -293,7 +284,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
     }
 
@@ -317,7 +308,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     public boolean tryAttack(Entity target) {
@@ -360,7 +351,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable,
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     static {

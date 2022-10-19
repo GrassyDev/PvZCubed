@@ -3,10 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.zombies.zombieentity;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoNewspaperEntity;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.PvZEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoNewspaperEntity;
-import net.fabricmc.example.registry.plants.plantentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.GravebusterEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.HypnoshroomEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -268,8 +266,8 @@ public class NewspaperEntity extends HostileEntity implements IAnimatable {
         }
     }
 
-    public static boolean canNewspaperSpawn(EntityType<NewspaperEntity> entity, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return pos.getY() > 55 && isSpawnDark(serverWorldAccess, pos, random);
+    public static boolean canNewspaperSpawn(EntityType<NewspaperEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
+		return pos.getY() > 55;
     }
 
     @Override

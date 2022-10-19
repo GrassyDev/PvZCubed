@@ -1,9 +1,9 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.ModItems;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -105,7 +105,7 @@ public class SunshroomEntity extends GolemEntity implements IAnimatable {
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
     }
 
@@ -126,7 +126,7 @@ public class SunshroomEntity extends GolemEntity implements IAnimatable {
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -166,7 +166,7 @@ public class SunshroomEntity extends GolemEntity implements IAnimatable {
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -201,7 +201,7 @@ public class SunshroomEntity extends GolemEntity implements IAnimatable {
     public void tickMovement() {
         super.tickMovement();
         if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
-            this.playSound(ExampleMod.SUNDROPEVENT, 1F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.playSound(PvZCubed.SUNDROPEVENT, 1F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             double probability = this.random.nextDouble();
             if (probability <= 0.45) { // 45%
                 this.dropItem(ModItems.SMALLSUN);
@@ -234,7 +234,7 @@ public class SunshroomEntity extends GolemEntity implements IAnimatable {
     }
 
     protected void mobTick() {
-        float f = this.getBrightnessAtEyes();
+        float f = this.getLightLevelDependentValue();
         if (f > 0.5f) {
             this.isAsleep = true;
             this.world.sendEntityStatus(this, (byte) 13);
@@ -266,12 +266,12 @@ public class SunshroomEntity extends GolemEntity implements IAnimatable {
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     @Environment(EnvType.CLIENT)
@@ -294,6 +294,6 @@ public class SunshroomEntity extends GolemEntity implements IAnimatable {
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 }

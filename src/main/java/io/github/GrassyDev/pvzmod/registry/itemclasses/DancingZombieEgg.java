@@ -45,7 +45,7 @@ public class DancingZombieEgg extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     dancingZombieEntity.refreshPositionAndAngles(dancingZombieEntity.getX(), dancingZombieEntity.getY(), dancingZombieEntity.getZ(), f, 0.0F);
                     world.spawnEntity(dancingZombieEntity);
-                    world.playSound((PlayerEntity) null, dancingZombieEntity.getX(), dancingZombieEntity.getY(), dancingZombieEntity.getZ(), ExampleMod.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, dancingZombieEntity.getX(), dancingZombieEntity.getY(), dancingZombieEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 itemStack.decrement(1);

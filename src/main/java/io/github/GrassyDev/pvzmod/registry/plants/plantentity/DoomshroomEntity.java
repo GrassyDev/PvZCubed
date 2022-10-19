@@ -1,17 +1,14 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.api.EnvironmentInterface;
-import net.fabricmc.api.EnvironmentInterfaces;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.world.PvZExplosion;
-import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -48,11 +45,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
 
-@EnvironmentInterfaces({@EnvironmentInterface(
-        value = EnvType.CLIENT,
-        itf = SkinOverlayOwner.class
-)})
-public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOverlayOwner {
+public class DoomshroomEntity extends GolemEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "doomcontroller";
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
@@ -101,7 +94,7 @@ public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOv
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -148,7 +141,7 @@ public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOv
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -170,7 +163,7 @@ public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOv
         int i = this.getFuseSpeed();
         this.goalSelector.add(2, new DoomIgniteGoal(this));
         this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -244,7 +237,7 @@ public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOv
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
         if (this.isAlive()) {
             this.lastFuseTime = this.currentFuseTime;
@@ -280,7 +273,7 @@ public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOv
     }
 
     protected void mobTick() {
-        float f = this.getBrightnessAtEyes();
+        float f = getLightLevelDependentValue();
         if (f > 0.5f) {
             this.isAsleep = true;
             this.world.sendEntityStatus(this, (byte) 13);
@@ -312,12 +305,12 @@ public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOv
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     public boolean tryAttack(Entity target) {
@@ -349,9 +342,9 @@ public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOv
             float f = this.shouldRenderOverlay() ? 2.0F : 1.0F;
             Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
             this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-            this.playSound(ExampleMod.DOOMSHROOMEXPLOSIONEVENT, 1F, 1F);
+            this.playSound(PvZCubed.DOOMSHROOMEXPLOSIONEVENT, 1F, 1F);
             this.dead = true;
-            this.remove();
+            this.remove(RemovalReason.KILLED);
             this.spawnEffectsCloud();
         }
 
@@ -395,7 +388,7 @@ public class DoomshroomEntity extends GolemEntity implements IAnimatable, SkinOv
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     static {

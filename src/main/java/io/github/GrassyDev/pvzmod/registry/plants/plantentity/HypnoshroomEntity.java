@@ -1,13 +1,13 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.zombies.zombieentity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -15,10 +15,8 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -105,7 +103,7 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
     }
 
@@ -126,7 +124,7 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+                this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -171,7 +169,7 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -191,27 +189,27 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
 
     protected void initGoals() {
         this.goalSelector.add(1, new HypnoshroomEntity.FireBeamGoal(this));
-        this.targetSelector.add(7, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof BrowncoatEntity; }));
-        this.targetSelector.add(6, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof ConeheadEntity; }));
-        this.targetSelector.add(6, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof PoleVaultingEntity; }));
-        this.targetSelector.add(6, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof BackupDancerEntity; }));
-        this.targetSelector.add(5, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof NewspaperEntity; }));
-        this.targetSelector.add(4, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof BucketheadEntity; }));
-        this.targetSelector.add(4, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof ScreendoorEntity; }));
-        this.targetSelector.add(3, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof DancingZombieEntity; }));
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof FlagzombieEntity; }));
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof FootballEntity; }));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
         { return livingEntity instanceof BerserkerEntity; }));
     }
 
@@ -321,7 +319,7 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
     }
 
     protected void mobTick() {
-        float f = this.getBrightnessAtEyes();
+        float f = this.getLightLevelDependentValue();
         if (f > 0.5f) {
             this.isAsleep = true;
             this.world.sendEntityStatus(this, (byte) 13);
@@ -353,12 +351,12 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     @Environment(EnvType.CLIENT)
@@ -414,7 +412,7 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
             } else {
                 ++this.beamTicks;
                 if (this.beamTicks == 0) {
-                    this.hypnoshroom.setBeamTarget(this.hypnoshroom.getTarget().getEntityId());
+                    this.hypnoshroom.setBeamTarget(this.hypnoshroom.getTarget().getId());
                     if (!this.hypnoshroom.isSilent()) {
                         this.hypnoshroom.world.sendEntityStatus(this.hypnoshroom, (byte) 21);
                     }
@@ -422,9 +420,9 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
                     float f = 1.0F;
                     livingEntity.damage(DamageSource.magic(this.hypnoshroom, this.hypnoshroom), f);
                     livingEntity.damage(DamageSource.mob(this.hypnoshroom), (float) this.hypnoshroom.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE));
-                    ((LivingEntity) livingEntity).addStatusEffect((new StatusEffectInstance(ExampleMod.HYPNOTIZED, 999, 1))); // applies a status effect
+                    ((LivingEntity) livingEntity).addStatusEffect((new StatusEffectInstance(PvZCubed.HYPNOTIZED, 999, 1))); // applies a status effect
                     this.hypnoshroom.setTarget((LivingEntity) null);
-                    this.hypnoshroom.remove();
+                    this.hypnoshroom.remove(RemovalReason.DISCARDED);
                 }
                 super.tick();
             }

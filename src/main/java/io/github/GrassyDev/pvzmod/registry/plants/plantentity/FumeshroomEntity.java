@@ -1,16 +1,16 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingFlamingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.plants.projectileentity.FumeEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.DancingZombieEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -20,7 +20,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
@@ -108,7 +107,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
     }
 
@@ -129,7 +128,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -169,7 +168,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -189,7 +188,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
     protected void initGoals() {
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(25) + 20, 6.0F));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -214,25 +213,23 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
     }
 
     @Override
-    public void attack(LivingEntity target, float pullProgress) {
-        if (!this.isAsleep) {
-            if (!this.isInsideWaterOrBubbleColumn()) {
-                FumeEntity fumeEntity = new FumeEntity(this.world, this);
-                double d = this.squaredDistanceTo(target);
-                double e = target.getX() - this.getX();
-                double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
-                double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt(MathHelper.sqrt(d)) * 0.5F;
-                fumeEntity.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.85F, 0F);
-                fumeEntity.updatePosition(fumeEntity.getX(), this.getY() + 1D, fumeEntity.getZ());
-
-                if (target.isAlive()) {
-                    this.playSound(ExampleMod.FUMESHROOMSHOOTEVENT, 0.3F, 1);
-                    this.world.spawnEntity(fumeEntity);
-                }
-            }
-        }
-    }
+	public void attack(LivingEntity target, float pullProgress) {
+		if (!this.isAsleep) {
+			if (!this.isInsideWaterOrBubbleColumn()) {
+				FumeEntity fumeEntity = new FumeEntity(this.world, this);
+				double d = target.getX() - this.getX();
+				double e = target.getBodyY(0.3333333333333333) - fumeEntity.getY();
+				double f = target.getZ() - this.getZ();
+				double g = Math.sqrt(d * d + f * f);
+				fumeEntity.setVelocity(d, e + g * 0.20000000298023224, f, 0.85F, 0);
+				fumeEntity.updatePosition(fumeEntity.getX(), this.getY() + 1D, fumeEntity.getZ());
+				if (target.isAlive()) {
+					this.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+					this.world.spawnEntity(fumeEntity);
+				}
+			}
+		}
+	}
 
     public void tickMovement() {
         super.tickMovement();
@@ -257,7 +254,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
     }
 
     protected void mobTick() {
-        float f = this.getBrightnessAtEyes();
+        float f = this.getLightLevelDependentValue();
         if (f > 0.5f) {
             this.isAsleep = true;
             this.world.sendEntityStatus(this, (byte) 13);
@@ -289,12 +286,12 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     @Environment(EnvType.CLIENT)
@@ -317,7 +314,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     static {

@@ -2,7 +2,10 @@ package io.github.GrassyDev.pvzmod.registry;
 
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
+import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -21,76 +24,41 @@ public class PvZEntityClient implements ClientModInitializer {
 		 *
 		 * Entity Renderers can also manipulate the model before it renders based on entity context (EndermanEntityRenderer#render).
 		 */
-		EntityRendererRegistry.register(PvZEntity.PEASHOOTER, (dispatcher, context) -> {
-			return new PeashooterEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.SUNFLOWER, (dispatcher, context) -> {
-			return new SunflowerEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.SUNFLOWER, SunflowerEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.WALLNUT, (dispatcher, context) -> {
-			return new WallnutEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.WALLNUT, WallnutEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.POTATOMINE, (dispatcher, context) -> {
-			return new PotatomineEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE, (dispatcher, context) -> {
-			return new UnarmedPotatomineEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.POTATOMINE, PotatomineEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.SNOWPEA, (dispatcher, context) -> {
-			return new SnowpeaEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.CHOMPER, (dispatcher, context) -> {
-			return new ChomperEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.REPEATER, (dispatcher, context) -> {
-			return new RepeaterEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.CHOMPER, ChomperEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.PUFFSHROOM, (dispatcher, context) -> {
-			return new PuffshroomEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.REPEATER, RepeaterEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.SUNSHROOM, (dispatcher, context) -> {
-			return new SunshroomEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.PUFFSHROOM, PuffshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.FUMESHROOM, (dispatcher, context) -> {
-			return new FumeshroomEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, (dispatcher, context) -> {
-			return new GravebusterEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM, (dispatcher, context) -> {
-			return new HypnoshroomEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM, (dispatcher, context) -> {
-			return new ScaredyshroomEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM, HypnoshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.ICESHROOM, (dispatcher, context) -> {
-			return new IceshroomEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM, ScaredyshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, (dispatcher, context) -> {
-			return new DoomshroomEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.ICESHROOM, IceshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.THREEPEATER, (dispatcher, context) -> {
-			return new ThreepeaterEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, (dispatcher, context) -> {
-			return new FlamingpeaEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer ::new);
+
+		EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer ::new);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -111,79 +79,37 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 
-		EntityRendererRegistry.register(PvZEntity.BROWNCOAT, (dispatcher, context) -> {
-			return new BrowncoatEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNOBROWNCOAT, (dispatcher, context) -> {
-			return new HypnoBrowncoatEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.BROWNCOAT, BrowncoatEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOBROWNCOAT, HypnoBrowncoatEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, (dispatcher, context) -> {
-			return new FlagzombieEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNOFLAGZOMBIE, (dispatcher, context) -> {
-			return new HypnoFlagzombieEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOFLAGZOMBIE, HypnoFlagzombieEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.CONEHEAD, (dispatcher, context) -> {
-			return new ConeheadEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNOCONEHEAD, (dispatcher, context) -> {
-			return new HypnoConeheadEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.CONEHEAD, ConeheadEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOCONEHEAD, HypnoConeheadEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.POLEVAULTING, (dispatcher, context) -> {
-			return new PoleVaultingEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.POLEVAULTING, PoleVaultingEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.BUCKETHEAD, (dispatcher, context) -> {
-			return new BucketheadEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNOBUCKETHEAD, (dispatcher, context) -> {
-			return new HypnoBucketheadEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.BUCKETHEAD, BucketheadEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOBUCKETHEAD, HypnoBucketheadEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, (dispatcher, context) -> {
-			return new NewspaperEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNONEWSPAPER, (dispatcher, context) -> {
-			return new HypnoNewspaperEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNONEWSPAPER, HypnoNewspaperEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.SCREEENDOOR, (dispatcher, context) -> {
-			return new ScreendoorEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNOSCREENDOOR, (dispatcher, context) -> {
-			return new HypnoScreendoorEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.SCREEENDOOR, ScreendoorEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOSCREENDOOR, HypnoScreendoorEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.FOOTBALL, (dispatcher, context) -> {
-			return new FootballEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL, (dispatcher, context) -> {
-			return new HypnoFootballEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.BERSERKER, (dispatcher, context) -> {
-			return new BerserkerEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, (dispatcher, context) -> {
-			return new HypnoBerserkerEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.BERSERKER, BerserkerEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, (dispatcher, context) -> {
-			return new DancingZombieEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNODANCINGZOMBIE, (dispatcher, context) -> {
-			return new HypnoDancingZombieEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNODANCINGZOMBIE, HypnoDancingZombieEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.BACKUPDANCER, (dispatcher, context) -> {
-			return new BackupDancerEntityRenderer(dispatcher);
-		});
-		EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, (dispatcher, context) -> {
-			return new HypnoBackupDancerEntityRenderer(dispatcher);
-		});
+		EntityRendererRegistry.register(PvZEntity.BACKUPDANCER, BackupDancerEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntityRenderer ::new);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -1,29 +1,30 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingRePeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.plants.projectileentity.ShootingRePeaEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
@@ -48,6 +49,9 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
     private String controllerName = "peacontroller";
 
     public int healingTime;
+	private int shootDelay;
+
+	private boolean canShoot;
 
     public RepeaterEntity(EntityType<? extends RepeaterEntity> entityType, World world) {
         super(entityType, world);
@@ -105,8 +109,17 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
+
+		if (this.isAlive()) {
+			this.shootDelay -= 1;
+		}
+
+		if (shootDelay <= 0 && canShoot){
+			canShoot = false;
+			shoot(this);
+		}
     }
 
     public void updatePosition(double x, double y, double z) {
@@ -126,7 +139,7 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -178,7 +191,7 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -199,7 +212,7 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
     protected void initGoals() {
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(30) + 25, 15.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 15.0F));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -213,23 +226,44 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
     }
 
-    @Override
-    public void attack(LivingEntity target, float pullProgress) {
-        if (!this.isInsideWaterOrBubbleColumn()) {
-            ShootingRePeaEntity shootingRePeaEntity = new ShootingRePeaEntity(this.world, this);
-            double d = this.squaredDistanceTo(target);
-            double e = target.getX() - this.getX();
-            double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
-            double g = target.getZ() - this.getZ();
-            float h = MathHelper.sqrt(MathHelper.sqrt(d)) * 0.5F;
-            shootingRePeaEntity.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
-            shootingRePeaEntity.updatePosition(shootingRePeaEntity.getX(), this.getY() + 1D, shootingRePeaEntity.getZ());
-            if (target.isAlive()) {
-                this.playSound(ExampleMod.REPEASHOOTEVENT, 0.3F, 1);
-                this.world.spawnEntity(shootingRePeaEntity);
-            }
-        }
-    }
+    //@Override
+    //public void attack(LivingEntity target, float pullProgress) {
+    //    if (!this.isInsideWaterOrBubbleColumn()) {
+    //        ShootingRePeaEntity shootingRePeaEntity = new ShootingRePeaEntity(this.world, this);
+	//       double d = this.squaredDistanceTo(target);
+    //        double e = target.getX() - this.getX();
+    //        double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
+    //        double g = target.getZ() - this.getZ();
+    //        float h = MathHelper.sqrt(MathHelper.sqrt(d)) * 0.5F;
+    //        shootingRePeaEntity.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+    //        shootingRePeaEntity.updatePosition(shootingRePeaEntity.getX(), this.getY() + 1D, shootingRePeaEntity.getZ());
+    //        if (target.isAlive()) {
+    //            this.playSound(PvZCubed.REPEASHOOTEVENT, 0.3F, 1);
+    //            this.world.spawnEntity(shootingRePeaEntity);
+    //        }
+    //    }
+    //}
+	public void attack(LivingEntity target, float pullProgress) {
+		canShoot = true;
+		shoot(this);
+	}
+
+	protected void shoot(LivingEntity target){
+		if (!this.isInsideWaterOrBubbleColumn()) {
+			ShootingRePeaEntity shootingRePeaEntity = new ShootingRePeaEntity(this.world, this);
+			double d = target.getX() - this.getX();
+			double e = target.getBodyY(0.3333333333333333) - shootingRePeaEntity.getY();
+			double f = target.getZ() - this.getZ();
+			double g = Math.sqrt(d * d + f * f);
+			shootingRePeaEntity.setVelocity(d, e + g * 0.20000000298023224, f, 2.2F, 0);
+			shootingRePeaEntity.updatePosition(shootingRePeaEntity.getX(), this.getY() + 1D, shootingRePeaEntity.getZ());
+			if (target.isAlive()) {
+				this.shootDelay = 6;
+				this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+				this.world.spawnEntity(shootingRePeaEntity);
+			}
+		}
+	}
 
     @Override
     public void registerControllers(AnimationData data)
@@ -251,12 +285,12 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     public static boolean canRepeaterSpawn(EntityType<RepeaterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
@@ -265,7 +299,7 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
-        return worldreader.intersectsEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
     @Environment(EnvType.CLIENT)

@@ -59,7 +59,7 @@ public class IceshroomSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     iceshroomEntity.refreshPositionAndAngles(iceshroomEntity.getX(), iceshroomEntity.getY(), iceshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(iceshroomEntity);
-                    world.playSound((PlayerEntity) null, iceshroomEntity.getX(), iceshroomEntity.getY(), iceshroomEntity.getZ(), ExampleMod.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, iceshroomEntity.getX(), iceshroomEntity.getY(), iceshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 itemStack.decrement(1);

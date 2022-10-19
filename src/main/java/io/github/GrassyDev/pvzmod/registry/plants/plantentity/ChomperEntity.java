@@ -1,13 +1,13 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.gravestones.gravestoneentity.BasicGraveEntity;
-import net.fabricmc.example.registry.gravestones.gravestoneentity.NightGraveEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import net.fabricmc.example.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import net.fabricmc.example.registry.zombies.zombieentity.ScreendoorEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -111,7 +111,7 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
     }
 
@@ -132,7 +132,7 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -172,7 +172,7 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -191,7 +191,7 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
         this.goalSelector.add(1, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
@@ -253,9 +253,9 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
                 float f = 153f;
                 boolean bl = target.damage(DamageSource.mob(this), f);
                 if (bl) {
-                    this.dealDamage(this, target);
+                    this.applyDamageEffects(this, target);
                 }
-                this.playSound(ExampleMod.CHOMPERBITEVENT, 1.0F, 1.0F);
+                this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
                 return bl;
             } else {
                 return false;
@@ -269,9 +269,9 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
                 float f = 16f;
                 boolean bl = target.damage(DamageSource.mob(this), f);
                 if (bl) {
-                    this.dealDamage(this, target);
+                    this.applyDamageEffects(this, target);
                 }
-                this.playSound(ExampleMod.CHOMPERBITEVENT, 1.0F, 1.0F);
+                this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
                 return bl;
             } else {
                 return false;
@@ -284,9 +284,9 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
                 float f = this.getAttackDamage();
                 boolean bl = target.damage(DamageSource.mob(this), f);
                 if (bl) {
-                    this.dealDamage(this, target);
+                    this.applyDamageEffects(this, target);
                 }
-                this.playSound(ExampleMod.CHOMPERBITEVENT, 1.0F, 1.0F);
+                this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
                 return bl;
             } else {
                 return false;
@@ -343,12 +343,12 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     public void onDeath(DamageSource source) {

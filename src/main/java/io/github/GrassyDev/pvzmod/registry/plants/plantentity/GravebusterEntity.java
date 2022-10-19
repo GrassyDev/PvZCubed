@@ -1,13 +1,13 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.example.ExampleMod;
-import net.fabricmc.example.registry.gravestones.gravestoneentity.BasicGraveEntity;
-import net.fabricmc.example.registry.gravestones.gravestoneentity.NightGraveEntity;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -16,7 +16,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
@@ -99,7 +98,7 @@ public class GravebusterEntity extends GolemEntity implements IAnimatable {
         }
 
         if (blockPos != null) {
-            this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
         }
     }
 
@@ -120,7 +119,7 @@ public class GravebusterEntity extends GolemEntity implements IAnimatable {
         if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
             BlockPos blockPos = this.getAttachedBlock();
             if (blockPos != null) {
-                this.resetPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
             }
         }
 
@@ -161,7 +160,7 @@ public class GravebusterEntity extends GolemEntity implements IAnimatable {
 
     public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
         if (fallDistance > 0F) {
-            this.playSound(ExampleMod.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
             this.damage(DamageSource.GENERIC, 9999);
         }
         this.playBlockFallSound();
@@ -190,9 +189,9 @@ public class GravebusterEntity extends GolemEntity implements IAnimatable {
 
     protected void initGoals() {
         this.goalSelector.add(1, new MeleeAttackGoal(this, 0D, true));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
             return livingEntity instanceof BasicGraveEntity; }));
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
             return livingEntity instanceof NightGraveEntity; }));
     }
 
@@ -237,7 +236,7 @@ public class GravebusterEntity extends GolemEntity implements IAnimatable {
             this.damage(DamageSource.GENERIC, 9999);
         }
         if (!this.world.isClient && this.isAlive() && this.deathTime == 0 && this.used) {
-            this.remove();
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 
@@ -249,18 +248,18 @@ public class GravebusterEntity extends GolemEntity implements IAnimatable {
         this.notready = false;
         int i = this.attackTicksLeft;
         if (i == 80) {
-            this.playSound(ExampleMod.GRAVEBUSTEREATINGEVENT, 1F, 1.0F);
+            this.playSound(PvZCubed.GRAVEBUSTEREATINGEVENT, 1F, 1.0F);
         }
         if (i > 0) {
             float f = 1;
             boolean bl = target.damage(DamageSource.mob(this), f);if (bl) {
-                this.dealDamage(this, target);
+                this.applyDamageEffects(this, target);
             }
         }
         if (i <= 0) {
             float f = this.getAttackDamage();
             boolean bl = target.damage(DamageSource.mob(this), f);if (bl) {
-                this.dealDamage(this, target);
+                this.applyDamageEffects(this, target);
             }
             this.used = true;
             return bl;
@@ -294,12 +293,12 @@ public class GravebusterEntity extends GolemEntity implements IAnimatable {
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ExampleMod.ZOMBIEBITEEVENT;
+        return PvZCubed.ZOMBIEBITEEVENT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ExampleMod.PLANTPLANTEDEVENT;
+        return PvZCubed.PLANTPLANTEDEVENT;
     }
 
     public void onDeath(DamageSource source) {

@@ -59,7 +59,7 @@ public class HypnoshroomSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     hypnoshroomEntity.refreshPositionAndAngles(hypnoshroomEntity.getX(), hypnoshroomEntity.getY(), hypnoshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(hypnoshroomEntity);
-                    world.playSound((PlayerEntity) null, hypnoshroomEntity.getX(), hypnoshroomEntity.getY(), hypnoshroomEntity.getZ(), ExampleMod.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, hypnoshroomEntity.getX(), hypnoshroomEntity.getY(), hypnoshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 itemStack.decrement(1);

@@ -1,14 +1,15 @@
 package io.github.GrassyDev.pvzmod.registry;
 
+import io.github.GrassyDev.pvzmod.init.Spawns;
 import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.renderers.*;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.CherrybombEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
-import io.github.GrassyDev.pvzmod.registry.plants.renderers.CherrybombEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.api.ModInitializer;
@@ -328,81 +329,63 @@ public class PvZEntity implements ModInitializer {
     public void onInitialize() {
 
 		PeashooterEntity.createPeashooterAttributes();
-        EntityRendererRegistry.register(PvZEntity.PEASHOOTER,
-                (entityRenderDispatcher, context) -> new PeashooterEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntityRenderer::new);
 
 		SunflowerEntity.createSunflowerAttributes();
-        EntityRendererRegistry.register(PvZEntity.SUNFLOWER,
-                (entityRenderDispatcher, context) -> new SunflowerEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.SUNFLOWER, SunflowerEntityRenderer::new);
 
 		CherrybombEntity.createCherrybombAttributes();
         EntityRendererRegistry.register(PvZEntity.CHERRYBOMB, CherrybombEntityRenderer::new);
 
-        WallnutEntity.createWallnutAttributes());
-        EntityRendererRegistry.register(PvZEntity.WALLNUT,
-                (entityRenderDispatcher, context) -> new WallnutEntityRenderer(entityRenderDispatcher));
+        WallnutEntity.createWallnutAttributes();
+        EntityRendererRegistry.register(PvZEntity.WALLNUT, WallnutEntityRenderer::new);
 
 
 		PotatomineEntity.createPotatomineAttributes();
-        EntityRendererRegistry.register(PvZEntity.POTATOMINE,
-                (entityRenderDispatcher, context) -> new PotatomineEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.POTATOMINE, PotatomineEntityRenderer::new);
 
 		UnarmedPotatomineEntity.createUnarmedPotatomineAttributes();
-        EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE,
-                (entityRenderDispatcher, context) -> new UnarmedPotatomineEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntityRenderer::new);
 
 
 		SnowpeaEntity.createSnowpeaAttributes();
-        EntityRendererRegistry.register(PvZEntity.SNOWPEA,
-                (entityRenderDispatcher, context) -> new SnowpeaEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntityRenderer::new);
 
 		ChomperEntity.createChomperAttributes();
-        EntityRendererRegistry.register(PvZEntity.CHOMPER,
-                (entityRenderDispatcher, context) -> new ChomperEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.CHOMPER, ChomperEntityRenderer::new);
 
 		RepeaterEntity.createRepeaterAttributes();
-        EntityRendererRegistry.register(PvZEntity.REPEATER,
-                (entityRenderDispatcher, context) -> new RepeaterEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.REPEATER, RepeaterEntityRenderer::new);
 
 		PuffshroomEntity.createPuffshroomAttributes();
-        EntityRendererRegistry.register(PvZEntity.PUFFSHROOM,
-                (entityRenderDispatcher, context) -> new PuffshroomEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.PUFFSHROOM, PuffshroomEntityRenderer::new);
 
 		SunshroomEntity.createSunshroomAttributes();
-        EntityRendererRegistry.register(PvZEntity.SUNSHROOM,
-                (entityRenderDispatcher, context) -> new SunshroomEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer::new);
 
 		FumeshroomEntity.createFumeshroomAttributes();
-        EntityRendererRegistry.register(PvZEntity.FUMESHROOM,
-                (entityRenderDispatcher, context) -> new FumeshroomEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer::new);
 
 		GravebusterEntity.createGravebusterAttributes();
-        EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER,
-                (entityRenderDispatcher, context) -> new GravebusterEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer::new);
 
 		HypnoshroomEntity.createHypnoshroomAttributes();
-        EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM,
-                (entityRenderDispatcher, context) -> new HypnoshroomEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM, HypnoshroomEntityRenderer::new);
 
 		ScaredyshroomEntity.createScaredyshroomAttributes();
-        EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM,
-                (entityRenderDispatcher, context) -> new ScaredyshroomEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM, ScaredyshroomEntityRenderer::new);
 
 		IceshroomEntity.createIceshroomAttributes();
-        EntityRendererRegistry.register(PvZEntity.ICESHROOM,
-                (entityRenderDispatcher, context) -> new IceshroomEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.ICESHROOM, IceshroomEntityRenderer::new);
 
 		DoomshroomEntity.createDoomshroomAttributes();
-        EntityRendererRegistry.register(PvZEntity.DOOMSHROOM,
-                (entityRenderDispatcher, context) -> new DoomshroomEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntityRenderer::new);
 
 		ThreepeaterEntity.createThreepeaterAttributes();
-        EntityRendererRegistry.register(PvZEntity.THREEPEATER,
-                (entityRenderDispatcher, context) -> new ThreepeaterEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);
 
 		FlamingpeaEntity.createFlamingpeaAttributes();
-        EntityRendererRegistry.register(PvZEntity.FLAMINGPEA,
-                (entityRenderDispatcher, context) -> new FlamingpeaEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -478,7 +461,7 @@ public class PvZEntity implements ModInitializer {
 
 
 		BackupDancerEntity.createBackupDancerAttributes();
-        EntityRendererRegistry.register(PvZEntity.BACKUPDANCER, BackupDancerEntityRenderer::new;
+        EntityRendererRegistry.register(PvZEntity.BACKUPDANCER, BackupDancerEntityRenderer::new);
 
 		HypnoBackupDancerEntity.createHypnoBackupDancerAttributes();
         EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntityRenderer::new);

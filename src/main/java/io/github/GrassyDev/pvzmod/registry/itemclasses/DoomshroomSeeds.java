@@ -59,7 +59,7 @@ public class DoomshroomSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     doomshroomEntity.refreshPositionAndAngles(doomshroomEntity.getX(), doomshroomEntity.getY(), doomshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(doomshroomEntity);
-                    world.playSound((PlayerEntity) null, doomshroomEntity.getX(), doomshroomEntity.getY(), doomshroomEntity.getZ(), ExampleMod.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, doomshroomEntity.getX(), doomshroomEntity.getY(), doomshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 itemStack.decrement(1);
