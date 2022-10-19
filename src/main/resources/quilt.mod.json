@@ -1,25 +1,26 @@
 {
 	"schema_version": 1,
 	"quilt_loader": {
-		"group": "com.example",
-		"id": "example_mod",
+		"group": "io.github.GrassyDev",
+		"id": "plantsvszombies3",
 		"version": "${version}",
 		"metadata": {
-			"name": "Mod Name",
-			"description": "A short description of your mod.",
+			"name": "Plants vs. Zombies Cubed",
+			"description": "Adds characters from the PvZ franchise",
+			"license": "MIT",
 			"contributors": {
-				"Your name here": "Owner"
+				"Your name here": "GrassyDev"
 			},
 			"contact": {
-				"homepage": "https://example.com/",
-				"issues": "https://github.com/QuiltMC/quilt-template-mod/issues",
-				"sources": "https://github.com/QuiltMC/quilt-template-mod"
+				"homepage": "https://github.com/GrassyDev/PvZCubed",
+				"issues": "https://github.com/GrassyDev/PvZCubed/issues",
+				"sources": "https://github.com/GrassyDev/PvZCubed"
 			},
 			"icon": "assets/example_mod/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "com.example.example_mod.ExampleMod"
+			"init": "io.github.GrassyDev.pvzmod.PvZCubed"
 		},
 		"depends": [
 			{
@@ -36,5 +37,5 @@
 			}
 		]
 	},
-	"mixin": "example_mod.mixins.json"
+	"mixin": "pvzmod.mixins.json"
 }
