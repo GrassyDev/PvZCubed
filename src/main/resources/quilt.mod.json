@@ -2,7 +2,7 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "io.github.GrassyDev",
-		"id": "pvzcubed",
+		"id": "pvzmod",
 		"version": "${version}",
 		"metadata": {
 			"name": "Plants vs. Zombies Cubed",
@@ -16,11 +16,17 @@
 				"issues": "https://github.com/GrassyDev/PvZCubed/issues",
 				"sources": "https://github.com/GrassyDev/PvZCubed"
 			},
-			"icon": "assets/example_mod/icon.png"
+			"icon": "assets/pvzmod/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.GrassyDev.pvzmod.PvZCubed"
+			"init": [
+				"io.github.GrassyDev.pvzmod.PvZCubed",
+				"io.github.GrassyDev.pvzmod.registry.PvZEntity"
+			],
+			"client_init": [
+				"io.github.GrassyDev.pvzmod.registry.PvZEntityClient"
+			]
 		},
 		"depends": [
 			{

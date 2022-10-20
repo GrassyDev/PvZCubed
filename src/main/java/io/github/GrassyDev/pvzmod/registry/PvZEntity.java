@@ -11,14 +11,15 @@ import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.entity.api.QuiltEntityTypeBuilder;
+import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 
 public class PvZEntity implements ModInitializer {
 
@@ -324,8 +325,8 @@ public class PvZEntity implements ModInitializer {
             QuiltEntityTypeBuilder.<NightGraveEntity>create(SpawnGroup.MONSTER, NightGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
     );
 
-    @Override
-    public void onInitialize() {
+	@Override
+	public void onInitialize(ModContainer mod) {
 
 		PeashooterEntity.createPeashooterAttributes();
         EntityRendererRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntityRenderer::new);

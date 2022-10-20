@@ -21,12 +21,12 @@ public class PvZCubed implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod name as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
-	public static final Logger LOGGER = LoggerFactory.getLogger("Example Mod");
+	public static final Logger LOGGER = LoggerFactory.getLogger("Plants vs. Zombies Cubed");
 
 	public static final StatusEffect HYPNOTIZED = new Hypnotized();
 	public static final StatusEffect FROZEN = new Frozen();
 
-	public static final String MOD_ID = "pvzcubed";
+	public static final String MOD_ID = "pvzmod";
 
 	public static final ItemGroup PLANTS = FabricItemGroupBuilder.create(
 					new Identifier(MOD_ID, "plants"))
@@ -246,6 +246,6 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEDANCING, ZOMBIEDANCINGEVENT);
 
-		System.out.println("Hello Fabric world!");
+		System.out.println("Trans rights are human rights!");
 	}
 }
