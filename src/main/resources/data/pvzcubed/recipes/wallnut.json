@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:plantfood"
+    },
+    {
+      "item": "pvzmod:largesun"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:wallnut_seed_packet",
+    "count": 1
+  }
+}

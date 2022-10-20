@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:peashooter_seed_packet"
+    },
+    {
+      "item": "pvzmod:largesun"
+    },
+    {
+      "item": "pvzmod:plantfood"
+    },
+    {
+      "item": "pvzmod:largesun"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:repeater_seed_packet",
+    "count": 1
+  }
+}

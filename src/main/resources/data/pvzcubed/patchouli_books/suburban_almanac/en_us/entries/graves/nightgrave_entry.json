@@ -1,0 +1,40 @@
+{
+  "name": "Night Gravestone",
+  "icon": "pvzmod:nightgrave_spawn",
+  "category": "pvzmod:grave_category",
+  "sortnum" : "1",
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)150$(br)$(#bd951a)Spawn Rate:$()$(#ff0000)17s$(br)$(#bd951a)Activation Range:$()$(#ff0000)75 Blocks$(br2)$(#bd951a)What could be spookier than a grave? A grave with a bat! Now with american football players."
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/nightgrave.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Spawns intermediate zombies."
+    },
+    {
+      "type": "text",
+      "title": "Spawn Odds",
+      "text": "$(#bd951a)100%:$()$(#ff0000)x2 Browncoats$(br)$(#bd951a)50%:$()$(#ff0000)x2 Conehead Zombies$(br)$(#bd951a)50%:$()$(#ff0000)x2 Newspaper Zombies$(br)$(#bd951a)50%:$()$(#ff0000)x1 Screendoor Zombie$(br)$(#bd951a)35%:$()$(#ff0000)x1 Dancing Zombie$(br)$(#bd951a)25%:$()$(#ff0000)x1 Football Zombie$(br)$(#bd951a)10%:$()$(#ff0000)x1 Berserker"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/conehead_entry",
+        "pvzmod:zombies/newspaper_entry",
+        "pvzmod:zombies/screendoor_entry",
+        "pvzmod:zombies/football_entry",
+        "pvzmod:zombies/berserker_entry",
+        "pvzmod:zombies/dancingzombie_entry"
+      ],
+      "title": "Related Zombies"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Suburban Almanac",
+  "model": "pvzmod:almanac",
+  "landing_text": "Braaaaainz!",
+  "version": 0,
+  "text": "25228d",
+  "subtitle": "Views Plants/Zombies",
+  "pause_game": "true"
+}

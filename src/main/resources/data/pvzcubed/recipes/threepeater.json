@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:peashooter_seed_packet"
+    },
+    {
+      "item": "pvzmod:repeater_seed_packet"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:threepeater_seed_packet",
+    "count": 1
+  }
+}

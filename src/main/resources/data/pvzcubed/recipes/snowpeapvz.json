@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#P",
+    "IC"
+  ],
+  "key": {
+    "#": {
+      "item": "pvzmod:peashooter_seed_packet"
+    },
+    "P": {
+      "item": "pvzmod:plantfood"
+    },
+    "I": {
+      "item": "pvzmod:largesun"
+    },
+    "C": {
+      "item": "pvzmod:sun"
+    }
+  },
+  "result": {
+    "item": "pvzmod:snowpea_seed_packet",
+    "count": 1
+  }
+}

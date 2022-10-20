@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#D#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "pvzmod:sun"
+    },
+    "D": {
+      "item": "minecraft:dirt"
+    }
+  },
+  "result": {
+    "item": "pvzmod:grass_tile",
+    "count": 1
+  }
+}

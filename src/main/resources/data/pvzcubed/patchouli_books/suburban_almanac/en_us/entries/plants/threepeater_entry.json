@@ -1,0 +1,33 @@
+{
+  "name": "Threepeater",
+  "icon": "pvzmod:threepeater_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum" : "99",
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)21$(br)$(#bd951a)Damage:$()$(#ff0000)8(Middle)/4(Left, Right)$(br)$(#bd951a)Range:$()$(#ff0000)17$(br)$(#bd951a)Fire Rate:$()$(#ff0000)2s$(br2)$(#bd951a)Threepeater likes reading, backgammon and long periods of immobility in the park. Threepeater enjoys going to shows, particularly modern jazz. \"I'm just looking for that special someone,\" he says. Threepeater's favorite number is 5."
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/threepeater.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Threepeaters shoots two peas at the center and two extra peas to the left and right of the target."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:threepeater"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/repeater_entry"
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}

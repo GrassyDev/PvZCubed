@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:plantfood"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:sunflower_seed_packet",
+    "count": 1
+  }
+}

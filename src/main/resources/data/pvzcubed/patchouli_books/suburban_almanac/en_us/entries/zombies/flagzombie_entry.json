@@ -1,0 +1,45 @@
+{
+  "name": "Flag Zombie",
+  "icon": "pvzmod:flagzombie_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum" : "1",
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)27$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Fast$(br)$(#bd951a)Spawn Rate:$()$(#ff0000)17s$(br)$(#bd951a)Special:$()$(#ff0000)Summons a Buckethead, a Screendoor, a Conehead, and a Browncoat around him.$(br)$(#bd951a)Make no mistake, Flag Zombie loves brains but somewhere down the line he also picked up a fascination with flags. Maybe it's because the flags always have brains on them. Hard to say."
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/flagzombie.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Flag Zombie marks the arrival of a huge pile or \"wave\" of zombies."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/potatomine_entry",
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/hypnoshroom_entry",
+        "pvzmod:plants/iceshroom_entry",
+        "pvzmod:plants/doomshroom_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/conehead_entry",
+        "pvzmod:zombies/buckethead_entry"
+      ],
+      "title": "Related Zombies"
+    }
+  ]
+}

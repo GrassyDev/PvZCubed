@@ -1,0 +1,32 @@
+{
+  "name": "Hypno-shroom",
+  "icon": "pvzmod:hypnoshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum" : "12",
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)1$(br)$(#bd951a)Range:$()$(#ff0000)10$(br)$(#bd951a)Fire Rate:$()$(#ff0000)3s$(br)$(#bd951a)Special:$()$(#ff0000)Hypnotizes the toughest zombie before vanishing. Asleep if exposed to light.$(br)$(#bd951a)\"Zombies are our friends,\" asserts Hypno-shroom. \"They're badly misunderstood creatures who play a valuable role in our ecology. We can and should do more to bring them round to our way of thinking.\""
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/hypnoshroom.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Hypno-shrooms will make a zombie turn around and fight for you."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:hypnoshroom"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/puffshroom_entry"
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}

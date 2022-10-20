@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:puffshroom_seed_packet"
+    },
+    {
+      "item": "pvzmod:plantfood"
+    },
+    {
+      "item": "pvzmod:smallsun"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:scaredyshroom_seed_packet",
+    "count": 1
+  }
+}

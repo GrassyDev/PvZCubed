@@ -1,0 +1,37 @@
+{
+  "name": "Newspaper Zombie",
+  "icon": "pvzmod:newspaper_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum" : "5",
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)42$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Fastest$(br)$(br)$(#bd951a)Special:$()$(#ff0000)Only aggressive to the plant that provoked him.$(br2)$(#bd951a)Newspaper Zombie was *this* close to finishing his Sudoku puzzle. No wonder he's freaking out. "
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/newspaper.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Goes after whoever hits him."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/fumeshroom_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/polevaulting_entry",
+        "pvzmod:zombies/screendoor_entry"
+      ],
+      "title": "Related Zombies"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#P",
+    "F "
+  ],
+  "key": {
+    "#": {
+      "item": "pvzmod:plantfood"
+    },
+    "P": {
+      "item": "pvzmod:sun"
+    },
+    "F": {
+      "item": "pvzmod:smallsun"
+    }
+  },
+  "result": {
+    "item": "pvzmod:iceshroom_seed_packet",
+    "count": 1
+  }
+}

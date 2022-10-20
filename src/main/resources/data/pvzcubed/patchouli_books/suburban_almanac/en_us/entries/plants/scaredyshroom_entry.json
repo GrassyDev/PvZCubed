@@ -1,0 +1,33 @@
+{
+  "name": "Scaredy-shroom",
+  "icon": "pvzmod:scaredyshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum" : "13",
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)3$(br)$(#bd951a)Damage:$()$(#ff0000)4$(br)$(#bd951a)Range:$()$(#ff0000)30$(br)$(#bd951a)Fire Rate:$()$(#ff0000)2s$(br)$(#bd951a)Special:$()$(#ff0000)Poisons zombies for 3 seconds. Hides if a zombie is 6 blocks near. Asleep if exposed to light.$(br2)$(#bd951a)\"Who's there?\" whispers Scaredy-shroom, voice barely audible. \"Go away. I don't want to see anybody. Unless it's the man from the circus.\""
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/scaredyshroom.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Scaredy-shrooms are long-ranged shooters that hide when enemies get near them."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:scaredyshroom"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/puffshroom_entry",
+        "pvzmod:plants/fumeshroom_entry"
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}

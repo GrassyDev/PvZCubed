@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:cherrybomb_seed_packet"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:plantfood"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:doomshroom_seed_packet",
+    "count": 1
+  }
+}

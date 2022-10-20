@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:potatomine_seed_packet"
+    },
+    {
+      "item": "pvzmod:plantfood"
+    },
+    {
+      "item": "pvzmod:largesun"
+    },
+    {
+      "item": "pvzmod:sun"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:cherrybomb_seed_packet",
+    "count": 1
+  }
+}
