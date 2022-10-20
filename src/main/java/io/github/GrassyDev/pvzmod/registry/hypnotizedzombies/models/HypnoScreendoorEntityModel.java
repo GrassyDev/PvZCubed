@@ -9,18 +9,18 @@ public class HypnoScreendoorEntityModel extends AnimatedGeoModel<HypnoScreendoor
     @Override
     public Identifier getModelResource(HypnoScreendoorEntity object)
     {
-        return new Identifier("pvzcubed", "geo/screendoor.geo.json");
+        return new Identifier("pvzmod", "geo/screendoor.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoScreendoorEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/browncoat/screendoor_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/browncoat/screendoor_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoScreendoorEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/screendoor.json");
+        return new Identifier ("pvzmod", "animations/screendoor.json");
     }
 }

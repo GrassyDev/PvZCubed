@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
@@ -50,7 +51,7 @@ import java.util.Random;
  */
 public class PeashooterEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
     public AnimationFactory factory = new AnimationFactory(this);
-    private static final TrackedData<Byte> SNOW_GOLEM_FLAGS;
+
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
     private String controllerName = "peacontroller";
     public int healingTime;
@@ -203,7 +204,6 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
 
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(SNOW_GOLEM_FLAGS, (byte)16);
         this.dataTracker.startTracking(ATTACHED_BLOCK, Optional.empty());
     }
 
@@ -214,16 +214,18 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 		if (!this.isInsideWaterOrBubbleColumn()) {
-			ShootingPeaEntity shootingPeaEntity = new ShootingPeaEntity(this.world, this);
-			double d = target.getX() - this.getX();
-			double e = target.getBodyY(0.3333333333333333) - shootingPeaEntity.getY();
-			double f = target.getZ() - this.getZ();
-			double g = Math.sqrt(d * d + f * f);
-			shootingPeaEntity.setVelocity(d, e + g * 0.20000000298023224, f, 2.2F, 0);
-			shootingPeaEntity.updatePosition(shootingPeaEntity.getX(), this.getY() + 1D, shootingPeaEntity.getZ());
+			ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.world);
+			double d = this.squaredDistanceTo(target);
+			float df = (float)d;
+			double e = target.getX() - this.getX();
+			double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
+			double g = target.getZ() - this.getZ();
+			float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+			proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+			proj.updatePosition(this.getX(), this.getY() + 1D, this.getZ());
 			if (target.isAlive()) {
 				this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-				this.world.spawnEntity(shootingPeaEntity);
+				this.world.spawnEntity(proj);
 			}
 		}
 	}
@@ -283,6 +285,5 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
     }
 
     static {
-        SNOW_GOLEM_FLAGS = DataTracker.registerData(PeashooterEntity.class, TrackedDataHandlerRegistry.BYTE);
     }
 }

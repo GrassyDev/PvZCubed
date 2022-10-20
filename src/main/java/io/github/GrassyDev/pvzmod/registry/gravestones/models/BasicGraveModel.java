@@ -9,18 +9,18 @@ public class BasicGraveModel extends AnimatedGeoModel<BasicGraveEntity> {
     @Override
     public Identifier getModelResource(BasicGraveEntity object)
     {
-        return new Identifier("pvzcubed", "geo/basicgravestone.geo.json");
+        return new Identifier("pvzmod", "geo/basicgravestone.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(BasicGraveEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/gravestone/basicgravestone.png");
+        return new Identifier("pvzmod", "textures/entity/gravestone/basicgravestone.png");
     }
 
     @Override
     public Identifier getAnimationResource(BasicGraveEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/gravestone.json");
+        return new Identifier ("pvzmod", "animations/gravestone.json");
     }
 }

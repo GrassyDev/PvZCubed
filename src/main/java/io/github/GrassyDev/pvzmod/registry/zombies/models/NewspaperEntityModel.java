@@ -9,18 +9,18 @@ public class NewspaperEntityModel extends AnimatedGeoModel<NewspaperEntity> {
     @Override
     public Identifier getModelResource(NewspaperEntity object)
     {
-        return new Identifier("pvzcubed", "geo/newspaper.geo.json");
+        return new Identifier("pvzmod", "geo/newspaper.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(NewspaperEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/newspaper/newspaper.png");
+        return new Identifier("pvzmod", "textures/entity/newspaper/newspaper.png");
     }
 
     @Override
     public Identifier getAnimationResource(NewspaperEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/newspaper.json");
+        return new Identifier ("pvzmod", "animations/newspaper.json");
     }
 }

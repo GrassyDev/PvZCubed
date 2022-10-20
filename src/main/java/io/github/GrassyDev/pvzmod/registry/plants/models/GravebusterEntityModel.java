@@ -9,18 +9,18 @@ public class GravebusterEntityModel extends AnimatedGeoModel<GravebusterEntity> 
     @Override
     public Identifier getModelResource(GravebusterEntity object)
     {
-        return new Identifier("pvzcubed", "geo/gravebuster.geo.json");
+        return new Identifier("pvzmod", "geo/gravebuster.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(GravebusterEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/gravebuster/gravebuster.png");
+        return new Identifier("pvzmod", "textures/entity/gravebuster/gravebuster.png");
     }
 
     @Override
     public Identifier getAnimationResource(GravebusterEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/gravebuster.json");
+        return new Identifier ("pvzmod", "animations/gravebuster.json");
     }
 }

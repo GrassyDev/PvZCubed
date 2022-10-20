@@ -12,18 +12,18 @@ public class BerserkerEntityModel extends AnimatedGeoModel<BerserkerEntity> {
     @Override
     public Identifier getModelResource(BerserkerEntity object)
     {
-        return new Identifier("pvzcubed", "geo/berserker.geo.json");
+        return new Identifier("pvzmod", "geo/berserker.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(BerserkerEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/football/berserker.png");
+        return new Identifier("pvzmod", "textures/entity/football/berserker.png");
     }
 
     @Override
     public Identifier getAnimationResource(BerserkerEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/football.json");
+        return new Identifier ("pvzmod", "animations/football.json");
     }
 }

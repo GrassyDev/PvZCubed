@@ -22,13 +22,38 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.UUID;
 
-public class ShootingPeaEntity extends ThrownItemEntity {
+public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
+
+	private String controllerName = "projectilecontroller";
+	public AnimationFactory factory = new AnimationFactory(this);
 
     public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "pea");
+	@Override
+	public void registerControllers(AnimationData animationData) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
 
+		animationData.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		event.getController().setAnimation(new AnimationBuilder().addAnimation("peashot.idle", true));
+		return PlayState.CONTINUE;
+	}
 
     public ShootingPeaEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
@@ -99,7 +124,7 @@ public class ShootingPeaEntity extends ThrownItemEntity {
     @Environment(EnvType.CLIENT)
     private ParticleEffect getParticleParameters() {
         ItemStack itemStack = this.getItem();
-        return (ParticleEffect)(itemStack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
+        return (ParticleEffect)(itemStack.isEmpty() ? ParticleTypes.ITEM_SLIME : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
     }
 
 

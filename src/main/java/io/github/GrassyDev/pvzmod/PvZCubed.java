@@ -100,99 +100,99 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.DARK_NIGHT_TILE));
 			}).build();
 
-	public static final Identifier PEASHOOT = new Identifier("pvzcubed:pea.shoot");
+	public static final Identifier PEASHOOT = new Identifier("pvzmod:pea.shoot");
 	public static SoundEvent PEASHOOTEVENT = new SoundEvent(PEASHOOT);
-	public static final Identifier PEAHIT = new Identifier("pvzcubed:pea.hit");
+	public static final Identifier PEAHIT = new Identifier("pvzmod:pea.hit");
 	public static SoundEvent PEAHITEVENT = new SoundEvent(PEAHIT);
-	public static final Identifier REPEASHOOT = new Identifier("pvzcubed:repea.shoot");
+	public static final Identifier REPEASHOOT = new Identifier("pvzmod:repea.shoot");
 	public static SoundEvent REPEASHOOTEVENT = new SoundEvent(REPEASHOOT);
-	public static final Identifier REPEAHIT = new Identifier("pvzcubed:repea.hit");
+	public static final Identifier REPEAHIT = new Identifier("pvzmod:repea.hit");
 	public static SoundEvent REPEAHITEVENT = new SoundEvent(REPEAHIT);
-	public static final Identifier TRIPEAHIT = new Identifier("pvzcubed:tripea.hit");
+	public static final Identifier TRIPEAHIT = new Identifier("pvzmod:tripea.hit");
 	public static SoundEvent TRIPEAHITEVENT = new SoundEvent(TRIPEAHIT);
-	public static final Identifier TRIPEASHOOT = new Identifier("pvzcubed:tripea.shoot");
+	public static final Identifier TRIPEASHOOT = new Identifier("pvzmod:tripea.shoot");
 	public static SoundEvent TRIPEASHOOTEVENT = new SoundEvent(TRIPEASHOOT);
-	public static final Identifier GATLINGPEAHIT = new Identifier("pvzcubed:gatlingpea.hit");
+	public static final Identifier GATLINGPEAHIT = new Identifier("pvzmod:gatlingpea.hit");
 	public static SoundEvent GATLINGPEAHITEVENT = new SoundEvent(GATLINGPEAHIT);
-	public static final Identifier GATLINGPEASHOOT = new Identifier("pvzcubed:gatlingpea.shoot");
+	public static final Identifier GATLINGPEASHOOT = new Identifier("pvzmod:gatlingpea.shoot");
 	public static SoundEvent GATLINGPEASHOOTEVENT = new SoundEvent(GATLINGPEASHOOT);
 
-	public static final Identifier FIREPEAHIT = new Identifier("pvzcubed:flaming.pea.hit");
+	public static final Identifier FIREPEAHIT = new Identifier("pvzmod:flaming.pea.hit");
 	public static SoundEvent FIREPEAHITEVENT = new SoundEvent(FIREPEAHIT);
-	public static final Identifier FIREREPEAHIT = new Identifier("pvzcubed:flaming.repea.hit");
+	public static final Identifier FIREREPEAHIT = new Identifier("pvzmod:flaming.repea.hit");
 	public static SoundEvent FIREREPEAHITEVENT = new SoundEvent(FIREREPEAHIT);
-	public static final Identifier FIRETRIPEAHIT = new Identifier("pvzcubed:flaming.tripea.hit");
+	public static final Identifier FIRETRIPEAHIT = new Identifier("pvzmod:flaming.tripea.hit");
 	public static SoundEvent FIRETRIPEAHITEVENT = new SoundEvent(FIRETRIPEAHIT);
-	public static final Identifier FIREGATLINGPEAHIT = new Identifier("pvzcubed:flaming.gatlingpea.hit");
+	public static final Identifier FIREGATLINGPEAHIT = new Identifier("pvzmod:flaming.gatlingpea.hit");
 	public static SoundEvent FIREGATLINGPEAHITEVENT = new SoundEvent(FIREGATLINGPEAHIT);
 
-	public static final Identifier CONEHIT = new Identifier("pvzcubed:cone.hit");
+	public static final Identifier CONEHIT = new Identifier("pvzmod:cone.hit");
 	public static SoundEvent CONEHITEVENT = new SoundEvent(CONEHIT);
-	public static final Identifier REPEACONEHIT = new Identifier("pvzcubed:repea.cone.hit");
+	public static final Identifier REPEACONEHIT = new Identifier("pvzmod:repea.cone.hit");
 	public static SoundEvent REPEACONEHITEVENT = new SoundEvent(REPEACONEHIT);
-	public static final Identifier TRIPEACONEHIT = new Identifier("pvzcubed:tripea.cone.hit");
+	public static final Identifier TRIPEACONEHIT = new Identifier("pvzmod:tripea.cone.hit");
 	public static SoundEvent TRIPEACONEHITEVENT = new SoundEvent(TRIPEACONEHIT);
-	public static final Identifier GATLINGPEACONEHIT = new Identifier("pvzcubed:gatlingpea.cone.hit");
+	public static final Identifier GATLINGPEACONEHIT = new Identifier("pvzmod:gatlingpea.cone.hit");
 	public static SoundEvent GATLINGPEACONEHITEVENT = new SoundEvent(GATLINGPEACONEHIT);
 
-	public static final Identifier BUCKETHIT = new Identifier("pvzcubed:bucket.hit");
+	public static final Identifier BUCKETHIT = new Identifier("pvzmod:bucket.hit");
 	public static SoundEvent BUCKETHITEVENT = new SoundEvent(BUCKETHIT);
-	public static final Identifier REPEABUCKETHIT = new Identifier("pvzcubed:repea.bucket.hit");
+	public static final Identifier REPEABUCKETHIT = new Identifier("pvzmod:repea.bucket.hit");
 	public static SoundEvent REPEABUCKETHITEVENT = new SoundEvent(REPEABUCKETHIT);
-	public static final Identifier TRIPEABUCKETHIT = new Identifier("pvzcubed:tripea.bucket.hit");
+	public static final Identifier TRIPEABUCKETHIT = new Identifier("pvzmod:tripea.bucket.hit");
 	public static SoundEvent TRIPEABUCKETHITEVENT = new SoundEvent(TRIPEABUCKETHIT);
-	public static final Identifier GATLINGPEABUCKETHIT = new Identifier("pvzcubed:gatlingpea.bucket.hit");
+	public static final Identifier GATLINGPEABUCKETHIT = new Identifier("pvzmod:gatlingpea.bucket.hit");
 	public static SoundEvent GATLINGPEABUCKETHITEVENT = new SoundEvent(GATLINGPEABUCKETHIT);
 
-	public static final Identifier SNOWPEASHOOT = new Identifier("pvzcubed:snowpea.shoot");
+	public static final Identifier SNOWPEASHOOT = new Identifier("pvzmod:snowpea.shoot");
 	public static SoundEvent SNOWPEASHOOTEVENT = new SoundEvent(SNOWPEASHOOT);
-	public static final Identifier SNOWPEAHIT = new Identifier("pvzcubed:snowpea.hit");
+	public static final Identifier SNOWPEAHIT = new Identifier("pvzmod:snowpea.hit");
 	public static SoundEvent SNOWPEAHITEVENT = new SoundEvent(SNOWPEAHIT);
 
-	public static final Identifier MUSHROOMSHOOT = new Identifier("pvzcubed:mushroom.shoot");
+	public static final Identifier MUSHROOMSHOOT = new Identifier("pvzmod:mushroom.shoot");
 	public static SoundEvent MUSHROOMSHOOTEVENT = new SoundEvent(MUSHROOMSHOOT);
 
-	public static final Identifier FUMESHROOMSHOOT = new Identifier("pvzcubed:fumeshroom.shoot");
+	public static final Identifier FUMESHROOMSHOOT = new Identifier("pvzmod:fumeshroom.shoot");
 	public static SoundEvent FUMESHROOMSHOOTEVENT = new SoundEvent(FUMESHROOMSHOOT);
 
-	public static final Identifier CHERRYBOMBEXPLOSION = new Identifier("pvzcubed:cherrybomb.explosion");
+	public static final Identifier CHERRYBOMBEXPLOSION = new Identifier("pvzmod:cherrybomb.explosion");
 	public static SoundEvent CHERRYBOMBEXPLOSIONEVENT = new SoundEvent(CHERRYBOMBEXPLOSION);
-	public static final Identifier POTATOMINEEXPLOSION = new Identifier("pvzcubed:potatomine.explosion");
+	public static final Identifier POTATOMINEEXPLOSION = new Identifier("pvzmod:potatomine.explosion");
 	public static SoundEvent POTATOMINEEXPLOSIONEVENT = new SoundEvent(POTATOMINEEXPLOSION);
-	public static final Identifier DOOMSHROOMEXPLOSION = new Identifier("pvzcubed:doomshroom.explosion");
+	public static final Identifier DOOMSHROOMEXPLOSION = new Identifier("pvzmod:doomshroom.explosion");
 	public static SoundEvent DOOMSHROOMEXPLOSIONEVENT = new SoundEvent(DOOMSHROOMEXPLOSION);
 
-	public static final Identifier CHOMPERBITE = new Identifier("pvzcubed:chomper.chomp");
+	public static final Identifier CHOMPERBITE = new Identifier("pvzmod:chomper.chomp");
 	public static SoundEvent CHOMPERBITEVENT = new SoundEvent(CHOMPERBITE);
 
-	public static final Identifier GRAVEBUSTEREATING = new Identifier("pvzcubed:gravebuster.eating");
+	public static final Identifier GRAVEBUSTEREATING = new Identifier("pvzmod:gravebuster.eating");
 	public static SoundEvent GRAVEBUSTEREATINGEVENT = new SoundEvent(GRAVEBUSTEREATING);
 
-	public static final Identifier HYPNOTIZING = new Identifier("pvzcubed:hypnoshroom.hypnotizing");
+	public static final Identifier HYPNOTIZING = new Identifier("pvzmod:hypnoshroom.hypnotizing");
 	public static SoundEvent HYPNOTIZINGEVENT = new SoundEvent(HYPNOTIZING);
 
-	public static final Identifier GRAVERISING = new Identifier("pvzcubed:grave.rising");
+	public static final Identifier GRAVERISING = new Identifier("pvzmod:grave.rising");
 	public static SoundEvent GRAVERISINGEVENT = new SoundEvent(GRAVERISING);
 
-	public static final Identifier ENTITYRISING = new Identifier("pvzcubed:entity.rising");
+	public static final Identifier ENTITYRISING = new Identifier("pvzmod:entity.rising");
 	public static SoundEvent ENTITYRISINGEVENT = new SoundEvent(ENTITYRISING);
 
-	public static final Identifier PLANTPLANTED = new Identifier("pvzcubed:plant.planted");
+	public static final Identifier PLANTPLANTED = new Identifier("pvzmod:plant.planted");
 	public static SoundEvent PLANTPLANTEDEVENT = new SoundEvent(PLANTPLANTED);
 
-	public static final Identifier SUNDROP = new Identifier("pvzcubed:sun.drop");
+	public static final Identifier SUNDROP = new Identifier("pvzmod:sun.drop");
 	public static SoundEvent SUNDROPEVENT = new SoundEvent(SUNDROP);
 
-	public static final Identifier ZOMBIEBITE = new Identifier("pvzcubed:zombie.bite");
+	public static final Identifier ZOMBIEBITE = new Identifier("pvzmod:zombie.bite");
 	public static SoundEvent ZOMBIEBITEEVENT = new SoundEvent(ZOMBIEBITE);
 
-	public static final Identifier ZOMBIEMOAN = new Identifier("pvzcubed:zombie.moan");
+	public static final Identifier ZOMBIEMOAN = new Identifier("pvzmod:zombie.moan");
 	public static SoundEvent ZOMBIEMOANEVENT = new SoundEvent(ZOMBIEMOAN);
 
-	public static final Identifier ZOMBIEDANCING = new Identifier("pvzcubed:zombie.dancing");
+	public static final Identifier ZOMBIEDANCING = new Identifier("pvzmod:zombie.dancing");
 	public static SoundEvent ZOMBIEDANCINGEVENT = new SoundEvent(ZOMBIEDANCING);
 
-	public static final Identifier SILENCE = new Identifier("pvzcubed:silence");
+	public static final Identifier SILENCE = new Identifier("pvzmod:silence");
 	public static SoundEvent SILENCEVENET = new SoundEvent(SILENCE);
 
 
@@ -205,8 +205,8 @@ public class PvZCubed implements ModInitializer {
 		ModItems.registerItems();
 		ModBlocks.registerBlocks();
 		GeckoLib.initialize();
-		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzcubed", "hypnotized"), HYPNOTIZED);
-		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzcubed", "frozen"), FROZEN);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "hypnotized"), HYPNOTIZED);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "frozen"), FROZEN);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEASHOOT, PEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEAHIT, PEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREPEAHIT, FIREPEAHITEVENT);

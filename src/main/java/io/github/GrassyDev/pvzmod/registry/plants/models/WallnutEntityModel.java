@@ -9,18 +9,18 @@ public class WallnutEntityModel extends AnimatedGeoModel<WallnutEntity> {
     @Override
     public Identifier getModelResource(WallnutEntity object)
     {
-        return new Identifier("pvzcubed", "geo/wallnut.geo.json");
+        return new Identifier("pvzmod", "geo/wallnut.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(WallnutEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/wallnut/wallnut.png");
+        return new Identifier("pvzmod", "textures/entity/wallnut/wallnut.png");
     }
 
     @Override
     public Identifier getAnimationResource(WallnutEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/wallnut.json");
+        return new Identifier ("pvzmod", "animations/wallnut.json");
     }
 }

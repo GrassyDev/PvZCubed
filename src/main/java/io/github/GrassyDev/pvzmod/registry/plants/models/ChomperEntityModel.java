@@ -9,18 +9,18 @@ public class ChomperEntityModel extends AnimatedGeoModel<ChomperEntity> {
     @Override
     public Identifier getModelResource(ChomperEntity object)
     {
-        return new Identifier("pvzcubed", "geo/chomper.geo.json");
+        return new Identifier("pvzmod", "geo/chomper.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(ChomperEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/chomper/chomper.png");
+        return new Identifier("pvzmod", "textures/entity/chomper/chomper.png");
     }
 
     @Override
     public Identifier getAnimationResource(ChomperEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/chomper.json");
+        return new Identifier ("pvzmod", "animations/chomper.json");
     }
 }

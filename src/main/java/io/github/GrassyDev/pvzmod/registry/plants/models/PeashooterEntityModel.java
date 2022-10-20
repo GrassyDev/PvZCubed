@@ -9,18 +9,18 @@ public class PeashooterEntityModel extends AnimatedGeoModel<PeashooterEntity> {
     @Override
     public Identifier getModelResource(PeashooterEntity object)
     {
-        return new Identifier("pvzcubed", "geo/peashooter.geo.json");
+        return new Identifier("pvzmod", "geo/peashooter.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(PeashooterEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/peashooter/peashooter.png");
+        return new Identifier("pvzmod", "textures/entity/peashooter/peashooter.png");
     }
 
     @Override
     public Identifier getAnimationResource(PeashooterEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/peashooter.json");
+        return new Identifier ("pvzmod", "animations/peashooter.json");
     }
 }

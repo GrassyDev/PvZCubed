@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "pvzcubed:items/hypnoshroom_seed_packet"
+    "layer0": "pvzmod:items/hypnoshroom_seed_packet"
   }
 }

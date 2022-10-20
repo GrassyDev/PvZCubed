@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "pvzcubed:blocks/night_tile",
-		"particle": "pvzcubed:blocks/night_tile"
+		"0": "pvzmod:blocks/night_tile",
+		"particle": "pvzmod:blocks/night_tile"
 	},
 	"display": {
 		"gui": {

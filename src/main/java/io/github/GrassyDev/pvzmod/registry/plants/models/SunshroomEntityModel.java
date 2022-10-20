@@ -9,18 +9,18 @@ public class SunshroomEntityModel extends AnimatedGeoModel<SunshroomEntity> {
     @Override
     public Identifier getModelResource(SunshroomEntity object)
     {
-        return new Identifier("pvzcubed", "geo/sunshroom.geo.json");
+        return new Identifier("pvzmod", "geo/sunshroom.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(SunshroomEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/sunshroom/sunshroom.png");
+        return new Identifier("pvzmod", "textures/entity/sunshroom/sunshroom.png");
     }
 
     @Override
     public Identifier getAnimationResource(SunshroomEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/sunshroom.json");
+        return new Identifier ("pvzmod", "animations/sunshroom.json");
     }
 }

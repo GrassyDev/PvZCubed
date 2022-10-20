@@ -9,18 +9,18 @@ public class NightGraveModel extends AnimatedGeoModel<NightGraveEntity> {
     @Override
     public Identifier getModelResource(NightGraveEntity object)
     {
-        return new Identifier("pvzcubed", "geo/nightgravestone.geo.json");
+        return new Identifier("pvzmod", "geo/nightgravestone.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(NightGraveEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/gravestone/nightgravestone.png");
+        return new Identifier("pvzmod", "textures/entity/gravestone/nightgravestone.png");
     }
 
     @Override
     public Identifier getAnimationResource(NightGraveEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/gravestone.json");
+        return new Identifier ("pvzmod", "animations/gravestone.json");
     }
 }

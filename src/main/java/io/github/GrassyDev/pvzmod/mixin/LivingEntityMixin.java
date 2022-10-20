@@ -20,7 +20,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "damage", at = @At("HEAD"))
-    public void pvzcubed$getOutAnnoyingIFrames(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
+    public void pvzmod$getOutAnnoyingIFrames(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
 
         if (((source.isProjectile() ||
                 source.isMagic() ||

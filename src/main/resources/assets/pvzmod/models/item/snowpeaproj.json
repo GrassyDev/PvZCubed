@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "pvzcubed:items/snowpeaproj"
+    "layer0": "pvzmod:items/snowpeaproj"
   }
 }

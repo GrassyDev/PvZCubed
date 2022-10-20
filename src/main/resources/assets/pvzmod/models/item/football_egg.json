@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "pvzcubed:items/football_egg"
+    "layer0": "pvzmod:items/football_egg"
   }
 }

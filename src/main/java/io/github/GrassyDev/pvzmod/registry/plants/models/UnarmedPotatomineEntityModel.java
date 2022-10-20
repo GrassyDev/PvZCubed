@@ -9,18 +9,18 @@ public class UnarmedPotatomineEntityModel extends AnimatedGeoModel<UnarmedPotato
     @Override
     public Identifier getModelResource(UnarmedPotatomineEntity object)
     {
-        return new Identifier("pvzcubed", "geo/potatomine.geo.json");
+        return new Identifier("pvzmod", "geo/potatomine.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(UnarmedPotatomineEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/potatomine/potatomine.png");
+        return new Identifier("pvzmod", "textures/entity/potatomine/potatomine.png");
     }
 
     @Override
     public Identifier getAnimationResource(UnarmedPotatomineEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/potatomine.json");
+        return new Identifier ("pvzmod", "animations/potatomine.json");
     }
 }

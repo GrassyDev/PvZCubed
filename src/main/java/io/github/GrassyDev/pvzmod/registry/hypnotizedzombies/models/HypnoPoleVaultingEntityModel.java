@@ -9,18 +9,18 @@ public class HypnoPoleVaultingEntityModel extends AnimatedGeoModel<HypnoPoleVaul
     @Override
     public Identifier getModelResource(HypnoPoleVaultingEntity object)
     {
-        return new Identifier("pvzcubed", "geo/polevaulting.geo.json");
+        return new Identifier("pvzmod", "geo/polevaulting.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoPoleVaultingEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/browncoat/polevaulting_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/browncoat/polevaulting_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoPoleVaultingEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/polevaulting.json");
+        return new Identifier ("pvzmod", "animations/polevaulting.json");
     }
 }

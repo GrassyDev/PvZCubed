@@ -9,18 +9,18 @@ public class HypnoBackupDancerEntityModel extends AnimatedGeoModel<HypnoBackupDa
     @Override
     public Identifier getModelResource(HypnoBackupDancerEntity object)
     {
-        return new Identifier("pvzcubed", "geo/backupdancer.geo.json");
+        return new Identifier("pvzmod", "geo/backupdancer.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoBackupDancerEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/dancingzombie/backupdancer_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/dancingzombie/backupdancer_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoBackupDancerEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/backupdancer.json");
+        return new Identifier ("pvzmod", "animations/backupdancer.json");
     }
 }

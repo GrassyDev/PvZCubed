@@ -12,18 +12,18 @@ public class HypnoBerserkerEntityModel extends AnimatedGeoModel<HypnoBerserkerEn
     @Override
     public Identifier getModelResource(HypnoBerserkerEntity object)
     {
-        return new Identifier("pvzcubed", "geo/berserker.geo.json");
+        return new Identifier("pvzmod", "geo/berserker.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoBerserkerEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/football/berserker_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/football/berserker_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoBerserkerEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/football.json");
+        return new Identifier ("pvzmod", "animations/football.json");
     }
 }

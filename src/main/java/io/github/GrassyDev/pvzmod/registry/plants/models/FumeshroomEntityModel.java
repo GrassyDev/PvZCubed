@@ -9,18 +9,18 @@ public class FumeshroomEntityModel extends AnimatedGeoModel<FumeshroomEntity> {
     @Override
     public Identifier getModelResource(FumeshroomEntity object)
     {
-        return new Identifier("pvzcubed", "geo/fumeshroom.geo.json");
+        return new Identifier("pvzmod", "geo/fumeshroom.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(FumeshroomEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/fumeshroom/fumeshroom.png");
+        return new Identifier("pvzmod", "textures/entity/fumeshroom/fumeshroom.png");
     }
 
     @Override
     public Identifier getAnimationResource(FumeshroomEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/fumeshroom.json");
+        return new Identifier ("pvzmod", "animations/fumeshroom.json");
     }
 }

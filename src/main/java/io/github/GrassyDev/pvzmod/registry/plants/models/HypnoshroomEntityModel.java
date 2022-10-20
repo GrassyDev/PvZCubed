@@ -9,18 +9,18 @@ public class HypnoshroomEntityModel extends AnimatedGeoModel<HypnoshroomEntity> 
     @Override
     public Identifier getModelResource(HypnoshroomEntity object)
     {
-        return new Identifier("pvzcubed", "geo/hypnoshroom.geo.json");
+        return new Identifier("pvzmod", "geo/hypnoshroom.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoshroomEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/hypnoshroom/hypnoshroom.png");
+        return new Identifier("pvzmod", "textures/entity/hypnoshroom/hypnoshroom.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoshroomEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/hypnoshroom.json");
+        return new Identifier ("pvzmod", "animations/hypnoshroom.json");
     }
 }

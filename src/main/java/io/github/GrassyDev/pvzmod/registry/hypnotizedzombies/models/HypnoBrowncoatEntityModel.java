@@ -9,18 +9,18 @@ public class HypnoBrowncoatEntityModel extends AnimatedGeoModel<HypnoBrowncoatEn
     @Override
     public Identifier getModelResource(HypnoBrowncoatEntity object)
     {
-        return new Identifier("pvzcubed", "geo/browncoat.geo.json");
+        return new Identifier("pvzmod", "geo/browncoat.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoBrowncoatEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/browncoat/browncoat_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/browncoat/browncoat_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoBrowncoatEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/newbrowncoat.json");
+        return new Identifier ("pvzmod", "animations/newbrowncoat.json");
     }
 }

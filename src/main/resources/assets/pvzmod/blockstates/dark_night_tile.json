@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "pvzcubed:block/dark_night_tile" }
+    "": { "model": "pvzmod:block/dark_night_tile" }
   }
 }

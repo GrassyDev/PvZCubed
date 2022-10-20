@@ -9,18 +9,18 @@ public class HypnoNewspaperEntityModel extends AnimatedGeoModel<HypnoNewspaperEn
     @Override
     public Identifier getModelResource(HypnoNewspaperEntity object)
     {
-        return new Identifier("pvzcubed", "geo/newspaper.geo.json");
+        return new Identifier("pvzmod", "geo/newspaper.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoNewspaperEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/newspaper/newspaper_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/newspaper/newspaper_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoNewspaperEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/newspaper.json");
+        return new Identifier ("pvzmod", "animations/newspaper.json");
     }
 }

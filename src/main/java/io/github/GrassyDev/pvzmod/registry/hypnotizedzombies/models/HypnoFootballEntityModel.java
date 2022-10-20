@@ -12,18 +12,18 @@ public class HypnoFootballEntityModel extends AnimatedGeoModel<HypnoFootballEnti
     @Override
     public Identifier getModelResource(HypnoFootballEntity object)
     {
-        return new Identifier("pvzcubed", "geo/football.geo.json");
+        return new Identifier("pvzmod", "geo/football.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoFootballEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/football/football_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/football/football_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoFootballEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/football.json");
+        return new Identifier ("pvzmod", "animations/football.json");
     }
 }

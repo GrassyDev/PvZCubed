@@ -12,6 +12,7 @@ import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -23,7 +24,7 @@ import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 
 public class PvZEntity implements ModInitializer {
 
-    public static final String ModID = "pvzcubed"; // This is just so we can refer to our ModID easier.
+    public static final String ModID = "pvzmod"; // This is just so we can refer to our ModID easier.
 
     /*
      * Registers our Cube Entity under the ID "entitytesting:cube".
@@ -328,151 +329,151 @@ public class PvZEntity implements ModInitializer {
 	@Override
 	public void onInitialize(ModContainer mod) {
 
-		PeashooterEntity.createPeashooterAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntity.createPeashooterAttributes());
         EntityRendererRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntityRenderer::new);
 
-		SunflowerEntity.createSunflowerAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.SUNFLOWER, SunflowerEntity.createSunflowerAttributes());
         EntityRendererRegistry.register(PvZEntity.SUNFLOWER, SunflowerEntityRenderer::new);
 
-		CherrybombEntity.createCherrybombAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.CHERRYBOMB, CherrybombEntity.createCherrybombAttributes());
         EntityRendererRegistry.register(PvZEntity.CHERRYBOMB, CherrybombEntityRenderer::new);
 
-        WallnutEntity.createWallnutAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.WALLNUT, WallnutEntity.createWallnutAttributes());
         EntityRendererRegistry.register(PvZEntity.WALLNUT, WallnutEntityRenderer::new);
 
 
-		PotatomineEntity.createPotatomineAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.POTATOMINE, PotatomineEntity.createPotatomineAttributes());
         EntityRendererRegistry.register(PvZEntity.POTATOMINE, PotatomineEntityRenderer::new);
 
-		UnarmedPotatomineEntity.createUnarmedPotatomineAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntity.createUnarmedPotatomineAttributes());
         EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntityRenderer::new);
 
 
-		SnowpeaEntity.createSnowpeaAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntity.createSnowpeaAttributes());
         EntityRendererRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntityRenderer::new);
 
-		ChomperEntity.createChomperAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.CHOMPER, ChomperEntity.createChomperAttributes());
         EntityRendererRegistry.register(PvZEntity.CHOMPER, ChomperEntityRenderer::new);
 
-		RepeaterEntity.createRepeaterAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.REPEATER, RepeaterEntity.createRepeaterAttributes());
         EntityRendererRegistry.register(PvZEntity.REPEATER, RepeaterEntityRenderer::new);
 
-		PuffshroomEntity.createPuffshroomAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.PUFFSHROOM, PuffshroomEntity.createPuffshroomAttributes());
         EntityRendererRegistry.register(PvZEntity.PUFFSHROOM, PuffshroomEntityRenderer::new);
 
-		SunshroomEntity.createSunshroomAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntity.createSunshroomAttributes());
         EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer::new);
 
-		FumeshroomEntity.createFumeshroomAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntity.createFumeshroomAttributes());
         EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer::new);
 
-		GravebusterEntity.createGravebusterAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntity.createGravebusterAttributes());
         EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer::new);
 
-		HypnoshroomEntity.createHypnoshroomAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOSHROOM, HypnoshroomEntity.createHypnoshroomAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM, HypnoshroomEntityRenderer::new);
 
-		ScaredyshroomEntity.createScaredyshroomAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.SCAREDYSHROOM, ScaredyshroomEntity.createScaredyshroomAttributes());
         EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM, ScaredyshroomEntityRenderer::new);
 
-		IceshroomEntity.createIceshroomAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.ICESHROOM, IceshroomEntity.createIceshroomAttributes());
         EntityRendererRegistry.register(PvZEntity.ICESHROOM, IceshroomEntityRenderer::new);
 
-		DoomshroomEntity.createDoomshroomAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntity.createDoomshroomAttributes());
         EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntityRenderer::new);
 
-		ThreepeaterEntity.createThreepeaterAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntity.createThreepeaterAttributes());
         EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);
 
-		FlamingpeaEntity.createFlamingpeaAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntity.createFlamingpeaAttributes());
         EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
-		BrowncoatEntity.createBrowncoatAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.BROWNCOAT, BrowncoatEntity.createBrowncoatAttributes());
         EntityRendererRegistry.register(PvZEntity.BROWNCOAT, BrowncoatEntityRenderer::new);
 
-		HypnoBrowncoatEntity.createHypnoBrowncoatAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOBROWNCOAT, HypnoBrowncoatEntity.createHypnoBrowncoatAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOBROWNCOAT, HypnoBrowncoatEntityRenderer::new);
 
 
-		FlagzombieEntity.createFlagzombieZombieAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntity.createFlagzombieZombieAttributes());
         EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer::new);
 
-		HypnoFlagzombieEntity.createHypnoFlagzombieAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOFLAGZOMBIE, HypnoFlagzombieEntity.createHypnoFlagzombieAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOFLAGZOMBIE, HypnoFlagzombieEntityRenderer::new);
 
 
-		ConeheadEntity.createConeheadAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.CONEHEAD, ConeheadEntity.createConeheadAttributes());
         EntityRendererRegistry.register(PvZEntity.CONEHEAD, ConeheadEntityRenderer::new);
 
-		HypnoConeheadEntity.createHypnoConeheadAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOCONEHEAD, HypnoConeheadEntity.createHypnoConeheadAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOCONEHEAD, HypnoConeheadEntityRenderer::new);
 
 
-		PoleVaultingEntity.createPoleVaultingAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.POLEVAULTING, PoleVaultingEntity.createPoleVaultingAttributes());
         EntityRendererRegistry.register(PvZEntity.POLEVAULTING, PoleVaultingEntityRenderer::new);
 
-		HypnoPoleVaultingEntity.createHypnoPoleVaultingAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOPOLEVAULTING, HypnoPoleVaultingEntity.createHypnoPoleVaultingAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOPOLEVAULTING, HypnoPoleVaultingEntityRenderer::new);
 
 
-		BucketheadEntity.createBucketheadAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.BUCKETHEAD, BucketheadEntity.createBucketheadAttributes());
         EntityRendererRegistry.register(PvZEntity.BUCKETHEAD, BucketheadEntityRenderer::new);
 
-		HypnoBucketheadEntity.createHypnoBucketheadAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOBUCKETHEAD, HypnoBucketheadEntity.createHypnoBucketheadAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOBUCKETHEAD, HypnoBucketheadEntityRenderer::new);
 
 
-		NewspaperEntity.createNewspaperAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntity.createNewspaperAttributes());
         EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
 
-		HypnoNewspaperEntity.createHypnoNewspaperAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNONEWSPAPER, HypnoNewspaperEntity.createHypnoNewspaperAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNONEWSPAPER, HypnoNewspaperEntityRenderer::new);
 
 
-		ScreendoorEntity.createScreendoorAttributes();
-        EntityRendererRegistry.register(PvZEntity.SCREEENDOOR, ScreendoorEntityRenderer::new);
+		FabricDefaultAttributeRegistry.register(PvZEntity.SCREEENDOOR, ScreendoorEntity.createScreendoorAttributes());
+		EntityRendererRegistry.register(PvZEntity.SCREEENDOOR, ScreendoorEntityRenderer::new);
 
-		HypnoScreendoorEntity.createHypnoScreendoorAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOSCREENDOOR, HypnoScreendoorEntity.createHypnoScreendoorAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOSCREENDOOR, HypnoScreendoorEntityRenderer::new);
 
 
-		FootballEntity.createFootballAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.FOOTBALL, FootballEntity.createFootballAttributes());
         EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
 
-		HypnoFootballEntity.createHypnoFootballAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntity.createHypnoFootballAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntityRenderer::new);
 
 
-		BerserkerEntity.createBerserkerAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.BERSERKER, BerserkerEntity.createBerserkerAttributes());
         EntityRendererRegistry.register(PvZEntity.BERSERKER, BerserkerEntityRenderer::new);
 
-		HypnoBerserkerEntity.createHypnoBerserkerAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntity.createHypnoBerserkerAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer::new);
 
 
-		DancingZombieEntity.createDancingZombieAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntity.createDancingZombieAttributes());
         EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer::new);
 
-		HypnoDancingZombieEntity.createHypnoDancingZombieAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNODANCINGZOMBIE, HypnoDancingZombieEntity.createHypnoDancingZombieAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNODANCINGZOMBIE, HypnoDancingZombieEntityRenderer::new);
 
 
-		BackupDancerEntity.createBackupDancerAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.BACKUPDANCER, BackupDancerEntity.createBackupDancerAttributes());
         EntityRendererRegistry.register(PvZEntity.BACKUPDANCER, BackupDancerEntityRenderer::new);
 
-		HypnoBackupDancerEntity.createHypnoBackupDancerAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntity.createHypnoBackupDancerAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntityRenderer::new);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
-		BasicGraveEntity.createBasicGraveAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.BASICGRAVESTONE, BasicGraveEntity.createBasicGraveAttributes());
         EntityRendererRegistry.register(PvZEntity.BASICGRAVESTONE, BasicGraveRenderer::new);
 
-		NightGraveEntity.createNightGraveAttributes();
+		FabricDefaultAttributeRegistry.register(PvZEntity.NIGHTGRAVESTONE, NightGraveEntity.createNightGraveAttributes());
         EntityRendererRegistry.register(PvZEntity.NIGHTGRAVESTONE, NightGraveRenderer::new);
 
 

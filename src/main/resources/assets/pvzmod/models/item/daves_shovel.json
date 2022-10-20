@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "pvzcubed:items/daves_shovel"
+    "layer0": "pvzmod:items/daves_shovel"
   }
 }

@@ -9,18 +9,18 @@ public class ScaredyshroomEntityModel extends AnimatedGeoModel<ScaredyshroomEnti
     @Override
     public Identifier getModelResource(ScaredyshroomEntity object)
     {
-        return new Identifier("pvzcubed", "geo/scaredyshroom.geo.json");
+        return new Identifier("pvzmod", "geo/scaredyshroom.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(ScaredyshroomEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/puffshroom/scaredyshroom.png");
+        return new Identifier("pvzmod", "textures/entity/puffshroom/scaredyshroom.png");
     }
 
     @Override
     public Identifier getAnimationResource(ScaredyshroomEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/scaredyshroom.json");
+        return new Identifier ("pvzmod", "animations/scaredyshroom.json");
     }
 }

@@ -9,18 +9,18 @@ public class IceshroomEntityModel extends AnimatedGeoModel<IceshroomEntity> {
     @Override
     public Identifier getModelResource(IceshroomEntity object)
     {
-        return new Identifier("pvzcubed", "geo/iceshroom.geo.json");
+        return new Identifier("pvzmod", "geo/iceshroom.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(IceshroomEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/iceshroom/iceshroom.png");
+        return new Identifier("pvzmod", "textures/entity/iceshroom/iceshroom.png");
     }
 
     @Override
     public Identifier getAnimationResource(IceshroomEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/iceshroom.json");
+        return new Identifier ("pvzmod", "animations/iceshroom.json");
     }
 }

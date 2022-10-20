@@ -1,13 +1,16 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingRePeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
@@ -18,10 +21,12 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -39,6 +44,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
 
@@ -50,6 +56,8 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
 
     public int healingTime;
 	private int shootDelay;
+
+	private int numOfBalls;
 
 	private boolean canShoot;
 
@@ -118,7 +126,6 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
 
 		if (shootDelay <= 0 && canShoot){
 			canShoot = false;
-			shoot(this);
 		}
     }
 
@@ -244,24 +251,23 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
     //    }
     //}
 	public void attack(LivingEntity target, float pullProgress) {
-		canShoot = true;
-		shoot(this);
-	}
-
-	protected void shoot(LivingEntity target){
 		if (!this.isInsideWaterOrBubbleColumn()) {
-			ShootingRePeaEntity shootingRePeaEntity = new ShootingRePeaEntity(this.world, this);
-			double d = target.getX() - this.getX();
-			double e = target.getBodyY(0.3333333333333333) - shootingRePeaEntity.getY();
-			double f = target.getZ() - this.getZ();
-			double g = Math.sqrt(d * d + f * f);
-			shootingRePeaEntity.setVelocity(d, e + g * 0.20000000298023224, f, 2.2F, 0);
-			shootingRePeaEntity.updatePosition(shootingRePeaEntity.getX(), this.getY() + 1D, shootingRePeaEntity.getZ());
+			ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.world);
+			double d = this.squaredDistanceTo(target);
+			float df = (float)d;
+			double e = target.getX() - this.getX();
+			double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
+			double g = target.getZ() - this.getZ();
+			float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+			proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+			proj.updatePosition(this.getX(), this.getY() + 1D, this.getZ());
 			if (target.isAlive()) {
-				this.shootDelay = 6;
+				this.shootDelay = 10;
 				this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-				this.world.spawnEntity(shootingRePeaEntity);
+				this.world.spawnEntity(proj);
 			}
+
+			canShoot = true;
 		}
 	}
 

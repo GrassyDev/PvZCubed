@@ -9,18 +9,18 @@ public class HypnoBucketheadEntityModel extends AnimatedGeoModel<HypnoBuckethead
     @Override
     public Identifier getModelResource(HypnoBucketheadEntity object)
     {
-        return new Identifier("pvzcubed", "geo/buckethead.geo.json");
+        return new Identifier("pvzmod", "geo/buckethead.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoBucketheadEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/browncoat/buckethead_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/browncoat/buckethead_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoBucketheadEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/newbrowncoat.json");
+        return new Identifier ("pvzmod", "animations/newbrowncoat.json");
     }
 }

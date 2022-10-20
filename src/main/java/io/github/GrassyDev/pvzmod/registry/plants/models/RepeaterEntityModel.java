@@ -9,18 +9,18 @@ public class RepeaterEntityModel extends AnimatedGeoModel<RepeaterEntity> {
     @Override
     public Identifier getModelResource(RepeaterEntity object)
     {
-        return new Identifier("pvzcubed", "geo/repeater.geo.json");
+        return new Identifier("pvzmod", "geo/repeater.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(RepeaterEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/peashooter/peashooter.png");
+        return new Identifier("pvzmod", "textures/entity/peashooter/peashooter.png");
     }
 
     @Override
     public Identifier getAnimationResource(RepeaterEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/peashooter.json");
+        return new Identifier ("pvzmod", "animations/peashooter.json");
     }
 }

@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "pvzcubed:block/grass_tile" }
+    "": { "model": "pvzmod:block/grass_tile" }
   }
 }

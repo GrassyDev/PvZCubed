@@ -9,18 +9,18 @@ public class BackupDancerEntityModel extends AnimatedGeoModel<BackupDancerEntity
     @Override
     public Identifier getModelResource(BackupDancerEntity object)
     {
-        return new Identifier("pvzcubed", "geo/backupdancer.geo.json");
+        return new Identifier("pvzmod", "geo/backupdancer.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(BackupDancerEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/dancingzombie/backupdancer.png");
+        return new Identifier("pvzmod", "textures/entity/dancingzombie/backupdancer.png");
     }
 
     @Override
     public Identifier getAnimationResource(BackupDancerEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/backupdancer.json");
+        return new Identifier ("pvzmod", "animations/backupdancer.json");
     }
 }

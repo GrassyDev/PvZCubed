@@ -9,18 +9,18 @@ public class DoomshroomEntityModel extends AnimatedGeoModel<DoomshroomEntity> {
     @Override
     public Identifier getModelResource(DoomshroomEntity object)
     {
-        return new Identifier("pvzcubed", "geo/doomshroom.geo.json");
+        return new Identifier("pvzmod", "geo/doomshroom.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(DoomshroomEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/doomshroom/doomshroom.png");
+        return new Identifier("pvzmod", "textures/entity/doomshroom/doomshroom.png");
     }
 
     @Override
     public Identifier getAnimationResource(DoomshroomEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/doomshroom.json");
+        return new Identifier ("pvzmod", "animations/doomshroom.json");
     }
 }

@@ -9,18 +9,18 @@ public class SnowpeaEntityModel extends AnimatedGeoModel<SnowpeaEntity> {
     @Override
     public Identifier getModelResource(SnowpeaEntity object)
     {
-        return new Identifier("pvzcubed", "geo/snowpea.geo.json");
+        return new Identifier("pvzmod", "geo/snowpea.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(SnowpeaEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/peashooter/snowpea.png");
+        return new Identifier("pvzmod", "textures/entity/peashooter/snowpea.png");
     }
 
     @Override
     public Identifier getAnimationResource(SnowpeaEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/peashooter.json");
+        return new Identifier ("pvzmod", "animations/peashooter.json");
     }
 }

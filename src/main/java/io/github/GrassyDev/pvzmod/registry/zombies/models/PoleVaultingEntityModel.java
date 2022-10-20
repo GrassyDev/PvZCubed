@@ -9,18 +9,18 @@ public class PoleVaultingEntityModel extends AnimatedGeoModel<PoleVaultingEntity
     @Override
     public Identifier getModelResource(PoleVaultingEntity object)
     {
-        return new Identifier("pvzcubed", "geo/polevaulting.geo.json");
+        return new Identifier("pvzmod", "geo/polevaulting.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(PoleVaultingEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/browncoat/polevaulting.png");
+        return new Identifier("pvzmod", "textures/entity/browncoat/polevaulting.png");
     }
 
     @Override
     public Identifier getAnimationResource(PoleVaultingEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/polevaulting.json");
+        return new Identifier ("pvzmod", "animations/polevaulting.json");
     }
 }

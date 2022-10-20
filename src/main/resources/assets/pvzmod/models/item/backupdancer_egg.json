@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "pvzcubed:items/backupdancer_egg"
+    "layer0": "pvzmod:items/backupdancer_egg"
   }
 }

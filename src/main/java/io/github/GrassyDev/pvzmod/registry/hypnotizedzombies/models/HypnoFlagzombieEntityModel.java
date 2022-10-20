@@ -9,18 +9,18 @@ public class HypnoFlagzombieEntityModel extends AnimatedGeoModel<HypnoFlagzombie
     @Override
     public Identifier getModelResource(HypnoFlagzombieEntity object)
     {
-        return new Identifier("pvzcubed", "geo/flagzombie.geo.json");
+        return new Identifier("pvzmod", "geo/flagzombie.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(HypnoFlagzombieEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/browncoat/flagzombie_hypnotized.png");
+        return new Identifier("pvzmod", "textures/entity/browncoat/flagzombie_hypnotized.png");
     }
 
     @Override
     public Identifier getAnimationResource(HypnoFlagzombieEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/flagzombie.json");
+        return new Identifier ("pvzmod", "animations/flagzombie.json");
     }
 }

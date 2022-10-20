@@ -9,18 +9,18 @@ public class SunflowerEntityModel extends AnimatedGeoModel<SunflowerEntity> {
     @Override
     public Identifier getModelResource(SunflowerEntity object)
     {
-        return new Identifier("pvzcubed", "geo/sunflower.geo.json");
+        return new Identifier("pvzmod", "geo/sunflower.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(SunflowerEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/sunflower/pvzsunflower.png");
+        return new Identifier("pvzmod", "textures/entity/sunflower/pvzsunflower.png");
     }
 
     @Override
     public Identifier getAnimationResource(SunflowerEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/sunflower.json");
+        return new Identifier ("pvzmod", "animations/sunflower.json");
     }
 }

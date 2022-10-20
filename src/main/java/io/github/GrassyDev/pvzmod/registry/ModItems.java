@@ -87,6 +87,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"fume"), FUME);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowpeaproj"), SNOWPEAPROJ);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"repea"), REPEA);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"firepea"), FIREPEA);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cone"), CONE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sun"), SUN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"smallsun"), SMALLSUN);

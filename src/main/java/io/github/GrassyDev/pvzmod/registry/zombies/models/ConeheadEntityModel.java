@@ -12,18 +12,18 @@ public class ConeheadEntityModel extends AnimatedGeoModel<ConeheadEntity> {
     @Override
     public Identifier getModelResource(ConeheadEntity object)
     {
-        return new Identifier("pvzcubed", "geo/conehead.geo.json");
+        return new Identifier("pvzmod", "geo/conehead.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(ConeheadEntity object)
     {
-        return new Identifier("pvzcubed", "textures/entity/browncoat/conehead.png");
+        return new Identifier("pvzmod", "textures/entity/browncoat/conehead.png");
     }
 
     @Override
     public Identifier getAnimationResource(ConeheadEntity object)
     {
-        return new Identifier ("pvzcubed", "animations/newbrowncoat.json");
+        return new Identifier ("pvzmod", "animations/newbrowncoat.json");
     }
 }
