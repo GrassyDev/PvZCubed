@@ -186,7 +186,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<FumeEntity> FUME = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "fume"),
-			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1.3f,.25f)).build()
+			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1.5f,.25f)).build()
 	);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////

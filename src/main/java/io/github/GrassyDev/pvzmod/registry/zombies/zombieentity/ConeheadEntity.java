@@ -277,10 +277,6 @@ public class ConeheadEntity extends HostileEntity implements IAnimatable {
         return (EntityData)entityData;
     }
 
-    public static boolean method_29936(Random random) {
-        return random.nextFloat() < 0.05F;
-    }
-
     static {
         DOOR_BREAK_DIFFICULTY_CHECKER = (difficulty) -> {
             return difficulty == Difficulty.HARD;

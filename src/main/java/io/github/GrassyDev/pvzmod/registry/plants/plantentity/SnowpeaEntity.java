@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
@@ -210,16 +211,18 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
     @Override
 	public void attack(LivingEntity target, float pullProgress) {
 		if (!this.isInsideWaterOrBubbleColumn()) {
-			ShootingSnowPeaEntity shootingSnowPeaEntity = new ShootingSnowPeaEntity(this.world, this);
-			double d = target.getX() - this.getX();
-			double e = target.getBodyY(0.3333333333333333) - shootingSnowPeaEntity.getY();
-			double f = target.getZ() - this.getZ();
-			double g = Math.sqrt(d * d + f * f);
-			shootingSnowPeaEntity.setVelocity(d, e + g * 0.20000000298023224, f, 2.2F, 0);
-			shootingSnowPeaEntity.updatePosition(shootingSnowPeaEntity.getX(), this.getY() + 1D, shootingSnowPeaEntity.getZ());
+			ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(this.world, this);
+			double d = this.squaredDistanceTo(target);
+			float df = (float)d;
+			double e = target.getX() - this.getX();
+			double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
+			double g = target.getZ() - this.getZ();
+			float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+			proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+			proj.updatePosition(this.getX(), this.getY() + 1D, this.getZ());
 			if (target.isAlive()) {
-				this.playSound(PvZCubed.SNOWPEASHOOTEVENT, 0.3F, 1);
-				this.world.spawnEntity(shootingSnowPeaEntity);
+				this.playSound(PvZCubed.SNOWPEASHOOTEVENT, 1F, 1);
+				this.world.spawnEntity(proj);
 			}
 		}
 	}

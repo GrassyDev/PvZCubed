@@ -1,10 +1,12 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingFlamingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -25,10 +27,12 @@ import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
@@ -55,11 +59,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	public boolean isAsleep;
 	public boolean isTired;
 	public int healingTime;
-	private static final TrackedData<Integer> FUMESHROOM_TARGET_ID;
-
-	private int beamTicks;
-
-	private LivingEntity cachedBeamTarget;
+	public boolean isFiring;
 
 	public FumeshroomEntity(EntityType<? extends FumeshroomEntity> entityType, World world) {
 		super(entityType, world);
@@ -70,7 +70,11 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isTired) {
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.asleep", true));
-		} else {
+		}
+		else if (this.isFiring) {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.attack", false));
+		}
+		else {
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.idle", true));
 		}
 		return PlayState.CONTINUE;
@@ -139,22 +143,8 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 				this.setPosition((double) blockPos.getX() + 0.5D, (double) blockPos.getY(), (double) blockPos.getZ() + 0.5D);
 			}
 		}
-		if (FUMESHROOM_TARGET_ID.equals(data)) {
-			this.beamTicks = 0;
-			this.cachedBeamTarget = null;
-		}
-
 		super.onTrackedDataSet(data);
 	}
-
-	private void setFumeTarget(int entityId) {
-		this.dataTracker.set(FUMESHROOM_TARGET_ID, entityId);
-	}
-
-	public boolean hasFumeTarget() {
-		return (Integer) this.dataTracker.get(FUMESHROOM_TARGET_ID) != 0;
-	}
-
 
 	@Nullable
 	public BlockPos getAttachedBlock() {
@@ -163,7 +153,6 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
 	static {
 		ATTACHED_BLOCK = DataTracker.registerData(FumeshroomEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
-		FUMESHROOM_TARGET_ID = DataTracker.registerData(HypnoshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	}
 
 	public void move(MovementType type, Vec3d movement) {
@@ -209,6 +198,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	}
 
 	protected void initGoals() {
+		this.goalSelector.add(1, new FumeshroomEntity.FireBeamGoal(this));
 		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(25) + 20, 6.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
@@ -226,45 +216,40 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
 	protected void initDataTracker() {
 		super.initDataTracker();
+		this.dataTracker.startTracking(SNOW_GOLEM_FLAGS, (byte) 16);
 		this.dataTracker.startTracking(ATTACHED_BLOCK, Optional.empty());
-		this.dataTracker.startTracking(FUMESHROOM_TARGET_ID, 0);
 	}
 
 	public int getWarmupTime() {
-		return 60;
+		return 0;
 	}
 
 	public boolean hurtByWater() {
 		return false;
 	}
 
+	//@Override
+	//public void attack(LivingEntity target, float pullProgress) {
+	//	if (!this.isAsleep) {
+	//		if (!this.isInsideWaterOrBubbleColumn()) {
+	//			FumeEntity fumeEntity = new FumeEntity(this.world, this);
+	//			double d = target.getX() - this.getX();
+	//			double e = target.getBodyY(0.3333333333333333) - fumeEntity.getY();
+	//			double f = target.getZ() - this.getZ();
+	//			double g = Math.sqrt(d * d + f * f);
+	//			fumeEntity.setVelocity(d, e + g * 0.20000000298023224, f, 0.85F, 0);
+	//			fumeEntity.updatePosition(fumeEntity.getX(), this.getY() + 1D, fumeEntity.getZ());
+	//			if (target.isAlive()) {
+	//				this.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+	//				this.world.spawnEntity(fumeEntity);
+	//			}
+	//		}
+	//	}
+	//}
+
 	@Override
-	public void attack(LivingEntity target, float pullProgress) {
-	}
+	public void	attack(LivingEntity target, float pullProgress){
 
-	@Nullable
-	public LivingEntity getFumeTarget() {
-		if (!this.hasFumeTarget()) {
-			return null;
-		} else if (this.world.isClient) {
-			if (this.cachedBeamTarget != null) {
-				return this.cachedBeamTarget;
-			} else {
-				Entity entity = this.world.getEntityById((Integer) this.dataTracker.get(FUMESHROOM_TARGET_ID));
-				if (entity instanceof LivingEntity) {
-					this.cachedBeamTarget = (LivingEntity) entity;
-					return this.cachedBeamTarget;
-				} else {
-					return null;
-				}
-			}
-		} else {
-			return this.getTarget();
-		}
-	}
-
-	public float getFumeProgress(float tickDelta) {
-		return ((float) this.beamTicks + tickDelta) / (float) this.getWarmupTime();
 	}
 
 	public void tickMovement() {
@@ -283,8 +268,15 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	public void handleStatus(byte status) {
 		if (status == 13) {
 			this.isTired = true;
-		} else if (status == 12) {
+			this.isFiring = false;
+		}
+		else if (status == 12) {
 			this.isTired = false;
+		}
+		if (status == 11) {
+			this.isFiring = true;
+		} else if (status == 10) {
+			this.isFiring = false;
 		}
 	}
 
@@ -356,6 +348,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	static class FireBeamGoal extends Goal {
 		private final FumeshroomEntity fumeshroomEntity;
 		private int beamTicks;
+		private int animationTicks;
 
 		public FireBeamGoal(FumeshroomEntity fumeshroomEntity) {
 			this.fumeshroomEntity = fumeshroomEntity;
@@ -364,52 +357,67 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
 		public boolean canStart() {
 			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && !fumeshroomEntity.isAsleep && !fumeshroomEntity.isInsideWaterOrBubbleColumn();
+			return livingEntity != null && livingEntity.isAlive() && !this.fumeshroomEntity.isAsleep;
 		}
 
 		public boolean shouldContinue() {
-			return super.shouldContinue() && (this.fumeshroomEntity.squaredDistanceTo(this.fumeshroomEntity.getTarget()) > 9.0D);
+			return super.shouldContinue();
 		}
 
 		public void start() {
-			this.beamTicks = -10;
+			this.beamTicks = -17;
+			this.animationTicks = -32;
 			this.fumeshroomEntity.getNavigation().stop();
 			this.fumeshroomEntity.getLookControl().lookAt(this.fumeshroomEntity.getTarget(), 90.0F, 90.0F);
 			this.fumeshroomEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.fumeshroomEntity.setFumeTarget(0);
-			this.fumeshroomEntity.setTarget((LivingEntity) null);
+			this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
+			this.fumeshroomEntity.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
+			ServerWorld serverWorld = this.fumeshroomEntity.world.getServer().getWorld(this.fumeshroomEntity.world.getRegistryKey());
 			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
 			this.fumeshroomEntity.getNavigation().stop();
 			this.fumeshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
 			if (!this.fumeshroomEntity.canSee(livingEntity) || this.fumeshroomEntity.isAsleep) {
 				this.fumeshroomEntity.setTarget((LivingEntity) null);
 			} else {
+				this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 11);
 				++this.beamTicks;
-				if (this.beamTicks == 0) {
-					this.fumeshroomEntity.setFumeTarget(this.fumeshroomEntity.getTarget().getId());
-					if (!this.fumeshroomEntity.isSilent()) {
-						this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 21);
-					}
-				} else if (this.beamTicks >= this.fumeshroomEntity.getWarmupTime()) {
-					FumeEntity fumeEntity = new FumeEntity(this.fumeshroomEntity.world, this.fumeshroomEntity);
-					double d = livingEntity.getX() - this.fumeshroomEntity.getX();
-					double e = livingEntity.getBodyY(0.3333333333333333) - fumeEntity.getY();
-					double f = livingEntity.getZ() - this.fumeshroomEntity.getZ();
-					double g = Math.sqrt(d * d + f * f);
-					fumeEntity.setVelocity(d, e + g * 0.20000000298023224, f, 0.85F, 0);
-					fumeEntity.updatePosition(fumeEntity.getX(), this.fumeshroomEntity.getY() + 1D, fumeEntity.getZ());
+				++this.animationTicks;
+				if (this.beamTicks >= this.fumeshroomEntity.getWarmupTime() && this.animationTicks <=0) {
+					FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
+					double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
+					float df = (float)d;
+					double e = livingEntity.getX() - this.fumeshroomEntity.getX();
+					double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
+					double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
+					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+					proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.85F, 0F);
+					proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 1D, this.fumeshroomEntity.getZ());
 					if (livingEntity.isAlive()) {
+						this.beamTicks = -17;
 						this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
-						this.fumeshroomEntity.world.spawnEntity(fumeEntity);
+						this.fumeshroomEntity.world.spawnEntity(proj);
+						Vec3d vec3d = fumeshroomEntity.getPos().add(0.0, 0.500000023841858, 0.0);
+						Vec3d vec3d2 = livingEntity.getEyePos().subtract(vec3d);
+						Vec3d vec3d3 = vec3d2.normalize();
+						for(int i = 1; i < MathHelper.floor(vec3d2.length()) + 3; ++i) {
+							Vec3d vec3d4 = vec3d.add(vec3d3.multiply((double)i));
+							serverWorld.spawnParticles(ParticleTypes.BUBBLE, vec3d4.x, vec3d4.y - 0.5, vec3d4.z, 3, 0.25, 0.25, 0.25, 0.05);
+						}
 					}
-					super.tick();
 				}
+				else if (this.animationTicks >= 0)
+				{
+					this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
+					this.beamTicks = -17;
+					this.animationTicks = -32;
+				}
+				super.tick();
 			}
 		}
 	}
