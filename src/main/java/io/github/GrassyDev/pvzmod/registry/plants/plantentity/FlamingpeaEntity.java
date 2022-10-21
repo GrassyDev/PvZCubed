@@ -246,7 +246,7 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
     @Override
     public void registerControllers(AnimationData data)
     {
-        AnimationController controller = new AnimationController(this, controllerName, 15, this::predicate);
+        AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
 
         data.addAnimationController(controller);
     }

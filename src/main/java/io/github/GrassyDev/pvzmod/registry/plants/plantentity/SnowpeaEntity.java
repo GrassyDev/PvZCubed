@@ -246,7 +246,7 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
     @Override
     public void registerControllers(AnimationData data)
     {
-        AnimationController controller = new AnimationController(this, controllerName, 15, this::predicate);
+        AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
 
         data.addAnimationController(controller);
     }

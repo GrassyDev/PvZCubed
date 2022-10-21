@@ -217,7 +217,7 @@ public void updatePassengerPosition(Entity passenger) {
 @Override
 public void registerControllers(AnimationData data)
 {
-    AnimationController controller = new AnimationController(this, controllerName, 10, this::predicate);
+    AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
 
     data.addAnimationController(controller);
 }

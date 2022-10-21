@@ -58,6 +58,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	private String controllerName = "puffcontroller";
 	public boolean isAsleep;
 	public boolean isTired;
+
 	public int healingTime;
 	public boolean isFiring;
 

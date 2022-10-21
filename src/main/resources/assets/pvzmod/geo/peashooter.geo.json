@@ -73,6 +73,14 @@
 					]
 				},
 				{
+					"name": "Pea",
+					"parent": "stem",
+					"pivot": [0, 0.3, 0],
+					"cubes": [
+						{"origin": [-1, 0.3, -1], "size": [2, 2, 2], "uv": [0, 5]}
+					]
+				},
+				{
 					"name": "head",
 					"pivot": [0, 0, 0],
 					"cubes": [

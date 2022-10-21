@@ -4,7 +4,6 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,7 +18,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
@@ -39,6 +37,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
 
@@ -56,6 +55,10 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
     private String controllerName = "peacontroller";
     public int healingTime;
 
+	public boolean isFiring;
+
+	public int animationTicks;
+
     public PeashooterEntity(EntityType<? extends PeashooterEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
@@ -63,7 +66,12 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
     }
 
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.idle", true));
+		if (this.isFiring) {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.shoot", false));
+		}
+		else {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.idle", true));
+		}
         return PlayState.CONTINUE;
     }
 
@@ -186,7 +194,8 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
     }
 
     protected void initGoals() {
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(30) + 25, 15.0F));
+		this.goalSelector.add(1, new PeashooterEntity.FireBeamGoal(this));
+        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
         this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
@@ -213,20 +222,15 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
-		if (!this.isInsideWaterOrBubbleColumn()) {
-			ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.world);
-			double d = this.squaredDistanceTo(target);
-			float df = (float)d;
-			double e = target.getX() - this.getX();
-			double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
-			double g = target.getZ() - this.getZ();
-			float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-			proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
-			proj.updatePosition(this.getX(), this.getY() + 1D, this.getZ());
-			if (target.isAlive()) {
-				this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-				this.world.spawnEntity(proj);
-			}
+
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 11) {
+			this.isFiring = true;
+		} else if (status == 10) {
+			this.isFiring = false;
 		}
 	}
 
@@ -249,7 +253,7 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
     @Override
     public void registerControllers(AnimationData data)
     {
-        AnimationController controller = new AnimationController(this, controllerName, 15, this::predicate);
+        AnimationController controller = new AnimationController(this, controllerName, 1, this::predicate);
 
         data.addAnimationController(controller);
     }
@@ -284,6 +288,75 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
         return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
     }
 
-    static {
-    }
+	static class FireBeamGoal extends Goal {
+		private final PeashooterEntity peashooterEntity;
+		private int beamTicks;
+		private int animationTicks;
+
+		public FireBeamGoal(PeashooterEntity peashooterEntity) {
+			this.peashooterEntity = peashooterEntity;
+			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+		}
+
+		public boolean canStart() {
+			LivingEntity livingEntity = this.peashooterEntity.getTarget();
+			return livingEntity != null && livingEntity.isAlive();
+		}
+
+		public boolean shouldContinue() {
+			return super.shouldContinue();
+		}
+
+		public void start() {
+			this.beamTicks = -7;
+			this.animationTicks = -16;
+			this.peashooterEntity.getNavigation().stop();
+			this.peashooterEntity.getLookControl().lookAt(this.peashooterEntity.getTarget(), 90.0F, 90.0F);
+			this.peashooterEntity.velocityDirty = true;
+		}
+
+		public void stop() {
+			this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 10);
+			this.peashooterEntity.setTarget((LivingEntity)null);
+		}
+
+		public void tick() {
+			LivingEntity livingEntity = this.peashooterEntity.getTarget();
+			this.peashooterEntity.getNavigation().stop();
+			this.peashooterEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if (!this.peashooterEntity.canSee(livingEntity)) {
+				this.peashooterEntity.setTarget((LivingEntity) null);
+			} else {
+				this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
+				++this.beamTicks;
+				++this.animationTicks;
+				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
+					if (!this.peashooterEntity.isInsideWaterOrBubbleColumn()) {
+						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peashooterEntity.world);
+						double d = this.peashooterEntity.squaredDistanceTo(livingEntity);
+						float df = (float)d;
+						double e = livingEntity.getX() - this.peashooterEntity.getX();
+						double f = livingEntity.getBodyY(0.5D) - this.peashooterEntity.getBodyY(0.5D);
+						double g = livingEntity.getZ() - this.peashooterEntity.getZ();
+						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+						proj.updatePosition(this.peashooterEntity.getX(), this.peashooterEntity.getY() + 0.75D, this.peashooterEntity.getZ());
+						if (livingEntity.isAlive()) {
+							this.beamTicks = -7;
+							this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
+							this.peashooterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.peashooterEntity.world.spawnEntity(proj);
+						}
+					}
+				}
+				else if (this.animationTicks >= 0)
+				{
+					this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 10);
+					this.beamTicks = -7;
+					this.animationTicks = -16;
+				}
+				super.tick();
+			}
+		}
+	}
 }
