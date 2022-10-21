@@ -333,7 +333,7 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.snowpeaEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(PvZEntity.PEA, this.snowpeaEntity.world);
+						ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(PvZEntity.SNOWPEAPROJ, this.snowpeaEntity.world);
 						double d = this.snowpeaEntity.squaredDistanceTo(livingEntity);
 						float df = (float)d;
 						double e = livingEntity.getX() - this.snowpeaEntity.getX();

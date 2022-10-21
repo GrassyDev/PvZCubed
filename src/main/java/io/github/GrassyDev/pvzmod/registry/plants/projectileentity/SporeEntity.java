@@ -24,12 +24,38 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.UUID;
 
-public class SporeEntity extends ThrownItemEntity {
+public class SporeEntity extends ThrownItemEntity implements IAnimatable {
 
-    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "spore");
+	private String controllerName = "projectilecontroller";
+	public AnimationFactory factory = new AnimationFactory(this);
+
+	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "spore");
+	@Override
+	public void registerControllers(AnimationData animationData) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		animationData.addAnimationController(controller);
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		event.getController().setAnimation(new AnimationBuilder().addAnimation("fume.idle", true));
+		return PlayState.CONTINUE;
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
 
     public SporeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
@@ -59,6 +85,14 @@ public class SporeEntity extends ThrownItemEntity {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
+
+		double d = (double)(180 & 255) / 255.0;
+		double e = (double)(30 & 255) / 255.0;
+		double f = (double)(200 & 255) / 255.0;
+
+		for(int i = 0; i < 6; ++i) {
+			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d, e, f);
+		}
     }
 
     @Override
@@ -73,7 +107,7 @@ public class SporeEntity extends ThrownItemEntity {
                 (entity instanceof ScreendoorEntity) ||
                 (entity instanceof BerserkerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.25F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);
@@ -83,7 +117,7 @@ public class SporeEntity extends ThrownItemEntity {
                 (entity instanceof FootballEntity) ||
                 (entity instanceof BackupDancerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.CONEHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.CONEHITEVENT, 0.25F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);
@@ -92,7 +126,7 @@ public class SporeEntity extends ThrownItemEntity {
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.PEAHITEVENT, 0.25F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);
@@ -101,23 +135,18 @@ public class SporeEntity extends ThrownItemEntity {
     }
 
     @Environment(EnvType.CLIENT)
-    private ParticleEffect getParticleParameters() {
-        ItemStack itemStack = this.getItem();
-        return (ParticleEffect)(itemStack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
-    }
-
-
-    @Environment(EnvType.CLIENT)
     public void handleStatus(byte status) {
         if (status == 3) {
-            ParticleEffect particleEffect = this.getParticleParameters();
+			double d = (double)(180 & 255) / 255.0;
+			double e = (double)(30 & 255) / 255.0;
+			double f = (double)(200 & 255) / 255.0;
 
-            for(int i = 0; i < 8; ++i) {
-                this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
-            }
-        }
+			for(int j = 0; j < 8; ++j) {
+				this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d, e, f);
+			}
+		}
+	}
 
-    }
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
         if (!this.world.isClient) {

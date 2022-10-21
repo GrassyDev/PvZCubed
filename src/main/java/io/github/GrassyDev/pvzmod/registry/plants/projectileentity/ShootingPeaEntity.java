@@ -97,7 +97,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
                 (entity instanceof ScreendoorEntity) ||
                 (entity instanceof BerserkerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.25F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
@@ -106,7 +106,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
                 (entity instanceof FootballEntity) ||
                 (entity instanceof BackupDancerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.CONEHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.CONEHITEVENT, 0.25F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
@@ -114,7 +114,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.PEAHITEVENT, 0.25F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);

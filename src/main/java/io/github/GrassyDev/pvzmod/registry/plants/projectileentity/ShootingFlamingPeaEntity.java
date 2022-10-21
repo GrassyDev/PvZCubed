@@ -69,7 +69,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity {
         if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
             this.world.sendEntityStatus(this, (byte) 3);
 

@@ -6,7 +6,7 @@
 				"identifier": "geometry.CubeEntity",
 				"texture_width": 64,
 				"texture_height": 64,
-				"visible_bounds_width": 3,
+				"visible_bounds_width": 2,
 				"visible_bounds_height": 2.5,
 				"visible_bounds_offset": [0, 0.75, 0]
 			},
@@ -70,6 +70,14 @@
 					"pivot": [0.7, 4.3, 0],
 					"cubes": [
 						{"origin": [0.8, 4, -0.5], "size": [1, 4, 1], "pivot": [0, 0.3, 0], "rotation": [0, 0, -10], "uv": [4, 5]}
+					]
+				},
+				{
+					"name": "Pea",
+					"parent": "stem",
+					"pivot": [0, 0.3, 0],
+					"cubes": [
+						{"origin": [-1, 0.3, -1], "size": [2, 2, 2], "uv": [46, 29]}
 					]
 				},
 				{

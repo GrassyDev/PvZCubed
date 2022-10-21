@@ -234,7 +234,7 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
     }
 
     public int getWarmupTime() {
-        return 60;
+        return 10;
     }
 
     private void setBeamTarget(int entityId) {

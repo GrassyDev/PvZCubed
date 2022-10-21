@@ -25,10 +25,37 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.UUID;
 
-public class ShootingSnowPeaEntity extends ThrownItemEntity {
+public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatable {
+
+	private String controllerName = "projectilecontroller";
+	public AnimationFactory factory = new AnimationFactory(this);
+
+	@Override
+	public void registerControllers(AnimationData animationData) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		animationData.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		event.getController().setAnimation(new AnimationBuilder().addAnimation("peashot.idle", true));
+		return PlayState.CONTINUE;
+	}
 
     public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "snowpeaproj");
 
@@ -50,17 +77,35 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity {
     }
 
     public void tick() {
-        super.tick();
-        if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
+		super.tick();
+		if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
+			this.world.sendEntityStatus(this, (byte) 3);
+			this.remove(RemovalReason.DISCARDED);
+		}
 
-        if (!this.world.isClient && this.age == 7) {
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
-    }
+		if (!this.world.isClient && this.age == 7) {
+			this.world.sendEntityStatus(this, (byte) 3);
+			this.remove(RemovalReason.DISCARDED);
+		}
+
+		double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+
+		double d2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double e2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double f2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+
+		double d3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double e3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double f3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+
+		for (int j = 0; j < 2; ++j) {
+			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
+			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d2, e2, f2);
+			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d3, e3, f3);
+		}
+	}
 
     @Override
     protected Item getDefaultItem() {
@@ -90,7 +135,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity {
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1))); // applies a status effect
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WEAKNESS, 60, 0))); // applies a status effect
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.125F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);

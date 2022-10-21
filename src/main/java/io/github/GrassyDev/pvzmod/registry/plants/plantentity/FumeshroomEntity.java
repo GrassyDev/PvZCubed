@@ -401,13 +401,6 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 						this.beamTicks = -2;
 						this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
 						this.fumeshroomEntity.world.spawnEntity(proj);
-						Vec3d vec3d = fumeshroomEntity.getPos().add(0.0, 0.500000023841858, 0.0);
-						Vec3d vec3d2 = livingEntity.getEyePos().subtract(vec3d);
-						Vec3d vec3d3 = vec3d2.normalize();
-						for (int i = 1; i < MathHelper.floor(vec3d2.length()) + 3; ++i) {
-							Vec3d vec3d4 = vec3d.add(vec3d3.multiply((double) i));
-							serverWorld.spawnParticles(ParticleTypes.BUBBLE, vec3d4.x, vec3d4.y - 0.5, vec3d4.z, 3, 0.25, 0.25, 0.25, 0.05);
-						}
 					}
 				}
 				if (this.animationTicks >= 0) {

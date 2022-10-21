@@ -10,36 +10,15 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import software.bernie.geckolib3.renderers.geo.GeoProjectilesRenderer;
 
-public class SporeEntityRenderer extends EntityRenderer<SporeEntity> {
+public class SporeEntityRenderer extends GeoProjectilesRenderer {
 
-    public static ItemStack STACK = new ItemStack(ModItems.SPORE);
-
-    public SporeEntityRenderer(EntityRendererFactory.Context ctx) {
-		super(ctx);
+	public SporeEntityRenderer(EntityRendererFactory.Context ctx) {
+		super(ctx, new SporeEntityModel());
+		this.shadowRadius = 0.3F; //change 0.7 to the desired shadow size.
+		this.widthScale = 0.25F;
+		this.heightScale = 0.25F;
 	}
 
-    public void render(SporeEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int seed) {
-
-		matrices.push();
-
-		MinecraftClient.getInstance().getItemRenderer().renderItem(
-				STACK,
-				ModelTransformation.Mode.FIXED,
-				light,
-				OverlayTexture.DEFAULT_UV,
-				matrices,
-				vertexConsumers,
-				seed
-		);
-
-        matrices.pop();
-        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
-
-    }
-
-    @Override
-    public Identifier getTexture(SporeEntity entity) {
-        return null;
-    }
 }

@@ -3,22 +3,22 @@ package io.github.GrassyDev.pvzmod.registry.plants.projectileentity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class FumeEntityModel extends AnimatedGeoModel<FumeEntity> {
+public class SporeEntityModel extends AnimatedGeoModel<SporeEntity> {
 
     @Override
-    public Identifier getModelResource(FumeEntity object)
+    public Identifier getModelResource(SporeEntity object)
     {
-        return new Identifier("pvzmod", "geo/blank.geo.json");
+        return new Identifier("pvzmod", "geo/fume.geo.json");
     }
 
     @Override
-    public Identifier getTextureResource(FumeEntity object)
+    public Identifier getTextureResource(SporeEntity object)
     {
         return new Identifier("pvzmod", "textures/entity/projectiles/fume.png");
     }
 
     @Override
-    public Identifier getAnimationResource(FumeEntity object)
+    public Identifier getAnimationResource(SporeEntity object)
     {
         return new Identifier ("pvzmod", "animations/peashot.json");
     }
