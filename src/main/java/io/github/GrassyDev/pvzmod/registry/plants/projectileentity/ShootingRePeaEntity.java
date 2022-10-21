@@ -71,7 +71,7 @@ public class ShootingRePeaEntity extends ThrownItemEntity {
                 (entity instanceof ScreendoorEntity) ||
                 (entity instanceof BerserkerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.REPEABUCKETHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.REPEABUCKETHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
@@ -80,7 +80,7 @@ public class ShootingRePeaEntity extends ThrownItemEntity {
                 (entity instanceof FootballEntity) ||
                 (entity instanceof BackupDancerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.REPEACONEHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.REPEACONEHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
@@ -88,7 +88,7 @@ public class ShootingRePeaEntity extends ThrownItemEntity {
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.REPEAHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.REPEAHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);

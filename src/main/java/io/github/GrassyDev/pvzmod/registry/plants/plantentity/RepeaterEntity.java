@@ -5,7 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingRePeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -20,16 +19,12 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
@@ -335,7 +330,8 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
 			LivingEntity livingEntity = this.repeaterEntity.getTarget();
 			this.repeaterEntity.getNavigation().stop();
 			this.repeaterEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if (!this.repeaterEntity.canSee(livingEntity)) {
+			if ((!this.repeaterEntity.canSee(livingEntity)) &&
+					this.animationTicks >= 0) {
 				this.repeaterEntity.setTarget((LivingEntity) null);
 			} else {
 				this.repeaterEntity.world.sendEntityStatus(this.repeaterEntity, (byte) 11);

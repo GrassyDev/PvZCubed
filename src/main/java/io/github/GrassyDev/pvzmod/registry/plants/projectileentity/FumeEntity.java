@@ -24,12 +24,38 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.UUID;
 
-public class FumeEntity extends ThrownItemEntity {
+public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 
-    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "fume");
+	private String controllerName = "projectilecontroller";
+	public AnimationFactory factory = new AnimationFactory(this);
+
+	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "fume");
+	@Override
+	public void registerControllers(AnimationData animationData) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		animationData.addAnimationController(controller);
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		event.getController().setAnimation(new AnimationBuilder().addAnimation("fume.idle", true));
+		return PlayState.CONTINUE;
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
 
     public FumeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
@@ -71,21 +97,21 @@ public class FumeEntity extends ThrownItemEntity {
         Entity entity = entityHitResult.getEntity();
         if (entity instanceof ScreendoorEntity) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.7F, 1F);
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.5F, 1F);
+            entity.playSound(PvZCubed.PEAHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 106);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
         else if (entity instanceof NewspaperEntity) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.PEAHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 19);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
         else if ((entity instanceof BucketheadEntity) ||
                 (entity instanceof BerserkerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
@@ -93,14 +119,14 @@ public class FumeEntity extends ThrownItemEntity {
                 (entity instanceof FootballEntity) ||
                 (entity instanceof BackupDancerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.CONEHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.CONEHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.PEAHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
@@ -135,4 +161,5 @@ public class FumeEntity extends ThrownItemEntity {
     public boolean collides() {
         return false;
     }
+
 }

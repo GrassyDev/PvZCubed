@@ -71,11 +71,9 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isTired) {
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.asleep", true));
-		}
-		else if (this.isFiring) {
+		} else if (this.isFiring) {
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.attack", false));
-		}
-		else {
+		} else {
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.idle", true));
 		}
 		return PlayState.CONTINUE;
@@ -249,7 +247,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	//}
 
 	@Override
-	public void	attack(LivingEntity target, float pullProgress){
+	public void attack(LivingEntity target, float pullProgress) {
 
 	}
 
@@ -270,8 +268,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 		if (status == 13) {
 			this.isTired = true;
 			this.isFiring = false;
-		}
-		else if (status == 12) {
+		} else if (status == 12) {
 			this.isTired = false;
 		}
 		if (status == 11) {
@@ -375,7 +372,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
 		public void stop() {
 			this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
-			this.fumeshroomEntity.setTarget((LivingEntity)null);
+			this.fumeshroomEntity.setTarget((LivingEntity) null);
 		}
 
 		public void tick() {
@@ -383,37 +380,37 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
 			this.fumeshroomEntity.getNavigation().stop();
 			this.fumeshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if (!this.fumeshroomEntity.canSee(livingEntity) || this.fumeshroomEntity.isAsleep) {
+			if ((!this.fumeshroomEntity.canSee(livingEntity) || this.fumeshroomEntity.isAsleep) &&
+					this.animationTicks >= 0) {
 				this.fumeshroomEntity.setTarget((LivingEntity) null);
 			} else {
 				this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 11);
 				++this.beamTicks;
 				++this.animationTicks;
-				if (this.beamTicks >= this.fumeshroomEntity.getWarmupTime() && this.animationTicks <=0) {
+				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
 					double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
-					float df = (float)d;
+					float df = (float) d;
 					double e = livingEntity.getX() - this.fumeshroomEntity.getX();
 					double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
 					double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-					proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.85F, 0F);
-					proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 1D, this.fumeshroomEntity.getZ());
+					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
+					proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
 					if (livingEntity.isAlive()) {
-						this.beamTicks = -17;
+						this.beamTicks = -2;
 						this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
 						this.fumeshroomEntity.world.spawnEntity(proj);
 						Vec3d vec3d = fumeshroomEntity.getPos().add(0.0, 0.500000023841858, 0.0);
 						Vec3d vec3d2 = livingEntity.getEyePos().subtract(vec3d);
 						Vec3d vec3d3 = vec3d2.normalize();
-						for(int i = 1; i < MathHelper.floor(vec3d2.length()) + 3; ++i) {
-							Vec3d vec3d4 = vec3d.add(vec3d3.multiply((double)i));
+						for (int i = 1; i < MathHelper.floor(vec3d2.length()) + 3; ++i) {
+							Vec3d vec3d4 = vec3d.add(vec3d3.multiply((double) i));
 							serverWorld.spawnParticles(ParticleTypes.BUBBLE, vec3d4.x, vec3d4.y - 0.5, vec3d4.z, 3, 0.25, 0.25, 0.25, 0.05);
 						}
 					}
 				}
-				else if (this.animationTicks >= 0)
-				{
+				if (this.animationTicks >= 0) {
 					this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
 					this.beamTicks = -17;
 					this.animationTicks = -32;

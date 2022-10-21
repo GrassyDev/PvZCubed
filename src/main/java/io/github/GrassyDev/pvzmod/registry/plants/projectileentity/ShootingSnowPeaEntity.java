@@ -73,14 +73,14 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity {
         Entity entity = entityHitResult.getEntity();
         if (entity instanceof ScreendoorEntity) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
         else if (entity instanceof NewspaperEntity) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.PEAHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
@@ -90,7 +90,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity {
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1))); // applies a status effect
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WEAKNESS, 60, 0))); // applies a status effect
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.7F, 1F);
+            entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.5F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);

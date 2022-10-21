@@ -324,7 +324,8 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
 			LivingEntity livingEntity = this.peashooterEntity.getTarget();
 			this.peashooterEntity.getNavigation().stop();
 			this.peashooterEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if (!this.peashooterEntity.canSee(livingEntity)) {
+			if ((!this.peashooterEntity.canSee(livingEntity)) &&
+					this.animationTicks >= 0) {
 				this.peashooterEntity.setTarget((LivingEntity) null);
 			} else {
 				this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);

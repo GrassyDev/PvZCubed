@@ -10,6 +10,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
@@ -41,16 +42,20 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
 
 public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
+
     public AnimationFactory factory = new AnimationFactory(this);
-    private static final TrackedData<Byte> SNOW_GOLEM_FLAGS;
+
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
     private String controllerName = "snowpeacontroller";
-    public int shot;
+
     public int healingTime;
+
+	public boolean isFiring;
 
     public SnowpeaEntity(EntityType<? extends SnowpeaEntity> entityType, World world) {
         super(entityType, world);
@@ -58,10 +63,15 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
         this.healingTime = 6000;
     }
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.idle", true));
-        return PlayState.CONTINUE;
-    }
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		if (this.isFiring) {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.shoot", false));
+		}
+		else {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.idle", true));
+		}
+		return PlayState.CONTINUE;
+	}
 
     public void calculateDimensions() {
         double d = this.getX();
@@ -182,6 +192,7 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
     }
 
     protected void initGoals() {
+		this.goalSelector.add(1, new SnowpeaEntity.FireBeamGoal(this));
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(40) + 35, 15.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
         this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
@@ -200,7 +211,6 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
 
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(SNOW_GOLEM_FLAGS, (byte)16);
         this.dataTracker.startTracking(ATTACHED_BLOCK, Optional.empty());
     }
 
@@ -210,21 +220,6 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
 
     @Override
 	public void attack(LivingEntity target, float pullProgress) {
-		if (!this.isInsideWaterOrBubbleColumn()) {
-			ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(this.world, this);
-			double d = this.squaredDistanceTo(target);
-			float df = (float)d;
-			double e = target.getX() - this.getX();
-			double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
-			double g = target.getZ() - this.getZ();
-			float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-			proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
-			proj.updatePosition(this.getX(), this.getY() + 1D, this.getZ());
-			if (target.isAlive()) {
-				this.playSound(PvZCubed.SNOWPEASHOOTEVENT, 1F, 1);
-				this.world.spawnEntity(proj);
-			}
-		}
 	}
 
     public void tickMovement() {
@@ -282,6 +277,87 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
     }
 
     static {
-        SNOW_GOLEM_FLAGS = DataTracker.registerData(SnowpeaEntity.class, TrackedDataHandlerRegistry.BYTE);
     }
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 11) {
+			this.isFiring = true;
+		} else if (status == 10) {
+			this.isFiring = false;
+		}
+	}
+
+	static class FireBeamGoal extends Goal {
+		private final SnowpeaEntity snowpeaEntity;
+		private int beamTicks;
+		private int animationTicks;
+
+		public FireBeamGoal(SnowpeaEntity snowpeaEntity) {
+			this.snowpeaEntity = snowpeaEntity;
+			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+		}
+
+		public boolean canStart() {
+			LivingEntity livingEntity = this.snowpeaEntity.getTarget();
+			return livingEntity != null && livingEntity.isAlive();
+		}
+
+		public boolean shouldContinue() {
+			return super.shouldContinue();
+		}
+
+		public void start() {
+			this.beamTicks = -7;
+			this.animationTicks = -16;
+			this.snowpeaEntity.getNavigation().stop();
+			this.snowpeaEntity.getLookControl().lookAt(this.snowpeaEntity.getTarget(), 90.0F, 90.0F);
+			this.snowpeaEntity.velocityDirty = true;
+		}
+
+		public void stop() {
+			this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 10);
+			this.snowpeaEntity.setTarget((LivingEntity)null);
+		}
+
+		public void tick() {
+			LivingEntity livingEntity = this.snowpeaEntity.getTarget();
+			this.snowpeaEntity.getNavigation().stop();
+			this.snowpeaEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.snowpeaEntity.canSee(livingEntity)) &&
+					this.animationTicks >= 0) {
+				this.snowpeaEntity.setTarget((LivingEntity) null);
+			} else {
+				this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 11);
+				++this.beamTicks;
+				++this.animationTicks;
+				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
+					if (!this.snowpeaEntity.isInsideWaterOrBubbleColumn()) {
+						ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(PvZEntity.PEA, this.snowpeaEntity.world);
+						double d = this.snowpeaEntity.squaredDistanceTo(livingEntity);
+						float df = (float)d;
+						double e = livingEntity.getX() - this.snowpeaEntity.getX();
+						double f = livingEntity.getBodyY(0.5D) - this.snowpeaEntity.getBodyY(0.5D);
+						double g = livingEntity.getZ() - this.snowpeaEntity.getZ();
+						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+						proj.updatePosition(this.snowpeaEntity.getX(), this.snowpeaEntity.getY() + 0.75D, this.snowpeaEntity.getZ());
+						if (livingEntity.isAlive()) {
+							this.beamTicks = -7;
+							this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 11);
+							this.snowpeaEntity.playSound(PvZCubed.SNOWPEASHOOTEVENT, 1F, 1);
+							this.snowpeaEntity.world.spawnEntity(proj);
+						}
+					}
+				}
+				else if (this.animationTicks >= 0)
+				{
+					this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 10);
+					this.beamTicks = -7;
+					this.animationTicks = -16;
+				}
+				super.tick();
+			}
+		}
+	}
 }
