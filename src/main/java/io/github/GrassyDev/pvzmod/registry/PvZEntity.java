@@ -28,12 +28,6 @@ public class PvZEntity implements ModInitializer {
 
     public static final String ModID = "pvzmod"; // This is just so we can refer to our ModID easier.
 
-    /*
-     * Registers our Cube Entity under the ID "entitytesting:cube".
-     *
-     * The entity is registered under the SpawnGroup#CREATURE category, which is what most animals and passive/neutral mobs use.
-     * It has a hitbox size of .75x.75, or 12 "pixels" wide (3/4ths of a block).
-     */
     public static final EntityType<PeashooterEntity> PEASHOOTER = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "peashooter"),

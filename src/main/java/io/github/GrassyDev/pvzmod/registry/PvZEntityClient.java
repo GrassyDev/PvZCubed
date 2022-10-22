@@ -20,11 +20,7 @@ public class PvZEntityClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-		/*
-		 * Registers our Cube Entity's renderer, which provides a model and texture for the entity.
-		 *
-		 * Entity Renderers can also manipulate the model before it renders based on entity context (EndermanEntityRenderer#render).
-		 */
+
 		EntityRendererRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SUNFLOWER, SunflowerEntityRenderer::new);
