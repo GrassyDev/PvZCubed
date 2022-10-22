@@ -5,8 +5,9 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingFlamingPeaEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_G;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_T;
+import io.github.GrassyDev.pvzmod.registry.variants.plants.FumeshroomVariants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -20,24 +21,19 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.LightType;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -47,13 +43,14 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.sound.midi.Track;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
 
 public class FumeshroomEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
 	public AnimationFactory factory = new AnimationFactory(this);
-	private static final TrackedData<Byte> SNOW_GOLEM_FLAGS;
+
 	protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
 	private String controllerName = "puffcontroller";
 	public boolean isAsleep;
@@ -79,6 +76,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 		return PlayState.CONTINUE;
 	}
 
+
 	public void calculateDimensions() {
 		double d = this.getX();
 		double e = this.getY();
@@ -87,8 +85,23 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 		this.updatePosition(d, e, f);
 	}
 
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		//BlockCheck//
+		BlockPos blockPos = this.getAttachedBlock();
+		if (blockPos != null) {
+			tag.putInt("APX", blockPos.getX());
+			tag.putInt("APY", blockPos.getY());
+			tag.putInt("APZ", blockPos.getZ());
+		}
+		//Variant//
+		tag.putInt("Variant", this.getTypeVariant());
+	}
+
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
+		//BlockCheck//
 		if (tag.contains("APX")) {
 			int i = tag.getInt("APX");
 			int j = tag.getInt("APY");
@@ -97,16 +110,8 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 		} else {
 			this.dataTracker.set(ATTACHED_BLOCK, Optional.empty());
 		}
-	}
-
-	public void writeCustomDataToNbt(NbtCompound tag) {
-		super.writeCustomDataToNbt(tag);
-		BlockPos blockPos = this.getAttachedBlock();
-		if (blockPos != null) {
-			tag.putInt("APX", blockPos.getX());
-			tag.putInt("APY", blockPos.getY());
-			tag.putInt("APZ", blockPos.getZ());
-		}
+		//Variant//
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 	}
 
 	public void tick() {
@@ -215,8 +220,8 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
 	protected void initDataTracker() {
 		super.initDataTracker();
-		this.dataTracker.startTracking(SNOW_GOLEM_FLAGS, (byte) 16);
 		this.dataTracker.startTracking(ATTACHED_BLOCK, Optional.empty());
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 	}
 
 	public int getWarmupTime() {
@@ -340,7 +345,6 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	}
 
 	static {
-		SNOW_GOLEM_FLAGS = DataTracker.registerData(FumeshroomEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
 	static class FireBeamGoal extends Goal {
@@ -388,19 +392,59 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
-					double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
-					float df = (float) d;
-					double e = livingEntity.getX() - this.fumeshroomEntity.getX();
-					double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
-					double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
-					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
-					proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
-					if (livingEntity.isAlive()) {
-						this.beamTicks = -2;
-						this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
-						this.fumeshroomEntity.world.spawnEntity(proj);
+					/// DEFAULT VARIANT ///
+					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.DEFAULT))
+					{
+						FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
+						double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
+						float df = (float) d;
+						double e = livingEntity.getX() - this.fumeshroomEntity.getX();
+						double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
+						double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
+						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
+						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
+						if (livingEntity.isAlive()) {
+							this.beamTicks = -2;
+							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+							this.fumeshroomEntity.world.spawnEntity(proj);
+						}
+					}
+					/// GAY VARIANT ///
+					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.GAY))
+					{
+						FumeEntity_G proj = new FumeEntity_G(PvZEntity.FUME_G, this.fumeshroomEntity.world);
+						double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
+						float df = (float) d;
+						double e = livingEntity.getX() - this.fumeshroomEntity.getX();
+						double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
+						double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
+						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
+						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
+						if (livingEntity.isAlive()) {
+							this.beamTicks = -2;
+							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+							this.fumeshroomEntity.world.spawnEntity(proj);
+						}
+					}
+					/// TRANS VARIANT ///
+					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.TRANS))
+					{
+						FumeEntity_T proj = new FumeEntity_T(PvZEntity.FUME_T, this.fumeshroomEntity.world);
+						double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
+						float df = (float) d;
+						double e = livingEntity.getX() - this.fumeshroomEntity.getX();
+						double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
+						double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
+						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
+						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
+						if (livingEntity.isAlive()) {
+							this.beamTicks = -2;
+							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+							this.fumeshroomEntity.world.spawnEntity(proj);
+						}
 					}
 				}
 				if (this.animationTicks >= 0) {
@@ -412,4 +456,30 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 			}
 		}
 	}
+
+	//~*~//~VARIANTS~//~*~//
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(FumeshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		FumeshroomVariants variant = Util.getRandom(FumeshroomVariants.values(), this.random);
+		setVariant(variant);
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	public FumeshroomVariants getVariant() {
+		return FumeshroomVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	private void setVariant(FumeshroomVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
 }

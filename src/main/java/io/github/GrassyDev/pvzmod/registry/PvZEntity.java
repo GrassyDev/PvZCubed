@@ -8,6 +8,8 @@ import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_G;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_T;
 import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
@@ -187,6 +189,18 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "fume"),
 			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1.5f,.25f)).build()
+	);
+
+	public static final EntityType<FumeEntity_G> FUME_G = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "fume_g"),
+			QuiltEntityTypeBuilder.<FumeEntity_G>create(SpawnGroup.MISC, FumeEntity_G::new).setDimensions(EntityDimensions.fixed(1.5f,.25f)).build()
+	);
+
+	public static final EntityType<FumeEntity_T> FUME_T = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "fume_t"),
+			QuiltEntityTypeBuilder.<FumeEntity_T>create(SpawnGroup.MISC, FumeEntity_T::new).setDimensions(EntityDimensions.fixed(1.5f,.25f)).build()
 	);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////

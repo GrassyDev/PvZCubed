@@ -1,37 +1,23 @@
-package io.github.GrassyDev.pvzmod.registry.plants.projectileentity;
+package io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants;
 
-import com.google.common.collect.Maps;
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
@@ -43,10 +29,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Iterator;
 import java.util.UUID;
 
-public class FumeEntity extends ThrownItemEntity implements IAnimatable {
+public class FumeEntity_T extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
 	public AnimationFactory factory = new AnimationFactory(this);
@@ -69,17 +54,17 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 		return this.factory;
 	}
 
-    public FumeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+    public FumeEntity_T(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public FumeEntity(World world, LivingEntity owner) {
+    public FumeEntity_T(World world, LivingEntity owner) {
         super(EntityType.SNOWBALL, owner, world);
     }
 
     @Environment(EnvType.CLIENT)
-    public FumeEntity(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
-        super(PvZEntity.FUME, world);
+    public FumeEntity_T(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
+        super(PvZEntity.FUME_T, world);
 		updatePosition(x, y, z);
 		updateTrackedPositionAndAngles(x, y, z, yaw, pitch, interpolation, interpolate);
 		setId(id);
@@ -98,12 +83,20 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		double d = (double)(180 & 255) / 255.0;
-		double e = (double)(30 & 255) / 255.0;
-		double f = (double)(200 & 255) / 255.0;
+		// BLUE
+		double d = (double)(100 & 255) / 255.0;
+		double e = (double)(205 & 255) / 255.0;
+		double f = (double)(245 & 255) / 255.0;
+		// PINK
+		double d2 = (double)(230 & 255) / 255.0;
+		double e2 = (double)(115 & 255) / 255.0;
+		double f2 = (double)(215 & 255) / 255.0;
 
-		for(int j = 0; j < 8; ++j) {
+		for(int j = 0; j < 4; ++j) {
 			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d, e, f);
+			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d2, e2, f2);
+			// WHITE
+			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), 1, 1, 1);
 		}
 	}
 

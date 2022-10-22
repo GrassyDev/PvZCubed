@@ -4,6 +4,8 @@ import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.BasicGraveRende
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_G;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_T;
 import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import net.fabricmc.api.EnvType;
@@ -74,6 +76,10 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.SPORE, SporeEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FUME, FumeEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.FUME_G, FumeEntityRenderer_G::new);
+
+		EntityRendererRegistry.register(PvZEntity.FUME_T, FumeEntityRenderer_T::new);
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
