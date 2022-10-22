@@ -1,13 +1,16 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.SporeEntity;
+import io.github.GrassyDev.pvzmod.registry.variants.plants.ScaredyshroomVariants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -22,14 +25,12 @@ import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.LightType;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -40,30 +41,111 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.EnumSet;
-import java.util.Optional;
 import java.util.Random;
 
 public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
-    public AnimationFactory factory = new AnimationFactory(this);
-    private static final TrackedData<Byte> SNOW_GOLEM_FLAGS;
-    protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
-    private String controllerName = "scaredycontroller";
-    public boolean isAsleep;
-    public boolean isTired;
-    public int healingTime;
-    public boolean isAfraid;
-    public boolean isScared;
-    public int animationScare;
+
+	public AnimationFactory factory = new AnimationFactory(this);
+
+	private String controllerName = "scaredycontroller";
+
+	private int healingTime;
+
+	private boolean isTired;
+
+	private boolean isFiring;
+
+	private boolean isAfraid;
+
+	private int animationScare;
 
     public ScaredyshroomEntity(EntityType<? extends ScaredyshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.healingTime = 6000;
-        this.isScared = false;
         this.animationScare = 30;
     }
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putInt("Variant", this.getTypeVariant());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
+	}
+
+	static {
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 13) {
+			this.isTired = true;
+			this.isFiring = false;
+		}
+		else if (status == 12) {
+			this.isTired = false;
+		}
+		if (status == 4) {
+			this.isAfraid = true;
+		}
+		if (status == 5) {
+			this.isAfraid = false;
+			this.animationScare = 30;
+		}
+	}
+
+
+	//~*~//~VARIANTS~//~*~//
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(ScaredyshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		ScaredyshroomVariants variant = Util.getRandom(ScaredyshroomVariants.values(), this.random);
+		setVariant(variant);
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public ScaredyshroomVariants getVariant() {
+		return ScaredyshroomVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	private void setVariant(ScaredyshroomVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+
+	//~*~//~GECKOLIB ANIMATION~//~*~//
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (this.isTired) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.asleep", true));
         }
@@ -73,281 +155,229 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
         else if (this.isAfraid){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.hiding", false));
         }
+		else if (this.isFiring)
+		{
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.attack", true));
+		}
         else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.idle", true));
         }
         return PlayState.CONTINUE;
     }
 
-    public void calculateDimensions() {
-        double d = this.getX();
-        double e = this.getY();
-        double f = this.getZ();
-        super.calculateDimensions();
-        this.updatePosition(d, e, f);
-    }
 
-    public void readCustomDataFromNbt(NbtCompound tag) {
-        super.readCustomDataFromNbt(tag);
-        if (tag.contains("APX")) {
-            int i = tag.getInt("APX");
-            int j = tag.getInt("APY");
-            int k = tag.getInt("APZ");
-            this.dataTracker.set(ATTACHED_BLOCK, Optional.of(new BlockPos(i, j, k)));
-        } else {
-            this.dataTracker.set(ATTACHED_BLOCK, Optional.empty());
-        }
-    }
+	//~*~//~AI~//~*~//
 
-    public void writeCustomDataToNbt(NbtCompound tag) {
-        super.writeCustomDataToNbt(tag);
-        BlockPos blockPos = this.getAttachedBlock();
-        if (blockPos != null) {
-            tag.putInt("APX", blockPos.getX());
-            tag.putInt("APY", blockPos.getY());
-            tag.putInt("APZ", blockPos.getZ());
-        }
-    }
-
-    public void tick() {
-        BlockPos blockPos = (BlockPos)((Optional)this.dataTracker.get(ATTACHED_BLOCK)).orElse((Object)null);
-        if (blockPos == null && !this.world.isClient) {
-            blockPos = this.getBlockPos();
-            this.dataTracker.set(ATTACHED_BLOCK, Optional.of(blockPos));
-        }
-
-        if (blockPos != null) {
-            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
-        }
-
-        super.tick();
-    }
-
-    public void updatePosition(double x, double y, double z) {
-        super.updatePosition(x, y, z);
-        if (this.dataTracker != null && this.age != 0) {
-            Optional<BlockPos> optional = (Optional)this.dataTracker.get(ATTACHED_BLOCK);
-            Optional<BlockPos> optional2 = Optional.of(new BlockPos(x, y, z));
-            if (!optional2.equals(optional)) {
-                this.dataTracker.set(ATTACHED_BLOCK, optional2);
-                this.velocityDirty = true;
-            }
-
-        }
-    }
-
-    public void onTrackedDataSet(TrackedData<?> data) {
-        if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
-            BlockPos blockPos = this.getAttachedBlock();
-            if (blockPos != null) {
-				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
-            }
-        }
-
-        super.onTrackedDataSet(data);
-    }
-
-    @Nullable
-    public BlockPos getAttachedBlock() {
-        return (BlockPos)((Optional)this.dataTracker.get(ATTACHED_BLOCK)).orElse((Object)null);
-    }
-
-    static {
-        ATTACHED_BLOCK = DataTracker.registerData(ScaredyshroomEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
-    }
-
-    public void move(MovementType type, Vec3d movement) {
-        if (type == MovementType.SHULKER_BOX) {
-            this.damage(DamageSource.GENERIC, 9999);
-        } else {
-            super.move(type, movement);
-        }
-
-    }
-
-    public boolean collides() {
-        return true;
-    }
-
-    public boolean handleAttack(Entity attacker) {
-        if (attacker instanceof PlayerEntity) {
-            PlayerEntity playerEntity = (PlayerEntity)attacker;
-            return this.damage(DamageSource.player(playerEntity), 9999.0F);
-        } else {
-            return false;
-        }
-    }
-
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
-        if (fallDistance > 0F) {
-            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
-            this.damage(DamageSource.GENERIC, 9999);
-        }
-        this.playBlockFallSound();
-        return true;
-    }
-
-    protected boolean canClimb() {
-        return false;
-    }
-
-    public boolean isPushable() {
-        return false;
-    }
-
-    protected void pushAway(Entity entity) {
-    }
-
-    protected void initGoals() {
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(45) + 40, 30.0F));
-        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-            return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-                    !(livingEntity instanceof HypnoFlagzombieEntity);
-        }));
-    }
-
-    public static DefaultAttributeContainer.Builder createScaredyshroomAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 3.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 30.0D);
-    }
-
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(SNOW_GOLEM_FLAGS, (byte)16);
-        this.dataTracker.startTracking(ATTACHED_BLOCK, Optional.empty());
-    }
-
-    public boolean hurtByWater() {
-        return false;
-    }
+	protected void initGoals() {
+		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(45) + 40, 30.0F));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+					!(livingEntity instanceof HypnoFlagzombieEntity);
+		}));
+	}
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
-		double t = this.squaredDistanceTo(target);
-		if (!this.isAsleep && !this.isAfraid) {
-			if (t < 36) {
-				this.isScared = true;
+
+	}
+
+
+	//~*~//~POSITION~//~*~//
+
+	public void setPosition(double x, double y, double z) {
+		BlockPos blockPos = this.getBlockPos();
+		if (this.hasVehicle()) {
+			super.setPosition(x, y, z);
+		} else {
+			super.setPosition((double)MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
+		}
+
+		if (this.age != 0) {
+			BlockPos blockPos2 = this.getBlockPos();
+			if (!blockPos2.equals(blockPos)) {
+				this.kill();
 			}
-			else if (!this.isInsideWaterOrBubbleColumn()) {
-				this.isScared = false;
-				SporeEntity sporeEntity = new SporeEntity(this.world, this);
-				double d = target.getX() - this.getX();
-				double e = target.getBodyY(0.3333333333333333) - sporeEntity.getY();
-				double f = target.getZ() - this.getZ();
-				double g = Math.sqrt(d * d + f * f);
-				sporeEntity.setVelocity(d, e + g * 0.20000000298023224, f, 4.45F, 0);
-				sporeEntity.updatePosition(sporeEntity.getX(), this.getY() + 1D, sporeEntity.getZ());
-				if (target.isAlive()) {
-					this.playSound(PvZCubed.MUSHROOMSHOOTEVENT, 0.3F, 1);
-					this.world.spawnEntity(sporeEntity);
-				}
-			}
+
 		}
 	}
 
-    public void tickMovement() {
-        super.tickMovement();
-        if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-            this.heal(1.0F);
-            this.healingTime = 6000;
-        }
+	//~*~//~TICKING~//~*~//
 
-        if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-            this.damage(DamageSource.GENERIC, 9999);
-        }
+	public void tick() {
+		super.tick();
+		if (!this.isAiDisabled() && this.isAlive()) {
+			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+	}
 
-        if (this.animationScare > 0 && this.isAfraid) {
-            --this.animationScare;
-        }
+	public void tickMovement() {
+		super.tickMovement();
+		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.heal(1.0F);
+			this.healingTime = 6000;
+		}
+
+		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.damage(DamageSource.GENERIC, 9999);
+		}
+
+		if (this.animationScare > 0 && this.isAfraid) {
+			--this.animationScare;
+		}
+	}
+
+
+	//~*~//~ATTRIBUTES~//~*~//
+
+	public static DefaultAttributeContainer.Builder createScaredyshroomAttributes() {
+		return MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 3.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 30.0D);
+	}
+
+	protected boolean canClimb() {
+		return false;
+	}
+
+	public boolean collides() {
+        return true;
     }
 
-    @Environment(EnvType.CLIENT)
-    public void handleStatus(byte status) {
-        if (status == 13) {
-            this.isTired = true;
-        }
-        else if (status == 12) {
-            this.isTired = false;
-        }
-        if (status == 4) {
-            this.isAfraid = true;
-        }
-        if (status == 5) {
-            this.isAfraid = false;
-            this.animationScare = 30;
-        }
-    }
+	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+		return 0.5F;
+	}
 
-    protected void mobTick() {
-        float f = this.getLightLevelDependentValue();
-        if (f > 0.5f) {
-            this.isAsleep = true;
-            this.world.sendEntityStatus(this, (byte) 13);
-        }
-        else {
-            this.isAsleep = false;
-            this.world.sendEntityStatus(this, (byte) 12);
-        }
-        if (this.isScared) {
-            this.world.sendEntityStatus(this, (byte) 4);
-        }
-        else {
-            this.world.sendEntityStatus(this, (byte) 5);
-        }
-        super.mobTick();
-    }
+	@Nullable
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
 
-    protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-        return 0.5F;
-    }
+	@Nullable
+	protected SoundEvent getDeathSound() {
+		return PvZCubed.PLANTPLANTEDEVENT;
+	}
 
-    @Override
-    public void registerControllers(AnimationData data)
-    {
-        AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+	public boolean hurtByWater() {
+		return false;
+	}
 
-        data.addAnimationController(controller);
-    }
+	public boolean isPushable() {
+		return false;
+	}
 
-    @Override
-    public AnimationFactory getFactory()
-    {
-        return this.factory;
-    }
+	protected void pushAway(Entity entity) {
+	}
 
-    @Nullable
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return PvZCubed.ZOMBIEBITEEVENT;
-    }
 
-    @Nullable
-    protected SoundEvent getDeathSound() {
-        return PvZCubed.PLANTPLANTEDEVENT;
-    }
+	//~*~//~DAMAGE HANDLER~//~*~//
 
-    @Environment(EnvType.CLIENT)
-    public Vec3d method_29919() {
-        return new Vec3d(0.0D, (double)(0.75F * this.getStandingEyeHeight()), (double)(this.getWidth() * 0.4F));
-    }
+	public boolean handleAttack(Entity attacker) {
+		if (attacker instanceof PlayerEntity) {
+			PlayerEntity playerEntity = (PlayerEntity) attacker;
+			return this.damage(DamageSource.player(playerEntity), 9999.0F);
+		} else {
+			return false;
+		}
+	}
 
-    public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
-        if (serverWorldAccess.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
-            return false;
-        } else {
-            int i = serverWorldAccess.toServerWorld().isThundering() ? serverWorldAccess.getLightLevel(pos, 10) : serverWorldAccess.getLightLevel(pos);
-            return i <= random.nextInt(11);
-        }
-    }
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+		if (fallDistance > 0F) {
+			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.damage(DamageSource.GENERIC, 9999);
+		}
+		this.playBlockFallSound();
+		return true;
+	}
 
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 
-    static {
-        SNOW_GOLEM_FLAGS = DataTracker.registerData(ScaredyshroomEntity.class, TrackedDataHandlerRegistry.BYTE);
-    }
+	//~*~//~SPAWNING~//~*~//
+
+
+	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
+		if (serverWorldAccess.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
+			return false;
+		} else {
+			int i = serverWorldAccess.toServerWorld().isThundering() ? serverWorldAccess.getLightLevel(pos, 10) : serverWorldAccess.getLightLevel(pos);
+			return i <= random.nextInt(11);
+		}
+	}
+
+	public static boolean canFumeshroomSpawn(EntityType<FumeshroomEntity> entity, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+		return pos.getY() > 1 && isSpawnDark(serverWorldAccess, pos, random);
+	}
+
+	static class FireBeamGoal extends Goal {
+		private final ScaredyshroomEntity scaredyshroomEntity;
+		private int beamTicks;
+		private int animationTicks;
+
+		public FireBeamGoal(ScaredyshroomEntity scaredyshroomEntity) {
+			this.scaredyshroomEntity = scaredyshroomEntity;
+			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+		}
+
+		public boolean canStart() {
+			LivingEntity livingEntity = this.scaredyshroomEntity.getTarget();
+			return livingEntity != null && livingEntity.isAlive() && !this.scaredyshroomEntity.isTired;
+		}
+
+		public boolean shouldContinue() {
+			return super.shouldContinue();
+		}
+
+		public void start() {
+			this.beamTicks = -7;
+			this.animationTicks = -16;
+			this.scaredyshroomEntity.getNavigation().stop();
+			this.scaredyshroomEntity.getLookControl().lookAt(this.scaredyshroomEntity.getTarget(), 90.0F, 90.0F);
+			this.scaredyshroomEntity.velocityDirty = true;
+		}
+
+		public void stop() {
+			this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 10);
+			this.scaredyshroomEntity.setTarget((LivingEntity)null);
+		}
+
+		public void tick() {
+			LivingEntity livingEntity = this.scaredyshroomEntity.getTarget();
+			this.scaredyshroomEntity.getNavigation().stop();
+			this.scaredyshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.scaredyshroomEntity.canSee(livingEntity)) &&
+					this.animationTicks >= 0) {
+				this.scaredyshroomEntity.setTarget((LivingEntity) null);
+			} else {
+				this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
+				++this.beamTicks;
+				++this.animationTicks;
+				if (this.beamTicks >= 0 && this.animationTicks <= -7 && !this.scaredyshroomEntity.isAfraid) {
+					if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
+						SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
+						double d = this.scaredyshroomEntity.squaredDistanceTo(livingEntity);
+						float df = (float)d;
+						double e = livingEntity.getX() - this.scaredyshroomEntity.getX();
+						double f = livingEntity.getBodyY(0.5D) - this.scaredyshroomEntity.getBodyY(0.5D);
+						double g = livingEntity.getZ() - this.scaredyshroomEntity.getZ();
+						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+						proj.updatePosition(this.scaredyshroomEntity.getX(), this.scaredyshroomEntity.getY() + 0.75D, this.scaredyshroomEntity.getZ());
+						if (livingEntity.isAlive()) {
+							this.beamTicks = -7;
+							this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
+							this.scaredyshroomEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.scaredyshroomEntity.world.spawnEntity(proj);
+						}
+					}
+				}
+				else if (this.animationTicks >= 0)
+				{
+					this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 10);
+					this.beamTicks = -7;
+					this.animationTicks = -16;
+				}
+				super.tick();
+			}
+		}
+	}
 }

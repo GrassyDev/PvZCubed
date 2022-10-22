@@ -234,7 +234,7 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
     }
 
     public int getWarmupTime() {
-        return 10;
+        return 20;
     }
 
     private void setBeamTarget(int entityId) {
@@ -302,7 +302,10 @@ public class HypnoshroomEntity extends GolemEntity implements IAnimatable, Range
 
                 while(j < h) {
                     j += 1.8D - d + this.random.nextDouble() * (1.7D - d);
-                    this.world.addParticle(ParticleTypes.DRAGON_BREATH, this.getX() + e * j, this.getEyeY() + f * j, this.getZ() + g * j, 0.0D, 0.0D, 0.0D);
+					double rd = (double)(this.random.range(160, 255) & 255) / 255.0;
+					double gr = (double) (170 & 255) / 255.0;
+					double bl = (double)(this.random.range(200, 255) & 255) / 255.0;
+					this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + e * j, this.getEyeY() + f * j, this.getZ() + g * j, rd, gr, bl);
                 }
             }
         }

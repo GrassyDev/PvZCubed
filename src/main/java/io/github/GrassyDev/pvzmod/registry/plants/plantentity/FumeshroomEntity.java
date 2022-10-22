@@ -60,11 +60,11 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
 	private boolean isFiring;
 
+
 	public FumeshroomEntity(EntityType<? extends FumeshroomEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
 		this.healingTime = 6000;
-		this.calculateDimensions();
 	}
 
 	protected void initDataTracker() {
@@ -75,13 +75,11 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 	@Override
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
-		//Variant//
 		tag.putInt("Variant", this.getTypeVariant());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
-		//Variant//
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 	}
 

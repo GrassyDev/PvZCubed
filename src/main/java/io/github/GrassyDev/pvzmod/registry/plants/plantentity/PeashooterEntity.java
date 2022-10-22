@@ -57,8 +57,6 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
 
 	public boolean isFiring;
 
-	public int animationTicks;
-
     public PeashooterEntity(EntityType<? extends PeashooterEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;

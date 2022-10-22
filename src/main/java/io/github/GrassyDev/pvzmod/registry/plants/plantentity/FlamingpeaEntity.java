@@ -1,9 +1,11 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingFlamingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -213,17 +215,20 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
     @Override
     public void attack(LivingEntity target, float pullProgress) {
         if (!this.isInsideWaterOrBubbleColumn()) {
-            ShootingFlamingPeaEntity shootingFlamingPeaEntity = new ShootingFlamingPeaEntity(this.world, this);
-			double d = target.getX() - this.getX();
-			double e = target.getBodyY(0.3333333333333333) - shootingFlamingPeaEntity.getY();
-			double f = target.getZ() - this.getZ();
-			double g = Math.sqrt(d * d + f * f);
-            shootingFlamingPeaEntity.setVelocity(d, e + g * 0.20000000298023224, f, 2.2F, 0);
-            shootingFlamingPeaEntity.updatePosition(shootingFlamingPeaEntity.getX(), this.getY() + 1D, shootingFlamingPeaEntity.getZ());
-            if (target.isAlive()) {
-                this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-                this.world.spawnEntity(shootingFlamingPeaEntity);
-            }
+			ShootingFlamingPeaEntity proj = new ShootingFlamingPeaEntity(PvZEntity.FIREPEA, this.world);
+			double d = this.squaredDistanceTo(target);
+			float df = (float)d;
+			double e = target.getX() - this.getX();
+			double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
+			double g = target.getZ() - this.getZ();
+			float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+			proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+			proj.updatePosition(this.getX(), this.getY() + 0.75D, this.getZ());
+			if (target.isAlive()) {
+				this.world.sendEntityStatus(this, (byte) 11);
+				this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+				this.world.spawnEntity(proj);
+			}
         }
     }
 
