@@ -12,7 +12,7 @@ public class FlamingpeaEntityRenderer extends GeoEntityRenderer<FlamingpeaEntity
 
     public FlamingpeaEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx, new FlamingpeaEntityModel());
-        this.shadowRadius = 0.4F; //change 0.7 to the desired shadow size.
+        this.shadowRadius = 0.2F; //change 0.7 to the desired shadow size.
     }
 
 }

@@ -8,7 +8,7 @@ public class ShootingSnowPeaEntityModel extends AnimatedGeoModel<ShootingSnowPea
     @Override
     public Identifier getModelResource(ShootingSnowPeaEntity object)
     {
-        return new Identifier("pvzmod", "geo/peaice.geo.json");
+        return new Identifier("pvzmod", "geo/peashot.geo.json");
     }
 
     @Override

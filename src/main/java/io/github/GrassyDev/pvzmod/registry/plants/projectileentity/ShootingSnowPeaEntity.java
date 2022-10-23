@@ -132,8 +132,9 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
         }
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
-            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1))); // applies a status effect
-            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WEAKNESS, 60, 0))); // applies a status effect
+			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM)){
+				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+			}
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.125F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);

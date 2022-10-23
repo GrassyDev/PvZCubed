@@ -12,25 +12,36 @@ public class ModBlocks {
 
     public static final Block GRASS_TILE = new Block(QuiltBlockSettings
             .of(Material.SOIL)
+			.requiresTool(true)
             .sounds(BlockSoundGroup.GRASS)
             .strength(1f, 1200f));
 
 
     public static final Block DARK_GRASS_TILE = new Block(QuiltBlockSettings
             .of(Material.SOIL)
+			.requiresTool(true)
             .sounds(BlockSoundGroup.GRASS)
             .strength(1f, 1200f));
 
     public static final Block NIGHT_TILE = new Block(QuiltBlockSettings
             .of(Material.STONE)
+			.requiresTool(true)
             .sounds(BlockSoundGroup.STONE)
             .strength(1.9f, 1200f));
 
 
     public static final Block DARK_NIGHT_TILE = new Block(QuiltBlockSettings
             .of(Material.STONE)
+			.requiresTool(true)
             .sounds(BlockSoundGroup.STONE)
             .strength(1.9f, 1200f));
+
+
+	public static final Block PREMIUM_TILE = new Block(QuiltBlockSettings
+			.of(Material.AMETHYST)
+			.requiresTool(true)
+			.sounds(BlockSoundGroup.AMETHYST_BLOCK)
+			.strength(1.9f, 1200f));
 
     public static void registerBlocks(){
 
@@ -38,6 +49,7 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_grass_tile"), DARK_GRASS_TILE);
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"night_tile"), NIGHT_TILE);
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_night_tile"), DARK_NIGHT_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"premium_tile"), PREMIUM_TILE);
 
     }
 

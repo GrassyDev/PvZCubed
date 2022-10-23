@@ -4,6 +4,8 @@ import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.statuseffects.Frozen;
 import io.github.GrassyDev.pvzmod.registry.statuseffects.Hypnotized;
+import io.github.GrassyDev.pvzmod.registry.statuseffects.Ice;
+import io.github.GrassyDev.pvzmod.registry.statuseffects.Warm;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
@@ -24,7 +26,9 @@ public class PvZCubed implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Plants vs. Zombies Cubed");
 
 	public static final StatusEffect HYPNOTIZED = new Hypnotized();
+	public static final StatusEffect ICE = new Ice();
 	public static final StatusEffect FROZEN = new Frozen();
+	public static final StatusEffect WARM = new Warm();
 
 	public static final String MOD_ID = "pvzmod";
 
@@ -54,6 +58,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.ICESHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.DOOMSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.THREEPEATER_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
 				stacks.add(new ItemStack(ModItems.REPEA));
@@ -92,12 +97,13 @@ public class PvZCubed implements ModInitializer {
 
 	public static final ItemGroup PVZBLOCKS = FabricItemGroupBuilder.create(
 					new Identifier(MOD_ID, "blocks"))
-			.icon(() -> new ItemStack(ModItems.GRASS_TILE))
+			.icon(() -> new ItemStack(ModItems.PREMIUM_TILE))
 			.appendItems(stacks -> {
 				stacks.add(new ItemStack(ModItems.GRASS_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_GRASS_TILE));
 				stacks.add(new ItemStack(ModItems.NIGHT_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_NIGHT_TILE));
+				stacks.add(new ItemStack(ModItems.PREMIUM_TILE));
 			}).build();
 
 	public static final Identifier PEASHOOT = new Identifier("pvzmod:pea.shoot");
@@ -205,8 +211,10 @@ public class PvZCubed implements ModInitializer {
 		ModItems.registerItems();
 		ModBlocks.registerBlocks();
 		GeckoLib.initialize();
-		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "hypnotized"), HYPNOTIZED);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "ice"), ICE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "frozen"), FROZEN);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "hypnotized"), HYPNOTIZED);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "warm"), WARM);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEASHOOT, PEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEAHIT, PEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREPEAHIT, FIREPEAHITEVENT);

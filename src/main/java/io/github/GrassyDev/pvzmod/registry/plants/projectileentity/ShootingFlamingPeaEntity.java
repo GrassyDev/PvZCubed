@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
@@ -25,12 +26,39 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-public class ShootingFlamingPeaEntity extends ThrownItemEntity {
+public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnimatable {
+
+	private String controllerName = "projectilecontroller";
+	public AnimationFactory factory = new AnimationFactory(this);
+
+	@Override
+	public void registerControllers(AnimationData animationData) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		animationData.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable > PlayState predicate(AnimationEvent<P> event) {
+		event.getController().setAnimation(new AnimationBuilder().addAnimation("peashot.idle", true));
+		return PlayState.CONTINUE;
+	}
 
     public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "firepea");
 
@@ -62,6 +90,24 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
+
+		double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+
+		double d2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double e2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double f2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+
+		double d3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double e3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double f3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+
+		for (int j = 0; j < 2; ++j) {
+			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d, e, f);
+			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d2, e2, f2);
+			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d3, e3, f3);
+		}
     }
 
     @Override
@@ -70,50 +116,58 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity {
     }
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
-        Entity entity = entityHitResult.getEntity();
-        if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-                !(entity instanceof HypnoFlagzombieEntity)) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
-			if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-					!(entity instanceof HypnoFlagzombieEntity)) {
-				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
-				double d = 5.0;
-				Vec3d vec3d = this.getPos();
-				List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
-				Iterator var9 = list.iterator();
-				while(true) {
-					LivingEntity livingEntity;
-					if (!var9.hasNext()) {
-						return;
-					}
-
-					livingEntity = (LivingEntity)var9.next();
-
-					boolean bl = false;
-
-					for(int i = 0; i < 2; ++i) {
-						Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double)i), livingEntity.getZ());
-						HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-						if (hitResult.getType() == HitResult.Type.MISS) {
-							bl = true;
-							break;
+		super.onEntityHit(entityHitResult);
+		Entity entity = entityHitResult.getEntity();
+		if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+				!(entity instanceof HypnoFlagzombieEntity)) {
+			float sound = this.random.nextFloat();
+			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
+			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+			((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+			((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+			entity.setOnFireFor(4);
+			Vec3d vec3d = this.getPos();
+			List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
+			Iterator var9 = list.iterator();
+			while (true) {
+				LivingEntity livingEntity;
+				do {
+					do {
+						if (!var9.hasNext()) {
+							return;
 						}
-					}
 
-					if (bl) {
-						float g = (float)Math.sqrt((5.0 - (double)this.distanceTo(livingEntity)) / 5.0);
-						livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), g);
+						livingEntity = (LivingEntity) var9.next();
+					} while (livingEntity == this.getOwner());
+				} while (this.squaredDistanceTo(livingEntity) > 9);
+
+				boolean bl = false;
+
+				for (int i = 0; i < 2; ++i) {
+					Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+					HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+					if (hitResult.getType() == HitResult.Type.MISS) {
+						bl = true;
+						break;
 					}
 				}
+
+				if (bl) {
+					if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+							!(livingEntity instanceof HypnoFlagzombieEntity)) {
+						livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+						((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+						((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+						livingEntity.setOnFireFor(4);
+					}
+				}
+				this.world.sendEntityStatus(this, (byte) 3);
+				this.remove(RemovalReason.DISCARDED);
 			}
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
-    }
+		}
+	}
 
         @Environment(EnvType.CLIENT)
     private ParticleEffect getParticleParameters() {
@@ -127,8 +181,11 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity {
         if (status == 3) {
             ParticleEffect particleEffect = this.getParticleParameters();
 
-            for(int i = 0; i < 8; ++i) {
-                this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+            for(int i = 0; i < 6; ++i) {
+				double vx = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				double vy = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				double vz = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+                this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), vx, vy, vz);
             }
         }
 

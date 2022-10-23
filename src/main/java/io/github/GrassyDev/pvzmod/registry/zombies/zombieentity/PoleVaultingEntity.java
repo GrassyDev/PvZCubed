@@ -82,6 +82,7 @@ public class PoleVaultingEntity extends HostileEntity implements IAnimatable {
         this.targetSelector.add(1, new TargetGoal(this, PlayerEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal(this, GravebusterEntity.class, false, true));
         this.targetSelector.add(2, new TargetGoal(this, PeashooterEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal(this, FlamingpeaEntity.class, false, true));
         this.targetSelector.add(2, new TargetGoal(this, IceshroomEntity.class, false, true));
         this.targetSelector.add(2, new TargetGoal(this, DoomshroomEntity.class, false, true));
         this.targetSelector.add(2, new TargetGoal(this, ScaredyshroomEntity.class, false, true));

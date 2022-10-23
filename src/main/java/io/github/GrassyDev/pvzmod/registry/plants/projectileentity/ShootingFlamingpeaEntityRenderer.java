@@ -10,36 +10,12 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import software.bernie.geckolib3.renderers.geo.GeoProjectilesRenderer;
 
-public class ShootingFlamingpeaEntityRenderer extends EntityRenderer<ShootingFlamingPeaEntity> {
+public class ShootingFlamingpeaEntityRenderer extends GeoProjectilesRenderer {
 
-    public static ItemStack STACK = new ItemStack(ModItems.REPEA);
-
-    public ShootingFlamingpeaEntityRenderer(EntityRendererFactory.Context ctx) {
-		super(ctx);
+	public ShootingFlamingpeaEntityRenderer(EntityRendererFactory.Context ctx) {
+		super(ctx, new ShootingFlamingPeaEntityModel());
+		this.shadowRadius = 0.3F; //change 0.7 to the desired shadow size.
 	}
-
-    public void render(ShootingFlamingPeaEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int seed) {
-
-		matrices.push();
-
-		MinecraftClient.getInstance().getItemRenderer().renderItem(
-				STACK,
-				ModelTransformation.Mode.FIXED,
-				light,
-				OverlayTexture.DEFAULT_UV,
-				matrices,
-				vertexConsumers,
-				seed
-		);
-
-        matrices.pop();
-        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
-
-    }
-
-    @Override
-    public Identifier getTexture(ShootingFlamingPeaEntity entity) {
-        return null;
-    }
 }

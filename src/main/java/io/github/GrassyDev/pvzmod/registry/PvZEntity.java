@@ -13,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVar
 import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityDimensions;
