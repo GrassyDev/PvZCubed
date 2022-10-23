@@ -22,11 +22,11 @@ public class ScaredyshroomEntityRenderer extends GeoEntityRenderer<Scaredyshroom
 	public static final Map<ScaredyshroomVariants, Identifier> LOCATION_BY_VARIANT =
 			Util.make(Maps.newEnumMap(ScaredyshroomVariants.class), (map) -> {
 				map.put(ScaredyshroomVariants.DEFAULT,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/fumeshroom/fumeshroom.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/puffshroom/scaredyshroom.png"));
 				map.put(ScaredyshroomVariants.DEMIBOY,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/fumeshroom/fumeshroom_db.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/puffshroom/scaredyshroom_db.png"));
 				map.put(ScaredyshroomVariants.LINK,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/fumeshroom/fumeshroom_link.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/puffshroom/scaredyshroom_link.png"));
 			});
 
 	public Identifier getTextureResource(FumeshroomEntity object) {

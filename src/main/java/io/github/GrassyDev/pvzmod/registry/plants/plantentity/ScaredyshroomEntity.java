@@ -87,6 +87,14 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status == 14) {
+			this.isAfraid = false;
+			this.animationScare = 30;
+		}
+		if (status == 4) {
+			this.isAfraid = true;
+			this.isFiring = false;
+		}
 		if (status == 13) {
 			this.isTired = true;
 			this.isFiring = false;
@@ -94,12 +102,10 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 		else if (status == 12) {
 			this.isTired = false;
 		}
-		if (status == 4) {
-			this.isAfraid = true;
-		}
-		if (status == 5) {
-			this.isAfraid = false;
-			this.animationScare = 30;
+		if (status == 11) {
+			this.isFiring = true;
+		} else if (status == 10) {
+			this.isFiring = false;
 		}
 	}
 
@@ -146,22 +152,21 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (this.isTired) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.asleep", true));
-        }
-        else if (this.animationScare <= 0 && this.isAfraid){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.afraid", true));
-        }
-        else if (this.isAfraid){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.hiding", false));
-        }
-		else if (this.isFiring)
-		{
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.attack", true));
+		if (this.isTired) {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.asleep", true));
 		}
-        else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.idle", true));
-        }
+		else if (this.animationScare <= 0 && this.isAfraid){
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.afraid", true));
+		}
+		else if (this.isAfraid){
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.hiding", false));
+		}
+		else if (this.isFiring) {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.attack", false));
+		}
+		else {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.idle", true));
+		}
         return PlayState.CONTINUE;
     }
 
@@ -169,6 +174,7 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 	//~*~//~AI~//~*~//
 
 	protected void initGoals() {
+		this.goalSelector.add(1, new ScaredyshroomEntity.FireBeamGoal(this));
 		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(45) + 40, 30.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
@@ -224,6 +230,18 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 		if (this.animationScare > 0 && this.isAfraid) {
 			--this.animationScare;
 		}
+	}
+
+	protected void mobTick() {
+		float f = this.getLightLevelDependentValue();
+		if (f > 0.5f) {
+			this.isTired = true;
+			this.world.sendEntityStatus(this, (byte) 13);
+		} else {
+			this.isTired = false;
+			this.world.sendEntityStatus(this, (byte) 12);
+		}
+		super.mobTick();
 	}
 
 
@@ -308,6 +326,9 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 		return pos.getY() > 1 && isSpawnDark(serverWorldAccess, pos, random);
 	}
 
+
+	//~*~//~GOALS~//~*~//
+
 	static class FireBeamGoal extends Goal {
 		private final ScaredyshroomEntity scaredyshroomEntity;
 		private int beamTicks;
@@ -337,6 +358,7 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 
 		public void stop() {
 			this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 10);
+			this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
 			this.scaredyshroomEntity.setTarget((LivingEntity)null);
 		}
 
@@ -346,35 +368,44 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 			this.scaredyshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
 			if ((!this.scaredyshroomEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
+				this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
 				this.scaredyshroomEntity.setTarget((LivingEntity) null);
-			} else {
-				this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
-				++this.beamTicks;
-				++this.animationTicks;
-				if (this.beamTicks >= 0 && this.animationTicks <= -7 && !this.scaredyshroomEntity.isAfraid) {
-					if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
-						SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
-						double d = this.scaredyshroomEntity.squaredDistanceTo(livingEntity);
-						float df = (float)d;
-						double e = livingEntity.getX() - this.scaredyshroomEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.scaredyshroomEntity.getBodyY(0.5D);
-						double g = livingEntity.getZ() - this.scaredyshroomEntity.getZ();
-						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
-						proj.updatePosition(this.scaredyshroomEntity.getX(), this.scaredyshroomEntity.getY() + 0.75D, this.scaredyshroomEntity.getZ());
-						if (livingEntity.isAlive()) {
+			}
+			else {
+				if (!this.scaredyshroomEntity.isTired && !this.scaredyshroomEntity.isAfraid) {
+					this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
+					++this.animationTicks;
+					++this.beamTicks;
+					if (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) < 36) {
+						this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 4);
+					} else if (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) >= 36 && !this.scaredyshroomEntity.isAfraid)  {
+						if (this.beamTicks >= 0 && this.animationTicks >=-7) {
+							if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
+								this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
+								SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
+								double d = this.scaredyshroomEntity.squaredDistanceTo(livingEntity);
+								float df = (float) d;
+								double e = livingEntity.getX() - this.scaredyshroomEntity.getX();
+								double f = livingEntity.getBodyY(0.5D) - this.scaredyshroomEntity.getBodyY(0.5D);
+								double g = livingEntity.getZ() - this.scaredyshroomEntity.getZ();
+								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 3.5F, 0F);
+								proj.updatePosition(this.scaredyshroomEntity.getX(), this.scaredyshroomEntity.getY() + 0.75D, this.scaredyshroomEntity.getZ());
+								if (livingEntity.isAlive()) {
+									this.beamTicks = -13;
+									this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
+									this.scaredyshroomEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+									this.scaredyshroomEntity.world.spawnEntity(proj);
+								}
+							}
+						}
+						else if (this.animationTicks >= 0)
+						{
+							this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 10);
 							this.beamTicks = -7;
-							this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
-							this.scaredyshroomEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-							this.scaredyshroomEntity.world.spawnEntity(proj);
+							this.animationTicks = -16;
 						}
 					}
-				}
-				else if (this.animationTicks >= 0)
-				{
-					this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 10);
-					this.beamTicks = -7;
-					this.animationTicks = -16;
 				}
 				super.tick();
 			}
