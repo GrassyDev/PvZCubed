@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,6 +11,8 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -45,7 +48,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
 
-public class DoomshroomEntity extends GolemEntity implements IAnimatable {
+public class DoomshroomEntity extends BombardEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "doomcontroller";
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;

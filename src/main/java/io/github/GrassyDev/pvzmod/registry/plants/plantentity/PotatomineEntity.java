@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -45,7 +46,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
 
-public class PotatomineEntity extends GolemEntity implements IAnimatable {
+public class PotatomineEntity extends BombardEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "potatocontroller";
     private static final TrackedData<Integer> FUSE_SPEED;

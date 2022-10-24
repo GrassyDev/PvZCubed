@@ -14,31 +14,27 @@ public class ModBlocks {
             .of(Material.SOIL)
 			.requiresTool()
             .sounds(BlockSoundGroup.GRASS)
-            .strength(1.9f, 1200f)
-			.luminance(1));
+            .strength(1.9f, 1200f));
 
 
     public static final Block DARK_GRASS_TILE = new Block(QuiltBlockSettings
             .of(Material.SOIL)
 			.requiresTool()
             .sounds(BlockSoundGroup.GRASS)
-            .strength(1.9f, 1200f)
-			.luminance(1));
+            .strength(1.9f, 1200f));
 
     public static final Block NIGHT_TILE = new Block(QuiltBlockSettings
             .of(Material.STONE)
 			.requiresTool()
             .sounds(BlockSoundGroup.STONE)
-            .strength(1.9f, 1200f)
-			.luminance(1));
+            .strength(1.9f, 1200f));
 
 
     public static final Block DARK_NIGHT_TILE = new Block(QuiltBlockSettings
             .of(Material.STONE)
 			.requiresTool()
             .sounds(BlockSoundGroup.STONE)
-            .strength(1.9f, 1200f)
-			.luminance(1));
+            .strength(1.9f, 1200f));
 
 
 	public static final Block PREMIUM_TILE = new Block(QuiltBlockSettings

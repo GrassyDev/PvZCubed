@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.WinterEntity;
 import io.github.GrassyDev.pvzmod.registry.world.IceshroomExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -41,7 +42,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.Optional;
 import java.util.Random;
 
-public class IceshroomEntity extends GolemEntity implements IAnimatable {
+public class IceshroomEntity extends WinterEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "icecontroller";
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;

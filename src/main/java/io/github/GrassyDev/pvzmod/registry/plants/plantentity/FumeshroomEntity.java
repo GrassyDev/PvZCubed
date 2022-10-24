@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_G;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_T;
@@ -46,7 +47,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class FumeshroomEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
+public class FumeshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
 
 	public AnimationFactory factory = new AnimationFactory(this);
 
@@ -327,11 +328,11 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 
 		public boolean canStart() {
 			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && !this.fumeshroomEntity.isAsleep;
+			return livingEntity != null && livingEntity.isAlive();
 		}
 
 		public boolean shouldContinue() {
-			return super.shouldContinue();
+			return super.shouldContinue() && !this.fumeshroomEntity.isAsleep;
 		}
 
 		public void start() {

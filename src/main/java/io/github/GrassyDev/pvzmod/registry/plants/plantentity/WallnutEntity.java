@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import com.google.common.collect.ImmutableList;
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.plants.ReinforceEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -39,7 +40,7 @@ import java.util.stream.Stream;
 
 ;
 
-public class WallnutEntity extends GolemEntity implements IAnimatable {
+public class WallnutEntity extends ReinforceEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "wallcontroller";
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;

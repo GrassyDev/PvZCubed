@@ -5,6 +5,8 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoNewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.HypnoshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.PotatomineEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.UnarmedPotatomineEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -79,6 +81,8 @@ public class NewspaperEntity extends HostileEntity implements IAnimatable {
         this.goalSelector.add(1, new NewspaperAttackGoal(this, 1.0D, true));
         this.goalSelector.add(6, new MoveThroughVillageGoal(this, 1.0D, false, 4, this::canBreakDoors));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(1, new TargetGoal(this, UnarmedPotatomineEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal(this, PotatomineEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal(this, GravebusterEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal(this, HypnoshroomEntity.class, false, true));
     }

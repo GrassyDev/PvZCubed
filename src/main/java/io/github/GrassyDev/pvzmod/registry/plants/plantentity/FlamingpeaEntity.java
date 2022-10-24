@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.PepperEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingFlamingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -40,7 +41,7 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
 
-public class FlamingpeaEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
+public class FlamingpeaEntity extends PepperEntity implements IAnimatable, RangedAttackMob {
 
 	public AnimationFactory factory = new AnimationFactory(this);
 	private String controllerName = "peacontroller";

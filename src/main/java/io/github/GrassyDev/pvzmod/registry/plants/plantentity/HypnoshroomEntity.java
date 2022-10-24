@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.plants.EnchantEntity;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -36,7 +37,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.EnumSet;
 import java.util.Optional;
 
-public class HypnoshroomEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
+public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, RangedAttackMob {
     public AnimationFactory factory = new AnimationFactory(this);
     private static final TrackedData<Byte> SNOW_GOLEM_FLAGS;
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;

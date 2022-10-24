@@ -8,6 +8,7 @@ import java.util.Random;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -45,7 +46,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class CherrybombEntity extends GolemEntity implements IAnimatable {
+public class CherrybombEntity extends BombardEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "peacontroller";
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
@@ -166,6 +167,7 @@ public class CherrybombEntity extends GolemEntity implements IAnimatable {
 
     public static DefaultAttributeContainer.Builder createCherrybombAttributes() {
         return MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_ARMOR, 999)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 999.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)

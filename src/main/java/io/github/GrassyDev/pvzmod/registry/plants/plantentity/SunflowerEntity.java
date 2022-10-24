@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.plants.EnlightenEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -36,7 +37,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
 
-public class SunflowerEntity extends GolemEntity implements IAnimatable {
+public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "suncontroller";
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;

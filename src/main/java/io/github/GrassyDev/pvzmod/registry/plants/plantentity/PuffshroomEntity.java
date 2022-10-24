@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.SporeEntity;
@@ -44,7 +45,7 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
 
-public class PuffshroomEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
+public class PuffshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
     public AnimationFactory factory = new AnimationFactory(this);
 
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;

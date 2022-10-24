@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.SporeEntity;
 import io.github.GrassyDev.pvzmod.registry.variants.plants.ScaredyshroomVariants;
 import net.fabricmc.api.EnvType;
@@ -43,7 +44,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
+public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
 
 	public AnimationFactory factory = new AnimationFactory(this);
 
@@ -389,7 +390,7 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 								double f = livingEntity.getBodyY(0.5D) - this.scaredyshroomEntity.getBodyY(0.5D);
 								double g = livingEntity.getZ() - this.scaredyshroomEntity.getZ();
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 3.5F, 0F);
+								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 4.45F, 0F);
 								proj.updatePosition(this.scaredyshroomEntity.getX(), this.scaredyshroomEntity.getY() + 0.75D, this.scaredyshroomEntity.getZ());
 								proj.setOwner(this.scaredyshroomEntity);
 								if (livingEntity.isAlive()) {

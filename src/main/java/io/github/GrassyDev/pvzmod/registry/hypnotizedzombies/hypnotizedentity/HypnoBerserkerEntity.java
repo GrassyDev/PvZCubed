@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -36,7 +37,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class HypnoBerserkerEntity extends GolemEntity implements IAnimatable {
+public class HypnoBerserkerEntity extends HypnoZombieEntity implements IAnimatable {
 private MobEntity owner;
 public AnimationFactory factory = new AnimationFactory(this);
 private String controllerName = "walkingcontroller";
@@ -79,6 +80,7 @@ public HypnoBerserkerEntity(World world) {
 }
 
 protected void initCustomGoals() {
+	this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal());
     this.targetSelector.add(2, new HypnoBerserkerEntity.TrackOwnerTargetGoal(this));
     this.goalSelector.add(1, new HypnoBerserkerAttackGoal(this, 1.0D, true));
     this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {

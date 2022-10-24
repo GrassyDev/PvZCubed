@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.WinterEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingSnowPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.variants.plants.SnowPeaVariants;
 import net.fabricmc.api.EnvType;
@@ -41,7 +42,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.*;
 
-public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAttackMob {
+public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAttackMob {
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(SnowpeaEntity.class, TrackedDataHandlerRegistry.INTEGER);

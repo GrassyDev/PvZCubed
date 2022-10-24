@@ -119,20 +119,20 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.BUCKETHITEVENT, 0.25F, 1F);
             entity.playSound(PvZCubed.PEAHITEVENT, 0.25F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 106);
+            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 46.67F);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
         else if (entity instanceof NewspaperEntity) {
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.PEAHITEVENT, 0.25F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 19);
+            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 10.89F);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
         else if ((entity instanceof BucketheadEntity) ||
                 (entity instanceof BerserkerEntity)) {
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.BUCKETHITEVENT, 0.25F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
+            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 7F);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
         else if ((entity instanceof ConeheadEntity) ||
@@ -140,14 +140,14 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
                 (entity instanceof BackupDancerEntity)) {
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.CONEHITEVENT, 0.25F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
+            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 7F);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.PEAHITEVENT, 0.25F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 16);
+            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 7F);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
     }

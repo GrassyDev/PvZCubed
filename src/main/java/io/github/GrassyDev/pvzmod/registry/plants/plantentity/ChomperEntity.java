@@ -5,12 +5,14 @@ import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGra
 import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.EnforceEntity;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -18,6 +20,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.mob.RavagerEntity;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,7 +42,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.*;
 
-public class ChomperEntity extends GolemEntity implements IAnimatable {
+public class ChomperEntity extends EnforceEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "chompcontroller";
     public int healingTime;
@@ -188,14 +191,24 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
     }
 
     protected void initGoals() {
-        this.goalSelector.add(1, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(1, new ChomperEntity.AttackGoal());
+        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 5.0F));
         this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
                     !(livingEntity instanceof HypnoFlagzombieEntity);
         }));
     }
+
+	private class AttackGoal extends MeleeAttackGoal {
+		public AttackGoal() {
+			super(ChomperEntity.this, 1.0, true);
+		}
+
+		protected double getSquaredMaxAttackDistance(LivingEntity entity) {
+			float f = ChomperEntity.this.getWidth() - 0.1F;
+			return (double)(f * 4.0F * f * 4.0F + entity.getWidth());
+		}
+	}
 
     protected void initDataTracker() {
         super.initDataTracker();
@@ -208,7 +221,7 @@ public class ChomperEntity extends GolemEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 36.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3.5D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 999.0D);
     }
 

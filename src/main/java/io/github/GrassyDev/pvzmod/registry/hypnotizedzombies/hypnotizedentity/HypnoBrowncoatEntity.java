@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoZombieEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -25,7 +26,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-    public class HypnoBrowncoatEntity extends GolemEntity implements IAnimatable {
+    public class HypnoBrowncoatEntity extends HypnoZombieEntity implements IAnimatable {
     private MobEntity owner;
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "walkingcontroller";
@@ -60,6 +61,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
     }
 
         protected void initGoals() {
+			this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal());
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
             this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
