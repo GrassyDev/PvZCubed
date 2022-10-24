@@ -74,13 +74,13 @@ public class NewspaperEntity extends HostileEntity implements IAnimatable {
     }
 
     protected void initCustomGoals() {
+		this.targetSelector.add(2, new RevengeGoal(this, new Class[0]));
         this.targetSelector.add(2, new NewspaperEntity.TrackOwnerTargetGoal(this));
         this.goalSelector.add(1, new NewspaperAttackGoal(this, 1.0D, true));
         this.goalSelector.add(6, new MoveThroughVillageGoal(this, 1.0D, false, 4, this::canBreakDoors));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
         this.targetSelector.add(1, new TargetGoal(this, GravebusterEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal(this, HypnoshroomEntity.class, false, true));
-        this.targetSelector.add(2, new RevengeGoal(this, new Class[0]));
     }
 
     public static DefaultAttributeContainer.Builder createNewspaperAttributes() {

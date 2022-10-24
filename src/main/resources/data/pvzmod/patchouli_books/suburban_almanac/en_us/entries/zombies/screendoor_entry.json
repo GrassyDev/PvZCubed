@@ -1,0 +1,41 @@
+{
+  "name": "Screen Door Zombie",
+  "icon": "pvzmod:screendoor_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)180$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Normal$(br2)$(#bd951a)He got his screen door from the last inexpertly defended home he visited, after he ATE THE HOMEOWNER'S BRAINS."
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/screendoor.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)His screen door is an effective shield."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/scaredyshroom_entry",
+        "pvzmod:plants/iceshroom_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/buckethead_entry"
+      ],
+      "title": "Related Zombies"
+    }
+  ]
+}

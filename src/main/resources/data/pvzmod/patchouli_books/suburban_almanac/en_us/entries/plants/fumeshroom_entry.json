@@ -1,0 +1,33 @@
+{
+  "name": "Fume-shroom",
+  "icon": "pvzmod:fumeshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)14$(br)$(#bd951a)Damage:$()$(#ff0000)16$(br)$(#bd951a)Range:$()$(#ff0000)6$(br)$(#bd951a)Fire Rate:$()$(#ff0000)1s$(br)$(#bd951a)Special:$()$(#ff0000)Poisons zombies for 3 seconds. Damages multiple zombies at the same time. Asleep if exposed to light.$(br)$(#bd951a)\"I was in a dead-end job producing yeast spores for a bakery. \"Then I heard about this great opportunity blasting zombies. Now I really feel like I'm making a difference.\" "
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/fumeshroom.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Fume-shrooms shoot fumes that can pass through zombies."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:fumeshroom"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/puffshroom_entry",
+        "pvzmod:plants/scaredyshroom_entry"
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}

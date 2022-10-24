@@ -287,6 +287,7 @@ public class FlamingpeaEntity extends GolemEntity implements IAnimatable, Ranged
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
 						proj.updatePosition(this.flamingpeaEntity.getX(), this.flamingpeaEntity.getY() + 0.75D, this.flamingpeaEntity.getZ());
+						proj.setOwner(this.flamingpeaEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
 							this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 11);

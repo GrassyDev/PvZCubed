@@ -1,0 +1,39 @@
+{
+  "name": "Browncoat",
+  "icon": "pvzmod:browncoat_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)27$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Normal$(br2)$(#bd951a)This zombie loves brains. Can't get enough. Brains, brains, brains, day in and night out. Old and stinky brains? Rotten brains? Brains clearly past their prime? Doesn't matter. Regular zombie wants 'em."
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/browncoat.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Regular garden-variety zombie."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/puffshroom_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/flagzombie_entry",
+        "pvzmod:zombies/conehead_entry",
+        "pvzmod:zombies/buckethead_entry"
+      ],
+      "title": "Related Zombies"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Chomper",
+  "icon": "pvzmod:chomper_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)36$(br)$(#bd951a)Heal:$()$(#ff0000)1HP/30s$(br)$(#bd951a)DPS:$()$(#ff0000)Insta-kill, 10.5 (16 DMG/1.5s, if target is Immune)$(br)$(#bd951a)Chew Time:$()$(#ff0000)10s$(br)$(#bd951a)Special:$()$(#ff0000)Zombies prefer to eat them. Kills a zombie instantly, but has to chew it afterwards.$(br2)$(#bd951a)Chomper almost got a gig doing stunts for The Little Shop of Horrors but it fell through when his agent demanded too much on the front end."
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/chomper.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Chompers can devour a zombie whole, but they are vulnerable while chewing."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:chomper"
+    },
+    {
+      "type": "relations",
+      "entries": [
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}

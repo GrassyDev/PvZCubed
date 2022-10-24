@@ -288,6 +288,7 @@ public class RepeaterEntity extends GolemEntity implements RangedAttackMob, IAni
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
 						proj.updatePosition(this.repeaterEntity.getX(), this.repeaterEntity.getY() + 0.75D, this.repeaterEntity.getZ());
+						proj.setOwner(this.repeaterEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.repeaterEntity.world.sendEntityStatus(this.repeaterEntity, (byte) 11);

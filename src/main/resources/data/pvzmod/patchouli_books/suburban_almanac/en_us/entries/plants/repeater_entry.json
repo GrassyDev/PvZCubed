@@ -1,0 +1,33 @@
+{
+  "name": "Repeater",
+  "icon": "pvzmod:repeater_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)25$(br)$(#bd951a)DPS:$()$(#ff0000)12.8 (16 DMG/1.25s)$(br)$(#bd951a)Range:$()$(#ff0000)15$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)7.5s$(br2)$(#bd951a)Repeater is fierce. He's from the streets. He doesn't take attitude from anybody, plant or zombie, and he shoots peas to keep people at a distance. Secretly, though, Repeater yearns for love."
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/repeater.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Repeater fires two peas at a time."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:repeaterpvz"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/threepeater_entry"
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}

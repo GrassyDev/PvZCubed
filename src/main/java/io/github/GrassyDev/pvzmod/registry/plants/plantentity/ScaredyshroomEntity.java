@@ -391,6 +391,7 @@ public class ScaredyshroomEntity extends GolemEntity implements IAnimatable, Ran
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 3.5F, 0F);
 								proj.updatePosition(this.scaredyshroomEntity.getX(), this.scaredyshroomEntity.getY() + 0.75D, this.scaredyshroomEntity.getZ());
+								proj.setOwner(this.scaredyshroomEntity);
 								if (livingEntity.isAlive()) {
 									this.beamTicks = -13;
 									this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);

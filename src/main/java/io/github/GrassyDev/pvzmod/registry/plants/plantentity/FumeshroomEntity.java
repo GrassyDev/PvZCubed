@@ -371,6 +371,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
 						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
+						proj.setOwner(this.fumeshroomEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
@@ -389,6 +390,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
 						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
+						proj.setOwner(this.fumeshroomEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
@@ -407,6 +409,7 @@ public class FumeshroomEntity extends GolemEntity implements IAnimatable, Ranged
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
 						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
+						proj.setOwner(this.fumeshroomEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);

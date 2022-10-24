@@ -64,7 +64,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
 
     protected void initGoals() {
         this.targetSelector.add(1, new TargetGoal(this, PlayerEntity.class, false, false));
-        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
+		this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
         this.initCustomGoals();
     }
 

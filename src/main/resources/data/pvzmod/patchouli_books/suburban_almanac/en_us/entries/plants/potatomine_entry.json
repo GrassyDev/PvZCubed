@@ -1,0 +1,32 @@
+{
+  "name": "Potato Mine",
+  "icon": "pvzmod:potatomine_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)7$(#bd951a)Damage:$()$(#ff0000)180$(br)$(#bd951a)Activation Range:$()$(#ff0000)1.5 Blocks$(br)$(#bd951a)Blast Radius:$()$(#ff0000)3 Blocks$(br)$(#bd951a)Preparation Time:$()$(#ff0000)30s$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)20s$(br)$(#bd951a)Special:$()$(#ff0000)Zombies prefer to eat them.$(br2)$(#bd951a)Some folks say Potato Mine is lazy, that he leaves everything to the last minute. Potato Mine says nothing. He's too busy thinking about his investment strategy."
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/potatomine.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Potato Mines pack a powerful punch, but they need a while to arm themselves. They will explode on contact."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:potatomine"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/cherrybomb_entry"
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}

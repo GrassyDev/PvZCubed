@@ -1,0 +1,34 @@
+{
+  "name": "Puff-shroom",
+  "icon": "pvzmod:puffshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Health:$()$(#ff0000)8$(br)$(#bd951a)DPS:$()$(#ff0000)4 (4 DMG/1s)$(br)$(#bd951a)Poison Stats:$()$(#ff0000)2 DMG/1s. Lasts for 3s$(br)$(#bd951a)Range:$()$(#ff0000)6$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)5s$(br)$(#bd951a)Special:$()$(#ff0000)Spore poisons Zombies. Asleep if exposed to light.$(br)$(#bd951a)\"I only recently became aware of the existence of zombies. Like many fungi, I'd just assumed they were fairy tales or movie monsters. This whole experience has been a huge eye-opener for me.\""
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/puffshroom.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Puff-shrooms are cheap, but can only fire a short distance."
+    },
+    {
+      "type": "text",
+      "text": "Not craftable"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/sunshroom_entry",
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/scaredyshroom_entry"
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}

@@ -369,6 +369,7 @@ public class PuffshroomEntity extends GolemEntity implements IAnimatable, Ranged
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
 						proj.updatePosition(this.puffshroomEntity.getX(), this.puffshroomEntity.getY() + 0.25D, this.puffshroomEntity.getZ());
+						proj.setOwner(this.puffshroomEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
 							this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 11);

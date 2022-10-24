@@ -327,6 +327,7 @@ public class SnowpeaEntity extends GolemEntity implements IAnimatable, RangedAtt
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
 						proj.updatePosition(this.snowpeaEntity.getX(), this.snowpeaEntity.getY() + 0.75D, this.snowpeaEntity.getZ());
+						proj.setOwner(this.snowpeaEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
 							this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 11);

@@ -340,6 +340,7 @@ public class PeashooterEntity extends GolemEntity implements IAnimatable, Ranged
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
 						proj.updatePosition(this.peashooterEntity.getX(), this.peashooterEntity.getY() + 0.75D, this.peashooterEntity.getZ());
+						proj.setOwner(this.peashooterEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
 							this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);

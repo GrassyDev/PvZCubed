@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "pvzmod:grass_tile",
+    "pvzmod:dark_grass_tile",
+    "pvzmod:night_tile",
+    "pvzmod:dark_night_tile",
+    "pvzmod:premium_tile"
+  ]
+}

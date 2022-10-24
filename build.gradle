@@ -14,6 +14,7 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+	maven { url 'https://maven.blamejared.com' }
 }
 
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
@@ -50,6 +51,8 @@ dependencies {
 	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${quilted_fabric_api_version}-${minecraft_version}"
 
 	modImplementation 'software.bernie.geckolib:geckolib-quilt-1.19:3.1.25'
+
+	modImplementation "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
 }
 
 processResources {

@@ -1,0 +1,34 @@
+{
+  "name": "Doom-shroom",
+  "icon": "pvzmod:doomshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 15,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(#bd951a)Damage:$()$(#ff0000)180$(br)$(#bd951a)Activation Range:$()$(#ff0000)5 Blocks$(br)$(#bd951a)Explosion Range:$()$(#ff0000)10 Blocks$(br)$(#bd951a)Fuse Time:$()$(#ff0000)2s$(br)$(#bd951a)Special:$()$(#ff0000)Asleep if exposed to light.$(br2)$(#bd951a)\"You're lucky I'm on your side,\" says Doom-shroom. \"I could destroy everything you hold dear. It wouldn't be hard.\""
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/doomshroom.png"
+      ],
+      "title": "BLOOM & DOOM SEED CO.",
+      "border": "true",
+      "text": "$(#25228d)Doom-shrooms destroy everything in a large area."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:doomshroom"
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/potatomine_entry",
+        "pvzmod:plants/iceshroom_entry"
+      ],
+      "title": "Related Plants"
+    }
+  ]
+}
