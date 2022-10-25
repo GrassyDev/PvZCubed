@@ -6,13 +6,13 @@ import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGra
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.EnforceEntity;
+import io.github.GrassyDev.pvzmod.registry.variants.plants.ChomperVariants;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -20,17 +20,16 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.mob.RavagerEntity;
-import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -43,14 +42,16 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.*;
 
 public class ChomperEntity extends EnforceEntity implements IAnimatable {
-    public AnimationFactory factory = new AnimationFactory(this);
-    private String controllerName = "chompcontroller";
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(ChomperEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public AnimationFactory factory = new AnimationFactory(this);
     public int healingTime;
-    protected static final TrackedData<Byte> IRON_GOLEM_FLAGS;
-    protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
     private int attackTicksLeft;
     public boolean notEating;
     public boolean eatingShield;
+	private String controllerName = "chompcontroller";
 
     public ChomperEntity(EntityType<? extends ChomperEntity> entityType, World world) {
         super(entityType, world);
@@ -58,7 +59,89 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
         this.healingTime = 600;
     }
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+	}
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		//Variant//
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
+	}
+
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		//Variant//
+		tag.putInt("Variant", this.getTypeVariant());
+	}
+
+	static {
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 4) {
+			this.attackTicksLeft = 200;
+			this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
+			this.eatingShield = false;
+			this.notEating = false;
+		}
+		if (status == 5) {
+			this.attackTicksLeft = 200;
+			this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
+			this.eatingShield = true;
+			this.notEating = false;
+		}
+		else if (status == 6) {
+			this.attackTicksLeft = 30;
+			this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
+			this.eatingShield = false;
+			this.notEating = true;
+		}else {
+			super.handleStatus(status);
+		}
+	}
+
+
+	/** /~*~//~VARIANTS~//~*~// **/
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		ChomperVariants variant = Util.getRandom(ChomperVariants.values(), this.random);
+		setVariant(variant);
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public ChomperVariants getVariant() {
+		return ChomperVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	private void setVariant(ChomperVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+
+	/** /~*~//~GECKOLIB ANIMATION~//~*~// **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.attackTicksLeft;
         if (this.eatingShield) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("chomper.chomp3", false));
@@ -75,129 +158,16 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-    public void calculateDimensions() {
-        double d = this.getX();
-        double e = this.getY();
-        double f = this.getZ();
-        super.calculateDimensions();
-        this.updatePosition(d, e, f);
-    }
+	/** /~*~//~AI~//~*~// **/
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        if (nbt.contains("APX")) {
-            int i = nbt.getInt("APX");
-            int j = nbt.getInt("APY");
-            int k = nbt.getInt("APZ");
-            this.dataTracker.set(ATTACHED_BLOCK, Optional.of(new BlockPos(i, j, k)));
-        } else {
-            this.dataTracker.set(ATTACHED_BLOCK, Optional.empty());
-        }
-    }
-
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        BlockPos blockPos = this.getAttachedBlock();
-        if (blockPos != null) {
-            nbt.putInt("APX", blockPos.getX());
-            nbt.putInt("APY", blockPos.getY());
-            nbt.putInt("APZ", blockPos.getZ());
-        }
-    }
-
-    public void tick() {
-        super.tick();
-        BlockPos blockPos = (BlockPos)((Optional)this.dataTracker.get(ATTACHED_BLOCK)).orElse((Object)null);
-        if (blockPos == null && !this.world.isClient) {
-            blockPos = this.getBlockPos();
-            this.dataTracker.set(ATTACHED_BLOCK, Optional.of(blockPos));
-        }
-
-        if (blockPos != null) {
-            this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
-        }
-    }
-
-    public void updatePosition(double x, double y, double z) {
-        super.updatePosition(x, y, z);
-        if (this.dataTracker != null && this.age != 0) {
-            Optional<BlockPos> optional = (Optional)this.dataTracker.get(ATTACHED_BLOCK);
-            Optional<BlockPos> optional2 = Optional.of(new BlockPos(x, y, z));
-            if (!optional2.equals(optional)) {
-                this.dataTracker.set(ATTACHED_BLOCK, optional2);
-                this.velocityDirty = true;
-            }
-
-        }
-    }
-
-    public void onTrackedDataSet(TrackedData<?> data) {
-        if (ATTACHED_BLOCK.equals(data) && this.world.isClient && !this.hasVehicle()) {
-            BlockPos blockPos = this.getAttachedBlock();
-            if (blockPos != null) {
-				this.setPosition((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
-            }
-        }
-
-        super.onTrackedDataSet(data);
-    }
-
-    @Nullable
-    public BlockPos getAttachedBlock() {
-        return (BlockPos)((Optional)this.dataTracker.get(ATTACHED_BLOCK)).orElse((Object)null);
-    }
-
-    static {
-        ATTACHED_BLOCK = DataTracker.registerData(ChomperEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
-    }
-
-    public void move(MovementType type, Vec3d movement) {
-        if (type == MovementType.SHULKER_BOX) {
-            this.damage(DamageSource.GENERIC, 9999);
-        } else {
-            super.move(type, movement);
-        }
-
-    }
-
-    public boolean collides() {
-        return true;
-    }
-
-    public boolean handleAttack(Entity attacker) {
-        if (attacker instanceof PlayerEntity) {
-            PlayerEntity playerEntity = (PlayerEntity)attacker;
-            return this.damage(DamageSource.player(playerEntity), 9999.0F);
-        } else {
-            return false;
-        }
-    }
-
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
-        if (fallDistance > 0F) {
-            this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
-            this.damage(DamageSource.GENERIC, 9999);
-        }
-        this.playBlockFallSound();
-        return true;
-    }
-
-    protected boolean canClimb() {
-        return false;
-    }
-
-    public boolean isPushable() {
-        return false;
-    }
-
-    protected void initGoals() {
+	protected void initGoals() {
 		this.goalSelector.add(1, new ChomperEntity.AttackGoal());
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 5.0F));
-        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-            return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-                    !(livingEntity instanceof HypnoFlagzombieEntity);
-        }));
-    }
+		this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 5.0F));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+					!(livingEntity instanceof HypnoFlagzombieEntity);
+		}));
+	}
 
 	private class AttackGoal extends MeleeAttackGoal {
 		public AttackGoal() {
@@ -210,174 +180,190 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		}
 	}
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ATTACHED_BLOCK, Optional.empty());
-        this.dataTracker.startTracking(IRON_GOLEM_FLAGS, (byte)0);
-    }
+	public boolean tryAttack(Entity target) {
+		int i = this.attackTicksLeft;
+		if (target instanceof ScreendoorEntity) {
+			if (i <= 0) {
+				this.attackTicksLeft = 200;
+				this.world.sendEntityStatus(this, (byte) 5);
+				float f = 153f;
+				boolean bl = target.damage(DamageSource.mob(this), f);
+				if (bl) {
+					this.applyDamageEffects(this, target);
+				}
+				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+				return bl;
+			} else {
+				return false;
+			}
+		}
+		else if ((target instanceof BasicGraveEntity) ||
+				(target instanceof NightGraveEntity)) {
+			if (i <= 0) {
+				this.attackTicksLeft = 30;
+				this.world.sendEntityStatus(this, (byte) 6);
+				float f = 16f;
+				boolean bl = target.damage(DamageSource.mob(this), f);
+				if (bl) {
+					this.applyDamageEffects(this, target);
+				}
+				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+				return bl;
+			} else {
+				return false;
+			}
+		}
+		else {
+			if (i <= 0) {
+				this.attackTicksLeft = 200;
+				this.world.sendEntityStatus(this, (byte) 4);
+				float f = this.getAttackDamage();
+				boolean bl = target.damage(DamageSource.mob(this), f);
+				if (bl) {
+					this.applyDamageEffects(this, target);
+				}
+				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+				return bl;
+			} else {
+				return false;
+			}
+		}
+	}
 
-    public static DefaultAttributeContainer.Builder createChomperAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 36.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3.5D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 999.0D);
-    }
 
-    public boolean hurtByWater() {
-        return false;
-    }
+	/** //~*~//~POSITION~//~*~// **/
 
-    protected void pushAway(Entity entity) {
-    }
+	public void setPosition(double x, double y, double z) {
+		BlockPos blockPos = this.getBlockPos();
+		if (this.hasVehicle()) {
+			super.setPosition(x, y, z);
+		} else {
+			super.setPosition((double) MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
+		}
 
-    public void tickMovement() {
-        super.tickMovement();
-        if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-            this.heal(1.0F);
-            this.healingTime = 600;
-        }
+		if (this.age != 0) {
+			BlockPos blockPos2 = this.getBlockPos();
+			if (!blockPos2.equals(blockPos)) {
+				this.kill();
+			}
 
-        if (this.attackTicksLeft > 0) {
-            --this.attackTicksLeft;
-        }
+		}
+	}
 
-        if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-            this.damage(DamageSource.GENERIC, 9999);
-        }
 
-        if (this.attackTicksLeft <= 0){
-            this.eatingShield = false;
-            this.notEating = false;
-        }
-    }
+	/** //~*~//~TICKING~//~*~// **/
 
-    private float getAttackDamage(){
-        return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-    }
+	public void tick() {
+		super.tick();
+		if (!this.isAiDisabled() && this.isAlive()) {
+			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+	}
 
-    public boolean tryAttack(Entity target) {
-        int i = this.attackTicksLeft;
-        if (target instanceof ScreendoorEntity) {
-            if (i <= 0) {
-                this.attackTicksLeft = 200;
-                this.world.sendEntityStatus(this, (byte) 5);
-                float f = 153f;
-                boolean bl = target.damage(DamageSource.mob(this), f);
-                if (bl) {
-                    this.applyDamageEffects(this, target);
-                }
-                this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
-                return bl;
-            } else {
-                return false;
-            }
-        }
-        else if ((target instanceof BasicGraveEntity) ||
-                (target instanceof NightGraveEntity)) {
-            if (i <= 0) {
-                this.attackTicksLeft = 30;
-                this.world.sendEntityStatus(this, (byte) 6);
-                float f = 16f;
-                boolean bl = target.damage(DamageSource.mob(this), f);
-                if (bl) {
-                    this.applyDamageEffects(this, target);
-                }
-                this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
-                return bl;
-            } else {
-                return false;
-            }
-        }
-        else {
-            if (i <= 0) {
-                this.attackTicksLeft = 200;
-                this.world.sendEntityStatus(this, (byte) 4);
-                float f = this.getAttackDamage();
-                boolean bl = target.damage(DamageSource.mob(this), f);
-                if (bl) {
-                    this.applyDamageEffects(this, target);
-                }
-                this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
-                return bl;
-            } else {
-                return false;
-            }
-        }
-    }
+	public void tickMovement() {
+		super.tickMovement();
+		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.heal(1.0F);
+			this.healingTime = 6000;
+		}
 
-    @Environment(EnvType.CLIENT)
-    public void handleStatus(byte status) {
-        if (status == 4) {
-            this.attackTicksLeft = 200;
-            this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
-            this.eatingShield = false;
-            this.notEating = false;
-        }
-        if (status == 5) {
-            this.attackTicksLeft = 200;
-            this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
-            this.eatingShield = true;
-            this.notEating = false;
-        }
-        else if (status == 6) {
-            this.attackTicksLeft = 30;
-            this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
-            this.eatingShield = false;
-            this.notEating = true;
-        }else {
-            super.handleStatus(status);
-        }
-    }
+		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.damage(DamageSource.GENERIC, 9999);
+		}
 
-    @Environment(EnvType.CLIENT)
-    public int getAttackTicksLeft() {
-        return this.attackTicksLeft;
-    }
+		if (this.attackTicksLeft > 0) {
+			--this.attackTicksLeft;
+		}
 
-    protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-        return 0.60F;
-    }
+		if (this.attackTicksLeft <= 0){
+			this.eatingShield = false;
+			this.notEating = false;
+		}
+	}
 
-    @Override
-    public void registerControllers(AnimationData data)
-    {
-        AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
 
-        data.addAnimationController(controller);
-    }
+	/** //~*~//~ATTRIBUTES~//~*~// **/
 
-    @Override
-    public AnimationFactory getFactory()
-    {
-        return this.factory;
-    }
+	public static DefaultAttributeContainer.Builder createChomperAttributes() {
+		return MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 36.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3.5D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 999.0D);
+	}
 
-    @Nullable
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return PvZCubed.ZOMBIEBITEEVENT;
-    }
+	protected boolean canClimb() {
+		return false;
+	}
 
-    @Nullable
-    protected SoundEvent getDeathSound() {
-        return PvZCubed.PLANTPLANTEDEVENT;
-    }
+	public boolean collides() {
+		return true;
+	}
 
-    public void onDeath(DamageSource source) {
-        super.onDeath(source);
-    }
+	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+		return 0.60F;
+	}
 
-    public static boolean canChomperSpawn(EntityType<ChomperEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
+	private float getAttackDamage(){
+		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+	}
 
-    @Environment(EnvType.CLIENT)
-    public Vec3d method_29919() {
-        return new Vec3d(0.0D, (double)(0.875F * this.getStandingEyeHeight()), (double)(this.getWidth() * 0.4F));
-    }
+	@Nullable
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
 
-    static {
-        IRON_GOLEM_FLAGS = DataTracker.registerData(ChomperEntity.class, TrackedDataHandlerRegistry.BYTE);
-    }
+	@Nullable
+	protected SoundEvent getDeathSound() {
+		return PvZCubed.PLANTPLANTEDEVENT;
+	}
+
+	public boolean hurtByWater() {
+		return false;
+	}
+
+	public boolean isPushable() {
+		return false;
+	}
+
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+	}
+
+	protected void pushAway(Entity entity) {
+	}
+
+
+	/** //~*~//~DAMAGE HANDLER~//~*~// **/
+
+	public boolean handleAttack(Entity attacker) {
+		if (attacker instanceof PlayerEntity) {
+			PlayerEntity playerEntity = (PlayerEntity) attacker;
+			return this.damage(DamageSource.player(playerEntity), 9999.0F);
+		} else {
+			return false;
+		}
+	}
+
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+		if (fallDistance > 0F) {
+			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.damage(DamageSource.GENERIC, 9999);
+		}
+		this.playBlockFallSound();
+		return true;
+	}
+
+
+	/** //~*~//~SPAWNING~//~*~// **/
+
+	public static boolean canChomperSpawn(EntityType<ChomperEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
+		return pos.getY() > 60;
+	}
+
+	@Override
+	public boolean canSpawn(WorldView worldreader) {
+		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+	}
 }

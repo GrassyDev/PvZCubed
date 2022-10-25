@@ -42,13 +42,6 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
 
-/*
- * Our Peashooter Entity extends PathAwareEntity, which extends MobEntity, which extends LivingEntity.
- *
- * LivingEntity has health and can deal damage.
- * MobEntity has movement controls and AI capabilities.
- * PathAwareEntity has pathfinding favor and slightly tweaked leash behavior.
- */
 public class PeashooterEntity extends AppeaseEntity implements IAnimatable, RangedAttackMob {
     public AnimationFactory factory = new AnimationFactory(this);
 

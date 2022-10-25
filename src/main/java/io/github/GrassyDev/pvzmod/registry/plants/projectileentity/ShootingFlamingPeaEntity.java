@@ -4,8 +4,11 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.NewspaperEntity;
+import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
@@ -122,7 +125,12 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				!(entity instanceof HypnoFlagzombieEntity)) {
 			float sound = this.random.nextFloat();
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
-			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+			if (entity instanceof NewspaperEntity) {
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 15);
+			}
+			else  {
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+			}
 			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 			((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 			((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
@@ -156,7 +164,12 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				if (bl) {
 					if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
 							!(livingEntity instanceof HypnoFlagzombieEntity)) {
-						livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+						if (entity instanceof ScreendoorEntity) {
+							entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 53.4F);
+						}
+						else  {
+							entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+						}
 						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
 						((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 						((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
