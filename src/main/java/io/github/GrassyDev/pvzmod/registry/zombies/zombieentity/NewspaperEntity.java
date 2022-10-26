@@ -3,7 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.zombies.zombieentity;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoNewspaperEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.GravebusterEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.UnarmedPotatomineEntity;

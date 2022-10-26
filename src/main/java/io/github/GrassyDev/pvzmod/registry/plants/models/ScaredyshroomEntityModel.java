@@ -1,7 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.plants.models;
 
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.ScaredyshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.renderers.FumeshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.renderers.ScaredyshroomEntityRenderer;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

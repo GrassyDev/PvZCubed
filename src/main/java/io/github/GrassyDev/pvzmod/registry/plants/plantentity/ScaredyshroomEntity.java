@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.FumeshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.SporeEntity;
 import io.github.GrassyDev.pvzmod.registry.variants.plants.ScaredyshroomVariants;

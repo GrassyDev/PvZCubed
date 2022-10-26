@@ -44,6 +44,14 @@ public class ModBlocks {
 			.strength(1.9f, 1200f)
 			.luminance(3));
 
+
+	public static final Block UPGRADE_TILE = new Block(QuiltBlockSettings
+			.of(Material.AMETHYST)
+			.requiresTool()
+			.sounds(BlockSoundGroup.AMETHYST_BLOCK)
+			.strength(1.9f, 1200f)
+			.luminance(3));
+
     public static void registerBlocks(){
 
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"grass_tile"), GRASS_TILE);
@@ -51,6 +59,7 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"night_tile"), NIGHT_TILE);
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_night_tile"), DARK_NIGHT_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"premium_tile"), PREMIUM_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"upgrade_tile"), UPGRADE_TILE);
 
     }
 

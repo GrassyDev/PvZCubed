@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.itemclasses.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.FlamingpeaEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.flamingpea.FlamingpeaEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -64,7 +64,7 @@ public class FirepeaSeeds extends Item {
                 PlayerEntity user = context.getPlayer();
                 if (!user.getAbilities().creativeMode) {
                     itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, 150);
+                    user.getItemCooldownManager().set(this, 700);
                 }
                 return ActionResult.success(world.isClient);
             } else {

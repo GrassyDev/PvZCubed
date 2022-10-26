@@ -64,6 +64,9 @@
   "item.pvzmod.threepeater_seed_packet": "Threepeater Seed Packet",
   "item.pvzmod.tripea": "Triple Peas",
 
+  "entity.pvzmod.gatlingpea": "Gatling Pea",
+  "item.pvzmod.gatlingpea_seed_packet": "Repeater Seed Packet",
+
   "entity.pvzmod.flamingpea": "Fire Peashooter",
   "item.pvzmod.firepea": "Fire Pea",
   "item.pvzmod.firepea_seed_packet": "Fire Peashooter Seed Packet",
@@ -132,6 +135,7 @@
   "block.pvzmod.dark_grass_tile": "Dark Grass Tile",
   "block.pvzmod.night_tile": "Night Tile",
   "block.pvzmod.dark_night_tile": "Dark Night Tile",
-  "block.pvzmod.premium_tile": "Premium Tile"
+  "block.pvzmod.premium_tile": "Premium Tile",
+  "block.pvzmod.upgrade_tile": "Upgrade Tile"
 
 }

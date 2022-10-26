@@ -58,6 +58,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.ICESHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.DOOMSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.THREEPEATER_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.GATLINGPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
@@ -103,6 +104,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.DARK_GRASS_TILE));
 				stacks.add(new ItemStack(ModItems.NIGHT_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_NIGHT_TILE));
+				stacks.add(new ItemStack(ModItems.UPGRADE_TILE));
 				stacks.add(new ItemStack(ModItems.PREMIUM_TILE));
 			}).build();
 

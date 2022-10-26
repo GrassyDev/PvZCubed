@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.itemclasses.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.GravebusterEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

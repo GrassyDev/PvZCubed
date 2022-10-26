@@ -1,9 +1,13 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoBrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.itemclasses.seedpackets.GatlingpeaSeeds;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.AppeaseEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
 import net.fabricmc.api.EnvType;
@@ -20,13 +24,20 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -226,6 +237,33 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 			this.isFiring = true;
 		} else if (status == 10) {
 			this.isFiring = false;
+		}
+	}
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GATLINGPEA_SEED_PACKET)) {
+			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
+			itemStack.decrement(1);
+			player.getItemCooldownManager().set(ModItems.GATLINGPEA_SEED_PACKET, 700);
+			if ((this.world instanceof ServerWorld)) {
+				ServerWorld serverWorld = (ServerWorld) this.world;
+				GatlingpeaEntity gatlingpeaEntity = (GatlingpeaEntity) PvZEntity.GATLINGPEA.create(world);
+				gatlingpeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				gatlingpeaEntity.initialize(serverWorld, world.getLocalDifficulty(gatlingpeaEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				gatlingpeaEntity.setAiDisabled(this.isAiDisabled());
+				if (this.hasCustomName()) {
+					gatlingpeaEntity.setCustomName(this.getCustomName());
+					gatlingpeaEntity.setCustomNameVisible(this.isCustomNameVisible());
+				}
+
+				gatlingpeaEntity.setPersistent();
+				serverWorld.spawnEntityAndPassengers(gatlingpeaEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.CONSUME;
 		}
 	}
 

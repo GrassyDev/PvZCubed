@@ -3,8 +3,12 @@ package io.github.GrassyDev.pvzmod.registry;
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.renderers.*;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomperentity.ChomperEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroomentity.DoomshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomper.ChomperEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroom.DoomshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.flamingpea.FlamingpeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.FumeshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_G;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_T;
@@ -43,9 +47,9 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM, HypnoshroomEntityRenderer ::new);
 
@@ -57,7 +61,9 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 

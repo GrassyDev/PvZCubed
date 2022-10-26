@@ -7,12 +7,20 @@ import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRende
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.*;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.cherrybombentity.CherrybombEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.cherrybombentity.CherrybombEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomperentity.ChomperEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomperentity.ChomperEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroomentity.DoomshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroomentity.DoomshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.cherrybomb.CherrybombEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.cherrybomb.CherrybombEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomper.ChomperEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomper.ChomperEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroom.DoomshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroom.DoomshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.flamingpea.FlamingpeaEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.flamingpea.FlamingpeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.FumeshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.FumeshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_G;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_T;
@@ -140,6 +148,12 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "threepeater"),
             QuiltEntityTypeBuilder.<ThreepeaterEntity>create(SpawnGroup.CREATURE, ThreepeaterEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
+
+	public static final EntityType<GatlingpeaEntity> GATLINGPEA = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "gatlingpea"),
+			QuiltEntityTypeBuilder.<GatlingpeaEntity>create(SpawnGroup.CREATURE, GatlingpeaEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
 
     public static final EntityType<FlamingpeaEntity> FLAMINGPEA = Registry.register(
             Registry.ENTITY_TYPE,
@@ -398,6 +412,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntity.createThreepeaterAttributes());
         EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntity.createGatlingpeaAttributes());
+		EntityRendererRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntity.createFlamingpeaAttributes());
         EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);

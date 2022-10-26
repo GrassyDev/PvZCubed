@@ -220,8 +220,6 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
             if (target.isAlive()) {
                 this.shot = 1;
                 this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-                this.playSound(PvZCubed.REPEASHOOTEVENT, 0.3F, 1);
-                this.playSound(PvZCubed.TRIPEASHOOTEVENT, 0.3F, 1);
                 this.world.spawnEntity(shootingTriPeaEntity);
                 this.world.spawnEntity(shootingTriPeaEntity);
                 this.world.spawnEntity(shootingTriPeaEntity);

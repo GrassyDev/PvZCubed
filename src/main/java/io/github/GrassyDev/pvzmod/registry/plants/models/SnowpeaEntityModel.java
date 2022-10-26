@@ -1,8 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.plants.models;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.FumeshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.SnowpeaEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.renderers.FumeshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.renderers.SnowpeaEntityRenderer;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

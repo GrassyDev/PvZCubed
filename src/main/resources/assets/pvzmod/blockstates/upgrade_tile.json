@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "pvzmod:block/upgrade_tile" }
+  }
+}
