@@ -7,13 +7,18 @@ import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRende
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.cherrybombentity.CherrybombEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.cherrybombentity.CherrybombEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomperentity.ChomperEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomperentity.ChomperEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroomentity.DoomshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroomentity.DoomshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_G;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_T;
 import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityDimensions;
@@ -50,7 +55,7 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<WallnutEntity> WALLNUT = Registry.register((
                     Registry.ENTITY_TYPE),
             new Identifier(ModID, "wallnut"),
-            QuiltEntityTypeBuilder.<WallnutEntity>create(SpawnGroup.CREATURE, WallnutEntity::new).setDimensions(EntityDimensions.fixed(1f,0.8f)).build()
+            QuiltEntityTypeBuilder.<WallnutEntity>create(SpawnGroup.CREATURE, WallnutEntity::new).setDimensions(EntityDimensions.fixed(0.99f,0.8f)).build()
     );
 
     public static final EntityType<PotatomineEntity> POTATOMINE = Registry.register((

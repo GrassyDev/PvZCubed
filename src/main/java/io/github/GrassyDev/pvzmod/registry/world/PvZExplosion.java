@@ -3,18 +3,38 @@ package io.github.GrassyDev.pvzmod.registry.world;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.mojang.datafixers.util.Pair;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectListIterator;
+import net.minecraft.block.AbstractFireBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.explosion.ExplosionBehavior;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -46,6 +66,21 @@ public class PvZExplosion extends Explosion {
         this.blockDestructionType = destructionType;
         this.damageSource = DamageSource.explosion(this);
     }
+
+
+
+	public void affectWorld(boolean particles) {
+
+
+		boolean bl = this.blockDestructionType == Explosion.DestructionType.NONE;
+		if (particles) {
+			if (!(this.power < 2.0F) && bl) {
+				this.world.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0, 0.0, 0.0);
+			} else {
+				this.world.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0, 0.0, 0.0);
+			}
+		}
+	}
 
     public float getPower() {
         return power;
@@ -90,7 +125,7 @@ public class PvZExplosion extends Explosion {
 
         for(int x = 0; x < list.size(); ++x) {
             Entity entity = list.get(x);
-            if (!entity.isImmuneToExplosion()) {
+			if (!entity.isImmuneToExplosion() && entity instanceof Monster && !(entity instanceof HypnoSummonerEntity)) {
                 double y = Math.sqrt(entity.squaredDistanceTo(vec3d)) / q;
                 if (y <= 1.0D) {
                     double z = entity.getX() - this.x;
@@ -103,11 +138,8 @@ public class PvZExplosion extends Explosion {
                         ab /= ac;
                         double ad = getExposure(vec3d, entity);
                         double ae = (1.0D - y) * ad;
-                        if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-                                !(entity instanceof HypnoFlagzombieEntity)) {
                             entity.damage(this.getDamageSource(), 180f);
                         }
-                    }
                 }
             }
         }

@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 
 import com.google.common.collect.ImmutableList;
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.plants.ReinforceEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.planttypes.ReinforceEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -15,7 +15,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
@@ -70,6 +69,10 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
         }
         return PlayState.CONTINUE;
     }
+
+	public boolean isCollidable() {
+		return this.isAlive();
+	}
 
 
     public void calculateDimensions() {

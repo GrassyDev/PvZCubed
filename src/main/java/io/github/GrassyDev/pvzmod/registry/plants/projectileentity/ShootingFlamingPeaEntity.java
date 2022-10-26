@@ -16,6 +16,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -121,6 +122,9 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
+		if (entity instanceof GolemEntity){
+
+		}
 		if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
 				!(entity instanceof HypnoFlagzombieEntity)) {
 			float sound = this.random.nextFloat();

@@ -4,7 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.AilmentEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.planttypes.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_G;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntity_T;
@@ -24,7 +24,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
@@ -32,7 +31,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
@@ -51,11 +49,9 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	public AnimationFactory factory = new AnimationFactory(this);
 
-	private String controllerName = "puffcontroller";
+	private String controllerName = "fumecontroller";
 
 	private int healingTime;
-
-	private boolean isAsleep;
 
 	private boolean isTired;
 
@@ -103,7 +99,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	//~*~//~VARIANTS~//~*~//
+	/** /~*~//~VARIANTS~//~*~/ **/
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(FumeshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -129,7 +125,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	//~*~//~GECKOLIB ANIMATION~//~*~//
+	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -155,7 +151,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	//~*~//~AI~//~*~//
+	/** /~*~//~AI~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new FumeshroomEntity.FireBeamGoal(this));
@@ -172,7 +168,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	//~*~//~POSITION~//~*~//
+	/** /~*~//~POSITION~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -192,7 +188,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	//~*~//~TICKING~//~*~//
+	/** /~*~//~TICKING~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -216,17 +212,17 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	protected void mobTick() {
 		float f = this.getLightLevelDependentValue();
 		if (f > 0.5f) {
-			this.isAsleep = true;
 			this.world.sendEntityStatus(this, (byte) 13);
+			this.clearGoalsAndTasks();
 		} else {
-			this.isAsleep = false;
 			this.world.sendEntityStatus(this, (byte) 12);
+			this.initGoals();
 		}
 		super.mobTick();
 	}
 
 
-	//~*~//~ATTRIBUTES~//~*~//
+	/** /~*~//~ATTRIBUTES~//~*~/ **/
 
 
 	public static DefaultAttributeContainer.Builder createFumeshroomAttributes() {
@@ -271,7 +267,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	//~*~//~DAMAGE HANDLER~//~*~//
+	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -292,7 +288,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	//~*~//~SPAWNING~//~*~//
+	/** /~*~//~SPAWNING~//~*~/ **/
 
 
 	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
@@ -314,7 +310,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	//~*~//~GOALS~//~*~//
+	/** /~*~//~GOALS~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final FumeshroomEntity fumeshroomEntity;
@@ -332,7 +328,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		}
 
 		public boolean shouldContinue() {
-			return super.shouldContinue() && !this.fumeshroomEntity.isAsleep;
+			return super.shouldContinue() && !this.fumeshroomEntity.isTired;
 		}
 
 		public void start() {
@@ -349,11 +345,10 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		}
 
 		public void tick() {
-			ServerWorld serverWorld = this.fumeshroomEntity.world.getServer().getWorld(this.fumeshroomEntity.world.getRegistryKey());
 			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
 			this.fumeshroomEntity.getNavigation().stop();
 			this.fumeshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.fumeshroomEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.fumeshroomEntity.isAsleep){
+			if ((!this.fumeshroomEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.fumeshroomEntity.isTired){
 				this.fumeshroomEntity.setTarget((LivingEntity) null);
 			} else {
 				this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 11);

@@ -3,7 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.BombardEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.planttypes.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -17,13 +17,14 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stat;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -63,6 +64,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.potatoPreparingTime = 10;
+		this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
     }
 
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
@@ -121,6 +123,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
     public void tickMovement() {
         super.tickMovement();
         if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.clearStatusEffects();
             this.damage(DamageSource.GENERIC, 9999);
         }
     }
@@ -132,6 +135,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
     public boolean handleAttack(Entity attacker) {
         if (attacker instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity)attacker;
+			this.clearStatusEffects();
             return this.damage(DamageSource.player(playerEntity), 9999.0F);
         } else {
             return false;
@@ -237,8 +241,12 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 
             int i = this.getFuseSpeed();
             if (i > 0 && this.currentFuseTime == 0) {
+				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
                 this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
             }
+			else {
+				removeStatusEffect(StatusEffects.RESISTANCE);
+			}
 
             this.currentFuseTime += i;
             if (this.currentFuseTime < 0) {

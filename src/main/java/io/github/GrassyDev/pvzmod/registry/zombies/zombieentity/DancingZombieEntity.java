@@ -5,8 +5,8 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
-import io.github.GrassyDev.pvzmod.registry.plants.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.planttypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -42,7 +42,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.EnumSet;
 import java.util.Random;
 import java.util.function.Predicate;
 

@@ -1,6 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry.plants.projectileentity;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.CherrybombEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

@@ -3,6 +3,8 @@ package io.github.GrassyDev.pvzmod.registry;
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.gravestones.renderers.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.renderers.*;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.chomperentity.ChomperEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroomentity.DoomshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_G;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_T;
@@ -33,7 +35,7 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.CHOMPER, ChomperEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.CHOMPER, ChomperEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.REPEATER, RepeaterEntityRenderer ::new);
 
@@ -51,7 +53,7 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.ICESHROOM, IceshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer ::new);
 
