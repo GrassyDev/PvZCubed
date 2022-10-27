@@ -1,6 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.PeashooterEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

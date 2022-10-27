@@ -1,7 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea;
 
-import io.github.GrassyDev.pvzmod.registry.plants.models.PeashooterEntityModel;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.PeashooterEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 

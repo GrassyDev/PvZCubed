@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.plants.planttypes.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.particle.ItemBreakParticle;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
@@ -21,7 +22,13 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stat;
@@ -317,7 +324,9 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
     private void explode() {
         if (!this.world.isClient) {
             PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 1f, null, Explosion.DestructionType.NONE);
-            explosion.collectBlocksAndDamageEntities();
+			this.world.sendEntityStatus(this, (byte) 3);
+			this.removeStatusEffect(StatusEffects.RESISTANCE);
+			explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(true);
             Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
             this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
@@ -349,6 +358,22 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
         }
 
     }
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		ItemStack itemStack = Items.POTATO.getDefaultStack();
+		if (status == 3) {
+			for(int i = 0; i < 96; ++i) {
+				double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d, e, f);
+				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d * -1, e, f * -1);
+				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d * -1, e, f);
+				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d, e, f * -1);
+			}
+		}
+	}
 
     public boolean getIgnited() {
         return (Boolean)this.dataTracker.get(IGNITED);

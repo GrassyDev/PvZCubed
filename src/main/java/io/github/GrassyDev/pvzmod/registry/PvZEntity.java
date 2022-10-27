@@ -25,6 +25,8 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.Hypnos
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom.IceshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom.IceshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peashooter.PeashooterEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peashooter.PeashooterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
