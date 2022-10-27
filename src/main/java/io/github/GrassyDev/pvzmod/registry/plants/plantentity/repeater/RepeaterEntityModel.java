@@ -1,6 +1,6 @@
-package io.github.GrassyDev.pvzmod.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.RepeaterEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

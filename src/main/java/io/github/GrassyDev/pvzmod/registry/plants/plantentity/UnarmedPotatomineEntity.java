@@ -232,7 +232,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
                 livingEntity = (LivingEntity)source.getAttacker();
             }
 
-            if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
+            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.ENTITYRISINGEVENT, 1.5F, 1.0F);
 				PotatomineEntity potatomineEntity = (PotatomineEntity) PvZEntity.POTATOMINE.create(world);
                 potatomineEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());

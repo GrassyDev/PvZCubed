@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoSummonerEntity
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -168,12 +169,13 @@ public class ConeheadEntity extends HostileEntity implements IAnimatable {
                 livingEntity = (LivingEntity)source.getAttacker();
             }
 
-            if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
+            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
                 HypnoConeheadEntity hypnoConeheadEntity = (HypnoConeheadEntity) PvZEntity.HYPNOCONEHEAD.create(world);
                 hypnoConeheadEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoConeheadEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoConeheadEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoConeheadEntity.setAiDisabled(this.isAiDisabled());
+				hypnoConeheadEntity.setHealth(this.getHealth());
                 if (this.hasCustomName()) {
                     hypnoConeheadEntity.setCustomName(this.getCustomName());
                     hypnoConeheadEntity.setCustomNameVisible(this.isCustomNameVisible());

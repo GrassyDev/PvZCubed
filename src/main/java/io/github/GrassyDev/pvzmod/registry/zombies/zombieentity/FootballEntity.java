@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoSummonerEntity
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -170,12 +171,13 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
                 livingEntity = (LivingEntity)source.getAttacker();
             }
 
-            if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
+            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
                 HypnoFootballEntity hypnoFootballEntity = (HypnoFootballEntity) PvZEntity.HYPNOFOOTBALL.create(world);
                 hypnoFootballEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoFootballEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFootballEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoFootballEntity.setAiDisabled(this.isAiDisabled());
+				hypnoFootballEntity.setHealth(this.getHealth());
                 if (this.hasCustomName()) {
                     hypnoFootballEntity.setCustomName(this.getCustomName());
                     hypnoFootballEntity.setCustomNameVisible(this.isCustomNameVisible());

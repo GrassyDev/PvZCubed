@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoSummonerEntity
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.*;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -180,12 +181,13 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
                 livingEntity = (LivingEntity)source.getAttacker();
             }
 
-            if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
+            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
                 HypnoFlagzombieEntity hypnoFlagzombieEntity = (HypnoFlagzombieEntity)PvZEntity.HYPNOFLAGZOMBIE.create(world);
                 hypnoFlagzombieEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoFlagzombieEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFlagzombieEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoFlagzombieEntity.setAiDisabled(this.isAiDisabled());
+				hypnoFlagzombieEntity.setHealth(this.getHealth());
                 if (this.hasCustomName()) {
                     hypnoFlagzombieEntity.setCustomName(this.getCustomName());
                     hypnoFlagzombieEntity.setCustomNameVisible(this.isCustomNameVisible());

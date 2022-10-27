@@ -1,12 +1,10 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoBrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.itemclasses.seedpackets.GatlingpeaSeeds;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.AppeaseEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
@@ -24,11 +22,10 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -37,7 +34,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -51,17 +47,45 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IAnimatable {
-	public AnimationFactory factory = new AnimationFactory(this);
 	private String controllerName = "peacontroller";
 
 	public int healingTime;
 
 	public boolean isFiring;
 
+	public AnimationFactory factory = new AnimationFactory(this);
+
 	public RepeaterEntity(EntityType<? extends RepeaterEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
 		this.healingTime = 6000;
+	}
+
+	static {
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 11) {
+			this.isFiring = true;
+		} else if (status == 10) {
+			this.isFiring = false;
+		}
+	}
+
+
+	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
@@ -73,28 +97,25 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 		return PlayState.CONTINUE;
 	}
 
-	public void calculateDimensions() {
-		double d = this.getX();
-		double e = this.getY();
-		double f = this.getZ();
-		super.calculateDimensions();
-		this.updatePosition(d, e, f);
+
+	/** /~*~//~AI~//~*~/ **/
+
+	protected void initGoals() {
+		this.goalSelector.add(1, new RepeaterEntity.FireBeamGoal(this));
+		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(40) + 35, 15.0F));
+		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+					!(livingEntity instanceof HypnoFlagzombieEntity);
+		}));
 	}
 
-	public void readCustomDataFromNbt(NbtCompound tag) {
-		super.readCustomDataFromNbt(tag);
+	@Override
+	public void attack(LivingEntity target, float pullProgress) {
 	}
 
-	public void writeCustomDataToNbt(NbtCompound tag) {
-		super.writeCustomDataToNbt(tag);
-	}
 
-	public void tick() {
-		super.tick();
-		if (!this.isAiDisabled() && this.isAlive()) {
-			setPosition(this.getX(), this.getY(), this.getZ());
-		}
-	}
+	/** /~*~//~POSITION~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -113,9 +134,107 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 		}
 	}
 
+
+	/** /~*~//~TICKING~//~*~/ **/
+
+	public void tick() {
+		super.tick();
+		if (!this.isAiDisabled() && this.isAlive()) {
+			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+	}
+
+	public void tickMovement() {
+		super.tickMovement();
+		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.heal(1.0F);
+			this.healingTime = 6000;
+		}
+
+		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.damage(DamageSource.GENERIC, 9999);
+		}
+	}
+
+
+	/** /~*~//~UPGRADES~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		Item item = itemStack.getItem();
+		if (itemStack.isOf(ModItems.GATLINGPEA_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
+			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
+			if ((this.world instanceof ServerWorld)) {
+				ServerWorld serverWorld = (ServerWorld) this.world;
+				GatlingpeaEntity gatlingpeaEntity = (GatlingpeaEntity) PvZEntity.GATLINGPEA.create(world);
+				gatlingpeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				gatlingpeaEntity.initialize(serverWorld, world.getLocalDifficulty(gatlingpeaEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				gatlingpeaEntity.setAiDisabled(this.isAiDisabled());
+				if (this.hasCustomName()) {
+					gatlingpeaEntity.setCustomName(this.getCustomName());
+					gatlingpeaEntity.setCustomNameVisible(this.isCustomNameVisible());
+				}
+
+				gatlingpeaEntity.setPersistent();
+				serverWorld.spawnEntityAndPassengers(gatlingpeaEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+				player.getItemCooldownManager().set(ModItems.GATLINGPEA_SEED_PACKET, 700);
+			}
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.CONSUME;
+		}
+	}
+
+
+	/** /~*~//~ATTRIBUTES~//~*~/ **/
+
+	public static DefaultAttributeContainer.Builder createRepeaterAttributes() {
+		return MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
+	}
+
+	protected boolean canClimb() {
+		return false;
+	}
+
 	public boolean collides() {
 		return true;
 	}
+
+	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+		return 0.60F;
+	}
+
+	@Nullable
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
+
+	@Nullable
+	protected SoundEvent getDeathSound() {
+		return PvZCubed.PLANTPLANTEDEVENT;
+	}
+
+	public boolean hurtByWater() {
+		return false;
+	}
+
+	public boolean isPushable() {
+		return false;
+	}
+
+	protected void pushAway(Entity entity) {
+	}
+
+
+	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -135,91 +254,10 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 		return true;
 	}
 
-	protected boolean canClimb() {
-		return false;
-	}
 
-	public boolean isPushable() {
-		return false;
-	}
+	/** /~*~//~SPAWNING~//~*~/ **/
 
-	protected void pushAway(Entity entity) {
-	}
-
-	protected void initGoals() {
-		this.goalSelector.add(1, new RepeaterEntity.FireBeamGoal(this));
-		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(40) + 35, 15.0F));
-		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-					!(livingEntity instanceof HypnoFlagzombieEntity);
-		}));
-	}
-
-	public static DefaultAttributeContainer.Builder createRepeaterAttributes() {
-		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
-	}
-
-	protected void initDataTracker() {
-		super.initDataTracker();
-	}
-
-	public boolean hurtByWater() {
-		return false;
-	}
-
-	@Override
-	public void attack(LivingEntity target, float pullProgress) {
-	}
-
-	public void tickMovement() {
-		super.tickMovement();
-		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
-			this.healingTime = 6000;
-		}
-
-		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.damage(DamageSource.GENERIC, 9999);
-		}
-	}
-
-	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-		return 0.60F;
-	}
-
-	@Override
-	public void registerControllers(AnimationData data) {
-		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
-
-		data.addAnimationController(controller);
-	}
-
-	@Override
-	public AnimationFactory getFactory() {
-		return this.factory;
-	}
-
-	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
-	}
-
-	@Nullable
-	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
-	}
-
-	@Environment(EnvType.CLIENT)
-	public Vec3d method_29919() {
-		return new Vec3d(0.0D, (double) (0.75F * this.getStandingEyeHeight()), (double) (this.getWidth() * 0.4F));
-	}
-
-	public static boolean canSnRepeaterSpawn(EntityType<RepeaterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
+	public static boolean canRepeaterSpawn(EntityType<RepeaterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
 		return pos.getY() > 60;
 	}
 
@@ -228,45 +266,8 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
 	}
 
-	static {
-	}
 
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status == 11) {
-			this.isFiring = true;
-		} else if (status == 10) {
-			this.isFiring = false;
-		}
-	}
-
-	public ActionResult interactMob(PlayerEntity player, Hand hand) {
-		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.isOf(ModItems.GATLINGPEA_SEED_PACKET)) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
-			itemStack.decrement(1);
-			player.getItemCooldownManager().set(ModItems.GATLINGPEA_SEED_PACKET, 700);
-			if ((this.world instanceof ServerWorld)) {
-				ServerWorld serverWorld = (ServerWorld) this.world;
-				GatlingpeaEntity gatlingpeaEntity = (GatlingpeaEntity) PvZEntity.GATLINGPEA.create(world);
-				gatlingpeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				gatlingpeaEntity.initialize(serverWorld, world.getLocalDifficulty(gatlingpeaEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
-				gatlingpeaEntity.setAiDisabled(this.isAiDisabled());
-				if (this.hasCustomName()) {
-					gatlingpeaEntity.setCustomName(this.getCustomName());
-					gatlingpeaEntity.setCustomNameVisible(this.isCustomNameVisible());
-				}
-
-				gatlingpeaEntity.setPersistent();
-				serverWorld.spawnEntityAndPassengers(gatlingpeaEntity);
-				this.remove(RemovalReason.DISCARDED);
-			}
-			return ActionResult.SUCCESS;
-		} else {
-			return ActionResult.CONSUME;
-		}
-	}
-
+	/** /~*~//~GOALS~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final RepeaterEntity repeaterEntity;

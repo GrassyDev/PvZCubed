@@ -1,6 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.HypnoshroomEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

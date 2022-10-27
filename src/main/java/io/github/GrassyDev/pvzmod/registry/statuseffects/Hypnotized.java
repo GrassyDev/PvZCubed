@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.statuseffects;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
@@ -22,6 +23,6 @@ public class Hypnotized extends StatusEffect {
     // This method is called when it applies the status effect. We implement custom functionality here.
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        entity.damage(DamageSource.OUT_OF_WORLD, 1);
+        entity.damage(PvZCubed.HYPNO_DAMAGE, 1);
     }
 }

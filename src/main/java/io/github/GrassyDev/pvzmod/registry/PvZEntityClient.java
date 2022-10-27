@@ -9,6 +9,8 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.flamingpea.Flaming
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.FumeshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_G;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_T;
@@ -41,7 +43,7 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.CHOMPER, ChomperEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.REPEATER, RepeaterEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.REPEATER, RepeaterEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.PUFFSHROOM, PuffshroomEntityRenderer ::new);
 
@@ -51,7 +53,7 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM, HypnoshroomEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM, HypnoshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM, ScaredyshroomEntityRenderer ::new);
 

@@ -4,7 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoNewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.HypnoshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.UnarmedPotatomineEntity;
 import net.minecraft.block.BlockState;
@@ -142,12 +142,13 @@ public class NewspaperEntity extends HostileEntity implements IAnimatable {
                 livingEntity = (LivingEntity)source.getAttacker();
             }
 
-            if (this.getRecentDamageSource() == DamageSource.OUT_OF_WORLD) {
+            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
                 HypnoNewspaperEntity hypnoNewspaperEntity = (HypnoNewspaperEntity) PvZEntity.HYPNONEWSPAPER.create(world);
                 hypnoNewspaperEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoNewspaperEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoNewspaperEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoNewspaperEntity.setAiDisabled(this.isAiDisabled());
+				hypnoNewspaperEntity.setHealth(this.getHealth());
                 if (this.hasCustomName()) {
                     hypnoNewspaperEntity.setCustomName(this.getCustomName());
                     hypnoNewspaperEntity.setCustomNameVisible(this.isCustomNameVisible());

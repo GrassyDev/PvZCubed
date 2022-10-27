@@ -2,11 +2,10 @@ package io.github.GrassyDev.pvzmod;
 
 import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.statuseffects.Frozen;
-import io.github.GrassyDev.pvzmod.registry.statuseffects.Hypnotized;
-import io.github.GrassyDev.pvzmod.registry.statuseffects.Ice;
-import io.github.GrassyDev.pvzmod.registry.statuseffects.Warm;
+import io.github.GrassyDev.pvzmod.registry.damage.HypnoDamage;
+import io.github.GrassyDev.pvzmod.registry.statuseffects.*;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -25,7 +24,9 @@ public class PvZCubed implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Plants vs. Zombies Cubed");
 
+	public static final DamageSource HYPNO_DAMAGE = new HypnoDamage().setHypnoDamage();
 	public static final StatusEffect HYPNOTIZED = new Hypnotized();
+
 	public static final StatusEffect ICE = new Ice();
 	public static final StatusEffect FROZEN = new Frozen();
 	public static final StatusEffect WARM = new Warm();

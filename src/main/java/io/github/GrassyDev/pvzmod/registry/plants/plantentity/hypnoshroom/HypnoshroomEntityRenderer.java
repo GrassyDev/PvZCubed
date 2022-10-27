@@ -1,7 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.renderers;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom;
 
-import io.github.GrassyDev.pvzmod.registry.plants.models.HypnoshroomEntityModel;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.HypnoshroomEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
