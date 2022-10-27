@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.world.World;
 
-public abstract class SpearEntity extends GolemEntity {
+public abstract class SpearEntity extends PlantEntity {
 	/** Plants:
 	 *   - M/A
 	 * **/

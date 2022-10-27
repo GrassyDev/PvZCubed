@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;

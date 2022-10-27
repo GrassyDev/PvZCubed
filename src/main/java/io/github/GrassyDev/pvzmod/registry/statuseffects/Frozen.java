@@ -25,7 +25,7 @@ public class Frozen extends StatusEffect {
     // This method is called when it applies the status effect. We implement custom functionality here.
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-		addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", 0, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
-		addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", 0, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+		addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+		addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", -0.5, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 }

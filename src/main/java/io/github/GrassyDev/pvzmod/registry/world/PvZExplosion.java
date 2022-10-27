@@ -70,8 +70,6 @@ public class PvZExplosion extends Explosion {
 
 
 	public void affectWorld(boolean particles) {
-
-
 		boolean bl = this.blockDestructionType == Explosion.DestructionType.NONE;
 		if (particles) {
 			if (!(this.power < 2.0F) && bl) {

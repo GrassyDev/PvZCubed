@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.world.World;
 
-public abstract class EnforceEntity extends GolemEntity {
+public abstract class EnforceEntity extends PlantEntity {
 	/** Plants:
 	 *   - Chomper
 	 * **/

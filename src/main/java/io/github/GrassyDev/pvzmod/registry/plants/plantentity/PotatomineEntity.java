@@ -244,13 +244,11 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
                 this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
             }
-			else {
-				removeStatusEffect(StatusEffects.RESISTANCE);
-			}
 
             this.currentFuseTime += i;
             if (this.currentFuseTime < 0) {
                 this.currentFuseTime = 0;
+				removeStatusEffect(StatusEffects.RESISTANCE);
             }
 
             if (this.currentFuseTime >= this.fuseTime) {

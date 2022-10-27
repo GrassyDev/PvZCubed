@@ -14,6 +14,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -55,7 +56,19 @@ public class IceshroomExplosion extends Explosion {
         this.damageSource = DamageSource.explosion(this);
     }
 
-    public float getPower() {
+	public void affectWorld(boolean particles) {
+		boolean bl = this.blockDestructionType == Explosion.DestructionType.NONE;
+		if (particles) {
+			if (!(this.power < 2.0F) && bl) {
+				this.world.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0, 0.0, 0.0);
+			} else {
+				this.world.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0, 0.0, 0.0);
+			}
+		}
+	}
+
+
+	public float getPower() {
         return power;
     }
 
@@ -114,7 +127,8 @@ public class IceshroomExplosion extends Explosion {
                         if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                                 !(entity instanceof HypnoFlagzombieEntity)) {
                             entity.damage(this.getDamageSource(), 4f);
-                            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 200)));
+							((LivingEntity) entity).removeStatusEffect(PvZCubed.WARM);
+                            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 50)));
                         }
                     }
                 }

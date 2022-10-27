@@ -91,7 +91,7 @@ public class BucketheadEntity extends HostileEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.targetSelector.add(2, new BucketheadEntity.TrackOwnerTargetGoal(this));
-        this.goalSelector.add(1, new BucketheadAttackGoal(this, 1.0D, true));
+        this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(1, new TargetGoal(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal(this, PotatomineEntity.class, false, true));

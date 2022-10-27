@@ -167,6 +167,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 			if ((this.world instanceof ServerWorld)) {
 				ServerWorld serverWorld = (ServerWorld) this.world;
 				GatlingpeaEntity gatlingpeaEntity = (GatlingpeaEntity) PvZEntity.GATLINGPEA.create(world);
+				gatlingpeaEntity.setTarget(this.getTarget());
 				gatlingpeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				gatlingpeaEntity.initialize(serverWorld, world.getLocalDifficulty(gatlingpeaEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
 				gatlingpeaEntity.setAiDisabled(this.isAiDisabled());

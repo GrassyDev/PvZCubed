@@ -10,6 +10,7 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.Fumeshr
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom.IceshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_G;
@@ -57,7 +58,7 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM, ScaredyshroomEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.ICESHROOM, IceshroomEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.ICESHROOM, IceshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntityRenderer::new);
 

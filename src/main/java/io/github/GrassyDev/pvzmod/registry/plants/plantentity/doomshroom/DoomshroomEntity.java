@@ -186,13 +186,14 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 			this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
 			this.playSound(PvZCubed.DOOMSHROOMEXPLOSIONEVENT, 1F, 1F);
 			this.dead = true;
-			this.remove(RemovalReason.KILLED);
 			this.spawnEffectsCloud();
+			this.remove(RemovalReason.KILLED);
 		}
 	}
 
 	private void spawnEffectsCloud() {
 		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
+		areaEffectCloudEntity.setColor(0x5F316E);
 		areaEffectCloudEntity.setRadius(10.5F);
 		areaEffectCloudEntity.setRadiusOnUse(-0.5F);
 		areaEffectCloudEntity.setWaitTime(10);
@@ -241,13 +242,11 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 				this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
 			}
-			else {
-				removeStatusEffect(StatusEffects.RESISTANCE);
-			}
 
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
+				removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {

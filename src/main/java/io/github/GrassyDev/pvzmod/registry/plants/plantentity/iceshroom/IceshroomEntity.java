@@ -1,14 +1,11 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity.cherrybomb;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Random;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.planttypes.BombardEntity;
-import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroom.DoomshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.planttypes.WinterEntity;
+import io.github.GrassyDev.pvzmod.registry.world.IceshroomExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -30,6 +27,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -44,9 +42,12 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class CherrybombEntity extends BombardEntity implements IAnimatable {
+import java.util.Optional;
+import java.util.Random;
 
-    public AnimationFactory factory = new AnimationFactory(this);
+public class IceshroomEntity extends WinterEntity implements IAnimatable {
+
+	public AnimationFactory factory = new AnimationFactory(this);
     private static final TrackedData<Integer> FUSE_SPEED;
     private static final TrackedData<Boolean> CHARGED;
     private static final TrackedData<Boolean> IGNITED;
@@ -54,9 +55,11 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
     private int currentFuseTime;
     private int fuseTime = 30;
     private int explosionRadius = 1;
-	private String controllerName = "bombcontroller";
+    public boolean isAsleep;
+    public boolean isTired;
+	private String controllerName = "icecontroller";
 
-    public CherrybombEntity(EntityType<? extends CherrybombEntity> entityType, World world) {
+    public IceshroomEntity(EntityType<? extends IceshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
     }
@@ -97,9 +100,20 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	}
 
 	static {
-		FUSE_SPEED = DataTracker.registerData(CherrybombEntity.class, TrackedDataHandlerRegistry.INTEGER);
-		CHARGED = DataTracker.registerData(CherrybombEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-		IGNITED = DataTracker.registerData(CherrybombEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		FUSE_SPEED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
+		CHARGED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		IGNITED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	}
+
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 13) {
+			this.isTired = true;
+		}
+		else if (status == 12) {
+			this.isTired = false;
+		}
 	}
 
 
@@ -119,10 +133,13 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.getFuseSpeed();
-        if (i > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("cherrybomb.explode", false));
+        if (this.isTired){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("iceshroom.asleep", true));
+        }
+        else if (i > 0) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("iceshroom.explode", false));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("cherrybomb.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("iceshroom.idle", true));
         }
         return PlayState.CONTINUE;
     }
@@ -130,14 +147,14 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	/** /~*~//~AI~//~*~/ **/
 
 	protected void initGoals() {
-		int i = this.getFuseSpeed();
-		this.goalSelector.add(2, new CherryIgniteGoal(this));
-		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-					!(livingEntity instanceof HypnoFlagzombieEntity);
-		}));
-	}
+        int i = this.getFuseSpeed();
+        this.goalSelector.add(2, new IceIgniteGoal(this));
+        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+            return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+                    !(livingEntity instanceof HypnoFlagzombieEntity);
+        }));
+    }
 
 	public boolean tryAttack(Entity target) {
 		return true;
@@ -166,39 +183,31 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 
 	private void explode() {
 		if (!this.world.isClient) {
-			this.clearStatusEffects();
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 2.5f, null, Explosion.DestructionType.NONE);
+			IceshroomExplosion explosion = new IceshroomExplosion(world, this, this.getX(), this.getY(), this.getZ(), 5f, null, Explosion.DestructionType.NONE);
 			explosion.collectBlocksAndDamageEntities();
 			explosion.affectWorld(true);
 			Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
 			this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-			this.playSound(PvZCubed.CHERRYBOMBEXPLOSIONEVENT, 1F, 1F);
+			this.playSound(PvZCubed.SNOWPEAHITEVENT, 2F, 1F);
 			this.dead = true;
-			this.remove(RemovalReason.KILLED);
 			this.spawnEffectsCloud();
+			this.remove(RemovalReason.KILLED);
 		}
 
 	}
 
 	private void spawnEffectsCloud() {
-		Collection<StatusEffectInstance> collection = this.getStatusEffects();
-		if (!collection.isEmpty()) {
-			AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
-			areaEffectCloudEntity.setRadius(3.5F);
-			areaEffectCloudEntity.setRadiusOnUse(-0.5F);
-			areaEffectCloudEntity.setWaitTime(10);
-			areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 2);
-			areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float)areaEffectCloudEntity.getDuration());
-			Iterator var3 = collection.iterator();
-
-			while(var3.hasNext()) {
-				StatusEffectInstance statusEffectInstance = (StatusEffectInstance)var3.next();
-				areaEffectCloudEntity.addEffect(new StatusEffectInstance(statusEffectInstance));
-			}
-
-			this.world.spawnEntity(areaEffectCloudEntity);
-		}
-
+		double d = (double)(180 & 255) / 255.0;
+		double e = (double)(30 & 255) / 255.0;
+		double f = (double)(200 & 255) / 255.0;
+		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
+		areaEffectCloudEntity.setColor(0x33FFFF);
+		areaEffectCloudEntity.setRadius(10.5F);
+		areaEffectCloudEntity.setRadiusOnUse(-0.5F);
+		areaEffectCloudEntity.setWaitTime(1);
+		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 20);
+		areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float)areaEffectCloudEntity.getDuration());
+		this.world.spawnEntity(areaEffectCloudEntity);
 	}
 
 
@@ -224,13 +233,12 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 
 	/** /~*~//~TICKING~//~*~/ **/
 
-
 	public void tick() {
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.isAlive()) {
+		if (this.isAlive() && !this.isAsleep) {
 			this.lastFuseTime = this.currentFuseTime;
 			if (this.getIgnited()) {
 				this.setFuseSpeed(1);
@@ -239,13 +247,12 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 			int i = this.getFuseSpeed();
 			if (i > 0 && this.currentFuseTime == 0) {
 				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
-				this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
 			}
 
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
-				removeStatusEffect(StatusEffects.RESISTANCE);
+				this.removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {
@@ -255,26 +262,40 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 		}
 	}
 
-
 	public void tickMovement() {
-        super.tickMovement();
-        if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+		super.tickMovement();
+		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.clearStatusEffects();
-            this.damage(DamageSource.GENERIC, 9999);
-        }
-    }
+			this.damage(DamageSource.GENERIC, 9999);
+		}
+	}
+
+	protected void mobTick() {
+		float f = getLightLevelDependentValue();
+		if (f > 0.5f) {
+			isAsleep = true;
+			this.world.sendEntityStatus(this, (byte) 13);
+			this.clearGoalsAndTasks();
+			removeStatusEffect(StatusEffects.RESISTANCE);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 12);
+			isAsleep = false;
+			this.initGoals();
+		}
+		super.mobTick();
+	}
 
 
 	/** /~*~//~ATTRIBUTES~//~*~/ **/
 
-
-	public static DefaultAttributeContainer.Builder createCherrybombAttributes() {
+	public static DefaultAttributeContainer.Builder createIceshroomAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 2D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 180);
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 5D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4);
     }
 
 	protected boolean canClimb() {
@@ -335,8 +356,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 
 	/** /~*~//~SPAWNING~//~*~/ **/
 
-
-	public static boolean canCherrybombSpawn(EntityType<CherrybombEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
+	public static boolean canIceshroomSpawn(EntityType<IceshroomEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
         return pos.getY() > 60;
     }
 

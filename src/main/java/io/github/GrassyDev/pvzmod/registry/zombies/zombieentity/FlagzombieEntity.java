@@ -103,7 +103,7 @@ public class FlagzombieEntity extends SpellcastingIllagerEntity implements IAnim
     protected void initCustomGoals() {
         this.targetSelector.add(2, new FlagzombieEntity.TrackOwnerTargetGoal(this));
         this.goalSelector.add(1, new FlagzombieEntity.summonZombieGoal());
-        this.goalSelector.add(1, new FlagzombieAttackGoal(this, 1.0D, true));
+        this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(1, new TargetGoal(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal(this, PotatomineEntity.class, false, true));

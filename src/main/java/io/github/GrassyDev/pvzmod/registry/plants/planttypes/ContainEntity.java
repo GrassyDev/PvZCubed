@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.world.World;
 
-public abstract class ContainEntity extends GolemEntity {
+public abstract class ContainEntity extends PlantEntity {
 	/** Plants:
 	 *   - Grave Buster
 	 * **/

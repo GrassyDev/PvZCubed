@@ -93,7 +93,7 @@ public class FootballEntity extends HostileEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.targetSelector.add(2, new FootballEntity.TrackOwnerTargetGoal(this));
-        this.goalSelector.add(1, new FootballAttackGoal(this, 1.0D, true));
+        this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(1, new TargetGoal(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal(this, PotatomineEntity.class, false, true));

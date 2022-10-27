@@ -1,6 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.IceshroomEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
