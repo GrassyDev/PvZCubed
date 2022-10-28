@@ -13,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.Hypnos
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom.IceshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peashooter.PeashooterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.puffshroom.PuffshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_G;
@@ -48,7 +49,7 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.REPEATER, RepeaterEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.PUFFSHROOM, PuffshroomEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.PUFFSHROOM, PuffshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer ::new);
 

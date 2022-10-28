@@ -1,28 +1,6 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"pufftest": {
-			"loop": true,
-			"animation_length": 1,
-			"bones": {
-				"head": {
-					"rotation": {
-						"vector": [0, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
-					},
-					"scale": {
-						"0.0": {
-							"vector": [1, 1, 1]
-						},
-						"1.0": {
-							"vector": [1, 5.5, 1]
-						}
-					}
-				}
-			}
-		},
 		"puffshroom.idle": {
 			"loop": true,
 			"animation_length": 1.5,
@@ -178,11 +156,11 @@
 							"vector": [0, 0, 0],
 							"easing": "easeInElastic"
 						},
-						"0.5": {
+						"0.5833": {
 							"vector": [-2.5, 0, 0],
 							"easing": "easeOutElastic"
 						},
-						"0.625": {
+						"0.7083": {
 							"vector": [0, 0, 0],
 							"easing": "easeInElastic"
 						},
@@ -199,11 +177,11 @@
 							"vector": [0, 0, 0],
 							"easing": "easeInElastic"
 						},
-						"0.5": {
+						"0.5833": {
 							"vector": [0, -0.25, 1],
 							"easing": "easeOutElastic"
 						},
-						"0.625": {
+						"0.7083": {
 							"vector": [0, 0, 0],
 							"easing": "easeOutElastic"
 						},
@@ -262,7 +240,7 @@
 							"vector": [0.5, 0.5, 0.5],
 							"easing": "easeInElastic"
 						},
-						"0.5": {
+						"0.5833": {
 							"vector": [1.25, 1.25, 1.25],
 							"easing": "easeOutElastic"
 						},

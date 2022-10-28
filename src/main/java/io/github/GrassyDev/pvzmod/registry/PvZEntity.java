@@ -30,6 +30,8 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peashooter.Peashoo
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.UnarmedPotatomineEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.puffshroom.PuffshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.puffshroom.PuffshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
@@ -213,19 +215,19 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<FumeEntity> FUME = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "fume"),
-			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1.5f,.25f)).build()
+			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1f,.25f)).build()
 	);
 
 	public static final EntityType<FumeEntity_G> FUME_G = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "fume_g"),
-			QuiltEntityTypeBuilder.<FumeEntity_G>create(SpawnGroup.MISC, FumeEntity_G::new).setDimensions(EntityDimensions.fixed(1.5f,.25f)).build()
+			QuiltEntityTypeBuilder.<FumeEntity_G>create(SpawnGroup.MISC, FumeEntity_G::new).setDimensions(EntityDimensions.fixed(1f,.25f)).build()
 	);
 
 	public static final EntityType<FumeEntity_T> FUME_T = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "fume_t"),
-			QuiltEntityTypeBuilder.<FumeEntity_T>create(SpawnGroup.MISC, FumeEntity_T::new).setDimensions(EntityDimensions.fixed(1.5f,.25f)).build()
+			QuiltEntityTypeBuilder.<FumeEntity_T>create(SpawnGroup.MISC, FumeEntity_T::new).setDimensions(EntityDimensions.fixed(1f,.25f)).build()
 	);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////

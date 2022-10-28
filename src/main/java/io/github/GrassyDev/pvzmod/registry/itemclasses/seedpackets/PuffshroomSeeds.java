@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.itemclasses.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.PuffshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.puffshroom.PuffshroomEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;

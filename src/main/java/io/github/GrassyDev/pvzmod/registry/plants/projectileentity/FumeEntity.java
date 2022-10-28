@@ -24,6 +24,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
@@ -96,27 +97,6 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 
     public void tick() {
 		super.tick();
-		HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
-		boolean bl = false;
-		if (hitResult.getType() == HitResult.Type.BLOCK) {
-			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
-			BlockState blockState = this.world.getBlockState(blockPos);
-			if (blockState.isOf(Blocks.NETHER_PORTAL)) {
-				this.setInNetherPortal(blockPos);
-				bl = true;
-			} else if (blockState.isOf(Blocks.END_GATEWAY)) {
-				BlockEntity blockEntity = this.world.getBlockEntity(blockPos);
-				if (blockEntity instanceof EndGatewayBlockEntity && EndGatewayBlockEntity.canTeleport(this)) {
-					EndGatewayBlockEntity.tryTeleportingEntity(this.world, blockPos, blockState, this, (EndGatewayBlockEntity)blockEntity);
-				}
-
-				bl = true;
-			}
-		}
-
-		if (hitResult.getType() != HitResult.Type.MISS && !bl) {
-			this.onCollision(hitResult);
-		}
 		if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
