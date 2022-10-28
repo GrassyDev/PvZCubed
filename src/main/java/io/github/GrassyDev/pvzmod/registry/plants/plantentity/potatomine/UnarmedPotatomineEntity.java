@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
@@ -31,6 +32,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -142,6 +145,22 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
     }
 
 
+	/** /~*~//~INTERACTION~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.SMALLSUN)) {
+			this.potatoPreparingTime = 0;
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.CONSUME;
+		}
+	}
+
+
 	/** /~*~//~ATTRIBUTES~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createUnarmedPotatomineAttributes() {
@@ -167,7 +186,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return null;
 	}
 
 	@Nullable

@@ -114,19 +114,19 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 			this.isTired = false;
 		}
 		if (status == 6) {
-			for(int i = 0; i < 500; ++i) {
+			for(int i = 0; i < 600; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
 				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 			}
-			for(int i = 0; i < 500; ++i) {
+			for(int i = 0; i < 600; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
 				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 			}
-			for(int i = 0; i < 500; ++i) {
+			for(int i = 0; i < 600; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
 				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);

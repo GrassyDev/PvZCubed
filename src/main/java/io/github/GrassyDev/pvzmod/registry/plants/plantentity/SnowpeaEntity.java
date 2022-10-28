@@ -25,6 +25,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.*;
@@ -322,10 +323,10 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 						double d = this.snowpeaEntity.squaredDistanceTo(livingEntity);
 						float df = (float) d;
 						double e = livingEntity.getX() - this.snowpeaEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.snowpeaEntity.getBodyY(0.5D);
+						double f = livingEntity.getY() - this.snowpeaEntity.getY();
 						double g = livingEntity.getZ() - this.snowpeaEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.snowpeaEntity.getX(), this.snowpeaEntity.getY() + 0.75D, this.snowpeaEntity.getZ());
 						proj.setOwner(this.snowpeaEntity);
 						if (livingEntity.isAlive()) {

@@ -282,10 +282,10 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 						double d = this.peashooterEntity.squaredDistanceTo(livingEntity);
 						float df = (float)d;
 						double e = livingEntity.getX() - this.peashooterEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.peashooterEntity.getBodyY(0.5D);
+						double f = livingEntity.getY() - this.peashooterEntity.getY();
 						double g = livingEntity.getZ() - this.peashooterEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
 						proj.updatePosition(this.peashooterEntity.getX(), this.peashooterEntity.getY() + 0.75D, this.peashooterEntity.getZ());
 						proj.setOwner(this.peashooterEntity);
 						if (livingEntity.isAlive()) {

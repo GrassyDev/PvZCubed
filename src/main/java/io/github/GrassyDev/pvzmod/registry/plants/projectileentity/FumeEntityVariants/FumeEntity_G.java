@@ -56,6 +56,7 @@ public class FumeEntity_G extends ThrownItemEntity implements IAnimatable {
 
     public FumeEntity_G(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
+		this.setNoGravity(true);
     }
 
     public FumeEntity_G(World world, LivingEntity owner) {

@@ -8,7 +8,7 @@ public class SporeEntityModel extends AnimatedGeoModel<SporeEntity> {
     @Override
     public Identifier getModelResource(SporeEntity object)
     {
-        return new Identifier("pvzmod", "geo/fume.geo.json");
+        return new Identifier("pvzmod", "geo/peashot.geo.json");
     }
 
     @Override

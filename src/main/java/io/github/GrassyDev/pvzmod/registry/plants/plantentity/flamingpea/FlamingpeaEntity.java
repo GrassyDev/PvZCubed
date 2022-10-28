@@ -20,9 +20,11 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -133,7 +135,6 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-
 	}
 
 	public void tickMovement() {
@@ -281,10 +282,10 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 						double d = this.flamingpeaEntity.squaredDistanceTo(livingEntity);
 						float df = (float) d;
 						double e = livingEntity.getX() - this.flamingpeaEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.flamingpeaEntity.getBodyY(0.5D);
+						double f = livingEntity.getY() - this.flamingpeaEntity.getY();
 						double g = livingEntity.getZ() - this.flamingpeaEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.flamingpeaEntity.getX(), this.flamingpeaEntity.getY() + 0.75D, this.flamingpeaEntity.getZ());
 						proj.setOwner(this.flamingpeaEntity);
 						if (livingEntity.isAlive()) {

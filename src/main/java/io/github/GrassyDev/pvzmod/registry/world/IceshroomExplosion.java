@@ -127,6 +127,7 @@ public class IceshroomExplosion extends Explosion {
                         if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                                 !(entity instanceof HypnoFlagzombieEntity)) {
                             entity.damage(this.getDamageSource(), 4f);
+							entity.extinguish();
 							((LivingEntity) entity).removeStatusEffect(PvZCubed.WARM);
                             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 50)));
                         }

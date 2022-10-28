@@ -258,8 +258,13 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 
 			int i = this.getFuseSpeed();
 			if (i > 0 && this.currentFuseTime == 0) {
+				RandomGenerator randomGenerator = this.getRandom();
 				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 				this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+				for(int j = 0; j < 4; ++j) {
+					double e = (double)MathHelper.nextBetween(randomGenerator, 0.025F, 0.075F);
+					this.world.addParticle(ParticleTypes.SMALL_FLAME, this.getX(), this.getY() + 0.75, this.getZ(), 0, e, 0);
+				}
 			}
 
 			this.currentFuseTime += i;

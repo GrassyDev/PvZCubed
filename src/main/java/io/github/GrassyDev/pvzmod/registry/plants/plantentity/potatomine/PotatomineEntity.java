@@ -1,8 +1,11 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
 import net.fabricmc.api.EnvType;
@@ -22,16 +25,21 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -112,6 +120,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		RandomGenerator randomGenerator = this.getRandom();
 		ItemStack itemStack = Items.POTATO.getDefaultStack();
 		if (status == 3) {
 			for(int i = 0; i < 96; ++i) {
@@ -122,6 +131,22 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d * -1, e, f * -1);
 				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d * -1, e, f);
 				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d, e, f * -1);
+			}
+		}
+		if (status == 6) {
+			for(int i = 0; i < 8; ++i) {
+				double d = this.random.nextDouble() / 2 * this.random.range(-1, 1) * 0.33;
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 2 * this.random.range(-1, 1) * 0.33;
+				this.world.addParticle(ParticleTypes.SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
+			}
+			for(int i = 0; i < 8; ++i) {
+				double e = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 0.5);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
+						this.getY() + (this.random.range(-1, 1)),
+						this.getZ()  + (double)MathHelper.nextBetween(randomGenerator,
+								-0.5F, 0.5F), 0, e, 0);
 			}
 		}
 	}
@@ -187,6 +212,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		if (!this.world.isClient) {
 			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 1f, null, Explosion.DestructionType.NONE);
 			this.world.sendEntityStatus(this, (byte) 3);
+			this.world.sendEntityStatus(this, (byte) 6);
 			this.removeStatusEffect(StatusEffects.RESISTANCE);
 			explosion.collectBlocksAndDamageEntities();
 			explosion.affectWorld(true);

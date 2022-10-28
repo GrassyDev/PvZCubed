@@ -157,7 +157,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~UPGRADES~//~*~/ **/
+	/** /~*~//~INTERACTION~//~*~/ **/
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
@@ -319,10 +319,10 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 						double d = this.repeaterEntity.squaredDistanceTo(livingEntity);
 						float df = (float) d;
 						double e = livingEntity.getX() - this.repeaterEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.repeaterEntity.getBodyY(0.5D);
+						double f = livingEntity.getY() - this.repeaterEntity.getY();
 						double g = livingEntity.getZ() - this.repeaterEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.repeaterEntity.getX(), this.repeaterEntity.getY() + 0.75D, this.repeaterEntity.getZ());
 						proj.setOwner(this.repeaterEntity);
 						if (livingEntity.isAlive()) {
@@ -331,23 +331,6 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 							this.repeaterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
 							this.repeaterEntity.world.spawnEntity(proj);
 						}
-					}
-				}
-				if (this.beamTicks >= 0 && this.animationTicks == -9) {
-					ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.repeaterEntity.world);
-					double d = this.repeaterEntity.squaredDistanceTo(livingEntity);
-					float df = (float) d;
-					double e = livingEntity.getX() - this.repeaterEntity.getX();
-					double f = livingEntity.getBodyY(0.5D) - this.repeaterEntity.getBodyY(0.5D);
-					double g = livingEntity.getZ() - this.repeaterEntity.getZ();
-					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
-					proj.updatePosition(this.repeaterEntity.getX(), this.repeaterEntity.getY() + 0.75D, this.repeaterEntity.getZ());
-					if (livingEntity.isAlive()) {
-						this.beamTicks = -7;
-						this.repeaterEntity.world.sendEntityStatus(this.repeaterEntity, (byte) 11);
-						this.repeaterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-						this.repeaterEntity.world.spawnEntity(proj);
 					}
 				}
 				else if (this.animationTicks >= 0) {

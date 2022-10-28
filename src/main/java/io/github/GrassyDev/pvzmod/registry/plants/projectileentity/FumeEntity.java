@@ -10,6 +10,10 @@ import io.github.GrassyDev.pvzmod.registry.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -22,6 +26,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,6 +39,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -71,6 +78,7 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 
     public FumeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
+		this.setNoGravity(true);
     }
 
     public FumeEntity(World world, LivingEntity owner) {
@@ -88,6 +96,27 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 
     public void tick() {
 		super.tick();
+		HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
+		boolean bl = false;
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
+			BlockState blockState = this.world.getBlockState(blockPos);
+			if (blockState.isOf(Blocks.NETHER_PORTAL)) {
+				this.setInNetherPortal(blockPos);
+				bl = true;
+			} else if (blockState.isOf(Blocks.END_GATEWAY)) {
+				BlockEntity blockEntity = this.world.getBlockEntity(blockPos);
+				if (blockEntity instanceof EndGatewayBlockEntity && EndGatewayBlockEntity.canTeleport(this)) {
+					EndGatewayBlockEntity.tryTeleportingEntity(this.world, blockPos, blockState, this, (EndGatewayBlockEntity)blockEntity);
+				}
+
+				bl = true;
+			}
+		}
+
+		if (hitResult.getType() != HitResult.Type.MISS && !bl) {
+			this.onCollision(hitResult);
+		}
 		if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);

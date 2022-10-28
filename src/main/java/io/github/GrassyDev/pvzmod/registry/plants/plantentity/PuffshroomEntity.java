@@ -362,10 +362,11 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 						double d = this.puffshroomEntity.squaredDistanceTo(livingEntity);
 						float df = (float)d;
 						double e = livingEntity.getX() - this.puffshroomEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.puffshroomEntity.getBodyY(0.5D);
+						double f = livingEntity.getY() - this.puffshroomEntity.getY();
 						double g = livingEntity.getZ() - this.puffshroomEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 0F);
+						SporeEntity.sporeAge = 20;
+						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
 						proj.updatePosition(this.puffshroomEntity.getX(), this.puffshroomEntity.getY() + 0.25D, this.puffshroomEntity.getZ());
 						proj.setOwner(this.puffshroomEntity);
 						if (livingEntity.isAlive()) {

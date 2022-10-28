@@ -8,6 +8,10 @@ import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -17,6 +21,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,7 +32,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -68,6 +76,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 
     public ShootingFlamingPeaEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
+		this.setNoGravity(true);
     }
 
     public ShootingFlamingPeaEntity(World world, LivingEntity owner) {
@@ -85,32 +94,45 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 
     public void tick() {
         super.tick();
+		HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
+		RandomGenerator randomGenerator = this.random;
+		boolean bl = false;
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
+			BlockState blockState = this.world.getBlockState(blockPos);
+			if (blockState.isOf(Blocks.NETHER_PORTAL)) {
+				this.setInNetherPortal(blockPos);
+				bl = true;
+			} else if (blockState.isOf(Blocks.END_GATEWAY)) {
+				BlockEntity blockEntity = this.world.getBlockEntity(blockPos);
+				if (blockEntity instanceof EndGatewayBlockEntity && EndGatewayBlockEntity.canTeleport(this)) {
+					EndGatewayBlockEntity.tryTeleportingEntity(this.world, blockPos, blockState, this, (EndGatewayBlockEntity)blockEntity);
+				}
+
+				bl = true;
+			}
+		}
+
+		if (hitResult.getType() != HitResult.Type.MISS && !bl) {
+			this.onCollision(hitResult);
+		}
+
         if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!this.world.isClient && this.age == 7) {
+        if (!this.world.isClient && this.age == 60) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
+		double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+		double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
+		double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
 
-		double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-
-		double d2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double e2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double f2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-
-		double d3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double e3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double f3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-
-		for (int j = 0; j < 2; ++j) {
-			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d, e, f);
-			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d2, e2, f2);
-			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d3, e3, f3);
+		for (int j = 0; j < 1; ++j) {
+			this.world.addParticle(ParticleTypes.SMALL_FLAME, this.getX(), this.getY(), this.getZ(), d, e, f);
+			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d, e * -1, f);
 		}
     }
 
@@ -174,9 +196,9 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 						else  {
 							entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
 						}
-						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
-						((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
-						((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						livingEntity.setOnFireFor(4);
 					}
 				}
@@ -204,6 +226,14 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				double vz = this.random.nextDouble() / 2 * this.random.range(-1, 1);
                 this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), vx, vy, vz);
             }
+
+			double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+			double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+			double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+
+			for (int j = 0; j < 8; ++j) {
+				this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d, e, f);
+			}
         }
 
     }

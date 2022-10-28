@@ -7,6 +7,10 @@ import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.Hy
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,6 +18,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,6 +28,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -39,6 +46,8 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
 	private String controllerName = "projectilecontroller";
 	public AnimationFactory factory = new AnimationFactory(this);
 
+	public static int sporeAge;
+
 	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "spore");
 	@Override
 	public void registerControllers(AnimationData animationData) {
@@ -48,7 +57,7 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(new AnimationBuilder().addAnimation("fume.idle", true));
+		event.getController().setAnimation(new AnimationBuilder().addAnimation("peashot.idle", true));
 		return PlayState.CONTINUE;
 	}
 
@@ -59,6 +68,7 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
 
     public SporeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
+		this.setNoGravity(true);
     }
 
     public SporeEntity(World world, LivingEntity owner) {
@@ -76,12 +86,33 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
 
     public void tick() {
         super.tick();
+		HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
+		boolean bl = false;
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
+			BlockState blockState = this.world.getBlockState(blockPos);
+			if (blockState.isOf(Blocks.NETHER_PORTAL)) {
+				this.setInNetherPortal(blockPos);
+				bl = true;
+			} else if (blockState.isOf(Blocks.END_GATEWAY)) {
+				BlockEntity blockEntity = this.world.getBlockEntity(blockPos);
+				if (blockEntity instanceof EndGatewayBlockEntity && EndGatewayBlockEntity.canTeleport(this)) {
+					EndGatewayBlockEntity.tryTeleportingEntity(this.world, blockPos, blockState, this, (EndGatewayBlockEntity)blockEntity);
+				}
+
+				bl = true;
+			}
+		}
+
+		if (hitResult.getType() != HitResult.Type.MISS && !bl) {
+			this.onCollision(hitResult);
+		}
         if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!this.world.isClient && this.age == 7) {
+        if (!this.world.isClient && this.age == sporeAge) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
@@ -90,7 +121,7 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
 		double e = (double)(30 & 255) / 255.0;
 		double f = (double)(200 & 255) / 255.0;
 
-		for(int i = 0; i < 6; ++i) {
+		for(int i = 0; i < 3; ++i) {
 			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d, e, f);
 		}
     }

@@ -8,6 +8,10 @@ import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.zombies.zombieentity.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,6 +19,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +29,10 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -61,6 +70,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 
     public ShootingSnowPeaEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
+		this.setNoGravity(true);
     }
 
     public ShootingSnowPeaEntity(World world, LivingEntity owner) {
@@ -78,32 +88,44 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 
     public void tick() {
 		super.tick();
+		HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
+		RandomGenerator randomGenerator = this.random;
+		boolean bl = false;
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
+			BlockState blockState = this.world.getBlockState(blockPos);
+			if (blockState.isOf(Blocks.NETHER_PORTAL)) {
+				this.setInNetherPortal(blockPos);
+				bl = true;
+			} else if (blockState.isOf(Blocks.END_GATEWAY)) {
+				BlockEntity blockEntity = this.world.getBlockEntity(blockPos);
+				if (blockEntity instanceof EndGatewayBlockEntity && EndGatewayBlockEntity.canTeleport(this)) {
+					EndGatewayBlockEntity.tryTeleportingEntity(this.world, blockPos, blockState, this, (EndGatewayBlockEntity)blockEntity);
+				}
+
+				bl = true;
+			}
+		}
+
+		if (hitResult.getType() != HitResult.Type.MISS && !bl) {
+			this.onCollision(hitResult);
+		}
+
 		if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		if (!this.world.isClient && this.age == 7) {
+		if (!this.world.isClient && this.age == 60) {
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
-
-		double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-
-		double d2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double e2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double f2 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-
-		double d3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double e3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-		double f3 = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+		double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+		double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
+		double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
 
 		for (int j = 0; j < 2; ++j) {
 			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
-			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d2, e2, f2);
-			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d3, e3, f3);
 		}
 	}
 
@@ -158,6 +180,14 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
             for(int i = 0; i < 8; ++i) {
                 this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
+
+			double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+			double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+			double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+
+			for (int j = 0; j < 16; ++j) {
+				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
+			}
         }
 
     }

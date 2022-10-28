@@ -385,10 +385,11 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 								double d = this.scaredyshroomEntity.squaredDistanceTo(livingEntity);
 								float df = (float) d;
 								double e = livingEntity.getX() - this.scaredyshroomEntity.getX();
-								double f = livingEntity.getBodyY(0.5D) - this.scaredyshroomEntity.getBodyY(0.5D);
+								double f = livingEntity.getY() - this.scaredyshroomEntity.getY();
 								double g = livingEntity.getZ() - this.scaredyshroomEntity.getZ();
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 4.45F, 0F);
+								SporeEntity.sporeAge = 200;
+								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 								proj.updatePosition(this.scaredyshroomEntity.getX(), this.scaredyshroomEntity.getY() + 0.75D, this.scaredyshroomEntity.getZ());
 								proj.setOwner(this.scaredyshroomEntity);
 								if (livingEntity.isAlive()) {

@@ -354,16 +354,16 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
+					double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
+					float df = (float) d;
+					double e = livingEntity.getX() - this.fumeshroomEntity.getX();
+					double f = livingEntity.getY() - this.fumeshroomEntity.getY();
+					double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
+					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 					/// DEFAULT VARIANT ///
 					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.DEFAULT))
 					{
 						FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
-						double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.fumeshroomEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
-						double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
-						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
 						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
 						proj.setOwner(this.fumeshroomEntity);
@@ -377,12 +377,6 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.GAY))
 					{
 						FumeEntity_G proj = new FumeEntity_G(PvZEntity.FUME_G, this.fumeshroomEntity.world);
-						double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.fumeshroomEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
-						double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
-						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
 						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
 						proj.setOwner(this.fumeshroomEntity);
@@ -396,12 +390,6 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.TRANS))
 					{
 						FumeEntity_T proj = new FumeEntity_T(PvZEntity.FUME_T, this.fumeshroomEntity.world);
-						double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.fumeshroomEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.fumeshroomEntity.getBodyY(0.5D);
-						double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
-						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
 						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
 						proj.setOwner(this.fumeshroomEntity);

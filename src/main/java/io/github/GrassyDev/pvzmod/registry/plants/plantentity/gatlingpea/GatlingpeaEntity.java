@@ -287,10 +287,10 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 						double d = this.gatlingpeaEntity.squaredDistanceTo(livingEntity);
 						float df = (float) d;
 						double e = livingEntity.getX() - this.gatlingpeaEntity.getX();
-						double f = livingEntity.getBodyY(0.5D) - this.gatlingpeaEntity.getBodyY(0.5D);
+						double f = livingEntity.getY() - this.gatlingpeaEntity.getY();
 						double g = livingEntity.getZ() - this.gatlingpeaEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.gatlingpeaEntity.getX(), this.gatlingpeaEntity.getY() + 0.75D, this.gatlingpeaEntity.getZ());
 						proj.setOwner(this.gatlingpeaEntity);
 						if (livingEntity.isAlive()) {
@@ -306,10 +306,10 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 					double d = this.gatlingpeaEntity.squaredDistanceTo(livingEntity);
 					float df = (float) d;
 					double e = livingEntity.getX() - this.gatlingpeaEntity.getX();
-					double f = livingEntity.getBodyY(0.5D) - this.gatlingpeaEntity.getBodyY(0.5D);
+					double f = livingEntity.getY() - this.gatlingpeaEntity.getY();
 					double g = livingEntity.getZ() - this.gatlingpeaEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.2F, 0F);
+					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 					proj.updatePosition(this.gatlingpeaEntity.getX(), this.gatlingpeaEntity.getY() + 0.75D, this.gatlingpeaEntity.getZ());
 					proj.setOwner(this.gatlingpeaEntity);
 					if (livingEntity.isAlive()) {
