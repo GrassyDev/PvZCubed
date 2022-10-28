@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -13,7 +13,7 @@ public class PotatoIgniteGoal extends Goal {
 
     public boolean canStart() {
         LivingEntity livingEntity = this.potato.getTarget();
-        return this.potato.getFuseSpeed() > 0 || livingEntity != null && this.potato.squaredDistanceTo(livingEntity) < 3.0D;
+        return this.potato.getFuseSpeed() > 0 || livingEntity != null && this.potato.squaredDistanceTo(livingEntity) <= 1.75D;
     }
 
     public void start() {
@@ -30,7 +30,7 @@ public class PotatoIgniteGoal extends Goal {
             this.potato.setFuseSpeed(-1);
         } else if (!this.target.isAlive()){
             this.potato.setFuseSpeed(-1);
-        } else if (this.potato.squaredDistanceTo(this.target) > 3.0D || this.potato.isInsideWaterOrBubbleColumn()) {
+        } else if (this.potato.squaredDistanceTo(this.target) > 1.75D || this.potato.isInsideWaterOrBubbleColumn()) {
             this.potato.setFuseSpeed(-1);
         } else {
             this.potato.setFuseSpeed(1);

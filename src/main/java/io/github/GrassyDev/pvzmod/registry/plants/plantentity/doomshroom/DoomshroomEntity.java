@@ -22,10 +22,12 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -104,11 +106,42 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		RandomGenerator randomGenerator = this.getRandom();
 		if (status == 13) {
 			this.isTired = true;
 		}
 		else if (status == 12) {
 			this.isTired = false;
+		}
+		if (status == 6) {
+			for(int i = 0; i < 500; ++i) {
+				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
+			}
+			for(int i = 0; i < 500; ++i) {
+				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
+			}
+			for(int i = 0; i < 500; ++i) {
+				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				this.world.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
+			}
+			for(int i = 0; i < 256; ++i) {
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1));
+				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() +  (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
+						this.getY() + (this.random.range(-1, 1)),
+						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
+						0, e, 0);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
+						this.getY() + (this.random.range(-1, 1)), this.getZ()  + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
+						0, e, 0);
+			}
 		}
 	}
 
@@ -180,6 +213,7 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 		if (!this.world.isClient && !this.isAsleep) {
 			this.clearStatusEffects();
 			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 5f, null, PvZExplosion.DestructionType.NONE);
+			this.world.sendEntityStatus(this, (byte) 6);
 			PvZExplosion.DestructionType destructionType = PvZExplosion.DestructionType.NONE;
 			explosion.collectBlocksAndDamageEntities();
 			explosion.affectWorld(true);
@@ -193,13 +227,21 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 
 	private void spawnEffectsCloud() {
 		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
-		areaEffectCloudEntity.setColor(0x5F316E);
+		areaEffectCloudEntity.setParticleType(ParticleTypes.SMOKE);
 		areaEffectCloudEntity.setRadius(10.5F);
 		areaEffectCloudEntity.setRadiusOnUse(-0.5F);
 		areaEffectCloudEntity.setWaitTime(10);
 		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 2);
 		areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float)areaEffectCloudEntity.getDuration());
 		this.world.spawnEntity(areaEffectCloudEntity);
+		AreaEffectCloudEntity areaEffectCloudEntity2 = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
+		areaEffectCloudEntity2.setColor(0x5F316E);
+		areaEffectCloudEntity2.setRadius(10.5F);
+		areaEffectCloudEntity2.setRadiusOnUse(-0.5F);
+		areaEffectCloudEntity2.setWaitTime(5);
+		areaEffectCloudEntity2.setDuration(areaEffectCloudEntity2.getDuration() / 15);
+		areaEffectCloudEntity2.setRadiusGrowth(-areaEffectCloudEntity2.getRadius() / (float)areaEffectCloudEntity2.getDuration());
+		this.world.spawnEntity(areaEffectCloudEntity2);
 	}
 
 

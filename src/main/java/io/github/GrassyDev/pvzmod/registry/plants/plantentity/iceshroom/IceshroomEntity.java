@@ -23,6 +23,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -114,6 +115,26 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 		else if (status == 12) {
 			this.isTired = false;
 		}
+		if (status == 6) {
+			for(int i = 0; i < 1000; ++i) {
+				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
+			}
+			for(int i = 0; i < 1000; ++i) {
+				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
+			}
+			for(int i = 0; i < 1000; ++i) {
+				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+				this.world.addParticle(ParticleTypes.ITEM_SNOWBALL, this.getX(), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
+			}
+		}
 	}
 
 
@@ -184,6 +205,7 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 	private void explode() {
 		if (!this.world.isClient) {
 			IceshroomExplosion explosion = new IceshroomExplosion(world, this, this.getX(), this.getY(), this.getZ(), 5f, null, Explosion.DestructionType.NONE);
+			this.world.sendEntityStatus(this, (byte) 6);
 			explosion.collectBlocksAndDamageEntities();
 			explosion.affectWorld(true);
 			Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
@@ -197,15 +219,12 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 	}
 
 	private void spawnEffectsCloud() {
-		double d = (double)(180 & 255) / 255.0;
-		double e = (double)(30 & 255) / 255.0;
-		double f = (double)(200 & 255) / 255.0;
 		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
-		areaEffectCloudEntity.setColor(0x33FFFF);
+		areaEffectCloudEntity.setParticleType(ParticleTypes.SNOWFLAKE);
 		areaEffectCloudEntity.setRadius(10.5F);
 		areaEffectCloudEntity.setRadiusOnUse(-0.5F);
 		areaEffectCloudEntity.setWaitTime(1);
-		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 20);
+		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 40);
 		areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float)areaEffectCloudEntity.getDuration());
 		this.world.spawnEntity(areaEffectCloudEntity);
 	}

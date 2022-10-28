@@ -1,7 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.renderers;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine;
 
-import io.github.GrassyDev.pvzmod.registry.plants.models.PotatomineEntityModel;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.PotatomineEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
