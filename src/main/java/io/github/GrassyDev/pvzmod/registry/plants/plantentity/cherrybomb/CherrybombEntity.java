@@ -112,7 +112,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 		if (status == 6) {
 			for(int i = 0; i < 170; ++i) {
 				double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
+				double e = this.random.nextDouble() / 2 * this.random.range(0, 1);
 				double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
 				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
