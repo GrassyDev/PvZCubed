@@ -1,21 +1,19 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.sunflower;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.planttypes.ContainEntity;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.plants.planttypes.EnlightenEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
@@ -38,21 +36,20 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.Optional;
 import java.util.Random;
 
-public class GravebusterEntity extends ContainEntity implements IAnimatable {
+public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 
-    public AnimationFactory factory = new AnimationFactory(this);
+    private String controllerName = "suncontroller";
+    public int sunProducingTime;
+
     public int healingTime;
-    private int attackTicksLeft;
-    private boolean notready;
-    private boolean used;
-	private String controllerName = "gravebustercontroller";
 
-    public GravebusterEntity(EntityType<? extends GravebusterEntity> entityType, World world) {
+	public AnimationFactory factory = new AnimationFactory(this);
+
+    public SunflowerEntity(EntityType<? extends SunflowerEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 600;
-        this.notready = true;
-        this.attackTicksLeft = 80;
+        this.sunProducingTime = 6000;
+        this.healingTime = 6000;
     }
 
 	static {
@@ -74,7 +71,7 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("gravebuster.idle", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("sunflower.idle", true));
         return PlayState.CONTINUE;
     }
 
@@ -82,36 +79,8 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new MeleeAttackGoal(this, 0D, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof BasicGraveEntity; }));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof NightGraveEntity; }));
-	}
-
-	public boolean tryAttack(Entity target) {
-		this.notready = false;
-		int i = this.attackTicksLeft;
-		if (i == 80) {
-			this.playSound(PvZCubed.GRAVEBUSTEREATINGEVENT, 1F, 1.0F);
-		}
-		if (i > 0) {
-			float f = 1;
-			boolean bl = target.damage(DamageSource.mob(this), f);if (bl) {
-				this.applyDamageEffects(this, target);
-			}
-		}
-		if (i <= 0) {
-			float f = this.getAttackDamage();
-			boolean bl = target.damage(DamageSource.mob(this), f);if (bl) {
-				this.applyDamageEffects(this, target);
-			}
-			this.used = true;
-			return bl;
-		} else {
-			return false;
-		}
-	}
+        this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 50.0F));
+    }
 
 
 	/** /~*~//~*POSITION*~//~*~/ **/
@@ -145,39 +114,33 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	public void tickMovement() {
 		super.tickMovement();
+
+		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn()) {
+			this.playSound(PvZCubed.SUNDROPEVENT, 1F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+			this.dropItem(ModItems.SUN);
+			this.sunProducingTime = 6000;
+		}
+
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.heal(1.0F);
-			this.healingTime = 600;
+			this.healingTime = 6000;
 		}
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.damage(DamageSource.GENERIC, 9999);
 		}
 
-		if (this.notready) {
-			this.attackTicksLeft = 80;
-		}
-
-		if (this.attackTicksLeft > 0) {
-			--this.attackTicksLeft;
-		}
-
-		if (!this.world.isClient && this.isAlive() && this.deathTime == 0 && this.used) {
-			this.remove(RemovalReason.DISCARDED);
-		}
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createGravebusterAttributes() {
-		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 0D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 999.0D);
-	}
+	public static DefaultAttributeContainer.Builder createSunflowerAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
+    }
 
 	protected boolean canClimb() {
 		return false;
@@ -189,10 +152,6 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
 		return 0.60F;
-	}
-
-	private float getAttackDamage(){
-		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 	}
 
 	@Nullable
@@ -219,18 +178,6 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
-	public boolean damage(DamageSource source, float amount) {
-		if (!(source.getSource() instanceof PlayerEntity)) {
-			if (!source.isMagic() && source.getSource() instanceof LivingEntity) {
-				LivingEntity livingEntity = (LivingEntity)source.getSource();
-				if (!source.isExplosive()) {
-					livingEntity.damage(DamageSource.thorns(this), 8.0F);
-				}
-			}
-		}
-		return super.damage(source, amount);
-	}
-
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
 			PlayerEntity playerEntity = (PlayerEntity) attacker;
@@ -252,12 +199,12 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
-    public static boolean canGravebusterSpawn(EntityType<GravebusterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
+	public static boolean canSunflowerSpawn(EntityType<SunflowerEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
         return pos.getY() > 60;
     }
 
-	@Override
-	public boolean canSpawn(WorldView worldreader) {
-		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-	}
+    @Override
+    public boolean canSpawn(WorldView worldreader) {
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+    }
 }

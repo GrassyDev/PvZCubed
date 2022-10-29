@@ -1,7 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.snowpea;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.SnowpeaEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.renderers.SnowpeaEntityRenderer;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

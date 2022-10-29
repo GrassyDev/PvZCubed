@@ -114,39 +114,81 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 			this.isTired = false;
 		}
 		if (status == 6) {
-			for(int i = 0; i < 600; ++i) {
+			for(int i = 0; i < 256; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
 				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 			}
-			for(int i = 0; i < 600; ++i) {
+			for(int i = 0; i < 256; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
 				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 			}
-			for(int i = 0; i < 600; ++i) {
+			for(int i = 0; i < 256; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
 				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				this.world.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 			}
-			for(int i = 0; i < 256; ++i) {
-				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1));
+			for(int i = 0; i < 128; ++i) {
+				double e = (double)MathHelper.nextBetween(randomGenerator, 0.04F, 0.06F);
 				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() +  (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
-						this.getY() + (this.random.range(-1, 1)),
+						this.getY() + (double)MathHelper.nextBetween(randomGenerator, 0F, 4.5F),
 						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
 						0, e, 0);
 				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
-						this.getY() + (this.random.range(-1, 1)), this.getZ()  + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
+						this.getY() + (double)MathHelper.nextBetween(randomGenerator, 0F, 4.5F),
+						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
 						0, e, 0);
+			}
+			for (int i = 0; i < 128; ++i){
+				double e = (double)MathHelper.nextBetween(randomGenerator, 0.04F, 0.06F);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -3F, 3F),
+						this.getY() + 5,
+						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -3F, 3F),
+						0, e, 0);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -4F, 4F),
+						this.getY() + (this.random.range(3, 7)),
+						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -4F, 4F),
+						0, e, 0);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -5F, 5F),
+						this.getY() + 5,
+						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -5F, 5F),
+						0, e, 0);
+			}
+			for(int i = 0; i < 128; ++i) {
+				double d = this.random.nextDouble() / 2 * 0.75;
+				double f = this.random.nextDouble() / 2 * 0.75;
+				double d1 = this.random.nextDouble() / 2 * 0.75;
+				double f1 = this.random.nextDouble() / 2 * 0.75;
+				double d2 = this.random.nextDouble() / 2 * 0.75;
+				double f2 = this.random.nextDouble() / 2 * 0.75;
+				double d3 = this.random.nextDouble() / 2 * 0.75;
+				double f3 = this.random.nextDouble() / 2 * 0.75;
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						this.getY() + MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
+						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						d, 0, f);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						this.getY() + MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
+						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						d1, 0, f1 * -1);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						this.getY() + MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
+						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						d2 * -1, 0, f2 * -1);
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						this.getY() + MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
+						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						d3 * -1, 0, f3);
 			}
 		}
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -173,7 +215,7 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(2, new DoomIgniteGoal(this));
@@ -228,24 +270,24 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 	private void spawnEffectsCloud() {
 		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
 		areaEffectCloudEntity.setParticleType(ParticleTypes.SMOKE);
-		areaEffectCloudEntity.setRadius(10.5F);
+		areaEffectCloudEntity.setRadius(8F);
 		areaEffectCloudEntity.setRadiusOnUse(-0.5F);
 		areaEffectCloudEntity.setWaitTime(10);
-		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 2);
+		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration());
 		areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float)areaEffectCloudEntity.getDuration());
 		this.world.spawnEntity(areaEffectCloudEntity);
 		AreaEffectCloudEntity areaEffectCloudEntity2 = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
 		areaEffectCloudEntity2.setColor(0x5F316E);
-		areaEffectCloudEntity2.setRadius(10.5F);
+		areaEffectCloudEntity2.setRadius(6F);
 		areaEffectCloudEntity2.setRadiusOnUse(-0.5F);
 		areaEffectCloudEntity2.setWaitTime(5);
-		areaEffectCloudEntity2.setDuration(areaEffectCloudEntity2.getDuration() / 15);
+		areaEffectCloudEntity2.setDuration(areaEffectCloudEntity2.getDuration() / 6);
 		areaEffectCloudEntity2.setRadiusGrowth(-areaEffectCloudEntity2.getRadius() / (float)areaEffectCloudEntity2.getDuration());
 		this.world.spawnEntity(areaEffectCloudEntity2);
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -265,7 +307,7 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 
 	public void tick() {
@@ -323,7 +365,7 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createDoomshroomAttributes() {
 		return MobEntity.createMobAttributes()
@@ -368,7 +410,7 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -390,7 +432,7 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
     public static boolean canDoomshroomSpawn(EntityType<DoomshroomEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
         return pos.getY() > 60;

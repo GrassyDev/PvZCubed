@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine;
 
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import net.minecraft.util.Identifier;

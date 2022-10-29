@@ -1,10 +1,7 @@
-package io.github.GrassyDev.pvzmod.registry.plants.renderers;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.snowpea;
 
 import com.google.common.collect.Maps;
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.plants.models.SnowpeaEntityModel;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.SnowpeaEntity;
-import io.github.GrassyDev.pvzmod.registry.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.variants.plants.SnowPeaVariants;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;

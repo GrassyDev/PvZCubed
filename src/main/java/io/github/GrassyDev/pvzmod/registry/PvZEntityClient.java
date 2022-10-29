@@ -13,12 +13,18 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.Hypnos
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom.IceshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peashooter.PeashooterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.UnarmedPotatomineEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.puffshroom.PuffshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.scaredyshroom.ScaredyshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.snowpea.SnowpeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.sunflower.SunflowerEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.sunshroom.SunshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.threepeater.ThreepeaterEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.wallnutentity.WallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_G;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.FumeEntityVariants.FumeEntityRenderer_T;
-import io.github.GrassyDev.pvzmod.registry.plants.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.zombies.renderers.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -41,9 +47,9 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.POTATOMINE, PotatomineEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.CHOMPER, ChomperEntityRenderer::new);
 
@@ -51,7 +57,7 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.PUFFSHROOM, PuffshroomEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer::new);
 
@@ -59,13 +65,13 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.HYPNOSHROOM, HypnoshroomEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM, ScaredyshroomEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.SCAREDYSHROOM, ScaredyshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.ICESHROOM, IceshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntityRenderer::new);
 

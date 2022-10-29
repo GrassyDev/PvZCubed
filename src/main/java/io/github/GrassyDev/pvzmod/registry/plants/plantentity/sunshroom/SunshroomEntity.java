@@ -1,14 +1,12 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.sunshroom;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.planttypes.ContainEntity;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.plants.planttypes.EnlightenEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -23,8 +21,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.LightType;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -38,24 +37,34 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.Optional;
 import java.util.Random;
 
-public class GravebusterEntity extends ContainEntity implements IAnimatable {
+public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
+    private String controllerName = "puffcontroller";
+    public boolean isAsleep;
+    public boolean isTired;
+    public int sunProducingTime;
 
-    public AnimationFactory factory = new AnimationFactory(this);
     public int healingTime;
-    private int attackTicksLeft;
-    private boolean notready;
-    private boolean used;
-	private String controllerName = "gravebustercontroller";
 
-    public GravebusterEntity(EntityType<? extends GravebusterEntity> entityType, World world) {
+	public AnimationFactory factory = new AnimationFactory(this);
+
+    public SunshroomEntity(EntityType<? extends SunshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 600;
-        this.notready = true;
-        this.attackTicksLeft = 80;
+        this.sunProducingTime = 6000;
+        this.healingTime = 6000;
     }
 
 	static {
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 13) {
+			this.isTired = true;
+		}
+		else if (status == 12) {
+			this.isTired = false;
+		}
 	}
 
 
@@ -74,43 +83,19 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("gravebuster.idle", true));
+        if (this.isTired) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("sunshroom.asleep", true));
+        }
+        else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("sunshroom.idle", true));
+        }
         return PlayState.CONTINUE;
     }
 
 
 	/** /~*~//~*AI*~//~*~/ **/
-
 	protected void initGoals() {
-		this.goalSelector.add(1, new MeleeAttackGoal(this, 0D, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof BasicGraveEntity; }));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof NightGraveEntity; }));
-	}
-
-	public boolean tryAttack(Entity target) {
-		this.notready = false;
-		int i = this.attackTicksLeft;
-		if (i == 80) {
-			this.playSound(PvZCubed.GRAVEBUSTEREATINGEVENT, 1F, 1.0F);
-		}
-		if (i > 0) {
-			float f = 1;
-			boolean bl = target.damage(DamageSource.mob(this), f);if (bl) {
-				this.applyDamageEffects(this, target);
-			}
-		}
-		if (i <= 0) {
-			float f = this.getAttackDamage();
-			boolean bl = target.damage(DamageSource.mob(this), f);if (bl) {
-				this.applyDamageEffects(this, target);
-			}
-			this.used = true;
-			return bl;
-		} else {
-			return false;
-		}
+		this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 50.0F));
 	}
 
 
@@ -145,39 +130,54 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	public void tickMovement() {
 		super.tickMovement();
+		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
+			this.playSound(PvZCubed.SUNDROPEVENT, 1F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+			double probability = this.random.nextDouble();
+			if (probability <= 0.45) { // 45%
+				this.dropItem(ModItems.SMALLSUN);
+			} else if (probability <= 0.75) { // 0.45 + 0.30 | 30%
+				this.dropItem(ModItems.SUN);
+			} else { // rest, 1 - 0.75 = 0.25 | 25%
+				this.dropItem(ModItems.LARGESUN);
+			}
+			this.sunProducingTime = 6000;
+		}
+
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.heal(1.0F);
-			this.healingTime = 600;
+			this.healingTime = 6000;
 		}
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.damage(DamageSource.GENERIC, 9999);
 		}
+	}
 
-		if (this.notready) {
-			this.attackTicksLeft = 80;
+	protected void mobTick() {
+		float f = this.getLightLevelDependentValue();
+		if (f > 0.5f) {
+			this.isAsleep = true;
+			this.world.sendEntityStatus(this, (byte) 13);
+			this.clearGoalsAndTasks();
 		}
-
-		if (this.attackTicksLeft > 0) {
-			--this.attackTicksLeft;
+		else {
+			this.isAsleep = false;
+			this.world.sendEntityStatus(this, (byte) 12);
+			this.initGoals();
 		}
-
-		if (!this.world.isClient && this.isAlive() && this.deathTime == 0 && this.used) {
-			this.remove(RemovalReason.DISCARDED);
-		}
+		super.mobTick();
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createGravebusterAttributes() {
-		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 0D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 999.0D);
-	}
+
+	public static DefaultAttributeContainer.Builder createSunshroomAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 3.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
+    }
 
 	protected boolean canClimb() {
 		return false;
@@ -188,11 +188,7 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 	}
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-		return 0.60F;
-	}
-
-	private float getAttackDamage(){
-		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+		return 0.5F;
 	}
 
 	@Nullable
@@ -219,18 +215,6 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
-	public boolean damage(DamageSource source, float amount) {
-		if (!(source.getSource() instanceof PlayerEntity)) {
-			if (!source.isMagic() && source.getSource() instanceof LivingEntity) {
-				LivingEntity livingEntity = (LivingEntity)source.getSource();
-				if (!source.isExplosive()) {
-					livingEntity.damage(DamageSource.thorns(this), 8.0F);
-				}
-			}
-		}
-		return super.damage(source, amount);
-	}
-
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
 			PlayerEntity playerEntity = (PlayerEntity) attacker;
@@ -252,12 +236,22 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
-    public static boolean canGravebusterSpawn(EntityType<GravebusterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
+
+	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
+        if (serverWorldAccess.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
+            return false;
+        } else {
+            int i = serverWorldAccess.toServerWorld().isThundering() ? serverWorldAccess.getLightLevel(pos, 10) : serverWorldAccess.getLightLevel(pos);
+            return i <= random.nextInt(11);
+        }
     }
 
-	@Override
-	public boolean canSpawn(WorldView worldreader) {
-		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-	}
+    public static boolean canSunshroomSpawn(EntityType<SunshroomEntity> entity, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return pos.getY() > 1 && isSpawnDark(serverWorldAccess, pos, random);
+    }
+
+    @Override
+    public boolean canSpawn(WorldView worldreader) {
+        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+    }
 }

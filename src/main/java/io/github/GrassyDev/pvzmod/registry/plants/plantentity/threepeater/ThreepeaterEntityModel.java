@@ -1,6 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.threepeater;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.ThreepeaterEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

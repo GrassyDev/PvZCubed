@@ -70,7 +70,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -95,7 +95,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
     }
 
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new PeashooterEntity.FireBeamGoal(this));
@@ -112,7 +112,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -132,7 +132,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -154,7 +154,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createPeashooterAttributes() {
         return MobEntity.createMobAttributes()
@@ -198,7 +198,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -219,7 +219,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canPeashooterSpawn(EntityType<PeashooterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
         return pos.getY() > 60;
@@ -231,7 +231,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
     }
 
 
-	/** /~*~//~GOALS~//~*~/ **/
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final PeashooterEntity peashooterEntity;

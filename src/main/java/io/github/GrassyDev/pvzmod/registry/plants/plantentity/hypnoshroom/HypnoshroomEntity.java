@@ -84,7 +84,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -109,7 +109,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
     }
 
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new HypnoshroomEntity.FireBeamGoal(this));
@@ -142,7 +142,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -162,7 +162,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -225,7 +225,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createHypnoshroomAttributes() {
         return MobEntity.createMobAttributes()
@@ -270,7 +270,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -291,7 +291,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 	}
 
 
-	/** /~*~//~GOALS~//~*~/ **/
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	public int getWarmupTime() {
 		return 20;

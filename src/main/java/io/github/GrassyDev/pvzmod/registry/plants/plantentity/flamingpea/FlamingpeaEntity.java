@@ -68,7 +68,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 		}
 	}
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -91,7 +91,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 		return PlayState.CONTINUE;
 	}
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new FlamingpeaEntity.FireBeamGoal(this));
@@ -108,7 +108,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -128,7 +128,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -150,7 +150,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createFlamingpeaAttributes() {
 		return MobEntity.createMobAttributes()
@@ -199,7 +199,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -220,7 +220,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
     public static boolean canFlamingpeaSpawn(EntityType<FlamingpeaEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
         return pos.getY() > 60;
@@ -232,7 +232,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
     }
 
 
-	/** /~*~//~GOALS~//~*~/ **/
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final FlamingpeaEntity flamingpeaEntity;

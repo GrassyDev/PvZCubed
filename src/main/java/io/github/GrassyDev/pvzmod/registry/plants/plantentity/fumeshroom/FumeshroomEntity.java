@@ -98,7 +98,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~VARIANTS~//~*~/ **/
+	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(FumeshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -124,7 +124,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -150,7 +150,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new FumeshroomEntity.FireBeamGoal(this));
@@ -167,7 +167,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -187,7 +187,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -221,7 +221,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 
 	public static DefaultAttributeContainer.Builder createFumeshroomAttributes() {
@@ -266,7 +266,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -287,7 +287,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 
 	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
@@ -309,7 +309,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~GOALS~//~*~/ **/
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final FumeshroomEntity fumeshroomEntity;

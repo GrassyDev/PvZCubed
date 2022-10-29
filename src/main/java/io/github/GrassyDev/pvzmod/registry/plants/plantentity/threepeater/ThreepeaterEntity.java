@@ -1,11 +1,17 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.threepeater;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.plants.planttypes.EnlightenEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.planttypes.AppeaseEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingTriPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,15 +19,16 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.LightType;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -34,30 +41,22 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Optional;
 import java.util.Random;
-
-public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
+public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, RangedAttackMob {
     public AnimationFactory factory = new AnimationFactory(this);
-    private String controllerName = "puffcontroller";
+    private static final TrackedData<Byte> SNOW_GOLEM_FLAGS;
     protected static final TrackedData<Optional<BlockPos>> ATTACHED_BLOCK;
-    public boolean isAsleep;
-    public boolean isTired;
-    public int sunProducingTime;
+    private String controllerName = "threepeacontroller";
+    public int shot;
     public int healingTime;
 
-    public SunshroomEntity(EntityType<? extends SunshroomEntity> entityType, World world) {
+    public ThreepeaterEntity(EntityType<? extends ThreepeaterEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.sunProducingTime = 6000;
         this.healingTime = 6000;
     }
 
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (this.isTired) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("sunshroom.asleep", true));
-        }
-        else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("sunshroom.idle", true));
-        }
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("threepeater.idle", true));
         return PlayState.CONTINUE;
     }
 
@@ -67,11 +66,6 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
         double f = this.getZ();
         super.calculateDimensions();
         this.updatePosition(d, e, f);
-    }
-
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ATTACHED_BLOCK, Optional.empty());
     }
 
     public void readCustomDataFromNbt(NbtCompound tag) {
@@ -139,7 +133,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
     }
 
     static {
-        ATTACHED_BLOCK = DataTracker.registerData(SunshroomEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
+        ATTACHED_BLOCK = DataTracker.registerData(ThreepeaterEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
     }
 
     public void move(MovementType type, Vec3d movement) {
@@ -185,34 +179,56 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
     }
 
     protected void initGoals() {
+        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(45) + 30, 17.0F));
+        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 18.0F));
+        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+            return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+                    !(livingEntity instanceof HypnoFlagzombieEntity);
+        }));
     }
 
-    public static DefaultAttributeContainer.Builder createSunshroomAttributes() {
+    public static DefaultAttributeContainer.Builder createThreepeaterAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 3.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 21.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 18D);
+    }
+
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(ATTACHED_BLOCK, Optional.empty());
+        this.dataTracker.startTracking(SNOW_GOLEM_FLAGS, (byte)16);
     }
 
     public boolean hurtByWater() {
         return false;
     }
 
+    @Override
+    public void attack(LivingEntity target, float pullProgress) {
+        if (!this.isInsideWaterOrBubbleColumn()) {
+            ShootingTriPeaEntity shootingTriPeaEntity = new ShootingTriPeaEntity(this.world, this);
+            // calculates Pea 2
+            double d = this.squaredDistanceTo(target);
+            double e = target.getX() - this.getX();
+            double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
+            double g = target.getZ() - this.getZ();
+            float h = MathHelper.sqrt(MathHelper.sqrt(1)) * 0.5F;
+            shootingTriPeaEntity.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 1F);
+            shootingTriPeaEntity.updatePosition(shootingTriPeaEntity.getX(), this.getBodyY(0.5D) + 0.5D, shootingTriPeaEntity.getZ());
+            if (target.isAlive()) {
+                this.shot = 1;
+                this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+                this.world.spawnEntity(shootingTriPeaEntity);
+                this.world.spawnEntity(shootingTriPeaEntity);
+                this.world.spawnEntity(shootingTriPeaEntity);
+            }
+        }
+    }
+
     public void tickMovement() {
         super.tickMovement();
-        if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
-            this.playSound(PvZCubed.SUNDROPEVENT, 1F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            double probability = this.random.nextDouble();
-            if (probability <= 0.45) { // 45%
-                this.dropItem(ModItems.SMALLSUN);
-            } else if (probability <= 0.75) { // 0.45 + 0.30 | 30%
-                this.dropItem(ModItems.SUN);
-            } else { // rest, 1 - 0.75 = 0.25 | 25%
-                this.dropItem(ModItems.LARGESUN);
-            }
-            this.sunProducingTime = 6000;
-        }
-
         if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
             this.heal(1.0F);
             this.healingTime = 6000;
@@ -223,31 +239,8 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
         }
     }
 
-    @Environment(EnvType.CLIENT)
-    public void handleStatus(byte status) {
-        if (status == 13) {
-            this.isTired = true;
-        }
-        else if (status == 12) {
-            this.isTired = false;
-        }
-    }
-
-    protected void mobTick() {
-        float f = this.getLightLevelDependentValue();
-        if (f > 0.5f) {
-            this.isAsleep = true;
-            this.world.sendEntityStatus(this, (byte) 13);
-        }
-        else {
-            this.isAsleep = false;
-            this.world.sendEntityStatus(this, (byte) 12);
-        }
-        super.mobTick();
-    }
-
     protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-        return 0.5F;
+        return 0.60F;
     }
 
     @Override
@@ -279,21 +272,16 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
         return new Vec3d(0.0D, (double)(0.75F * this.getStandingEyeHeight()), (double)(this.getWidth() * 0.4F));
     }
 
-    public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
-        if (serverWorldAccess.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
-            return false;
-        } else {
-            int i = serverWorldAccess.toServerWorld().isThundering() ? serverWorldAccess.getLightLevel(pos, 10) : serverWorldAccess.getLightLevel(pos);
-            return i <= random.nextInt(11);
-        }
-    }
-
-    public static boolean canSunshroomSpawn(EntityType<SunshroomEntity> entity, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return pos.getY() > 1 && isSpawnDark(serverWorldAccess, pos, random);
+    public static boolean canThreepeaterSpawn(EntityType<ThreepeaterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
+        return pos.getY() > 60;
     }
 
     @Override
     public boolean canSpawn(WorldView worldreader) {
         return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
+    }
+
+    static {
+        SNOW_GOLEM_FLAGS = DataTracker.registerData(ThreepeaterEntity.class, TrackedDataHandlerRegistry.BYTE);
     }
 }

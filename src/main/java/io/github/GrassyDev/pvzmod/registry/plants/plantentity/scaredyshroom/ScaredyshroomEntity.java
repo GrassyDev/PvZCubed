@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.scaredyshroom;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
@@ -109,7 +109,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	}
 
 
-	//~*~//~VARIANTS~//~*~//
+	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(ScaredyshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -135,7 +135,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	}
 
 
-	//~*~//~GECKOLIB ANIMATION~//~*~//
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -170,7 +170,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
     }
 
 
-	//~*~//~AI~//~*~//
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new ScaredyshroomEntity.FireBeamGoal(this));
@@ -187,7 +187,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	}
 
 
-	//~*~//~POSITION~//~*~//
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -206,7 +206,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 		}
 	}
 
-	//~*~//~TICKING~//~*~//
+	/** /~*~//~**TICKING**~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -244,7 +244,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	}
 
 
-	//~*~//~ATTRIBUTES~//~*~//
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createScaredyshroomAttributes() {
 		return MobEntity.createMobAttributes()
@@ -288,7 +288,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	}
 
 
-	//~*~//~DAMAGE HANDLER~//~*~//
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -309,7 +309,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	}
 
 
-	//~*~//~SPAWNING~//~*~//
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 
 	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
@@ -326,7 +326,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	}
 
 
-	//~*~//~GOALS~//~*~//
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final ScaredyshroomEntity scaredyshroomEntity;

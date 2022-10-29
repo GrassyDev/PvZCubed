@@ -102,7 +102,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~VARIANTS~//~*~// **/
+	/** /~*~//~*VARIANTS~//~*~// **/
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
@@ -125,7 +125,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~// **/
+	/** /~*~//~*GECKOLIB ANIMATION~//~*~// **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -157,7 +157,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-	/** /~*~//~AI~//~*~// **/
+	/** /~*~//~*AI~//~*~// **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new ChomperEntity.AttackGoal());

@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.plants.plantentity;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.snowpea;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
@@ -25,7 +25,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.*;
@@ -91,7 +90,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~VARIANTS~//~*~/ **/
+	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
@@ -114,7 +113,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -137,7 +136,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 		return PlayState.CONTINUE;
 	}
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new SnowpeaEntity.FireBeamGoal(this));
@@ -154,7 +153,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -174,7 +173,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -196,7 +195,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createSnowpeaAttributes() {
 		return MobEntity.createMobAttributes()
@@ -240,7 +239,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -261,7 +260,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canSnowpeaSpawn(EntityType<SnowpeaEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
 		return pos.getY() > 60;
@@ -273,7 +272,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~GOALS~//~*~/ **/
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final SnowpeaEntity snowpeaEntity;

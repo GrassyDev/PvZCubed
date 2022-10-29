@@ -1,7 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.renderers;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.wallnutentity;
 
-import io.github.GrassyDev.pvzmod.registry.plants.models.WallnutEntityModel;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.WallnutEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 

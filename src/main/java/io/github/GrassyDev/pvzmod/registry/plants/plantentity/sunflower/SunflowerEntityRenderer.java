@@ -1,7 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.renderers;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.sunflower;
 
-import io.github.GrassyDev.pvzmod.registry.plants.models.SunflowerEntityModel;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.SunflowerEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 

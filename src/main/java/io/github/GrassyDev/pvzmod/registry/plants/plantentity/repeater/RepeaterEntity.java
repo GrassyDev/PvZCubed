@@ -74,7 +74,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -98,7 +98,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new RepeaterEntity.FireBeamGoal(this));
@@ -115,7 +115,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -135,7 +135,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -157,7 +157,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~INTERACTION~//~*~/ **/
+	/** /~*~//~*INTERACTION*~//~*~/ **/
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
@@ -191,7 +191,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createRepeaterAttributes() {
 		return MobEntity.createMobAttributes()
@@ -235,7 +235,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -256,7 +256,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canRepeaterSpawn(EntityType<RepeaterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
 		return pos.getY() > 60;
@@ -268,7 +268,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 
-	/** /~*~//~GOALS~//~*~/ **/
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final RepeaterEntity repeaterEntity;

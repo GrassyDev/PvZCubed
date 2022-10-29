@@ -83,7 +83,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data)
@@ -105,7 +105,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -125,7 +125,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -145,7 +145,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
     }
 
 
-	/** /~*~//~INTERACTION~//~*~/ **/
+	/** /~*~//~*INTERACTION*~//~*~/ **/
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
@@ -161,7 +161,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createUnarmedPotatomineAttributes() {
 		return MobEntity.createMobAttributes()
@@ -206,7 +206,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -261,7 +261,7 @@ public class UnarmedPotatomineEntity extends GolemEntity implements IAnimatable 
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canUnarmedPotatomineSpawn(EntityType<UnarmedPotatomineEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
         return pos.getY() > 0 && pos.getY() < 65;

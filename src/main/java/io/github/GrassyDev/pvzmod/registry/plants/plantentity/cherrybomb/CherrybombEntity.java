@@ -130,7 +130,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -154,7 +154,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		int i = this.getFuseSpeed();
@@ -223,7 +223,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -243,7 +243,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 
 	public void tick() {
@@ -290,7 +290,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
     }
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createCherrybombAttributes() {
         return MobEntity.createMobAttributes()
@@ -335,7 +335,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -357,7 +357,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 
 	public static boolean canCherrybombSpawn(EntityType<CherrybombEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {

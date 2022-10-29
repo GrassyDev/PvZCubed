@@ -1,10 +1,8 @@
-package io.github.GrassyDev.pvzmod.registry.plants.renderers;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.scaredyshroom;
 
 import com.google.common.collect.Maps;
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.plants.models.ScaredyshroomEntityModel;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.FumeshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.ScaredyshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.variants.plants.ScaredyshroomVariants;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;

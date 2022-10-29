@@ -47,7 +47,6 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	public AnimationFactory factory = new AnimationFactory(this);
 
     private String controllerName = "puffcontroller";
-    public boolean isAsleep;
     public boolean isTired;
 
     public int healingTime;
@@ -79,7 +78,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~GECKOLIB ANIMATION~//~*~/ **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -105,7 +104,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
     }
 
 
-	/** /~*~//~AI~//~*~/ **/
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new PuffshroomEntity.FireBeamGoal(this));
@@ -122,7 +121,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~POSITION~//~*~/ **/
+	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
@@ -142,7 +141,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~TICKING~//~*~/ **/
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
@@ -176,7 +175,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~ATTRIBUTES~//~*~/ **/
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 
 	public static DefaultAttributeContainer.Builder createPuffshroomAttributes() {
@@ -221,7 +220,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~DAMAGE HANDLER~//~*~/ **/
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
@@ -242,7 +241,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~SPAWNING~//~*~/ **/
+	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 
 	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
@@ -264,7 +263,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
     }
 
 
-	/** /~*~//~GOALS~//~*~/ **/
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
 		private final PuffshroomEntity puffshroomEntity;

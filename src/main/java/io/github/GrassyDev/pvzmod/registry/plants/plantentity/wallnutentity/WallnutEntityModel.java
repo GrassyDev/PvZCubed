@@ -1,6 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.plants.models;
+package io.github.GrassyDev.pvzmod.registry.plants.plantentity.wallnutentity;
 
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.WallnutEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
