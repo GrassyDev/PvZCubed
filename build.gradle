@@ -22,33 +22,13 @@ repositories {
 dependencies {
 	minecraft libs.minecraft
 	mappings variantOf(libs.quilt.mappings) { classifier "intermediary-v2" }
-	// Replace the above line with the block below if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
-	/*
-	mappings loom.layered {
-		mappings "org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2"
-		officialMojangMappings()
-	}
-	*/
 	modImplementation libs.quilt.loader
 
-	// QSL is not a complete API; You will need Quilted Fabric API to fill in the gaps.
-	// Quilted Fabric API will automatically pull in the correct QSL version.
-	modImplementation libs.quilted.fabric.api
-	// modImplementation libs.bundles.quilted.fabric.api // If you wish to use Fabric API's deprecated modules, you can replace the above line with this one
-	modImplementation "org.quiltmc:qsl:3.0.0-beta.18+1.19.2"
-	// or, for a more generic version using gradle.properties:
-	modImplementation "org.quiltmc:qsl:${qsl_version}+${minecraft_version}"
+	modImplementation "org.quiltmc:qsl:3.0.0-beta.19+1.19.2"
 
-	// QSL Library Example
-	modImplementation "org.quiltmc.qsl:core:3.0.0-beta.18+1.19.2"
+	modImplementation "org.quiltmc.qsl.core:resource_loader:3.0.0-beta.19+1.19.2"
 
-	// QSL Module Example
-	modImplementation "org.quiltmc.qsl.core:resource_loader:3.0.0-beta.18+1.19.2"
-
-	// Quilted Fabric API Example
-	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:4.0.0-beta.15+0.63.0-1.19.2"
-	// Or
-	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${quilted_fabric_api_version}-${minecraft_version}"
+	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:4.0.0-beta.17+0.64.0-1.19.2"
 
 	modImplementation 'software.bernie.geckolib:geckolib-quilt-1.19:3.1.25'
 
