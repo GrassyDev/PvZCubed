@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.Gatling
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.GravebusterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom.IceshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peapod.PeapodEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peashooter.PeashooterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.UnarmedPotatomineEntityRenderer;
@@ -74,6 +75,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.PEAPOD, PeapodEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);
 

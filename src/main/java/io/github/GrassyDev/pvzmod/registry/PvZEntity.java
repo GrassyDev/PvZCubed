@@ -24,6 +24,9 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.Hypnos
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom.IceshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.iceshroom.IceshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peapod.PeapodEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peapod.PeapodEntityModel;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peapod.PeapodEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peashooter.PeashooterEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peashooter.PeashooterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntity;
@@ -177,6 +180,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "gatlingpea"),
 			QuiltEntityTypeBuilder.<GatlingpeaEntity>create(SpawnGroup.CREATURE, GatlingpeaEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
+	public static final EntityType<PeapodEntity> PEAPOD = Registry.register((
+					Registry.ENTITY_TYPE),
+			new Identifier(ModID, "peapod"),
+			QuiltEntityTypeBuilder.<PeapodEntity>create(SpawnGroup.CREATURE, PeapodEntity::new).setDimensions(EntityDimensions.fixed(1f,0.8f)).build()
 	);
 
     public static final EntityType<FlamingpeaEntity> FLAMINGPEA = Registry.register(
@@ -439,6 +448,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntity.createGatlingpeaAttributes());
 		EntityRendererRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.PEAPOD, PeapodEntity.createPeapodAttributes());
+		EntityRendererRegistry.register(PvZEntity.PEAPOD, PeapodEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntity.createFlamingpeaAttributes());
         EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);
