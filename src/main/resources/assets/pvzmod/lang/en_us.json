@@ -135,6 +135,8 @@
   "block.pvzmod.dark_grass_tile": "Dark Grass Tile",
   "block.pvzmod.night_tile": "Night Tile",
   "block.pvzmod.dark_night_tile": "Dark Night Tile",
+  "block.pvzmod.west_tile": "West Tile",
+  "block.pvzmod.dark_west_tile": "Dark West Tile",
   "block.pvzmod.premium_tile": "Premium Tile",
   "block.pvzmod.upgrade_tile": "Upgrade Tile"
 

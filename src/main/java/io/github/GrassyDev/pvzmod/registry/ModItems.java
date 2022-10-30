@@ -49,8 +49,9 @@ public class ModItems {
     public static final Item ICESHROOM_SEED_PACKET = new IceshroomSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8));
     public static final Item DOOMSHROOM_SEED_PACKET = new DoomshroomSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8));
     public static final Item THREEPEATER_SEED_PACKET = new ThreepeaterSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8));
-	public static final Item FIRE_PEA_SEED_PACKET = new FirepeaSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(4));
 	public static final Item GATLINGPEA_SEED_PACKET = new GatlingpeaSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(2));
+	public static final Item PEAPOD_SEED_PACKET = new PeaPodSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
+	public static final Item FIRE_PEA_SEED_PACKET = new FirepeaSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(4));
 
     //Zombie Spawn
     public static final Item BROWNCOATEGG = new BrowncoatEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
@@ -74,6 +75,8 @@ public class ModItems {
     public static final BlockItem DARK_GRASS_TILE = new BlockItem(ModBlocks.DARK_GRASS_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
     public static final BlockItem NIGHT_TILE = new BlockItem(ModBlocks.NIGHT_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
     public static final BlockItem DARK_NIGHT_TILE = new BlockItem(ModBlocks.DARK_NIGHT_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
+	public static final BlockItem WEST_TILE = new BlockItem(ModBlocks.WEST_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
+	public static final BlockItem DARK_WEST_TILE = new BlockItem(ModBlocks.DARK_WEST_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem PREMIUM_TILE = new BlockItem(ModBlocks.PREMIUM_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem UPGRADE_TILE = new BlockItem(ModBlocks.UPGRADE_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 
@@ -103,6 +106,8 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_grass_tile"), DARK_GRASS_TILE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"night_tile"), NIGHT_TILE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_night_tile"), DARK_NIGHT_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"west_tile"), WEST_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_west_tile"), DARK_WEST_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"premium_tile"), PREMIUM_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"upgrade_tile"), UPGRADE_TILE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sunflower_seed_packet"), SUNFLOWER_SEED_PACKET);
@@ -123,6 +128,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"doomshroom_seed_packet"), DOOMSHROOM_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"threepeater_seed_packet"), THREEPEATER_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gatlingpea_seed_packet"), GATLINGPEA_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peapod_seed_packet"), PEAPOD_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"firepea_seed_packet"), FIRE_PEA_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"browncoat_egg"), BROWNCOATEGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"flagzombie_egg"), FLAGZOMBIEEGG);

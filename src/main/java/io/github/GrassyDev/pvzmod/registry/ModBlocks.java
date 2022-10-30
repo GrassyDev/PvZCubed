@@ -36,6 +36,19 @@ public class ModBlocks {
             .sounds(BlockSoundGroup.STONE)
             .strength(1.9f, 1200f));
 
+	public static final Block WEST_TILE = new Block(QuiltBlockSettings
+			.of(Material.STONE)
+			.requiresTool()
+			.sounds(BlockSoundGroup.STONE)
+			.strength(1.9f, 1200f));
+
+
+	public static final Block DARK_WEST_TILE = new Block(QuiltBlockSettings
+			.of(Material.STONE)
+			.requiresTool()
+			.sounds(BlockSoundGroup.STONE)
+			.strength(1.9f, 1200f));
+
 
 	public static final Block PREMIUM_TILE = new Block(QuiltBlockSettings
 			.of(Material.AMETHYST)
@@ -58,6 +71,8 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_grass_tile"), DARK_GRASS_TILE);
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"night_tile"), NIGHT_TILE);
         Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_night_tile"), DARK_NIGHT_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"west_tile"), WEST_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_west_tile"), DARK_WEST_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"premium_tile"), PREMIUM_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"upgrade_tile"), UPGRADE_TILE);
 

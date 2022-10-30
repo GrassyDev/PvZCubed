@@ -15,6 +15,7 @@ repositories {
 	// for more information about repositories.
 	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 	maven { url 'https://maven.blamejared.com' }
+	maven { url 'https://maven.wispforest.io' }
 }
 
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
@@ -33,6 +34,11 @@ dependencies {
 	modImplementation 'software.bernie.geckolib:geckolib-quilt-1.19:3.1.25'
 
 	modImplementation "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
+
+	/**
+	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+	include "io.wispforest:owo-sentinel:${project.owo_version}"
+	**/
 }
 
 processResources {
