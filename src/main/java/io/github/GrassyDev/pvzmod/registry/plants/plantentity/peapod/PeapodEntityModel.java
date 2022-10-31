@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity.peapod;
 
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.FumeshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.repeater.RepeaterEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -13,9 +14,8 @@ public class PeapodEntityModel extends AnimatedGeoModel<PeapodEntity> {
     }
 
     @Override
-    public Identifier getTextureResource(PeapodEntity object)
-    {
-        return new Identifier("pvzmod", "textures/entity/peashooter/peapod.png");
+    public Identifier getTextureResource(PeapodEntity object){
+		return PeapodEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
     }
 
     @Override

@@ -5,9 +5,13 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.fumeshroom.FumeshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.AppeaseEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.projectileentity.ShootingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.variants.plants.PeapodCountVariants;
+import io.github.GrassyDev.pvzmod.registry.variants.plants.PeapodVariants;
+import io.github.GrassyDev.pvzmod.registry.variants.projectiles.ShootingPeaVariants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -27,13 +31,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.EntityAttributesS2CPacket;
-import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -72,6 +73,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 
 	protected void initDataTracker() {
 		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, 0);
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 	}
 
@@ -79,10 +81,12 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putInt("Variant", this.getTypeVariant());
+		tag.putInt("Count", this.getTypeCount());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getInt("Count"));
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 	}
 
@@ -100,32 +104,53 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
+	//Pea Pod Counter
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(PeapodEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(PeapodEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		PeapodCountVariants variant = PeapodCountVariants.ONE;
+		//Set Count
+		PeapodCountVariants count = PeapodCountVariants.ONE;
+		setCount(count);
+		//Set Skin
+		PeapodVariants variant = Util.getRandom(PeapodVariants.values(), this.random);
 		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
+
+	private int getTypeCount() {
+		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
+	}
+
+	public PeapodCountVariants getCount() {
+		return PeapodCountVariants.byId(this.getTypeCount() & 255);
+	}
+
+	private void setCount(PeapodCountVariants count) {
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, count.getId() & 255);
+	}
+
+	private void addCount(){
+		PeapodCountVariants count = this.getCount();
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, count.getId() + 1 & 255);
+	}
+
 
 	private int getTypeVariant() {
 		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
 	}
 
-	public PeapodCountVariants getVariant() {
-		return PeapodCountVariants.byId(this.getTypeVariant() & 255);
+	public PeapodVariants getVariant() {
+		return PeapodVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(PeapodCountVariants variant) {
+	private void setVariant(PeapodVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
-	}
-
-	private void addVariant(){
-		PeapodCountVariants variants = this.getVariant();
-		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variants.getId() + 1 & 255);
 	}
 
 
@@ -144,35 +169,35 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.getVariant().equals(PeapodCountVariants.ONE)) {
+		if (this.getCount().equals(PeapodCountVariants.ONE)) {
 			if (this.isFiring) {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot", false));
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle", true));
 			}
 		}
-		else if (this.getVariant().equals(PeapodCountVariants.TWO)) {
+		else if (this.getCount().equals(PeapodCountVariants.TWO)) {
 			if (this.isFiring) {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot2", false));
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle2", true));
 			}
 		}
-		else if (this.getVariant().equals(PeapodCountVariants.THREE)) {
+		else if (this.getCount().equals(PeapodCountVariants.THREE)) {
 			if (this.isFiring) {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot3", false));
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle3", true));
 			}
 		}
-		else if (this.getVariant().equals(PeapodCountVariants.FOUR)) {
+		else if (this.getCount().equals(PeapodCountVariants.FOUR)) {
 			if (this.isFiring) {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot4", false));
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle4", true));
 			}
 		}
-		else if (this.getVariant().equals(PeapodCountVariants.FIVE)) {
+		else if (this.getCount().equals(PeapodCountVariants.FIVE)) {
 			if (this.isFiring) {
 				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot5", false));
 			} else {
@@ -250,9 +275,9 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		Item item = itemStack.getItem();
-		if (itemStack.isOf(ModItems.PEAPOD_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item) && !this.getVariant().equals(PeapodCountVariants.FIVE)) {
+		if (itemStack.isOf(ModItems.PEAPOD_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item) && !this.getCount().equals(PeapodCountVariants.FIVE)) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
-			this.addVariant();
+			this.addCount();
 			EntityAttributeInstance maxHealthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
 			double health = this.getMaxHealth() - 14;
 			maxHealthAttribute.removeModifier(MAX_HEALTH_UUID);
@@ -420,7 +445,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 							this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
 							this.peapodEntity.world.spawnEntity(proj);
 						}
-						if (peapodEntity.getVariant().getId() >= 1) {
+						if (peapodEntity.getCount().getId() >= 1) {
 							// Right Pea
 							ShootingPeaEntity proj3 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
 							Vec3d vec3d3 = this.peapodEntity.getRotationVec(1.0F).rotateY(-90);
@@ -434,12 +459,15 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 							proj3.updatePosition(this.peapodEntity.getX() + vec3d3.x * 0.75, this.peapodEntity.getY() + 0.3, this.peapodEntity.getZ() + vec3d3.z * 0.75);
 							proj3.setOwner(this.peapodEntity);
 							if (livingEntity.isAlive()) {
+								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
+									proj3.setVariant(ShootingPeaVariants.BLACK);
+								}
 								this.peapodEntity.world.sendEntityStatus(this.peapodEntity, (byte) 11);
 								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
 								this.peapodEntity.world.spawnEntity(proj3);
 							}
 						}
-						if (peapodEntity.getVariant().getId() >= 2) {
+						if (peapodEntity.getCount().getId() >= 2) {
 							// Left Pea
 							ShootingPeaEntity proj2 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
 							Vec3d vec3d2 = this.peapodEntity.getRotationVec(1.0F).rotateY(90);
@@ -453,11 +481,14 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 							proj2.updatePosition(this.peapodEntity.getX() + vec3d2.x * 0.75, this.peapodEntity.getY() + 0.3, this.peapodEntity.getZ() + vec3d2.z * 0.75);
 							proj2.setOwner(this.peapodEntity);
 							if (livingEntity.isAlive()) {
+								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
+									proj2.setVariant(ShootingPeaVariants.PURPLE);
+								}
 								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
 								this.peapodEntity.world.spawnEntity(proj2);
 							}
 						}
-						if (peapodEntity.getVariant().getId() >= 3) {
+						if (peapodEntity.getCount().getId() >= 3) {
 							// Middle Pea
 							ShootingPeaEntity proj4 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
 							double d4 = this.peapodEntity.squaredDistanceTo(livingEntity);
@@ -470,11 +501,14 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 							proj4.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 0.75D, this.peapodEntity.getZ());
 							proj4.setOwner(this.peapodEntity);
 							if (livingEntity.isAlive()) {
+								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
+									proj4.setVariant(ShootingPeaVariants.BLUE);
+								}
 								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
 								this.peapodEntity.world.spawnEntity(proj4);
 							}
 						}
-						if (peapodEntity.getVariant().getId() >= 4) {
+						if (peapodEntity.getCount().getId() >= 4) {
 							// Top Pea
 							ShootingPeaEntity proj5 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
 							double d5 = this.peapodEntity.squaredDistanceTo(livingEntity);
@@ -487,6 +521,9 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 							proj5.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 1.25D, this.peapodEntity.getZ());
 							proj5.setOwner(this.peapodEntity);
 							if (livingEntity.isAlive()) {
+								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
+									proj5.setVariant(ShootingPeaVariants.CYAN);
+								}
 								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
 								this.peapodEntity.world.spawnEntity(proj5);
 							}

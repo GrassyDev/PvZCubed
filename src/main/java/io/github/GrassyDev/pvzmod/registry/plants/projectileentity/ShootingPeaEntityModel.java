@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.plants.projectileentity;
 
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.peapod.PeapodEntityRenderer;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -12,10 +13,9 @@ public class ShootingPeaEntityModel extends AnimatedGeoModel<ShootingPeaEntity> 
     }
 
     @Override
-    public Identifier getTextureResource(ShootingPeaEntity object)
-    {
-        return new Identifier("pvzmod", "textures/entity/projectiles/peashot.png");
-    }
+    public Identifier getTextureResource(ShootingPeaEntity object){
+		return ShootingPeaEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
+	}
 
     @Override
     public Identifier getAnimationResource(ShootingPeaEntity object)
