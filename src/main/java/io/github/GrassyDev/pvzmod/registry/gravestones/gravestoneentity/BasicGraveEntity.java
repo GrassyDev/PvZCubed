@@ -16,6 +16,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -63,7 +64,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
     }
 
     protected void initGoals() {
-        this.targetSelector.add(1, new TargetGoal(this, PlayerEntity.class, false, false));
+        this.targetSelector.add(1, new TargetGoal<>(this, PlayerEntity.class, false, false));
 		this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
         this.initCustomGoals();
     }
@@ -145,9 +146,9 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
         return this.factory;
     }
 
-    public static boolean canBasicGraveSpawn(EntityType<BasicGraveEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 0;
-    }
+	public static boolean canBasicGraveSpawn(EntityType<? extends BasicGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
+		return world.getDifficulty() != Difficulty.PEACEFUL;
+	}
 
     @Override
     public boolean canSpawn(WorldView worldreader) {

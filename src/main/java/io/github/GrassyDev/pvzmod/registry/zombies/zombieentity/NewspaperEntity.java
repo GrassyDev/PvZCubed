@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gravebuster.Graveb
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.UnarmedPotatomineEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.puffshroom.PuffshroomEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -81,10 +82,11 @@ public class NewspaperEntity extends HostileEntity implements IAnimatable {
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
         this.goalSelector.add(6, new MoveThroughVillageGoal(this, 1.0D, false, 4, this::canBreakDoors));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(1, new TargetGoal(this, UnarmedPotatomineEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal(this, PotatomineEntity.class, false, true));
-        this.targetSelector.add(1, new TargetGoal(this, GravebusterEntity.class, false, true));
-        this.targetSelector.add(1, new TargetGoal(this, HypnoshroomEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal<>(this, GravebusterEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal<>(this, HypnoshroomEntity.class, false, true));
     }
 
     public static DefaultAttributeContainer.Builder createNewspaperAttributes() {

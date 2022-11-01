@@ -8,6 +8,7 @@ import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.UnarmedPotatomineEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -65,15 +66,19 @@ public class BucketheadEntity extends HostileEntity implements IAnimatable {
         if (tonguechance <= 0.5) {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking", true));
+				event.getController().setAnimationSpeed(1.66);
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle", true));
+				event.getController().setAnimationSpeed(1);
             }
         }
         else {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking2", true));
+				event.getController().setAnimationSpeed(1.66);
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle2", true));
+				event.getController().setAnimationSpeed(1);
             }
         }
         return PlayState.CONTINUE;
@@ -94,26 +99,27 @@ public class BucketheadEntity extends HostileEntity implements IAnimatable {
         this.targetSelector.add(2, new BucketheadEntity.TrackOwnerTargetGoal(this));
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(1, new TargetGoal(this, UnarmedPotatomineEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal(this, PotatomineEntity.class, false, true));
-        this.targetSelector.add(1, new TargetGoal(this, ReinforceEntity.class, false, true));
-        this.targetSelector.add(2, new TargetGoal(this, EnforceEntity.class, false, true));
-        this.targetSelector.add(2, new TargetGoal(this, ContainEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, HypnoshroomEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, EnchantEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal(this, PlayerEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal(this, AppeaseEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, PepperEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal(this, WinterEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal(this, BombardEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal(this, AilmentEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal(this, EnlightenEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal(this, FilamentEntity.class, false, true));
-        this.targetSelector.add(4, new TargetGoal(this, MerchantEntity.class, false, true));
-        this.targetSelector.add(2, new TargetGoal(this, IronGolemEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
+        this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
+        this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, HypnoshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal<>(this, AppeaseEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, PepperEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal<>(this, WinterEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal<>(this, BombardEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal<>(this, AilmentEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal<>(this, EnlightenEntity.class, false, true));
+        this.targetSelector.add(3, new TargetGoal<>(this, FilamentEntity.class, false, true));
+        this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
+        this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
         ////////// Hypnotized Zombie targets ///////
-        this.targetSelector.add(1, new TargetGoal(this, HypnoZombieEntity.class, false, true));
-        this.targetSelector.add(1, new TargetGoal(this, HypnoSummonerEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
+        this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
     }
 
     public static DefaultAttributeContainer.Builder createBucketheadAttributes() {

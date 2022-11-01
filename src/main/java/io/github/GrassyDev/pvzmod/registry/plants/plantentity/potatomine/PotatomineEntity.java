@@ -1,13 +1,10 @@
 package io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.plants.plantentity.gatlingpea.GatlingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.BombardEntity;
-import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
+import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -21,24 +18,18 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
@@ -56,7 +47,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Optional;
 import java.util.Random;
 
 public class PotatomineEntity extends BombardEntity implements IAnimatable {
@@ -318,7 +308,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 7.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 1.5D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 1.75D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 180);
     }
 

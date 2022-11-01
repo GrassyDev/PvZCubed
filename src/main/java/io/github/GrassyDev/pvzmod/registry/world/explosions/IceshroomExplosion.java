@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.world;
+package io.github.GrassyDev.pvzmod.registry.world.explosions;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -109,32 +109,27 @@ public class IceshroomExplosion extends Explosion {
         List<Entity> list = this.world.getOtherEntities(this.entity, new Box(k, t, v, l, u, w));
         Vec3d vec3d = new Vec3d(this.x, this.y, this.z);
 
-        for(int x = 0; x < list.size(); ++x) {
-            Entity entity = list.get(x);
-            if (!entity.isImmuneToExplosion()) {
-                double y = Math.sqrt(entity.squaredDistanceTo(vec3d)) / q;
-                if (y <= 1.0D) {
-                    double z = entity.getX() - this.x;
-                    double aa = (entity instanceof TntEntity ? entity.getY() : entity.getEyeY()) - this.y;
-                    double ab = entity.getZ() - this.z;
-                    double ac = Math.sqrt(z * z + aa * aa + ab * ab);
-                    if (ac != 0.0D) {
-                        z /= ac;
-                        aa /= ac;
-                        ab /= ac;
-                        double ad = getExposure(vec3d, entity);
-                        double ae = (1.0D - y) * ad;
-                        if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-                                !(entity instanceof HypnoFlagzombieEntity)) {
-                            entity.damage(this.getDamageSource(), 4f);
+		for (Entity entity : list) {
+			if (!entity.isImmuneToExplosion()) {
+				double y = Math.sqrt(entity.squaredDistanceTo(vec3d)) / q;
+				if (y <= 1.0D) {
+					double z = entity.getX() - this.x;
+					double aa = (entity instanceof TntEntity ? entity.getY() : entity.getEyeY()) - this.y;
+					double ab = entity.getZ() - this.z;
+					double ac = Math.sqrt(z * z + aa * aa + ab * ab);
+					if (ac != 0.0D) {
+						if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+								!(entity instanceof HypnoFlagzombieEntity)) {
+							entity.damage(this.getDamageSource(), 4f);
 							entity.extinguish();
+							assert entity instanceof LivingEntity;
 							((LivingEntity) entity).removeStatusEffect(PvZCubed.WARM);
-                            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 50)));
-                        }
-                    }
-                }
-            }
-        }
+							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+						}
+					}
+				}
+			}
+		}
 
     }
 

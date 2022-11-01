@@ -4,7 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.BombardEntity;
-import io.github.GrassyDev.pvzmod.registry.world.PvZExplosion;
+import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;

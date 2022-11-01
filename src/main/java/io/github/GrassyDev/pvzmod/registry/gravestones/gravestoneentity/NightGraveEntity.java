@@ -21,10 +21,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.*;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -70,7 +69,7 @@ public class NightGraveEntity extends SpellcastingIllagerEntity implements IAnim
     }
 
     protected void initGoals() {
-        this.targetSelector.add(1, new TargetGoal(this, PlayerEntity.class, false, false));
+        this.targetSelector.add(1, new TargetGoal<>(this, PlayerEntity.class, false, false));
         this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
         this.initCustomGoals();
     }
@@ -152,9 +151,10 @@ public class NightGraveEntity extends SpellcastingIllagerEntity implements IAnim
         return this.factory;
     }
 
-    public static boolean canNightGraveSpawn(EntityType<NightGraveEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 0;
-    }
+	public static boolean canNightGraveSpawn(EntityType<? extends NightGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
+		return world.getDifficulty() != Difficulty.PEACEFUL && isSpawnDark(world, pos, random);
+	}
+
 
     @Override
     public boolean canSpawn(WorldView worldreader) {

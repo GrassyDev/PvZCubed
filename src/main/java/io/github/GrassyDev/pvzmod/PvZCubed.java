@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.damage.HypnoDamage;
 import io.github.GrassyDev.pvzmod.registry.statuseffects.*;
+import io.github.GrassyDev.pvzmod.registry.world.gen.PvZEntitySpawn;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
@@ -218,6 +219,7 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 		ModItems.registerItems();
 		ModBlocks.registerBlocks();
 		GeckoLib.initialize();
+		PvZEntitySpawn.addEntitySpawn();
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "ice"), ICE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "frozen"), FROZEN);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "hypnotized"), HYPNOTIZED);

@@ -52,7 +52,7 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
     public WallnutEntity(EntityType<? extends WallnutEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 100;
+        this.healingTime = 6000;
     }
 
 	static {
@@ -160,7 +160,7 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() &&  this.deathTime == 0) {
 			this.heal(1.0F);
-			this.healingTime = 100;
+			this.healingTime = 6000;
 		}
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {

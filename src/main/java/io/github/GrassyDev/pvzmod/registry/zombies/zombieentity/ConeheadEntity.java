@@ -8,6 +8,7 @@ import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.potatomine.UnarmedPotatomineEntity;
+import io.github.GrassyDev.pvzmod.registry.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -48,16 +49,12 @@ public class ConeheadEntity extends HostileEntity implements IAnimatable {
     private MobEntity owner;
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "walkingcontroller";
-    private static final Predicate<Difficulty> DOOR_BREAK_DIFFICULTY_CHECKER;
-    private final BreakDoorGoal breakDoorsGoal;
-    private boolean canBreakDoors;
 
     double tonguechance = this.random.nextDouble();
 
     public ConeheadEntity(EntityType<? extends ConeheadEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.breakDoorsGoal = new BreakDoorGoal(this, DOOR_BREAK_DIFFICULTY_CHECKER);
         this.experiencePoints = 6;
     }
 
@@ -65,15 +62,19 @@ public class ConeheadEntity extends HostileEntity implements IAnimatable {
         if (tonguechance <= 0.5) {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking", true));
+				event.getController().setAnimationSpeed(1.66);
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle", true));
+				event.getController().setAnimationSpeed(1);
             }
         }
         else {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking2", true));
+				event.getController().setAnimationSpeed(1.66);
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle2", true));
+				event.getController().setAnimationSpeed(1);
             }
         }
         return PlayState.CONTINUE;
@@ -94,26 +95,27 @@ public class ConeheadEntity extends HostileEntity implements IAnimatable {
         this.targetSelector.add(2, new ConeheadEntity.TrackOwnerTargetGoal(this));
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(1, new TargetGoal(this, UnarmedPotatomineEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal(this, PotatomineEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal(this, ReinforceEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal(this, EnforceEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal(this, ContainEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, HypnoshroomEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, EnchantEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, PlayerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, AppeaseEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, PepperEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, WinterEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, BombardEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, AilmentEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, EnlightenEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal(this, FilamentEntity.class, false, true));
-		this.targetSelector.add(4, new TargetGoal(this, MerchantEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal(this, IronGolemEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, HypnoshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, AppeaseEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, PepperEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, WinterEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, BombardEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, AilmentEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, EnlightenEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, FilamentEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(1, new TargetGoal(this, HypnoZombieEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal(this, HypnoSummonerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
     }
 
     public static DefaultAttributeContainer.Builder createConeheadAttributes() {
@@ -130,28 +132,6 @@ public class ConeheadEntity extends HostileEntity implements IAnimatable {
 
     public void setOwner(MobEntity owner) {
         this.owner = owner;
-    }
-
-    public boolean canBreakDoors() {
-        return this.canBreakDoors;
-    }
-
-    public void setCanBreakDoors(boolean canBreakDoors) {
-        if (this.shouldBreakDoors() && NavigationConditions.hasMobNavigation(this)) {
-            if (this.canBreakDoors != canBreakDoors) {
-                this.canBreakDoors = canBreakDoors;
-                ((MobNavigation)this.getNavigation()).setCanPathThroughDoors(canBreakDoors);
-                if (canBreakDoors) {
-                    this.goalSelector.add(1, this.breakDoorsGoal);
-                } else {
-                    this.goalSelector.remove(this.breakDoorsGoal);
-                }
-            }
-        } else if (this.canBreakDoors) {
-            this.goalSelector.remove(this.breakDoorsGoal);
-            this.canBreakDoors = false;
-        }
-
     }
 
     protected boolean shouldBreakDoors() {
@@ -211,16 +191,6 @@ public class ConeheadEntity extends HostileEntity implements IAnimatable {
         return EntityGroup.UNDEAD;
     }
 
-    public void writeCustomDataToTag(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putBoolean("CanBreakDoors", this.canBreakDoors());
-    }
-
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.setCanBreakDoors(nbt.getBoolean("CanBreakDoors"));
-    }
-
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
 		super.onKilledOther(serverWorld, livingEntity);
 		boolean bl = super.onKilledOther(serverWorld, livingEntity);
@@ -260,20 +230,10 @@ public class ConeheadEntity extends HostileEntity implements IAnimatable {
 
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-        float f = difficulty.getClampedLocalDifficulty();
-
-        if (entityData instanceof ConeheadEntity.ZombieData) {
-            ConeheadEntity.ZombieData zombieData = (ConeheadEntity.ZombieData)entityData;
-
-            this.setCanBreakDoors(this.shouldBreakDoors() && this.random.nextFloat() < f * 0.1F);
-        }
         return (EntityData)entityData;
     }
 
     static {
-        DOOR_BREAK_DIFFICULTY_CHECKER = (difficulty) -> {
-            return difficulty == Difficulty.HARD;
-        };
     }
 
     public static class ZombieData implements EntityData {

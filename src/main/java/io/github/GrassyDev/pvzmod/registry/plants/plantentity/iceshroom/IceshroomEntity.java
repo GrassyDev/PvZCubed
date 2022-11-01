@@ -5,7 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.Hy
 import io.github.GrassyDev.pvzmod.registry.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.plantentity.doomshroom.DoomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.plants.planttypes.WinterEntity;
-import io.github.GrassyDev.pvzmod.registry.world.IceshroomExplosion;
+import io.github.GrassyDev.pvzmod.registry.world.explosions.IceshroomExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -25,10 +25,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -43,7 +41,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Optional;
 import java.util.Random;
 
 public class IceshroomEntity extends WinterEntity implements IAnimatable {

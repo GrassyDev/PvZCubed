@@ -175,7 +175,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 
 		protected double getSquaredMaxAttackDistance(LivingEntity entity) {
 			float f = ChomperEntity.this.getWidth() - 0.1F;
-			return (double)(f * 2.0F * f * 2.0F + entity.getWidth());
+			return (double)(f * 2.8F * f * 2.8F + entity.getWidth());
 		}
 	}
 

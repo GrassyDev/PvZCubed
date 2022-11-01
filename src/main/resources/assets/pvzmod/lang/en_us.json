@@ -67,6 +67,9 @@
   "entity.pvzmod.gatlingpea": "Gatling Pea",
   "item.pvzmod.gatlingpea_seed_packet": "Repeater Seed Packet",
 
+  "entity.pvzmod.peapod": "Pea Pod",
+  "item.pvzmod.peapod_seed_packet": "Pea Pod Seed Packet",
+
   "entity.pvzmod.flamingpea": "Fire Peashooter",
   "item.pvzmod.firepea": "Fire Pea",
   "item.pvzmod.firepea_seed_packet": "Fire Peashooter Seed Packet",

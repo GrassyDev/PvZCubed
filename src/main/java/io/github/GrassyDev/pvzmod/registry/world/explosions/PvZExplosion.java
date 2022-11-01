@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.world;
+package io.github.GrassyDev.pvzmod.registry.world.explosions;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
