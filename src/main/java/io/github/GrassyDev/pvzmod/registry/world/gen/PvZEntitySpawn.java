@@ -1,15 +1,11 @@
 package io.github.GrassyDev.pvzmod.registry.world.gen;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.BasicGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.gravestones.gravestoneentity.NightGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.BasicGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.NightGraveEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.mob.PatrolEntity;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.biome.BiomeKeys;
 import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
 import org.quiltmc.qsl.worldgen.biome.api.BiomeSelectors;
 

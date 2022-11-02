@@ -1,6 +1,6 @@
 package io.github.GrassyDev.pvzmod.mixin;
 
-import io.github.GrassyDev.pvzmod.registry.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

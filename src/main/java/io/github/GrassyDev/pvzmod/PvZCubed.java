@@ -2,8 +2,8 @@ package io.github.GrassyDev.pvzmod;
 
 import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.damage.HypnoDamage;
-import io.github.GrassyDev.pvzmod.registry.statuseffects.*;
+import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
+import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.*;
 import io.github.GrassyDev.pvzmod.registry.world.gen.PvZEntitySpawn;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.entity.damage.DamageSource;
