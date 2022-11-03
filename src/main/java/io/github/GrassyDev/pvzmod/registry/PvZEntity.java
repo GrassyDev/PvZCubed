@@ -53,6 +53,10 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.FumeEn
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.FumeEntityVariants.FumeEntity_T;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.*;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntityRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityDimensions;
@@ -184,7 +188,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<PeapodEntity> PEAPOD = Registry.register((
 					Registry.ENTITY_TYPE),
 			new Identifier(ModID, "peapod"),
-			QuiltEntityTypeBuilder.<PeapodEntity>create(SpawnGroup.CREATURE, PeapodEntity::new).setDimensions(EntityDimensions.fixed(1f,0.8f)).build()
+			QuiltEntityTypeBuilder.<PeapodEntity>create(SpawnGroup.CREATURE, PeapodEntity::new).setDimensions(EntityDimensions.fixed(1f,1.8f)).build()
 	);
 
     public static final EntityType<FlamingpeaEntity> FLAMINGPEA = Registry.register(
@@ -333,21 +337,11 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "football"),
             QuiltEntityTypeBuilder.<FootballEntity>create(SpawnGroup.MONSTER, FootballEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
     );
+
     public static final EntityType<HypnoFootballEntity> HYPNOFOOTBALL = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "football_hypnotized"),
             QuiltEntityTypeBuilder.<HypnoFootballEntity>create(SpawnGroup.CREATURE, HypnoFootballEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
-    );
-
-    public static final EntityType<BerserkerEntity> BERSERKER = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(ModID, "berserker"),
-            QuiltEntityTypeBuilder.<BerserkerEntity>create(SpawnGroup.MONSTER, BerserkerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
-    );
-    public static final EntityType<HypnoBerserkerEntity> HYPNOBERSERKER = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(ModID, "berserker_hypnotized"),
-            QuiltEntityTypeBuilder.<HypnoBerserkerEntity>create(SpawnGroup.CREATURE, HypnoBerserkerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
     );
 
     public static final EntityType<DancingZombieEntity> DANCINGZOMBIE = Registry.register(
@@ -371,6 +365,30 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "backup_dancer_hypnotized"),
             QuiltEntityTypeBuilder.<HypnoBackupDancerEntity>create(SpawnGroup.CREATURE, HypnoBackupDancerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
     );
+
+	public static final EntityType<GargantuarEntity> GARGANTUAR = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "gargantuar"),
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
+	);
+
+	public static final EntityType<ImpEntity> IMP = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "imp"),
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+	);
+
+	public static final EntityType<BerserkerEntity> BERSERKER = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "berserker"),
+			QuiltEntityTypeBuilder.<BerserkerEntity>create(SpawnGroup.MONSTER, BerserkerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+
+	public static final EntityType<HypnoBerserkerEntity> HYPNOBERSERKER = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "berserker_hypnotized"),
+			QuiltEntityTypeBuilder.<HypnoBerserkerEntity>create(SpawnGroup.CREATURE, HypnoBerserkerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -513,13 +531,6 @@ public class PvZEntity implements ModInitializer {
         EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntityRenderer::new);
 
 
-		FabricDefaultAttributeRegistry.register(PvZEntity.BERSERKER, BerserkerEntity.createBerserkerAttributes());
-        EntityRendererRegistry.register(PvZEntity.BERSERKER, BerserkerEntityRenderer::new);
-
-		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntity.createHypnoBerserkerAttributes());
-        EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer::new);
-
-
 		FabricDefaultAttributeRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntity.createDancingZombieAttributes());
         EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer::new);
 
@@ -532,6 +543,19 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntity.createHypnoBackupDancerAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntity.createGargantuarAttributes());
+		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.IMP, ImpEntity.createImpAttributes());
+		EntityRendererRegistry.register(PvZEntity.IMP, ImpEntityRenderer::new);
+
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.BERSERKER, BerserkerEntity.createBerserkerAttributes());
+		EntityRendererRegistry.register(PvZEntity.BERSERKER, BerserkerEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntity.createHypnoBerserkerAttributes());
+		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer::new);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////

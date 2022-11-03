@@ -27,6 +27,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.*;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.FumeEntityVariants.FumeEntityRenderer_G;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.FumeEntityVariants.FumeEntityRenderer_T;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.renderers.*;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntityRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -126,14 +128,18 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer ::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntityRenderer ::new);
 
-		EntityRendererRegistry.register(PvZEntity.BERSERKER, BerserkerEntityRenderer ::new);
-		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer ::new);
-
 		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer ::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNODANCINGZOMBIE, HypnoDancingZombieEntityRenderer ::new);
 
 		EntityRendererRegistry.register(PvZEntity.BACKUPDANCER, BackupDancerEntityRenderer ::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntityRenderer ::new);
+
+		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.IMP, ImpEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.BERSERKER, BerserkerEntityRenderer ::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer ::new);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 

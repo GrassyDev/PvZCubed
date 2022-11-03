@@ -1,17 +1,15 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.HypnoZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.*;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.PvZombieAttackGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -21,7 +19,6 @@ import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -34,6 +31,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
@@ -48,42 +47,40 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class BerserkerEntity extends HostileEntity implements IAnimatable {
+public class ImpEntity extends HostileEntity implements IAnimatable {
     private MobEntity owner;
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "walkingcontroller";
     private static final Predicate<Difficulty> DOOR_BREAK_DIFFICULTY_CHECKER;
     private final BreakDoorGoal breakDoorsGoal;
     private boolean canBreakDoors;
-    private int attackTicksLeft;
-    public boolean firstAttack;
-    public boolean tackle;
 
-    public BerserkerEntity(EntityType<? extends BerserkerEntity> entityType, World world) {
+    double tonguechance = this.random.nextDouble();
+
+    public ImpEntity(EntityType<? extends ImpEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.breakDoorsGoal = new BreakDoorGoal(this, DOOR_BREAK_DIFFICULTY_CHECKER);
-        this.experiencePoints = 12;
-        this.firstAttack = true;
+        this.experiencePoints = 3;
     }
 
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-
-        if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-            if (!this.tackle) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("football.running", true));
-            }
-            else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("football.tackle", true));
-            }
-        }else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("football.idle", true));
-        }
+		if (!this.isOnGround()){
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("imp.ball", true));
+		}
+        else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("imp.run", true));
+			event.getController().setAnimationSpeed(1.5);
+		}
+		else {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("imp.idle", true));
+			event.getController().setAnimationSpeed(1);
+		}
         return PlayState.CONTINUE;
     }
 
-    public BerserkerEntity(World world) {
-        this(PvZEntity.BERSERKER, world);
+    public ImpEntity(World world) {
+        this(PvZEntity.IMP, world);
     }
 
         protected void initGoals() {
@@ -94,18 +91,15 @@ public class BerserkerEntity extends HostileEntity implements IAnimatable {
     }
 
     protected void initCustomGoals() {
-        this.targetSelector.add(2, new BerserkerEntity.TrackOwnerTargetGoal(this));
-        this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
+		this.targetSelector.add(2, new ImpEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(1, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
-this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, ReinforceEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, EnforceEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, HypnoshroomEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, AppeaseEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, PepperEntity.class, false, true));
@@ -117,8 +111,15 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(1, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+    }
+    public static DefaultAttributeContainer.Builder createImpAttributes() {
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0D)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20D);
     }
 
     public MobEntity getOwner() {
@@ -127,15 +128,6 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
 
     public void setOwner(MobEntity owner) {
         this.owner = owner;
-    }
-
-    public static DefaultAttributeContainer.Builder createBerserkerAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.18D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
-                .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS, 0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 360D);
     }
 
     public boolean canBreakDoors() {
@@ -164,7 +156,6 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
         return true;
     }
 
-
     public boolean damage(DamageSource source, float amount) {
         if (!super.damage(source, amount)) {
             return false;
@@ -177,9 +168,9 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
                 livingEntity = (LivingEntity)source.getAttacker();
             }
 
-            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
+            /**if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoBerserkerEntity hypnotizedZombie = (HypnoBerserkerEntity) PvZEntity.HYPNOBERSERKER.create(world);
+                HypnoBrowncoatEntity hypnotizedZombie = (HypnoBrowncoatEntity) PvZEntity.HYPNOBROWNCOAT.create(world);
                 hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnotizedZombie.setAiDisabled(this.isAiDisabled());
@@ -192,7 +183,7 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
                 hypnotizedZombie.setPersistent();
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
-            }
+            }**/
 
             return true;
         }
@@ -223,9 +214,22 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
         nbt.putBoolean("CanBreakDoors", this.canBreakDoors());
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    public void readCustomDataFromTag(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
         this.setCanBreakDoors(nbt.getBoolean("CanBreakDoors"));
+    }
+
+    public void updatePassengerPosition(Entity passenger) {
+        super.updatePassengerPosition(passenger);
+        float f = MathHelper.sin(this.bodyYaw * 0.017453292F);
+        float g = MathHelper.cos(this.bodyYaw * 0.017453292F);
+        float h = 0.1F;
+        float i = 0.0F;
+        passenger.updatePosition(this.getX() + (double)(0.1F * f), this.getBodyY(0.5D) + passenger.getHeightOffset() + 0.0D, this.getZ() - (double)(0.1F * g));
+        if (passenger instanceof LivingEntity) {
+            ((LivingEntity)passenger).bodyYaw = this.bodyYaw;
+        }
+
     }
 
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
@@ -251,66 +255,6 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
 		return bl;
 	}
 
-    public void tickMovement() {
-        super.tickMovement();
-        if (this.attackTicksLeft > 0) {
-            --this.attackTicksLeft;
-        }
-    }
-
-    private float getAttackDamage(){
-        return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-    }
-
-    public boolean tryAttack(Entity target) {
-        int i = this.attackTicksLeft;
-        if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-            if (this.firstAttack) {
-                if (i <= 0) {
-                    if (this.hasStatusEffect(PvZCubed.ICE)) {
-                        this.attackTicksLeft = 20;
-                        this.world.sendEntityStatus(this, (byte) 4);
-                        float f = 360f;
-                        boolean bl = target.damage(DamageSource.mob(this), f);
-                        if (bl) {
-                            this.applyDamageEffects(this, target);
-                        }
-                        this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-                        this.firstAttack = false;
-                        return bl;
-                    } else {
-                        this.attackTicksLeft = 20;
-                        this.world.sendEntityStatus(this, (byte) 4);
-                        float f = 180f;
-                        boolean bl = target.damage(DamageSource.mob(this), f);
-                        if (bl) {
-                            this.applyDamageEffects(this, target);
-                        }
-                        this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-                        this.firstAttack = false;
-                        return bl;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                if (i <= 0) {
-                    this.attackTicksLeft = 20;
-                    this.world.sendEntityStatus(this, (byte) 4);
-                    float f = this.getAttackDamage();
-                    boolean bl = target.damage(DamageSource.mob(this), f);
-                    if (bl) {
-                        this.applyDamageEffects(this, target);
-                    }
-                    return bl;
-                } else {
-                    return false;
-                }
-            }
-        } else {
-            return false;
-        }
-    }
 
     @Override
     public void registerControllers(AnimationData data)
@@ -330,16 +274,16 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
         float f = difficulty.getClampedLocalDifficulty();
 
-        if (entityData instanceof BerserkerEntity.ZombieData) {
-            BerserkerEntity.ZombieData zombieData = (BerserkerEntity.ZombieData)entityData;
+        if (entityData instanceof ImpEntity.ZombieData) {
+            ImpEntity.ZombieData zombieData = (ImpEntity.ZombieData)entityData;
 
-            this.setCanBreakDoors(this.shouldBreakDoors() && this.random.nextFloat() < f * 0.1F);
+            this.setCanBreakDoors(this.shouldBreakDoors() && this.random.nextFloat() < 1F);
         }
         return (EntityData)entityData;
     }
 
     public static boolean method_29936(Random random) {
-        return random.nextFloat() < 0.05F;
+        return random.nextFloat() < 1F;
     }
 
     static {
@@ -348,34 +292,24 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
         };
     }
 
-    public static class ZombieData implements EntityData {
+	public void setVelocity(double x, double y, double z, float speed, float divergence) {
+		Vec3d vec3d = (new Vec3d(x, y, z)).normalize().add(this.random.nextTriangular(0.0, 0.0172275 * (double)divergence), this.random.nextTriangular(0.0, 0.0172275 * (double)divergence), this.random.nextTriangular(0.0, 0.0172275 * (double)divergence)).multiply((double)speed);
+		this.setVelocity(vec3d);
+		double d = vec3d.horizontalLength();
+		this.setYaw((float)(MathHelper.atan2(vec3d.x, vec3d.z) * 57.2957763671875));
+		this.setPitch((float)(MathHelper.atan2(vec3d.y, d) * 57.2957763671875));
+		this.prevYaw = this.getYaw();
+		this.prevPitch = this.getPitch();
+	}
+
+	public static class ZombieData implements EntityData {
 
         public ZombieData(boolean baby, boolean bl) {
         }
     }
 
-    public static boolean canBerserkerSpawn(EntityType<BerserkerEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
+    public static boolean canImpSpawn(EntityType<ImpEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
         return pos.getY() > 55;
-    }
-
-    protected void mobTick() {
-        if (this.firstAttack) {
-            this.world.sendEntityStatus(this, (byte) 13);
-        }
-        else {
-            this.world.sendEntityStatus(this, (byte) 12);
-        }
-        super.mobTick();
-    }
-
-    @Environment(EnvType.CLIENT)
-    public void handleStatus(byte status) {
-        if (status == 13) {
-            this.tackle = true;
-        }
-        else if (status == 12) {
-            this.tackle = false;
-        }
     }
 
     @Override
@@ -391,13 +325,14 @@ this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class,
         }
 
         public boolean canStart() {
-            return BerserkerEntity.this.owner != null && BerserkerEntity.this.owner.getTarget() != null && this.canTrack(BerserkerEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
+            return ImpEntity.this.owner != null && ImpEntity.this.owner.getTarget() != null && this.canTrack(ImpEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
         }
 
         public void start() {
-            BerserkerEntity.this.setTarget(BerserkerEntity.this.owner.getTarget());
+            ImpEntity.this.setTarget(ImpEntity.this.owner.getTarget());
             super.start();
         }
     }
+
 
 }
