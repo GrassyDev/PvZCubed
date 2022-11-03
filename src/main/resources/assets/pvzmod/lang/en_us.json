@@ -109,10 +109,6 @@
   "item.pvzmod.football_egg": "Football Zombie",
   "entity.pvzmod.football_hypnotized": "Hypnotized Football Zombie",
 
-  "entity.pvzmod.berserker": "Berserker",
-  "item.pvzmod.berserker_egg": "Berserker",
-  "entity.pvzmod.berserker_hypnotized": "Hypnotized Berserker",
-
   "entity.pvzmod.dancing_zombie": "Dancing Zombie",
   "item.pvzmod.dancingzombie_egg": "Dancing Zombie",
   "entity.pvzmod.dancing_zombie_hypnotized": "Hypnotized Dancing Zombie",
@@ -120,6 +116,18 @@
   "entity.pvzmod.backup_dancer": "Backup Dancer",
   "item.pvzmod.backupdancer_egg": "Backup Dancer",
   "entity.pvzmod.backup_dancer_hypnotized": "Hypnotized Backup Dancer",
+
+  "entity.pvzmod.gargantuar": "Gargantuar",
+  "item.pvzmod.gargantuar_egg": "Gargantuar",
+  "entity.pvzmod.gargantuar_hypnotized": "Hypnotized Gargantuar",
+
+  "entity.pvzmod.imp": "Imp",
+  "item.pvzmod.imp_egg": "Imp",
+  "entity.pvzmod.imp_hypnotized": "Hypnotized Imp",
+
+  "entity.pvzmod.berserker": "Berserker",
+  "item.pvzmod.berserker_egg": "Berserker",
+  "entity.pvzmod.berserker_hypnotized": "Hypnotized Berserker",
 
   "item.pvzmod.wave_flag": "Wave Flag",
   "item.pvzmod.cone": "Cone",

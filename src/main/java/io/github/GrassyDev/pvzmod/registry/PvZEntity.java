@@ -4,8 +4,32 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.B
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.renderers.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.renderers.NightGraveRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.*;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.renderers.*;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.buckethead.modernday.HypnoBucketheadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.buckethead.modernday.HypnoBucketheadEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.conehead.modernday.HypnoConeheadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.conehead.modernday.HypnoConeheadEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.football.HypnoFootballEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.football.HypnoFootballEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.newspaper.HypnoNewspaperEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.newspaper.HypnoNewspaperEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.polevaulting.HypnoPoleVaultingEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.polevaulting.HypnoPoleVaultingEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.screendoor.HypnoScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.screendoor.HypnoScreendoorEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.cherrybomb.CherrybombEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.cherrybomb.CherrybombEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.chomper.ChomperEntity;
@@ -217,18 +241,6 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<ShootingFlamingPeaEntity>create(SpawnGroup.MISC, ShootingFlamingPeaEntity::new).setDimensions(EntityDimensions.fixed(.25f,.25f)).build()
 	);
 
-	public static final EntityType<ShootingRePeaEntity> REPEA = Registry.register(
-					Registry.ENTITY_TYPE,
-					new Identifier(ModID, "repea"),
-			QuiltEntityTypeBuilder.<ShootingRePeaEntity>create(SpawnGroup.MISC, ShootingRePeaEntity::new).setDimensions(EntityDimensions.fixed(.25f,.25f)).build()
-    );
-
-	public static final EntityType<ShootingTriPeaEntity> TRIPEA = Registry.register(
-			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "tripea"),
-			QuiltEntityTypeBuilder.<ShootingTriPeaEntity>create(SpawnGroup.MISC, ShootingTriPeaEntity::new).setDimensions(EntityDimensions.fixed(.25f,.25f)).build()
-	);
-
     public static final EntityType<SporeEntity> SPORE = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "spore"),
@@ -372,10 +384,22 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
 	);
 
+	public static final EntityType<HypnoGargantuarEntity> HYPNOGARGANTUAR = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "gargantuar_hypnotized"),
+			QuiltEntityTypeBuilder.<HypnoGargantuarEntity>create(SpawnGroup.CREATURE, HypnoGargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
+	);
+
 	public static final EntityType<ImpEntity> IMP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "imp"),
 			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+	);
+
+	public static final EntityType<HypnoImpEntity> HYPNOIMP = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "imp_hypnotized"),
+			QuiltEntityTypeBuilder.<HypnoImpEntity>create(SpawnGroup.CREATURE, HypnoImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
 	);
 
 	public static final EntityType<BerserkerEntity> BERSERKER = Registry.register(
@@ -395,13 +419,13 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<BasicGraveEntity> BASICGRAVESTONE = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "basicgrave"),
-            QuiltEntityTypeBuilder.<BasicGraveEntity>create(SpawnGroup.MONSTER, BasicGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
+            QuiltEntityTypeBuilder.<BasicGraveEntity>create(SpawnGroup.CREATURE, BasicGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
     );
 
     public static final EntityType<NightGraveEntity> NIGHTGRAVESTONE = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "nightgrave"),
-            QuiltEntityTypeBuilder.<NightGraveEntity>create(SpawnGroup.MONSTER, NightGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
+            QuiltEntityTypeBuilder.<NightGraveEntity>create(SpawnGroup.CREATURE, NightGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
     );
 
 	@Override
@@ -547,8 +571,14 @@ public class PvZEntity implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntity.createGargantuarAttributes());
 		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);
 
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOGARGANTUAR, HypnoGargantuarEntity.createHypnoGargantuarAttributes());
+		EntityRendererRegistry.register(PvZEntity.HYPNOGARGANTUAR, HypnoGargantuarEntityRenderer::new);
+
 		FabricDefaultAttributeRegistry.register(PvZEntity.IMP, ImpEntity.createImpAttributes());
 		EntityRendererRegistry.register(PvZEntity.IMP, ImpEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOIMP, HypnoImpEntity.createHypnoImpAttributes());
+		EntityRendererRegistry.register(PvZEntity.HYPNOIMP, HypnoImpEntityRenderer::new);
 
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.BERSERKER, BerserkerEntity.createBerserkerAttributes());

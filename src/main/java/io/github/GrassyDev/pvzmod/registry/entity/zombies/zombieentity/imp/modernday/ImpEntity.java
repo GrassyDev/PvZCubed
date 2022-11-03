@@ -2,11 +2,10 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.mode
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.PvZombieAttackGoal;
@@ -168,9 +167,9 @@ public class ImpEntity extends HostileEntity implements IAnimatable {
                 livingEntity = (LivingEntity)source.getAttacker();
             }
 
-            /**if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
+            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoBrowncoatEntity hypnotizedZombie = (HypnoBrowncoatEntity) PvZEntity.HYPNOBROWNCOAT.create(world);
+                HypnoImpEntity hypnotizedZombie = (HypnoImpEntity) PvZEntity.HYPNOIMP.create(world);
                 hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnotizedZombie.setAiDisabled(this.isAiDisabled());
@@ -183,14 +182,14 @@ public class ImpEntity extends HostileEntity implements IAnimatable {
                 hypnotizedZombie.setPersistent();
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
-            }**/
+            }
 
             return true;
         }
     }
 
     protected SoundEvent getAmbientSound() {
-        return PvZCubed.ZOMBIEMOANEVENT;
+        return PvZCubed.IMPMOANEVENT;
     }
 
     protected SoundEvent getHurtSound() {

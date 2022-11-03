@@ -69,6 +69,45 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 		}
 	}
 
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	//Health Stage Counter
+
+	public enum Crack {
+		NONE(1.0F),
+		LOW(0.75F),
+		MEDIUM(0.5F),
+		HIGH(0.25F);
+
+		private static final List<WallnutEntity.Crack> VALUES = (List) Stream.of(values()).sorted(Comparator.comparingDouble((crack) -> {
+			return (double)crack.maxHealthFraction;
+		})).collect(ImmutableList.toImmutableList());
+		private final float maxHealthFraction;
+
+		Crack(float maxHealthFraction) {
+			this.maxHealthFraction = maxHealthFraction;
+		}
+
+		public static WallnutEntity.Crack from(float healthFraction) {
+			Iterator var1 = VALUES.iterator();
+
+			WallnutEntity.Crack crack;
+			do {
+				if (!var1.hasNext()) {
+					return NONE;
+				}
+
+				crack = (WallnutEntity.Crack)var1.next();
+			} while(!(healthFraction < crack.maxHealthFraction));
+
+			return crack;
+		}
+	}
+
+	public WallnutEntity.Crack getCrack() {
+		return WallnutEntity.Crack.from(this.getHealth() / this.getMaxHealth());
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -229,41 +268,6 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 		}
 		this.playBlockFallSound();
 		return true;
-	}
-
-	public enum Crack {
-		NONE(1.0F),
-		LOW(0.75F),
-		MEDIUM(0.5F),
-		HIGH(0.25F);
-
-		private static final List<WallnutEntity.Crack> VALUES = (List) Stream.of(values()).sorted(Comparator.comparingDouble((crack) -> {
-			return (double)crack.maxHealthFraction;
-		})).collect(ImmutableList.toImmutableList());
-		private final float maxHealthFraction;
-
-		Crack(float maxHealthFraction) {
-			this.maxHealthFraction = maxHealthFraction;
-		}
-
-		public static WallnutEntity.Crack from(float healthFraction) {
-			Iterator var1 = VALUES.iterator();
-
-			WallnutEntity.Crack crack;
-			do {
-				if (!var1.hasNext()) {
-					return NONE;
-				}
-
-				crack = (WallnutEntity.Crack)var1.next();
-			} while(!(healthFraction < crack.maxHealthFraction));
-
-			return crack;
-		}
-	}
-
-	public WallnutEntity.Crack getCrack() {
-		return WallnutEntity.Crack.from(this.getHealth() / this.getMaxHealth());
 	}
 
 

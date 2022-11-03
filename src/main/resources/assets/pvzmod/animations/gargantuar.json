@@ -9404,7 +9404,6 @@
 			}
 		},
 		"gargantuar.throw": {
-			"loop": true,
 			"animation_length": 2.5,
 			"bones": {
 				"head": {

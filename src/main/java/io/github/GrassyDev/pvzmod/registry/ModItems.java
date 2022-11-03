@@ -19,11 +19,9 @@ public class ModItems {
     //Items
     public static final Item PLANTFOOD = new Item(new Item.Settings().maxCount(64));
     public static final Item PEA = new PeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(32));
-    public static final Item TRIPEA = new TriPeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8));
     public static final Item SPORE = new SporeItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(64));
     public static final Item FUME = new FumeItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8));
     public static final Item SNOWPEAPROJ = new SnowPeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(32));
-    public static final Item REPEA = new RePeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
     public static final Item FIREPEA = new FirepeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
     public static final Item CONE = new Item(new Item.Settings().group(PvZCubed.ZOMBIES));
     public static final Item SUN = new Item(new Item.Settings().group(PvZCubed.PLANTS));
@@ -62,9 +60,11 @@ public class ModItems {
     public static final Item SCREENDOOREGG = new ScreendoorEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
     public static final Item NEWSPAPEREGG = new NewspaperEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
     public static final Item FOOTBALLEGG = new FootballEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
-    public static final Item BERSERKEREGG = new BerserkerEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
     public static final Item DANCINGZOMBIEEGG = new DancingZombieEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
     public static final Item BACKUPDANCEREGG = new BackupDancerEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
+	public static final Item GARGANTUAREGG = new GargantuarEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
+	public static final Item IMPEGG = new ImpEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
+	public static final Item BERSERKEREGG = new BerserkerEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
 
     //Grave Spawn
     public static final Item BASICGRAVESPAWN = new BasicGraveSpawn(new Item.Settings().group(PvZCubed.GRAVES));
@@ -91,11 +91,9 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"almanac"), ALMANAC);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood"), PLANTFOOD);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pea"), PEA);
-        Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"tripea"), TRIPEA);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"spore"), SPORE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"fume"), FUME);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowpeaproj"), SNOWPEAPROJ);
-        Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"repea"), REPEA);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"firepea"), FIREPEA);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cone"), CONE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sun"), SUN);
@@ -138,9 +136,11 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"screendoor_egg"), SCREENDOOREGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"newspaper_egg"), NEWSPAPEREGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"football_egg"), FOOTBALLEGG);
-        Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"berserker_egg"), BERSERKEREGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dancingzombie_egg"), DANCINGZOMBIEEGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"backupdancer_egg"), BACKUPDANCEREGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gargantuar_egg"), GARGANTUAREGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"imp_egg"), IMPEGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"berserker_egg"), BERSERKEREGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"basicgrave_spawn"), BASICGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightgrave_spawn"), NIGHTGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"daves_shovel"), DAVES_SHOVEL);

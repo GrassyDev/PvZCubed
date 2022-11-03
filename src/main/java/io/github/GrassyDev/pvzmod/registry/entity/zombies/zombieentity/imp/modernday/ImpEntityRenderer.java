@@ -12,7 +12,7 @@ public class ImpEntityRenderer extends GeoEntityRenderer<ImpEntity> {
 
     public ImpEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx, new ImpEntityModel());
-        this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
+        this.shadowRadius = 0.4F; //change 0.7 to the desired shadow size.
     }
 
 }

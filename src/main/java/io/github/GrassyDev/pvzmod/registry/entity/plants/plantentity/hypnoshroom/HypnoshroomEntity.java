@@ -3,6 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroo
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.*;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -110,28 +112,32 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new HypnoshroomEntity.FireBeamGoal(this));
-		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		{ return livingEntity instanceof ImpEntity; }));
+		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof BrowncoatEntity; }));
-		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof ConeheadEntity; }));
-		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof PoleVaultingEntity; }));
-		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof BackupDancerEntity; }));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof NewspaperEntity; }));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof BucketheadEntity; }));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof ScreendoorEntity; }));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof DancingZombieEntity; }));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof FlagzombieEntity; }));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof FootballEntity; }));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof BerserkerEntity; }));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		{ return livingEntity instanceof GargantuarEntity; }));
 	}
 
 	@Override
@@ -294,7 +300,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 		return 20;
 	}
 
-	private void setBeamTarget(int entityId) {
+	private void setHypnoBeamTarget(int entityId) {
 		this.dataTracker.set(HYPNO_BEAM_TARGET_ID, entityId);
 	}
 
@@ -353,7 +359,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
         }
 
         public void stop() {
-            this.hypnoshroom.setBeamTarget(0);
+            this.hypnoshroom.setHypnoBeamTarget(0);
             this.hypnoshroom.setTarget((LivingEntity)null);
         }
 
@@ -366,7 +372,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
             } else {
                 ++this.beamTicks;
                 if (this.beamTicks == 0) {
-                    this.hypnoshroom.setBeamTarget(this.hypnoshroom.getTarget().getId());
+                    this.hypnoshroom.setHypnoBeamTarget(this.hypnoshroom.getTarget().getId());
                     if (!this.hypnoshroom.isSilent()) {
                         this.hypnoshroom.world.sendEntityStatus(this.hypnoshroom, (byte) 21);
                     }

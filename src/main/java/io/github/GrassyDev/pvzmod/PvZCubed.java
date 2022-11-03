@@ -4,7 +4,7 @@ import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
 import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.*;
-import io.github.GrassyDev.pvzmod.registry.world.gen.PvZEntitySpawn;
+import io.github.GrassyDev.pvzmod.registry.world.gen.entity.PvZEntitySpawn;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
@@ -66,10 +66,8 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
-				stacks.add(new ItemStack(ModItems.REPEA));
 				stacks.add(new ItemStack(ModItems.SPORE));
 				stacks.add(new ItemStack(ModItems.FUME));
-				stacks.add(new ItemStack(ModItems.TRIPEA));
 				stacks.add(new ItemStack(ModItems.FIREPEA));
 			}).build();
 
@@ -85,9 +83,11 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 				stacks.add(new ItemStack(ModItems.NEWSPAPEREGG));
 				stacks.add(new ItemStack(ModItems.SCREENDOOREGG));
 				stacks.add(new ItemStack(ModItems.FOOTBALLEGG));
-				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
 				stacks.add(new ItemStack(ModItems.DANCINGZOMBIEEGG));
 				stacks.add(new ItemStack(ModItems.BACKUPDANCEREGG));
+				stacks.add(new ItemStack(ModItems.GARGANTUAREGG));
+				stacks.add(new ItemStack(ModItems.IMPEGG));
+				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
 				stacks.add(new ItemStack(ModItems.WAVE_FLAG));
 				stacks.add(new ItemStack(ModItems.CONE));
 			}).build();
@@ -118,14 +118,6 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 	public static SoundEvent PEASHOOTEVENT = new SoundEvent(PEASHOOT);
 	public static final Identifier PEAHIT = new Identifier("pvzmod:pea.hit");
 	public static SoundEvent PEAHITEVENT = new SoundEvent(PEAHIT);
-	public static final Identifier REPEASHOOT = new Identifier("pvzmod:repea.shoot");
-	public static SoundEvent REPEASHOOTEVENT = new SoundEvent(REPEASHOOT);
-	public static final Identifier REPEAHIT = new Identifier("pvzmod:repea.hit");
-	public static SoundEvent REPEAHITEVENT = new SoundEvent(REPEAHIT);
-	public static final Identifier TRIPEAHIT = new Identifier("pvzmod:tripea.hit");
-	public static SoundEvent TRIPEAHITEVENT = new SoundEvent(TRIPEAHIT);
-	public static final Identifier TRIPEASHOOT = new Identifier("pvzmod:tripea.shoot");
-	public static SoundEvent TRIPEASHOOTEVENT = new SoundEvent(TRIPEASHOOT);
 	public static final Identifier GATLINGPEAHIT = new Identifier("pvzmod:gatlingpea.hit");
 	public static SoundEvent GATLINGPEAHITEVENT = new SoundEvent(GATLINGPEAHIT);
 	public static final Identifier GATLINGPEASHOOT = new Identifier("pvzmod:gatlingpea.shoot");
@@ -133,28 +125,16 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 
 	public static final Identifier FIREPEAHIT = new Identifier("pvzmod:flaming.pea.hit");
 	public static SoundEvent FIREPEAHITEVENT = new SoundEvent(FIREPEAHIT);
-	public static final Identifier FIREREPEAHIT = new Identifier("pvzmod:flaming.repea.hit");
-	public static SoundEvent FIREREPEAHITEVENT = new SoundEvent(FIREREPEAHIT);
-	public static final Identifier FIRETRIPEAHIT = new Identifier("pvzmod:flaming.tripea.hit");
-	public static SoundEvent FIRETRIPEAHITEVENT = new SoundEvent(FIRETRIPEAHIT);
 	public static final Identifier FIREGATLINGPEAHIT = new Identifier("pvzmod:flaming.gatlingpea.hit");
 	public static SoundEvent FIREGATLINGPEAHITEVENT = new SoundEvent(FIREGATLINGPEAHIT);
 
 	public static final Identifier CONEHIT = new Identifier("pvzmod:cone.hit");
 	public static SoundEvent CONEHITEVENT = new SoundEvent(CONEHIT);
-	public static final Identifier REPEACONEHIT = new Identifier("pvzmod:repea.cone.hit");
-	public static SoundEvent REPEACONEHITEVENT = new SoundEvent(REPEACONEHIT);
-	public static final Identifier TRIPEACONEHIT = new Identifier("pvzmod:tripea.cone.hit");
-	public static SoundEvent TRIPEACONEHITEVENT = new SoundEvent(TRIPEACONEHIT);
 	public static final Identifier GATLINGPEACONEHIT = new Identifier("pvzmod:gatlingpea.cone.hit");
 	public static SoundEvent GATLINGPEACONEHITEVENT = new SoundEvent(GATLINGPEACONEHIT);
 
 	public static final Identifier BUCKETHIT = new Identifier("pvzmod:bucket.hit");
 	public static SoundEvent BUCKETHITEVENT = new SoundEvent(BUCKETHIT);
-	public static final Identifier REPEABUCKETHIT = new Identifier("pvzmod:repea.bucket.hit");
-	public static SoundEvent REPEABUCKETHITEVENT = new SoundEvent(REPEABUCKETHIT);
-	public static final Identifier TRIPEABUCKETHIT = new Identifier("pvzmod:tripea.bucket.hit");
-	public static SoundEvent TRIPEABUCKETHITEVENT = new SoundEvent(TRIPEABUCKETHIT);
 	public static final Identifier GATLINGPEABUCKETHIT = new Identifier("pvzmod:gatlingpea.bucket.hit");
 	public static SoundEvent GATLINGPEABUCKETHITEVENT = new SoundEvent(GATLINGPEABUCKETHIT);
 
@@ -200,8 +180,20 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 	public static final Identifier ZOMBIEBITE = new Identifier("pvzmod:zombie.bite");
 	public static SoundEvent ZOMBIEBITEEVENT = new SoundEvent(ZOMBIEBITE);
 
+	public static final Identifier GARGANTUARSMASH = new Identifier("pvzmod:gargantuar.smash");
+	public static SoundEvent GARGANTUARSMASHEVENT = new SoundEvent(GARGANTUARSMASH);
+
+	public static final Identifier IMPLAUNCH = new Identifier("pvzmod:imp.launch");
+	public static SoundEvent IMPLAUNCHEVENT = new SoundEvent(IMPLAUNCH);
+
 	public static final Identifier ZOMBIEMOAN = new Identifier("pvzmod:zombie.moan");
 	public static SoundEvent ZOMBIEMOANEVENT = new SoundEvent(ZOMBIEMOAN);
+
+	public static final Identifier GARGANTUARMOAN = new Identifier("pvzmod:gargantuar.moan");
+	public static SoundEvent GARGANTUARMOANEVENT = new SoundEvent(GARGANTUARMOAN);
+
+	public static final Identifier IMPMOAN = new Identifier("pvzmod:imp.moan");
+	public static SoundEvent IMPMOANEVENT = new SoundEvent(IMPMOAN);
 
 	public static final Identifier ZOMBIEDANCING = new Identifier("pvzmod:zombie.dancing");
 	public static SoundEvent ZOMBIEDANCINGEVENT = new SoundEvent(ZOMBIEDANCING);
@@ -227,22 +219,12 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEASHOOT, PEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEAHIT, PEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREPEAHIT, FIREPEAHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.REPEASHOOT, REPEASHOOTEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.REPEAHIT, REPEAHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREREPEAHIT, FIREREPEAHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.TRIPEASHOOT, TRIPEASHOOTEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.TRIPEAHIT, TRIPEAHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIRETRIPEAHIT, FIRETRIPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GATLINGPEASHOOT, GATLINGPEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GATLINGPEAHIT, GATLINGPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREGATLINGPEAHIT, FIREGATLINGPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.CONEHIT, CONEHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.REPEACONEHIT, REPEACONEHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.TRIPEACONEHIT, TRIPEACONEHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GATLINGPEACONEHIT, GATLINGPEACONEHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.BUCKETHIT, BUCKETHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.REPEABUCKETHIT, REPEABUCKETHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.TRIPEABUCKETHIT, TRIPEABUCKETHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GATLINGPEABUCKETHIT, GATLINGPEABUCKETHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SNOWPEASHOOT, SNOWPEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SNOWPEAHIT, SNOWPEAHITEVENT);
@@ -259,7 +241,10 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PLANTPLANTED, PLANTPLANTEDEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SUNDROP, SUNDROPEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEBITE, ZOMBIEBITEEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARSMASH, GARGANTUARSMASHEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPLAUNCH, IMPLAUNCHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEMOAN, ZOMBIEMOANEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARMOAN, GARGANTUARMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEDANCING, ZOMBIEDANCINGEVENT);
 

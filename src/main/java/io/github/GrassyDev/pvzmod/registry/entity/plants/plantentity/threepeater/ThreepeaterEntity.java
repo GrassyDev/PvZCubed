@@ -1,10 +1,10 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.ShootingTriPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.ShootingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -208,21 +208,21 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
     @Override
     public void attack(LivingEntity target, float pullProgress) {
         if (!this.isInsideWaterOrBubbleColumn()) {
-            ShootingTriPeaEntity shootingTriPeaEntity = new ShootingTriPeaEntity(this.world, this);
+            ShootingPeaEntity shootingPea = new ShootingPeaEntity(this.world, this);
             // calculates Pea 2
             double d = this.squaredDistanceTo(target);
             double e = target.getX() - this.getX();
             double f = target.getBodyY(0.5D) - this.getBodyY(0.5D);
             double g = target.getZ() - this.getZ();
             float h = MathHelper.sqrt(MathHelper.sqrt(1)) * 0.5F;
-            shootingTriPeaEntity.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 1F);
-            shootingTriPeaEntity.updatePosition(shootingTriPeaEntity.getX(), this.getBodyY(0.5D) + 0.5D, shootingTriPeaEntity.getZ());
+			shootingPea.setVelocity(e * (double)h, f * (double)h, g * (double)h, 2.2F, 1F);
+			shootingPea.updatePosition(shootingPea.getX(), this.getBodyY(0.5D) + 0.5D, shootingPea.getZ());
             if (target.isAlive()) {
                 this.shot = 1;
                 this.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-                this.world.spawnEntity(shootingTriPeaEntity);
-                this.world.spawnEntity(shootingTriPeaEntity);
-                this.world.spawnEntity(shootingTriPeaEntity);
+                this.world.spawnEntity(shootingPea);
+                this.world.spawnEntity(shootingPea);
+                this.world.spawnEntity(shootingPea);
             }
         }
     }

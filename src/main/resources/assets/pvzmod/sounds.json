@@ -9,36 +9,6 @@
       "pvzmod:flaming_pea_hit"
     ]
   },
-  "repea.hit": {
-    "sounds": [
-      "pvzmod:repea_hit"
-    ]
-  },
-  "flaming.repea.hit": {
-    "sounds": [
-      "pvzmod:flaming_repea_hit"
-    ]
-  },
-  "tripea.hit": {
-    "sounds": [
-      "pvzmod:tripea_hit"
-    ]
-  },
-  "flaming.tripea.hit": {
-    "sounds": [
-      "pvzmod:flaming_tripea_hit"
-    ]
-  },
-  "gatlingpea.hit": {
-    "sounds": [
-      "pvzmod:gatlingpea_hit"
-    ]
-  },
-  "flaming.gatlingpea.hit": {
-    "sounds": [
-      "pvzmod:flaming_gatlingpea_hit"
-    ]
-  },
   "snowpea.hit": {
     "sounds": [
       "pvzmod:snowpea_hit"
@@ -64,49 +34,9 @@
       "pvzmod:bucket_hit"
     ]
   },
-  "repea.bucket.hit": {
-    "sounds": [
-      "pvzmod:repea_bucket_hit"
-    ]
-  },
-  "tripea.bucket.hit": {
-    "sounds": [
-      "pvzmod:tripea_bucket_hit"
-    ]
-  },
-  "gatlingpea.bucket.hit": {
-    "sounds": [
-      "pvzmod:gatlingpea_bucket_hit"
-    ]
-  },
   "cone.hit": {
     "sounds": [
       "pvzmod:cone_hit"
-    ]
-  },
-  "repea.cone.hit": {
-    "sounds": [
-      "pvzmod:repea_cone_hit"
-    ]
-  },
-  "tripea.cone.hit": {
-    "sounds": [
-      "pvzmod:tripea_cone_hit"
-    ]
-  },
-  "gatlingpea.cone.hit": {
-    "sounds": [
-      "pvzmod:gatlingpea_cone_hit"
-    ]
-  },
-  "fumeshroom.shoot": {
-    "sounds": [
-      "pvzmod:fumeshroom_shoot"
-    ]
-  },
-  "gatlingpea.shoot": {
-    "sounds": [
-      "pvzmod:gatlingpea_shoot"
     ]
   },
   "mushroom.shoot": {
@@ -114,19 +44,14 @@
       "pvzmod:mushroom_shoot"
     ]
   },
+  "fumeshroom.shoot": {
+    "sounds": [
+      "pvzmod:fumeshroom_shoot"
+    ]
+  },
   "pea.shoot": {
     "sounds": [
       "pvzmod:pea_shoot"
-    ]
-  },
-  "repea.shoot": {
-    "sounds": [
-      "pvzmod:repea_shoot"
-    ]
-  },
-  "tripea.shoot": {
-    "sounds": [
-      "pvzmod:tripea_shoot"
     ]
   },
   "snowpea.shoot": {
@@ -174,9 +99,29 @@
       "pvzmod:zombie_bite"
     ]
   },
+  "gargantuar.smash": {
+    "sounds": [
+      "pvzmod:gargantuar_smash"
+    ]
+  },
+  "imp.launch": {
+    "sounds": [
+      "pvzmod:imp_launch"
+    ]
+  },
   "zombie.moan": {
     "sounds": [
       "pvzmod:zombie_moan"
+    ]
+  },
+  "gargantuar.moan": {
+    "sounds": [
+      "pvzmod:gargantuar_moan"
+    ]
+  },
+  "imp.moan": {
+    "sounds": [
+      "pvzmod:imp_moan"
     ]
   },
   "zombie.dancing": {

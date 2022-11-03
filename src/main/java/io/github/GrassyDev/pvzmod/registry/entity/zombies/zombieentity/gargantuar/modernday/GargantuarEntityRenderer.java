@@ -12,7 +12,7 @@ public class GargantuarEntityRenderer extends GeoEntityRenderer<GargantuarEntity
 
     public GargantuarEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx, new GargantuarEntityModel());
-        this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
+        this.shadowRadius = 3F; //change 0.7 to the desired shadow size.
     }
 
 }

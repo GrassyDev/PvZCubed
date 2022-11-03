@@ -3,11 +3,13 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.chomper;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.NightGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -197,11 +199,13 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 			}
 		}
 		else if ((target instanceof BasicGraveEntity) ||
-				(target instanceof NightGraveEntity)) {
+				(target instanceof NightGraveEntity) ||
+				(target instanceof GargantuarEntity) ||
+				(target instanceof ImpEntity)) {
 			if (i <= 0) {
 				this.attackTicksLeft = 30;
 				this.world.sendEntityStatus(this, (byte) 6);
-				float f = 16f;
+				float f = 32f;
 				boolean bl = target.damage(DamageSource.mob(this), f);
 				if (bl) {
 					this.applyDamageEffects(this, target);

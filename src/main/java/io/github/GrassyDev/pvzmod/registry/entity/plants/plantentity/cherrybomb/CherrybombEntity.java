@@ -3,8 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.cherrybomb
 import java.util.Random;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
@@ -292,7 +292,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 2D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 180);
     }
 
@@ -350,7 +350,6 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
 
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 

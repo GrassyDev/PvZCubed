@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.*;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -28,6 +30,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnimatable {
+
+	private int spawnCounter;
     private MobEntity owner;
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "walkingcontroller";
@@ -68,7 +72,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
     }
 
     protected void initCustomGoals() {
-        this.goalSelector.add(1, new BasicGraveEntity.summonZombieGoal());
+        this.goalSelector.add(1, new BasicGraveEntity.summonZombieGoal(this));
         this.targetSelector.add(2, new BasicGraveEntity.TrackOwnerTargetGoal(this));
     }
 
@@ -157,11 +161,24 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
         return PvZCubed.ENTITYRISINGEVENT;
     }
 
+
+	/** /~*~//~*TICKING*~//~*~/ **/
+
+	public void tick() {
+		super.tick();
+		if (this.spawnCounter >= 5){
+			this.kill();
+		}
+	}
+
     class summonZombieGoal extends BasicGraveEntity.CastSpellGoal {
         private final TargetPredicate closeZombiePredicate;
 
-        private summonZombieGoal() {
+		private final BasicGraveEntity basicGraveEntity;
+
+		private summonZombieGoal(BasicGraveEntity basicGraveEntity) {
             super();
+			this.basicGraveEntity = basicGraveEntity;
 			this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
 		}
 
@@ -174,6 +191,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
                 int u = BasicGraveEntity.this.world.getTargets(BucketheadEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 int p = BasicGraveEntity.this.world.getTargets(PoleVaultingEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 int f = BasicGraveEntity.this.world.getTargets(FlagzombieEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int g = BasicGraveEntity.this.world.getTargets(GargantuarEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 return BasicGraveEntity.this.random.nextInt(8) + 1 > b &&
                         BasicGraveEntity.this.random.nextInt(8) + 1 > c &&
                         BasicGraveEntity.this.random.nextInt(8) + 1 > u &&
@@ -197,6 +215,7 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
             double probability3 = random.nextDouble();
             double probability4 = random.nextDouble();
             double probability5 = random.nextDouble();
+			double probability6 = random.nextDouble();
 
             for(int b = 0; b < 2; ++b) { // 100% x2 Browncoat
                 BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
@@ -256,6 +275,17 @@ public class BasicGraveEntity extends SpellcastingIllagerEntity implements IAnim
                     serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
                 }
             }
+			if (probability6 <= 0.05) { // 5% x1 Gargantuar
+				for(int g = 0; g < 1; ++g) {
+					BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+					GargantuarEntity gargantuarEntity = (GargantuarEntity) PvZEntity.GARGANTUAR.create(BasicGraveEntity.this.world);
+					gargantuarEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+					gargantuarEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+					gargantuarEntity.setOwner(BasicGraveEntity.this);
+					serverWorld.spawnEntityAndPassengers(gargantuarEntity);
+				}
+			}
+			++this.basicGraveEntity.spawnCounter;
         }
 
         protected SoundEvent getSoundPrepare() {
