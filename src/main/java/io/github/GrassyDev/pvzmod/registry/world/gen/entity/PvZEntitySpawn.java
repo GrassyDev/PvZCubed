@@ -1,8 +1,8 @@
 package io.github.GrassyDev.pvzmod.registry.world.gen.entity;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.BasicGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.NightGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.world.Heightmap;

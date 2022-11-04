@@ -1,7 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.items;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.ShootingFlamingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingPeaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,7 @@ public class FirepeaItem extends Item {
             ShootingFlamingPeaEntity proj = new ShootingFlamingPeaEntity(PvZEntity.FIREPEA, world);
             proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
             proj.setOwner(user);
-            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.75f, 0);
+            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.33f, 0);
             world.spawnEntity(proj);
         }
 

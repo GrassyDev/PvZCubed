@@ -66,9 +66,10 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
-				stacks.add(new ItemStack(ModItems.SPORE));
 				stacks.add(new ItemStack(ModItems.FUME));
+				stacks.add(new ItemStack(ModItems.SPORE));
 				stacks.add(new ItemStack(ModItems.FIREPEA));
+				stacks.add(new ItemStack(ModItems.PLASMAPEA));
 			}).build();
 
 	public static final ItemGroup ZOMBIES = FabricItemGroupBuilder.create(
@@ -88,8 +89,6 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 				stacks.add(new ItemStack(ModItems.GARGANTUAREGG));
 				stacks.add(new ItemStack(ModItems.IMPEGG));
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
-				stacks.add(new ItemStack(ModItems.WAVE_FLAG));
-				stacks.add(new ItemStack(ModItems.CONE));
 			}).build();
 
 	public static final ItemGroup GRAVES = FabricItemGroupBuilder.create(
@@ -125,18 +124,12 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 
 	public static final Identifier FIREPEAHIT = new Identifier("pvzmod:flaming.pea.hit");
 	public static SoundEvent FIREPEAHITEVENT = new SoundEvent(FIREPEAHIT);
-	public static final Identifier FIREGATLINGPEAHIT = new Identifier("pvzmod:flaming.gatlingpea.hit");
-	public static SoundEvent FIREGATLINGPEAHITEVENT = new SoundEvent(FIREGATLINGPEAHIT);
 
 	public static final Identifier CONEHIT = new Identifier("pvzmod:cone.hit");
 	public static SoundEvent CONEHITEVENT = new SoundEvent(CONEHIT);
-	public static final Identifier GATLINGPEACONEHIT = new Identifier("pvzmod:gatlingpea.cone.hit");
-	public static SoundEvent GATLINGPEACONEHITEVENT = new SoundEvent(GATLINGPEACONEHIT);
 
 	public static final Identifier BUCKETHIT = new Identifier("pvzmod:bucket.hit");
 	public static SoundEvent BUCKETHITEVENT = new SoundEvent(BUCKETHIT);
-	public static final Identifier GATLINGPEABUCKETHIT = new Identifier("pvzmod:gatlingpea.bucket.hit");
-	public static SoundEvent GATLINGPEABUCKETHITEVENT = new SoundEvent(GATLINGPEABUCKETHIT);
 
 	public static final Identifier SNOWPEASHOOT = new Identifier("pvzmod:snowpea.shoot");
 	public static SoundEvent SNOWPEASHOOTEVENT = new SoundEvent(SNOWPEASHOOT);
@@ -204,10 +197,7 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
-		LOGGER.info("Hello Quilt world from {}!", mod.metadata().name());
-	    // This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+		LOGGER.info("{} says: Trans Rights are Human Rights!", mod.metadata().name());
 		ModItems.registerItems();
 		ModBlocks.registerBlocks();
 		GeckoLib.initialize();
@@ -221,11 +211,8 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREPEAHIT, FIREPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GATLINGPEASHOOT, GATLINGPEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GATLINGPEAHIT, GATLINGPEAHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREGATLINGPEAHIT, FIREGATLINGPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.CONEHIT, CONEHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.GATLINGPEACONEHIT, GATLINGPEACONEHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.BUCKETHIT, BUCKETHITEVENT);
-		Registry.register(Registry.SOUND_EVENT, PvZCubed.GATLINGPEABUCKETHIT, GATLINGPEABUCKETHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SNOWPEASHOOT, SNOWPEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SNOWPEAHIT, SNOWPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.MUSHROOMSHOOT, MUSHROOMSHOOTEVENT);

@@ -1,8 +1,8 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.gravebuster;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.BasicGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.NightGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ContainEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;

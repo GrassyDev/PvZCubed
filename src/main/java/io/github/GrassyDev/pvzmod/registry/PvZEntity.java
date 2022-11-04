@@ -1,9 +1,9 @@
 package io.github.GrassyDev.pvzmod.registry;
 
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.BasicGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.NightGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.renderers.BasicGraveRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.renderers.NightGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntity;
@@ -73,8 +73,11 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.wallnutentity.WallnutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.wallnutentity.WallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.*;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.FumeEntityVariants.FumeEntity_G;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.FumeEntityVariants.FumeEntity_T;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntity_G;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntity_T;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
@@ -239,6 +242,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "firepea"),
 			QuiltEntityTypeBuilder.<ShootingFlamingPeaEntity>create(SpawnGroup.MISC, ShootingFlamingPeaEntity::new).setDimensions(EntityDimensions.fixed(.25f,.25f)).build()
+	);
+
+	public static final EntityType<ShootingPlasmaPeaEntity> PLASMAPEA = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "plasmapea"),
+			QuiltEntityTypeBuilder.<ShootingPlasmaPeaEntity>create(SpawnGroup.MISC, ShootingPlasmaPeaEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
     public static final EntityType<SporeEntity> SPORE = Registry.register(

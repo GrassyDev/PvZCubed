@@ -24,7 +24,7 @@ public class PeaItem extends Item {
             ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, world);
             proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
             proj.setOwner(user);
-            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.75f, 0);
+            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.33f, 0);
             world.spawnEntity(proj);
         }
 

@@ -1,7 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry;
 
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.renderers.BasicGraveRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.renderers.NightGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntityRenderer;
@@ -35,8 +35,11 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom.S
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater.ThreepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.wallnutentity.WallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.*;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.FumeEntityVariants.FumeEntityRenderer_G;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.FumeEntityVariants.FumeEntityRenderer_T;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingpeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntityRenderer_G;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntityRenderer_T;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmapeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.renderers.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntityRenderer;
@@ -100,6 +103,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.SNOWPEAPROJ, ShootingSnowPeaEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FIREPEA, ShootingFlamingpeaEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.PLASMAPEA, ShootingPlasmapeaEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SPORE, SporeEntityRenderer::new);
 

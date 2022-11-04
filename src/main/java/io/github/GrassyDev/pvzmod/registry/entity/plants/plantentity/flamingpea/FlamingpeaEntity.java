@@ -2,10 +2,13 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.flamingpea
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PepperEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.ShootingFlamingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -274,15 +277,28 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 				this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 11);
 				++this.beamTicks;
 				++this.animationTicks;
+				double probability = flamingpeaEntity.random.nextDouble();
+				double d = this.flamingpeaEntity.squaredDistanceTo(livingEntity);
+				float df = (float) d;
+				double e = livingEntity.getX() - this.flamingpeaEntity.getX();
+				double f = livingEntity.getY() - this.flamingpeaEntity.getY();
+				double g = livingEntity.getZ() - this.flamingpeaEntity.getZ();
+				float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					if (!this.flamingpeaEntity.isInsideWaterOrBubbleColumn()) {
+					if (probability <= 0.25) {
+						ShootingPlasmaPeaEntity proj = new ShootingPlasmaPeaEntity(PvZEntity.PLASMAPEA, this.flamingpeaEntity.world);
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
+						proj.updatePosition(this.flamingpeaEntity.getX(), this.flamingpeaEntity.getY() + 0.75D, this.flamingpeaEntity.getZ());
+						proj.setOwner(this.flamingpeaEntity);
+						if (livingEntity.isAlive()) {
+							this.beamTicks = -7;
+							this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 11);
+							this.flamingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 1F, 1);
+							this.flamingpeaEntity.world.spawnEntity(proj);
+						}
+					}
+					else if (!this.flamingpeaEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingFlamingPeaEntity proj = new ShootingFlamingPeaEntity(PvZEntity.FIREPEA, this.flamingpeaEntity.world);
-						double d = this.flamingpeaEntity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.flamingpeaEntity.getX();
-						double f = livingEntity.getY() - this.flamingpeaEntity.getY();
-						double g = livingEntity.getZ() - this.flamingpeaEntity.getZ();
-						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.flamingpeaEntity.getX(), this.flamingpeaEntity.getY() + 0.75D, this.flamingpeaEntity.getZ());
 						proj.setOwner(this.flamingpeaEntity);
