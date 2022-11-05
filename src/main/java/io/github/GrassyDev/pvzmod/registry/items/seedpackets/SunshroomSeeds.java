@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom.SunshroomEntity;
 import net.minecraft.entity.Entity;
@@ -59,7 +60,12 @@ public class SunshroomSeeds extends Item {
                     sunshroomEntity.refreshPositionAndAngles(sunshroomEntity.getX(), sunshroomEntity.getY(), sunshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(sunshroomEntity);
                     world.playSound((PlayerEntity) null, sunshroomEntity.getX(), sunshroomEntity.getY(), sunshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-                }
+					sunshroomEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+					sunshroomEntity.dropItem(ModItems.SMALLSUN);
+					sunshroomEntity.dropItem(ModItems.SMALLSUN);
+					sunshroomEntity.dropItem(ModItems.SMALLSUN);
+					sunshroomEntity.dropItem(ModItems.SMALLSUN);
+				}
 
                 itemStack.decrement(1);
                 return ActionResult.success(world.isClient);

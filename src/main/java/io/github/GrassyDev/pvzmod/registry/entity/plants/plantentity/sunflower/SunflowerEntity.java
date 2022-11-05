@@ -108,7 +108,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 		super.tickMovement();
 
 		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn()) {
-			this.playSound(PvZCubed.SUNDROPEVENT, 1F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
 			this.dropItem(ModItems.SUN);
 			this.sunProducingTime = 6000;
 		}
@@ -187,16 +187,4 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canSunflowerSpawn(EntityType<SunflowerEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 }

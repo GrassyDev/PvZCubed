@@ -12,6 +12,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -24,6 +25,8 @@ import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -32,12 +35,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -48,29 +49,55 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Random;
-import java.util.function.Predicate;
+public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
-public class DancingZombieEntity extends SpellcastingIllagerEntity implements IAnimatable {
+	private String controllerName = "walkingcontroller";
+
     private MobEntity owner;
-    public AnimationFactory factory = new AnimationFactory(this);
-    private String controllerName = "walkingcontroller";
-    private static final Predicate<Difficulty> DOOR_BREAK_DIFFICULTY_CHECKER;
-    private final BreakDoorGoal breakDoorsGoal;
-    private boolean canBreakDoors;
+
     private boolean isAggro;
+
     private boolean dancing;
+
+	public AnimationFactory factory = new AnimationFactory(this);
 
     public DancingZombieEntity(EntityType<? extends DancingZombieEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.breakDoorsGoal = new BreakDoorGoal(this, DOOR_BREAK_DIFFICULTY_CHECKER);
         this.experiencePoints = 12;
         this.isAggro = false;
         this.dancing = false;
     }
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+	static {
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 13) {
+			this.dancing = true;
+		}
+		else if (status == 12) {
+			this.dancing = false;
+		}
+	}
+
+
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (!this.dancing) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("dancingzombie.moonwalking", true));
         } else  {
@@ -83,20 +110,14 @@ public class DancingZombieEntity extends SpellcastingIllagerEntity implements IA
         return PlayState.CONTINUE;
     }
 
-    public DancingZombieEntity(World world) {
-        this(PvZEntity.DANCINGZOMBIE, world);
-    }
 
-        protected void initGoals() {
+	/** /~*~//~*AI*~//~*~/ **/
+
+	protected void initGoals() {
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
             this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
         this.initCustomGoals();
-    }
-
-    @Override
-    public void addBonusForWave(int wave, boolean unused) {
-
     }
 
     protected void initCustomGoals() {
@@ -127,7 +148,23 @@ public class DancingZombieEntity extends SpellcastingIllagerEntity implements IA
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
     }
 
-    public static DefaultAttributeContainer.Builder createDancingZombieAttributes() {
+
+	/** /~*~//~*TICKING*~//~*~/ **/
+
+	protected void mobTick() {
+		if (this.isAggro) {
+			this.world.sendEntityStatus(this, (byte) 13);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 12);
+		}
+		super.mobTick();
+	}
+
+
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public static DefaultAttributeContainer.Builder createDancingZombieAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
@@ -135,106 +172,69 @@ public class DancingZombieEntity extends SpellcastingIllagerEntity implements IA
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
     }
 
-    public MobEntity getOwner() {
-        return this.owner;
-    }
+	protected SoundEvent getAmbientSound() {
+		return PvZCubed.ZOMBIEMOANEVENT;
+	}
 
-    public void setOwner(MobEntity owner) {
-        this.owner = owner;
-    }
+	protected SoundEvent getHurtSound() {
+		return PvZCubed.SILENCEVENET;
+	}
 
-    public boolean canBreakDoors() {
-        return this.canBreakDoors;
-    }
+	public MobEntity getOwner() {
+		return this.owner;
+	}
 
-    public void setCanBreakDoors(boolean canBreakDoors) {
-        if (this.shouldBreakDoors() && NavigationConditions.hasMobNavigation(this)) {
-            if (this.canBreakDoors != canBreakDoors) {
-                this.canBreakDoors = canBreakDoors;
-                ((MobNavigation)this.getNavigation()).setCanPathThroughDoors(canBreakDoors);
-                if (canBreakDoors) {
-                    this.goalSelector.add(1, this.breakDoorsGoal);
-                } else {
-                    this.goalSelector.remove(this.breakDoorsGoal);
-                }
-            }
-        } else if (this.canBreakDoors) {
-            this.goalSelector.remove(this.breakDoorsGoal);
-            this.canBreakDoors = false;
-        }
+	protected SoundEvent getStepSound() {
+		return SoundEvents.ENTITY_ZOMBIE_STEP;
+	}
 
-    }
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+	}
 
-    protected boolean shouldBreakDoors() {
-        return true;
-    }
+	public void setOwner(MobEntity owner) {
+		this.owner = owner;
+	}
 
-    public boolean damage(DamageSource source, float amount) {
-        if (!super.damage(source, amount)) {
-            return false;
-        } else if (!(this.world instanceof ServerWorld)) {
-            return false;
-        } else {
-            ServerWorld serverWorld = (ServerWorld)this.world;
-            LivingEntity livingEntity = this.getTarget();
-            if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
-                livingEntity = (LivingEntity)source.getAttacker();
-            }
 
-            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
-                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoDancingZombieEntity hypnoDancingZombieEntity = (HypnoDancingZombieEntity)PvZEntity.HYPNODANCINGZOMBIE.create(world);
-                hypnoDancingZombieEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-                hypnoDancingZombieEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoDancingZombieEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-                hypnoDancingZombieEntity.setAiDisabled(this.isAiDisabled());
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
+
+	public boolean damage(DamageSource source, float amount) {
+		if (!super.damage(source, amount)) {
+			return false;
+		} else if (!(this.world instanceof ServerWorld)) {
+			return false;
+		} else {
+			ServerWorld serverWorld = (ServerWorld)this.world;
+			LivingEntity livingEntity = this.getTarget();
+			if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
+				livingEntity = (LivingEntity)source.getAttacker();
+			}
+
+			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
+				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+				HypnoDancingZombieEntity hypnoDancingZombieEntity = (HypnoDancingZombieEntity)PvZEntity.HYPNODANCINGZOMBIE.create(world);
+				hypnoDancingZombieEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				hypnoDancingZombieEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoDancingZombieEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
+				hypnoDancingZombieEntity.setAiDisabled(this.isAiDisabled());
 				hypnoDancingZombieEntity.setHealth(this.getHealth());
-                if (this.hasCustomName()) {
-                    hypnoDancingZombieEntity.setCustomName(this.getCustomName());
-                    hypnoDancingZombieEntity.setCustomNameVisible(this.isCustomNameVisible());
-                }
+				if (this.hasCustomName()) {
+					hypnoDancingZombieEntity.setCustomName(this.getCustomName());
+					hypnoDancingZombieEntity.setCustomNameVisible(this.isCustomNameVisible());
+				}
 
-                hypnoDancingZombieEntity.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnoDancingZombieEntity);
-                this.remove(RemovalReason.DISCARDED);
-            }
+				hypnoDancingZombieEntity.setPersistent();
+				serverWorld.spawnEntityAndPassengers(hypnoDancingZombieEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
 
-            if (source.getAttacker() instanceof LivingEntity) {
-                this.isAggro = true;
-            }
+			if (source.getAttacker() instanceof LivingEntity) {
+				this.isAggro = true;
+			}
 
-            return true;
-        }
-    }
-
-    protected SoundEvent getAmbientSound() {
-        return PvZCubed.ZOMBIEMOANEVENT;
-    }
-
-    protected SoundEvent getHurtSound() {
-        return PvZCubed.SILENCEVENET;
-    }
-
-    protected SoundEvent getStepSound() {
-        return SoundEvents.ENTITY_ZOMBIE_STEP;
-    }
-
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(this.getStepSound(), 0.15F, 1.0F);
-    }
-
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
-
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putBoolean("CanBreakDoors", this.canBreakDoors());
-    }
-
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.setCanBreakDoors(nbt.getBoolean("CanBreakDoors"));
-    }
+			return true;
+		}
+	}
 
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
 		super.onKilledOther(serverWorld, livingEntity);
@@ -259,99 +259,75 @@ public class DancingZombieEntity extends SpellcastingIllagerEntity implements IA
 		return bl;
 	}
 
-    @Override
-    public void registerControllers(AnimationData data)
-    {
-        AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
 
-        data.addAnimationController(controller);
-    }
+	/** /~*~//~*GOALS*~//~*~/ **/
 
-    @Override
-    public AnimationFactory getFactory()
-    {
-        return this.factory;
-    }
+	protected SoundEvent getCastSpellSound() {
+		return PvZCubed.ENTITYRISINGEVENT;
+	}
 
-    @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-        float f = difficulty.getClampedLocalDifficulty();
+	protected abstract class CastSpellGoal extends Goal {
+		protected int spellCooldown;
+		protected int startTime;
 
-        if (entityData instanceof DancingZombieEntity.ZombieData) {
-            DancingZombieEntity.ZombieData zombieData = (DancingZombieEntity.ZombieData)entityData;
+		protected CastSpellGoal() {
+		}
 
-            this.setCanBreakDoors(this.shouldBreakDoors() && this.random.nextFloat() < f * 0.1F);
-        }
-        return (EntityData)entityData;
-    }
+		public boolean canStart() {
+			LivingEntity livingEntity = DancingZombieEntity.this.getTarget();
+			if (livingEntity != null && livingEntity.isAlive()) {
+				if (DancingZombieEntity.this.isSpellcasting()) {
+					return false;
+				} else {
+					return DancingZombieEntity.this.age >= this.startTime;
+				}
+			} else {
+				return false;
+			}
+		}
 
-    @Override
-    public SoundEvent getCelebratingSound() {
-        return null;
-    }
+		public boolean shouldContinue() {
+			LivingEntity livingEntity = DancingZombieEntity.this.getTarget();
+			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0;
+		}
 
-    public static boolean method_29936(Random random) {
-        return random.nextFloat() < 0.05F;
-    }
+		public void start() {
+			this.spellCooldown = this.getTickCount(this.getInitialCooldown());
+			DancingZombieEntity.this.spellTicks = this.getSpellTicks();
+			this.startTime = DancingZombieEntity.this.age + this.startTimeDelay();
+			SoundEvent soundEvent = this.getSoundPrepare();
+			if (soundEvent != null) {
+				DancingZombieEntity.this.playSound(soundEvent, 1.0F, 1.0F);
+			}
 
-    static {
-        DOOR_BREAK_DIFFICULTY_CHECKER = (difficulty) -> {
-            return difficulty == Difficulty.HARD;
-        };
-    }
+			DancingZombieEntity.this.setSpell(this.getSpell());
+		}
 
-    public static class ZombieData implements EntityData {
+		public void tick() {
+			--this.spellCooldown;
+			if (this.spellCooldown == 0) {
+				this.castSpell();
+				DancingZombieEntity.this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, 70, 1)));
+				DancingZombieEntity.this.playSound(DancingZombieEntity.this.getCastSpellSound(), 1.0F, 1.0F);
+			}
 
-        public ZombieData(boolean baby, boolean bl) {
-        }
-    }
+		}
 
-    public static boolean canDancingZombieSpawn(EntityType<DancingZombieEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 55;
-    }
+		protected abstract void castSpell();
 
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
+		protected int getInitialCooldown() {
+			return 20;
+		}
 
-    @Override
-    public void onDeath(DamageSource source){
+		protected abstract int getSpellTicks();
 
-    }
+		protected abstract int startTimeDelay();
 
-    protected SoundEvent getCastSpellSound() {
-        return PvZCubed.ENTITYRISINGEVENT;
-    }
+		@Nullable
+		protected abstract SoundEvent getSoundPrepare();
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (this.world.isClient && this.isSpellcasting()) {
-            this.world.addParticle(ParticleTypes.FLASH, this.getX(), this.getY() + 1D, this.getZ(), 0, 0, 0);
-        }
-
-    }
-
-    protected void mobTick() {
-        if (this.isAggro) {
-            this.world.sendEntityStatus(this, (byte) 13);
-        }
-        else {
-            this.world.sendEntityStatus(this, (byte) 12);
-        }
-        super.mobTick();
-    }
-
-    @Environment(EnvType.CLIENT)
-    public void handleStatus(byte status) {
-        if (status == 13) {
-            this.dancing = true;
-        }
-        else if (status == 12) {
-            this.dancing = false;
-        }
-    }
+		protected abstract SummonerEntity.Spell getSpell();
+	}
 
     class summonZombieGoal extends DancingZombieEntity.CastSpellGoal {
         private final TargetPredicate closeZombiePredicate;

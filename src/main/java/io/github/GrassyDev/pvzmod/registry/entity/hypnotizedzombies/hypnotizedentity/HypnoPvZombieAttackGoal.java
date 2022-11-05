@@ -2,13 +2,14 @@ package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizede
 
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.GolemEntity;
 
 public class HypnoPvZombieAttackGoal extends MeleeAttackGoal {
-   private final GolemEntity pvzombie;
+   private final PathAwareEntity pvzombie;
    private int ticks;
 
-   public HypnoPvZombieAttackGoal(GolemEntity pvzombie, double speed, boolean pauseWhenMobIdle) {
+   public HypnoPvZombieAttackGoal(PathAwareEntity pvzombie, double speed, boolean pauseWhenMobIdle) {
       super(pvzombie, speed, pauseWhenMobIdle);
       this.pvzombie = pvzombie;
    }

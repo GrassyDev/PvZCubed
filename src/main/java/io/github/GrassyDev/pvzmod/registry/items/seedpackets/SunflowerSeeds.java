@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower.SunflowerEntity;
 import net.minecraft.entity.Entity;
@@ -59,7 +60,9 @@ public class SunflowerSeeds extends Item {
                     sunflowerEntity.refreshPositionAndAngles(sunflowerEntity.getX(), sunflowerEntity.getY(), sunflowerEntity.getZ(), f, 0.0F);
                     world.spawnEntity(sunflowerEntity);
                     world.playSound((PlayerEntity) null, sunflowerEntity.getX(), sunflowerEntity.getY(), sunflowerEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-                }
+					sunflowerEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+					sunflowerEntity.dropItem(ModItems.SUN);
+				}
 
                 PlayerEntity user = context.getPlayer();
                 if (!user.getAbilities().creativeMode) {

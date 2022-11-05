@@ -2,12 +2,15 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies;
 
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
+
+import java.nio.file.Path;
 
 public class PvZombieAttackGoal extends MeleeAttackGoal {
-   private final HostileEntity pvzombie;
+   private final PathAwareEntity pvzombie;
    private int ticks;
 
-   public PvZombieAttackGoal(HostileEntity pvzombie, double speed, boolean pauseWhenMobIdle) {
+   public PvZombieAttackGoal(PathAwareEntity pvzombie, double speed, boolean pauseWhenMobIdle) {
       super(pvzombie, speed, pauseWhenMobIdle);
       this.pvzombie = pvzombie;
    }

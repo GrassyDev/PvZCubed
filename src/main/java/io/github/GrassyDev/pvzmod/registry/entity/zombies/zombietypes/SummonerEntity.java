@@ -1,7 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -19,7 +18,9 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
 public abstract class SummonerEntity extends PathAwareEntity implements Monster {
+
 	/** For Zombies that can summon other zombies**/
+
 	protected int spellTicks;
 
 	private static final TrackedData<Byte> SPELL;
@@ -27,11 +28,6 @@ public abstract class SummonerEntity extends PathAwareEntity implements Monster 
 
 	protected SummonerEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
-	}
-
-	@Override
-	public void onDeath(DamageSource source){
-
 	}
 
 	protected SoundEvent getCastSpellSound() {
@@ -66,12 +62,12 @@ public abstract class SummonerEntity extends PathAwareEntity implements Monster 
 			this.particleVelocity = new double[]{particleVelocityX, particleVelocityY, particleVelocityZ};
 		}
 
-		public static BasicGraveEntity.Spell byId(int id) {
-			BasicGraveEntity.Spell[] var1 = values();
+		public static SummonerEntity.Spell byId(int id) {
+			SummonerEntity.Spell[] var1 = values();
 			int var2 = var1.length;
 
 			for(int var3 = 0; var3 < var2; ++var3) {
-				BasicGraveEntity.Spell spell = var1[var3];
+				SummonerEntity.Spell spell = var1[var3];
 				if (id == spell.id) {
 					return spell;
 				}
@@ -121,13 +117,13 @@ public abstract class SummonerEntity extends PathAwareEntity implements Monster 
 		}
 	}
 
-	public void setSpell(BasicGraveEntity.Spell spell) {
+	public void setSpell(SummonerEntity.Spell spell) {
 		this.spell = spell;
 		this.dataTracker.set(SPELL, (byte)spell.id);
 	}
 
-	protected BasicGraveEntity.Spell getSpell() {
-		return !this.world.isClient ? this.spell : BasicGraveEntity.Spell.byId((Byte)this.dataTracker.get(SPELL));
+	protected SummonerEntity.Spell getSpell() {
+		return !this.world.isClient ? this.spell : SummonerEntity.Spell.byId((Byte)this.dataTracker.get(SPELL));
 	}
 
 	protected void mobTick() {
