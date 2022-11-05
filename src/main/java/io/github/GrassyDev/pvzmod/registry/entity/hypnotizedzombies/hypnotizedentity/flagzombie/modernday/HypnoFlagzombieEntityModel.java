@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday;
 
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntityRenderer;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -14,7 +15,7 @@ public class HypnoFlagzombieEntityModel extends AnimatedGeoModel<HypnoFlagzombie
     @Override
     public Identifier getTextureResource(HypnoFlagzombieEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/browncoat/flagzombie_hypnotized.png");
+		return HypnoFlagzombieEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
     }
 
     @Override

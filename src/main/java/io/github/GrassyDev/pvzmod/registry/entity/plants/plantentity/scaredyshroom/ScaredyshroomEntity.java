@@ -6,7 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.fumeshroom.FumeshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.SporeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ScaredyshroomVariants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

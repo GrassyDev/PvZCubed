@@ -8,24 +8,32 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.buckethead.modernday.HypnoBucketheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.conehead.modernday.HypnoConeheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FlagZombieVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -48,7 +56,55 @@ public HypnoFlagzombieEntity(EntityType<? extends HypnoFlagzombieEntity> entityT
     this.spawning = true;
 }
 
-private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putInt("Variant", this.getTypeVariant());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
+	}
+
+	static {
+	}
+
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(HypnoFlagzombieEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		FlagZombieVariants variant = Util.getRandom(FlagZombieVariants.values(), this.random);
+		setVariant(variant);
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public FlagZombieVariants getVariant() {
+		return FlagZombieVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(FlagZombieVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
     if (tonguechance <= 0.5) {
         if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.walking", true));

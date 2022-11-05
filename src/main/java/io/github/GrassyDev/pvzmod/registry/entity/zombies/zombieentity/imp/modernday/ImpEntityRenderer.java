@@ -1,7 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday;
 
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.models.BrowncoatEntityModel;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.BrowncoatEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 

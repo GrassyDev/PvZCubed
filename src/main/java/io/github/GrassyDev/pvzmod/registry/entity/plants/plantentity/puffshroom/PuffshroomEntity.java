@@ -5,7 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.SporeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;

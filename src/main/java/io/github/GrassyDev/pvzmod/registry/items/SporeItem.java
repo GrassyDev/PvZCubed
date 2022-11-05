@@ -1,7 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.items;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.SporeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

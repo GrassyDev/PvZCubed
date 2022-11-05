@@ -8,7 +8,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -46,7 +47,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class ImpEntity extends HostileEntity implements IAnimatable {
+public class ImpEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "walkingcontroller";

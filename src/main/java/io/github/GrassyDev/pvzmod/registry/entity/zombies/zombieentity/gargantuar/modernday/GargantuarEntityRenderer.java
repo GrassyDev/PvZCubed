@@ -1,7 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday;
 
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.models.FootballEntityModel;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.FootballEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 

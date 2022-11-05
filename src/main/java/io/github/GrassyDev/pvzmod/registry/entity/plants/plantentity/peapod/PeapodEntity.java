@@ -6,7 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.ShootingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodCountVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;

@@ -10,8 +10,9 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -45,7 +46,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.*;
 
-public class GargantuarEntity extends HostileEntity implements IAnimatable {
+public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	private String controllerName = "walkingcontroller";
 
     private MobEntity owner;

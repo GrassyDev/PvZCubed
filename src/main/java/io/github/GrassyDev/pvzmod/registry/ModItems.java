@@ -24,7 +24,6 @@ public class ModItems {
     public static final Item SNOWPEAPROJ = new SnowPeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(32));
     public static final Item FIREPEA = new FirepeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
 	public static final Item PLASMAPEA = new PlasmapeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
-    public static final Item CONE = new Item(new Item.Settings().group(PvZCubed.ZOMBIES));
     public static final Item SUN = new Item(new Item.Settings().group(PvZCubed.PLANTS));
     public static final Item SMALLSUN = new Item(new Item.Settings().group(PvZCubed.PLANTS));
     public static final Item LARGESUN = new Item(new Item.Settings().group(PvZCubed.PLANTS));
@@ -97,7 +96,6 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowpeaproj"), SNOWPEAPROJ);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"firepea"), FIREPEA);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plasmapea"), PLASMAPEA);
-        Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cone"), CONE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sun"), SUN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"smallsun"), SMALLSUN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"largesun"), LARGESUN);
