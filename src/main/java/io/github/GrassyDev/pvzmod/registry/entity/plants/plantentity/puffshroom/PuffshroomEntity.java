@@ -142,6 +142,9 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
+		if (this.age >= 6000) {
+			this.kill();
+		}
 	}
 
 	public void tickMovement() {

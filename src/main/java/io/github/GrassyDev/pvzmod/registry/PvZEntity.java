@@ -177,7 +177,7 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<PuffshroomEntity> PUFFSHROOM = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "puffshroom"),
-            QuiltEntityTypeBuilder.<PuffshroomEntity>create(SpawnGroup.CREATURE, PuffshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+            QuiltEntityTypeBuilder.<PuffshroomEntity>create(SpawnGroup.MONSTER, PuffshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
 
     public static final EntityType<SunshroomEntity> SUNSHROOM = Registry.register(

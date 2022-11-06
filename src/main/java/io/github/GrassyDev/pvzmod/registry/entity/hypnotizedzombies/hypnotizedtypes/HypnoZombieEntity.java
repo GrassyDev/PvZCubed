@@ -1,11 +1,15 @@
 package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes;
 
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.entity.passive.GolemEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 
 public abstract class HypnoZombieEntity extends GolemEntity {
 	/** For Hypnotized Zombies **/

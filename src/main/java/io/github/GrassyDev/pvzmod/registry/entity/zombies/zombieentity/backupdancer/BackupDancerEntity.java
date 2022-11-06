@@ -15,7 +15,9 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEn
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.brain.task.StayAboveWaterTask;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -54,6 +56,12 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
+		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
 
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
@@ -77,9 +85,10 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.targetSelector.add(2, new BackupDancerEntity.TrackOwnerTargetGoal(this));
+
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(1, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
@@ -167,7 +176,12 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
         return SoundEvents.ENTITY_ZOMBIE_STEP;
     }
 
-    protected void playStepSound(BlockPos pos, BlockState state) {
+	@Override
+	protected boolean shouldSwimInFluids() {
+		return true;
+	}
+
+	protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
     }
 

@@ -62,6 +62,7 @@ public class SunflowerSeeds extends Item {
                     world.playSound((PlayerEntity) null, sunflowerEntity.getX(), sunflowerEntity.getY(), sunflowerEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 					sunflowerEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
 					sunflowerEntity.dropItem(ModItems.SUN);
+					sunflowerEntity.dropItem(ModItems.SUN);
 				}
 
                 PlayerEntity user = context.getPlayer();
