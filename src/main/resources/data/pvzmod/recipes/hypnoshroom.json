@@ -5,7 +5,10 @@
       "item": "pvzmod:puffshroom_seed_packet"
     },
     {
-      "item": "pvzmod:largesun"
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:smallsun"
     }
   ],
   "result": {

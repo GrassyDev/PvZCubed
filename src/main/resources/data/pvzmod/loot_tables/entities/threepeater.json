@@ -6,11 +6,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:threepeater_seed_packet",
+          "name": "pvzmod:sun",
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 1
+              "count": 3
             }
           ],
           "conditions": [

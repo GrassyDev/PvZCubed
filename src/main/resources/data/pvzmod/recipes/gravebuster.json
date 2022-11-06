@@ -2,13 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:cactus"
-    },
-    {
-      "item": "minecraft:vine"
-    },
-    {
-      "item": "pvzmod:sun"
+      "item": "pvzmod:plantfood"
     },
     {
       "item": "pvzmod:sun"

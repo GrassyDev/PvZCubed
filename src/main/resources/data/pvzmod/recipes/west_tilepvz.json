@@ -10,11 +10,11 @@
       "item": "pvzmod:smallsun"
     },
     "D": {
-      "item": "minecraft:dirt"
+      "item": "minecraft:terracota"
     }
   },
   "result": {
-    "item": "pvzmod:grass_tile",
+    "item": "pvzmod:west_tile",
     "count": 1
   }
 }

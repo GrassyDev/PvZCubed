@@ -3,6 +3,9 @@
   "ingredients": [
     {
       "item": "pvzmod:plantfood"
+    },
+    {
+      "item": "pvzmod:plantfood"
     }
   ],
   "result": {

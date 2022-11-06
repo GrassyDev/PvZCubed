@@ -2,20 +2,20 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood"
+      "item": "pvzmod:smallsun"
     },
     {
-      "item": "pvzmod:sun"
+      "item": "pvzmod:smallsun"
     },
     {
-      "item": "pvzmod:sun"
+      "item": "pvzmod:smallsun"
     },
     {
       "item": "pvzmod:smallsun"
     }
   ],
   "result": {
-    "item": "pvzmod:wallnut_seed_packet",
+    "item": "pvzmod:largesun",
     "count": 1
   }
 }

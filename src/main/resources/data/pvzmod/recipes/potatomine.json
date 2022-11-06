@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:poisonous_potato"
+      "item": "pvzmod:plantfood"
     },
     {
       "item": "pvzmod:smallsun"

@@ -10,11 +10,11 @@
       "item": "pvzmod:smallsun"
     },
     "D": {
-      "item": "minecraft:dirt"
+      "item": "minecraft:amethyst_block"
     }
   },
   "result": {
-    "item": "pvzmod:grass_tile",
+    "item": "pvzmod:upgrade_tile",
     "count": 1
   }
 }

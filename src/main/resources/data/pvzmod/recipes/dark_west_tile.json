@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:sun"
+      "item": "pvzmod:west_tile"
     },
     {
-      "item": "pvzmod:sun"
+      "item": "minecraft:black_dye"
     }
   ],
   "result": {
-    "item": "pvzmod:largesun",
+    "item": "pvzmod:dark_west_tile",
     "count": 1
   }
 }

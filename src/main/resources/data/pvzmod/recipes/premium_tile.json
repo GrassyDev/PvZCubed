@@ -10,11 +10,11 @@
       "item": "pvzmod:smallsun"
     },
     "D": {
-      "item": "minecraft:dirt"
+      "item": "minecraft:tinted_glass"
     }
   },
   "result": {
-    "item": "pvzmod:grass_tile",
+    "item": "pvzmod:premium_tile",
     "count": 1
   }
 }

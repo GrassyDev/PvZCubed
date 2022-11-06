@@ -1,20 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#P",
-    "F "
-  ],
-  "key": {
-    "#": {
-      "item": "pvzmod:plantfood"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:puffshroom_seed_packet"
     },
-    "P": {
+    {
       "item": "pvzmod:sun"
     },
-    "F": {
-      "item": "pvzmod:smallsun"
+    {
+      "item": "pvzmod:sun"
     }
-  },
+  ],
   "result": {
     "item": "pvzmod:iceshroom_seed_packet",
     "count": 1

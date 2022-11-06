@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:red_mushroom"
+      "item": "pvzmod:puffshroom_seed_packet"
     },
     {
       "item": "pvzmod:smallsun"

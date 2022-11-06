@@ -6,7 +6,28 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:snowpea_seed_packet",
+          "name": "pvzmod:sun",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:killed_by_player",
+              "inverse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pvzmod:smallsun",
           "functions": [
             {
               "function": "minecraft:set_count",

@@ -64,7 +64,6 @@ public class SunshroomSeeds extends Item {
 					sunshroomEntity.dropItem(ModItems.SMALLSUN);
 					sunshroomEntity.dropItem(ModItems.SMALLSUN);
 					sunshroomEntity.dropItem(ModItems.SMALLSUN);
-					sunshroomEntity.dropItem(ModItems.SMALLSUN);
 				}
 
                 itemStack.decrement(1);

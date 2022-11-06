@@ -5,9 +5,6 @@
       "item": "pvzmod:peashooter_seed_packet"
     },
     {
-      "item": "pvzmod:sun"
-    },
-    {
       "item": "pvzmod:smallsun"
     },
     {
@@ -15,7 +12,7 @@
     }
   ],
   "result": {
-    "item": "pvzmod:snowpea_seed_packet",
+    "item": "pvzmod:peapod_seed_packet",
     "count": 1
   }
 }

@@ -64,7 +64,7 @@ public class PuffshroomSeeds extends Item {
                 PlayerEntity user = context.getPlayer();
                 if (!user.getAbilities().creativeMode) {
                     itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, 100);
+                    user.getItemCooldownManager().set(this, 50);
                 }
                 return ActionResult.success(world.isClient);
             } else {

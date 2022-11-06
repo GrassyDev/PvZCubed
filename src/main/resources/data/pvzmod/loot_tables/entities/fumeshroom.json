@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:fumeshroom_seed_packet",
+          "name": "pvzmod:smallsun",
           "functions": [
             {
               "function": "minecraft:set_count",

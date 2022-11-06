@@ -12,10 +12,13 @@
     },
     {
       "item": "pvzmod:plantfood"
+    },
+    {
+      "item": "minecraft:diamond"
     }
   ],
   "result": {
-    "item": "pvzmod:snowpea_seed_packet",
+    "item": "pvzmod:firepea_seed_packet",
     "count": 1
   }
 }
