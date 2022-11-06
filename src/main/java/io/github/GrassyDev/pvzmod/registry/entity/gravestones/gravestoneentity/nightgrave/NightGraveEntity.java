@@ -137,9 +137,6 @@ public class NightGraveEntity extends SummonerEntity implements IAnimatable {
 		}
 		if (this.world.isClient && this.isSpellcasting()) {
 			SummonerEntity.Spell spell = this.getSpell();
-			double d = spell.particleVelocity[0];
-			double e = spell.particleVelocity[1];
-			double f = spell.particleVelocity[2];
 			float g = this.bodyYaw * 0.017453292F + MathHelper.cos((float)this.age * 0.6662F) * 0.25F;
 			float h = MathHelper.cos(g);
 			float i = MathHelper.sin(g);
@@ -391,6 +388,7 @@ public class NightGraveEntity extends SummonerEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(dancingZombieEntity);
                 }
             }
+			++this.nightGraveEntity.spawnCounter;
         }
 
         protected SoundEvent getSoundPrepare() {
