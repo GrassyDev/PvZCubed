@@ -40,7 +40,6 @@ public class DancingZombieEgg extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(dancingZombieEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     dancingZombieEntity.refreshPositionAndAngles(dancingZombieEntity.getX(), dancingZombieEntity.getY(), dancingZombieEntity.getZ(), f, 0.0F);
                     world.spawnEntity(dancingZombieEntity);

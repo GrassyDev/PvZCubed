@@ -383,9 +383,6 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
                 ++this.beamTicks;
                 if (this.beamTicks == 0) {
                     this.hypnoshroom.setHypnoBeamTarget(this.hypnoshroom.getTarget().getId());
-                    if (!this.hypnoshroom.isSilent()) {
-                        this.hypnoshroom.world.sendEntityStatus(this.hypnoshroom, (byte) 21);
-                    }
                 } else if (this.beamTicks >= this.hypnoshroom.getWarmupTime()) {
                     float f = 1.0F;
                     livingEntity.damage(DamageSource.magic(this.hypnoshroom, this.hypnoshroom), f);

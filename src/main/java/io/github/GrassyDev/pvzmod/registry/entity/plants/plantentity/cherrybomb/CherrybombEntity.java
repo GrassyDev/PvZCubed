@@ -149,6 +149,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
+
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
@@ -310,7 +311,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return null	;
 	}
 
 	@Nullable

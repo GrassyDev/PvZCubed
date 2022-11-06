@@ -6,9 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntity_G;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntity_T;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.FumeVariants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -226,7 +225,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	public static DefaultAttributeContainer.Builder createFumeshroomAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 14.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 45.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6D);
@@ -376,10 +375,11 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 					/// GAY VARIANT ///
 					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.GAY))
 					{
-						FumeEntity_G proj = new FumeEntity_G(PvZEntity.FUME_G, this.fumeshroomEntity.world);
+						FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
 						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
 						proj.setOwner(this.fumeshroomEntity);
+						proj.setVariant(FumeVariants.GAY);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
@@ -389,10 +389,11 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 					/// TRANS VARIANT ///
 					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.TRANS))
 					{
-						FumeEntity_T proj = new FumeEntity_T(PvZEntity.FUME_T, this.fumeshroomEntity.world);
+						FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
 						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
 						proj.setOwner(this.fumeshroomEntity);
+						proj.setVariant(FumeVariants.TRANS);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);

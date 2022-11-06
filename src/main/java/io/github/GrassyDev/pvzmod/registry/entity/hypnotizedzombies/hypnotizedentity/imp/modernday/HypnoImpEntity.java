@@ -149,7 +149,7 @@ public class HypnoImpEntity extends HypnoZombieEntity implements IAnimatable {
                 hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnotizedZombie.setAiDisabled(this.isAiDisabled());
-				hypnotizedZombie.setHealth(this.getHealth());
+				hypnotizedZombie.setHealth(this.getHealth() + 3);
                 if (this.hasCustomName()) {
                     hypnotizedZombie.setCustomName(this.getCustomName());
                     hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());

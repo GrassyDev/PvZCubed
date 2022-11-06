@@ -25,7 +25,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.iceshroom.I
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peapod.PeapodEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.PeashooterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.repeater.RepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.scaredyshroom.ScaredyshroomEntityRenderer;
@@ -35,8 +34,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom.S
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater.ThreepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.wallnutentity.WallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingpeaEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntityRenderer_G;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntityRenderer_T;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmapeaEntityRenderer;
@@ -75,8 +72,6 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.WALLNUT, WallnutEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.POTATOMINE, PotatomineEntityRenderer::new);
-
-		EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntityRenderer::new);
 
@@ -121,10 +116,6 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.SPORE, SporeEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FUME, FumeEntityRenderer::new);
-
-		EntityRendererRegistry.register(PvZEntity.FUME_G, FumeEntityRenderer_G::new);
-
-		EntityRendererRegistry.register(PvZEntity.FUME_T, FumeEntityRenderer_T::new);
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////

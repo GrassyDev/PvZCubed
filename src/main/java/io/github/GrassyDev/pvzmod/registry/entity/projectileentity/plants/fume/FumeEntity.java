@@ -4,6 +4,9 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.FumeVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
@@ -17,11 +20,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
@@ -43,6 +50,41 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 	public AnimationFactory factory = new AnimationFactory(this);
 
 	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "fume");
+
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putInt("Variant", this.getTypeVariant());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
+	}
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(FumeEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public FumeVariants getVariant() {
+		return FumeVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(FumeVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+
 	@Override
 	public void registerControllers(AnimationData animationData) {
 		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
@@ -90,12 +132,40 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		double d = (double)(180 & 255) / 255.0;
-		double e = (double)(30 & 255) / 255.0;
-		double f = (double)(200 & 255) / 255.0;
+		if (this.getVariant().equals(FumeVariants.GAY)){
+			for(int j = 0; j < 8; ++j) {
+				// RAINBOW
+				double d = (double)(this.random.range(0, 255) & 255) / 255.0;
+				double e = (double)(this.random.range(0, 255) & 255) / 255.0;
+				double f = (double)(this.random.range(0, 255) & 255) / 255.0;
+				this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d, e, f);
+			}
+		}
+		else if (this.getVariant().equals(FumeVariants.TRANS)){
+			// BLUE
+			double d = (double)(100 & 255) / 255.0;
+			double e = (double)(205 & 255) / 255.0;
+			double f = (double)(245 & 255) / 255.0;
+			// PINK
+			double d2 = (double)(230 & 255) / 255.0;
+			double e2 = (double)(115 & 255) / 255.0;
+			double f2 = (double)(215 & 255) / 255.0;
 
-		for(int j = 0; j < 8; ++j) {
-			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d, e, f);
+			for(int j = 0; j < 4; ++j) {
+				this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d, e, f);
+				this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d2, e2, f2);
+				// WHITE
+				this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), 1, 1, 1);
+			}
+		}
+		else {
+			// PURPLE
+			double d = (double)(180 & 255) / 255.0;
+			double e = (double)(30 & 255) / 255.0;
+			double f = (double)(200 & 255) / 255.0;
+			for(int j = 0; j < 8; ++j) {
+				this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), d, e, f);
+			}
 		}
 	}
 

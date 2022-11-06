@@ -73,7 +73,7 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
-		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("iMP"));
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Imp"));
 	}
 
 	static {
@@ -336,7 +336,7 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
                 hypnoFootballEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoFootballEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFootballEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoFootballEntity.setAiDisabled(this.isAiDisabled());
-				hypnoFootballEntity.setHealth(this.getHealth());
+				hypnoFootballEntity.setHealth(this.getHealth() + 3);
                 if (this.hasCustomName()) {
                     hypnoFootballEntity.setCustomName(this.getCustomName());
                     hypnoFootballEntity.setCustomNameVisible(this.isCustomNameVisible());

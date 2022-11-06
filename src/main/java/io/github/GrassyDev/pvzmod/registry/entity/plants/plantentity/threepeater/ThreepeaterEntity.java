@@ -155,7 +155,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 
 	public static DefaultAttributeContainer.Builder createThreepeaterAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 21.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 18D);

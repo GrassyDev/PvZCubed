@@ -10,7 +10,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
@@ -111,7 +110,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(2, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
@@ -192,7 +190,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
                 hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnotizedZombie.setAiDisabled(this.isAiDisabled());
-				hypnotizedZombie.setHealth(this.getHealth());
+				hypnotizedZombie.setHealth(this.getHealth() + 3);
                 if (this.hasCustomName()) {
                     hypnotizedZombie.setCustomName(this.getCustomName());
                     hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());

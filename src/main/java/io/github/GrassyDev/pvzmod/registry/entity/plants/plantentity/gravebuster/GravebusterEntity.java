@@ -164,7 +164,7 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createGravebusterAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 45.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 0D)

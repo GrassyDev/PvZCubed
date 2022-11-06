@@ -54,7 +54,6 @@ public class FumeshroomSeeds extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(fumeshroomEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     fumeshroomEntity.refreshPositionAndAngles(fumeshroomEntity.getX(), fumeshroomEntity.getY(), fumeshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(fumeshroomEntity);

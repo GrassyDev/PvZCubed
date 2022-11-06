@@ -7,7 +7,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.conehead.modernday.HypnoConeheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
@@ -103,7 +102,6 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(2, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
@@ -163,7 +161,7 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
                 hypnoConeheadEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoConeheadEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoConeheadEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoConeheadEntity.setAiDisabled(this.isAiDisabled());
-				hypnoConeheadEntity.setHealth(this.getHealth());
+				hypnoConeheadEntity.setHealth(this.getHealth() + 3);
                 if (this.hasCustomName()) {
                     hypnoConeheadEntity.setCustomName(this.getCustomName());
                     hypnoConeheadEntity.setCustomNameVisible(this.isCustomNameVisible());

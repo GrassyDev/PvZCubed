@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,20 +45,19 @@ public class PotatoMineSeeds extends Item {
             BlockPos blockPos = itemPlacementContext.getBlockPos();
             ItemStack itemStack = context.getStack();
             Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-            Box box = PvZEntity.UNARMEDPOTATOMINE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+            Box box = PvZEntity.POTATOMINE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    UnarmedPotatomineEntity unarmedPotatomineEntity = (UnarmedPotatomineEntity) PvZEntity.UNARMEDPOTATOMINE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (unarmedPotatomineEntity == null) {
+                    PotatomineEntity potatomineEntity = (PotatomineEntity) PvZEntity.POTATOMINE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    if (potatomineEntity == null) {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(unarmedPotatomineEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    unarmedPotatomineEntity.refreshPositionAndAngles(unarmedPotatomineEntity.getX(), unarmedPotatomineEntity.getY(), unarmedPotatomineEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(unarmedPotatomineEntity);
-                    world.playSound((PlayerEntity) null, unarmedPotatomineEntity.getX(), unarmedPotatomineEntity.getY(), unarmedPotatomineEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    potatomineEntity.refreshPositionAndAngles(potatomineEntity.getX(), potatomineEntity.getY(), potatomineEntity.getZ(), f, 0.0F);
+                    world.spawnEntity(potatomineEntity);
+                    world.playSound((PlayerEntity) null, potatomineEntity.getX(), potatomineEntity.getY(), potatomineEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 PlayerEntity user = context.getPlayer();

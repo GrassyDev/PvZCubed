@@ -54,7 +54,6 @@ public class CherryBombSeeds extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(cherrybombEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     cherrybombEntity.refreshPositionAndAngles(cherrybombEntity.getX(), cherrybombEntity.getY(), cherrybombEntity.getZ(), f, 0.0F);
                     world.spawnEntity(cherrybombEntity);

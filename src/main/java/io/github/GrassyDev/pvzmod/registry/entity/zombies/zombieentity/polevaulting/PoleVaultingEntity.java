@@ -7,7 +7,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.polevaulting.HypnoPoleVaultingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
@@ -93,7 +92,6 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(4, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, PotatomineEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, ReinforceEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, EnforceEntity.class, false, true));
@@ -175,7 +173,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
                 hypnoPoleVaultingEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoPoleVaultingEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoPoleVaultingEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoPoleVaultingEntity.setAiDisabled(this.isAiDisabled());
-				hypnoPoleVaultingEntity.setHealth(this.getHealth());
+				hypnoPoleVaultingEntity.setHealth(this.getHealth() + 3);
                 if (this.hasCustomName()) {
                     hypnoPoleVaultingEntity.setCustomName(this.getCustomName());
                     hypnoPoleVaultingEntity.setCustomNameVisible(this.isCustomNameVisible());

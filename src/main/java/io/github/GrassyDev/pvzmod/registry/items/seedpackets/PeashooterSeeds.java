@@ -58,7 +58,7 @@ public class PeashooterSeeds extends Item {
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     peashooterEntity.refreshPositionAndAngles(peashooterEntity.getX(), peashooterEntity.getY(), peashooterEntity.getZ(), f, 0.0F);
-                    serverWorld.spawnEntity(peashooterEntity);
+                    world.spawnEntity(peashooterEntity);
                     world.playSound((PlayerEntity) null, peashooterEntity.getX(), peashooterEntity.getY(), peashooterEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 

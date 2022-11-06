@@ -231,7 +231,6 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 
-
 	static class FireBeamGoal extends Goal {
 		private final GatlingpeaEntity gatlingpeaEntity;
 		private int beamTicks;

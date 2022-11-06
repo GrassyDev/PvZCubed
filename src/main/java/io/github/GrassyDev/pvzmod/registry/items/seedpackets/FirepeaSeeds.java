@@ -54,7 +54,6 @@ public class FirepeaSeeds extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(flamingpeaEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     flamingpeaEntity.refreshPositionAndAngles(flamingpeaEntity.getX(), flamingpeaEntity.getY(), flamingpeaEntity.getZ(), f, 0.0F);
                     world.spawnEntity(flamingpeaEntity);

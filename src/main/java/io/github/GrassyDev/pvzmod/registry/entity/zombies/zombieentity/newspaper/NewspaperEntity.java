@@ -6,7 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
@@ -93,7 +92,6 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
         this.goalSelector.add(6, new MoveThroughVillageGoal(this, 1.0D, false, 4, this::canBreakDoors));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(2, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal<>(this, GravebusterEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal<>(this, HypnoshroomEntity.class, false, true));
@@ -160,7 +158,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
                 hypnoNewspaperEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoNewspaperEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoNewspaperEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoNewspaperEntity.setAiDisabled(this.isAiDisabled());
-				hypnoNewspaperEntity.setHealth(this.getHealth());
+				hypnoNewspaperEntity.setHealth(this.getHealth() + 3);
                 if (this.hasCustomName()) {
                     hypnoNewspaperEntity.setCustomName(this.getCustomName());
                     hypnoNewspaperEntity.setCustomNameVisible(this.isCustomNameVisible());

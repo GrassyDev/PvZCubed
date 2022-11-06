@@ -40,7 +40,6 @@ public class FlagzombieEgg extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(flagzombieEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     flagzombieEntity.refreshPositionAndAngles(flagzombieEntity.getX(), flagzombieEntity.getY(), flagzombieEntity.getZ(), f, 0.0F);
                     world.spawnEntity(flagzombieEntity);

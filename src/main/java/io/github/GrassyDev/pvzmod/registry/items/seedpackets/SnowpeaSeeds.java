@@ -54,7 +54,6 @@ public class SnowpeaSeeds extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(snowpeaEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     snowpeaEntity.refreshPositionAndAngles(snowpeaEntity.getX(), snowpeaEntity.getY(), snowpeaEntity.getZ(), f, 0.0F);
                     world.spawnEntity(snowpeaEntity);

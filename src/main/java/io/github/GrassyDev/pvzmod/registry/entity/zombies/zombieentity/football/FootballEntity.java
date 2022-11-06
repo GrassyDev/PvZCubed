@@ -2,15 +2,16 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.football.HypnoFootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -24,6 +25,9 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -52,22 +56,17 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 public class FootballEntity extends PvZombieEntity implements IAnimatable {
+
+	private String controllerName = "walkingcontroller";
     private MobEntity owner;
-    public AnimationFactory factory = new AnimationFactory(this);
-    private String controllerName = "walkingcontroller";
-    private static final Predicate<Difficulty> DOOR_BREAK_DIFFICULTY_CHECKER;
-    private final BreakDoorGoal breakDoorsGoal;
-    private boolean canBreakDoors;
     private int attackTicksLeft;
-    public boolean firstAttack;
-    public boolean tackle;
+
+	public AnimationFactory factory = new AnimationFactory(this);
 
     public FootballEntity(EntityType<? extends FootballEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.breakDoorsGoal = new BreakDoorGoal(this, DOOR_BREAK_DIFFICULTY_CHECKER);
         this.experiencePoints = 12;
-        this.firstAttack = true;
 		this.getNavigation().setCanSwim(true);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
@@ -76,10 +75,73 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, true);
+	}
 
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("Tackle", this.getTackleStage());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Tackle"));
+	}
+
+	static {
+
+	}
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(FootballEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum TackleStage {
+		TACKLING(true),
+		EATING(false);
+
+		TackleStage(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	private Boolean getTackleStage() {
+		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
+	}
+
+	public void setTackleStage(FootballEntity.TackleStage tackleStage) {
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tackleStage.getId());
+	}
+
+
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-            if (!this.tackle) {
+            if (!this.getTackleStage()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("football.running", true));
             }
             else {
@@ -102,13 +164,14 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
         this.initCustomGoals();
     }
 
-    protected void initCustomGoals() {
-        this.targetSelector.add(2, new FootballEntity.TrackOwnerTargetGoal(this));
 
+	/** /~*~//~*AI*~//~*~/ **/
+
+	protected void initCustomGoals() {
+        this.targetSelector.add(2, new FootballEntity.TrackOwnerTargetGoal(this));
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(2, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, UnarmedPotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
@@ -130,49 +193,112 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
     }
 
-    public static DefaultAttributeContainer.Builder createFootballAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.18D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 167D);
-    }
+	public boolean tryAttack(Entity target) {
+		int i = this.attackTicksLeft;
+		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
+			if (this.getTackleStage()) {
+				if (i <= 0) {
+					if (this.hasStatusEffect(PvZCubed.ICE)) {
+						this.attackTicksLeft = 20;
+						this.world.sendEntityStatus(this, (byte) 4);
+						float f = 360f;
+						boolean bl = target.damage(DamageSource.mob(this), f);
+						if (bl) {
+							this.applyDamageEffects(this, target);
+						}
+						this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+						this.setTackleStage(TackleStage.EATING);
+						return bl;
+					} else {
+						this.attackTicksLeft = 20;
+						float f = 180f;
+						boolean bl = target.damage(DamageSource.mob(this), f);
+						if (bl) {
+							this.applyDamageEffects(this, target);
+						}
+						this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+						this.setTackleStage(TackleStage.EATING);
+						return bl;
+					}
+				} else {
+					return false;
+				}
+			} else {
+				if (i <= 0) {
+					this.attackTicksLeft = 20;
+					this.world.sendEntityStatus(this, (byte) 4);
+					float f = this.getAttackDamage();
+					boolean bl = target.damage(DamageSource.mob(this), f);
+					if (bl) {
+						this.applyDamageEffects(this, target);
+					}
+					return bl;
+				} else {
+					return false;
+				}
+			}
+		}  else {
+			return false;
+		}
+	}
 
-    public MobEntity getOwner() {
-        return this.owner;
-    }
 
-    public void setOwner(MobEntity owner) {
-        this.owner = owner;
-    }
+	/** /~*~//~*TICKING*~//~*~/ **/
 
-    public boolean canBreakDoors() {
-        return this.canBreakDoors;
-    }
+	public void tickMovement() {
+		super.tickMovement();
+		if (this.attackTicksLeft > 0) {
+			--this.attackTicksLeft;
+		}
+	}
 
-    public void setCanBreakDoors(boolean canBreakDoors) {
-        if (this.shouldBreakDoors() && NavigationConditions.hasMobNavigation(this)) {
-            if (this.canBreakDoors != canBreakDoors) {
-                this.canBreakDoors = canBreakDoors;
-                ((MobNavigation)this.getNavigation()).setCanPathThroughDoors(canBreakDoors);
-                if (canBreakDoors) {
-                    this.goalSelector.add(1, this.breakDoorsGoal);
-                } else {
-                    this.goalSelector.remove(this.breakDoorsGoal);
-                }
-            }
-        } else if (this.canBreakDoors) {
-            this.goalSelector.remove(this.breakDoorsGoal);
-            this.canBreakDoors = false;
-        }
 
-    }
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-    protected boolean shouldBreakDoors() {
-        return true;
-    }
+	public static DefaultAttributeContainer.Builder createFootballAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.18D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 167D);
+	}
 
-    public boolean damage(DamageSource source, float amount) {
+	protected SoundEvent getAmbientSound() {
+		return PvZCubed.ZOMBIEMOANEVENT;
+	}
+
+	private float getAttackDamage(){
+		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+	}
+
+	public EntityGroup getGroup() {
+		return EntityGroup.UNDEAD;
+	}
+
+	public MobEntity getOwner() {
+		return this.owner;
+	}
+
+	protected SoundEvent getStepSound() {
+		return SoundEvents.ENTITY_ZOMBIE_STEP;
+	}
+
+	public boolean isPushable() {
+		return false;
+	}
+
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+	}
+
+	public void setOwner(MobEntity owner) {
+		this.owner = owner;
+	}
+
+
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
+
+	public boolean damage(DamageSource source, float amount) {
         if (!super.damage(source, amount)) {
             return false;
         } else if (!(this.world instanceof ServerWorld)) {
@@ -190,7 +316,13 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
                 hypnoFootballEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnoFootballEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFootballEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnoFootballEntity.setAiDisabled(this.isAiDisabled());
-				hypnoFootballEntity.setHealth(this.getHealth());
+				hypnoFootballEntity.setHealth(this.getHealth() + 3);
+				if (this.getTackleStage().equals(Boolean.TRUE)){
+					hypnoFootballEntity.setTackleStage(HypnoFootballEntity.TackleStage.TACKLING);
+				}
+				else {
+					hypnoFootballEntity.setTackleStage(HypnoFootballEntity.TackleStage.EATING);
+				}
                 if (this.hasCustomName()) {
                     hypnoFootballEntity.setCustomName(this.getCustomName());
                     hypnoFootballEntity.setCustomNameVisible(this.isCustomNameVisible());
@@ -203,36 +335,6 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
             return true;
         }
-    }
-
-    protected SoundEvent getAmbientSound() {
-        return PvZCubed.ZOMBIEMOANEVENT;
-    }
-
-    protected SoundEvent getHurtSound() {
-        return PvZCubed.SILENCEVENET;
-    }
-
-    protected SoundEvent getStepSound() {
-        return SoundEvents.ENTITY_ZOMBIE_STEP;
-    }
-
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(this.getStepSound(), 0.15F, 1.0F);
-    }
-
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
-
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putBoolean("CanBreakDoors", this.canBreakDoors());
-    }
-
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.setCanBreakDoors(nbt.getBoolean("CanBreakDoors"));
     }
 
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
@@ -258,139 +360,10 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		return bl;
 	}
 
-    public void tickMovement() {
-        super.tickMovement();
-        if (this.attackTicksLeft > 0) {
-            --this.attackTicksLeft;
-        }
-    }
 
-    private float getAttackDamage(){
-        return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-    }
+	/** /~*~//~*GOALS*~//~*~/ **/
 
-    public boolean tryAttack(Entity target) {
-        int i = this.attackTicksLeft;
-        if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-            if (this.firstAttack) {
-                if (i <= 0) {
-                    if (this.hasStatusEffect(StatusEffects.WEAKNESS)) {
-                        this.attackTicksLeft = 20;
-                        this.world.sendEntityStatus(this, (byte) 4);
-                        float f = 184f;
-                        boolean bl = target.damage(DamageSource.mob(this), f);
-                        if (bl) {
-                            this.applyDamageEffects(this, target);
-                        }
-                        this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-                        this.firstAttack = false;
-                        return bl;
-                    } else {
-                        this.attackTicksLeft = 20;
-                        this.world.sendEntityStatus(this, (byte) 4);
-                        float f = 180f;
-                        boolean bl = target.damage(DamageSource.mob(this), f);
-                        if (bl) {
-                            this.applyDamageEffects(this, target);
-                        }
-                        this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-                        this.firstAttack = false;
-                        return bl;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                if (i <= 0) {
-                    this.attackTicksLeft = 20;
-                    this.world.sendEntityStatus(this, (byte) 4);
-                    float f = this.getAttackDamage();
-                    boolean bl = target.damage(DamageSource.mob(this), f);
-                    if (bl) {
-                        this.applyDamageEffects(this, target);
-                    }
-                    return bl;
-                } else {
-                    return false;
-                }
-            }
-        }  else {
-            return false;
-        }
-    }
-
-    @Override
-    public void registerControllers(AnimationData data)
-    {
-        AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
-
-        data.addAnimationController(controller);
-    }
-
-    @Override
-    public AnimationFactory getFactory()
-    {
-        return this.factory;
-    }
-
-    @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-        float f = difficulty.getClampedLocalDifficulty();
-
-        if (entityData instanceof FootballEntity.ZombieData) {
-            FootballEntity.ZombieData zombieData = (FootballEntity.ZombieData)entityData;
-
-            this.setCanBreakDoors(this.shouldBreakDoors() && this.random.nextFloat() < f * 0.1F);
-        }
-        return (EntityData)entityData;
-    }
-
-    public static boolean method_29936(Random random) {
-        return random.nextFloat() < 0.05F;
-    }
-
-    static {
-        DOOR_BREAK_DIFFICULTY_CHECKER = (difficulty) -> {
-            return difficulty == Difficulty.HARD;
-        };
-    }
-
-    public static class ZombieData implements EntityData {
-
-        public ZombieData(boolean baby, boolean bl) {
-        }
-    }
-
-    public static boolean canFootballSpawn(EntityType<FootballEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 55;
-    }
-
-    protected void mobTick() {
-        if (this.firstAttack) {
-            this.world.sendEntityStatus(this, (byte) 13);
-        }
-        else {
-            this.world.sendEntityStatus(this, (byte) 12);
-        }
-        super.mobTick();
-    }
-
-    @Environment(EnvType.CLIENT)
-    public void handleStatus(byte status) {
-        if (status == 13) {
-            this.tackle = true;
-        }
-        else if (status == 12) {
-            this.tackle = false;
-        }
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
-
-    class TrackOwnerTargetGoal extends TrackTargetGoal {
+	class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {

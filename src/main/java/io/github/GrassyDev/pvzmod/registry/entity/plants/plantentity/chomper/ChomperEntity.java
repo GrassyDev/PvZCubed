@@ -289,7 +289,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createChomperAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 36.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 45.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3.5D)

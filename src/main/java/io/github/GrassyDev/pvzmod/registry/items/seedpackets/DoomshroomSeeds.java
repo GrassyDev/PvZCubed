@@ -54,7 +54,6 @@ public class DoomshroomSeeds extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(doomshroomEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     doomshroomEntity.refreshPositionAndAngles(doomshroomEntity.getX(), doomshroomEntity.getY(), doomshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(doomshroomEntity);

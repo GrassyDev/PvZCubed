@@ -1,12 +1,15 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
@@ -24,10 +27,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
@@ -50,21 +56,26 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class PotatomineEntity extends BombardEntity implements IAnimatable {
-
-    public AnimationFactory factory = new AnimationFactory(this);
+	private String controllerName = "potatocontroller";
     private static final TrackedData<Integer> FUSE_SPEED;
     private static final TrackedData<Boolean> CHARGED;
     private static final TrackedData<Boolean> IGNITED;
     private int currentFuseTime;
     private int fuseTime = 1;
-    private int explosionRadius = 1;
-    public int potatoPreparingTime;
-	private String controllerName = "potatocontroller";
+	private int explosionRadius = 1;
+	private int potatoAnimationTime;
+	private int potatoPreparingTime;
+	private boolean canAnimate;
+	private boolean playSoundRise;
 
-    public PotatomineEntity(EntityType<? extends PotatomineEntity> entityType, World world) {
+	public AnimationFactory factory = new AnimationFactory(this);
+
+	public PotatomineEntity(EntityType<? extends PotatomineEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.potatoPreparingTime = 10;
+		this.potatoPreparingTime = 1200;
+		potatoAnimationTime = 10;
+		playSoundRise = true;
     }
 
 	protected void initDataTracker() {
@@ -72,6 +83,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		this.dataTracker.startTracking(FUSE_SPEED, -1);
 		this.dataTracker.startTracking(CHARGED, false);
 		this.dataTracker.startTracking(IGNITED, false);
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, false);
 	}
 
 	public void writeCustomDataToNbt(NbtCompound tag) {
@@ -83,6 +95,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		tag.putShort("Fuse", (short)this.fuseTime);
 		tag.putByte("ExplosionRadius", (byte)this.explosionRadius);
 		tag.putBoolean("ignited", this.getIgnited());
+		tag.putBoolean("Prepared", this.getPotatoStage());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
@@ -100,7 +113,9 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 			this.ignite();
 		}
 
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Prepared"));
 	}
+
 
 	static {
 		FUSE_SPEED = DataTracker.registerData(PotatomineEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -139,6 +154,49 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 								-0.5F, 0.5F), 0, e, 0);
 			}
 		}
+		BlockState blockState = this.getLandingBlockState();
+		if (status == 8) {
+			for(int i = 0; i < 4; ++i) {
+				double d = this.getX() + (double)MathHelper.nextBetween(randomGenerator, -0.7F, 0.7F);
+				double e = this.getY();
+				double f = this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -0.7F, 0.7F);
+				this.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
+			}
+		}
+		if (status == 9) {
+			canAnimate = true;
+		}
+		if (status == 7) {
+			canAnimate = false;
+		}
+	}
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(PotatomineEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public enum PotatoStage {
+		UNARMED(false),
+		PREPARED(true);
+
+		PotatoStage(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	private Boolean getPotatoStage() {
+		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
+	}
+
+	private void setPotatoStage(PotatomineEntity.PotatoStage potatoStage) {
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, potatoStage.getId());
 	}
 
 
@@ -157,13 +215,15 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        int i = this.potatoPreparingTime;
-        if (i > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("potatomine.ready", false));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("potatomine.idle", true));
-            this.playSound(PvZCubed.ENTITYRISINGEVENT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        }
+		if (canAnimate) {
+			world.sendEntityStatus(this, (byte) 30);
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("potatomine.ready", false));
+		}
+		else if (this.getPotatoStage()) {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("potatomine.idle", true));
+		} else {
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("potatomine.unarmed", true));
+		}
         return PlayState.CONTINUE;
     }
 
@@ -265,7 +325,23 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.isAlive() && --this.potatoPreparingTime <= 0) {
+		if (this.isAlive() && this.potatoPreparingTime > 0){
+			--this.potatoPreparingTime;
+		}
+		if (this.isAlive() && this.potatoPreparingTime <= 0 && this.potatoAnimationTime > 0 && !this.getPotatoStage()) {
+			--this.potatoAnimationTime;
+			this.world.sendEntityStatus(this, (byte) 9);
+			this.world.sendEntityStatus(this, (byte) 8);
+		}
+		if (this.isAlive() && this.potatoPreparingTime <= 0 && this.potatoAnimationTime > 0 && !this.getPotatoStage() && this.playSoundRise) {
+			this.playSound(PvZCubed.ENTITYRISINGEVENT, 1.0F, 1.0F);
+			this.playSoundRise = false;
+		}
+		if (this.isAlive() && this.potatoAnimationTime <= 0) {
+			this.setPotatoStage(PotatoStage.PREPARED);
+			this.world.sendEntityStatus(this, (byte) 7);
+		}
+		if (this.isAlive() && this.getPotatoStage()) {
 			if (this.getIgnited()) {
 				this.setFuseSpeed(1);
 			}
@@ -287,7 +363,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 				this.explode();
 			}
 		}
-		if (this.getTarget() instanceof Entity){
+		if (this.getTarget() instanceof Entity && this.getPotatoStage()){
 			this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 		}
 	}
@@ -301,11 +377,27 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
     }
 
 
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.SMALLSUN) && !this.getPotatoStage()) {
+			this.potatoPreparingTime = 0;
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.CONSUME;
+		}
+	}
+
+
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createPotatomineAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 7.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 2D)
@@ -326,7 +418,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return null;
+		return PvZCubed.ZOMBIEBITEEVENT;
 	}
 
 	@Nullable
@@ -368,17 +460,4 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-
-	public static boolean canPotatomineSpawn(EntityType<PotatomineEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 0 && pos.getY() < 65;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 }

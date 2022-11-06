@@ -55,7 +55,6 @@ public class SunshroomSeeds extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(sunshroomEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     sunshroomEntity.refreshPositionAndAngles(sunshroomEntity.getX(), sunshroomEntity.getY(), sunshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(sunshroomEntity);

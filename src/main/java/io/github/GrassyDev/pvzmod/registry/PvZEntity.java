@@ -54,8 +54,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.PeashooterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.UnarmedPotatomineEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.repeater.RepeaterEntity;
@@ -73,8 +71,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.wallnutentity.WallnutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.wallnutentity.WallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingPeaEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntity_G;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntityVariants.FumeEntity_T;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
@@ -142,18 +138,13 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<WallnutEntity> WALLNUT = Registry.register((
                     Registry.ENTITY_TYPE),
             new Identifier(ModID, "wallnut"),
-            QuiltEntityTypeBuilder.<WallnutEntity>create(SpawnGroup.CREATURE, WallnutEntity::new).setDimensions(EntityDimensions.fixed(0.99f,0.8f)).build()
+            QuiltEntityTypeBuilder.<WallnutEntity>create(SpawnGroup.CREATURE, WallnutEntity::new).setDimensions(EntityDimensions.fixed(0.99f,1.55f)).build()
     );
 
     public static final EntityType<PotatomineEntity> POTATOMINE = Registry.register((
                     Registry.ENTITY_TYPE),
             new Identifier(ModID, "potatomine"),
             QuiltEntityTypeBuilder.<PotatomineEntity>create(SpawnGroup.CREATURE, PotatomineEntity::new).setDimensions(EntityDimensions.fixed(1f,0.8f)).build()
-    );
-    public static final EntityType<UnarmedPotatomineEntity> UNARMEDPOTATOMINE = Registry.register((
-                    Registry.ENTITY_TYPE),
-            new Identifier(ModID, "unarmedpotatomine"),
-            QuiltEntityTypeBuilder.<UnarmedPotatomineEntity>create(SpawnGroup.CREATURE, UnarmedPotatomineEntity::new).setDimensions(EntityDimensions.fixed(1f,0.8f)).build()
     );
 
     public static final EntityType<SnowpeaEntity> SNOWPEA = Registry.register(
@@ -165,7 +156,7 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<ChomperEntity> CHOMPER = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "chomper"),
-            QuiltEntityTypeBuilder.<ChomperEntity>create(SpawnGroup.CREATURE, ChomperEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+            QuiltEntityTypeBuilder.<ChomperEntity>create(SpawnGroup.CREATURE, ChomperEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
     );
 
     public static final EntityType<RepeaterEntity> REPEATER = Registry.register((
@@ -189,7 +180,7 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<FumeshroomEntity> FUMESHROOM = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "fumeshroom"),
-            QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+            QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
     );
 
     public static final EntityType<GravebusterEntity> GRAVEBUSTER = Registry.register(
@@ -251,19 +242,19 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<ShootingPeaEntity> PEA = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "pea"),
-            QuiltEntityTypeBuilder.<ShootingPeaEntity>create(SpawnGroup.MISC, ShootingPeaEntity::new).setDimensions(EntityDimensions.fixed(.25f,.25f)).build()
+            QuiltEntityTypeBuilder.<ShootingPeaEntity>create(SpawnGroup.MISC, ShootingPeaEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
     );
 
 	public static final EntityType<ShootingSnowPeaEntity> SNOWPEAPROJ = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "snowpeaproj"),
-			QuiltEntityTypeBuilder.<ShootingSnowPeaEntity>create(SpawnGroup.MISC, ShootingSnowPeaEntity::new).setDimensions(EntityDimensions.fixed(.25f,.25f)).build()
+			QuiltEntityTypeBuilder.<ShootingSnowPeaEntity>create(SpawnGroup.MISC, ShootingSnowPeaEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingFlamingPeaEntity> FIREPEA = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "firepea"),
-			QuiltEntityTypeBuilder.<ShootingFlamingPeaEntity>create(SpawnGroup.MISC, ShootingFlamingPeaEntity::new).setDimensions(EntityDimensions.fixed(.25f,.25f)).build()
+			QuiltEntityTypeBuilder.<ShootingFlamingPeaEntity>create(SpawnGroup.MISC, ShootingFlamingPeaEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingPlasmaPeaEntity> PLASMAPEA = Registry.register(
@@ -275,25 +266,13 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<SporeEntity> SPORE = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "spore"),
-            QuiltEntityTypeBuilder.<SporeEntity>create(SpawnGroup.MISC, SporeEntity::new).setDimensions(EntityDimensions.fixed(.25f,.25f)).build()
+            QuiltEntityTypeBuilder.<SporeEntity>create(SpawnGroup.MISC, SporeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.25f)).build()
     );
 
 	public static final EntityType<FumeEntity> FUME = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "fume"),
-			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1f,.25f)).build()
-	);
-
-	public static final EntityType<FumeEntity_G> FUME_G = Registry.register(
-			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "fume_g"),
-			QuiltEntityTypeBuilder.<FumeEntity_G>create(SpawnGroup.MISC, FumeEntity_G::new).setDimensions(EntityDimensions.fixed(1f,.25f)).build()
-	);
-
-	public static final EntityType<FumeEntity_T> FUME_T = Registry.register(
-			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "fume_t"),
-			QuiltEntityTypeBuilder.<FumeEntity_T>create(SpawnGroup.MISC, FumeEntity_T::new).setDimensions(EntityDimensions.fixed(1f,.25f)).build()
+			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
 	);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -474,13 +453,8 @@ public class PvZEntity implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(PvZEntity.WALLNUT, WallnutEntity.createWallnutAttributes());
         EntityRendererRegistry.register(PvZEntity.WALLNUT, WallnutEntityRenderer::new);
 
-
 		FabricDefaultAttributeRegistry.register(PvZEntity.POTATOMINE, PotatomineEntity.createPotatomineAttributes());
         EntityRendererRegistry.register(PvZEntity.POTATOMINE, PotatomineEntityRenderer::new);
-
-		FabricDefaultAttributeRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntity.createUnarmedPotatomineAttributes());
-        EntityRendererRegistry.register(PvZEntity.UNARMEDPOTATOMINE, UnarmedPotatomineEntityRenderer::new);
-
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntity.createSnowpeaAttributes());
         EntityRendererRegistry.register(PvZEntity.SNOWPEA, SnowpeaEntityRenderer::new);

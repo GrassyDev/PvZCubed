@@ -40,7 +40,6 @@ public class BasicGraveSpawn extends Item {
                         return ActionResult.FAIL;
                     }
 
-                    serverWorld.spawnEntityAndPassengers(basicGraveEntity);
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     basicGraveEntity.refreshPositionAndAngles(basicGraveEntity.getX(), basicGraveEntity.getY(), basicGraveEntity.getZ(), f, 0.0F);
                     world.spawnEntity(basicGraveEntity);

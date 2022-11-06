@@ -158,7 +158,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 
 	public static DefaultAttributeContainer.Builder createFlamingpeaAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 15.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 16.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
