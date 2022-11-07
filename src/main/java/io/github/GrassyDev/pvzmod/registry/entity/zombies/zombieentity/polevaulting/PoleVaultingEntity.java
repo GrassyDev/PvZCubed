@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaul
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.polevaulting.HypnoPoleVaultingEntity;
@@ -12,14 +13,17 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.NavigationConditions;
 import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -32,9 +36,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -43,18 +45,21 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Random;
-import java.util.function.Predicate;
+import java.util.EnumSet;
 
 public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
-    private MobEntity owner;
-    public AnimationFactory factory = new AnimationFactory(this);
-    private String controllerName = "runningcontroller";
-    public PoleVaultingEntity(EntityType<? extends PoleVaultingEntity> entityType, World world) {
-        super(entityType, world);
-        this.ignoreCameraFrustum = true;
-        this.experiencePoints = 3;
+	private MobEntity owner;
+	public AnimationFactory factory = new AnimationFactory(this);
+	public boolean firstAttack;
+	private String controllerName = "runningcontroller";
+
+	public PoleVaultingEntity(EntityType<? extends PoleVaultingEntity> entityType, World world) {
+		super(entityType, world);
+		this.moveControl = new PoleVaultingEntity.PoleVaultingMoveControl(this);
+		this.ignoreCameraFrustum = true;
+		this.experiencePoints = 3;
+		this.firstAttack = true;
 		this.getNavigation().setCanSwim(true);
 		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 8.0F);
@@ -65,8 +70,53 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
-	static {
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, true);
+	}
 
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("Pole", this.getPoleStage());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Pole"));
+	}
+
+	static {
+	}
+
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(PoleVaultingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum PoleStage {
+		POLE(true),
+		NOPOLE	(false);
+
+		PoleStage(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	private Boolean getPoleStage() {
+		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
+	}
+
+	private void setPoleStage(PoleVaultingEntity.PoleStage poleStage) {
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, poleStage.getId());
 	}
 
 
@@ -85,27 +135,42 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.running", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.idle", true));
-        }
-        return PlayState.CONTINUE;
-    }
+		if (this.getPoleStage()){
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.running", true));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.idle", true));
+			}
+		}
+		else {
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.running2", true));
+				event.getController().setAnimationSpeed(0.5F);
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.idle2", true));
+				event.getController().setAnimationSpeed(1F);
+			}
+		}
+		return PlayState.CONTINUE;
+	}
 
 
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(2, new PoleVaultingEntity.FaceTowardTargetGoal(this));
+		this.goalSelector.add(1, new PoleVaultingEntity.SwimmingGoal(this));
+		this.goalSelector.add(3, new PoleVaultingEntity.RandomLookGoal(this));
+		this.goalSelector.add(5, new PoleVaultingEntity.MoveGoal(this));
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
-        this.initCustomGoals();
-    }
+		this.initCustomGoals();
+	}
 
-    protected void initCustomGoals() {
-        this.targetSelector.add(2, new PoleVaultingEntity.TrackOwnerTargetGoal(this));
-        this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
+	protected void initCustomGoals() {
+		this.targetSelector.add(2, new PoleVaultingEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(4, new TargetGoal<>(this, PotatomineEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, ReinforceEntity.class, false, true));
@@ -126,18 +191,18 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		////////// Hypnotized Zombie targets ///////
 		this.targetSelector.add(4, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
-    }
+	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createPoleVaultingAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
-    }
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.21D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
+	}
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
@@ -145,6 +210,14 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
+	}
+
+	float getJumpSoundPitch() {
+		return ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+	}
+
+	protected SoundEvent getJumpSound() {
+		return PvZCubed.POLEVAULTEVENT;
 	}
 
 	public MobEntity getOwner() {
@@ -171,37 +244,43 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean damage(DamageSource source, float amount) {
-        if (!super.damage(source, amount)) {
-            return false;
-        } else if (!(this.world instanceof ServerWorld)) {
-            return false;
-        } else {
-            ServerWorld serverWorld = (ServerWorld)this.world;
-            LivingEntity livingEntity = this.getTarget();
-            if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
-                livingEntity = (LivingEntity)source.getAttacker();
-            }
+		if (!super.damage(source, amount)) {
+			return false;
+		} else if (!(this.world instanceof ServerWorld)) {
+			return false;
+		} else {
+			ServerWorld serverWorld = (ServerWorld) this.world;
+			LivingEntity livingEntity = this.getTarget();
+			if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
+				livingEntity = (LivingEntity) source.getAttacker();
+			}
 
-            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
-                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoPoleVaultingEntity hypnoPoleVaultingEntity = (HypnoPoleVaultingEntity) PvZEntity.HYPNOPOLEVAULTING.create(world);
-                hypnoPoleVaultingEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-                hypnoPoleVaultingEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoPoleVaultingEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-                hypnoPoleVaultingEntity.setAiDisabled(this.isAiDisabled());
+			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
+				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+				HypnoPoleVaultingEntity hypnoPoleVaultingEntity = (HypnoPoleVaultingEntity) PvZEntity.HYPNOPOLEVAULTING.create(world);
+				hypnoPoleVaultingEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				hypnoPoleVaultingEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoPoleVaultingEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				hypnoPoleVaultingEntity.setAiDisabled(this.isAiDisabled());
 				hypnoPoleVaultingEntity.setHealth(this.getHealth() + 3);
-                if (this.hasCustomName()) {
-                    hypnoPoleVaultingEntity.setCustomName(this.getCustomName());
-                    hypnoPoleVaultingEntity.setCustomNameVisible(this.isCustomNameVisible());
-                }
+				if (this.getPoleStage().equals(Boolean.TRUE)){
+					hypnoPoleVaultingEntity.setPoleStage(HypnoPoleVaultingEntity.PoleStage.POLE);
+				}
+				else {
+					hypnoPoleVaultingEntity.setPoleStage(HypnoPoleVaultingEntity.PoleStage.NOPOLE);
+				}
+				if (this.hasCustomName()) {
+					hypnoPoleVaultingEntity.setCustomName(this.getCustomName());
+					hypnoPoleVaultingEntity.setCustomNameVisible(this.isCustomNameVisible());
+				}
 
-                hypnoPoleVaultingEntity.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnoPoleVaultingEntity);
-                this.remove(RemovalReason.DISCARDED);
-            }
+				hypnoPoleVaultingEntity.setPersistent();
+				serverWorld.spawnEntityAndPassengers(hypnoPoleVaultingEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
 
-            return true;
-        }
-    }
+			return true;
+		}
+	}
 
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
 		super.onKilledOther(serverWorld, livingEntity);
@@ -229,20 +308,196 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 
+	private static class PoleVaultingMoveControl extends MoveControl {
+		private float targetYaw;
+		private int ticksUntilJump;
+		private final PoleVaultingEntity poleVaulting;
+		private boolean jumpOften;
+
+		public PoleVaultingMoveControl(PoleVaultingEntity poleVaulting) {
+			super(poleVaulting);
+			this.poleVaulting = poleVaulting;
+			this.targetYaw = 180.0F * poleVaulting.getYaw() / 3.1415927F;
+		}
+
+		public void look(float targetYaw, boolean jumpOften) {
+			this.targetYaw = targetYaw;
+			this.jumpOften = jumpOften;
+		}
+
+		public void move(double speed) {
+			this.speed = speed;
+			this.state = State.MOVE_TO;
+		}
+
+		public void tick() {
+			this.entity.setYaw(this.wrapDegrees(this.entity.getYaw(), this.targetYaw, 90.0F));
+			this.entity.headYaw = this.entity.getYaw();
+			this.entity.bodyYaw = this.entity.getYaw();
+			LivingEntity livingEntity = this.poleVaulting.getTarget();
+			if (livingEntity != null) {
+				if (this.poleVaulting.squaredDistanceTo(this.poleVaulting.getTarget()) <= 1) {
+					this.state = State.WAIT;
+				}
+			}
+			if (this.state == State.WAIT){
+				this.entity.setMovementSpeed(0);
+				this.poleVaulting.upwardSpeed = 0f;
+			}
+			else if (this.state != State.MOVE_TO) {
+				this.entity.setForwardSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)));
+			} else {
+				if (this.entity.isOnGround() && this.poleVaulting.getPoleStage()) {
+					if (this.poleVaulting.getTarget() != null) {
+						if (this.poleVaulting.squaredDistanceTo(this.poleVaulting.getTarget()) < 49) {
+							this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)));
+								this.poleVaulting.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 4.5));
+								this.poleVaulting.upwardSpeed = 0.35f;
+								this.poleVaulting.getJumpControl().setActive();
+								this.poleVaulting.playSound(this.poleVaulting.getJumpSound(), this.poleVaulting.getSoundVolume(), this.poleVaulting.getJumpSoundPitch());
+								this.poleVaulting.setPoleStage(PoleStage.NOPOLE);
+						} else {
+							this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)));
+						}
+					}
+				}
+				else if (this.poleVaulting.isOnGround()) {
+					this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 1.4));
+				}
+			}
+		}
+	}
+
+	static class RandomLookGoal extends Goal {
+		private final PoleVaultingEntity poleVaultingEntity;
+		private float targetYaw;
+		private int timer;
+
+		public RandomLookGoal(PoleVaultingEntity poleVaultingEntity) {
+			this.poleVaultingEntity = poleVaultingEntity;
+			this.setControls(EnumSet.of(Control.LOOK));
+		}
+
+		public boolean canStart() {
+			return this.poleVaultingEntity.getTarget() == null && (this.poleVaultingEntity.onGround || this.poleVaultingEntity.isTouchingWater() || this.poleVaultingEntity.isInLava() || this.poleVaultingEntity.hasStatusEffect(StatusEffects.LEVITATION)) && this.poleVaultingEntity.getMoveControl() instanceof PoleVaultingEntity.PoleVaultingMoveControl;
+		}
+
+		public void tick() {
+			if (this.poleVaultingEntity.getTarget() == null) {
+				if (--this.timer <= 0) {
+					this.timer = this.getTickCount(40 + this.poleVaultingEntity.getRandom().nextInt(60));
+					this.targetYaw = (float) this.poleVaultingEntity.getRandom().nextInt(360);
+				}
+				((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaultingEntity.getMoveControl()).look(this.targetYaw, false);
+			}
+		}
+	}
+
+	static class SwimmingGoal extends Goal {
+		private final PoleVaultingEntity poleVaultingEntity;
+
+		public SwimmingGoal(PoleVaultingEntity poleVaultingEntity) {
+			this.poleVaultingEntity = poleVaultingEntity;
+			this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
+			poleVaultingEntity.getNavigation().setCanSwim(true);
+		}
+
+		public boolean canStart() {
+			return (this.poleVaultingEntity.isTouchingWater() || this.poleVaultingEntity.isInLava()) && this.poleVaultingEntity.getMoveControl() instanceof PoleVaultingEntity.PoleVaultingMoveControl;
+		}
+
+		public boolean requiresUpdateEveryTick() {
+			return true;
+		}
+
+		public void tick() {
+			if (this.poleVaultingEntity.getRandom().nextFloat() < 0.8F) {
+				this.poleVaultingEntity.getJumpControl().setActive();
+			}
+
+			((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaultingEntity.getMoveControl()).move(2);
+		}
+	}
+
+	static class FaceTowardTargetGoal extends Goal {
+		private final PoleVaultingEntity poleVaulting;
+		private int ticksLeft;
+
+		public FaceTowardTargetGoal(PoleVaultingEntity poleVaulting) {
+			this.poleVaulting = poleVaulting;
+			this.setControls(EnumSet.of(Control.LOOK));
+		}
+
+		public boolean canStart() {
+			LivingEntity livingEntity = this.poleVaulting.getTarget();
+			if (livingEntity == null) {
+				return false;
+			} else {
+				return this.poleVaulting.canTarget(livingEntity) && this.poleVaulting.getMoveControl() instanceof PoleVaultingMoveControl;
+			}
+		}
+
+		public void start() {
+			this.ticksLeft = toGoalTicks(300);
+			super.start();
+		}
+
+		public boolean shouldContinue() {
+			LivingEntity livingEntity = this.poleVaulting.getTarget();
+			if (livingEntity == null) {
+				return false;
+			} else if (!this.poleVaulting.canTarget(livingEntity)) {
+				return false;
+			} else {
+				return --this.ticksLeft > 0;
+			}
+		}
+
+		public boolean requiresUpdateEveryTick() {
+			return true;
+		}
+
+		public void tick() {
+			LivingEntity livingEntity = this.poleVaulting.getTarget();
+			if (livingEntity != null) {
+				this.poleVaulting.lookAtEntity(livingEntity, 360.0F, 360.0F);
+			}
+
+			((PoleVaultingEntity.PoleVaultingMoveControl)this.poleVaulting.getMoveControl()).look(this.poleVaulting.getYaw(), true);
+		}
+	}
+
+	static class MoveGoal extends Goal {
+		private final PoleVaultingEntity poleVaulting;
+
+		public MoveGoal(PoleVaultingEntity poleVaulting) {
+			this.poleVaulting = poleVaulting;
+			this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
+		}
+
+		public boolean canStart() {
+			return !this.poleVaulting.hasVehicle();
+		}
+
+		public void tick() {
+			((PoleVaultingEntity.PoleVaultingMoveControl)this.poleVaulting.getMoveControl()).move(1.0);
+		}
+	}
+
 	class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
+		public TrackOwnerTargetGoal(PathAwareEntity mob) {
+			super(mob, false);
+		}
 
-        public boolean canStart() {
-            return PoleVaultingEntity.this.owner != null && PoleVaultingEntity.this.owner.getTarget() != null && this.canTrack(PoleVaultingEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
+		public boolean canStart() {
+			return PoleVaultingEntity.this.owner != null && PoleVaultingEntity.this.owner.getTarget() != null && this.canTrack(PoleVaultingEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
+		}
 
-        public void start() {
-            PoleVaultingEntity.this.setTarget(PoleVaultingEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
+		public void start() {
+			PoleVaultingEntity.this.setTarget(PoleVaultingEntity.this.owner.getTarget());
+			super.start();
+		}
+	}
 }

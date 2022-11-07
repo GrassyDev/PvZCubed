@@ -158,7 +158,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 18D);
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
     }
 
 	protected boolean canClimb() {

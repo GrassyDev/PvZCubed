@@ -200,7 +200,6 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 				if (i <= 0) {
 					if (this.hasStatusEffect(PvZCubed.ICE)) {
 						this.attackTicksLeft = 20;
-						this.world.sendEntityStatus(this, (byte) 4);
 						float f = 360f;
 						boolean bl = target.damage(DamageSource.mob(this), f);
 						if (bl) {
@@ -226,7 +225,6 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 			} else {
 				if (i <= 0) {
 					this.attackTicksLeft = 20;
-					this.world.sendEntityStatus(this, (byte) 4);
 					float f = this.getAttackDamage();
 					boolean bl = target.damage(DamageSource.mob(this), f);
 					if (bl) {

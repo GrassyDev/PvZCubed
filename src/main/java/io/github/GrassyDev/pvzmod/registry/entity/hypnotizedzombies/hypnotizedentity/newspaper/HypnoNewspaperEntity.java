@@ -6,6 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
@@ -43,6 +45,7 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 	private MobEntity owner;
 	public AnimationFactory factory = new AnimationFactory(this);
 	private String controllerName = "walkingcontroller";
+	private boolean speedUp;
 
 	public HypnoNewspaperEntity(EntityType<? extends HypnoNewspaperEntity> entityType, World world) {
 		super(entityType, world);
@@ -59,6 +62,16 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 
 	static {
 
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 30) {
+			this.speedUp = true;
+		}
+		else if (status == 31) {
+			this.speedUp = false;
+		}
 	}
 
 
@@ -78,9 +91,17 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("newspaper.walking", true));
+			if (this.speedUp){
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("newspaper.angry", true));
+				event.getController().setAnimationSpeed(2);
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("newspaper.walking", true));
+				event.getController().setAnimationSpeed(1);
+			}
 		} else {
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("newspaper.idle", true));
+			event.getController().setAnimationSpeed(1);
 		}
 		return PlayState.CONTINUE;
 	}
@@ -105,6 +126,18 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 		}));
 	}
 
+
+	/** /~*~//~*TICKING*~//~*~/ **/
+
+	public void mobTick() {
+		super.mobTick();
+		if (this.getTarget() != null){
+			this.world.sendEntityStatus(this, (byte) 30);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 31);
+		}
+	}
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 

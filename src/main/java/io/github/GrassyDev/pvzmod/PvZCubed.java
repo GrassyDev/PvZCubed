@@ -173,6 +173,9 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 	public static final Identifier ZOMBIEBITE = new Identifier("pvzmod:zombie.bite");
 	public static SoundEvent ZOMBIEBITEEVENT = new SoundEvent(ZOMBIEBITE);
 
+	public static final Identifier POLEVAULT = new Identifier("pvzmod:polevaulting.vault");
+	public static SoundEvent POLEVAULTEVENT = new SoundEvent(POLEVAULT);
+
 	public static final Identifier GARGANTUARSMASH = new Identifier("pvzmod:gargantuar.smash");
 	public static SoundEvent GARGANTUARSMASHEVENT = new SoundEvent(GARGANTUARSMASH);
 
@@ -228,6 +231,7 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PLANTPLANTED, PLANTPLANTEDEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SUNDROP, SUNDROPEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEBITE, ZOMBIEBITEEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.POLEVAULT, POLEVAULTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARSMASH, GARGANTUARSMASHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPLAUNCH, IMPLAUNCHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEMOAN, ZOMBIEMOANEVENT);

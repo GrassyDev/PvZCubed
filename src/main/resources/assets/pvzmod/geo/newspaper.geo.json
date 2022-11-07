@@ -6,7 +6,7 @@
 				"identifier": "geometry.unknown",
 				"texture_width": 128,
 				"texture_height": 128,
-				"visible_bounds_width": 2,
+				"visible_bounds_width": 3,
 				"visible_bounds_height": 3.5,
 				"visible_bounds_offset": [0, 1.25, 0]
 			},
@@ -39,14 +39,6 @@
 					"pivot": [0, 24, 3],
 					"cubes": [
 						{"origin": [-7.56844, 23.79421, -0.75], "size": [7.75, 1, 7.5], "pivot": [-4, 24, -1], "rotation": [0, 90, 0], "uv": [26, 41]}
-					]
-				},
-				{
-					"name": "tongue",
-					"parent": "jaw",
-					"pivot": [1, 25, -5],
-					"cubes": [
-						{"origin": [3.75, 23.25, -0.5], "size": [0.5, 2, 1.5], "pivot": [0, 23, -1], "rotation": [0, 90, 0], "uv": [0, 14]}
 					]
 				},
 				{

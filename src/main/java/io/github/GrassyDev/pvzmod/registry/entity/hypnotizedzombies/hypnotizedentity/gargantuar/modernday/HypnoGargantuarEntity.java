@@ -325,42 +325,6 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
     }
 
 
-	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
-
-	public boolean damage(DamageSource source, float amount) {
-        if (!super.damage(source, amount)) {
-            return false;
-        } else if (!(this.world instanceof ServerWorld)) {
-            return false;
-        } else {
-            ServerWorld serverWorld = (ServerWorld)this.world;
-            LivingEntity livingEntity = this.getTarget();
-            if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
-                livingEntity = (LivingEntity)source.getAttacker();
-            }
-
-            /**if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
-                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoFootballEntity hypnoFootballEntity = (HypnoFootballEntity) PvZEntity.HYPNOFOOTBALL.create(world);
-                hypnoFootballEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-                hypnoFootballEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFootballEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-                hypnoFootballEntity.setAiDisabled(this.isAiDisabled());
-				hypnoFootballEntity.setHealth(this.getHealth() + 3);
-                if (this.hasCustomName()) {
-                    hypnoFootballEntity.setCustomName(this.getCustomName());
-                    hypnoFootballEntity.setCustomNameVisible(this.isCustomNameVisible());
-                }
-
-                hypnoFootballEntity.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnoFootballEntity);
-                this.remove(RemovalReason.DISCARDED);
-            }**/
-
-            return true;
-        }
-    }
-
-
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
     @Override

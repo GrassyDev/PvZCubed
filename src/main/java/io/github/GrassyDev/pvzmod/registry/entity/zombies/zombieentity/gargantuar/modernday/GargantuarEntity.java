@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -390,8 +391,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
             return true;
         }
     }
-
-
 
 
 	/** /~*~//~*SPAWNING*~//~*~/ **/

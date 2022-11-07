@@ -99,6 +99,11 @@
       "pvzmod:zombie_bite"
     ]
   },
+  "polevaulting.vault": {
+    "sounds": [
+      "pvzmod:polevaulting_vault"
+    ]
+  },
   "gargantuar.smash": {
     "sounds": [
       "pvzmod:gargantuar_smash"
