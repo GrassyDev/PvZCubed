@@ -13,8 +13,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
@@ -27,6 +29,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -36,137 +39,141 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class HypnoBucketheadEntity extends HypnoZombieEntity implements IAnimatable {
-private MobEntity owner;
-public AnimationFactory factory = new AnimationFactory(this);
-private String controllerName = "walkingcontroller";
+	private MobEntity owner;
+	public AnimationFactory factory = new AnimationFactory(this);
+	private String controllerName = "walkingcontroller";
+	double tonguechance = this.random.nextDouble();
 
-double tonguechance = this.random.nextDouble();
+	public HypnoBucketheadEntity(EntityType<? extends HypnoBucketheadEntity> entityType, World world) {
+		super(entityType, world);
+		this.ignoreCameraFrustum = true;
+		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
+	}
 
-public HypnoBucketheadEntity(EntityType<? extends HypnoBucketheadEntity> entityType, World world) {
-    super(entityType, world);
-    this.ignoreCameraFrustum = true;
-}
+	static {
 
-private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-    if (tonguechance <= 0.5) {
-        if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle", true));
-        }
-    }
-    else {
-        if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking2", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle2", true));
-        }
-    }
-    return PlayState.CONTINUE;
-}
+	}
 
-public HypnoBucketheadEntity(World world) {
-    this(PvZEntity.HYPNOBUCKETHEAD, world);
-}
 
-    protected void initGoals() {
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		if (tonguechance <= 0.5) {
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking", true));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle", true));
+			}
+		} else {
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking2", true));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle2", true));
+			}
+		}
+		return PlayState.CONTINUE;
+	}
+
+
+	/** /~*~//~*AI*~//~*~/ **/
+
+	protected void initGoals() {
 		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal());
-    this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-    this.goalSelector.add(8, new LookAroundGoal(this));
-        this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-    this.initCustomGoals();
-}
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.initCustomGoals();
+	}
 
-protected void initCustomGoals() {
-    this.targetSelector.add(2, new HypnoBucketheadEntity.TrackOwnerTargetGoal(this));
-    this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
-    this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
-        return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-                !(livingEntity instanceof HypnoFlagzombieEntity);
-    }));
-}
-
-public static DefaultAttributeContainer.Builder createHypnoBucketheadAttributes() {
-    return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
-            .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 137D);
-}
-
-public MobEntity getOwner() {
-    return this.owner;
-}
-
-public void setOwner(MobEntity owner) {
-    this.owner = owner;
-}
-
-    protected SoundEvent getAmbientSound() {
-        return PvZCubed.ZOMBIEMOANEVENT;
-    }
-
-protected SoundEvent getStepSound() {
-    return SoundEvents.ENTITY_ZOMBIE_STEP;
-}
-
-protected void playStepSound(BlockPos pos, BlockState state) {
-    this.playSound(this.getStepSound(), 0.15F, 1.0F);
-}
-
-public EntityGroup getGroup() {
-    return EntityGroup.UNDEAD;
-}
-
-public void updatePassengerPosition(Entity passenger) {
-    super.updatePassengerPosition(passenger);
-    float f = MathHelper.sin(this.bodyYaw * 0.017453292F);
-    float g = MathHelper.cos(this.bodyYaw * 0.017453292F);
-    float h = 0.1F;
-    float i = 0.0F;
-    passenger.updatePosition(this.getX() + (double)(0.1F * f), this.getBodyY(0.5D) + passenger.getHeightOffset() + 0.0D, this.getZ() - (double)(0.1F * g));
-    if (passenger instanceof LivingEntity) {
-        ((LivingEntity)passenger).bodyYaw = this.bodyYaw;
-    }
-
-}
+	protected void initCustomGoals() {
+		this.targetSelector.add(2, new HypnoBucketheadEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+					!(livingEntity instanceof HypnoFlagzombieEntity);
+		}));
+	}
 
 
-@Override
-public void registerControllers(AnimationData data)
-{
-    AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-    data.addAnimationController(controller);
-}
+	public static DefaultAttributeContainer.Builder createHypnoBucketheadAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 137D);
+	}
 
-@Override
-public AnimationFactory getFactory()
-{
-    return this.factory;
-}
+	protected SoundEvent getAmbientSound() {
+		return PvZCubed.ZOMBIEMOANEVENT;
+	}
 
-@Override
-public boolean canSpawn(WorldView worldreader) {
-    return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-}
+	public EntityGroup getGroup() {
+		return EntityGroup.UNDEAD;
+	}
 
-class TrackOwnerTargetGoal extends TrackTargetGoal {
-	private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
+	@Nullable
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
 
-    public TrackOwnerTargetGoal(PathAwareEntity mob) {
-        super(mob, false);
-    }
+	public MobEntity getOwner() {
+		return this.owner;
+	}
 
-    public boolean canStart() {
-        return HypnoBucketheadEntity.this.owner != null && HypnoBucketheadEntity.this.owner.getTarget() != null && this.canTrack(HypnoBucketheadEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-    }
+	protected SoundEvent getStepSound() {
+		return SoundEvents.ENTITY_ZOMBIE_STEP;
+	}
 
-    public void start() {
-        HypnoBucketheadEntity.this.setTarget(HypnoBucketheadEntity.this.owner.getTarget());
-        super.start();
-    }
-}
+	public boolean isPushable() {
+		return false;
+	}
+
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+	}
+
+	public void setOwner(MobEntity owner) {
+		this.owner = owner;
+	}
 
 
+	/** /~*~//~*GOALS*~//~*~/ **/
+
+	class TrackOwnerTargetGoal extends TrackTargetGoal {
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
+
+		public TrackOwnerTargetGoal(PathAwareEntity mob) {
+			super(mob, false);
+		}
+
+		public boolean canStart() {
+			return HypnoBucketheadEntity.this.owner != null && HypnoBucketheadEntity.this.owner.getTarget() != null && this.canTrack(HypnoBucketheadEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
+		}
+
+		public void start() {
+			HypnoBucketheadEntity.this.setTarget(HypnoBucketheadEntity.this.owner.getTarget());
+			super.start();
+		}
+	}
 }

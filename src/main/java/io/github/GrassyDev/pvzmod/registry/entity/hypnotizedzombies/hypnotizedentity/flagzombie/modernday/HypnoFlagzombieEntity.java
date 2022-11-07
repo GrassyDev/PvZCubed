@@ -24,8 +24,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -60,13 +62,24 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 	public AnimationFactory factory = new AnimationFactory(this);
 	private String controllerName = "walkingcontroller";
 	private boolean spawning;
-
 	double tonguechance = this.random.nextDouble();
 
 	public HypnoFlagzombieEntity(EntityType<? extends HypnoFlagzombieEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
 		this.spawning = true;
+		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
+	}
+
+	public HypnoFlagzombieEntity(World world) {
+		this(PvZEntity.HYPNOFLAGZOMBIE, world);
 	}
 
 	protected void initDataTracker() {
@@ -89,9 +102,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 	}
 
 
-	/**
-	 * /~*~//~*VARIANTS*~//~*~/
-	 **/
+	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(HypnoFlagzombieEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -117,9 +128,19 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 	}
 
 
-	/**
-	 * /~*~//~*GECKOLIB ANIMATION*~//~*~/
-	 **/
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (tonguechance <= 0.5) {
@@ -138,9 +159,8 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 		return PlayState.CONTINUE;
 	}
 
-	public HypnoFlagzombieEntity(World world) {
-		this(PvZEntity.HYPNOFLAGZOMBIE, world);
-	}
+
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new HypnoSummonerEntity.AttackGoal());
@@ -160,91 +180,56 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 		}));
 	}
 
+
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
 	public static DefaultAttributeContainer.Builder createHypnoFlagzombieAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
-	}
-
-	public MobEntity getOwner() {
-		return this.owner;
-	}
-
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
 	}
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
-	protected SoundEvent getStepSound() {
-		return SoundEvents.ENTITY_ZOMBIE_STEP;
-	}
-
-	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+	protected SoundEvent getCastSpellSound() {
+		return PvZCubed.ENTITYRISINGEVENT;
 	}
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
 	}
 
-	public void updatePassengerPosition(Entity passenger) {
-		super.updatePassengerPosition(passenger);
-		float f = MathHelper.sin(this.bodyYaw * 0.017453292F);
-		float g = MathHelper.cos(this.bodyYaw * 0.017453292F);
-		float h = 0.1F;
-		float i = 0.0F;
-		passenger.updatePosition(this.getX() + (double) (0.1F * f), this.getBodyY(0.5D) + passenger.getHeightOffset() + 0.0D, this.getZ() - (double) (0.1F * g));
-		if (passenger instanceof LivingEntity) {
-			((LivingEntity) passenger).bodyYaw = this.bodyYaw;
-		}
+	@Nullable
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
 
+	public MobEntity getOwner() {
+		return this.owner;
+	}
+
+	protected SoundEvent getStepSound() {
+		return SoundEvents.ENTITY_ZOMBIE_STEP;
+	}
+
+	public boolean isPushable() {
+		return false;
+	}
+
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+	}
+
+	public void setOwner(MobEntity owner) {
+		this.owner = owner;
 	}
 
 
-	@Override
-	public void registerControllers(AnimationData data) {
-		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
-
-		data.addAnimationController(controller);
-	}
-
-	@Override
-	public AnimationFactory getFactory() {
-		return this.factory;
-	}
-
-	@Override
-	public boolean canSpawn(WorldView worldreader) {
-		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-	}
-
-	@Override
-	protected SoundEvent getCastSpellSound() {
-		return PvZCubed.ENTITYRISINGEVENT;
-	}
-
-	class TrackOwnerTargetGoal extends TrackTargetGoal {
-
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-		public TrackOwnerTargetGoal(PathAwareEntity mob) {
-			super(mob, false);
-		}
-
-		public boolean canStart() {
-			return HypnoFlagzombieEntity.this.owner != null && HypnoFlagzombieEntity.this.owner.getTarget() != null && this.canTrack(HypnoFlagzombieEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-		}
-
-		public void start() {
-			HypnoFlagzombieEntity.this.setTarget(HypnoFlagzombieEntity.this.owner.getTarget());
-			super.start();
-		}
-	}
+	/** /~*~//~*GOALS*~//~*~/ **/
 
 	protected abstract class CastSpellGoal extends Goal {
 		protected int spellCooldown;
@@ -387,6 +372,24 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 
 		protected Spell getSpell() {
 			return Spell.SUMMON_VEX;
+		}
+	}
+
+	class TrackOwnerTargetGoal extends TrackTargetGoal {
+
+		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
+
+		public TrackOwnerTargetGoal(PathAwareEntity mob) {
+			super(mob, false);
+		}
+
+		public boolean canStart() {
+			return HypnoFlagzombieEntity.this.owner != null && HypnoFlagzombieEntity.this.owner.getTarget() != null && this.canTrack(HypnoFlagzombieEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
+		}
+
+		public void start() {
+			HypnoFlagzombieEntity.this.setTarget(HypnoFlagzombieEntity.this.owner.getTarget());
+			super.start();
 		}
 	}
 }

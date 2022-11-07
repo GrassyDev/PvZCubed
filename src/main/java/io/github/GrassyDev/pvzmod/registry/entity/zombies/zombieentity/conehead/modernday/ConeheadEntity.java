@@ -48,7 +48,6 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     public AnimationFactory factory = new AnimationFactory(this);
     private String controllerName = "walkingcontroller";
-
     double tonguechance = this.random.nextDouble();
 
     public ConeheadEntity(EntityType<? extends ConeheadEntity> entityType, World world) {
@@ -56,14 +55,35 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 6;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-    }
+	}
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+	static {
+
+	}
+
+
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (tonguechance <= 0.5) {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking", true));
@@ -89,10 +109,13 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
         this(PvZEntity.CONEHEAD, world);
     }
 
-        protected void initGoals() {
+
+	/** /~*~//~*AI*~//~*~/ **/
+
+	protected void initGoals() {
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
-            this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
+		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
         this.initCustomGoals();
     }
 
@@ -123,7 +146,10 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
     }
 
-    public static DefaultAttributeContainer.Builder createConeheadAttributes() {
+
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public static DefaultAttributeContainer.Builder createConeheadAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.15D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
@@ -131,19 +157,38 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 64D);
     }
 
-    public MobEntity getOwner() {
-        return this.owner;
-    }
+	protected SoundEvent getAmbientSound() {
+		return PvZCubed.ZOMBIEMOANEVENT;
+	}
 
-    public void setOwner(MobEntity owner) {
-        this.owner = owner;
-    }
+	public EntityGroup getGroup() {
+		return EntityGroup.UNDEAD;
+	}
 
-    protected boolean shouldBreakDoors() {
-        return true;
-    }
+	public MobEntity getOwner() {
+		return this.owner;
+	}
 
-    public boolean damage(DamageSource source, float amount) {
+	protected SoundEvent getStepSound() {
+		return SoundEvents.ENTITY_ZOMBIE_STEP;
+	}
+
+	public boolean isPushable() {
+		return false;
+	}
+
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+	}
+
+	public void setOwner(MobEntity owner) {
+		this.owner = owner;
+	}
+
+
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
+
+	public boolean damage(DamageSource source, float amount) {
         if (!super.damage(source, amount)) {
             return false;
         } else if (!(this.world instanceof ServerWorld)) {
@@ -176,26 +221,6 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
         }
     }
 
-    protected SoundEvent getAmbientSound() {
-        return PvZCubed.ZOMBIEMOANEVENT;
-    }
-
-    protected SoundEvent getHurtSound() {
-        return PvZCubed.SILENCEVENET;
-    }
-
-    protected SoundEvent getStepSound() {
-        return SoundEvents.ENTITY_ZOMBIE_STEP;
-    }
-
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(this.getStepSound(), 0.15F, 1.0F);
-    }
-
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
-
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
 		super.onKilledOther(serverWorld, livingEntity);
 		boolean bl = super.onKilledOther(serverWorld, livingEntity);
@@ -219,44 +244,10 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 		return bl;
 	}
 
-    @Override
-    public void registerControllers(AnimationData data)
-    {
-        AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
 
-        data.addAnimationController(controller);
-    }
+	/** /~*~//~*GOALS*~//~*~/ **/
 
-    @Override
-    public AnimationFactory getFactory()
-    {
-        return this.factory;
-    }
-
-    @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-        return (EntityData)entityData;
-    }
-
-    static {
-    }
-
-    public static class ZombieData implements EntityData {
-
-        public ZombieData(boolean baby, boolean bl) {
-        }
-    }
-
-    public static boolean canConeheadSpawn(EntityType<ConeheadEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 55;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
-
-    class TrackOwnerTargetGoal extends TrackTargetGoal {
+	class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {

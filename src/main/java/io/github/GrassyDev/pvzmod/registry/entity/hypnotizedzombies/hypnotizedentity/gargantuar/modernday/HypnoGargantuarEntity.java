@@ -13,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -58,6 +59,14 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 12;
         this.firstAttack = true;
+		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
 
 	protected void initDataTracker() {
@@ -99,10 +108,6 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
 
 	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
 			DataTracker.registerData(HypnoGargantuarEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-
-
-
-	//Health Stage Counter
 
 	public enum ImpStage {
 		IMP(true),
@@ -296,7 +301,7 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
 	}
 
 	protected SoundEvent getHurtSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZCubed.ZOMBIEBITEEVENT;
 	}
 
 	public MobEntity getOwner() {
@@ -305,6 +310,10 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
 
 	protected SoundEvent getStepSound() {
 		return PvZCubed.SILENCEVENET;
+	}
+
+	public boolean isPushable() {
+		return false;
 	}
 
 	protected void playStepSound(BlockPos pos, BlockState state) {

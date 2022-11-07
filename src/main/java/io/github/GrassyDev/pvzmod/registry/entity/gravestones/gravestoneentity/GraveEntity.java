@@ -1,36 +1,32 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
+package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.mob.SpellcastingIllagerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 
-public abstract class SummonerEntity extends HostileEntity implements Monster {
+public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	/** For Zombies that can summon other zombies**/
 
 	protected int spellTicks;
 
 	private static final TrackedData<Byte> SPELL;
-	private SummonerEntity.Spell spell;
+	private GraveEntity.Spell spell;
 
-	protected SummonerEntity(EntityType<? extends HostileEntity> entityType, World world) {
+	protected GraveEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
 	}
 
@@ -66,12 +62,12 @@ public abstract class SummonerEntity extends HostileEntity implements Monster {
 			this.particleVelocity = new double[]{particleVelocityX, particleVelocityY, particleVelocityZ};
 		}
 
-		public static SummonerEntity.Spell byId(int id) {
-			SummonerEntity.Spell[] var1 = values();
+		public static GraveEntity.Spell byId(int id) {
+			GraveEntity.Spell[] var1 = values();
 			int var2 = var1.length;
 
 			for(int var3 = 0; var3 < var2; ++var3) {
-				SummonerEntity.Spell spell = var1[var3];
+				GraveEntity.Spell spell = var1[var3];
 				if (id == spell.id) {
 					return spell;
 				}
@@ -121,13 +117,13 @@ public abstract class SummonerEntity extends HostileEntity implements Monster {
 		}
 	}
 
-	public void setSpell(SummonerEntity.Spell spell) {
+	public void setSpell(GraveEntity.Spell spell) {
 		this.spell = spell;
 		this.dataTracker.set(SPELL, (byte)spell.id);
 	}
 
-	protected SummonerEntity.Spell getSpell() {
-		return !this.world.isClient ? this.spell : SummonerEntity.Spell.byId((Byte)this.dataTracker.get(SPELL));
+	protected GraveEntity.Spell getSpell() {
+		return !this.world.isClient ? this.spell : GraveEntity.Spell.byId((Byte)this.dataTracker.get(SPELL));
 	}
 
 	protected void mobTick() {

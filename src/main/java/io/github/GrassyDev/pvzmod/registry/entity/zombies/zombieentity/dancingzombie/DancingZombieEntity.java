@@ -49,13 +49,9 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";
-
     private MobEntity owner;
-
     private boolean isAggro;
-
     private boolean dancing;
-
 	public AnimationFactory factory = new AnimationFactory(this);
 
     public DancingZombieEntity(EntityType<? extends DancingZombieEntity> entityType, World world) {
@@ -65,6 +61,8 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
         this.isAggro = false;
         this.dancing = false;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
@@ -178,8 +176,12 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
-	protected SoundEvent getHurtSound() {
-		return PvZCubed.SILENCEVENET;
+	protected SoundEvent getCastSpellSound() {
+		return PvZCubed.ENTITYRISINGEVENT;
+	}
+
+	public EntityGroup getGroup() {
+		return EntityGroup.UNDEAD;
 	}
 
 	public MobEntity getOwner() {
@@ -188,6 +190,10 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
+	}
+
+	public boolean isPushable() {
+		return false;
 	}
 
 	protected void playStepSound(BlockPos pos, BlockState state) {
@@ -263,10 +269,6 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 
 	/** /~*~//~*GOALS*~//~*~/ **/
-
-	protected SoundEvent getCastSpellSound() {
-		return PvZCubed.ENTITYRISINGEVENT;
-	}
 
 	protected abstract class CastSpellGoal extends Goal {
 		protected int spellCooldown;

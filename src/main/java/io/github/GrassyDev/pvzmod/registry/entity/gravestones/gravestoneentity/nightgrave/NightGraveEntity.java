@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
@@ -50,7 +51,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import static net.minecraft.entity.mob.HostileEntity.isSpawnDark;
 
-public class NightGraveEntity extends SummonerEntity implements IAnimatable {
+public class NightGraveEntity extends GraveEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";
 
@@ -137,7 +138,7 @@ public class NightGraveEntity extends SummonerEntity implements IAnimatable {
 			this.kill();
 		}
 		if (this.world.isClient && this.isSpellcasting()) {
-			SummonerEntity.Spell spell = this.getSpell();
+			GraveEntity.Spell spell = this.getSpell();
 			float g = this.bodyYaw * 0.017453292F + MathHelper.cos((float)this.age * 0.6662F) * 0.25F;
 			float h = MathHelper.cos(g);
 			float i = MathHelper.sin(g);
@@ -261,7 +262,7 @@ public class NightGraveEntity extends SummonerEntity implements IAnimatable {
 		@Nullable
 		protected abstract SoundEvent getSoundPrepare();
 
-		protected abstract SummonerEntity.Spell getSpell();
+		protected abstract GraveEntity.Spell getSpell();
 	}
 
     class summonZombieGoal extends CastSpellGoal {

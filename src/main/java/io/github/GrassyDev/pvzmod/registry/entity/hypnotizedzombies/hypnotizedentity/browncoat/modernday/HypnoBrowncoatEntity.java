@@ -9,8 +9,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
@@ -19,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -27,19 +30,45 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-    public class HypnoBrowncoatEntity extends HypnoZombieEntity implements IAnimatable {
+public class HypnoBrowncoatEntity extends HypnoZombieEntity implements IAnimatable {
     private MobEntity owner;
     public AnimationFactory factory = new AnimationFactory(this);
-    private String controllerName = "walkingcontroller";
-
     double tonguechance = this.random.nextDouble();
+	private String controllerName = "walkingcontroller";
 
     public HypnoBrowncoatEntity(EntityType<? extends HypnoBrowncoatEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-    }
+		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
+	}
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+	static {
+
+	}
+
+
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (tonguechance <= 0.5) {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking", true));
@@ -56,6 +85,9 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
         }
         return PlayState.CONTINUE;
     }
+
+
+	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal());
@@ -74,72 +106,54 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
         }));
     }
 
-    public static DefaultAttributeContainer.Builder createHypnoBrowncoatAttributes() {
+
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public static DefaultAttributeContainer.Builder createHypnoBrowncoatAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }
 
-    public MobEntity getOwner() {
-        return this.owner;
-    }
+	protected SoundEvent getAmbientSound() {
+		return PvZCubed.ZOMBIEMOANEVENT;
+	}
 
-    public void setOwner(MobEntity owner) {
-        this.owner = owner;
-    }
+	public EntityGroup getGroup() {
+		return EntityGroup.UNDEAD;
+	}
 
-        protected SoundEvent getAmbientSound() {
-            return PvZCubed.ZOMBIEMOANEVENT;
-        }
+	@Nullable
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
 
-    protected SoundEvent getStepSound() {
-        return SoundEvents.ENTITY_ZOMBIE_STEP;
-    }
+	public MobEntity getOwner() {
+		return this.owner;
+	}
 
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(this.getStepSound(), 0.15F, 1.0F);
-    }
+	protected SoundEvent getStepSound() {
+		return SoundEvents.ENTITY_ZOMBIE_STEP;
+	}
 
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
+	public boolean isPushable() {
+		return false;
+	}
 
-    public void updatePassengerPosition(Entity passenger) {
-        super.updatePassengerPosition(passenger);
-        float f = MathHelper.sin(this.bodyYaw * 0.017453292F);
-        float g = MathHelper.cos(this.bodyYaw * 0.017453292F);
-        float h = 0.1F;
-        float i = 0.0F;
-        passenger.updatePosition(this.getX() + (double)(0.1F * f), this.getBodyY(0.5D) + passenger.getHeightOffset() + 0.0D, this.getZ() - (double)(0.1F * g));
-        if (passenger instanceof LivingEntity) {
-            ((LivingEntity)passenger).bodyYaw = this.bodyYaw;
-        }
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+	}
 
-    }
+	public void setOwner(MobEntity owner) {
+		this.owner = owner;
+	}
 
 
-    @Override
-    public void registerControllers(AnimationData data)
-    {
-        AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+	/** /~*~//~*GOALS*~//~*~/ **/
 
-        data.addAnimationController(controller);
-    }
-
-    @Override
-    public AnimationFactory getFactory()
-    {
-        return this.factory;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
-
-    class TrackOwnerTargetGoal extends TrackTargetGoal {
+	class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {

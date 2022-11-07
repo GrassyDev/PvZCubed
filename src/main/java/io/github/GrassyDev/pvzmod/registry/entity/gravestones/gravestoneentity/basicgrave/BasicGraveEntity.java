@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
@@ -38,7 +39,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class BasicGraveEntity extends SummonerEntity implements IAnimatable {
+public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";
 
@@ -121,10 +122,7 @@ public class BasicGraveEntity extends SummonerEntity implements IAnimatable {
 			this.kill();
 		}
 		if (this.world.isClient && this.isSpellcasting()) {
-			SummonerEntity.Spell spell = this.getSpell();
-			double d = spell.particleVelocity[0];
-			double e = spell.particleVelocity[1];
-			double f = spell.particleVelocity[2];
+			GraveEntity.Spell spell = this.getSpell();
 			float g = this.bodyYaw * 0.017453292F + MathHelper.cos((float)this.age * 0.6662F) * 0.25F;
 			float h = MathHelper.cos(g);
 			float i = MathHelper.sin(g);
@@ -229,7 +227,7 @@ public class BasicGraveEntity extends SummonerEntity implements IAnimatable {
 		@Nullable
 		protected abstract SoundEvent getSoundPrepare();
 
-		protected abstract SummonerEntity.Spell getSpell();
+		protected abstract GraveEntity.Spell getSpell();
 	}
 
 	class summonZombieGoal extends BasicGraveEntity.CastSpellGoal {
@@ -361,8 +359,8 @@ public class BasicGraveEntity extends SummonerEntity implements IAnimatable {
             return PvZCubed.GRAVERISINGEVENT;
         }
 
-        protected SummonerEntity.Spell getSpell() {
-            return SummonerEntity.Spell.SUMMON_VEX;
+        protected GraveEntity.Spell getSpell() {
+            return GraveEntity.Spell.SUMMON_VEX;
         }
     }
 
