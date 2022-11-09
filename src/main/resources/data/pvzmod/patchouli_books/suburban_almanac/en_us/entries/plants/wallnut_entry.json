@@ -2,18 +2,22 @@
   "name": "Wall-nut",
   "icon": "pvzmod:wallnut_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 2,
+  "sortnum": 6,
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)180$(br)$(#bd951a)Heal:$()$(#ff0000)1HP/5s$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)50s$(br)$(#bd951a)Special:$()$(#ff0000)Zombies prefer to eat them. Blocks straight projectiles.$(br)$(#bd951a)\"People wonder how I feel about getting constantly chewed on by zombies,\" says Wall-nut. \"What they don't realize is that with my limited senses all I can feel is a kind of tingling, like a relaxing back rub.\""
+      "text": [
+        "$(#bd951a)Health:$()$(#ff0000)180",
+        "$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)50s",
+        "$(br)$(#bd951a)\"People wonder how I feel about getting constantly chewed on by zombies,\" says Wall-nut. \"What they don't realize is that with my limited senses all I can feel is a kind of tingling, like a relaxing back rub.\""
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/wallnut.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "⛨ Reinforce Family",
       "border": "true",
       "text": "$(#25228d)Wall-nuts have hard shells which you can use to protect your other plants."
     },
@@ -22,10 +26,11 @@
       "recipe": "pvzmod:wallnut"
     },
     {
-      "type": "relations",
-      "entries": [
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Wallnut"
+      ]
     }
   ]
 }

@@ -177,11 +177,9 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(2, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, HypnoshroomEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, AppeaseEntity.class, false, true));

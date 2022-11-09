@@ -6,14 +6,20 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)9$(br)$(#bd951a)Heal:$()$(#ff0000)1HP/30s$(br)$(#bd951a)Contact Damage:$()$(#ff0000)4$(br)$(#bd951a)Chew Time:$()$(#ff0000)4s$(br)$(#bd951a)Special:$()$(#ff0000)Eats a whole grave, then vanishes after. Damages attacking Zombies. Every zombie prefers to eat them.$(br)$(#bd951a)Despite Grave Buster's fearsome appearance, he wants everyone to know that he loves kittens and spends his off hours volunteering at a local zombie rehabilitation center."
+      "text": [
+        "$(#bd951a)Health:$()$(#ff0000)45",
+        "$(br)$(#bd951a)Contact Damage:$()$(#ff0000)4",
+        "$(br)$(#bd951a)Chew Time:$()$(#ff0000)4s",
+        "$(br)$(#bd951a)Special:$()$(#ff0000)Eats graves then vanishes after. Damages attacking Zombies.",
+        "$(br2)$(#bd951a)Despite Grave Buster's fearsome appearance, he wants everyone to know that he loves kittens and spends his off hours volunteering at a local zombie rehabilitation center."
+        ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/gravebuster.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "⏳ Contain Family",
       "border": "true",
       "text": "$(#25228d)Plant Grave Busters on top of graves to remove them. "
     },
@@ -22,10 +28,12 @@
       "recipe": "pvzmod:gravebuster"
     },
     {
-      "type": "relations",
-      "entries": [
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Grave Buster",
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Grave Buster"
+      ]
     }
   ]
 }

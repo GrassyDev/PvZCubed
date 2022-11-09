@@ -60,7 +60,11 @@ public class ThreepeaterSeeds extends Item {
                     world.playSound((PlayerEntity) null, threepeaterEntity.getX(), threepeaterEntity.getY(), threepeaterEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
-                itemStack.decrement(1);
+				 PlayerEntity user = context.getPlayer();
+				 if (!user.getAbilities().creativeMode) {
+					 itemStack.decrement(1);
+					 user.getItemCooldownManager().set(this, 150);
+				 }
                 return ActionResult.success(world.isClient);
             } else {
                 return ActionResult.FAIL;

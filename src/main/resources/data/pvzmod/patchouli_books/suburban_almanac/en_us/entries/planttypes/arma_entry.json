@@ -1,0 +1,23 @@
+{
+  "name": "Arma Family",
+  "icon": "minecraft:bow",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Arma family is composed of lobbing plants that shoot from afar",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Interested",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Varied"
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+      ],
+      "title": "\uD83C\uDFF9 Arma Plants:"
+    }
+  ]
+}

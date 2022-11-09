@@ -147,7 +147,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
+			this.heal(4.0F);
 			this.healingTime = 6000;
 		}
 
@@ -195,7 +195,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 
 	public static DefaultAttributeContainer.Builder createRepeaterAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
@@ -254,19 +254,6 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canRepeaterSpawn(EntityType<RepeaterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-		return pos.getY() > 60;
-	}
-
-	@Override
-	public boolean canSpawn(WorldView worldreader) {
-		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-	}
-
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 

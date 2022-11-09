@@ -1,0 +1,24 @@
+{
+  "name": "Enforce Family",
+  "icon": "minecraft:diamond_sword",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Enforce family is composed of plants with limited range",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)2 minutes",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Interested",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)High up-close damage. More health."
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/chomper_entry"
+      ],
+      "title": "\uD83D\uDDE1 Enforce Plants:"
+    }
+  ]
+}

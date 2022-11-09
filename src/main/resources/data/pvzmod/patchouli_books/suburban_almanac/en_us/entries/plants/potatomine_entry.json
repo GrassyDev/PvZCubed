@@ -6,27 +6,36 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)7$(#bd951a)Damage:$()$(#ff0000)180$(br)$(#bd951a)Activation Range:$()$(#ff0000)1.5 Blocks$(br)$(#bd951a)Blast Radius:$()$(#ff0000)3 Blocks$(br)$(#bd951a)Preparation Time:$()$(#ff0000)30s$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)20s$(br)$(#bd951a)Special:$()$(#ff0000)Zombies prefer to eat them.$(br2)$(#bd951a)Some folks say Potato Mine is lazy, that he leaves everything to the last minute. Potato Mine says nothing. He's too busy thinking about his investment strategy."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)",
+        "$(#bd951a)Damage: $()$(#ff0000)180",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)1.5 Blocks",
+        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)2.5 Blocks",
+        "$(br)$(#bd951a)Preparation Time: $()$(#ff0000)60s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Needs time to prepare, can use a small sun to speed it up.",
+        "$(br2)$(#bd951a)Some folks say Potato Mine leaves everything to the last minute. Potato Mine says nothing. He's too busy thinking about his investment strategy."
+        ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/potatomine.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "☄ Bombard Family",
       "border": "true",
-      "text": "$(#25228d)Potato Mines pack a powerful punch, but they need a while to arm themselves. They will explode on contact."
+      "text": "$(#25228d)Potato Mines pack a powerful punch, but they need a while to arm themselves."
     },
     {
       "type": "crafting",
       "recipe": "pvzmod:potatomine"
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:plants/cherrybomb_entry"
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Potato Mine"
+      ]
     }
   ]
 }

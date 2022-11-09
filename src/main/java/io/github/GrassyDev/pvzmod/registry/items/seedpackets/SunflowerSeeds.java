@@ -67,7 +67,7 @@ public class SunflowerSeeds extends Item {
                 PlayerEntity user = context.getPlayer();
                 if (!user.getAbilities().creativeMode) {
                     itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, 20);
+                    user.getItemCooldownManager().set(this, 100);
                 }
                 return ActionResult.success(world.isClient);
             } else {

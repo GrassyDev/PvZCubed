@@ -6,14 +6,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Damage:$()$(#ff0000)180$(br)$(#bd951a)Activation Range:$()$(#ff0000)2 Blocks$(br)$(#bd951a)Blast Radius:$()$(#ff0000)5 Blocks$(br)$(#bd951a)Fuse Time:$()$(#ff0000)1.5s$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)35s$(br2)$(#bd951a)\"I wanna explode,\" says Cherry #1. \"No, let's detonate instead!\" says his brother, Cherry #2. After intense consultation they agree to explodonate."
+      "text": [
+        "$(#bd951a)Damage: $()$(#ff0000)180",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)3 Blocks",
+        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)5 Blocks",
+        "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Sets on fire",
+        "$(br2)$(#bd951a)\"I wanna explode,\" says Cherry #1. \"No, let's detonate instead!\" says his brother, Cherry #2. After intense consultation they agree to explodonate."
+        ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/cherrybomb.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "☄ Bombard Family",
       "border": "true",
       "text": "$(#25228d)Cherry Bombs can blow up all zombies in an area. Plant them near zombies."
     },
@@ -22,11 +30,12 @@
       "recipe": "pvzmod:cherrybomb"
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:plants/potatomine_entry"
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Cherry Bomb",
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Cherry Bomb"
+      ]
     }
   ]
 }

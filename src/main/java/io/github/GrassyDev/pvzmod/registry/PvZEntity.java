@@ -52,6 +52,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peapod.Peap
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peapod.PeapodEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.PeashooterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.PeashooterEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfumeshroom.PerfoomshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfumeshroom.PerfoomshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
@@ -224,6 +226,13 @@ public class PvZEntity implements ModInitializer {
 			new Identifier(ModID, "gatlingpea"),
 			QuiltEntityTypeBuilder.<GatlingpeaEntity>create(SpawnGroup.CREATURE, GatlingpeaEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
+
+	public static final EntityType<PerfoomshroomEntity> PERFOOMSHROOM = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "perfoomshroom"),
+			QuiltEntityTypeBuilder.<PerfoomshroomEntity>create(SpawnGroup.CREATURE, PerfoomshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
 
 	public static final EntityType<PeapodEntity> PEAPOD = Registry.register((
 					Registry.ENTITY_TYPE),
@@ -494,6 +503,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntity.createGatlingpeaAttributes());
 		EntityRendererRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.PERFOOMSHROOM, PerfoomshroomEntity.createPerfoomshroomAttributes());
+		EntityRendererRegistry.register(PvZEntity.PERFOOMSHROOM, PerfoomshroomEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.PEAPOD, PeapodEntity.createPeapodAttributes());
 		EntityRendererRegistry.register(PvZEntity.PEAPOD, PeapodEntityRenderer::new);

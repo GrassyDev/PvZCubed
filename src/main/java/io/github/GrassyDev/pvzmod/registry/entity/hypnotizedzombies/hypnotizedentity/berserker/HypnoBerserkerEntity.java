@@ -257,11 +257,6 @@ public class HypnoBerserkerEntity extends HypnoZombieEntity implements IAnimatab
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
 	}
-
-	public boolean isPushable() {
-		return false;
-	}
-
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		this.playSound(this.getStepSound(), 0.15F, 1.0F);
 	}

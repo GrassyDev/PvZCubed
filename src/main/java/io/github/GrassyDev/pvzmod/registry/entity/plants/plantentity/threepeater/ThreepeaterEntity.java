@@ -141,7 +141,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
+			this.heal(4.0F);
 			this.healingTime = 6000;
 		}
 
@@ -155,7 +155,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 
 	public static DefaultAttributeContainer.Builder createThreepeaterAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);

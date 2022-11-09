@@ -6,14 +6,20 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)14$(br)$(#bd951a)Damage:$()$(#ff0000)16$(br)$(#bd951a)Range:$()$(#ff0000)6$(br)$(#bd951a)Fire Rate:$()$(#ff0000)1s$(br)$(#bd951a)Special:$()$(#ff0000)Poisons zombies for 3 seconds. Damages multiple zombies at the same time. Asleep if exposed to light.$(br)$(#bd951a)\"I was in a dead-end job producing yeast spores for a bakery. \"Then I heard about this great opportunity blasting zombies. Now I really feel like I'm making a difference.\" "
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)30",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)35 DMG/3s",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Poisons zombies. Damages multiple zombies at the same time. Ignores shields.",
+        "$(br2)$(#bd951a)\"I was in a dead-end job producing yeast spores for a bakery. Then Puff-shroom, told me about this great opportunity blasting zombies.\""
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/fumeshroom.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "\uD83E\uDDEA Ailment Family",
       "border": "true",
       "text": "$(#25228d)Fume-shrooms shoot fumes that can pass through zombies."
     },
@@ -22,12 +28,12 @@
       "recipe": "pvzmod:fumeshroom"
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:plants/puffshroom_entry",
-        "pvzmod:plants/scaredyshroom_entry"
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Fume-shroom",
+        "$(br)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Fume-shroom"
+      ]
     }
   ]
 }

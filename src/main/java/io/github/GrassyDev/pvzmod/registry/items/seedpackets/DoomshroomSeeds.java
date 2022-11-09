@@ -60,11 +60,15 @@ public class DoomshroomSeeds extends Item {
                     world.playSound((PlayerEntity) null, doomshroomEntity.getX(), doomshroomEntity.getY(), doomshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
-                itemStack.decrement(1);
-                return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
-            }
+				 PlayerEntity user = context.getPlayer();
+				 if (!user.getAbilities().creativeMode) {
+					 itemStack.decrement(1);
+					 user.getItemCooldownManager().set(this, 500);
+				 }
+				 return ActionResult.success(world.isClient);
+			 } else {
+				 return ActionResult.FAIL;
+			 }
         }
     }
 }

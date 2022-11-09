@@ -138,7 +138,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
+			this.heal(4.0F);
 			this.healingTime = 6000;
 		}
 
@@ -184,9 +184,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 		return false;
 	}
 
-	public boolean isPushable() {
-		return false;
-	}
+
 
 	protected void pushAway(Entity entity) {
 	}
@@ -211,18 +209,6 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canPeashooterSpawn(EntityType<PeashooterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 
 
 	/** /~*~//~*GOALS*~//~*~/ **/

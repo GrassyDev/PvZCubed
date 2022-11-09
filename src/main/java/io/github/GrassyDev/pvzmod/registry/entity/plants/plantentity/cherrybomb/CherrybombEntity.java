@@ -1,7 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.cherrybomb;
 
-import java.util.Random;
-
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
@@ -30,10 +28,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -185,7 +180,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	private void explode() {
 		if (!this.world.isClient) {
 			this.clearStatusEffects();
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 2.5f, null, Explosion.DestructionType.NONE);
+			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 180,2.5f, null, Explosion.DestructionType.NONE, true);
 			this.world.sendEntityStatus(this, (byte) 6);
 			explosion.collectBlocksAndDamageEntities();
 			explosion.affectWorld(true);
@@ -351,16 +346,4 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-
-	public static boolean canCherrybombSpawn(EntityType<CherrybombEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 }

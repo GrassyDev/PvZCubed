@@ -1,0 +1,25 @@
+{
+  "name": "Winter Family",
+  "icon": "minecraft:snowball",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Winter family is composed of cold plants",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Freezes zombies, slowing them down and halving their damage. Some also freeze them completely. Direct damage doesn't freeze zombies with shields."
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/iceshroom_entry"
+      ],
+      "title": "❄ Winter Plants:"
+    }
+  ]
+}

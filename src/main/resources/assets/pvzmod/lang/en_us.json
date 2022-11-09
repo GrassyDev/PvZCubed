@@ -9,71 +9,73 @@
   "item.pvzmod.smallsun": "Small Sun",
   "item.pvzmod.sun": "Sun",
   "item.pvzmod.largesun": "Large Sun",
-  "item.pvzmod.sunflower_seed_packet": "Sunflower Seed Packet",
+  "item.pvzmod.sunflower_seed_packet": "☀ Sunflower Seed Packet",
 
   "entity.pvzmod.peashooter": "Peashooter",
   "item.pvzmod.pea": "Pea",
-  "item.pvzmod.peashooter_seed_packet": "Peashooter Seed Packet",
+  "item.pvzmod.peashooter_seed_packet": "⭘ Peashooter Seed Packet",
 
   "entity.pvzmod.cherrybomb": "Cherry Bomb",
-  "item.pvzmod.cherrybomb_seed_packet": "Cherry Bomb Seed Packet",
+  "item.pvzmod.cherrybomb_seed_packet": "☄ Cherry Bomb Seed Packet",
 
   "entity.pvzmod.wallnut": "Wall-nut",
-  "item.pvzmod.wallnut_seed_packet": "Wall-nut Seed Packet",
+  "item.pvzmod.wallnut_seed_packet": "⛨ Wall-nut Seed Packet",
 
   "entity.pvzmod.potatomine": "Potato Mine",
-  "item.pvzmod.potatomine_seed_packet": "Potato Mine Seed Packet",
+  "item.pvzmod.potatomine_seed_packet": "☄ Potato Mine Seed Packet",
 
   "entity.pvzmod.snowpea": "Snow Pea",
   "item.pvzmod.snowpeaproj": "Snow Pea",
-  "item.pvzmod.snowpea_seed_packet": "Snow Pea Seed Packet",
+  "item.pvzmod.snowpea_seed_packet": "❄ Snow Pea Seed Packet",
 
   "entity.pvzmod.chomper": "Chomper",
-  "item.pvzmod.chomper_seed_packet": "Chomper Seed Packet",
+  "item.pvzmod.chomper_seed_packet": "\uD83D\uDDE1 Chomper Seed Packet",
 
   "entity.pvzmod.repeater": "Repeater",
-  "item.pvzmod.repeater_seed_packet": "Repeater Seed Packet",
-  "item.pvzmod.repea": "Double Peas",
+  "item.pvzmod.repeater_seed_packet": "⭘ Repeater Seed Packet",
 
   "entity.pvzmod.puffshroom": "Puff-shroom",
-  "item.pvzmod.puffshroom_seed_packet": "Puff-shroom Seed Packet",
+  "item.pvzmod.puffshroom_seed_packet": "\uD83E\uDDEA Puff-shroom Seed Packet",
   "item.pvzmod.spore": "Spore",
 
   "entity.pvzmod.sunshroom": "Sun-shroom",
-  "item.pvzmod.sunshroom_seed_packet": "Sun-shroom Seed Packet",
+  "item.pvzmod.sunshroom_seed_packet": "☀ Sun-shroom Seed Packet",
 
   "entity.pvzmod.fumeshroom": "Fume-shroom",
-  "item.pvzmod.fumeshroom_seed_packet": "Fume-shroom Seed Packet",
+  "item.pvzmod.fumeshroom_seed_packet": "\uD83E\uDDEA Fume-shroom Seed Packet",
   "item.pvzmod.fume": "Fume",
 
   "entity.pvzmod.gravebuster": "Grave Buster",
-  "item.pvzmod.gravebuster_seed_packet": "Grave Buster Seed Packet",
+  "item.pvzmod.gravebuster_seed_packet": "⏳ Grave Buster Seed Packet",
 
   "entity.pvzmod.hypnoshroom": "Hypno-shroom",
-  "item.pvzmod.hypnoshroom_seed_packet": "Hypno-shroom Seed Packet",
+  "item.pvzmod.hypnoshroom_seed_packet": "⭐ Hypno-shroom Seed Packet",
 
   "entity.pvzmod.scaredyshroom": "Scaredy-shroom",
-  "item.pvzmod.scaredyshroom_seed_packet": "Scaredy-shroom Seed Packet",
+  "item.pvzmod.scaredyshroom_seed_packet": "\uD83E\uDDEA Scaredy-shroom Seed Packet",
 
   "entity.pvzmod.iceshroom": "Ice-shroom",
-  "item.pvzmod.iceshroom_seed_packet": "Ice-shroom Seed Packet",
+  "item.pvzmod.iceshroom_seed_packet": "❄ Ice-shroom Seed Packet",
 
   "entity.pvzmod.doomshroom": "Doom-shroom",
-  "item.pvzmod.doomshroom_seed_packet": "Doom-shroom Seed Packet",
+  "item.pvzmod.doomshroom_seed_packet": "☄ Doom-shroom Seed Packet",
 
   "entity.pvzmod.threepeater": "Threepeater",
-  "item.pvzmod.threepeater_seed_packet": "Threepeater Seed Packet",
-  "item.pvzmod.tripea": "Triple Peas",
+  "item.pvzmod.threepeater_seed_packet": "⭘ Threepeater Seed Packet",
 
   "entity.pvzmod.gatlingpea": "Gatling Pea",
-  "item.pvzmod.gatlingpea_seed_packet": "Repeater Seed Packet",
+  "item.pvzmod.gatlingpea_seed_packet": "⭘ Gatling Pea Seed Packet",
+
+  "entity.pvzmod.perfoomshroom": "Perfoom-shroom",
+  "item.pvzmod.perfoomshroom_seed_packet": "⭐ Perfoom-shroom Seed Packet",
 
   "entity.pvzmod.peapod": "Pea Pod",
-  "item.pvzmod.peapod_seed_packet": "Pea Pod Seed Packet",
+  "item.pvzmod.peapod_seed_packet": "⭘ Pea Pod Seed Packet",
 
   "entity.pvzmod.flamingpea": "Fire Peashooter",
   "item.pvzmod.firepea": "Fire Pea",
-  "item.pvzmod.firepea_seed_packet": "Fire Peashooter Seed Packet",
+  "item.pvzmod.plasmapea": "Plasma Pea",
+  "item.pvzmod.firepea_seed_packet": "\uD83D\uDD25 Fire Peashooter Seed Packet",
 
 
   "itemGroup.pvzmod.zombies": "Zombies",

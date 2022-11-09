@@ -1,0 +1,25 @@
+{
+  "name": "Enlighten Family",
+  "icon": "pvzmod:largesun",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Enlighten family is composed of sun-producing plants",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Produces sun."
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/sunflower_entry",
+        "pvzmod:plants/sunshroom_entry"
+      ],
+      "title": "☀ Enlighten Plants:"
+    }
+  ]
+}

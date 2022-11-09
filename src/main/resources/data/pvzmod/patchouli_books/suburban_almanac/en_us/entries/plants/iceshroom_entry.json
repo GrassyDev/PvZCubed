@@ -6,14 +6,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Damage:$()$(#ff0000)4$(br)$(#bd951a)Activation Range:$()$(#ff0000)3 Blocks$(br)$(#bd951a)Explosion Range:$()$(#ff0000)5 Blocks$(br)$(#bd951a)Fuse Time:$()$(#ff0000)1.5s$(br)$(#bd951a)Freeze Time:$()$(#ff0000)10s$(br)$(#bd951a)Special:$()$(#ff0000)Freezes every zombie affected. Asleep if exposed to light.$(br2)$(#bd951a)Ice-shroom frowns, not because he's unhappy or because he disapproves, but because of a childhood injury that left his facial nerves paralyzed."
+      "text": [
+        "$(#bd951a)Damage: $()$(#ff0000)4",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)5 Blocks",
+        "$(br)$(#bd951a)Explosion Range: $()$(#ff0000)10 Blocks",
+        "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
+        "$(br)$(#bd951a)Freeze Time: $()$(#ff0000)10s",
+        "$(br)$(#bd951a)Special:$()$(#ff0000)Nocturnal. Completely freezes all zombies on range.",
+        "$(br2)$(#bd951a)Ice-shroom frowns, not because he's unhappy or because he disapproves, but because of a childhood injury that left his facial nerves paralyzed."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/iceshroom.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "❄ Winter Family",
       "border": "true",
       "text": "$(#25228d)Ice-shrooms temporarily immobilize all zombies in a large area."
     },
@@ -22,11 +30,11 @@
       "recipe": "pvzmod:iceshroom"
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:plants/doomshroom_entry"
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Ice-shroom"
+      ]
     }
   ]
 }

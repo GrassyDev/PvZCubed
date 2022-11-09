@@ -254,7 +254,7 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 	private void explode() {
 		if (!this.world.isClient && !this.isAsleep) {
 			this.clearStatusEffects();
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 5f, null, PvZExplosion.DestructionType.NONE);
+			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 180f, 5f, null, PvZExplosion.DestructionType.NONE, false);
 			this.world.sendEntityStatus(this, (byte) 6);
 			PvZExplosion.DestructionType destructionType = PvZExplosion.DestructionType.NONE;
 			explosion.collectBlocksAndDamageEntities();
@@ -430,16 +430,4 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-    public static boolean canDoomshroomSpawn(EntityType<DoomshroomEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 }

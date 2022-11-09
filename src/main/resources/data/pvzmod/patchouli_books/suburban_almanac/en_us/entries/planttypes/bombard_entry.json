@@ -1,0 +1,26 @@
+{
+  "name": "Bombard Family",
+  "icon": "minecraft:tnt",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Bombard family is composed of explosive plants",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)None",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Deals high damage to all zombies on an area."
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/potatomine_entry",
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/doomshroom_entry"
+      ],
+      "title": "☄ Bombard Plants:"
+    }
+  ]
+}

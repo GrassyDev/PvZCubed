@@ -1,0 +1,41 @@
+{
+  "name": "Perfoom-shroom",
+  "icon": "pvzmod:perfoomshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 31,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Damage: $()$(#ff0000)100",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)5 Blocks",
+        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)6 Blocks",
+        "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)2s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Hypnotizes every zombie in the blast after dealing damage.",
+        "$(br2)$(#bd951a)Doom-shroom at home and Perfoom-shroom at the stage. This lovely smelling shroom is dolled up and ready to go!"
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/perfoomshroom.png"
+      ],
+      "title": "⭐ Enchant Family",
+      "border": "true",
+      "text": "$(#25228d)They hypnotize every zombie that survives its blast."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:perfoomshroom"
+    },
+    {
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: Garden Warfare 2: $()$(#ff0000)Perfume Shroom (Doom-shroom Skin)",
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Perfume Shroom"
+      ]
+    }
+  ]
+}

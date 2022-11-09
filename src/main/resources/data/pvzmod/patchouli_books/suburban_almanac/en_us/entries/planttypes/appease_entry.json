@@ -1,0 +1,28 @@
+{
+  "name": "Appease Family",
+  "icon": "pvzmod:pea",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Appease family is composed of peashooters and plants that shoot standard projectiles",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Interested",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Varied"
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/threepeater_entry",
+        "pvzmod:plants/gatlingpea_entry",
+        "pvzmod:plants/peapod_entry"
+      ],
+      "title": "⭘ Appease Plants:"
+    }
+  ]
+}

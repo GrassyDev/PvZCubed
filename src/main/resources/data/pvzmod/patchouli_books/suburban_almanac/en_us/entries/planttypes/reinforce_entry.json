@@ -1,0 +1,24 @@
+{
+  "name": "Reinforce Family",
+  "icon": "minecraft:obsidian",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Reinforce family is composed of defensive plants",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Hungry",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Defends plants from zombies"
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/wallnut_entry"
+      ],
+      "title": "⛨ Reinforce Plants:"
+    }
+  ]
+}

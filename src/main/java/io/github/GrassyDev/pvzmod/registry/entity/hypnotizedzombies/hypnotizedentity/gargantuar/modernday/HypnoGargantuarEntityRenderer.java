@@ -10,7 +10,7 @@ public class HypnoGargantuarEntityRenderer extends GeoEntityRenderer<HypnoGargan
 
     public HypnoGargantuarEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx, new HypnoGargantuarEntityModel());
-        this.shadowRadius = 3F; //change 0.7 to the desired shadow size.
+        this.shadowRadius = 1.5F; //change 0.7 to the desired shadow size.
     }
 
 }

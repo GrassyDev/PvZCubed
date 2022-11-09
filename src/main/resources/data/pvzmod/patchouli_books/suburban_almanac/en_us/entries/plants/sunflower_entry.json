@@ -6,14 +6,20 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)10$(br)$(#bd951a)Sun:$()$(#ff0000)Normal$(br)$(#bd951a)Sun Production:$()$(#ff0000)5 minutes$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)1s$(br2)$(#bd951a)Sunflower can't resist bouncing to the beat. Which beat is that? Why, the life-giving jazzy rhythm of the Earth itself, thumping at a frequency only Sunflower can hear."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)10",
+        "$(br)$(#bd951a)Sun: $()$(#ff0000)Normal",
+        "$(br)$(#bd951a)Sun Rate: $()$(#ff0000)5 minutes",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",
+        "$(br2)$(#bd951a)Sunflower can't resist bouncing to the beat. Which beat is that? Why, the life-giving jazzy rhythm of the Earth itself, thumping at a frequency only Sunflower can hear."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/sunflower.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "☀ Enlighten Family",
       "border": "true",
       "text": "$(#25228d)Sunflowers are essential for you to produce extra sun. Try planting as many as you can!"
     },
@@ -22,11 +28,11 @@
       "recipe": "pvzmod:sunflowerpvz"
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:plants/sunshroom_entry"
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Sunflower"
+      ]
     }
   ]
 }

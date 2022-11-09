@@ -58,7 +58,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	public SnowpeaEntity(EntityType<? extends SnowpeaEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
-		this.healingTime = 6000;
+		this.healingTime = 8400;
 	}
 
 	protected void initDataTracker() {
@@ -185,8 +185,8 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
-			this.healingTime = 6000;
+			this.heal(4.0F);
+			this.healingTime = 8400;
 		}
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {

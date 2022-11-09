@@ -1,0 +1,26 @@
+{
+  "name": "Ailment Family",
+  "icon": "minecraft:potion",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Ailment family is composed of ailment-inducing plants",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Inflicts status effects on zombies."
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/puffshroom_entry",
+        "pvzmod:plants/scaredyshroom_entry",
+        "pvzmod:plants/fumeshroom_entry"
+      ],
+      "title": "\uD83E\uDDEA Ailment Plants:"
+    }
+  ]
+}

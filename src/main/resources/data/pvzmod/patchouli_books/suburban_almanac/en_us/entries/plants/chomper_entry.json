@@ -6,14 +6,20 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)36$(br)$(#bd951a)Heal:$()$(#ff0000)1HP/30s$(br)$(#bd951a)DPS:$()$(#ff0000)Insta-kill, 10.5 (16 DMG/1.5s, if target is Immune)$(br)$(#bd951a)Chew Time:$()$(#ff0000)10s$(br)$(#bd951a)Special:$()$(#ff0000)Zombies prefer to eat them. Kills a zombie instantly, but has to chew it afterwards.$(br2)$(#bd951a)Chomper almost got a gig doing stunts for The Little Shop of Horrors but it fell through when his agent demanded too much on the front end."
+      "text": [
+        "$(#bd951a)Health:$()$(#ff0000)36",
+        "$(br)$(#bd951a)Damage:$()$(#ff0000)Insta-kill, 16 DMG/1.5s (if target is Immune)",
+        "$(br)$(#bd951a)Chew Time:$()$(#ff0000)10s",
+        "$(br)$(#bd951a)Special:$()$(#ff0000)Kills a zombie instantly, but has to chew it afterwards. Unless they are either big, have a shield, or are a grave",
+        "$(br2)$(#bd951a)Chomper almost got a gig doing stunts for The Little Shop of Horrors but it fell through when his agent demanded too much on the front end. He's not resentful, though. It's just part of the business."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/chomper.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "\uD83D\uDDE1 Enforce Family",
       "border": "true",
       "text": "$(#25228d)Chompers can devour a zombie whole, but they are vulnerable while chewing."
     },
@@ -22,10 +28,12 @@
       "recipe": "pvzmod:chomper"
     },
     {
-      "type": "relations",
-      "entries": [
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Chomper",
+        "$(br)$(#bd951a)Plants vs. Zombies: Garden Warfare: $()$(#ff0000)Chomper"
+      ]
     }
   ]
 }

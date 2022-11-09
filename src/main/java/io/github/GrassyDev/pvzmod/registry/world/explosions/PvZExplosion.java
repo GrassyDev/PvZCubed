@@ -3,9 +3,11 @@ package io.github.GrassyDev.pvzmod.registry.world.explosions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -26,25 +28,30 @@ public class PvZExplosion extends Explosion {
     private final double y;
     private final double z;
     private final Entity entity;
-    private final float power;
+	private final float damage;
+    private final float rangedoubled;
+	private boolean fire;
+	private boolean hypnosis;
     private final DamageSource damageSource;
     private final List<BlockPos> affectedBlocks;
     private final Map<PlayerEntity, Vec3d> affectedPlayers;
 
 
-    public PvZExplosion(World world, Entity entity, double x, double y, double z, float power, DestructionType destructionType, DestructionType none) {
-        super(world, entity, null, null, x, y, z, power, false, destructionType);
-        this.random = new Random();
+    public PvZExplosion(World world, Entity entity, double x, double y, double z, float damage, float rangedoubled, DestructionType destructionType, DestructionType none, boolean fire) {
+        super(world, entity, x, y, z, rangedoubled, false, destructionType);
+		this.random = new Random();
         this.affectedBlocks = Lists.newArrayList();
         this.affectedPlayers = Maps.newHashMap();
         this.world = world;
         this.entity = entity;
-        this.power = power;
+        this.damage = damage;
+		this.rangedoubled = rangedoubled;
         this.x = x;
         this.y = y;
         this.z = z;;
         this.blockDestructionType = destructionType;
         this.damageSource = DamageSource.explosion(this);
+		this.fire = fire;
     }
 
 
@@ -52,7 +59,7 @@ public class PvZExplosion extends Explosion {
 	public void affectWorld(boolean particles) {
 		boolean bl = this.blockDestructionType == Explosion.DestructionType.NONE;
 		if (particles) {
-			if (!(this.power < 2.0F) && bl) {
+			if (!(this.rangedoubled < 2.0F) && bl) {
 				this.world.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0, 0.0, 0.0);
 			} else {
 				this.world.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0, 0.0, 0.0);
@@ -60,9 +67,9 @@ public class PvZExplosion extends Explosion {
 		}
 	}
 
-    public float getPower() {
-        return power;
-    }
+	public boolean setHypnosis(boolean hypnosis) {
+		return this.hypnosis = hypnosis;
+	}
 
     public void collectBlocksAndDamageEntities() {
         Set<BlockPos> set = Sets.newHashSet();
@@ -80,7 +87,7 @@ public class PvZExplosion extends Explosion {
                         d /= g;
                         e /= g;
                         f /= g;
-                        float h = this.power * (0.7F + this.world.random.nextFloat() * 0.6F);
+                        float h = this.rangedoubled * (0.7F + this.world.random.nextFloat() * 0.6F);
                         double m = this.x;
                         double n = this.y;
                         double o = this.z;
@@ -91,7 +98,7 @@ public class PvZExplosion extends Explosion {
         }
 
         this.affectedBlocks.addAll(set);
-        float q = this.power * 2.0F;
+        float q = this.rangedoubled * 2.0F;
         k = MathHelper.floor(this.x - (double)q - 1.0D);
         l = MathHelper.floor(this.x + (double)q + 1.0D);
         int t = MathHelper.floor(this.y - (double)q - 1.0D);
@@ -111,13 +118,24 @@ public class PvZExplosion extends Explosion {
                     double ab = entity.getZ() - this.z;
                     double ac = Math.sqrt(z * z + aa * aa + ab * ab);
                     if (ac != 0.0D) {
-                        z /= ac;
-                        aa /= ac;
-                        ab /= ac;
-                        double ad = getExposure(vec3d, entity);
-                        double ae = (1.0D - y) * ad;
-                            entity.damage(this.getDamageSource(), 180f);
-                        }
+						z /= ac;
+						aa /= ac;
+						ab /= ac;
+						double ad = getExposure(vec3d, entity);
+						double ae = (1.0D - y) * ad;
+						float kk = this.damage;
+						entity.damage(this.getDamageSource(), kk);
+						assert entity instanceof LivingEntity;
+						if (this.fire) {
+							((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+							((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 5)));
+							entity.setOnFireFor(4);
+						}
+						if (this.hypnosis) {
+							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.HYPNOTIZED, 999, 1)));
+						}
+					}
                 }
             }
         }

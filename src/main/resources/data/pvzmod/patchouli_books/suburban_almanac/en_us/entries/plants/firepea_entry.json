@@ -1,0 +1,42 @@
+{
+  "name": "Fire Peashooter",
+  "icon": "pvzmod:firepea_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 52,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)16",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)16 DMG/1.5s, 4 DMG (area)",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
+        "$(br)$(#bd951a)Fire Radius: $()$(#ff0000)3 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
+        "$(br)$(#bd951a)Special:$()$(#ff0000)Sets zombies on fire.",
+        "$(br2)$(#bd951a)Fire Peashooter had a torrid love-thing with Snow Queen Pea a few months back. While her ardor may have cooled since then, her ability to launch burning peas has never been hotter."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/firepeashooter.png"
+      ],
+      "title": "\uD83D\uDD25 Pepper Family",
+      "border": "true",
+      "text": "$(#25228d)Fire Peashooter shoots flaming peas down the lane."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:firepea"
+    },
+    {
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Torchwood",
+        "$(br)$(#bd951a)Plants vs. Zombies Adventure: $()$(#ff0000)Flaming Pea",
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Fire Pea"
+      ]
+    }
+  ]
+}

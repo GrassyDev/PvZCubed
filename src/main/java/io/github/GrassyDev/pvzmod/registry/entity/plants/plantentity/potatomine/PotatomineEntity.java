@@ -5,7 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -37,10 +36,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -53,7 +49,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Random;
 
 public class PotatomineEntity extends BombardEntity implements IAnimatable {
 	private String controllerName = "potatocontroller";
@@ -260,7 +255,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 
 	private void explode() {
 		if (!this.world.isClient) {
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 1.25f, null, Explosion.DestructionType.NONE);
+			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 180, 1.25f, null, Explosion.DestructionType.NONE, false);
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.world.sendEntityStatus(this, (byte) 6);
 			this.removeStatusEffect(StatusEffects.RESISTANCE);
@@ -400,7 +395,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 2D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 1.5D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 180);
     }
 

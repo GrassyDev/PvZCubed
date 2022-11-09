@@ -1,0 +1,23 @@
+{
+  "name": "Filament Family",
+  "icon": "minecraft:lightning_rod",
+  "category": "pvzmod:planttype_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#ff0000)The Filament family is composed of electric plants",
+        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)7 minutes",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Hits multiple zombies by electric arcs dealing full damage and ignoring shields."
+        ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+      ],
+      "title": "⚡ Fila Plants:"
+    }
+  ]
+}

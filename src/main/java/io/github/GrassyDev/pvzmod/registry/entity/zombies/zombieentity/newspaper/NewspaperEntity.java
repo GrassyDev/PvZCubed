@@ -126,7 +126,6 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 0.66D));
 		this.targetSelector.add(3, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, PotatomineEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal<>(this, GravebusterEntity.class, false, true));
         this.targetSelector.add(1, new TargetGoal<>(this, HypnoshroomEntity.class, false, true));
     }
@@ -194,11 +193,6 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
 	}
-
-	public boolean isPushable() {
-		return false;
-	}
-
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		this.playSound(this.getStepSound(), 0.15F, 1.0F);
 	}

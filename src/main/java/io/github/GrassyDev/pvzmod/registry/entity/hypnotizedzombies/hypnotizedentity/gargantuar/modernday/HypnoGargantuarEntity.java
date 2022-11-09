@@ -311,11 +311,6 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
 	protected SoundEvent getStepSound() {
 		return PvZCubed.SILENCEVENET;
 	}
-
-	public boolean isPushable() {
-		return false;
-	}
-
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		this.playSound(this.getStepSound(), 0.15F, 1.0F);
 	}

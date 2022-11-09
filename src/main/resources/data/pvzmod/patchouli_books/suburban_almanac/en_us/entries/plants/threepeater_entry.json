@@ -6,28 +6,35 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)21$(br)$(#bd951a)Damage:$()$(#ff0000)8(Middle)/4(Left, Right)$(br)$(#bd951a)Range:$()$(#ff0000)17$(br)$(#bd951a)Fire Rate:$()$(#ff0000)2s$(br2)$(#bd951a)Threepeater likes reading, backgammon and long periods of immobility in the park. Threepeater enjoys going to shows, particularly modern jazz. \"I'm just looking for that special someone,\" he says. Threepeater's favorite number is 5."
+      "text":[
+        "$(#bd951a)Health: $()$(#ff0000)40",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)7.5s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Shoots a pea in the middle and two others in a cone shape",
+        "$(br2)$(#bd951a)Threepeater enjoys going to shows, particularly modern jazz. \"I'm just looking for that special someone,\" they say. Threepeater's favorite number is 5."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/threepeater.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "⭘ Appease Family",
       "border": "true",
-      "text": "$(#25228d)Threepeaters shoots two peas at the center and two extra peas to the left and right of the target."
+      "text": "$(#25228d)Threepeaters shoot peas in three directions."
     },
     {
       "type": "crafting",
       "recipe": "pvzmod:threepeater"
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:plants/peashooter_entry",
-        "pvzmod:plants/repeater_entry"
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Threepeater",
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Threepeater"
+      ]
     }
   ]
 }

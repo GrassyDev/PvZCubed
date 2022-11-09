@@ -42,7 +42,7 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
     public GravebusterEntity(EntityType<? extends GravebusterEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 600;
+        this.healingTime = 6000;
         this.notready = true;
         this.attackTicksLeft = 80;
     }
@@ -138,8 +138,8 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
-			this.healingTime = 600;
+			this.heal(4.0F);
+			this.healingTime = 6000;
 		}
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {

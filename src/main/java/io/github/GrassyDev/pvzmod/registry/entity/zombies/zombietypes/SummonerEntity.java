@@ -49,11 +49,6 @@ public abstract class SummonerEntity extends HostileEntity implements Monster {
 	static {
 		SPELL = DataTracker.registerData(SpellcastingIllagerEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
-
-	public boolean isPushable() {
-		return false;
-	}
-
 	protected enum Spell {
 		NONE(0, 0.0, 0.0, 0.0),
 		SUMMON_VEX(1, 0.7, 0.7, 0.8);

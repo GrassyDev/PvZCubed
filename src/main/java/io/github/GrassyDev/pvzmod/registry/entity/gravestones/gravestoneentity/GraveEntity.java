@@ -46,9 +46,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		SPELL = DataTracker.registerData(SpellcastingIllagerEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
-	public boolean isPushable() {
-		return false;
-	}
+
 
 	protected enum Spell {
 		NONE(0, 0.0, 0.0, 0.0),
@@ -75,6 +73,11 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 			return NONE;
 		}
+	}
+
+	@Override
+	public boolean isPushable() {
+		return false;
 	}
 
 	protected void pushAway(Entity entity) {

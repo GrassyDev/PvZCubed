@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "pvzmod:items/almanac"
+    "layer0": "pvzmod:items/icon_almanac"
   }
 }

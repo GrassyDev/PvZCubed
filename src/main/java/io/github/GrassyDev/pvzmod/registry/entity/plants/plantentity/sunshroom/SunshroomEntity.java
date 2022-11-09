@@ -138,7 +138,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 		}
 
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
+			this.heal(4.0F);
 			this.healingTime = 6000;
 		}
 

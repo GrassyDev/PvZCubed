@@ -54,7 +54,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 	public FlamingpeaEntity(EntityType<? extends FlamingpeaEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+        this.healingTime = 8400;
     }
 
 	static {
@@ -144,8 +144,8 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
-			this.healingTime = 6000;
+			this.heal(4.0F);
+			this.healingTime = 8400;
 		}
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
@@ -222,18 +222,6 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-    public static boolean canFlamingpeaSpawn(EntityType<FlamingpeaEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 
 
 	/** /~*~//~*GOALS*~//~*~/ **/

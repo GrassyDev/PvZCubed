@@ -198,7 +198,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(1.0F);
+			this.heal(4.0F);
 			this.healingTime = 6000;
 		}
 
@@ -225,7 +225,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	public static DefaultAttributeContainer.Builder createFumeshroomAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 45.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6D);
@@ -359,46 +359,19 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 					double f = livingEntity.getY() - this.fumeshroomEntity.getY();
 					double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-					/// DEFAULT VARIANT ///
-					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.DEFAULT))
-					{
-						FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
-						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
-						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
-						proj.setOwner(this.fumeshroomEntity);
-						if (livingEntity.isAlive()) {
-							this.beamTicks = -2;
-							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
-							this.fumeshroomEntity.world.spawnEntity(proj);
-						}
-					}
-					/// GAY VARIANT ///
-					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.GAY))
-					{
-						FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
-						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
-						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
-						proj.setOwner(this.fumeshroomEntity);
+					FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
+					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
+					proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
+					proj.setOwner(this.fumeshroomEntity);
+					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.GAY)) {
 						proj.setVariant(FumeVariants.GAY);
-						if (livingEntity.isAlive()) {
-							this.beamTicks = -2;
-							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
-							this.fumeshroomEntity.world.spawnEntity(proj);
-						}
-					}
-					/// TRANS VARIANT ///
-					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.TRANS))
-					{
-						FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
-						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
-						proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
-						proj.setOwner(this.fumeshroomEntity);
+					} else if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.TRANS)) {
 						proj.setVariant(FumeVariants.TRANS);
-						if (livingEntity.isAlive()) {
-							this.beamTicks = -2;
-							this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
-							this.fumeshroomEntity.world.spawnEntity(proj);
-						}
+					}
+					if (livingEntity.isAlive()) {
+						this.beamTicks = -2;
+						this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+						this.fumeshroomEntity.world.spawnEntity(proj);
 					}
 				}
 				if (this.animationTicks >= 0) {

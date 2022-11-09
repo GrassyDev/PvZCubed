@@ -6,14 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)15$(br)$(#bd951a)DPS:$()$(#ff0000)4.5 (8 DMG/1.75s)$(br)$(#bd951a)Range:$()$(#ff0000)15$(br)$(#bd951a)Seed Recharge Time:$()$(#ff0000)7.5s$(br)$(#bd951a)Ice Time:$()$(#ff0000)3s$(br)$(#bd951a)Special:$()$(#ff0000)Slows down and weakens Zombies.$(br2)$(#bd951a)Folks often tell Snow Pea how \"cool\" he is, or exhort him to \"chill out.\" They tell him to \"stay frosty.\" Snow Pea just rolls his eyes. He's heard 'em all."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)16",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)7.5s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Slows zombies.",
+        "$(br2)$(#bd951a)Folks often tell Snow Pea how \"cool\" he is, or exhort him to \"chill out.\" They tell him to \"stay frosty.\" Snow Pea just rolls his eyes. He's heard 'em all."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/snowpea.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "❄ Winter Family",
       "border": "true",
       "text": "$(#25228d)Snow Peas shoot frozen peas that damage, slow, and weaken the enemy."
     },
@@ -22,11 +29,11 @@
       "recipe": "pvzmod:snowpeapvz"
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:plants/peashooter_entry"
-      ],
-      "title": "Related Plants"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Snow Pea"
+      ]
     }
   ]
 }

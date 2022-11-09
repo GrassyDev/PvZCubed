@@ -168,7 +168,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 
 						livingEntity = (LivingEntity) var9.next();
 					} while (livingEntity == this.getOwner());
-				} while (this.squaredDistanceTo(livingEntity) > 9);
+				} while (this.squaredDistanceTo(livingEntity) > 6);
 
 				boolean bl = false;
 
