@@ -6,7 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)27$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Normal$(br2)$(#bd951a)This zombie loves brains. Can't get enough. Brains, brains, brains, day in and night out. Old and stinky brains? Rotten brains? Brains clearly past their prime? Doesn't matter. Regular zombie wants 'em."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)27",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
+        "$(br2)$(#bd951a)This zombie loves brains. Can't get enough. Brains, brains, brains, day in and night out. Old and stinky brains? Rotten brains? Brains clearly past their prime? Doesn't matter. Regular zombie wants 'em."
+      ]
     },
     {
       "type": "image",
@@ -14,7 +19,7 @@
       "images": [
         "pvzmod:textures/gui/entries/browncoat.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "Basic Zombie",
       "border": "true",
       "text": "$(#25228d)Regular garden-variety zombie."
     },
@@ -23,17 +28,17 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/peashooter_entry",
-        "pvzmod:plants/puffshroom_entry"
+        "pvzmod:plants/puffshroom_entry",
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/peapod_entry"
       ]
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:zombies/flagzombie_entry",
-        "pvzmod:zombies/conehead_entry",
-        "pvzmod:zombies/buckethead_entry"
-      ],
-      "title": "Related Zombies"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Zombie"
+      ]
     }
   ]
 }

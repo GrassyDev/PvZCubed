@@ -44,17 +44,18 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
 public class HypnoPoleVaultingEntity extends HypnoZombieEntity implements IAnimatable {
 	private MobEntity owner;
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private String controllerName = "runningcontroller";
 
 	public HypnoPoleVaultingEntity(EntityType<? extends HypnoPoleVaultingEntity> entityType, World world) {
 		super(entityType, world);
-		this.moveControl = new HypnoPoleVaultingEntity.HypnoPoleVaultingMoveControl(this);
+		//this.moveControl = new HypnoPoleVaultingEntity.HypnoPoleVaultingMoveControl(this);
 		this.ignoreCameraFrustum = true;
 		this.getNavigation().setCanSwim(true);
 		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
@@ -137,17 +138,17 @@ public class HypnoPoleVaultingEntity extends HypnoZombieEntity implements IAnima
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.getPoleStage()){
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.running", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.idle", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle"));
 			}
 		}
 		else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.running2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running2"));
 				event.getController().setAnimationSpeed(0.5F);
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.idle2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle2"));
 				event.getController().setAnimationSpeed(1F);
 			}
 		}
@@ -158,10 +159,10 @@ public class HypnoPoleVaultingEntity extends HypnoZombieEntity implements IAnima
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(2, new HypnoPoleVaultingEntity.FaceTowardTargetGoal(this));
+		/**this.goalSelector.add(2, new HypnoPoleVaultingEntity.FaceTowardTargetGoal(this));
 		this.goalSelector.add(1, new HypnoPoleVaultingEntity.SwimmingGoal(this));
 		this.goalSelector.add(3, new HypnoPoleVaultingEntity.RandomLookGoal(this));
-		this.goalSelector.add(5, new HypnoPoleVaultingEntity.MoveGoal(this));
+		this.goalSelector.add(5, new HypnoPoleVaultingEntity.MoveGoal(this));**/
 		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal());
 		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(8, new LookAroundGoal(this));

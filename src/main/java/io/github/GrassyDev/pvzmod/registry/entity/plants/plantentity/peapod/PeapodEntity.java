@@ -46,6 +46,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -59,7 +60,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 
 	public boolean isFiring;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	public static final	UUID MAX_HEALTH_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
@@ -169,41 +170,41 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.getCount().equals(PeapodCountVariants.ONE)) {
 			if (this.isFiring) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot", false));
+				event.getController().setAnimation(new AnimationBuilder().playOnce("peapod.shoot"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("peapod.idle"));
 			}
 		}
 		else if (this.getCount().equals(PeapodCountVariants.TWO)) {
 			if (this.isFiring) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot2", false));
+				event.getController().setAnimation(new AnimationBuilder().playOnce("peapod.shoot2"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("peapod.idle2"));
 			}
 		}
 		else if (this.getCount().equals(PeapodCountVariants.THREE)) {
 			if (this.isFiring) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot3", false));
+				event.getController().setAnimation(new AnimationBuilder().playOnce("peapod.shoot3"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle3", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("peapod.idle3"));
 			}
 		}
 		else if (this.getCount().equals(PeapodCountVariants.FOUR)) {
 			if (this.isFiring) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot4", false));
+				event.getController().setAnimation(new AnimationBuilder().playOnce("peapod.shoot4"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle4", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("peapod.idle4"));
 			}
 		}
 		else if (this.getCount().equals(PeapodCountVariants.FIVE)) {
 			if (this.isFiring) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.shoot5", false));
+				event.getController().setAnimation(new AnimationBuilder().playOnce("peapod.shoot5"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle5", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("peapod.idle5"));
 			}
 		}
 		else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("peapod.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("peapod.idle"));
 		}
 		return PlayState.CONTINUE;
 	}

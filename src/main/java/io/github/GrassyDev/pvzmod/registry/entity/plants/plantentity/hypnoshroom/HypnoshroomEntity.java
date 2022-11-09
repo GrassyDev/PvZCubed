@@ -43,12 +43,13 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
 public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, RangedAttackMob {
 
-    public AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "hypnocontroller";
     public boolean isAsleep;
     public boolean isTired;
@@ -109,10 +110,10 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (this.isTired) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("hypnoshroom.asleep", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("hypnoshroom.asleep"));
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("hypnoshroom.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("hypnoshroom.idle"));
         }
         return PlayState.CONTINUE;
     }

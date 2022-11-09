@@ -39,6 +39,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.*;
 
@@ -47,7 +48,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(ChomperEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public int healingTime;
     private int attackTicksLeft;
     public boolean notEating;
@@ -145,16 +146,16 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.attackTicksLeft;
         if (this.eatingShield) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("chomper.chomp3", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("chomper.chomp3"));
         }
         else if (i <= 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("chomper.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("chomper.idle"));
         }
         else if (this.notEating) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("chomper.chomp2", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("chomper.chomp2"));
         }
         else if (i > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("chomper.chomp", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("chomper.chomp"));
         }
         return PlayState.CONTINUE;
     }

@@ -38,10 +38,11 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class CherrybombEntity extends BombardEntity implements IAnimatable {
 
-    public AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Integer> FUSE_SPEED;
     private static final TrackedData<Boolean> CHARGED;
     private static final TrackedData<Boolean> IGNITED;
@@ -137,9 +138,9 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.getFuseSpeed();
         if (i > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("cherrybomb.explode", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("cherrybomb.explode"));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("cherrybomb.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("cherrybomb.idle"));
         }
         return PlayState.CONTINUE;
     }

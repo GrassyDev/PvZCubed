@@ -41,13 +41,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
 public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "fume");
 
@@ -93,7 +94,7 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(new AnimationBuilder().addAnimation("fume.idle", true));
+		event.getController().setAnimation(new AnimationBuilder().loop("fume.idle"));
 		return PlayState.CONTINUE;
 	}
 

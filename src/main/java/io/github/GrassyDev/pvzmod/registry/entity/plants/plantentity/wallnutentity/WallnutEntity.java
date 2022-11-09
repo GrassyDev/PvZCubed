@@ -29,6 +29,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -42,7 +43,7 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 
     public int damageTaken;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public WallnutEntity(EntityType<? extends WallnutEntity> entityType, World world) {
         super(entityType, world);
@@ -125,16 +126,16 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (this.damageTaken == 3){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("wallnut.damage3", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.damage3"));
         }
         else if (this.damageTaken == 2){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("wallnut.damage2", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.damage2"));
         }
         else if (this.damageTaken == 1){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("wallnut.damage1", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.damage1"));
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("wallnut.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.idle"));
         }
         return PlayState.CONTINUE;
     }
@@ -238,9 +239,9 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 		return false;
 	}
 
-	public boolean isCollidable() {
+	/**public boolean isCollidable() {
 		return this.isAlive();
-	}
+	}**/
 
 	public boolean isPushable() {
 		return false;

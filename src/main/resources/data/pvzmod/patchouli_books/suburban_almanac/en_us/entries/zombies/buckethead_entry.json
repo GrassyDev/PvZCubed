@@ -6,14 +6,19 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)137$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Normal$(br2)$(#bd951a)Buckethead Zombie always wore a bucket. Part of it was to assert his uniqueness in an uncaring world. Mostly he just forgot it was there in the first place."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)137",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
+        "$(br2)$(#bd951a)Buckethead Zombie always wore a bucket. Part of it was to assert his uniqueness in an uncaring world. Mostly he just forgot it was there in the first place."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/buckethead.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "Basic Zombie",
       "border": "true",
       "text": "$(#25228d)His bucket hat makes him extremely resistant to damage."
     },
@@ -29,7 +34,10 @@
         "pvzmod:plants/repeater_entry",
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",
-        "pvzmod:plants/doomshroom_entry"
+        "pvzmod:plants/doomshroom_entry",
+        "pvzmod:plants/perfoomshroom_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/firepea_entry"
       ]
     },
     {
@@ -40,6 +48,13 @@
         "pvzmod:zombies/conehead_entry"
       ],
       "title": "Related Zombies"
+    },
+    {
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Buckethead Zombie"
+      ]
     }
   ]
 }

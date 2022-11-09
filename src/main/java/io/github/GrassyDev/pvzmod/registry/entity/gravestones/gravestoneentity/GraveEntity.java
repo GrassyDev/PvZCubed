@@ -46,7 +46,12 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		SPELL = DataTracker.registerData(SpellcastingIllagerEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
-
+	public void tick() {
+		super.tick();
+		if (this.hasStatusEffect(PvZCubed.HYPNOTIZED)){
+			this.removeStatusEffect(PvZCubed.HYPNOTIZED);
+		}
+	}
 
 	protected enum Spell {
 		NONE(0, 0.0, 0.0, 0.0),

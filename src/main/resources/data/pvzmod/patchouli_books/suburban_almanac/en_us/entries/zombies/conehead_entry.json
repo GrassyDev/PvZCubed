@@ -6,14 +6,19 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)64$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Normal$(br2)$(#bd951a)Conehead Zombie shuffled mindlessly forward like every other zombie. But something made him stop, made him pick up a traffic cone and stick it on his head. Oh yeah. He likes to party."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)64",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
+        "$(br2)$(#bd951a)Conehead Zombie shuffled mindlessly forward like every other zombie. But something made him stop, made him pick up a traffic cone and stick it on his head. Oh yeah. He likes to party."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/conehead.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "Basic Zombie",
       "border": "true",
       "text": "$(#25228d)His traffic cone headpiece makes him twice as tough as normal zombies."
     },
@@ -21,21 +26,18 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/peashooter_entry",
         "pvzmod:plants/snowpea_entry",
-        "pvzmod:plants/chomper_entry",
-        "pvzmod:plants/fumeshroom_entry",
-        "pvzmod:plants/scaredyshroom_entry"
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/scaredyshroom_entry",
+        "pvzmod:plants/peapod_entry"
       ]
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:zombies/flagzombie_entry",
-        "pvzmod:zombies/browncoat_entry",
-        "pvzmod:zombies/buckethead_entry"
-      ],
-      "title": "Related Zombies"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Conehead Zombie"
+      ]
     }
   ]
 }

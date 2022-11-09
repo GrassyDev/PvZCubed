@@ -45,6 +45,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
@@ -52,7 +53,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
     private MobEntity owner;
     private boolean isAggro;
     private boolean dancing;
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public DancingZombieEntity(EntityType<? extends DancingZombieEntity> entityType, World world) {
         super(entityType, world);
@@ -100,12 +101,12 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (!this.dancing) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("dancingzombie.moonwalking", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.moonwalking"));
         } else  {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("dancingzombie.dancewalk", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancewalk"));
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("dancingzombie.dancing", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancing"));
             }
         }
         return PlayState.CONTINUE;

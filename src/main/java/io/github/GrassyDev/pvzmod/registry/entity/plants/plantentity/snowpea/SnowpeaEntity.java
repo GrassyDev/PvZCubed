@@ -38,6 +38,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.*;
 
@@ -46,7 +47,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(SnowpeaEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	public int healingTime;
 
@@ -129,9 +130,9 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.shoot", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("peashooter.shoot"));
 		} else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("peashooter.idle"));
 		}
 		return PlayState.CONTINUE;
 	}

@@ -32,13 +32,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.Random;
 
 public class PuffshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private String controllerName = "puffcontroller";
     public boolean isTired;
@@ -88,11 +89,11 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isTired) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("puffshroom.asleep", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("puffshroom.asleep"));
 		} else if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("puffshroom.shoot", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("puffshroom.shoot"));
 		} else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("puffshroom.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("puffshroom.idle"));
 		}
 		return PlayState.CONTINUE;
     }

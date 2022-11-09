@@ -6,15 +6,20 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)50$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Fast$(br)$(#bd951a)Special:$()$(#ff0000)Ignores defensive plants and goes after the player.$(br2)$(#bd951a)Some zombies take it further, aspire more, push themselves beyond the normal into greatness. That's Pole Vaulting Zombie right there. That is so him."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)50",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Ignores defensive plants.",
+        "$(br2)$(#bd951a)Some zombies take it further, aspire more, push themselves beyond the normal into greatness. That's Pole Vaulting Zombie right there. That is so him."
+      ]
     },
     {
       "type": "image",
-
       "images": [
         "pvzmod:textures/gui/entries/polevaulting.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "Basic Zombie",
       "border": "true",
       "text": "$(#25228d)Pole Vaulting Zombie ignores your defenses."
     },
@@ -23,17 +28,15 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/snowpea_entry",
-        "pvzmod:plants/chomper_entry",
-        "pvzmod:plants/repeater_entry",
-        "pvzmod:plants/scaredyshroom_entry"
+        "pvzmod:plants/repeater_entry"
       ]
     },
     {
-      "type": "relations",
-      "entries": [
-
-      ],
-      "title": "Related Zombies"
+      "type": "text",
+      "title": "Origins",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Pole Vaulting Zombie"
+      ]
     }
   ]
 }

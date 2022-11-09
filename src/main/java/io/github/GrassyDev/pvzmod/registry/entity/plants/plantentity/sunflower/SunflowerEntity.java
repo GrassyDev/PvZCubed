@@ -25,6 +25,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Random;
 
@@ -35,7 +36,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 
     public int healingTime;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public SunflowerEntity(EntityType<? extends SunflowerEntity> entityType, World world) {
         super(entityType, world);
@@ -63,7 +64,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("sunflower.idle", true));
+        event.getController().setAnimation(new AnimationBuilder().loop("sunflower.idle"));
         return PlayState.CONTINUE;
     }
 

@@ -2,7 +2,7 @@
   "name": "Threepeater",
   "icon": "pvzmod:threepeater_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 99,
+  "sortnum": 18,
   "pages": [
     {
       "type": "text",

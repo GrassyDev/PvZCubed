@@ -51,6 +51,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
@@ -58,7 +59,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
     private MobEntity owner;
     private boolean isAggro;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     double tonguechance = this.random.nextDouble();
 
@@ -142,19 +143,19 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (tonguechance <= 0.5) {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.walking", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
 				event.getController().setAnimationSpeed(1.66);
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.idle", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
 				event.getController().setAnimationSpeed(1);
             }
         }
         else {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.walking2", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking2"));
 				event.getController().setAnimationSpeed(1.66);
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.idle2", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle2"));
 				event.getController().setAnimationSpeed(1);
             }
         }
@@ -201,7 +202,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createFlagzombieZombieAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.21D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);

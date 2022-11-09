@@ -38,6 +38,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
@@ -49,7 +50,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
 	double tiltchance = this.random.nextDouble();
 
-    public AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public BasicGraveEntity(EntityType<BasicGraveEntity> entityType, World world) {
         super(entityType, world);
@@ -77,10 +78,10 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (tiltchance <= 0.5) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("gravestone.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("gravestone.idle"));
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("gravestone.idle2", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("gravestone.idle2"));
         }
         return PlayState.CONTINUE;
     }

@@ -55,11 +55,12 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnimatable {
 	private MobEntity owner;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private String controllerName = "walkingcontroller";
 	private boolean spawning;
 	double tonguechance = this.random.nextDouble();
@@ -145,15 +146,15 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (tonguechance <= 0.5) {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.walking", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.idle", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
 			}
 		} else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.walking2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking2"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("flagzombie.idle2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle2"));
 			}
 		}
 		return PlayState.CONTINUE;

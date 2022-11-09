@@ -35,6 +35,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -47,7 +48,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 
 	public boolean isFiring;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public GatlingpeaEntity(EntityType<? extends GatlingpeaEntity> entityType, World world) {
         super(entityType, world);
@@ -84,10 +85,10 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.gatling.shoot", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("peashooter.gatling.shoot"));
 		}
 		else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("peashooter.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("peashooter.idle"));
 		}
 		return PlayState.CONTINUE;
 	}

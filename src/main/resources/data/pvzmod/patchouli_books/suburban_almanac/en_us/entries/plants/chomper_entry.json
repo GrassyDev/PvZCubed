@@ -11,7 +11,7 @@
         "$(br)$(#bd951a)Damage:$()$(#ff0000)Insta-kill, 16 DMG/1.5s (if target is Immune)",
         "$(br)$(#bd951a)Chew Time:$()$(#ff0000)10s",
         "$(br)$(#bd951a)Special:$()$(#ff0000)Kills a zombie instantly, but has to chew it afterwards. Unless they are either big, have a shield, or are a grave",
-        "$(br2)$(#bd951a)Chomper almost got a gig doing stunts for The Little Shop of Horrors but it fell through when his agent demanded too much on the front end. He's not resentful, though. It's just part of the business."
+        "$(br2)$(#bd951a)Chomper almost got a gig doing stunts for The Little Shop of Horrors but it fell through when his agent demanded too much on the front end."
       ]
     },
     {

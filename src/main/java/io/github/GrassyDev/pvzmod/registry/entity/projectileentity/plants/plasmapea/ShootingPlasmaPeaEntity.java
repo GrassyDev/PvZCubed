@@ -39,13 +39,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
 public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	@Override
 	public void registerControllers(AnimationData animationData) {
@@ -60,7 +61,7 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 	}
 
 	private <P extends IAnimatable > PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(new AnimationBuilder().addAnimation("peashot.idle", true));
+		event.getController().setAnimation(new AnimationBuilder().loop("peashot.idle"));
 		return PlayState.CONTINUE;
 	}
 

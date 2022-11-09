@@ -28,6 +28,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Random;
 
@@ -39,7 +40,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 
     public int healingTime;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public SunshroomEntity(EntityType<? extends SunshroomEntity> entityType, World world) {
         super(entityType, world);
@@ -78,10 +79,10 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (this.isTired) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("sunshroom.asleep", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("sunshroom.asleep"));
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("sunshroom.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("sunshroom.idle"));
         }
         return PlayState.CONTINUE;
     }

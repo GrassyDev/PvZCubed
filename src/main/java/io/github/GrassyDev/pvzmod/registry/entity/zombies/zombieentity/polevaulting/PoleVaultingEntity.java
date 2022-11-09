@@ -44,19 +44,20 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
 public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	private MobEntity owner;
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	public boolean firstAttack;
 	private String controllerName = "runningcontroller";
 
 	public PoleVaultingEntity(EntityType<? extends PoleVaultingEntity> entityType, World world) {
 		super(entityType, world);
-		this.moveControl = new PoleVaultingEntity.PoleVaultingMoveControl(this);
+		//this.moveControl = new PoleVaultingEntity.PoleVaultingMoveControl(this);
 		this.ignoreCameraFrustum = true;
 		this.experiencePoints = 3;
 		this.firstAttack = true;
@@ -137,17 +138,17 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.getPoleStage()){
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.running", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.idle", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle"));
 			}
 		}
 		else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.running2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running2"));
 				event.getController().setAnimationSpeed(0.5F);
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("polevaulting.idle2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle2"));
 				event.getController().setAnimationSpeed(1F);
 			}
 		}
@@ -158,10 +159,10 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(2, new PoleVaultingEntity.FaceTowardTargetGoal(this));
+		/**this.goalSelector.add(1, new PoleVaultingEntity.FaceTowardTargetGoal(this));
 		this.goalSelector.add(1, new PoleVaultingEntity.SwimmingGoal(this));
 		this.goalSelector.add(3, new PoleVaultingEntity.RandomLookGoal(this));
-		this.goalSelector.add(5, new PoleVaultingEntity.MoveGoal(this));
+		this.goalSelector.add(5, new PoleVaultingEntity.MoveGoal(this));**/
 		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
@@ -170,15 +171,14 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void initCustomGoals() {
 		this.targetSelector.add(2, new PoleVaultingEntity.TrackOwnerTargetGoal(this));
-		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
+		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(4, new TargetGoal<>(this, PotatomineEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, ReinforceEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, EnforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
-		this.targetSelector.add(4, new TargetGoal<>(this, HypnoshroomEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, EnchantEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, AppeaseEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, PepperEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, WinterEntity.class, false, true));
@@ -302,7 +302,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 
 	/** /~*~//~*GOALS*~//~*~/ **/
-
+/**
 	private static class PoleVaultingMoveControl extends MoveControl {
 		private float targetYaw;
 		private int ticksUntilJump;
@@ -383,7 +383,10 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 					this.timer = this.getTickCount(40 + this.poleVaultingEntity.getRandom().nextInt(60));
 					this.targetYaw = (float) this.poleVaultingEntity.getRandom().nextInt(360);
 				}
-				((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaultingEntity.getMoveControl()).look(this.targetYaw, false);
+
+				if (this.poleVaultingEntity.getMoveControl() instanceof PoleVaultingMoveControl) {
+					((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaultingEntity.getMoveControl()).look(this.targetYaw, false);
+				}
 			}
 		}
 	}
@@ -410,13 +413,14 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 				this.poleVaultingEntity.getJumpControl().setActive();
 			}
 
-			((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaultingEntity.getMoveControl()).move(2);
+			if (this.poleVaultingEntity.getMoveControl() instanceof PoleVaultingMoveControl) {
+				((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaultingEntity.getMoveControl()).move(2);
+			}
 		}
 	}
 
 	static class FaceTowardTargetGoal extends Goal {
 		private final PoleVaultingEntity poleVaulting;
-		private int ticksLeft;
 
 		public FaceTowardTargetGoal(PoleVaultingEntity poleVaulting) {
 			this.poleVaulting = poleVaulting;
@@ -433,7 +437,6 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		}
 
 		public void start() {
-			this.ticksLeft = toGoalTicks(300);
 			super.start();
 		}
 
@@ -444,7 +447,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 			} else if (!this.poleVaulting.canTarget(livingEntity)) {
 				return false;
 			} else {
-				return --this.ticksLeft > 0;
+				return true;
 			}
 		}
 
@@ -458,7 +461,9 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 				this.poleVaulting.lookAtEntity(livingEntity, 360.0F, 360.0F);
 			}
 
-			((PoleVaultingEntity.PoleVaultingMoveControl)this.poleVaulting.getMoveControl()).look(this.poleVaulting.getYaw(), true);
+			if (this.poleVaulting.getMoveControl() instanceof PoleVaultingMoveControl){
+				((PoleVaultingEntity.PoleVaultingMoveControl)this.poleVaulting.getMoveControl()).look(this.poleVaulting.getYaw(), true);
+			}
 		}
 	}
 
@@ -475,9 +480,13 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		}
 
 		public void tick() {
-			((PoleVaultingEntity.PoleVaultingMoveControl)this.poleVaulting.getMoveControl()).move(1.0);
+
+			if (this.poleVaulting.getMoveControl() instanceof PoleVaultingMoveControl) {
+				((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaulting.getMoveControl()).move(1.0);
+			}
 		}
 	}
+ **/
 
 	class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();

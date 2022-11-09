@@ -46,6 +46,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -63,7 +64,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 	private boolean canAnimate;
 	private boolean playSoundRise;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	public PotatomineEntity(EntityType<? extends PotatomineEntity> entityType, World world) {
         super(entityType, world);
@@ -212,12 +213,12 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (canAnimate) {
 			world.sendEntityStatus(this, (byte) 30);
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("potatomine.ready", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("potatomine.ready"));
 		}
 		else if (this.getPotatoStage()) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("potatomine.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("potatomine.idle"));
 		} else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("potatomine.unarmed", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("potatomine.unarmed"));
 		}
         return PlayState.CONTINUE;
     }

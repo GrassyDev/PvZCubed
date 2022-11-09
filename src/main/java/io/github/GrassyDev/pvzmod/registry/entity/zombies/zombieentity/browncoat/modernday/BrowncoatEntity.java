@@ -47,10 +47,11 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
-    public AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
     double tonguechance = this.random.nextDouble();
 
@@ -90,19 +91,19 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (tonguechance <= 0.5) {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
 				event.getController().setAnimationSpeed(1.66);
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
 				event.getController().setAnimationSpeed(1);
             }
         }
         else {
             if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.walking2", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
 				event.getController().setAnimationSpeed(1.66);
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("newbrowncoat.idle2", true));
+                event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
 				event.getController().setAnimationSpeed(1);
             }
         }

@@ -40,12 +40,13 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Random;
 
 public class IceshroomEntity extends WinterEntity implements IAnimatable {
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Integer> FUSE_SPEED;
     private static final TrackedData<Boolean> CHARGED;
     private static final TrackedData<Boolean> IGNITED;
@@ -152,12 +153,12 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.getFuseSpeed();
         if (this.isTired){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("iceshroom.asleep", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("iceshroom.asleep"));
         }
         else if (i > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("iceshroom.explode", false));
+            event.getController().setAnimation(new AnimationBuilder().playOnce("iceshroom.explode"));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("iceshroom.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("iceshroom.idle"));
         }
         return PlayState.CONTINUE;
     }

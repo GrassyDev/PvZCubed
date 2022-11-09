@@ -38,13 +38,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.Random;
 
 public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	private String controllerName = "scaredycontroller";
 
@@ -152,19 +153,19 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isTired) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.asleep", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("scaredyshroom.asleep"));
 		}
 		else if (this.animationScare <= 0 && this.isAfraid){
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.afraid", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("scaredyshroom.afraid"));
 		}
 		else if (this.isAfraid){
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.hiding", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("scaredyshroom.hiding"));
 		}
 		else if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.attack", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("scaredyshroom.attack"));
 		}
 		else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("scaredyshroom.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("scaredyshroom.idle"));
 		}
         return PlayState.CONTINUE;
     }

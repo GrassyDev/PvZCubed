@@ -39,13 +39,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Random;
 import java.util.function.Predicate;
 
 public class HypnoImpEntity extends HypnoZombieEntity implements IAnimatable {
     private MobEntity owner;
-    public AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
 
     public HypnoImpEntity(EntityType<? extends HypnoImpEntity> entityType, World world) {
@@ -82,14 +83,14 @@ public class HypnoImpEntity extends HypnoZombieEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (!this.isOnGround()){
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("imp.ball", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("imp.ball"));
 		}
         else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("imp.run", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("imp.run"));
 			event.getController().setAnimationSpeed(1.5);
 		}
 		else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("imp.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("imp.idle"));
 			event.getController().setAnimationSpeed(1);
 		}
         return PlayState.CONTINUE;

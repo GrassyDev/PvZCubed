@@ -39,13 +39,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.Random;
 
 public class FumeshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	private String controllerName = "fumecontroller";
 
@@ -139,11 +140,11 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isTired) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.asleep", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("fumeshroom.asleep"));
 		} else if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.attack", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("fumeshroom.attack"));
 		} else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("fumeshroom.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("fumeshroom.idle"));
 		}
 		return PlayState.CONTINUE;
 	}

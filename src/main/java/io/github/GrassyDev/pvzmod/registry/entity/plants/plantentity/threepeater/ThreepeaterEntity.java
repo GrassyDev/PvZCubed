@@ -33,6 +33,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.lang.invoke.CallSite;
 import java.util.EnumSet;
@@ -46,7 +47,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 
 	public boolean isFiring;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public ThreepeaterEntity(EntityType<? extends ThreepeaterEntity> entityType, World world) {
         super(entityType, world);
@@ -83,10 +84,10 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("threepeater.shoot", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("threepeater.shoot"));
 		}
 		else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("threepeater.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("threepeater.idle"));
 		}
 		return PlayState.CONTINUE;
 	}

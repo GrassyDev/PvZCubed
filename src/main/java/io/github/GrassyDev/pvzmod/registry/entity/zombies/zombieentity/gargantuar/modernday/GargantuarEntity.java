@@ -44,6 +44,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.*;
 
@@ -58,7 +59,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
     public boolean inAnimation;
 	public boolean inLaunchAnimation;
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	public GargantuarEntity(EntityType<? extends GargantuarEntity> entityType, World world) {
         super(entityType, world);
@@ -156,26 +157,26 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (inLaunchAnimation){
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("gargantuar.throw", false));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
 		}
 		else if (this.getImpStage()){
 			if (inAnimation){
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("gargantuar.smash", false));
+				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
 			}
 			else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("gargantuar.walk", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
 			}else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("gargantuar.idle", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
 			}
 		}
 		else {
 			if (inAnimation){
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("gargantuar.smash2", false));
+				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
 			}
 			else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("gargantuar.walk2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
 			}else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("gargantuar.idle2", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
 			}
 		}
         return PlayState.CONTINUE;

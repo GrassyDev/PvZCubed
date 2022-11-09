@@ -27,12 +27,13 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Random;
 
 public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
-    public AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public int healingTime;
     private int attackTicksLeft;
     private boolean notready;
@@ -66,7 +67,7 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("gravebuster.idle", true));
+        event.getController().setAnimation(new AnimationBuilder().loop("gravebuster.idle"));
         return PlayState.CONTINUE;
     }
 

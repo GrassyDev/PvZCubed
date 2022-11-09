@@ -39,11 +39,12 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatable {
 
 	private MobEntity owner;
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private String controllerName = "walkingcontroller";
 	private boolean speedUp;
 
@@ -92,15 +93,15 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 			if (this.speedUp){
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("newspaper.angry", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.angry"));
 				event.getController().setAnimationSpeed(2);
 			}
 			else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("newspaper.walking", true));
+				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
 				event.getController().setAnimationSpeed(1);
 			}
 		} else {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("newspaper.idle", true));
+			event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
 			event.getController().setAnimationSpeed(1);
 		}
 		return PlayState.CONTINUE;

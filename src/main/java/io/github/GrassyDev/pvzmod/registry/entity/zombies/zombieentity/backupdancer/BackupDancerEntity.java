@@ -42,12 +42,13 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Random;
 
 public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private MobEntity owner;
     private String controllerName = "walkingcontroller";
 
@@ -86,9 +87,9 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("backupdancer.dancing", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.dancing"));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("backupdancer.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.idle"));
         }
         return PlayState.CONTINUE;
     }

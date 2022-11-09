@@ -33,10 +33,11 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAnimatable {
 
-	public AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private MobEntity owner;
     private boolean dancing;
 	private String controllerName = "walkingcontroller";
@@ -80,9 +81,9 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("dancingzombie.dancewalk", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancewalk"));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("dancingzombie.dancing", true));
+            event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancing"));
         }
         return PlayState.CONTINUE;
     }
