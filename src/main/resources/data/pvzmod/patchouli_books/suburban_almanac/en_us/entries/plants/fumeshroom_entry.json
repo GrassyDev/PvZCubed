@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)30",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)35 DMG/3s",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)x5 4.5 DMG/2s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Poisons zombies. Damages multiple zombies at the same time. Ignores shields.",
         "$(br2)$(#bd951a)\"I was in a dead-end job producing yeast spores for a bakery. Then Puff-shroom, told me about this great opportunity blasting zombies.\""
@@ -25,14 +25,14 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:fumeshroom"
+      "recipe": "pvzmod:fumeshroompvz"
     },
     {
       "type": "text",
-      "title": "Origins",
+      "title": "References",
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Fume-shroom",
-        "$(br)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Fume-shroom"
+        "$(br2)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Fume-shroom"
       ]
     }
   ]

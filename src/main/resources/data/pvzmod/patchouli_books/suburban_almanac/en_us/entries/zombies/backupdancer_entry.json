@@ -6,14 +6,19 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)64$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Slow$(br2)$(#bd951a)Backup Dancer Zombie spent six years perfecting his art at the Chewliard Performing Arts School in Zombie New York City."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)64",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Slow",
+        "$(br2)$(#bd951a)Backup Dancer Zombie spent six years perfecting his art at the Chewliard Performing Arts School in Zombie New York City."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/backupdancer.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "Night Zombie",
       "border": "true",
       "text": "$(#25228d)These zombies appear in sets of four whenever Dancing Zombie rocks out."
     },
@@ -21,19 +26,16 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/cherrybomb_entry",
-        "pvzmod:plants/potatomine_entry",
-        "pvzmod:plants/fumeshroom_entry",
-        "pvzmod:plants/iceshroom_entry",
-        "pvzmod:plants/doomshroom_entry"
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/scaredyshroom_entry"
       ]
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:zombies/dancingzombie_entry"
-      ],
-      "title": "Related Zombies"
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Backup Dancer"
+      ]
     }
   ]
 }

@@ -31,10 +31,10 @@
     },
     {
       "type": "text",
-      "title": "Origins",
+      "title": "References",
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: Garden Warfare 2: $()$(#ff0000)Perfume Shroom (Doom-shroom Skin)",
-        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Perfume Shroom"
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Perfume Shroom"
       ]
     }
   ]

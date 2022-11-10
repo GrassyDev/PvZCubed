@@ -551,7 +551,7 @@ public class PvZEntity implements ModInitializer {
         EntityRendererRegistry.register(PvZEntity.HYPNOBUCKETHEAD, HypnoBucketheadEntityRenderer::new);
 
 
-		FabricDefaultAttributeRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntity.createNewspaperAttributes());
+		FabricDefaultAttributeRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntity.createHypnoNewspaperAttributes());
         EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNONEWSPAPER, HypnoNewspaperEntity.createHypnoNewspaperAttributes());

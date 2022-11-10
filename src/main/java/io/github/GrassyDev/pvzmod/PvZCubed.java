@@ -192,6 +192,9 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 	public static final Identifier IMPMOAN = new Identifier("pvzmod:imp.moan");
 	public static SoundEvent IMPMOANEVENT = new SoundEvent(IMPMOAN);
 
+	public static final Identifier NEWSPAPERANGRY = new Identifier("pvzmod:newspaper.angry");
+	public static SoundEvent NEWSPAPERANGRYEVENT = new SoundEvent(NEWSPAPERANGRY);
+
 	public static final Identifier ZOMBIEDANCING = new Identifier("pvzmod:zombie.dancing");
 	public static SoundEvent ZOMBIEDANCINGEVENT = new SoundEvent(ZOMBIEDANCING);
 

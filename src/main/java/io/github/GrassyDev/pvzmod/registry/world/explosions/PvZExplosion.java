@@ -5,6 +5,8 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -132,7 +134,7 @@ public class PvZExplosion extends Explosion {
 							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 5)));
 							entity.setOnFireFor(4);
 						}
-						if (this.hypnosis) {
+						if (this.hypnosis && (entity instanceof PvZombieEntity || entity instanceof SummonerEntity)) {
 							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.HYPNOTIZED, 999, 1)));
 						}
 					}

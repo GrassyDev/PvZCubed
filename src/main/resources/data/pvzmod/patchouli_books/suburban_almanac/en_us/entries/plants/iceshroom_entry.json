@@ -12,7 +12,7 @@
         "$(br)$(#bd951a)Explosion Range: $()$(#ff0000)10 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
         "$(br)$(#bd951a)Freeze Time: $()$(#ff0000)10s",
-        "$(br)$(#bd951a)Special:$()$(#ff0000)Nocturnal. Completely freezes all zombies on range.",
+        "$(br)$(#bd951a)Special:$()$(#ff0000)Nocturnal. Completely freezes all zombies in range.",
         "$(br2)$(#bd951a)Ice-shroom frowns, not because he's unhappy or because he disapproves, but because of a childhood injury that left his facial nerves paralyzed."
       ]
     },
@@ -31,7 +31,7 @@
     },
     {
       "type": "text",
-      "title": "Origins",
+      "title": "References",
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Ice-shroom"
       ]

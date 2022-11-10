@@ -32,9 +32,9 @@
     },
     {
       "type": "text",
-      "title": "Origins",
+      "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Doom-shroom"
+        "$(br2)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Doom-shroom"
       ]
     }
   ]

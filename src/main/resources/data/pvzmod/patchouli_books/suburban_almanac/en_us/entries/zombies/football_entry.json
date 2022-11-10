@@ -6,14 +6,20 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)167$(br)$(#bd951a)Damage:$()$(#ff0000)180(tackle), 7(normal)$(br)$(#bd951a)Speed:$()$(#ff0000)Fast$(br)$(#bd951a)Special:$()$(#ff0000)Tackles the first plant it sees.$(br2)$(#bd951a)Football Zombie gives 110 percent whenever he's on the field. He's a team player who delivers both offensively and defensively. He has no idea what a football is."
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)167",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)180(tackle), 7(normal)",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Tackles the first plant it sees.",
+        "$(br2)$(#bd951a)Football Zombie gives 110 percent whenever he's on the field. He's a team player who delivers both offensively and defensively. He has no idea what a football is."
+      ]
     },
     {
       "type": "image",
       "images": [
         "pvzmod:textures/gui/entries/football.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "Night Zombie",
       "border": "true",
       "text": "$(#25228d)Football Zombie will tackle a plant once."
     },
@@ -24,17 +30,22 @@
         "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/potatomine_entry",
         "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/chomper_entry",
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",
-        "pvzmod:plants/doomshroom_entry"
+        "pvzmod:plants/doomshroom_entry",
+        "pvzmod:plants/gatlingpea_entry",
+        "pvzmod:plants/perfoomshroom_entry"
       ]
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:zombies/buckethead_entry"
-      ],
-      "title": "Related Zombies"
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Football Zombie",
+        "$(br2)$(#bd951a)Plants vs. Zombies: Garden Warfare: $()$(#ff0000)All-Star",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)All-Star Zombie"
+      ]
     }
   ]
 }

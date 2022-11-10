@@ -30,10 +30,10 @@
     },
     {
       "type": "text",
-      "title": "Origins",
+      "title": "References",
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Threepeater",
-        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Threepeater"
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Threepeater"
       ]
     }
   ]

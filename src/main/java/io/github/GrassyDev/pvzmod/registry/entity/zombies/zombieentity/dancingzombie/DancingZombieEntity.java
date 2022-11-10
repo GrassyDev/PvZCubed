@@ -359,7 +359,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
         }
 
         protected int startTimeDelay() {
-            return 340;
+            return 160;
         }
 
         protected void castSpell() {

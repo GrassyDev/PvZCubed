@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
@@ -189,6 +190,21 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 				this.attackTicksLeft = 200;
 				this.world.sendEntityStatus(this, (byte) 5);
 				float f = 153f;
+				boolean bl = target.damage(DamageSource.mob(this), f);
+				if (bl) {
+					this.applyDamageEffects(this, target);
+				}
+				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+				return bl;
+			} else {
+				return false;
+			}
+		}
+		else if (target instanceof NewspaperEntity) {
+			if (i <= 0) {
+				this.attackTicksLeft = 200;
+				this.world.sendEntityStatus(this, (byte) 5);
+				float f = 15f;
 				boolean bl = target.damage(DamageSource.mob(this), f);
 				if (bl) {
 					this.applyDamageEffects(this, target);

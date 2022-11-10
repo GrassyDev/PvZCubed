@@ -184,7 +184,7 @@ public class HypnoPoleVaultingEntity extends HypnoZombieEntity implements IAnima
 
 	public static DefaultAttributeContainer.Builder createHypnoPoleVaultingAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.21D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);

@@ -129,6 +129,11 @@
       "pvzmod:imp_moan"
     ]
   },
+  "newspaper.angry": {
+    "sounds": [
+      "pvzmod:newspaper_angry"
+    ]
+  },
   "zombie.dancing": {
     "sounds": [
       "pvzmod:zombie_dancing"

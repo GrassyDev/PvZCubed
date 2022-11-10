@@ -147,7 +147,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			float sound = this.random.nextFloat();
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
 			if (entity instanceof NewspaperEntity) {
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 15);
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 12.8f);
 			}
 			else  {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);

@@ -331,8 +331,8 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		}
 
 		public void start() {
-			this.beamTicks = -17;
-			this.animationTicks = -32;
+			this.beamTicks = -8;
+			this.animationTicks = -21;
 			this.fumeshroomEntity.getNavigation().stop();
 			this.fumeshroomEntity.getLookControl().lookAt(this.fumeshroomEntity.getTarget(), 90.0F, 90.0F);
 			this.fumeshroomEntity.velocityDirty = true;
@@ -353,7 +353,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 11);
 				++this.beamTicks;
 				++this.animationTicks;
-				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
+				if (this.beamTicks >= 0 && this.animationTicks <= -4) {
 					double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
 					float df = (float) d;
 					double e = livingEntity.getX() - this.fumeshroomEntity.getX();
@@ -377,8 +377,8 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				}
 				if (this.animationTicks >= 0) {
 					this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
-					this.beamTicks = -17;
-					this.animationTicks = -32;
+					this.beamTicks = -8;
+					this.animationTicks = -21;
 				}
 				super.tick();
 			}

@@ -29,10 +29,10 @@
     },
     {
       "type": "text",
-      "title": "Origins",
+      "title": "References",
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Grave Buster",
-        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Grave Buster"
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Grave Buster"
       ]
     }
   ]

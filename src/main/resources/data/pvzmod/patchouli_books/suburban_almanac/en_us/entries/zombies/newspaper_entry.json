@@ -6,7 +6,13 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(#bd951a)Health:$()$(#ff0000)42$(br)$(#bd951a)Damage:$()$(#ff0000)7$(br)$(#bd951a)Speed:$()$(#ff0000)Fastest$(br)$(br)$(#bd951a)Special:$()$(#ff0000)Only aggressive to the plant that provoked him.$(br2)$(#bd951a)Newspaper Zombie was *this* close to finishing his Sudoku puzzle. No wonder he's freaking out. "
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)65",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)7, 14 if angry",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal, Hungry if angry",
+        "$(br)$(br)$(#bd951a)Special: $()$(#ff0000)Becomes faster and stronger if health is below 50. Weak to fire",
+        "$(br2)$(#bd951a)Newspaper Zombie was *this* close to finishing his Sudoku puzzle. No wonder he's freaking out. "
+      ]
     },
     {
       "type": "image",
@@ -14,24 +20,27 @@
       "images": [
         "pvzmod:textures/gui/entries/newspaper.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "Night Zombie",
       "border": "true",
-      "text": "$(#25228d)Goes after whoever hits him."
+      "text": "$(#25228d)Newspaper Zombie is enraged if damaged."
     },
     {
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/fumeshroom_entry"
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/hypnoshroom_entry",
+        "pvzmod:plants/iceshroom_entry",
+        "pvzmod:plants/firepea_entry"
       ]
     },
     {
-      "type": "relations",
-      "entries": [
-        "pvzmod:zombies/polevaulting_entry",
-        "pvzmod:zombies/screendoor_entry"
-      ],
-      "title": "Related Zombies"
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Newspaper Zombie",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Newspaper Zombie"
+      ]
     }
   ]
 }

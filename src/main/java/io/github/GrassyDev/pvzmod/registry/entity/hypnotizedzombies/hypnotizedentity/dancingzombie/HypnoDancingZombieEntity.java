@@ -249,7 +249,7 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
         }
 
         protected int startTimeDelay() {
-            return 340;
+            return 160;
         }
 
         protected void castSpell() {

@@ -25,15 +25,15 @@
       "text": "$(#25228d)Puff-shrooms are cheap, but can only fire a short distance."
     },
     {
-      "type": "text",
-      "text": "Not craftable"
+      "type": "crafting",
+      "recipe": "pvzmod:puffshroom"
     },
     {
       "type": "text",
-      "title": "Origins",
+      "title": "References",
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Puff-shroom",
-        "$(br)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Fume-shroom"
+        "$(br2)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Fume-shroom"
       ]
     }
   ]

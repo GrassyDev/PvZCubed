@@ -17,6 +17,8 @@ import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
@@ -41,12 +43,23 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
+import static io.github.GrassyDev.pvzmod.PvZCubed.NEWSPAPERANGRYEVENT;
+
 public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatable {
 
 	private MobEntity owner;
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private String controllerName = "walkingcontroller";
 	private boolean speedUp;
+
+	public boolean speedSwitch;
+
+	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
+	public static final UUID MAX_STRENGTH_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
 	public HypnoNewspaperEntity(EntityType<? extends HypnoNewspaperEntity> entityType, World world) {
 		super(entityType, world);
@@ -59,6 +72,10 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
+		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+		EntityAttributeInstance maxStrengthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+		maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+		maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
 	}
 
 	static {
@@ -98,7 +115,7 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 			}
 			else {
 				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
-				event.getController().setAnimationSpeed(1);
+				event.getController().setAnimationSpeed(0.75);
 			}
 		} else {
 			event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
@@ -114,13 +131,13 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal());
 		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(8, new LookAroundGoal(this));
-		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1));
 		this.initCustomGoals();
 	}
 
 	protected void initCustomGoals() {
 		this.targetSelector.add(2, new HypnoNewspaperEntity.TrackOwnerTargetGoal(this));
-		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
 					!(livingEntity instanceof HypnoFlagzombieEntity);
@@ -132,22 +149,55 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 
 	public void mobTick() {
 		super.mobTick();
-		if (this.getTarget() != null){
+		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+		EntityAttributeInstance maxStrengthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+		if (this.getTarget() != null && this.getHealth() <= 50){
 			this.world.sendEntityStatus(this, (byte) 30);
+			if (this.speedSwitch) {
+				this.playSound(NEWSPAPERANGRYEVENT, 1, 1);
+				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
+				this.speedSwitch = false;
+			}
 		}
 		else {
 			this.world.sendEntityStatus(this, (byte) 31);
+			if (!this.speedSwitch){
+				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
+				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.15D));
+				maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-7D));
+				this.speedSwitch = true;
+			}
 		}
 	}
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public static EntityAttributeModifier createSpeedModifier(double amount) {
+		return new EntityAttributeModifier(
+				MAX_SPEED_UUID,
+				MOD_ID,
+				amount,
+				EntityAttributeModifier.Operation.ADDITION
+		);
+	}
+
+	public static EntityAttributeModifier createStrengthModifier(double amount) {
+		return new EntityAttributeModifier(
+				MAX_STRENGTH_UUID,
+				MOD_ID,
+				amount,
+				EntityAttributeModifier.Operation.ADDITION
+		);
+	}
 
 	public static DefaultAttributeContainer.Builder createHypnoNewspaperAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 42D);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 65D);
 	}
 
 	protected SoundEvent getAmbientSound() {

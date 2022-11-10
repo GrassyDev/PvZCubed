@@ -122,7 +122,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
     protected void initCustomGoals() {
 		this.targetSelector.add(2, new BrowncoatEntity.TrackOwnerTargetGoal(this));
-
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(2, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
