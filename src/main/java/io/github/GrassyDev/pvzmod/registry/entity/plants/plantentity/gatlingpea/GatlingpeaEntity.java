@@ -218,18 +218,6 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canGatlingpeaSpawn(EntityType<GatlingpeaEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
-
-
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {

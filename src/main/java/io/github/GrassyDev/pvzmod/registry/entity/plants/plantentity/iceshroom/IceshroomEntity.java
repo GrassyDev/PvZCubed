@@ -369,16 +369,4 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canIceshroomSpawn(EntityType<IceshroomEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 }

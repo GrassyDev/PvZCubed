@@ -42,6 +42,10 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		return this.spellTicks;
 	}
 
+	protected boolean isDisallowedInPeaceful() {
+		return true;
+	}
+
 	static {
 		SPELL = DataTracker.registerData(SpellcastingIllagerEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}

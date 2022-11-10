@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
 import com.google.common.collect.ImmutableList;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -35,6 +36,13 @@ public abstract class PvZombieEntity extends HostileEntity {
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
+	}
+
+	public void tick() {
+		super.tick();
+		if (this.getRandom().nextFloat() < 0.8F && (this.isTouchingWater() || this.isInLava())) {
+			this.getJumpControl().setActive();
+		}
 	}
 
 	@Override

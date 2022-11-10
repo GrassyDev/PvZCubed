@@ -95,17 +95,16 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 			this.isAfraid = true;
 			this.isFiring = false;
 		}
-		if (status == 13) {
-			this.isTired = true;
-			this.isFiring = false;
-		}
-		else if (status == 12) {
-			this.isTired = false;
-		}
 		if (status == 11) {
 			this.isFiring = true;
 		} else if (status == 10) {
 			this.isFiring = false;
+		}
+		if (status == 13) {
+			this.isTired = true;
+		}
+		else if (status == 12) {
+			this.isTired = false;
 		}
 	}
 
@@ -234,7 +233,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 
 	protected void mobTick() {
 		float f = this.getLightLevelDependentValue();
-		if (f > 0.5f) {
+		if (f > 0.25f) {
 			this.isTired = true;
 			this.world.sendEntityStatus(this, (byte) 13);
 		} else {
@@ -307,23 +306,6 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 		}
 		this.playBlockFallSound();
 		return true;
-	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-
-	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
-		if (serverWorldAccess.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
-			return false;
-		} else {
-			int i = serverWorldAccess.toServerWorld().isThundering() ? serverWorldAccess.getLightLevel(pos, 10) : serverWorldAccess.getLightLevel(pos);
-			return i <= random.nextInt(11);
-		}
-	}
-
-	public static boolean canFumeshroomSpawn(EntityType<FumeshroomEntity> entity, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-		return pos.getY() > 1 && isSpawnDark(serverWorldAccess, pos, random);
 	}
 
 

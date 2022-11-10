@@ -241,16 +241,4 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-    public static boolean canGravebusterSpawn(EntityType<GravebusterEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-	@Override
-	public boolean canSpawn(WorldView worldreader) {
-		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-	}
 }

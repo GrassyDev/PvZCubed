@@ -261,18 +261,6 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	}
 
 
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canSnowpeaSpawn(EntityType<SnowpeaEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-		return pos.getY() > 60;
-	}
-
-	@Override
-	public boolean canSpawn(WorldView worldreader) {
-		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-	}
-
-
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {

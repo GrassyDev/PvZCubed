@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)64",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Slow",
-        "$(br2)$(#bd951a)Backup Dancer Zombie spent six years perfecting his art at the Chewliard Performing Arts School in Zombie New York City."
+        "$(br2)$(#bd951a)Backup Dancer Zombie is highly experienced in the backup arts, having spent time as a backup singer, a backup flyswatter, and a backup for Dr. Zomboss's personal computer."
       ]
     },
     {
@@ -34,7 +34,9 @@
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Backup Dancer"
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Backup Dancer Zombie",
+        "$(br)$(#bd951a)Plants vs. Zombies Adventures: $()$(#ff0000)DJ Zom-B",
+        "$(br)$(#bd951a)Plants vs. Zombies 3 (Old Version, Discontinued): $()$(#ff0000)Backup Dancer"
       ]
     }
   ]

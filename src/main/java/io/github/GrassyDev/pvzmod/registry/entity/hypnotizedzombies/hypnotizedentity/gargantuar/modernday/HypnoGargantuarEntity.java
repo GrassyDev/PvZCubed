@@ -321,14 +321,6 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
     }
 
 
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
-
-
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	class TrackOwnerTargetGoal extends TrackTargetGoal {

@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)3",
-        "$(br)$(#bd951a)Sun: $()$(#ff0000)Small (45%), Normal (30%), Large (25%)",
+        "$(br)$(#bd951a)Sun: $()$(#ff0000)Small (35%), Normal (35%), Large (30%)",
         "$(br)$(#bd951a)Sun Rate: $()$(#ff0000)5 minutes",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal.",
         "$(br2)$(#bd951a)Sun-shroom hates sun. He hates it so much that when it builds up in his system, he spits it out as fast as he can. He just won't abide it. To him, sun is crass."

@@ -228,7 +228,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 
 	protected void mobTick() {
 		float f = this.getLightLevelDependentValue();
-		if (f > 0.5f) {
+		if (f > 0.25f) {
 			this.world.sendEntityStatus(this, (byte) 13);
 			this.clearGoalsAndTasks();
 		} else {

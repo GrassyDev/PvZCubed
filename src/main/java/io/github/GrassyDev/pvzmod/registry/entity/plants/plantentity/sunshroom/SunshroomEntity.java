@@ -128,11 +128,11 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
 			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
 			double probability = this.random.nextDouble();
-			if (probability <= 0.45) { // 45%
+			if (probability <= 0.35) { // 35%
 				this.dropItem(ModItems.SMALLSUN);
-			} else if (probability <= 0.75) { // 0.45 + 0.30 | 30%
+			} else if (probability <= 0.70) { // 0.70 - 0.35 = 35%
 				this.dropItem(ModItems.SUN);
-			} else { // rest, 1 - 0.75 = 0.25 | 25%
+			} else { // 30%
 				this.dropItem(ModItems.LARGESUN);
 			}
 			this.sunProducingTime = 6000;
@@ -150,7 +150,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 
 	protected void mobTick() {
 		float f = this.getLightLevelDependentValue();
-		if (f > 0.5f) {
+		if (f > 0.25f) {
 			this.isAsleep = true;
 			this.world.sendEntityStatus(this, (byte) 13);
 			this.clearGoalsAndTasks();
@@ -227,26 +227,4 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-
-	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
-        if (serverWorldAccess.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
-            return false;
-        } else {
-            int i = serverWorldAccess.toServerWorld().isThundering() ? serverWorldAccess.getLightLevel(pos, 10) : serverWorldAccess.getLightLevel(pos);
-            return i <= random.nextInt(11);
-        }
-    }
-
-    public static boolean canSunshroomSpawn(EntityType<SunshroomEntity> entity, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return pos.getY() > 1 && isSpawnDark(serverWorldAccess, pos, random);
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 }

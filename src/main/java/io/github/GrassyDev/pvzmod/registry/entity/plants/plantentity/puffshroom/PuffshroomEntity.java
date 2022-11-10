@@ -162,7 +162,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	protected void mobTick() {
 		float f = this.getLightLevelDependentValue();
-		if (f > 0.5f) {
+		if (f > 0.25f) {
 			this.world.sendEntityStatus(this, (byte) 13);
 			this.clearGoalsAndTasks();
 		} else {
@@ -237,28 +237,6 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-
-	public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
-        if (serverWorldAccess.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
-            return false;
-        } else {
-            int i = serverWorldAccess.toServerWorld().isThundering() ? serverWorldAccess.getLightLevel(pos, 10) : serverWorldAccess.getLightLevel(pos);
-            return i <= random.nextInt(11);
-        }
-    }
-
-    public static boolean canPuffshroomSpawn(EntityType<PuffshroomEntity> entity, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return pos.getY() > 1 && isSpawnDark(serverWorldAccess, pos, random);
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
 
 
 	/** /~*~//~*GOALS*~//~*~/ **/

@@ -42,6 +42,13 @@ public abstract class SummonerEntity extends HostileEntity implements Monster {
 		return EntityGroup.UNDEAD;
 	}
 
+	public void tick() {
+		super.tick();
+		if (this.getRandom().nextFloat() < 0.8F && (this.isTouchingWater() || this.isInLava())) {
+			this.getJumpControl().setActive();
+		}
+	}
+
 	protected int getSpellTicks() {
 		return this.spellTicks;
 	}

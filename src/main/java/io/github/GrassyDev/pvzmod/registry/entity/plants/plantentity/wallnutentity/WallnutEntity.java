@@ -270,20 +270,4 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-	public static boolean canWallnutSpawn(EntityType<WallnutEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 60;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
-
-    @Environment(EnvType.CLIENT)
-    public Vec3d method_29919() {
-        return new Vec3d(0.0D, (double) (0.75F * this.getStandingEyeHeight()), (double) (this.getWidth() * 0.4F));
-    }
 }

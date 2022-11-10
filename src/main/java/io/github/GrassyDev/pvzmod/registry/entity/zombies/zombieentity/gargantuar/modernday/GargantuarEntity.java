@@ -387,18 +387,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
     }
 
 
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canGargantuarSpawn(EntityType<GargantuarEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-        return pos.getY() > 55;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView worldreader) {
-        return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
-    }
-
-
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	class TrackOwnerTargetGoal extends TrackTargetGoal {

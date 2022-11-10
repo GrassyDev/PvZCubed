@@ -155,7 +155,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 75.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 150D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 170D);
     }
 
 	protected SoundEvent getDeathSound() {
@@ -310,11 +310,6 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld) NightGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.nightGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-			double clampedDifficulty = localDifficulty.getClampedLocalDifficulty();
-			int unlockedZombie = 0;
-			if (clampedDifficulty > 0){
-				unlockedZombie = 1;
-			}
 			double probability = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
 			double probability2 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
 			double probability3 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
@@ -323,7 +318,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
 
 
-            for(int a = 0; a < 1 + unlockedZombie; ++a) { // 100% x2 Browncoat
+            for(int a = 0; a < 2; ++a) { // 100% x2 Browncoat
                 BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                 BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(NightGraveEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -331,8 +326,8 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                 browncoatEntity.setOwner(NightGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
-            if (probability <= 0.5) { // 50% x2 Conehead
-                for (int h = 0; h < 1 + (unlockedZombie * 2); ++h) {
+            if (probability <= 0.4) { // 40% x2 Conehead
+                for (int h = 0; h < 2; ++h) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                     ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(NightGraveEntity.this.world);
                     coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -341,8 +336,8 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
-            if (probability2 <= 0.5) {  // 50% x2 Newspaper
-                for (int b = 0; b < 1 + (unlockedZombie *2); ++b) {
+            if (probability2 <= 0.2) {  // 20% x1 Newspaper
+                for (int b = 0; b < 1; ++b) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                     NewspaperEntity newspaperEntity = (NewspaperEntity) PvZEntity.NEWSPAPER.create(NightGraveEntity.this.world);
                     newspaperEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -351,8 +346,8 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(newspaperEntity);
                 }
             }
-            if (probability3 <= 0.5) { // 50% x1 Screendoor
-                for(int c = 0; c < unlockedZombie * 2; ++c) {
+            if (probability3 <= 0.2) { // 20% x1 Screendoor
+                for(int c = 0; c < 1; ++c) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                     ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(NightGraveEntity.this.world);
                     screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -361,8 +356,8 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(screendoorEntity);
                 }
             }
-            if (probability4 <= 0.25) { // 25% x1 Football
-                for(int u = 0; u < (unlockedZombie * 2); ++u) {
+            if (probability4 <= 0.15) { // 15% x1 Football
+                for(int u = 0; u < 1; ++u) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                     FootballEntity footballEntity = (FootballEntity) PvZEntity.FOOTBALL.create(NightGraveEntity.this.world);
                     footballEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -371,8 +366,8 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(footballEntity);
                 }
             }
-            if (probability5 <= 0.1) { // 10% x1 Berserker
-                for(int p = 0; p < unlockedZombie; ++p) {
+            if (probability5 <= 0.075) { // 7.5% x1 Berserker
+                for(int p = 0; p < 1; ++p) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                     BerserkerEntity berserkerEntity = (BerserkerEntity) PvZEntity.BERSERKER.create(NightGraveEntity.this.world);
                     berserkerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -381,8 +376,8 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(berserkerEntity);
                 }
             }
-            if (probability6 <= 0.25) { // 25% x1 Dancing Zombie
-                for(int f = 0; f < 1 + unlockedZombie; ++f) {
+            if (probability6 <= 0.2) { // 20% x1 Dancing Zombie
+                for(int f = 0; f < 1; ++f) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                     DancingZombieEntity dancingZombieEntity = (DancingZombieEntity) PvZEntity.DANCINGZOMBIE.create(NightGraveEntity.this.world);
                     dancingZombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
