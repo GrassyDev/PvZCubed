@@ -16,8 +16,8 @@
     {
       "type": "relations",
       "entries": [
-        "pvzmod:plants/potatomine_entry",
         "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/potatomine_entry",
         "pvzmod:plants/doomshroom_entry"
       ],
       "title": "☄ Bombard Plants:"

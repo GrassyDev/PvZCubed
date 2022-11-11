@@ -7,14 +7,14 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)",
-        "$(#bd951a)Damage: $()$(#ff0000)180",
+        "$(#bd951a)Health: $()$(#ff0000)10",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)180",
         "$(br)$(#bd951a)Activation Range: $()$(#ff0000)1.5 Blocks",
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)2.5 Blocks",
         "$(br)$(#bd951a)Preparation Time: $()$(#ff0000)60s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Needs time to prepare, can use a small sun to speed it up.",
-        "$(br2)$(#bd951a)Some folks say Potato Mine leaves everything to the last minute. Potato Mine says nothing. He's too busy thinking about his investment strategy."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Needs time to prepare. Can use a Small Sun to speed it up.",
+        "$(br2)$(#bd951a)They say he leaves everything to the last minute, but he says nothing. He's too busy thinking about his investment strategy."
         ]
     },
     {

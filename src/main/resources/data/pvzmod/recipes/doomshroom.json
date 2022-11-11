@@ -5,11 +5,11 @@
       "item": "pvzmod:puffshroom_seed_packet"
     },
     {
-      "item": "pvzmod:smallsun"
+      "item": "pvzmod:cherrybomb_seed_packet"
     },
     {
-      "item": "pvzmod:cherrybomb_seed_packet"
-    }
+      "item": "pvzmod:smallsun"
+    },
   ],
   "result": {
     "item": "pvzmod:doomshroom_seed_packet",

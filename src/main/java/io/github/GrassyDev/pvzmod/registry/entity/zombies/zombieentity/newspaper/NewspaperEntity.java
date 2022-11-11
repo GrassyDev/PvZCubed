@@ -139,7 +139,6 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
         this.targetSelector.add(2, new NewspaperEntity.TrackOwnerTargetGoal(this));
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1, true));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1));
-		this.targetSelector.add(2, new TargetGoal<>(this, PuffshroomEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, ReinforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));

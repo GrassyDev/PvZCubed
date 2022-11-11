@@ -12,8 +12,8 @@
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Fire Radius: $()$(#ff0000)3 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
-        "$(br)$(#bd951a)Special:$()$(#ff0000)Sets zombies on fire.",
-        "$(br2)$(#bd951a)Fire Pea had a love-thing with Snow Queen Pea a few months back. While her ardor may have cooled since then, her ability to launch burning peas has never been hotter."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Sets zombies on fire.",
+        "$(br2)$(#bd951a)Fire Pea had a relationship with Snow Queen Pea a few months back. While her passion may have cooled since then, her ability to launch burning peas has never been hotter."
       ]
     },
     {

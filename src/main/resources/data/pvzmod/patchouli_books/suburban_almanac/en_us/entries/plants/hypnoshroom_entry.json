@@ -9,8 +9,8 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)1",
         "$(br)$(#bd951a)Range: $()$(#ff0000)10 Blocks",
-        "$(br)$(#bd951a)Hypnotizing Time:$()$(#ff0000)2.5s",
-        "$(br)$(#bd951a)Special:$()$(#ff0000)Nocturnal. Hypnotizes the toughest zombie before vanishing.",
+        "$(br)$(#bd951a)Hypnotizing Time: $()$(#ff0000)2.5s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Hypnotizes the toughest zombie before vanishing.",
         "$(br2)$(#bd951a)\"Zombies are our friends,\" asserts Hypno-shroom. \"They're badly misunderstood creatures who play a valuable role in our ecology. We can and should do more to bring them round to our way of thinking.\""
       ]
     },

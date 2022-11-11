@@ -11,8 +11,8 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
         "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
-        "$(br)$(#bd951a)Special:$()$(#ff0000)Summons a Buckethead, a Screendoor, a Conehead, and a Browncoat around him.",
-        "$(br)$(#bd951a)Make no mistake, Flag Zombie loves brains but somewhere down the line he also picked up a fascination with flags. Maybe it's because the flags always have brains on them. Hard to say."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Summons a Buckethead, a Screendoor, a Conehead, and a Browncoat around him.",
+        "$(br2)$(#bd951a)Make no mistake, Flag Zombie loves brains but somewhere down the line he also picked up a fascination with flags."
       ]
     },
     {

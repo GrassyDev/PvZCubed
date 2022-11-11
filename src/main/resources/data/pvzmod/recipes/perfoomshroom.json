@@ -2,31 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:puffshroom_seed_packet"
-    },
-    {
-      "item": "pvzmod:doomshroom_seed_packet"
+      "item": "minecraft:diamond"
     },
     {
       "item": "pvzmod:hypnoshroom_seed_packet"
     },
     {
-      "item": "minecraft:diamond"
+      "item": "pvzmod:doomshroom_seed_packet"
     },
     {
-      "item": "pvzmod:largesun"
-    },
-    {
-      "item": "pvzmod:largesun"
-    },
-    {
-      "item": "pvzmod:largesun"
-    },
-    {
-      "item": "pvzmod:largesun"
-    },
-    {
-      "item": "pvzmod:largesun"
+      "item": "pvzmod:sun"
     }
   ],
   "result": {

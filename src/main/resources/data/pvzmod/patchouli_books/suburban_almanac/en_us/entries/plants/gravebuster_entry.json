@@ -7,10 +7,10 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health:$()$(#ff0000)45",
-        "$(br)$(#bd951a)Contact Damage:$()$(#ff0000)4",
-        "$(br)$(#bd951a)Chew Time:$()$(#ff0000)4s",
-        "$(br)$(#bd951a)Special:$()$(#ff0000)Eats graves then vanishes after. Damages attacking Zombies.",
+        "$(#bd951a)Health: $()$(#ff0000)45",
+        "$(br)$(#bd951a)Contact Damage: $()$(#ff0000)4",
+        "$(br)$(#bd951a)Chew Time: $()$(#ff0000)4s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Eats graves then vanishes after. Damages attacking Zombies.",
         "$(br2)$(#bd951a)Despite Grave Buster's fearsome appearance, he wants everyone to know that he loves kittens and spends his off hours volunteering at a local zombie rehabilitation center."
         ]
     },

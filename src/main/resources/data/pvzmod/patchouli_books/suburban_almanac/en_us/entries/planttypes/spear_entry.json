@@ -1,6 +1,6 @@
 {
   "name": "Spear Family",
-  "icon": "minecraft:bow",
+  "icon": "minecraft:shears",
   "category": "pvzmod:planttype_category",
   "sortnum": 0,
   "pages": [
@@ -9,7 +9,7 @@
       "text": [
         "$(#ff0000)The Spear family is composed of plants that deal piercing damage",
         "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Interested",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
         "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Varied"
         ]
     },

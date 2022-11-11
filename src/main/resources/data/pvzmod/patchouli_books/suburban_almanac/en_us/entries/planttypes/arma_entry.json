@@ -7,9 +7,9 @@
     {
       "type": "text",
       "text": [
-        "$(#ff0000)The Arma family is composed of lobbing plants that shoot from afar",
+        "$(#ff0000)The Arma family is composed of plants that shoot from afar",
         "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Interested",
+        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
         "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Varied"
         ]
     },

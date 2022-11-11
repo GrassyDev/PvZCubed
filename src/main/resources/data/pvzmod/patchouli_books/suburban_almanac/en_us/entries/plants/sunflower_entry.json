@@ -31,7 +31,9 @@
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Sunflower"
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Sunflower",
+        "$(br)$(#bd951a)Plants vs. Zombies: Garden Warfare: $()$(#ff0000)Sunflower",
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Sunflower"
       ]
     }
   ]

@@ -27,6 +27,7 @@
       "type": "relations",
       "entries": [
         "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/flagzombie_entry",
         "pvzmod:zombies/conehead_entry",
         "pvzmod:zombies/polevaulting_entry",
         "pvzmod:zombies/buckethead_entry",

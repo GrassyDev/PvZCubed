@@ -35,8 +35,8 @@
       "title": "References",
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Backup Dancer Zombie",
-        "$(br)$(#bd951a)Plants vs. Zombies Adventures: $()$(#ff0000)DJ Zom-B",
-        "$(br)$(#bd951a)Plants vs. Zombies 3 (Old Version, Discontinued): $()$(#ff0000)Backup Dancer"
+        "$(br2)$(#bd951a)Plants vs. Zombies Adventures: $()$(#ff0000)DJ Zom-B",
+        "$(br2)$(#bd951a)Plants vs. Zombies 3 (Old Version, Discontinued): $()$(#ff0000)Backup Dancer"
       ]
     }
   ]

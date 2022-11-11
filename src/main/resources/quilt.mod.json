@@ -38,6 +38,14 @@
 				"versions": ">=4.0.0-"
 			},
 			{
+				"id": "geckolib3",
+				"versions": ">=3.1.35"
+			},
+			{
+				"id": "patchouli",
+				"versions": ">=1.19.2-77"
+			},
+			{
 				"id": "minecraft",
 				"versions": ">=1.19.2"
 			}

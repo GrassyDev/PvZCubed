@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:smallsun"
-    },
-    {
       "item": "pvzmod:plantfood"
     },
     {
       "item": "pvzmod:peashooter_seed_packet"
     },
     {
-      "item": "pvzmod:repeater_seed_packet"
+      "item": "pvzmod:peashooter_seed_packet"
+    },
+    {
+      "item": "pvzmod:smallsun"
     }
   ],
   "result": {

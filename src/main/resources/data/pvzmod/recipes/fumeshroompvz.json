@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:smallsun"
+      "item": "pvzmod:scaredyshroom_seed_packet"
     },
     {
-      "item": "pvzmod:scaredyshroom_seed_packet"
-    }
+      "item": "pvzmod:smallsun"
+    },
   ],
   "result": {
     "item": "pvzmod:fumeshroom_seed_packet",

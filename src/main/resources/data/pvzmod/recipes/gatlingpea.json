@@ -2,20 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
+      "item": "minecraft:diamond"
+    },
+    {
       "item": "pvzmod:peashooter_seed_packet"
     },
     {
       "item": "pvzmod:sun"
     },
-    {
-      "item": "pvzmod:sun"
-    },
-    {
-      "item": "pvzmod:plantfood"
-    },
-    {
-      "item": "minecraft:diamond"
-    }
   ],
   "result": {
     "item": "pvzmod:gatlingpea_seed_packet",
