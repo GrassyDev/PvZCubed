@@ -15,7 +15,7 @@ public class SunflowerEntityModel extends AnimatedGeoModel<SunflowerEntity> {
     @Override
     public Identifier getTextureResource(SunflowerEntity object)
     {
-		return SnowpeaEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
+		return SunflowerEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
     }
 
     @Override
