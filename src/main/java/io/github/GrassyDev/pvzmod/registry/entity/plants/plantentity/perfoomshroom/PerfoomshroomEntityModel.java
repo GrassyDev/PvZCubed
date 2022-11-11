@@ -1,6 +1,5 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfumeshroom;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfoomshroom;
 
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.doomshroom.DoomshroomEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

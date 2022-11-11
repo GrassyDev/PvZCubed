@@ -3,10 +3,13 @@
   "ingredients": [
     {
       "item": "pvzmod:largesun"
+    },
+    {
+      "item": "pvzmod:largesun"
     }
   ],
   "result": {
     "item": "pvzmod:smallsun",
-    "count": 4
+    "count": 8
   }
 }

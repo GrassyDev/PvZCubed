@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ScaredyshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
@@ -24,9 +25,14 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -298,6 +304,47 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		if (this.attackTicksLeft <= 0){
 			this.eatingShield = false;
 			this.notEating = false;
+		}
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (!this.getVariant().equals(ChomperVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
+			this.setVariant(ChomperVariants.DEFAULT);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(ChomperVariants.ENBY) &&
+				(itemStack.isOf(Items.BLACK_DYE) || itemStack.isOf(Items.YELLOW_DYE) || itemStack.isOf(Items.PURPLE_DYE))) {
+			this.setVariant(ChomperVariants.ENBY);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(ChomperVariants.DEMIGIRL) &&
+				(itemStack.isOf(Items.GRAY_DYE) || itemStack.isOf(Items.LIGHT_GRAY_DYE) || itemStack.isOf(Items.PINK_DYE))) {
+			this.setVariant(ChomperVariants.DEMIGIRL);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(ChomperVariants.PIRANHAPLANT) &&
+				(itemStack.isOf(Items.FIRE_CHARGE) || itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.HOPPER))) {
+			this.setVariant(ChomperVariants.PIRANHAPLANT);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else {
+			return ActionResult.CONSUME;
 		}
 	}
 

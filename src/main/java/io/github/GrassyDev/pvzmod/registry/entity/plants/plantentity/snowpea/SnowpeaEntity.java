@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.WinterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -24,8 +25,12 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShapes;
@@ -192,6 +197,39 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.damage(DamageSource.GENERIC, 9999);
+		}
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (!this.getVariant().equals(SnowPeaVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
+			this.setVariant(SnowPeaVariants.DEFAULT);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(SnowPeaVariants.MLM) &&
+				(itemStack.isOf(Items.GREEN_DYE) || itemStack.isOf(Items.CYAN_DYE) || itemStack.isOf(Items.LIGHT_BLUE_DYE))) {
+			this.setVariant(SnowPeaVariants.MLM);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(SnowPeaVariants.BISEXUAL) &&
+				(itemStack.isOf(Items.MAGENTA_DYE) || itemStack.isOf(Items.PURPLE_DYE) || itemStack.isOf(Items.BLUE_DYE))) {
+			this.setVariant(SnowPeaVariants.BISEXUAL);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else {
+			return ActionResult.CONSUME;
 		}
 	}
 

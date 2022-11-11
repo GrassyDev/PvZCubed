@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ScaredyshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.FumeVariants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -24,8 +25,12 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -221,8 +226,40 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 
-	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+	/** /~*~//~*INTERACTION*~//~*~/ **/
 
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (!this.getVariant().equals(FumeshroomVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
+			this.setVariant(FumeshroomVariants.DEFAULT);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(FumeshroomVariants.GAY) &&
+				(itemStack.isOf(Items.RED_DYE) || itemStack.isOf(Items.ORANGE_DYE) || itemStack.isOf(Items.YELLOW_DYE) || itemStack.isOf(Items.LIME_DYE) || itemStack.isOf(Items.BLUE_DYE) || itemStack.isOf(Items.PURPLE_DYE))) {
+			this.setVariant(FumeshroomVariants.GAY);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(FumeshroomVariants.TRANS) &&
+				(itemStack.isOf(Items.PINK_DYE) || itemStack.isOf(Items.LIGHT_BLUE_DYE))) {
+			this.setVariant(FumeshroomVariants.TRANS);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else {
+			return ActionResult.CONSUME;
+		}
+	}
+
+
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createFumeshroomAttributes() {
 		return MobEntity.createMobAttributes()

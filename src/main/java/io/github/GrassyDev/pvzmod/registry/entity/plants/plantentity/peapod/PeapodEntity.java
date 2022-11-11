@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodCountVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;
@@ -28,6 +29,7 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
@@ -287,7 +289,23 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 				player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, 75);
 			}
 			return ActionResult.SUCCESS;
-		} else {
+		}
+		if (!this.getVariant().equals(PeapodVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
+			this.setVariant(PeapodVariants.DEFAULT);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(PeapodVariants.PLURAL) &&
+				(itemStack.isOf(Items.CYAN_DYE) || itemStack.isOf(Items.BLUE_DYE) || itemStack.isOf(Items.PURPLE_DYE) || itemStack.isOf(Items.BLACK_DYE))) {
+			this.setVariant(PeapodVariants.PLURAL);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else {
 			return ActionResult.CONSUME;
 		}
 	}

@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnlightenEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVariants;
 import net.minecraft.entity.*;
@@ -16,8 +17,12 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -171,6 +176,39 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 			this.damage(DamageSource.GENERIC, 9999);
 		}
 
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (!this.getVariant().equals(SunflowerVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
+			this.setVariant(SunflowerVariants.DEFAULT);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(SunflowerVariants.LESBIAN) &&
+				(itemStack.isOf(Items.RED_DYE) || itemStack.isOf(Items.ORANGE_DYE))) {
+			this.setVariant(SunflowerVariants.LESBIAN);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getVariant().equals(SunflowerVariants.WLW) &&
+				(itemStack.isOf(Items.PINK_DYE) || itemStack.isOf(Items.PURPLE_DYE))) {
+			this.setVariant(SunflowerVariants.WLW);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else {
+			return ActionResult.CONSUME;
+		}
 	}
 
 

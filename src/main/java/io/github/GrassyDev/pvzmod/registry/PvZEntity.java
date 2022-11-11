@@ -52,8 +52,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peapod.Peap
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peapod.PeapodEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.PeashooterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.PeashooterEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfumeshroom.PerfoomshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfumeshroom.PerfoomshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfoomshroom.PerfoomshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfoomshroom.PerfoomshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;

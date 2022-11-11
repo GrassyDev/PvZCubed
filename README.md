@@ -33,6 +33,14 @@ Currently, this mod contains:
 11. [0/2] Special Plants
 12. [1/10] Special Zombies
 
+### Garden Warfare 1 & 2
+1. [0/?] Hero Plants
+2. [0/?] Hero Zombies
+3. [0/?] Spawnable Plants
+4. [0/?] Spawnable Zombies
+5. [1/?] Potted Plants
+6. [0/?] Zombie Bots (not guaranteed)
+
 ### PvZ 2
 1. [2/6] Ancient Egypt Plants
 2. [0/14] Ancient Egypt Zombies

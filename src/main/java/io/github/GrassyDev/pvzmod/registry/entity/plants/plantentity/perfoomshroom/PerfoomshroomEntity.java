@@ -1,10 +1,8 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfumeshroom;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfoomshroom;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.doomshroom.DoomIgniteGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
 import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
@@ -30,10 +28,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -43,8 +38,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
-
-import java.util.Random;
 
 public class PerfoomshroomEntity extends EnchantEntity implements IAnimatable {
 

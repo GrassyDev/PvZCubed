@@ -1,8 +1,6 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfumeshroom;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.perfoomshroom;
 
 
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.doomshroom.DoomshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.doomshroom.DoomshroomEntityModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
