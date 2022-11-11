@@ -5,9 +5,12 @@ Plants vs. Zombies Cubed aims to bring as many characters from the Plants vs. Zo
 
 ## Requirements
 [Quilt](https://quiltmc.org/en/)
+
 [QFAPI](https://github.com/QuiltMC/quilted-fabric-api)
+
 [GeckoLib](https://github.com/bernie-g/geckolib)
-[Patchouli](https://github.com/VazkiiMods/Patchouli/).
+
+[Patchouli](https://github.com/VazkiiMods/Patchouli/)
 
 
 ## Content
