@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower;
 
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntityRenderer;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -14,7 +15,7 @@ public class SunflowerEntityModel extends AnimatedGeoModel<SunflowerEntity> {
     @Override
     public Identifier getTextureResource(SunflowerEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/sunflower/pvzsunflower.png");
+		return SnowpeaEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
     }
 
     @Override

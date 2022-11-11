@@ -128,11 +128,11 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
 			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
 			double probability = this.random.nextDouble();
-			if (probability <= 0.35) { // 35%
+			if (probability <= 0.40) { // 40%
 				this.dropItem(ModItems.SMALLSUN);
-			} else if (probability <= 0.70) { // 0.70 - 0.35 = 35%
+			} else if (probability <= 0.75) { // 0.75 - 0.40 = 35%
 				this.dropItem(ModItems.SUN);
-			} else { // 30%
+			} else { // 25%
 				this.dropItem(ModItems.LARGESUN);
 			}
 			this.sunProducingTime = 6000;
