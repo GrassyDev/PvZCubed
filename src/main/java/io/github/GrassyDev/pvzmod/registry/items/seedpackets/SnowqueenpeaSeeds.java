@@ -64,7 +64,7 @@ public class SnowqueenpeaSeeds extends Item {
                 PlayerEntity user = context.getPlayer();
                 if (!user.getAbilities().creativeMode) {
                     itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, 150);
+                    user.getItemCooldownManager().set(this, 300);
                 }
                 return ActionResult.success(world.isClient);
             } else {
