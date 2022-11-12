@@ -275,14 +275,14 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld)BasicGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.basicGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-            double probability = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability11 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-            double probability2 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability21 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-            double probability3 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-            double probability4 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-            double probability5 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
+            double probability = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability11 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+            double probability2 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability21 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+            double probability3 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+            double probability4 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+            double probability5 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 
             for(int b = 0; b < 2; ++b) { // 100% x1 Browncoat
                 BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));

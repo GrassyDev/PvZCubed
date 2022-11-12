@@ -310,13 +310,13 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld) NightGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.nightGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-			double probability = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability11 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability2 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability3 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability4 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability5 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
-			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 2);
+			double probability = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability11 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability2 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability3 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability4 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability5 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 
 
             for(int a = 0; a < 2; ++a) { // 100% x2 Browncoat
