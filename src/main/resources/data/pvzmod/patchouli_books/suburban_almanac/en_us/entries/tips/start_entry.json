@@ -8,25 +8,52 @@
       "type": "text",
       "text": [
         "The first day on the zombie apocalypse is really important.",
-        "Your objective is to find Puff-shrooms on the surface and punch them. When they die, they drop Plant Food.",
-        "$(br)Plant Food is a really important item, it's the main ingredient for every plant in this mod, and punching Puff-shrooms is the only way to obtain them.",
+        "$(br2)Your objective is to find Puff-shrooms on the surface and punch them. When they die, they drop Plant Food.",
+        "$(br)After finding x2 Plant Food, craft a Sunflower."
         ]
     },
     {
       "type": "crafting",
       "recipe": "pvzmod:sunflowerpvz",
       "text": [
-        "After finding x2 Plant Foods, craft a Sunflower.",
-        "$(br)Sunflowers are the most important plants to make. They produce Sun, which can be used"
+        "Sunflowers are the most important plants to make. They produce Sun, which are used to craft every other plant.",
+        "$(br)After crafting your Sunflowers, find a nice place to call home and plant them there to keep them safe."
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:peashooterpvz",
+      "text": [
+        "When you place your Sunflower, you will notice that it will give you 2 Suns already, this is the perfect amount to make a Peashooter, make one."
       ]
     },
     {
       "type": "text",
-      "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Cherry Bomb",
-        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Cherry Bomb"
+        "You may have already noticed the main threat of this mod by this point: the Zombies.",
+        "$(br)While you can defeat them by yourself with skill, they have a lot of health and will easily overwhelm you, so the best solution is to craft Plants.",
+        "Your first Peashooter will be crucial on dealing with them quickly, but only one Peashooter is too weak, be sure to aid it by attacking Coneheads and planting more Plants."
       ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "The Zombies will spawn from things called \"Graves\", at the start the Graves will vanish the moment they spawn a group of zombies, but later on they will stay for longer.",
+        "$(br2)While you wait for night time, we recommend crafting these plants to help you."
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/sunflower_entry",
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/wallnut_entry",
+        "pvzmod:plants/potatomine_entry",
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/cherrybomb_entry"
+      ],
+      "title": "Recommended Plants:"
     }
   ]
 }

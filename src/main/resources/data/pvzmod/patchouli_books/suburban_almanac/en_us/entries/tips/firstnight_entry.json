@@ -1,0 +1,97 @@
+{
+  "name": "First Night",
+  "icon": "minecraft:black_concrete",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "The sun sets, the mushrooms wake up, and the danger increases.",
+        "$(br2)During night time and inside caves a new grave type will spawn, the Night Grave.",
+        "$(br)This grave is dangerous, because it can spawn zombies tougher than before.",
+        "$(br2)If you didn't do this already, it's recommended to place some potato mines near your plants."
+        ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:potatomine",
+      "text": [
+        "Potato Mines will ensure the safety of your plants if you have a hole in your defenses,",
+        "as it will be able to instantly kill any zombie that can spawn at this moment in the game."
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:scaredyshroom",
+      "text": [
+        "Mushrooms are plants that are only awake in the darkness, they are cheaper to make because of that.",
+        "$(br)Scaredy-shroom is such a plant, to make it you will need a Puff-shroom."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "Scaredy-shroom will deal with zombies from afar, helping thinning their numbers.",
+        "$(br2)During night time, it's good practice to convert your Plant Food into Puff-shrooms to temporarily increase your defences, ",
+        "as you can just harvest them later if you need the Plant Food for something else.",
+        "$(br)Just be careful, because Puff-shrooms will die after 5 minutes"
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:puffshroom",
+      "text": [
+        "$(br)Puff-shrooms have a very limited range and deal pitiful damage.",
+        "$(br)If you have sun, it's better to use it to craft other mushrooms."
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:fumeshroompvz",
+      "text": [
+        "The next plant you will need to make is the Fume-shroom.",
+        "$(br2)Fume-shrooms are neither weak nor strong, being able to deal with Browncoats with ease, but having trouble with zombies tougher than that."
+
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "One of the main uses of the Fume-shroom is dealing with shielded zombies, like the Screen Door Zombie, as it will deal direct damage to the zombie instead of the shield.",
+        "$(br)Just don't depend on it to deal with Newspaper Zombies, as they have way more health and will quickly eat the Fume-shroom after being attacked.",
+        "$(br2)Fume-shrooms are also great with dealing with groups of zombies, as Fume-shroom deals damage in an area, this helps"
+
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "with finishing weakened hordes that get too close.",
+        "$(br2)While these mushrooms are great for their cost, be mindful of depending on them on this stage of the game, as they will fall asleep during daytime.",
+        "$(br2)You can choose to skip the first night if it becomes too difficult, but we recommend staying awake during the nights to see all this mod has to offer."
+
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br)It's also good to know that more zombies spawn the longer you play and the higher the difficulty.",
+        "$(br)Normal should be a good difficulty if you are starting, but Hard is also an option if it's feeling too easy.",
+        "$(br2)While waiting for dawn, try crafting some of these plants:"
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/puffshroom_entry",
+        "pvzmod:plants/scaredyshroom_entry",
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/hypnoshroom_entry",
+        "pvzmod:plants/iceshroom_entry",
+        "pvzmod:plants/doomshroom_entry"
+      ],
+      "title": "Recommended Plants:"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Tip: Costumes",
+  "icon": "minecraft:red_dye",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "You may have noticed that when planting certain plants, they will sometimes appear in different colors, this is because that plant has costumes.",
+        "$(br)To remove a costume, you just need to use a White Dye on the plant, but if you want to give a plant a specific costume, you have to use a secret item on the plant."
+        ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)What the secret item is depends on the costume, a good rule of thumb is that the item can be a dye that corresponds to the costume's color, ",
+        "or an item that references the costume, like a Sword may reference a certain courageous hero..."
+      ]
+    }
+  ]
+}

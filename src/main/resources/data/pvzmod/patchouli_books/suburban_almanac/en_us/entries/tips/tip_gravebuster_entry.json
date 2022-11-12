@@ -1,0 +1,29 @@
+{
+  "name": "Tip: Grave Buster",
+  "icon": "pvzmod:gravebuster_seed_packet",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "Grave Busters will devour a whole grave after 4 seconds.",
+        "$(br2)Grave Busters are cheap to make, requiring only one Sun and one Plant Food, but it will deal with any grave that you plant it on top of."
+        ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)At the start of the game, Graves will instantly vanish after spawning one group of zombies, ",
+        "making Grave Buster useless, but at later stages, graves can stay up to 5 spawns before vanishing, ",
+        "so Grave Buster is a good investment of sun for the amount of potential threats neutralised."
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/gravebuster_entry"
+      ]
+    }
+  ]
+}

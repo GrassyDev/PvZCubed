@@ -17,7 +17,7 @@ Plants vs. Zombies Cubed aims to bring as many characters from the Plants vs. Zo
 
 You can use the Suburban Almanac Patchouli book to learn about this mod more in depth. You are going to get one automatically upon first time logging in a world.
 
-If you lose your Suburban Almanac, you can craft another one anytime by combining a Dirt Block and Wheat Seeds together in any shape.
+If you lose your Suburban Almanac, you can craft another one anytime by combining a Dirt Block and a Wheat Seed together in any shape.
 
 
 Currently, this mod contains:

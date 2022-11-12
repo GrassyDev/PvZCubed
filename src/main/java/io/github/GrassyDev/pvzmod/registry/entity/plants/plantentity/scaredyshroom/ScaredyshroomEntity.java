@@ -272,7 +272,11 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 			return ActionResult.SUCCESS;
 		}
 		else if (!this.getVariant().equals(ScaredyshroomVariants.LINK) &&
-				itemStack.isOf(Items.WOODEN_SWORD)) {
+				(itemStack.isOf(Items.WOODEN_SWORD) && !itemStack.hasEnchantments() ||
+						itemStack.isOf(Items.IRON_SWORD) && !itemStack.hasEnchantments() ||
+						itemStack.isOf(Items.SHIELD) && !itemStack.hasEnchantments() ||
+						itemStack.isOf(Items.BOW) && !itemStack.hasEnchantments() ||
+						itemStack.isOf(Items.TNT))) {
 			this.setVariant(ScaredyshroomVariants.LINK);
 			if (!player.getAbilities().creativeMode){
 				itemStack.decrement(1);
