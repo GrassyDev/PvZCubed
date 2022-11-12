@@ -36,6 +36,10 @@ Currently, this mod contains:
 11. [0/2] Special Plants
 12. [1/10] Special Zombies
 
+### Plants vs. Zombies Adventures
+1. [1/?] Plants
+2. [0/?] Zombies
+
 ### Garden Warfare 1 & 2
 1. [0/?] Hero Plants
 2. [0/?] Hero Zombies
@@ -71,6 +75,10 @@ Currently, this mod contains:
 24. [0/59] Extra Premium Plants (No guarantee that I will do them all)
 25. [0/14] Mints (No guarantee that I will do them)
 26. [0/46] Special Zombies
+
+### Plants vs. Zombies: All Stars
+1. [1/?] Plants
+2. [0/?] Zombies
 
 
 There's also plans to include some exclusives from PvZ Adventures, Garden Warfare and Neighborville, Heroes, PvZ3, and the chinese PvZ games.
