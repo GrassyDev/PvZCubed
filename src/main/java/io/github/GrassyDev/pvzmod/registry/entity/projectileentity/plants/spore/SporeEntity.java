@@ -141,7 +141,7 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
                 (entity instanceof ScreendoorEntity) ||
                 (entity instanceof BerserkerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.25F, 1F);
+            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.125F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);
@@ -151,7 +151,7 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
                 (entity instanceof FootballEntity) ||
                 (entity instanceof BackupDancerEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.CONEHITEVENT, 0.25F, 1F);
+            entity.playSound(PvZCubed.CONEHITEVENT, 0.125F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);
@@ -160,7 +160,7 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
         else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
             float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.25F, 1F);
+            entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
             this.world.sendEntityStatus(this, (byte) 3);

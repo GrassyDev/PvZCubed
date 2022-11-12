@@ -319,6 +319,34 @@
 					}
 				}
 			}
+		},
+		"spike.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"pea": {
+					"relative_to": {
+						"rotation": "entity"
+					},
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [180, 0, 0]
+						},
+						"1.0": {
+							"vector": [360, 0, 0]
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

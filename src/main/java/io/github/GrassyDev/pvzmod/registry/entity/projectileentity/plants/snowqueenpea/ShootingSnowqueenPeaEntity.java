@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea;
+package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowqueenpea;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
@@ -31,7 +31,9 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -42,9 +44,11 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
-public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatable {
+public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -66,19 +70,17 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 		return PlayState.CONTINUE;
 	}
 
-    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "snowpeaproj");
-
-    public ShootingSnowPeaEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+    public ShootingSnowqueenPeaEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
 		this.setNoGravity(true);
     }
 
-    public ShootingSnowPeaEntity(World world, LivingEntity owner) {
+    public ShootingSnowqueenPeaEntity(World world, LivingEntity owner) {
         super(EntityType.SNOWBALL, owner, world);
     }
 
     @Environment(EnvType.CLIENT)
-    public ShootingSnowPeaEntity(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
+    public ShootingSnowqueenPeaEntity(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
         super(PvZEntity.SNOWPEAPROJ, world);
 		updatePosition(x, y, z);
 		updateTrackedPositionAndAngles(x, y, z, yaw, pitch, interpolation, interpolate);
@@ -120,11 +122,11 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
-		double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
-		double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
-		double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
 
 		for (int j = 0; j < 2; ++j) {
+			double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+			double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+			double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
 			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
 		}
 	}
@@ -138,31 +140,62 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if (entity instanceof ScreendoorEntity) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.125F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
-        else if (entity instanceof NewspaperEntity) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
-        else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-                !(entity instanceof HypnoFlagzombieEntity)) {
+		if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+				!(entity instanceof HypnoFlagzombieEntity)) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM)){
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 			}
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.25F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
+			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.25F, 1F);
+			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
+			this.world.sendEntityStatus(this, (byte) 3);
+			this.remove(RemovalReason.DISCARDED);
+			Vec3d vec3d = this.getPos();
+			List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
+			Iterator var9 = list.iterator();
+			while (true) {
+				LivingEntity livingEntity;
+				do {
+					do {
+						if (!var9.hasNext()) {
+							return;
+						}
+
+						livingEntity = (LivingEntity) var9.next();
+					} while (livingEntity == this.getOwner());
+				} while (this.squaredDistanceTo(livingEntity) > 6);
+
+				boolean bl = false;
+
+				for (int i = 0; i < 2; ++i) {
+					Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+					HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+					if (hitResult.getType() == HitResult.Type.MISS) {
+						bl = true;
+						break;
+					}
+				}
+
+				if (bl) {
+					if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+							!(livingEntity instanceof HypnoFlagzombieEntity)) {
+						if (livingEntity instanceof ScreendoorEntity) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 26.667F);
+						}
+						if (livingEntity instanceof NewspaperEntity) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 5.2F);
+						}
+						else  {
+							if (!livingEntity.hasStatusEffect(PvZCubed.WARM)){
+								livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+							}
+							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
+						}
+					}
+				}
+				this.world.sendEntityStatus(this, (byte) 3);
+				this.remove(RemovalReason.DISCARDED);
+			}
+		}
     }
 
     @Environment(EnvType.CLIENT)
@@ -177,15 +210,14 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
         if (status == 3) {
             ParticleEffect particleEffect = this.getParticleParameters();
 
-            for(int i = 0; i < 8; ++i) {
+            for(int i = 0; i < 16; ++i) {
                 this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
 
-			double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-			double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-			double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
-
-			for (int j = 0; j < 16; ++j) {
+			for (int j = 0; j < 32; ++j) {
+				double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
 				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
 			}
         }

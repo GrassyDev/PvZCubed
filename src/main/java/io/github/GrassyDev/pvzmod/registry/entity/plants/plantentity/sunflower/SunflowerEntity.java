@@ -191,7 +191,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 			return ActionResult.SUCCESS;
 		}
 		else if (!this.getVariant().equals(SunflowerVariants.LESBIAN) &&
-				(itemStack.isOf(Items.RED_DYE) || itemStack.isOf(Items.ORANGE_DYE))) {
+				(itemStack.isOf(Items.RED_DYE) || itemStack.isOf(Items.ORANGE_DYE) || itemStack.isOf(Items.MAGENTA_DYE))) {
 			this.setVariant(SunflowerVariants.LESBIAN);
 			if (!player.getAbilities().creativeMode){
 				itemStack.decrement(1);

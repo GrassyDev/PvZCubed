@@ -8,12 +8,13 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)16",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)16 DMG/1.5s, 4 DMG (area)",
-        "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)16 DMG/1.5s, 8 DMG (area)",
         "$(br)$(#bd951a)Fire Radius: $()$(#ff0000)3 Blocks",
+        "$(br)$(#bd951a)Pierce DMG: $()$(#ff0000)4 DMG (Plasma)",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Sets zombies on fire.",
-        "$(br2)$(#bd951a)Fire Pea had a relationship with Snow Queen Pea a few months back. While her passion may have cooled since then, her ability to launch burning peas has never been hotter."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Sets zombies on fire. 75% Fire Pea, 25% Plasma Pea",
+        "$(br2)$(#bd951a)Fire Pea had a relationship with Snow Queen Pea a few months back. Her passion may have cooled since then, but her burning peas have never been hotter."
       ]
     },
     {
