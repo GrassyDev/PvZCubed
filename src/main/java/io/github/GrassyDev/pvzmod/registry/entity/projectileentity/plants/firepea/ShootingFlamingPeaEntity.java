@@ -151,51 +151,56 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			else  {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
 			}
-			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
-			((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
-			((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
-			entity.setOnFireFor(4);
-			Vec3d vec3d = this.getPos();
-			List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
-			Iterator var9 = list.iterator();
-			while (true) {
-				LivingEntity livingEntity;
-				do {
+			if (!entity.isInsideWaterOrBubbleColumn()) {
+				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+				entity.setOnFireFor(4);
+				Vec3d vec3d = this.getPos();
+				List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
+				Iterator var9 = list.iterator();
+				while (true) {
+					LivingEntity livingEntity;
 					do {
-						if (!var9.hasNext()) {
-							return;
+						do {
+							if (!var9.hasNext()) {
+								return;
+							}
+
+							livingEntity = (LivingEntity) var9.next();
+						} while (livingEntity == this.getOwner());
+					} while (this.squaredDistanceTo(livingEntity) > 6);
+
+					boolean bl = false;
+
+					for (int i = 0; i < 2; ++i) {
+						Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+						HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+						if (hitResult.getType() == HitResult.Type.MISS) {
+							bl = true;
+							break;
 						}
-
-						livingEntity = (LivingEntity) var9.next();
-					} while (livingEntity == this.getOwner());
-				} while (this.squaredDistanceTo(livingEntity) > 6);
-
-				boolean bl = false;
-
-				for (int i = 0; i < 2; ++i) {
-					Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
-					HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-					if (hitResult.getType() == HitResult.Type.MISS) {
-						bl = true;
-						break;
 					}
-				}
 
-				if (bl) {
-					if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-							!(livingEntity instanceof HypnoFlagzombieEntity)) {
-						if (livingEntity instanceof ScreendoorEntity) {
-							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 53.4F);
+					if (bl) {
+						if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+								!(livingEntity instanceof HypnoFlagzombieEntity)) {
+							if (livingEntity instanceof ScreendoorEntity) {
+								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 53.4F);
+							} else {
+								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+							}
+							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+							livingEntity.removeStatusEffect(PvZCubed.ICE);
+							livingEntity.setOnFireFor(4);
 						}
-						else  {
-							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-						}
-						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
-						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
-						livingEntity.removeStatusEffect(PvZCubed.ICE);
-						livingEntity.setOnFireFor(4);
 					}
+					this.world.sendEntityStatus(this, (byte) 3);
+					this.remove(RemovalReason.DISCARDED);
 				}
+			}
+			else {
 				this.world.sendEntityStatus(this, (byte) 3);
 				this.remove(RemovalReason.DISCARDED);
 			}

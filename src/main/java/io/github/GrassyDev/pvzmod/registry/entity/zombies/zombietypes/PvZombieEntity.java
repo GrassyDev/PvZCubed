@@ -42,6 +42,10 @@ public abstract class PvZombieEntity extends HostileEntity {
 		super.tick();
 		if (this.getRandom().nextFloat() < 0.8F && (this.isTouchingWater() || this.isInLava())) {
 			this.getJumpControl().setActive();
+			this.setSwimming(true);
+		}
+		else if (!this.isTouchingWater() || !this.isInLava()){
+			this.setSwimming(false);
 		}
 	}
 

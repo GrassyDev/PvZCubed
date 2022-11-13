@@ -71,8 +71,6 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
         this.experiencePoints = 3;
 		this.speedSwitch = false;
 		this.getNavigation().setCanSwim(true);
-		this.setPathfindingPenalty(PathNodeType.WATER, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);

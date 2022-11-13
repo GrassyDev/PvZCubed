@@ -1,0 +1,38 @@
+{
+  "name": "Lily Pad",
+  "icon": "pvzmod:lilypad_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 16,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)2.5s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Amphibious. Allows non-underground plants to be planted on top. Has Average zombie priority.",
+        "$(br2)$(#bd951a)Lily Pad never complains. Lily Pad never wants to know what's going on. Put a plant on top of Lily Pad, they won't say a thing. Do they have startling opinions or shocking secrets? Nobody knows."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/lilypad.png"
+      ],
+      "title": "⛨ Reinforce Family",
+      "border": "true",
+      "text": "$(#25228d)Lily Pads let you plant non-aquatic plants on top of them."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:lilypad"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Lily Pad",
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Lily Pad"
+      ]
+    }
+  ]
+}

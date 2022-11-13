@@ -58,7 +58,7 @@ public class ScaredyshroomSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     scaredyshroomEntity.refreshPositionAndAngles(scaredyshroomEntity.getX(), scaredyshroomEntity.getY(), scaredyshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(scaredyshroomEntity);
-                    world.playSound((PlayerEntity) null, scaredyshroomEntity.getX(), scaredyshroomEntity.getY(), scaredyshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, scaredyshroomEntity.getX(), scaredyshroomEntity.getY(), scaredyshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }
 
 				 PlayerEntity user = context.getPlayer();

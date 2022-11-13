@@ -58,7 +58,7 @@ public class PotatoMineSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     potatomineEntity.refreshPositionAndAngles(potatomineEntity.getX(), potatomineEntity.getY(), potatomineEntity.getZ(), f, 0.0F);
                     world.spawnEntity(potatomineEntity);
-                    world.playSound((PlayerEntity) null, potatomineEntity.getX(), potatomineEntity.getY(), potatomineEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, potatomineEntity.getX(), potatomineEntity.getY(), potatomineEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }
 
                 PlayerEntity user = context.getPlayer();

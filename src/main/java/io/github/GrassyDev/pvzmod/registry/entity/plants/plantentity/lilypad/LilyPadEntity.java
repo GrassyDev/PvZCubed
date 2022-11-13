@@ -2,6 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntity;
@@ -11,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariant
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,13 +22,18 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.WaterCreatureEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -157,7 +165,10 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new LookAtEntityGoal(this, HostileEntity.class, 50.0F));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+					!(livingEntity instanceof HypnoFlagzombieEntity);
+		}));
 	}
 
 
@@ -210,21 +221,6 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 				onWater = true;
 			}
 		}
-
-		List<Entity> list = this.world.getOtherEntities(this, this.getBoundingBox().expand(0.20000000298023224, -0.009999999776482582, 0.20000000298023224), EntityPredicates.rides(this));
-		if (!list.isEmpty()) {
-			boolean bl = !this.world.isClient && !(this.getPrimaryPassenger() instanceof PlayerEntity);
-
-			for(int j = 0; j < list.size(); ++j) {
-				Entity entity = (Entity)list.get(j);
-				if (!entity.hasPassenger(this)) {
-					if (bl && this.getPassengerList().size() < 1 && !entity.hasVehicle() && entity.getWidth() < this.getWidth() && entity instanceof LivingEntity && !(entity instanceof WaterCreatureEntity ||
-							entity instanceof HostileEntity || entity instanceof HypnoZombieEntity || entity instanceof HypnoSummonerEntity) && !(entity instanceof PlayerEntity)) {
-						entity.startRiding(this);
-					}
-				}
-			}
-		}
     }
 
 	public void tickMovement() {
@@ -233,10 +229,6 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 			this.heal(4.0F);
 			this.healingTime = 1200;
 		}
-
-		//if (!this.world.isClient && this.isAlive() && this.deathTime == 0) {
-		//	this.damage(DamageSource.GENERIC, 9999);
-		//}
 	}
 
 	public HitResult amphibiousRaycast(double maxDistance) {
@@ -276,6 +268,14 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
     }
 
+	protected boolean canAddPassenger(Entity passenger) {
+		return this.getPassengerList().size() < this.getMaxPassengers() && !this.isSubmergedIn(FluidTags.WATER);
+	}
+
+	protected int getMaxPassengers() {
+		return 1;
+	}
+
 	public boolean collidesWith(Entity other) {
 		return canCollide(this, other);
 	}
@@ -297,7 +297,7 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 	}
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-		return 0.125F;
+		return 0.075F;
 	}
 
 	@Nullable
@@ -325,16 +325,6 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 	protected void pushAway(Entity entity) {
 	}
 
-	public boolean startRiding(Entity entity, boolean force) {
-		return super.startRiding(entity, force);
-	}
-
-	public void stopRiding() {
-		super.stopRiding();
-		this.prevBodyYaw = 0.0F;
-		this.bodyYaw = 0.0F;
-	}
-
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
@@ -347,12 +337,12 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		}
 	}
 
-	/**public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.damage(DamageSource.GENERIC, 9999);
 		}
 		this.playBlockFallSound();
 		return true;
-	}**/
+	}
 }

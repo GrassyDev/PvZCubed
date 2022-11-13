@@ -58,7 +58,7 @@ public class FirepeaSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     flamingpeaEntity.refreshPositionAndAngles(flamingpeaEntity.getX(), flamingpeaEntity.getY(), flamingpeaEntity.getZ(), f, 0.0F);
                     world.spawnEntity(flamingpeaEntity);
-                    world.playSound((PlayerEntity) null, flamingpeaEntity.getX(), flamingpeaEntity.getY(), flamingpeaEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, flamingpeaEntity.getX(), flamingpeaEntity.getY(), flamingpeaEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }
 
                 PlayerEntity user = context.getPlayer();

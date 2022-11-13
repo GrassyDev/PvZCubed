@@ -10,7 +10,7 @@
         "$(#ff0000)The Pepper family is composed of fiery plants",
         "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)7 minutes",
         "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Sets zombies on fire. Warms everything around them. Projectiles explode, dealing small damage on an area and ignoring shields. Removes Frozen."
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Sets zombies on fire. Warms everything around them. Projectiles explode, dealing damage around, ignoring shields, unless target is touching water. Removes Frozen."
         ]
     },
     {

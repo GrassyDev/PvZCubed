@@ -59,7 +59,7 @@ public class SunshroomSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     sunshroomEntity.refreshPositionAndAngles(sunshroomEntity.getX(), sunshroomEntity.getY(), sunshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(sunshroomEntity);
-                    world.playSound((PlayerEntity) null, sunshroomEntity.getX(), sunshroomEntity.getY(), sunshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, sunshroomEntity.getX(), sunshroomEntity.getY(), sunshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 				}
 
 				 PlayerEntity user = context.getPlayer();
