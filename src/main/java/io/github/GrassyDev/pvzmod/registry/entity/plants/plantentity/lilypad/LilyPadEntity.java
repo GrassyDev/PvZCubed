@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEnt
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.LilypadHats;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariants;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
@@ -26,6 +27,8 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -212,13 +215,17 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		if (this.age != 0) {
 			BlockPos blockPos2 = this.getBlockPos();
 			BlockState blockState = this.getLandingBlockState();
-			if (!blockPos2.equals(blockPos) || blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) {
+			FluidState fluidState = world.getFluidState(this.getBlockPos().add(0, -0.5, 0));
+			if (!(fluidState.getFluid() == Fluids.WATER)) {
 				this.dryLand = true;
 				onWater = false;
 			}
 			else {
 				this.dryLand = false;
 				onWater = true;
+			}
+			if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()){
+				kill();
 			}
 		}
     }
