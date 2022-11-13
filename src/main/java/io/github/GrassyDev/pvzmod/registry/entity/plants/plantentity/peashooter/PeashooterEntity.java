@@ -4,10 +4,12 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
@@ -18,6 +20,7 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
@@ -119,7 +122,8 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 
 		if (this.age != 0) {
 			BlockPos blockPos2 = this.getBlockPos();
-			if (!blockPos2.equals(blockPos)) {
+			BlockState blockState = this.getLandingBlockState();
+			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				this.kill();
 			}
 
@@ -143,6 +147,11 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 			this.healingTime = 6000;
 		}
 
+		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.heal(4.0F);
+			this.healingTime = 6000;
+		}
+
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.damage(DamageSource.GENERIC, 9999);
 		}
@@ -159,35 +168,38 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
     }
 
-	protected boolean canClimb() {
-		return false;
-	}
+	protected boolean canClimb() {return false;}
 
-	public boolean collides() {
-		return true;
-	}
+	public boolean collides() {return true;}
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
 		return 0.60F;
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
-	}
+	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.ZOMBIEBITEEVENT;}
 
 	@Nullable
-	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
-	}
+	protected SoundEvent getDeathSound() {return PvZCubed.PLANTPLANTEDEVENT;}
 
-	public boolean hurtByWater() {
+	public boolean hurtByWater() {return false;}
+
+	public boolean isPushable() {
 		return false;
 	}
 
-
-
 	protected void pushAway(Entity entity) {
+
+	}
+
+	public boolean startRiding(Entity entity, boolean force) {
+		return super.startRiding(entity, force);
+	}
+
+	public void stopRiding() {
+		super.stopRiding();
+		this.prevBodyYaw = 0.0F;
+		this.bodyYaw = 0.0F;
 	}
 
 

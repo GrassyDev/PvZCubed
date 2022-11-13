@@ -8,8 +8,11 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.gatlingpea.GatlingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.items.seedpackets.GatlingpeaSeeds;
+import io.github.GrassyDev.pvzmod.registry.items.seedpackets.RepeaterSeeds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
@@ -128,7 +131,8 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 
 		if (this.age != 0) {
 			BlockPos blockPos2 = this.getBlockPos();
-			if (!blockPos2.equals(blockPos)) {
+			BlockState blockState = this.getLandingBlockState();
+			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				this.kill();
 			}
 
@@ -183,7 +187,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 			}
 			if (!player.getAbilities().creativeMode){
 				itemStack.decrement(1);
-				player.getItemCooldownManager().set(ModItems.GATLINGPEA_SEED_PACKET, 700);
+				player.getItemCooldownManager().set(ModItems.GATLINGPEA_SEED_PACKET, GatlingpeaSeeds.cooldown);
 			}
 			return ActionResult.SUCCESS;
 		} else {
@@ -233,6 +237,16 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	}
 
 	protected void pushAway(Entity entity) {
+	}
+
+	public boolean startRiding(Entity entity, boolean force) {
+		return super.startRiding(entity, force);
+	}
+
+	public void stopRiding() {
+		super.stopRiding();
+		this.prevBodyYaw = 0.0F;
+		this.bodyYaw = 0.0F;
 	}
 
 

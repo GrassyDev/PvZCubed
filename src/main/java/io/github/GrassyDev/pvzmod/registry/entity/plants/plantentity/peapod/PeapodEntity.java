@@ -11,8 +11,10 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVari
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodCountVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;
+import io.github.GrassyDev.pvzmod.registry.items.seedpackets.PeaPodSeeds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
@@ -241,7 +243,8 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 
 		if (this.age != 0) {
 			BlockPos blockPos2 = this.getBlockPos();
-			if (!blockPos2.equals(blockPos)) {
+			BlockState blockState = this.getLandingBlockState();
+			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				this.kill();
 			}
 
@@ -286,7 +289,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 			heal(15);
 			if (!player.getAbilities().creativeMode){
 				itemStack.decrement(1);
-				player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, 75);
+				player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, PeaPodSeeds.cooldown);
 			}
 			return ActionResult.SUCCESS;
 		}
@@ -363,6 +366,16 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 	}
 
 	protected void pushAway(Entity entity) {
+	}
+
+	public boolean startRiding(Entity entity, boolean force) {
+		return super.startRiding(entity, force);
+	}
+
+	public void stopRiding() {
+		super.stopRiding();
+		this.prevBodyYaw = 0.0F;
+		this.bodyYaw = 0.0F;
 	}
 
 

@@ -60,6 +60,9 @@
   "entity.pvzmod.doomshroom": "Doom-shroom",
   "item.pvzmod.doomshroom_seed_packet": "☄ Doom-shroom Seed Packet",
 
+  "entity.pvzmod.lilypad": "Lily Pad",
+  "item.pvzmod.lilypad_seed_packet": "⛨ Lily Pad Seed Packet",
+
   "entity.pvzmod.threepeater": "Threepeater",
   "item.pvzmod.threepeater_seed_packet": "⭘ Threepeater Seed Packet",
 

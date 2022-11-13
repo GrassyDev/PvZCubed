@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnlightenEnt
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVariants;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -43,7 +44,7 @@ import java.util.Random;
 public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
-			DataTracker.registerData(SnowpeaEntity.class, TrackedDataHandlerRegistry.INTEGER);
+			DataTracker.registerData(SunflowerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     private String controllerName = "suncontroller";
     public int sunProducingTime;
@@ -141,7 +142,8 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 
 		if (this.age != 0) {
 			BlockPos blockPos2 = this.getBlockPos();
-			if (!blockPos2.equals(blockPos)) {
+			BlockState blockState = this.getLandingBlockState();
+			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				this.kill();
 			}
 
@@ -252,6 +254,16 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 	}
 
 	protected void pushAway(Entity entity) {
+	}
+
+	public boolean startRiding(Entity entity, boolean force) {
+		return super.startRiding(entity, force);
+	}
+
+	public void stopRiding() {
+		super.stopRiding();
+		this.prevBodyYaw = 0.0F;
+		this.bodyYaw = 0.0F;
 	}
 
 

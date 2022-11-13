@@ -48,6 +48,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.iceshroom.IceshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.iceshroom.IceshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.LilypadEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peapod.PeapodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peapod.PeapodEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.PeashooterEntity;
@@ -218,6 +220,12 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "doomshroom"),
             QuiltEntityTypeBuilder.<DoomshroomEntity>create(SpawnGroup.CREATURE, DoomshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
+
+	public static final EntityType<LilyPadEntity> LILYPAD = Registry.register((
+					Registry.ENTITY_TYPE),
+			new Identifier(ModID, "lilypad"),
+			QuiltEntityTypeBuilder.<LilyPadEntity>create(SpawnGroup.CREATURE, LilyPadEntity::new).setDimensions(EntityDimensions.fixed(0.99f,0.1f)).build()
+	);
 
     public static final EntityType<ThreepeaterEntity> THREEPEATER = Registry.register(
             Registry.ENTITY_TYPE,
@@ -519,6 +527,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntity.createDoomshroomAttributes());
         EntityRendererRegistry.register(PvZEntity.DOOMSHROOM, DoomshroomEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.LILYPAD, LilyPadEntity.createLilyPadAttributes());
+		EntityRendererRegistry.register(PvZEntity.LILYPAD, LilypadEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntity.createThreepeaterAttributes());
         EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);

@@ -18,6 +18,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 public class CherryBombSeeds extends Item {
+	public static int cooldown = 700;
     public CherryBombSeeds(Settings settings) {
         super(settings);
     }
@@ -63,7 +64,7 @@ public class CherryBombSeeds extends Item {
                 PlayerEntity user = context.getPlayer();
                 if (!user.getAbilities().creativeMode) {
                     itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, 700);
+                    user.getItemCooldownManager().set(this, cooldown);
                 }
                 return ActionResult.success(world.isClient);
             } else {

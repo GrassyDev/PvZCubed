@@ -18,6 +18,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 public class WallnutSeeds extends Item {
+	public static int cooldown = 1000;
     public WallnutSeeds(Settings settings) {
         super(settings);
     }
@@ -63,7 +64,7 @@ public class WallnutSeeds extends Item {
                 PlayerEntity user = context.getPlayer();
                 if (!user.getAbilities().creativeMode) {
                     itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, 1000);
+                    user.getItemCooldownManager().set(this, cooldown);
                 }
                 return ActionResult.success(world.isClient);
             } else {

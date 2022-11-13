@@ -19,7 +19,9 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 public class SunflowerSeeds extends Item {
-    public SunflowerSeeds(Item.Settings settings) {
+	public static int cooldown = 100;
+
+	public SunflowerSeeds(Item.Settings settings) {
         super(settings);
     }
 
@@ -67,7 +69,7 @@ public class SunflowerSeeds extends Item {
                 PlayerEntity user = context.getPlayer();
                 if (!user.getAbilities().creativeMode) {
                     itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, 100);
+                    user.getItemCooldownManager().set(this, cooldown);
                 }
                 return ActionResult.success(world.isClient);
             } else {

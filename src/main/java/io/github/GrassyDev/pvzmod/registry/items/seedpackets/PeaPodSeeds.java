@@ -18,6 +18,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 public class PeaPodSeeds extends Item {
+	public static int cooldown = 75;
 	public boolean used;
 
 	public PeaPodSeeds(Settings settings) {
@@ -65,7 +66,7 @@ public class PeaPodSeeds extends Item {
 				PlayerEntity user = context.getPlayer();
 				if (!user.getAbilities().creativeMode) {
 					itemStack.decrement(1);
-					user.getItemCooldownManager().set(this, 75);
+					user.getItemCooldownManager().set(this, cooldown);
 				}
 				return ActionResult.success(world.isClient);
 			} else {
