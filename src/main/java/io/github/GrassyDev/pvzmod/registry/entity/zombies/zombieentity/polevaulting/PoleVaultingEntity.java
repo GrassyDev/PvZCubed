@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.polevaulting.HypnoPoleVaultingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom.HypnoshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
@@ -186,6 +187,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(2, new TargetGoal<>(this, AilmentEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, EnlightenEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, FilamentEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, LilyPadEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////

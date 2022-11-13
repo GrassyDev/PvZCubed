@@ -1,49 +1,41 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.peashooter.PeashooterEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodCountVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.items.seedpackets.PeashooterSeeds;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.LilypadHats;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariants;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.RaycastContext;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -58,11 +50,12 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 ;import java.util.List;
 
 public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_HAT =
+			DataTracker.registerData(LilyPadEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private String controllerName = "wallcontroller";
 
     public int healingTime;
-
-    public int damageTaken;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private boolean dryLand;
@@ -72,10 +65,9 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
         this.ignoreCameraFrustum = true;
         this.healingTime = 1200;
 		this.setNoGravity(true);
+		LilypadHats hat = Util.getRandom(LilypadHats.values(), this.random);
+		setHat(hat);
     }
-
-	static {
-	}
 
 	public LilyPadEntity(World world, double x, double y, double z) {
 		this(PvZEntity.LILYPAD, world);
@@ -84,6 +76,48 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		this.prevY = y;
 		this.prevZ = z;
 	}
+
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_HAT, 0);
+	}
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		//Hat//
+		this.dataTracker.set(DATA_ID_TYPE_HAT, tag.getInt("Hat"));
+	}
+
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		//Variant//
+		tag.putInt("Hat", this.getTypeHat());
+	}
+
+	static {
+	}
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		LilypadHats hat = Util.getRandom(LilypadHats.values(), this.random);
+		setHat(hat);
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeHat() {
+		return this.dataTracker.get(DATA_ID_TYPE_HAT);
+	}
+
+	public LilypadHats getHat() {
+		return LilypadHats.byId(this.getTypeHat() & 255);
+	}
+
+	private void setHat(LilypadHats hat) {
+		this.dataTracker.set(DATA_ID_TYPE_HAT, hat.getId() & 255);
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -100,11 +134,21 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.dryLand) {
-			event.getController().setAnimation(new AnimationBuilder().loop("lilypad.onground"));
+		if (this.getHat().equals(LilypadHats.LILY)){
+			if (this.dryLand) {
+				event.getController().setAnimation(new AnimationBuilder().loop("lilypad.onground.lily"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("lilypad.idle.lily"));
+			}
 		}
 		else {
-			event.getController().setAnimation(new AnimationBuilder().loop("lilypad.idle"));
+			if (this.dryLand) {
+				event.getController().setAnimation(new AnimationBuilder().loop("lilypad.onground"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("lilypad.idle"));
+			}
 		}
         return PlayState.CONTINUE;
     }
@@ -205,9 +249,23 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 	/** /~*~//~*INTERACTION*~//~*~/ **/
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (!this.getHat().equals(LilypadHats.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
+			this.setHat(LilypadHats.DEFAULT);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.getHat().equals(LilypadHats.LILY) && itemStack.isOf(Items.SPORE_BLOSSOM)) {
+			this.setHat(LilypadHats.LILY);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
 		return addPlants(player, hand);
 	}
-
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
