@@ -254,19 +254,19 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
 			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
 				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-				HypnoFlagzombieEntity hypnoFlagzombieEntity = (HypnoFlagzombieEntity)PvZEntity.HYPNOFLAGZOMBIE.create(world);
-				hypnoFlagzombieEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				hypnoFlagzombieEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFlagzombieEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-				hypnoFlagzombieEntity.setAiDisabled(this.isAiDisabled());
-				hypnoFlagzombieEntity.setHealth(this.getHealth() + 3);
-				hypnoFlagzombieEntity.setVariant(this.getVariant());
+				HypnoFlagzombieEntity hypnotizedZombie = (HypnoFlagzombieEntity)PvZEntity.HYPNOFLAGZOMBIE.create(world);
+				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
+				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
+				hypnotizedZombie.setVariant(this.getVariant());
+				hypnotizedZombie.setHealth(this.getHealth());
 				if (this.hasCustomName()) {
-					hypnoFlagzombieEntity.setCustomName(this.getCustomName());
-					hypnoFlagzombieEntity.setCustomNameVisible(this.isCustomNameVisible());
+					hypnotizedZombie.setCustomName(this.getCustomName());
+					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
 				}
 
-				hypnoFlagzombieEntity.setPersistent();
-				serverWorld.spawnEntityAndPassengers(hypnoFlagzombieEntity);
+				hypnotizedZombie.setPersistent();
+				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
 				this.remove(RemovalReason.DISCARDED);
 			}
 

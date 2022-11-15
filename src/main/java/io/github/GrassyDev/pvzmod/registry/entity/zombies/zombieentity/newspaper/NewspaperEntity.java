@@ -257,18 +257,18 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
             if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoNewspaperEntity hypnoNewspaperEntity = (HypnoNewspaperEntity) PvZEntity.HYPNONEWSPAPER.create(world);
-                hypnoNewspaperEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-                hypnoNewspaperEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoNewspaperEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-                hypnoNewspaperEntity.setAiDisabled(this.isAiDisabled());
-				hypnoNewspaperEntity.setHealth(this.getHealth() + 3);
+                HypnoNewspaperEntity hypnotizedZombie = (HypnoNewspaperEntity) PvZEntity.HYPNONEWSPAPER.create(world);
+				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
+				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
+				hypnotizedZombie.setHealth(this.getHealth());
                 if (this.hasCustomName()) {
-                    hypnoNewspaperEntity.setCustomName(this.getCustomName());
-                    hypnoNewspaperEntity.setCustomNameVisible(this.isCustomNameVisible());
+					hypnotizedZombie.setCustomName(this.getCustomName());
+					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
                 }
 
-                hypnoNewspaperEntity.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnoNewspaperEntity);
+				hypnotizedZombie.setPersistent();
+                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }
 

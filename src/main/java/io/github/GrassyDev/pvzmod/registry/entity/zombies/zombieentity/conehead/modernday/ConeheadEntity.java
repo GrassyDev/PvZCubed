@@ -197,18 +197,18 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 
             if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoConeheadEntity hypnoConeheadEntity = (HypnoConeheadEntity) PvZEntity.HYPNOCONEHEAD.create(world);
-                hypnoConeheadEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-                hypnoConeheadEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoConeheadEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-                hypnoConeheadEntity.setAiDisabled(this.isAiDisabled());
-				hypnoConeheadEntity.setHealth(this.getHealth() + 3);
+                HypnoConeheadEntity hypnotizedZombie = (HypnoConeheadEntity) PvZEntity.HYPNOCONEHEAD.create(world);
+				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
+				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
+				hypnotizedZombie.setHealth(this.getHealth());
                 if (this.hasCustomName()) {
-                    hypnoConeheadEntity.setCustomName(this.getCustomName());
-                    hypnoConeheadEntity.setCustomNameVisible(this.isCustomNameVisible());
+					hypnotizedZombie.setCustomName(this.getCustomName());
+					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
                 }
 
-                hypnoConeheadEntity.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnoConeheadEntity);
+				hypnotizedZombie.setPersistent();
+                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }
 

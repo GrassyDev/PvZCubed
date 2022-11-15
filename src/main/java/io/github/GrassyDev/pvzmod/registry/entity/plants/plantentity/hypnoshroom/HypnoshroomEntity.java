@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
@@ -397,10 +398,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
                 if (this.beamTicks == 0) {
                     this.hypnoshroom.setHypnoBeamTarget(this.hypnoshroom.getTarget().getId());
                 } else if (this.beamTicks >= this.hypnoshroom.getWarmupTime()) {
-                    float f = 1.0F;
-                    livingEntity.damage(DamageSource.magic(this.hypnoshroom, this.hypnoshroom), f);
-                    livingEntity.damage(DamageSource.mob(this.hypnoshroom), (float) this.hypnoshroom.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE));
-                    ((LivingEntity) livingEntity).addStatusEffect((new StatusEffectInstance(PvZCubed.HYPNOTIZED, 999, 1))); // applies a status effect
+					livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
                     this.hypnoshroom.setTarget((LivingEntity) null);
                     this.hypnoshroom.remove(RemovalReason.DISCARDED);
                 }

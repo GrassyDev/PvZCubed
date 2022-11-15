@@ -252,24 +252,24 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
 				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-				HypnoPoleVaultingEntity hypnoPoleVaultingEntity = (HypnoPoleVaultingEntity) PvZEntity.HYPNOPOLEVAULTING.create(world);
-				hypnoPoleVaultingEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				hypnoPoleVaultingEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoPoleVaultingEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
-				hypnoPoleVaultingEntity.setAiDisabled(this.isAiDisabled());
-				hypnoPoleVaultingEntity.setHealth(this.getHealth() + 3);
+				HypnoPoleVaultingEntity hypnotizedZombie = (HypnoPoleVaultingEntity) PvZEntity.HYPNOPOLEVAULTING.create(world);
+				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
+				hypnotizedZombie.setHealth(this.getHealth());
 				if (this.getPoleStage().equals(Boolean.TRUE)){
-					hypnoPoleVaultingEntity.setPoleStage(HypnoPoleVaultingEntity.PoleStage.POLE);
+					hypnotizedZombie.setPoleStage(HypnoPoleVaultingEntity.PoleStage.POLE);
 				}
 				else {
-					hypnoPoleVaultingEntity.setPoleStage(HypnoPoleVaultingEntity.PoleStage.NOPOLE);
+					hypnotizedZombie.setPoleStage(HypnoPoleVaultingEntity.PoleStage.NOPOLE);
 				}
 				if (this.hasCustomName()) {
-					hypnoPoleVaultingEntity.setCustomName(this.getCustomName());
-					hypnoPoleVaultingEntity.setCustomNameVisible(this.isCustomNameVisible());
+					hypnotizedZombie.setCustomName(this.getCustomName());
+					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
 				}
 
-				hypnoPoleVaultingEntity.setPersistent();
-				serverWorld.spawnEntityAndPassengers(hypnoPoleVaultingEntity);
+				hypnotizedZombie.setPersistent();
+				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
 				this.remove(RemovalReason.DISCARDED);
 			}
 

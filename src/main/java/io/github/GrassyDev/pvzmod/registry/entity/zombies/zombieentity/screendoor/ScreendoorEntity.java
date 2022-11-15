@@ -188,18 +188,18 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
 
             if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoScreendoorEntity hypnoScreendoorEntity = (HypnoScreendoorEntity)PvZEntity.HYPNOSCREENDOOR.create(world);
-                hypnoScreendoorEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-                hypnoScreendoorEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoScreendoorEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-                hypnoScreendoorEntity.setAiDisabled(this.isAiDisabled());
-				hypnoScreendoorEntity.setHealth(this.getHealth() + 3);
+                HypnoScreendoorEntity hypnotizedZombie = (HypnoScreendoorEntity)PvZEntity.HYPNOSCREENDOOR.create(world);
+				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
+				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
+				hypnotizedZombie.setHealth(this.getHealth());
                 if (this.hasCustomName()) {
-                    hypnoScreendoorEntity.setCustomName(this.getCustomName());
-                    hypnoScreendoorEntity.setCustomNameVisible(this.isCustomNameVisible());
+					hypnotizedZombie.setCustomName(this.getCustomName());
+					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
                 }
 
-                hypnoScreendoorEntity.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnoScreendoorEntity);
+				hypnotizedZombie.setPersistent();
+                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }
 

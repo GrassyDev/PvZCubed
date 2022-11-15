@@ -307,24 +307,24 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
             if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoFootballEntity hypnoFootballEntity = (HypnoFootballEntity) PvZEntity.HYPNOFOOTBALL.create(world);
-                hypnoFootballEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-                hypnoFootballEntity.initialize(serverWorld, world.getLocalDifficulty(hypnoFootballEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-                hypnoFootballEntity.setAiDisabled(this.isAiDisabled());
-				hypnoFootballEntity.setHealth(this.getHealth() + 3);
+                HypnoFootballEntity hypnotizedZombie = (HypnoFootballEntity) PvZEntity.HYPNOFOOTBALL.create(world);
+				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
+				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
+				hypnotizedZombie.setHealth(this.getHealth());
 				if (this.getTackleStage().equals(Boolean.TRUE)){
-					hypnoFootballEntity.setTackleStage(HypnoFootballEntity.TackleStage.TACKLING);
+					hypnotizedZombie.setTackleStage(HypnoFootballEntity.TackleStage.TACKLING);
 				}
 				else {
-					hypnoFootballEntity.setTackleStage(HypnoFootballEntity.TackleStage.EATING);
+					hypnotizedZombie.setTackleStage(HypnoFootballEntity.TackleStage.EATING);
 				}
                 if (this.hasCustomName()) {
-                    hypnoFootballEntity.setCustomName(this.getCustomName());
-                    hypnoFootballEntity.setCustomNameVisible(this.isCustomNameVisible());
+					hypnotizedZombie.setCustomName(this.getCustomName());
+					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
                 }
 
-                hypnoFootballEntity.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnoFootballEntity);
+				hypnotizedZombie.setPersistent();
+                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }
 

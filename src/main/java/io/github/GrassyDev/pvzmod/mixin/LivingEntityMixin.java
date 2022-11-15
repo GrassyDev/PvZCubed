@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.mixin;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
@@ -32,7 +33,8 @@ public abstract class LivingEntityMixin extends Entity {
 				source.getAttacker() instanceof PvZombieEntity ||
 				source.getAttacker() instanceof SummonerEntity ||
 				source.getAttacker() instanceof HypnoZombieEntity ||
-				source.getAttacker() instanceof HypnoSummonerEntity)
+				source.getAttacker() instanceof HypnoSummonerEntity ||
+				source == PvZCubed.HYPNO_DAMAGE)
             timeUntilRegen = 0;
     }
 }

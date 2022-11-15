@@ -135,7 +135,7 @@ public class PvZExplosion extends Explosion {
 							entity.setOnFireFor(4);
 						}
 						if (this.hypnosis && (entity instanceof PvZombieEntity || entity instanceof SummonerEntity)) {
-							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.HYPNOTIZED, 999, 1)));
+							entity.damage(PvZCubed.HYPNO_DAMAGE, 0);
 						}
 					}
                 }
