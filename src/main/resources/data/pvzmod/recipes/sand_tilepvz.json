@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#D#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "pvzmod:smallsun"
+    },
+    "D": {
+      "item": "minecraft:sand"
+    }
+  },
+  "result": {
+    "item": "pvzmod:sand_tile",
+    "count": 1
+  }
+}

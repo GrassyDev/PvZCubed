@@ -22,12 +22,14 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -44,8 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
-import static io.github.GrassyDev.pvzmod.PvZCubed.NEWSPAPERANGRYEVENT;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class SquashEntity extends EnforceEntity implements IAnimatable {
 
@@ -55,10 +56,12 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 	public boolean firstAttack;
 	public boolean inAnimation;
 	public boolean attackLock;
+	public boolean statusSwitch = true;
 	private String controllerName = "chompcontroller";
 	public static final UUID MAX_RANGE_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
+	private boolean stopAnimation;
 
-    public SquashEntity(EntityType<? extends SquashEntity> entityType, World world) {
+	public SquashEntity(EntityType<? extends SquashEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.healingTime = 2400;
@@ -69,12 +72,23 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		RandomGenerator randomGenerator = this.getRandom();
 		if (status == 13) {
 			this.inAnimation = true;
 		} else if (status == 12) {
 			this.inAnimation = false;
 		}
+		if (status == 7) {
+			for(int i = 0; i < 128; ++i) {
+				double e = (double) MathHelper.nextBetween(randomGenerator, 5F, 20F);
+				this.world.addParticle(ParticleTypes.WATER_SPLASH, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						this.getY() + (double) MathHelper.nextBetween(randomGenerator, 0F, 3F),
+						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+						0, e, 0);
+			}
+		}
 	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION~//~*~// **/
 
@@ -92,7 +106,7 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (inAnimation){
+		if (inAnimation && !stopAnimation){
 			event.getController().setAnimation(new AnimationBuilder().playOnce("squash.smash"));
 		}
 		else {
@@ -114,8 +128,9 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 	//Smash
 	public boolean tryAttack(Entity target) {
 		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-			if (this.firstAttack && this.animationTicksLeft <= 0) {
+			if (this.firstAttack && this.animationTicksLeft <= 0 && (target.isOnGround() || target.isInsideWaterOrBubbleColumn())) {
 				this.animationTicksLeft = 55;
+				this.playSound(SQUASHHUMEVENT);
 				this.firstAttack = false;
 			}
 		}
@@ -188,10 +203,18 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		if (statusSwitch) {
+			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
+			maxRangeAttribute.removeModifier(MAX_RANGE_UUID);
+			statusSwitch = false;
+		}
 		if (this.animationTicksLeft > 0 && this.animationTicksLeft <= 25 && !this.attackLock) {
 			Entity entity = this.getTarget();
-			if (entity != null){
+			if (entity != null && !this.isInsideWaterOrBubbleColumn()){
 				this.setPosition(entity.getX(), entity.getY(), entity.getZ());
+			}
+			else if (entity != null && this.isInsideWaterOrBubbleColumn()){
+				this.setPosition(entity.getX(), entity.getY() - 0.25, entity.getZ());
 			}
 			if (this.hasVehicle()){
 				this.dismountVehicle();
@@ -201,7 +224,14 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 		else {
 			this.newPosition(this.getX(), this.getY(), this.getZ());
 		}
-
+		if (this.animationTicksLeft > 0 && this.animationTicksLeft > 25) {
+			Entity entity = this.getTarget();
+			if (entity == null) {
+				this.animationTicksLeft = 0;
+				this.firstAttack = true;
+				this.stopAnimation = true;
+			}
+		}
 		if (this.getTarget() != null){
 			this.tryAttack(getTarget());
 		}
@@ -212,32 +242,35 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 		if (this.animationTicksLeft == 1) {
 			this.discard();
 		}
-		if (this.animationTicksLeft == 9 && this.isInsideWaterOrBubbleColumn()) {
-			this.discard();
-		}
-		if (this.animationTicksLeft == 10) {
+		if (this.animationTicksLeft == 9 && !this.isInsideWaterOrBubbleColumn()) {
 			this.attackLock = true;
-			if (this.isInsideWaterOrBubbleColumn()){
-				this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1F, 1.0F);
-			}
-			else {
-				this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
-			}
+			this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
 			if (getTarget() != null) {
 				this.firstAttack = true;
 			}
-				this.splashDamage();
+			this.splashDamage();
 		}
-		else if (getTarget() == null){
+		else if (this.animationTicksLeft == 9 && this.isInsideWaterOrBubbleColumn()) {
+			world.sendEntityStatus(this, (byte) 7);
+			this.attackLock = true;
+			this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1F, 1.0F);
+			if (getTarget() != null) {
+				this.firstAttack = true;
+			}
+			this.splashDamage();
+			this.discard();
+		}
+		if (getTarget() == null){
 			this.firstAttack = true;
 		}
 		if (this.animationTicksLeft > 0) {
+			this.stopAnimation = false;
 			this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 			--this.animationTicksLeft;
 			this.world.sendEntityStatus(this, (byte) 13);
 		}
 		else{
-			this.clearStatusEffects();
+			this.removeStatusEffect(StatusEffects.RESISTANCE);
 			this.world.sendEntityStatus(this, (byte) 12);
 		}
 		if (this.age == 3) {
@@ -297,7 +330,7 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return SILENCEVENET;
 	}
 
 	@Nullable

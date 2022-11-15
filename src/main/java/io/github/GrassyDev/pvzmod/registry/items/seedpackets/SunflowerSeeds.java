@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower.SunflowerEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,8 +16,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class SunflowerSeeds extends Item {
 	public static int cooldown = 100;
@@ -25,7 +30,23 @@ public class SunflowerSeeds extends Item {
         super(settings);
     }
 
-    public ActionResult useOnBlock(ItemUsageContext context) {
+	//Credits to Patchouli for the tooltip code!
+	@Override
+	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		super.appendTooltip(stack, world, tooltip, context);
+
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.enlighten.family")
+				.formatted(Formatting.YELLOW));
+
+		tooltip.add(Text.translatable("item.pvzmod.sunflower_seed_packet.flavour")
+				.formatted(Formatting.DARK_GRAY));
+
+		tooltip.add(Text.translatable("item.pvzmod.sunflower_seed_packet.flavour2")
+				.formatted(Formatting.DARK_GRAY));
+	}
+
+
+	public ActionResult useOnBlock(ItemUsageContext context) {
         Direction direction = context.getSide();
         if (direction == Direction.DOWN) {
             return ActionResult.FAIL;

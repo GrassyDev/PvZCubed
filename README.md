@@ -27,7 +27,7 @@ Currently, this mod contains:
 2. [5/5] Day Zombies
 3. [8/8] Night Plants
 4. [5/5] Night Zombies
-5. [1/8] Pool Plants
+5. [3/8] Pool Plants
 6. [0/5] Pool Zombies
 7. [0/8] Fog Plants
 8. [0/5] Fog Zombies
@@ -67,11 +67,11 @@ Currently, this mod contains:
 16. [0/13] Neon Mixtape Tour Zombies
 17. [0/5] Jurassic Marsh Plants
 18. [0/11] Jurassic Marsh Zombies
-19. [0/5] Big Wave Beach Plants
+19. [1/5] Big Wave Beach Plants
 20. [0/13] Big Wave Beach Zombies
 21. [0/5] Modern Day Plants
 22. [4/9] Modern Day Zombies
-23. [4/35] Premium Plants
+23. [5/35] Premium Plants
 24. [0/59] Extra Premium Plants (No guarantee that I will do them all)
 25. [0/14] Mints (No guarantee that I will do them)
 26. [0/46] Special Zombies

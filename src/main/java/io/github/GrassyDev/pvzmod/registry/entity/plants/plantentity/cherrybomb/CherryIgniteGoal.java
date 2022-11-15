@@ -13,7 +13,7 @@ public class CherryIgniteGoal extends Goal {
 
     public boolean canStart() {
         LivingEntity livingEntity = this.cherry.getTarget();
-        return this.cherry.getFuseSpeed() > 0 || livingEntity != null && this.cherry.squaredDistanceTo(livingEntity) < 9.0D;
+        return this.cherry.getFuseSpeed() > 0 || livingEntity != null && this.cherry.squaredDistanceTo(livingEntity) < 144.0D;
     }
 
     public void start() {
@@ -28,7 +28,7 @@ public class CherryIgniteGoal extends Goal {
     public void tick() {
         if (this.target == null) {
             this.cherry.setFuseSpeed(-1);
-        } else if (this.cherry.squaredDistanceTo(this.target) > 9.0D || this.cherry.isInsideWaterOrBubbleColumn()) {
+        } else if (this.cherry.squaredDistanceTo(this.target) > 144D || this.cherry.isInsideWaterOrBubbleColumn()) {
             this.cherry.setFuseSpeed(-1);
         } else {
             this.cherry.setFuseSpeed(1);

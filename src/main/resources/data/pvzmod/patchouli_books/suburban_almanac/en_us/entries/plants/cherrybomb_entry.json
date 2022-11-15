@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Damage: $()$(#ff0000)180",
-        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)3 Blocks",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)12 Blocks",
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)5 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",

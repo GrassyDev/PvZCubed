@@ -74,6 +74,11 @@
       "pvzmod:doomshroom_explosion"
     ]
   },
+  "squash.hm": {
+    "sounds": [
+      "pvzmod:squash_hm"
+    ]
+  },
   "grave.rising": {
     "sounds": [
       "pvzmod:grave_rising"
