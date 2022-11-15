@@ -109,12 +109,16 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 			.appendItems(stacks -> {
 				stacks.add(new ItemStack(ModItems.GRASS_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_GRASS_TILE));
-				stacks.add(new ItemStack(ModItems.NIGHT_TILE));
-				stacks.add(new ItemStack(ModItems.DARK_NIGHT_TILE));
-				stacks.add(new ItemStack(ModItems.WEST_TILE));
-				stacks.add(new ItemStack(ModItems.DARK_WEST_TILE));
+				stacks.add(new ItemStack(ModItems.ROOF_TILE));
+				stacks.add(new ItemStack(ModItems.DARK_ROOF_TILE));
 				stacks.add(new ItemStack(ModItems.UPGRADE_TILE));
 				stacks.add(new ItemStack(ModItems.PREMIUM_TILE));
+				stacks.add(new ItemStack(ModItems.WEST_TILE));
+				stacks.add(new ItemStack(ModItems.DARK_WEST_TILE));
+				stacks.add(new ItemStack(ModItems.NIGHT_TILE));
+				stacks.add(new ItemStack(ModItems.DARK_NIGHT_TILE));
+				stacks.add(new ItemStack(ModItems.SAND_TILE));
+				stacks.add(new ItemStack(ModItems.DARK_SAND_TILE));
 			}).build();
 
 	public static final Identifier PEASHOOT = new Identifier("pvzmod:pea.shoot");

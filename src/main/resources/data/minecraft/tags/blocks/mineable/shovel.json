@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "pvzmod:grass_tile",
-    "pvzmod:dark_grass_tile"
+    "pvzmod:dark_grass_tile",
+    "pvzmod:sand_tile",
+    "pvzmod:dark_sand_tile"
   ]
 }

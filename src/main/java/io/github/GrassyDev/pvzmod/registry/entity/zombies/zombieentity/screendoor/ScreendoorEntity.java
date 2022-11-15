@@ -202,7 +202,6 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }
-
             return true;
         }
     }

@@ -3,11 +3,13 @@
   "values": [
     "pvzmod:grass_tile",
     "pvzmod:dark_grass_tile",
-    "pvzmod:night_tile",
-    "pvzmod:dark_night_tile",
+    "pvzmod:upgrade_tile",
+    "pvzmod:premium_tile",
     "pvzmod:west_tile",
     "pvzmod:dark_west_tile",
-    "pvzmod:premium_tile",
-    "pvzmod:upgrade_tile"
+    "pvzmod:night_tile",
+    "pvzmod:dark_night_tile",
+    "pvzmod:sand_tile",
+    "pvzmod:dark_sand_tile",
   ]
 }
