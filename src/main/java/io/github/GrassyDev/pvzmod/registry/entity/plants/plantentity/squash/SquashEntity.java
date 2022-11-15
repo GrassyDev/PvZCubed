@@ -275,7 +275,7 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 		}
 		if (this.age == 3) {
 			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
-			maxRangeAttribute.addPersistentModifier(createRangeAttribute(5.0D));
+			maxRangeAttribute.addPersistentModifier(createRangeAttribute(4.0D));
 		}
 	}
 
