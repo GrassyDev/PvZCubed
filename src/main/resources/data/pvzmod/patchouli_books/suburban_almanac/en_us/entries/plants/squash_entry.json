@@ -1,0 +1,41 @@
+{
+  "name": "Squash",
+  "icon": "pvzmod:squash_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 17,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Damage: $()$(#ff0000)180",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)5 Blocks",
+        "$(br)$(#bd951a)Smash Radius: $()$(#ff0000)1.5 Blocks",
+        "$(br)$(#bd951a)Delay: $()$(#ff0000)2.25s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Jumps on top of the target zombie, smashing everyone near.",
+        "$(br2)$(#bd951a)Squash is actually his stage name. His birth name was Tracy."
+        ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/squash.png"
+      ],
+      "title": "\uD83D\uDDE1 Enforce Family",
+      "border": "true",
+      "text": "$(#25228d)Squashes will smash the first zombie that gets close to it."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:squash"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Squash",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Squash"
+      ]
+    }
+  ]
+}

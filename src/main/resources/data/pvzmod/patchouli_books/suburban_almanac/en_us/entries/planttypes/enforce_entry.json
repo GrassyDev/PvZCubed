@@ -16,7 +16,8 @@
     {
       "type": "relations",
       "entries": [
-        "pvzmod:plants/chomper_entry"
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/squash_entry"
       ],
       "title": "\uD83D\uDDE1 Enforce Plants:"
     }

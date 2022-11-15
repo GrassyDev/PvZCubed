@@ -27,7 +27,8 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/peashooter_entry"
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/squash_entry"
       ]
     },
     {

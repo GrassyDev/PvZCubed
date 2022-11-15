@@ -27,15 +27,12 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/snowpea_entry",
-        "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/potatomine_entry",
         "pvzmod:plants/chomper_entry",
         "pvzmod:plants/wallnut_entry",
         "pvzmod:plants/repeater_entry",
         "pvzmod:plants/hypnoshroom_entry",
-        "pvzmod:plants/iceshroom_entry",
-        "pvzmod:plants/doomshroom_entry",
-        "pvzmod:plants/snowqueenpea_entry",
+        "pvzmod:plants/squash_entry",
         "pvzmod:plants/perfoomshroom_entry",
         "pvzmod:plants/peapod_entry",
         "pvzmod:plants/firepea_entry"

@@ -28,7 +28,8 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/snowpea_entry",
-        "pvzmod:plants/repeater_entry"
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/squash_entry"
       ]
     },
     {
