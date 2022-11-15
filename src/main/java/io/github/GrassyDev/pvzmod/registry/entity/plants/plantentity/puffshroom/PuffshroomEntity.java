@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
@@ -17,10 +18,17 @@ import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShapes;
@@ -55,6 +63,21 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
         this.healingTime = 6000;
     }
 
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, false);
+	}
+
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("Permanent", this.getPuffshroomPermanency());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Permanent"));
+	}
+
 	static {
 	}
 
@@ -71,6 +94,34 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		} else if (status == 10) {
 			this.isFiring = false;
 		}
+	}
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(PuffshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public enum PuffPermanency {
+		DEFAULT(false),
+		PERMANENT(true);
+
+		PuffPermanency(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	private Boolean getPuffshroomPermanency() {
+		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
+	}
+
+	private void setPuffshroomPermanency(PuffshroomEntity.PuffPermanency puffshroomPermanency) {
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, puffshroomPermanency.getId());
 	}
 
 
@@ -145,7 +196,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.age >= 6000) {
+		if (this.age >= 2400 && !this.getPuffshroomPermanency()) {
 			this.kill();
 		}
 	}
@@ -172,6 +223,22 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 			this.initGoals();
 		}
 		super.mobTick();
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.SMALLSUN) && !this.getPuffshroomPermanency()) {
+			this.setPuffshroomPermanency(PuffPermanency.PERMANENT);
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.CONSUME;
+		}
 	}
 
 
