@@ -131,6 +131,8 @@
   "entity.pvzmod.snowqueenpea": "Snow Queen Pea",
   "item.pvzmod.snowqueenpea_seed_packet": "❄ Snow Queen Pea Seed Packet",
   "item.pvzmod.snowqueenpea_seed_packet.flavour": "\"Chill and let it go!\"",
+  "item.pvzmod.snowqueenpeaproj": "Snow Queen Pea",
+  "item.pvzmod.icespike": "Ice Spike",
 
   "entity.pvzmod.perfoomshroom": "Perfoom-shroom",
   "item.pvzmod.perfoomshroom_seed_packet": "⭐ Perfoom-shroom Seed Packet",
@@ -217,11 +219,14 @@
 
   "block.pvzmod.grass_tile": "Grass Tile",
   "block.pvzmod.dark_grass_tile": "Dark Grass Tile",
-  "block.pvzmod.night_tile": "Night Tile",
-  "block.pvzmod.dark_night_tile": "Dark Night Tile",
+  "block.pvzmod.roof_tile": "Roof Tile",
+  "block.pvzmod.dark_roof_tile": "Dark Roof Tile",
+  "block.pvzmod.upgrade_tile": "Upgrade Tile",
+  "block.pvzmod.premium_tile": "Premium Tile",
   "block.pvzmod.west_tile": "West Tile",
   "block.pvzmod.dark_west_tile": "Dark West Tile",
-  "block.pvzmod.premium_tile": "Premium Tile",
-  "block.pvzmod.upgrade_tile": "Upgrade Tile"
-
+  "block.pvzmod.night_tile": "Night Tile",
+  "block.pvzmod.dark_night_tile": "Dark Night Tile",
+  "block.pvzmod.sand_tile": "Sand Tile",
+  "block.pvzmod.dark_sand_tile": "Dark Sand Tile"
 }

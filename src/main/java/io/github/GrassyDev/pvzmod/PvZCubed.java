@@ -73,7 +73,9 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 				stacks.add(new ItemStack(ModItems.FUME));
 				stacks.add(new ItemStack(ModItems.SPORE));
 				stacks.add(new ItemStack(ModItems.FIREPEA));
+				stacks.add(new ItemStack(ModItems.SNOWQUEENPEAPROJ));
 				stacks.add(new ItemStack(ModItems.PLASMAPEA));
+				stacks.add(new ItemStack(ModItems.ICESPIKE));
 			}).build();
 
 	public static final ItemGroup ZOMBIES = FabricItemGroupBuilder.create(
