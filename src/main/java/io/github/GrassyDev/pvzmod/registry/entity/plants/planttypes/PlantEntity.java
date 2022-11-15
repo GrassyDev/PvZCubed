@@ -19,6 +19,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.repeater.Re
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.scaredyshroom.ScaredyshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowqueenpea.SnowqueenpeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.squash.SquashEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater.ThreepeaterEntity;
@@ -38,6 +39,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -371,6 +373,28 @@ public abstract class PlantEntity extends GolemEntity {
 			if (!player.getAbilities().creativeMode){
 				itemStack.decrement(1);
 				player.getItemCooldownManager().set(ModItems.DOOMSHROOM_SEED_PACKET, DoomshroomSeeds.cooldown);
+			}
+			return ActionResult.SUCCESS;
+		}
+
+		/**SQUASH**/
+		if (itemStack.isOf(ModItems.SQUASH_SEED_PACKET) && !itemCooldown) {
+			if (world instanceof ServerWorld) {
+				ServerWorld serverWorld = (ServerWorld) world;
+				SquashEntity plantEntity = (SquashEntity) PvZEntity.SQUASH.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+				if (plantEntity == null) {
+					return ActionResult.FAIL;
+				}
+
+				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+				plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+				plantEntity.startRiding(this, true);
+				world.spawnEntity(plantEntity);
+				world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+			}
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+				player.getItemCooldownManager().set(ModItems.SQUASH_SEED_PACKET, SquashSeeds.cooldown);
 			}
 			return ActionResult.SUCCESS;
 		}

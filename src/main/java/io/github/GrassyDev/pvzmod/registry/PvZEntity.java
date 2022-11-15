@@ -68,6 +68,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.Sno
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowqueenpea.SnowqueenpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowqueenpea.SnowqueenpeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.squash.SquashEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.squash.SquashEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower.SunflowerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom.SunshroomEntity;
@@ -225,6 +227,12 @@ public class PvZEntity implements ModInitializer {
 					Registry.ENTITY_TYPE),
 			new Identifier(ModID, "lilypad"),
 			QuiltEntityTypeBuilder.<LilyPadEntity>create(SpawnGroup.CREATURE, LilyPadEntity::new).setDimensions(EntityDimensions.fixed(0.99f,0.1f)).build()
+	);
+
+	public static final EntityType<SquashEntity> SQUASH = Registry.register((
+					Registry.ENTITY_TYPE),
+			new Identifier(ModID, "squash"),
+			QuiltEntityTypeBuilder.<SquashEntity>create(SpawnGroup.CREATURE, SquashEntity::new).setDimensions(EntityDimensions.fixed(1f,1.55f)).build()
 	);
 
     public static final EntityType<ThreepeaterEntity> THREEPEATER = Registry.register(
@@ -530,6 +538,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.LILYPAD, LilyPadEntity.createLilyPadAttributes());
 		EntityRendererRegistry.register(PvZEntity.LILYPAD, LilypadEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.SQUASH, SquashEntity.createSquashAttributes());
+		EntityRendererRegistry.register(PvZEntity.SQUASH, SquashEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntity.createThreepeaterAttributes());
         EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);

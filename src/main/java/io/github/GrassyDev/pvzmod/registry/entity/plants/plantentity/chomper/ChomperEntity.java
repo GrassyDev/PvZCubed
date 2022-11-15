@@ -168,7 +168,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-	/** /~*~//~*AI~//~*~// **/
+	/** /~*~//~**~//~*~// **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new ChomperEntity.AttackGoal());
@@ -432,17 +432,5 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		}
 		this.playBlockFallSound();
 		return true;
-	}
-
-
-	/** //~*~//~SPAWNING~//~*~// **/
-
-	public static boolean canChomperSpawn(EntityType<ChomperEntity> entity, WorldAccess world, SpawnReason reason, BlockPos pos, Random rand) {
-		return pos.getY() > 60;
-	}
-
-	@Override
-	public boolean canSpawn(WorldView worldreader) {
-		return worldreader.doesNotIntersectEntities(this, VoxelShapes.cuboid(this.getBoundingBox()));
 	}
 }

@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.cherrybomb.CherrybombEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,8 +15,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class CherryBombSeeds extends Item {
 	public static int cooldown = 700;
@@ -23,7 +28,22 @@ public class CherryBombSeeds extends Item {
         super(settings);
     }
 
-    public ActionResult useOnBlock(ItemUsageContext context) {
+	//Credits to Patchouli for the tooltip code!
+	@Override
+	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		super.appendTooltip(stack, world, tooltip, context);
+
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.bombard.family")
+				.formatted(Formatting.GOLD));
+
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.instant.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
+		tooltip.add(Text.translatable("item.pvzmod.cherrybomb_seed_packet.flavour")
+				.formatted(Formatting.DARK_GRAY));
+	}
+
+	public ActionResult useOnBlock(ItemUsageContext context) {
         Direction direction = context.getSide();
         if (direction == Direction.DOWN) {
             return ActionResult.FAIL;
@@ -50,15 +70,15 @@ public class CherryBombSeeds extends Item {
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    CherrybombEntity cherrybombEntity = (CherrybombEntity) PvZEntity.CHERRYBOMB.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (cherrybombEntity == null) {
+                    CherrybombEntity plantEntity = (CherrybombEntity) PvZEntity.CHERRYBOMB.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    if (plantEntity == null) {
                         return ActionResult.FAIL;
                     }
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    cherrybombEntity.refreshPositionAndAngles(cherrybombEntity.getX(), cherrybombEntity.getY(), cherrybombEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(cherrybombEntity);
-                    world.playSound((PlayerEntity) null, cherrybombEntity.getX(), cherrybombEntity.getY(), cherrybombEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+                    world.spawnEntity(plantEntity);
+                    world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }
 
                 PlayerEntity user = context.getPlayer();

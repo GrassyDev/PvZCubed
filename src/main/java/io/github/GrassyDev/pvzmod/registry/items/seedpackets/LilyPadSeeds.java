@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.LilyPadEntity;
 import net.minecraft.block.Material;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +22,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.HitResult;
@@ -28,14 +30,37 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
 
 public class LilyPadSeeds extends Item {
+	public static int cooldown;
     public LilyPadSeeds(Settings settings) {
         super(settings);
     }
+
+	//Credits to Patchouli for the tooltip code!
+	@Override
+	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		super.appendTooltip(stack, world, tooltip, context);
+
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.enforce.family")
+				.formatted(Formatting.DARK_RED));
+
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.amphibious.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
+		tooltip.add(Text.translatable("item.pvzmod.lilypad_seed_packet.flavour")
+				.formatted(Formatting.DARK_GRAY));
+
+		tooltip.add(Text.translatable("item.pvzmod.lilypad_seed_packet.flavour2")
+				.formatted(Formatting.DARK_GRAY));
+
+		tooltip.add(Text.translatable("item.pvzmod.lilypad_seed_packet.flavour3")
+				.formatted(Formatting.DARK_GRAY));
+	}
 
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		ItemStack itemStack = user.getStackInHand(hand);
@@ -61,7 +86,7 @@ public class LilyPadSeeds extends Item {
 							}
 							if (!user.getAbilities().creativeMode) {
 								itemStack.decrement(1);
-								user.getItemCooldownManager().set(this, 50);
+								user.getItemCooldownManager().set(this, cooldown);
 							}
 						}
 

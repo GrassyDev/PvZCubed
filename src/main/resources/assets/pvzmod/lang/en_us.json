@@ -5,6 +5,25 @@
 
   "item.pvzmod.daves_shovel": "Dave's Shovel",
 
+  "item.pvzmod.seed_packet.ailment.family": "Ailment Family",
+  "item.pvzmod.seed_packet.appease.family": "Appease Family",
+  "item.pvzmod.seed_packet.arma.family": "Arma Family",
+  "item.pvzmod.seed_packet.bombard.family": "Bombard Family",
+  "item.pvzmod.seed_packet.conceal.family": "Conceal Family",
+  "item.pvzmod.seed_packet.contain.family": "Contain Family",
+  "item.pvzmod.seed_packet.enchant.family": "Enchant Family",
+  "item.pvzmod.seed_packet.enforce.family": "Enforce Family",
+  "item.pvzmod.seed_packet.enlighten.family": "Enlighten Family",
+  "item.pvzmod.seed_packet.filament.family": "Filament Family",
+  "item.pvzmod.seed_packet.pepper.family": "Pepper Family",
+  "item.pvzmod.seed_packet.reinforce.family": "Reinforce Family",
+  "item.pvzmod.seed_packet.spear.family": "Spear Family",
+  "item.pvzmod.seed_packet.winter.family": "Winter Family",
+
+  "item.pvzmod.seed_packet.instant.tooltip": "Instant",
+  "item.pvzmod.seed_packet.nocturnal.tooltip": "Nocturnal",
+  "item.pvzmod.seed_packet.amphibious.tooltip": "Amphibious",
+
   "entity.pvzmod.sunflower": "Sunflower",
   "item.pvzmod.smallsun": "Small Sun",
   "item.pvzmod.sun": "Sun",
@@ -17,6 +36,7 @@
 
   "entity.pvzmod.cherrybomb": "Cherry Bomb",
   "item.pvzmod.cherrybomb_seed_packet": "☄ Cherry Bomb Seed Packet",
+  "item.pvzmod.cherrybomb_seed_packet.flavour": "\"Explode? Detonate? ... Explodonate!\"",
 
   "entity.pvzmod.wallnut": "Wall-nut",
   "item.pvzmod.wallnut_seed_packet": "⛨ Wall-nut Seed Packet",
@@ -36,6 +56,8 @@
 
   "entity.pvzmod.puffshroom": "Puff-shroom",
   "item.pvzmod.puffshroom_seed_packet": "\uD83E\uDDEA Puff-shroom Seed Packet",
+  "item.pvzmod.puffshroom_seed_packet.flavour": "\"He huffs and puffs and,",
+  "item.pvzmod.puffshroom_seed_packet.flavour2": "occasionally, blows a Zombie down.\"",
   "item.pvzmod.spore": "Spore",
 
   "entity.pvzmod.sunshroom": "Sun-shroom",
@@ -62,6 +84,13 @@
 
   "entity.pvzmod.lilypad": "Lily Pad",
   "item.pvzmod.lilypad_seed_packet": "⛨ Lily Pad Seed Packet",
+  "item.pvzmod.lilypad_seed_packet.flavour": "\"Not many people know this,",
+  "item.pvzmod.lilypad_seed_packet.flavour2": "but Lily Pad absolutely",
+  "item.pvzmod.lilypad_seed_packet.flavour3": "loves square dancing.\"",
+
+  "entity.pvzmod.squash": "Squash",
+  "item.pvzmod.squash_seed_packet": "\uD83D\uDDE1 Squash Seed Packet",
+  "item.pvzmod.squash_seed_packet.flavour": "Up to no gourd!",
 
   "entity.pvzmod.threepeater": "Threepeater",
   "item.pvzmod.threepeater_seed_packet": "⭘ Threepeater Seed Packet",

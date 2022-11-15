@@ -173,6 +173,8 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
         return PlayState.CONTINUE;
     }
 
+	/** /~*~//~*AI*~//~*~// **/
+
 	protected void initGoals() {
 		this.goalSelector.add(1, new HypnoGargantuarEntity.AttackGoal());
 		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
