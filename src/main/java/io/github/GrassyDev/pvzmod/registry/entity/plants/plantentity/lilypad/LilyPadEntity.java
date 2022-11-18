@@ -167,12 +167,12 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 
 	/** /~*~//~*AI*~//~*~/ **/
 
-	protected void initGoals() {
+	/**protected void initGoals() {
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
 					!(livingEntity instanceof HypnoFlagzombieEntity);
 		}));
-	}
+	}**/
 
 
 	/** /~*~//~*POSITION*~//~*~/ **/
@@ -283,7 +283,7 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		return 1;
 	}
 
-	public boolean collidesWith(Entity other) {
+	/**public boolean collidesWith(Entity other) {
 		return canCollide(this, other);
 	}
 
@@ -295,13 +295,24 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		return 0;
 	}
 
-	protected boolean canClimb() {
+	**/protected boolean canClimb() {
 		return false;
 	}
 
+	/**@Override
+	public void onPassengerLookAround(Entity passenger) {
+		if (this.hasPassengers()){
+			this.setBodyYaw(passenger.getYaw());
+		}
+	} **/
+
+	/**
+
 	public boolean collides() {
 		return !this.isRemoved();
-	}
+	}**/
+
+
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
 		return 0.075F;

@@ -26,6 +26,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.wallnutentity.WallnutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.GolemEntity;
@@ -55,6 +56,13 @@ public abstract class PlantEntity extends GolemEntity {
 		super(entityType, world);
 	}
 
+	public void tick() {
+		super.tick();
+		Entity vehicle = this.getVehicle();
+		if (vehicle != null){
+			vehicle.setBodyYaw(this.bodyYaw);
+		}
+	}
 
 	public ActionResult addPlants(PlayerEntity player, Hand hand){
 		ItemStack itemStack = player.getStackInHand(hand);
