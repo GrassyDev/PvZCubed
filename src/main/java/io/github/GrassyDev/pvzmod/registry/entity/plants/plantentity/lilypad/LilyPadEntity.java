@@ -294,25 +294,15 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 	public double getMountedHeightOffset() {
 		return 0;
 	}
+	 **/
 
-	**/protected boolean canClimb() {
+	protected boolean canClimb() {
 		return false;
 	}
 
-	/**@Override
-	public void onPassengerLookAround(Entity passenger) {
-		if (this.hasPassengers()){
-			this.setBodyYaw(passenger.getYaw());
-		}
-	} **/
-
-	/**
-
 	public boolean collides() {
 		return !this.isRemoved();
-	}**/
-
-
+	}
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
 		return 0.075F;
