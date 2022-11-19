@@ -5,6 +5,7 @@ import com.google.common.collect.UnmodifiableIterator;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.LilyPadEntity;
@@ -94,8 +95,8 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		Entity passenger = this.getPrimaryPassenger();
-		if (passenger instanceof GargantuarEntity) {
-			event.getController().setAnimation(new AnimationBuilder().loop("ducky.invis"));
+		if (passenger instanceof GargantuarEntity || passenger instanceof HypnoGargantuarEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("ducky.big"));
 		}
 		else {
 			event.getController().setAnimation(new AnimationBuilder().loop("ducky.idle"));
@@ -251,7 +252,7 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
     }
 
 	protected SoundEvent getAmbientSound() {
-		return PvZCubed.ZOMBIEMOANEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {
@@ -263,10 +264,7 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getStepSound() {
-		return SoundEvents.ENTITY_ZOMBIE_STEP;
-	}
-	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(this.getStepSound(), 0.15F, 1.0F);
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public void setOwner(MobEntity owner) {

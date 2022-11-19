@@ -1,0 +1,41 @@
+{
+  "name": "Ducky Tube",
+  "icon": "minecraft:chicken_spawn_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Is used by zombies when they enter water. Prevents the zombie's movement-based abilities. Zombie drowns if completely frozen.",
+        "$(br2)$(#bd951a)Zombie Ducky, joy of joys. When it squeezes, you make noise!"
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/duckytube.png"
+      ],
+      "title": "Pool Zombie",
+      "border": "true",
+      "text": "$(#25228d)This Ducky Tube allows zombies to float on water."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/iceshroom_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Ducky Tube Zombie",
+        "$(br2)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Ducky Tube Zombie"
+      ]
+    }
+  ]
+}
