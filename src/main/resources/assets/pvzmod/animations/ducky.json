@@ -16,7 +16,7 @@
 			"bones": {
 				"body": {
 					"position": {
-						"vector": [0, -3, 0]
+						"vector": [0, 0, 0]
 					},
 					"scale": {
 						"vector": [2, 1.75, 1.75]
