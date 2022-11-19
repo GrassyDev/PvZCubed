@@ -13,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FlagZombieVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
@@ -70,9 +71,10 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 		this.ignoreCameraFrustum = true;
 		this.spawning = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
@@ -142,17 +144,22 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (tonguechance <= 0.5) {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.ducky"));
+		}else {
+			if (tonguechance <= 0.5) {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
+				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
-			}
-		} else {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking2"));
-			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle2"));
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking2"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle2"));
+				}
 			}
 		}
 		return PlayState.CONTINUE;
@@ -326,7 +333,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 			ServerWorld serverWorld = (ServerWorld) HypnoFlagzombieEntity.this.world;
 
 			for (int b = 0; b < 1; ++b) { // 1 hypno screendoor
-				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 0.1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
+				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
 				HypnoScreendoorEntity hypnoScreendoorEntity = (HypnoScreendoorEntity) PvZEntity.HYPNOSCREENDOOR.create(HypnoFlagzombieEntity.this.world);
 				hypnoScreendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				hypnoScreendoorEntity.initialize(serverWorld, HypnoFlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
@@ -334,7 +341,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 				serverWorld.spawnEntityAndPassengers(hypnoScreendoorEntity);
 			}
 			for (int p = 0; p < 1; ++p) { // 1 hypno conehead
-				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(0, 0.1, +1);
+				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
 				HypnoConeheadEntity hypnoConeheadEntity = (HypnoConeheadEntity) PvZEntity.HYPNOCONEHEAD.create(HypnoFlagzombieEntity.this.world);
 				hypnoConeheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				hypnoConeheadEntity.initialize(serverWorld, HypnoFlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
@@ -342,7 +349,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 				serverWorld.spawnEntityAndPassengers(hypnoConeheadEntity);
 			}
 			for (int d = 0; d < 1; ++d) { // 1 hypno buckethead
-				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(+1, 0.1, 0);
+				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
 				HypnoBucketheadEntity hypnoBucketheadEntity = (HypnoBucketheadEntity) PvZEntity.HYPNOBUCKETHEAD.create(HypnoFlagzombieEntity.this.world);
 				hypnoBucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				hypnoBucketheadEntity.initialize(serverWorld, HypnoFlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
@@ -350,7 +357,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 				serverWorld.spawnEntityAndPassengers(hypnoBucketheadEntity);
 			}
 			for (int t = 0; t < 1; ++t) { // 1 hypno browncoat
-				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(+0, 0.1, -1);
+				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
 				HypnoBrowncoatEntity hypnoBrowncoatEntity = (HypnoBrowncoatEntity) PvZEntity.HYPNOBROWNCOAT.create(HypnoFlagzombieEntity.this.world);
 				hypnoBrowncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				hypnoBrowncoatEntity.initialize(serverWorld, HypnoFlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);

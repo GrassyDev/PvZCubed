@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
 import net.fabricmc.api.EnvType;
@@ -63,9 +64,10 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
         this.isAggro = false;
         this.dancing = false;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
@@ -99,15 +101,20 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (!this.dancing) {
-            event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.moonwalking"));
-        } else  {
-            if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancewalk"));
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancing"));
-            }
-        }
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.ducky"));
+		}else {
+			if (!this.dancing) {
+				event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.moonwalking"));
+			} else {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancewalk"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancing"));
+				}
+			}
+		}
         return PlayState.CONTINUE;
     }
 
@@ -367,7 +374,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld)DancingZombieEntity.this.world;
 
             for(int b = 0; b < 1; ++b) { // 1 backup
-                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(-1, 0.1, 0);
+                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(-1, 1, 0);
                 BackupDancerEntity backupDancerEntity = (BackupDancerEntity)PvZEntity.BACKUPDANCER.create(DancingZombieEntity.this.world);
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound) null);
@@ -375,7 +382,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int p = 0; p < 1; ++p) { // 1 backup
-                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(0, 0.1, +1);
+                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(0, 1, +1);
                 BackupDancerEntity backupDancerEntity = (BackupDancerEntity)PvZEntity.BACKUPDANCER.create(DancingZombieEntity.this.world);
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -383,7 +390,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int d = 0; d < 1; ++d) { // 1 backup
-                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(+1, 0.1, 0);
+                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(+1, 1, 0);
                 BackupDancerEntity backupDancerEntity = (BackupDancerEntity)PvZEntity.BACKUPDANCER.create(DancingZombieEntity.this.world);
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -391,7 +398,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int t = 0; t < 1; ++t) { // 1 backup
-                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(0, 0.1, -1);
+                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(0, 1, -1);
                 BackupDancerEntity backupDancerEntity = (BackupDancerEntity) PvZEntity.BACKUPDANCER.create(DancingZombieEntity.this.world);
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);

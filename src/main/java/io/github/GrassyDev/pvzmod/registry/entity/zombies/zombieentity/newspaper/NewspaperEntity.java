@@ -12,6 +12,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -71,9 +72,10 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
         this.experiencePoints = 3;
 		this.speedSwitch = false;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
@@ -108,19 +110,27 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-			if (this.speedUp){
-				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.angry"));
-				event.getController().setAnimationSpeed(2);
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			if (this.speedUp) {
+				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky.angry"));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky"));
 			}
-			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
-				event.getController().setAnimationSpeed(0.75);
+		}else {
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				if (this.speedUp) {
+					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.angry"));
+					event.getController().setAnimationSpeed(2);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
+					event.getController().setAnimationSpeed(0.75);
+				}
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
+				event.getController().setAnimationSpeed(1);
 			}
-        } else {
-			event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
-			event.getController().setAnimationSpeed(1);
-        }
+		}
         return PlayState.CONTINUE;
     }
 

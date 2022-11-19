@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -57,9 +58,10 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 6;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
@@ -84,24 +86,30 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (tonguechance <= 0.5) {
-            if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
-				event.getController().setAnimationSpeed(1.66);
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
-				event.getController().setAnimationSpeed(1);
-            }
-        }
-        else {
-            if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
-				event.getController().setAnimationSpeed(1.66);
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
-				event.getController().setAnimationSpeed(1);
-            }
-        }
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
+			event.getController().setAnimationSpeed(1);
+		}else {
+			if (tonguechance <= 0.5) {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
+					event.getController().setAnimationSpeed(1.66);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
+					event.getController().setAnimationSpeed(1);
+				}
+			}
+			else {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
+					event.getController().setAnimationSpeed(1.66);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
+					event.getController().setAnimationSpeed(1);
+				}
+			}
+		}
         return PlayState.CONTINUE;
     }
 

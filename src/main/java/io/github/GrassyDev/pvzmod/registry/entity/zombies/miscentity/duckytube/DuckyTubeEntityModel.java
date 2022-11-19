@@ -21,6 +21,6 @@ public class DuckyTubeEntityModel extends AnimatedGeoModel<DuckyTubeEntity> {
     @Override
     public Identifier getAnimationResource(DuckyTubeEntity object)
     {
-        return new Identifier ("pvzmod", "animations/newbrowncoat.json");
+        return new Identifier ("pvzmod", "animations/ducky.json");
     }
 }

@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
@@ -49,9 +50,10 @@ public class HypnoBucketheadEntity extends HypnoZombieEntity implements IAnimata
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
@@ -76,17 +78,27 @@ public class HypnoBucketheadEntity extends HypnoZombieEntity implements IAnimata
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (tonguechance <= 0.5) {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
-			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
+		}else {
+			if (tonguechance <= 0.5) {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
+					event.getController().setAnimationSpeed(1.66);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
+					event.getController().setAnimationSpeed(1);
+				}
 			}
-		} else {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
-			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
+			else {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
+					event.getController().setAnimationSpeed(1.66);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}
 		return PlayState.CONTINUE;

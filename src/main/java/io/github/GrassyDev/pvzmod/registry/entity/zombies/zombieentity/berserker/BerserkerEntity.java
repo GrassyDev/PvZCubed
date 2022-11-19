@@ -12,6 +12,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
@@ -72,9 +73,10 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
         this.experiencePoints = 12;
         this.firstAttack = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
@@ -144,15 +146,19 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-			if (!this.getTackleStage()) {
-				event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
-			}
-			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
-			}
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
 		}else {
-			event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				if (!this.getTackleStage()) {
+					event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
+				}
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
+			}
 		}
 		return PlayState.CONTINUE;
 	}
@@ -197,7 +203,7 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
 		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-			if (this.getTackleStage()) {
+			if (this.getTackleStage() && this.getVehicle() == null) {
 				if (i <= 0) {
 					if (this.hasStatusEffect(PvZCubed.ICE)) {
 						this.attackTicksLeft = 20;

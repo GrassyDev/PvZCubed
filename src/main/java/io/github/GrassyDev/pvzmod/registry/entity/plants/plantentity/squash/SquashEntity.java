@@ -253,7 +253,7 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 		else if (this.animationTicksLeft == 9 && this.isInsideWaterOrBubbleColumn()) {
 			world.sendEntityStatus(this, (byte) 7);
 			this.attackLock = true;
-			this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1F, 1.0F);
+			this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
 			if (getTarget() != null) {
 				this.firstAttack = true;
 			}

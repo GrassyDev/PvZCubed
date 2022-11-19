@@ -12,6 +12,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FlagZombieVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
@@ -70,9 +71,10 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
         this.experiencePoints = 12;
         this.isAggro = false;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
@@ -140,24 +142,28 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (tonguechance <= 0.5) {
-            if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
-				event.getController().setAnimationSpeed(1.66);
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
-				event.getController().setAnimationSpeed(1);
-            }
-        }
-        else {
-            if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-                event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking2"));
-				event.getController().setAnimationSpeed(1.66);
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle2"));
-				event.getController().setAnimationSpeed(1);
-            }
-        }
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.ducky"));
+		}else {
+			if (tonguechance <= 0.5) {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
+					event.getController().setAnimationSpeed(1.66);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
+					event.getController().setAnimationSpeed(1);
+				}
+			} else {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking2"));
+					event.getController().setAnimationSpeed(1.66);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle2"));
+					event.getController().setAnimationSpeed(1);
+				}
+			}
+		}
         return PlayState.CONTINUE;
     }
 
@@ -404,9 +410,8 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
         protected void castSpell() {
             ServerWorld serverWorld = (ServerWorld) FlagzombieEntity.this.world;
-
             for(int b = 0; b < 1; ++b) { // 1 Screendoor
-                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 0.1, -2 + FlagzombieEntity.this.random.nextInt(10));
+                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
                 ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(FlagzombieEntity.this.world);
                 screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 screendoorEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound) null);
@@ -414,7 +419,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(screendoorEntity);
             }
             for(int p = 0; p < 1; ++p) { // 1 Conehead
-                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 0.1, -2 + FlagzombieEntity.this.random.nextInt(10));
+                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
                 ConeheadEntity coneheadEntity = (ConeheadEntity)PvZEntity.CONEHEAD.create(FlagzombieEntity.this.world);
                 coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 coneheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -422,7 +427,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(coneheadEntity);
             }
             for(int d = 0; d < 1; ++d) { // 1 Buckethead
-                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 0.1, -2 + FlagzombieEntity.this.random.nextInt(10));
+                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
                 BucketheadEntity bucketheadEntity = (BucketheadEntity)PvZEntity.BUCKETHEAD.create(FlagzombieEntity.this.world);
                 bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 bucketheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -430,7 +435,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(bucketheadEntity);
             }
             for(int t = 0; t < 1; ++t) { // 1 Browncoat
-                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 0.1, -2 + FlagzombieEntity.this.random.nextInt(10));
+                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
                 BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(FlagzombieEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 browncoatEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);

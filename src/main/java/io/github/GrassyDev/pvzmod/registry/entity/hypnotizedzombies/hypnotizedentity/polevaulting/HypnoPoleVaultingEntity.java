@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -58,9 +59,10 @@ public class HypnoPoleVaultingEntity extends HypnoZombieEntity implements IAnima
 		//this.moveControl = new HypnoPoleVaultingEntity.HypnoPoleVaultingMoveControl(this);
 		this.ignoreCameraFrustum = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
@@ -134,20 +136,24 @@ public class HypnoPoleVaultingEntity extends HypnoZombieEntity implements IAnima
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.getPoleStage()){
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running"));
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.ducky"));
+		}else {
+			if (this.getPoleStage()) {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle"));
+				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle"));
-			}
-		}
-		else {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running2"));
-				event.getController().setAnimationSpeed(0.5F);
-			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle2"));
-				event.getController().setAnimationSpeed(1F);
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running2"));
+					event.getController().setAnimationSpeed(0.5F);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle2"));
+					event.getController().setAnimationSpeed(1F);
+				}
 			}
 		}
 		return PlayState.CONTINUE;

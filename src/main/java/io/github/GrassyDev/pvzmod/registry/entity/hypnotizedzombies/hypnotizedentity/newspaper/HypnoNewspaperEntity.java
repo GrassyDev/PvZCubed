@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -65,9 +66,10 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
@@ -106,18 +108,26 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-			if (this.speedUp){
-				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.angry"));
-				event.getController().setAnimationSpeed(2);
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			if (this.speedUp) {
+				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky.angry"));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky"));
 			}
-			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
-				event.getController().setAnimationSpeed(0.75);
+		}else {
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				if (this.speedUp) {
+					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.angry"));
+					event.getController().setAnimationSpeed(2);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
+					event.getController().setAnimationSpeed(0.75);
+				}
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
+				event.getController().setAnimationSpeed(1);
 			}
-		} else {
-			event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
-			event.getController().setAnimationSpeed(1);
 		}
 		return PlayState.CONTINUE;
 	}

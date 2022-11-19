@@ -124,6 +124,7 @@ public class IceshroomExplosion extends Explosion {
 							assert entity instanceof LivingEntity;
 							((LivingEntity) entity).removeStatusEffect(PvZCubed.WARM);
 							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 						}
 					}
 				}

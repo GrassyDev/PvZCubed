@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -48,9 +49,10 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
         this.experiencePoints = 12;
         this.dancing = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
@@ -78,11 +80,16 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-            event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancewalk"));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancing"));
-        }
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.ducky"));
+		}else {
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancewalk"));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancing"));
+			}
+		}
         return PlayState.CONTINUE;
     }
 
@@ -254,7 +261,7 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
             ServerWorld serverWorld = (ServerWorld)HypnoDancingZombieEntity.this.world;
 
             for(int b = 0; b < 1; ++b) { // 1 backup
-                BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(-1, 0.1, 0);
+                BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(-1, 1, 0);
                 HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound) null);
@@ -262,7 +269,7 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
                 serverWorld.spawnEntityAndPassengers(hypnoBackupDancerEntity);
             }
             for(int p = 0; p < 1; ++p) { // 1 backup
-                BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(0, 0.1, +1);
+                BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(0, 1, +1);
                 HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -270,7 +277,7 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
                 serverWorld.spawnEntityAndPassengers(hypnoBackupDancerEntity);
             }
             for(int d = 0; d < 1; ++d) { // 1 backup
-                BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(+1, 0.1, 0);
+                BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(+1, 1, 0);
                 HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -278,7 +285,7 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
                 serverWorld.spawnEntityAndPassengers(hypnoBackupDancerEntity);
             }
             for(int t = 0; t < 1; ++t) { // 1 backup
-                BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(+0, 0.1, -1);
+                BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(+0, 1, -1);
                 HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity) PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);

@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import net.fabricmc.api.EnvType;
@@ -131,15 +132,19 @@ public class HypnoBerserkerEntity extends HypnoZombieEntity implements IAnimatab
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-			if (!this.getTackleStage()) {
-				event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
-			}
-			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
-			}
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
 		}else {
-			event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				if (!this.getTackleStage()) {
+					event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
+				}
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
+			}
 		}
 		return PlayState.CONTINUE;
 	}
@@ -167,7 +172,7 @@ public class HypnoBerserkerEntity extends HypnoZombieEntity implements IAnimatab
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
 		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-			if (this.getTackleStage()) {
+			if (this.getTackleStage() && this.getVehicle() != null) {
 				if (i <= 0) {
 					if (this.hasStatusEffect(PvZCubed.ICE)) {
 						this.attackTicksLeft = 20;

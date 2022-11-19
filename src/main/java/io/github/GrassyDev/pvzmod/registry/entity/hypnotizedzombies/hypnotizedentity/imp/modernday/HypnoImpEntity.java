@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.NavigationConditions;
@@ -53,9 +54,10 @@ public class HypnoImpEntity extends HypnoZombieEntity implements IAnimatable {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
@@ -80,16 +82,19 @@ public class HypnoImpEntity extends HypnoZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (!this.isOnGround()){
-			event.getController().setAnimation(new AnimationBuilder().loop("imp.ball"));
-		}
-        else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-			event.getController().setAnimation(new AnimationBuilder().loop("imp.run"));
-			event.getController().setAnimationSpeed(1.5);
-		}
-		else {
-			event.getController().setAnimation(new AnimationBuilder().loop("imp.idle"));
-			event.getController().setAnimationSpeed(1);
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("imp.ducky"));
+		}else {
+			if (!this.isOnGround()) {
+				event.getController().setAnimation(new AnimationBuilder().loop("imp.ball"));
+			} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				event.getController().setAnimation(new AnimationBuilder().loop("imp.run"));
+				event.getController().setAnimationSpeed(1.5);
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("imp.idle"));
+				event.getController().setAnimationSpeed(1);
+			}
 		}
         return PlayState.CONTINUE;
     }

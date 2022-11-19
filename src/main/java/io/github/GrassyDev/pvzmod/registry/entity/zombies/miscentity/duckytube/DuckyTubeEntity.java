@@ -10,6 +10,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedty
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
@@ -25,6 +26,7 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -48,14 +50,17 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
+	private boolean submerged;
 
-    public DuckyTubeEntity(EntityType<? extends DuckyTubeEntity> entityType, World world) {
+	public DuckyTubeEntity(EntityType<? extends DuckyTubeEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
@@ -88,6 +93,13 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		Entity passenger = this.getPrimaryPassenger();
+		if (passenger instanceof GargantuarEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("ducky.invis"));
+		}
+		else {
+			event.getController().setAnimation(new AnimationBuilder().loop("ducky.idle"));
+		}
         return PlayState.CONTINUE;
     }
 
@@ -108,10 +120,24 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		this.updateFloating();
+		updateSubmergedState();
 		Entity passenger = this.getPrimaryPassenger();
 		if (passenger == null && this.age > 2){
 			this.discard();
 		}
+	}
+
+	private void updateSubmergedState() {
+		this.submerged = this.isSubmergedIn(FluidTags.WATER);
+		double d = this.getEyeY() + 0.1111111119389534;
+		BlockPos blockPos = new BlockPos(this.getX(), d, this.getZ());
+		FluidState fluidState = this.world.getFluidState(blockPos);
+		double e = (double)((float)blockPos.getY() + fluidState.getHeight(this.world, blockPos));
+		Entity passenger = this.getPrimaryPassenger();
+		if ((e > d) && passenger != null) {
+			passenger.kill();
+		}
+
 	}
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
@@ -119,6 +145,18 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 
 	public boolean canWalkOnFluid(FluidState state) {
 		return state.isIn(FluidTags.WATER);
+	}
+
+	protected boolean shouldSwimInFluids() {
+		return true;
+	}
+
+	public boolean canBeRiddenInWater() {
+		return true;
+	}
+
+	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+		return 0.50F;
 	}
 
 	public double getMountedHeightOffset() {
@@ -193,7 +231,7 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 	}
 
 	protected boolean canAddPassenger(Entity passenger) {
-		return !this.hasPassengers();
+		return !this.hasPassengers() && !this.isSubmergedIn(FluidTags.WATER);
 	}
 
 	public float getPathfindingFavor(BlockPos pos, WorldView world) {

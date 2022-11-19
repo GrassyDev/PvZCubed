@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.Lil
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.PotatomineEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -63,9 +64,10 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		this.experiencePoints = 3;
 		this.firstAttack = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
@@ -135,20 +137,24 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.getPoleStage()){
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running"));
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.ducky"));
+		}else {
+			if (this.getPoleStage()) {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle"));
+				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle"));
-			}
-		}
-		else {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running2"));
-				event.getController().setAnimationSpeed(0.5F);
-			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle2"));
-				event.getController().setAnimationSpeed(1F);
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running2"));
+					event.getController().setAnimationSpeed(0.5F);
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle2"));
+					event.getController().setAnimationSpeed(1F);
+				}
 			}
 		}
 		return PlayState.CONTINUE;

@@ -5983,6 +5983,230 @@
 					}
 				}
 			}
+		},
+		"polevaulting.ducky": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"head": {
+					"position": {
+						"0.0": {
+							"vector": [0, -14, 0]
+						},
+						"0.0417": {
+							"vector": [0, -14, 0],
+							"easing": "easeInElastic"
+						},
+						"2.0": {
+							"vector": [0, -12, 0],
+							"easing": "easeInElastic"
+						},
+						"4.0": {
+							"vector": [0, -14, 0],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"jaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.0417": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutElastic"
+						},
+						"1.5": {
+							"vector": [5, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"3.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutElastic"
+						}
+					}
+				},
+				"tongue": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"torso": {
+					"position": {
+						"0.0": {
+							"vector": [0, -14, 0]
+						},
+						"0.0417": {
+							"vector": [0, -14, 0],
+							"easing": "easeInElastic"
+						},
+						"2.0": {
+							"vector": [0, -12, 0],
+							"easing": "easeInElastic"
+						},
+						"4.0": {
+							"vector": [0, -14, 0],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"0.0417": {
+							"vector": [10, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"2.0": {
+							"vector": [-30, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"4.0": {
+							"vector": [10, 0, 0],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"leftforearm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-27.5, 0, 0]
+						},
+						"0.0417": {
+							"vector": [-27.5, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"4.0": {
+							"vector": [-27.5, 0, 0],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"lefthand": {
+					"rotation": {
+						"0.0": {
+							"vector": [2.5, 0, 0]
+						},
+						"0.0417": {
+							"vector": [2.5, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"2.0": {
+							"vector": [15, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"4.0": {
+							"vector": [2.5, 0, 0],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-30, 0, 0]
+						},
+						"0.0417": {
+							"vector": [-30, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"2.0": {
+							"vector": [-85, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"4.0": {
+							"vector": [-30, 0, 0],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"rightforearm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-25, 0, 0]
+						},
+						"0.0417": {
+							"vector": [-25, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"4.0": {
+							"vector": [-25, 0, 0],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"righthand": {
+					"rotation": {
+						"0.0": {
+							"vector": [17.5, 0, 0]
+						},
+						"0.0417": {
+							"vector": [17.5, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"4.0": {
+							"vector": [17.5, 0, 0],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"shirt": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.0417": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutElastic"
+						},
+						"2.0": {
+							"vector": [-2.5, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"2.9583": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutElastic"
+						}
+					}
+				},
+				"lefthigh": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"leftcalf": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"leftshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"righthigh": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"rightcalf": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"rightshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"pole": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

@@ -440,7 +440,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<DuckyTubeEntity> DUCKYTUBE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "duckytube"),
-			QuiltEntityTypeBuilder.<DuckyTubeEntity>create(SpawnGroup.MONSTER, DuckyTubeEntity::new).setDimensions(EntityDimensions.fixed(0.88f, 0.25f)).build()
+			QuiltEntityTypeBuilder.<DuckyTubeEntity>create(SpawnGroup.MONSTER, DuckyTubeEntity::new).setDimensions(EntityDimensions.fixed(0.62f, 0.5f)).build()
 	);
 
 	public static final EntityType<GargantuarEntity> GARGANTUAR = Registry.register(
@@ -458,7 +458,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<ImpEntity> IMP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "imp"),
-			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
 
 	public static final EntityType<HypnoImpEntity> HYPNOIMP = Registry.register(

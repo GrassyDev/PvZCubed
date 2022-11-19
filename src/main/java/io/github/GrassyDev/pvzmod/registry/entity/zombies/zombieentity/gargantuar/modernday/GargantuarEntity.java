@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.potatomine.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
@@ -32,10 +33,13 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -68,9 +72,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
         this.experiencePoints = 100;
         this.firstAttack = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
@@ -96,6 +101,19 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		RandomGenerator randomGenerator = this.getRandom();
+		if (status == 7) {
+			Entity target = this.getTarget();
+			if (target != null) {
+				for (int i = 0; i < 128; ++i) {
+					double e = (double) MathHelper.nextBetween(randomGenerator, 5F, 20F);
+					this.world.addParticle(ParticleTypes.WATER_SPLASH, target.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+							target.getY() + (double) MathHelper.nextBetween(randomGenerator, 0F, 3F),
+							target.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
+							0, e, 0);
+				}
+			}
+		}
 		if (status == 13) {
 			this.inAnimation = true;
 		}
@@ -155,27 +173,47 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (inLaunchAnimation){
-			event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
-		}
-		else if (this.getImpStage()){
-			if (inAnimation){
-				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
-			}
-			else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
-			}else {
-				event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity) {
+			if (inLaunchAnimation) {
+				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
+			} else if (this.getImpStage()) {
+				if (inAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
+				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.walk"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky"));
+				}
+			} else {
+				if (inAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2"));
+				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.walk2"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2"));
+				}
 			}
 		}
 		else {
-			if (inAnimation){
-				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
-			}
-			else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
-			}else {
-				event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
+			if (inLaunchAnimation) {
+				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
+			} else if (this.getImpStage()) {
+				if (inAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
+				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
+				}
+			} else {
+				if (inAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
+				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
+				}
 			}
 		}
         return PlayState.CONTINUE;
@@ -270,6 +308,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	public void mobTick() {
 		super.mobTick();
+		Entity vehicle = this.getVehicle();
 		if (this.animationTicksLeft <= 0){
 			if (this.getHealth() <= 360 && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
 				this.launchAnimation = 50;
@@ -278,6 +317,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			}
 			if (this.launchAnimation > 0) {
 				this.getNavigation().stop();
+				if (vehicle instanceof DuckyTubeEntity){
+					((DuckyTubeEntity) vehicle).getNavigation().stop();
+					((DuckyTubeEntity) vehicle).getNavigation().stop();
+				}
 				--launchAnimation;
 				tryLaunch(getTarget());
 				this.inLaunchAnimation = true;
@@ -289,7 +332,13 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			}
 		}
 		if (this.animationTicksLeft == 40 && !inLaunchAnimation) {
-			this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
+			if (!this.isInsideWaterOrBubbleColumn()) {
+				this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
+			}
+			else {
+				world.sendEntityStatus(this, (byte) 7);
+				this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
+			}
 			if (getTarget() != null) {
 				this.firstAttack = true;
 				tryAttack(getTarget());}
@@ -299,6 +348,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		}
 		if (this.animationTicksLeft > 0) {
 			this.getNavigation().stop();
+			if (vehicle instanceof DuckyTubeEntity){
+				((DuckyTubeEntity) vehicle).getNavigation().stop();
+				((DuckyTubeEntity) vehicle).getNavigation().stop();
+			}
 			--this.animationTicksLeft;
 			this.world.sendEntityStatus(this, (byte) 13);
 		}
