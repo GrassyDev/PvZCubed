@@ -86,6 +86,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasma
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowqueenpea.ShootingSnowqueenPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
@@ -435,6 +437,12 @@ public class PvZEntity implements ModInitializer {
             QuiltEntityTypeBuilder.<HypnoBackupDancerEntity>create(SpawnGroup.CREATURE, HypnoBackupDancerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
     );
 
+	public static final EntityType<DuckyTubeEntity> DUCKYTUBE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "duckytube"),
+			QuiltEntityTypeBuilder.<DuckyTubeEntity>create(SpawnGroup.MONSTER, DuckyTubeEntity::new).setDimensions(EntityDimensions.fixed(0.88f, 0.25f)).build()
+	);
+
 	public static final EntityType<GargantuarEntity> GARGANTUAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "gargantuar"),
@@ -631,6 +639,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntity.createHypnoBackupDancerAttributes());
         EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.DUCKYTUBE, DuckyTubeEntity.createDuckyTubeAttributes());
+		EntityRendererRegistry.register(PvZEntity.DUCKYTUBE, DuckyTubeEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntity.createGargantuarAttributes());
 		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);

@@ -59,7 +59,7 @@ public abstract class PlantEntity extends GolemEntity {
 	public void tick() {
 		super.tick();
 		Entity vehicle = this.getVehicle();
-		if (vehicle != null){
+		if (vehicle instanceof LilyPadEntity){
 			vehicle.setBodyYaw(this.bodyYaw);
 		}
 	}
