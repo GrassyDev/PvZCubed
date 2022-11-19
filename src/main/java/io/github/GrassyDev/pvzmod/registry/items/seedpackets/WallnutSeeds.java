@@ -33,7 +33,7 @@ public class WallnutSeeds extends Item {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.enforce.family")
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.reinforce.family")
 				.formatted(Formatting.DARK_RED));
 
 		tooltip.add(Text.translatable("item.pvzmod.wallnut_seed_packet.flavour")
