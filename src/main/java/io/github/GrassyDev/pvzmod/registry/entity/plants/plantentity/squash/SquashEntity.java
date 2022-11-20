@@ -130,7 +130,9 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
 			if (this.firstAttack && this.animationTicksLeft <= 0 && (target.isOnGround() || target.isInsideWaterOrBubbleColumn())) {
 				this.animationTicksLeft = 55;
-				this.playSound(SQUASHHUMEVENT);
+				if (!attackLock){
+					this.playSound(SQUASHHUMEVENT);
+				}
 				this.firstAttack = false;
 			}
 		}
