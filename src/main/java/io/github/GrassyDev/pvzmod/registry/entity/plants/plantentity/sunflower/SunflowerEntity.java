@@ -2,11 +2,15 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnlightenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -25,8 +29,10 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
@@ -39,6 +45,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
@@ -47,16 +55,19 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 			DataTracker.registerData(SunflowerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     private String controllerName = "suncontroller";
-    public int sunProducingTime;
+    public int sunProducingTime = 3600;
 
     public int healingTime;
+	int raycastDelay = 10;
+
+	Entity prevZombie;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	private boolean zombieSunCheck;
 
-    public SunflowerEntity(EntityType<? extends SunflowerEntity> entityType, World world) {
+	public SunflowerEntity(EntityType<? extends SunflowerEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.sunProducingTime = 6000;
         this.healingTime = 6000;
     }
 
@@ -162,11 +173,17 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 
 	public void tickMovement() {
 		super.tickMovement();
-
 		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn()) {
+			if (--raycastDelay >= 0){
+				this.produceSun();
+				raycastDelay = 10;
+			}
+		}
+		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
 			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
 			this.dropItem(ModItems.SUN);
-			this.sunProducingTime = 6000;
+			this.sunProducingTime = 3600;
+			this.zombieSunCheck = false;
 		}
 
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
@@ -178,6 +195,47 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 			this.damage(DamageSource.GENERIC, 9999);
 		}
 
+	}
+
+	protected void produceSun() {
+		Vec3d vec3d = this.getPos();
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(15));
+		List<PvZombieEntity> zombieList = this.world.getNonSpectatingEntities(PvZombieEntity.class, this.getBoundingBox().expand(15));
+		Iterator var9 = list.iterator();
+		while (true) {
+			LivingEntity livingEntity;
+			do {
+				do {
+					if (!var9.hasNext()) {
+						return;
+					}
+
+					livingEntity = (LivingEntity) var9.next();
+				} while (livingEntity == this);
+			} while (this.squaredDistanceTo(livingEntity) > 225);
+
+			boolean bl = false;
+
+			for (int i = 0; i < 2; ++i) {
+				Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+				HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+				if (hitResult.getType() == HitResult.Type.MISS) {
+					bl = true;
+					break;
+				}
+			}
+
+			if (bl) {
+				if (livingEntity instanceof PvZombieEntity || livingEntity instanceof SummonerEntity) {
+					if (livingEntity.getY() < (this.getY() + 1) && livingEntity.getY() > (this.getY() - 1)){
+						if (this.prevZombie == null || zombieList.get(0) != prevZombie){
+							prevZombie = zombieList.get(0);
+							this.zombieSunCheck = true;
+						}
+					}
+				}
+			}
+		}
 	}
 
 

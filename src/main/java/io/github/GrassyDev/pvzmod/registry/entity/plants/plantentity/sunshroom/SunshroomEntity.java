@@ -3,6 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnlightenEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -14,13 +16,12 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.LightType;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -31,22 +32,26 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
     private String controllerName = "puffcontroller";
     public boolean isAsleep;
     public boolean isTired;
-    public int sunProducingTime;
+    public int sunProducingTime = 3600;
 
     public int healingTime;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	private Entity prevZombie;
+	private boolean zombieSunCheck;
+	private int raycastDelay = 10;
 
-    public SunshroomEntity(EntityType<? extends SunshroomEntity> entityType, World world) {
+	public SunshroomEntity(EntityType<? extends SunshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.sunProducingTime = 6000;
         this.healingTime = 6000;
     }
 
@@ -128,16 +133,23 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
+			if (--raycastDelay >= 0){
+				this.produceSun();
+				raycastDelay = 10;
+			}
+		}
+		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep){
 			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
 			double probability = this.random.nextDouble();
-			if (probability <= 0.40) { // 40%
+			if (probability <= 0.4) { // 40%
 				this.dropItem(ModItems.SMALLSUN);
-			} else if (probability <= 0.75) { // 0.75 - 0.40 = 35%
+			} else if (probability <= 0.70) { // 0.70 - 0.40 = 30%
 				this.dropItem(ModItems.SUN);
-			} else { // 25%
+			} else { // 30%
 				this.dropItem(ModItems.LARGESUN);
 			}
-			this.sunProducingTime = 6000;
+			this.sunProducingTime = 3600;
+			this.zombieSunCheck = false;
 		}
 
 		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
@@ -148,6 +160,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.damage(DamageSource.GENERIC, 9999);
 		}
+
 	}
 
 	protected void mobTick() {
@@ -163,6 +176,47 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 			this.initGoals();
 		}
 		super.mobTick();
+	}
+
+	protected void produceSun() {
+		Vec3d vec3d = this.getPos();
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(15));
+		List<PvZombieEntity> zombieList = this.world.getNonSpectatingEntities(PvZombieEntity.class, this.getBoundingBox().expand(15));
+		Iterator var9 = list.iterator();
+		while (true) {
+			LivingEntity livingEntity;
+			do {
+				do {
+					if (!var9.hasNext()) {
+						return;
+					}
+
+					livingEntity = (LivingEntity) var9.next();
+				} while (livingEntity == this);
+			} while (this.squaredDistanceTo(livingEntity) > 225);
+
+			boolean bl = false;
+
+			for (int i = 0; i < 2; ++i) {
+				Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+				HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+				if (hitResult.getType() == HitResult.Type.MISS) {
+					bl = true;
+					break;
+				}
+			}
+
+			if (bl) {
+				if (livingEntity instanceof PvZombieEntity || livingEntity instanceof SummonerEntity) {
+					if (livingEntity.getY() < (this.getY() + 1) && livingEntity.getY() > (this.getY() - 1)){
+						if (this.prevZombie == null || zombieList.get(0) != prevZombie){
+							prevZombie = zombieList.get(0);
+							this.zombieSunCheck = true;
+						}
+					}
+				}
+			}
+		}
 	}
 
 

@@ -2,7 +2,7 @@
   "name": "Tip: Costumes",
   "icon": "minecraft:red_dye",
   "category": "pvzmod:tutorial_category",
-  "sortnum": 11,
+  "sortnum": 12,
   "pages": [
     {
       "type": "text",

@@ -81,6 +81,7 @@ public class SunflowerSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     sunflowerEntity.refreshPositionAndAngles(sunflowerEntity.getX(), sunflowerEntity.getY(), sunflowerEntity.getZ(), f, 0.0F);
                     world.spawnEntity(sunflowerEntity);
+					sunflowerEntity.sunProducingTime = 600;
                     world.playSound((PlayerEntity) null, sunflowerEntity.getX(), sunflowerEntity.getY(), sunflowerEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 					sunflowerEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
 					sunflowerEntity.dropItem(ModItems.SUN);

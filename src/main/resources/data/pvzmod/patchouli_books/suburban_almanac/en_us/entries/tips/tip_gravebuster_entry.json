@@ -2,7 +2,7 @@
   "name": "Tip: Grave Buster",
   "icon": "pvzmod:gravebuster_seed_packet",
   "category": "pvzmod:tutorial_category",
-  "sortnum": 10,
+  "sortnum": 11,
   "pages": [
     {
       "type": "text",

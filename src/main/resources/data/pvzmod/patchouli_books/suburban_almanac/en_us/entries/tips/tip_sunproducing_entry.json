@@ -1,0 +1,30 @@
+{
+  "name": "Tip: Sun Producing",
+  "icon": "pvzmod:largesun",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "In this mod you require Sun to make plants.",
+        "$(br2)Sun producing is not as simple as planting a sunflower in the safety of your basement and letting it make Sun forever.",
+        "$(br2)When the Sun-producing Plant is ready to make Sun, it will try to find a Zombie nearby."
+        ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)The range is according to the \"Zombie Sun Radius\", and they need to be on the same height level as the Plant, ",
+        "if there are no Zombies, it will withhold the Sun, if there's at least one, it will continue the Sun production.",
+        "$(br)These Zombies then have to die, as those Plants won't make sun if the same Zombies are still there."
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/sunflower_entry"
+      ]
+    }
+  ]
+}
