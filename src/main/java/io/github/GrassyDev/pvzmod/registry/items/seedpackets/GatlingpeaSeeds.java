@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class GatlingpeaSeeds extends Item {
-	public static int cooldown = 100;
+	public static int cooldown = 700;
     public GatlingpeaSeeds(Settings settings) {
         super(settings);
     }

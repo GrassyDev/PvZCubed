@@ -24,6 +24,8 @@ public class SunflowerEntityRenderer extends GeoEntityRenderer<SunflowerEntity> 
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/sunflower/pvzsunflower_lesbian.png"));
 				map.put(SunflowerVariants.WLW,
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/sunflower/pvzsunflower_wlw.png"));
+				map.put(SunflowerVariants.MLM,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/sunflower/pvzsunflower_mlm.png"));
 			});
 
     public SunflowerEntityRenderer(EntityRendererFactory.Context ctx) {

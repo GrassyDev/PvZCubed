@@ -6,7 +6,8 @@ import java.util.Comparator;
 public enum SunflowerVariants {
 	DEFAULT(0),
 	LESBIAN(1),
-	WLW(2);
+	WLW(2),
+	MLM(3);
 
 	private static final SunflowerVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(SunflowerVariants::getId)).toArray(SunflowerVariants[]::new);

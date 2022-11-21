@@ -127,6 +127,9 @@
   "item.pvzmod.gatlingpea_seed_packet.flavour": "There is no problem that cannot",
   "item.pvzmod.gatlingpea_seed_packet.flavour2": "be solved by more peas.",
 
+  "entity.pvzmod.twinsunflower": "Twin Sunflower",
+  "item.pvzmod.twinsunflower_seed_packet": "☀ Twin Sunflower Seed Packet",
+  "item.pvzmod.twinsunflower_seed_packet.flavour": "We're actually only fraternal twins.",
 
   "entity.pvzmod.snowqueenpea": "Snow Queen Pea",
   "item.pvzmod.snowqueenpea_seed_packet": "❄ Snow Queen Pea Seed Packet",
