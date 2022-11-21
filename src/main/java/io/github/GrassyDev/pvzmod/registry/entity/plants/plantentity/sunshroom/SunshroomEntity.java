@@ -209,7 +209,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 			if (bl) {
 				if (livingEntity instanceof PvZombieEntity || livingEntity instanceof SummonerEntity) {
 					if (livingEntity.getY() < (this.getY() + 1) && livingEntity.getY() > (this.getY() - 1)){
-						if (this.prevZombie == null || zombieList.get(0) != prevZombie){
+						if ((this.prevZombie == null || zombieList.get(0) != prevZombie) && !zombieList.isEmpty()){
 							prevZombie = zombieList.get(0);
 							this.zombieSunCheck = true;
 						}
