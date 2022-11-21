@@ -31,7 +31,7 @@
       "title": "References",
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Lily Pad",
-        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Lily Pad"
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Lily Pad"
       ]
     }
   ]
