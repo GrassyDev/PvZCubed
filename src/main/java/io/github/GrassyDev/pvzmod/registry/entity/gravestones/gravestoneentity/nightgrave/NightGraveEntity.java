@@ -178,7 +178,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canNightGraveSpawn(EntityType<? extends NightGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return world.getDifficulty() != Difficulty.PEACEFUL && spawnDark(world, pos, random);
+		return world.getDifficulty() != Difficulty.PEACEFUL && spawnDark(world, pos, random) && pos.getY() >= 60;
 	}
 
 	public static boolean spawnDark(ServerWorldAccess world, BlockPos pos, RandomGenerator random) {
