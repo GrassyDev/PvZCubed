@@ -39,6 +39,9 @@ public class TwinSunflowerSeeds extends Item {
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.enlighten.family")
 				.formatted(Formatting.YELLOW));
 
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.upgrade.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
 		tooltip.add(Text.translatable("item.pvzmod.twinsunflower_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));
 	}

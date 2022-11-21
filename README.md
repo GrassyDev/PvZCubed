@@ -33,8 +33,9 @@ Currently, this mod contains:
 8. [0/5] Fog Zombies
 9. [0/8] Roof Plants
 10. [2/5] Roof Zombies
-11. [0/2] Special Plants
-12. [1/10] Special Zombies
+11. [2/8] Upgrade Plants
+12. [0/2] Special Plants
+13. [1/10] Special Zombies
 
 ### Plants vs. Zombies Adventures
 1. [1/?] Plants
@@ -49,7 +50,7 @@ Currently, this mod contains:
 6. [0/?] Zombie Bots (not guaranteed)
 
 ### PvZ 2
-1. [2/6] Ancient Egypt Plants
+1. [3/6] Ancient Egypt Plants
 2. [0/14] Ancient Egypt Zombies
 3. [2/8] Pirate Seas Plants
 4. [0/15] Pirate Seas Zombies

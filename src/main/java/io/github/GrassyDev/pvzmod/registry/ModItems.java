@@ -85,6 +85,8 @@ public class ModItems {
 	public static final BlockItem DARK_ROOF_TILE = new BlockItem(ModBlocks.DARK_ROOF_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem UPGRADE_TILE = new BlockItem(ModBlocks.UPGRADE_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem PREMIUM_TILE = new BlockItem(ModBlocks.PREMIUM_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
+	public static final BlockItem PIRATE_TILE = new BlockItem(ModBlocks.PIRATE_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
+	public static final BlockItem DARK_PIRATE_TILE = new BlockItem(ModBlocks.DARK_PIRATE_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem WEST_TILE = new BlockItem(ModBlocks.WEST_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem DARK_WEST_TILE = new BlockItem(ModBlocks.DARK_WEST_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem NIGHT_TILE = new BlockItem(ModBlocks.NIGHT_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
@@ -119,6 +121,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_roof_tile"), DARK_ROOF_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"upgrade_tile"), UPGRADE_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"premium_tile"), PREMIUM_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pirate_tile"), PIRATE_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_pirate_tile"), DARK_PIRATE_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"west_tile"), WEST_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_west_tile"), DARK_WEST_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"night_tile"), NIGHT_TILE);

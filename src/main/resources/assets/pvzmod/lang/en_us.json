@@ -195,6 +195,8 @@
   "item.pvzmod.backupdancer_egg": "Backup Dancer",
   "entity.pvzmod.backup_dancer_hypnotized": "Hypnotized Backup Dancer",
 
+  "entity.pvzmod.duckytube": "Ducky Tube",
+
   "entity.pvzmod.gargantuar": "Gargantuar",
   "item.pvzmod.gargantuar_egg": "Gargantuar",
   "entity.pvzmod.gargantuar_hypnotized": "Hypnotized Gargantuar",
@@ -226,6 +228,8 @@
   "block.pvzmod.dark_roof_tile": "Dark Roof Tile",
   "block.pvzmod.upgrade_tile": "Upgrade Tile",
   "block.pvzmod.premium_tile": "Premium Tile",
+  "block.pvzmod.pirate_tile": "Pirate Tile",
+  "block.pvzmod.dark_pirate_tile": "Dark Pirate Tile",
   "block.pvzmod.west_tile": "West Tile",
   "block.pvzmod.dark_west_tile": "Dark West Tile",
   "block.pvzmod.night_tile": "Night Tile",

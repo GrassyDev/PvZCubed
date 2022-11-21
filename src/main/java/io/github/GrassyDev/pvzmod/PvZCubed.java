@@ -116,6 +116,8 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 				stacks.add(new ItemStack(ModItems.DARK_ROOF_TILE));
 				stacks.add(new ItemStack(ModItems.UPGRADE_TILE));
 				stacks.add(new ItemStack(ModItems.PREMIUM_TILE));
+				stacks.add(new ItemStack(ModItems.PIRATE_TILE));
+				stacks.add(new ItemStack(ModItems.DARK_PIRATE_TILE));
 				stacks.add(new ItemStack(ModItems.WEST_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_WEST_TILE));
 				stacks.add(new ItemStack(ModItems.NIGHT_TILE));

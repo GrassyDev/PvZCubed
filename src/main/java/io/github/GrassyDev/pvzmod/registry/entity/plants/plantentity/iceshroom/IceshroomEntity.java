@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.doomshroom.DoomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.WinterEntity;
 import io.github.GrassyDev.pvzmod.registry.world.explosions.IceshroomExplosion;
+import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -57,9 +58,11 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
     private int explosionRadius = 1;
     public boolean isAsleep;
     public boolean isTired;
+	private int reapplyTicks;
 	private String controllerName = "icecontroller";
+	private boolean exploded;
 
-    public IceshroomEntity(EntityType<? extends IceshroomEntity> entityType, World world) {
+	public IceshroomEntity(EntityType<? extends IceshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
     }
@@ -203,16 +206,16 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 
 	private void explode() {
 		if (!this.world.isClient) {
-			IceshroomExplosion explosion = new IceshroomExplosion(world, this, this.getX(), this.getY(), this.getZ(), 5f, null, Explosion.DestructionType.NONE);
+			this.clearStatusEffects();
+			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 2f,5f, null, Explosion.DestructionType.NONE, false);
 			this.world.sendEntityStatus(this, (byte) 6);
+			Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
+			explosion.setFreeze(true);
 			explosion.collectBlocksAndDamageEntities();
 			explosion.affectWorld(true);
-			Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
 			this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-			this.playSound(PvZCubed.SNOWPEAHITEVENT, 2F, 1F);
 			this.dead = true;
 			this.spawnEffectsCloud();
-			this.remove(RemovalReason.KILLED);
 		}
 
 	}
@@ -274,9 +277,17 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 				this.removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
-			if (this.currentFuseTime >= this.fuseTime) {
+			if (this.currentFuseTime >= this.fuseTime && !this.exploded) {
 				this.currentFuseTime = this.fuseTime;
 				this.explode();
+				this.reapplyTicks = 3;
+				this.exploded = true;
+				this.remove(RemovalReason.DISCARDED);
+			}
+			if (--this.reapplyTicks >= 0 && this.exploded) {
+				this.explode();
+				this.playSound(PvZCubed.SNOWPEAHITEVENT, 1F, 1F);
+				this.remove(RemovalReason.DISCARDED);
 			}
 		}
 	}

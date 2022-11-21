@@ -37,9 +37,10 @@ public class PvZExplosion extends Explosion {
     private final DamageSource damageSource;
     private final List<BlockPos> affectedBlocks;
     private final Map<PlayerEntity, Vec3d> affectedPlayers;
+	private boolean freeze;
 
 
-    public PvZExplosion(World world, Entity entity, double x, double y, double z, float damage, float rangedoubled, DestructionType destructionType, DestructionType none, boolean fire) {
+	public PvZExplosion(World world, Entity entity, double x, double y, double z, float damage, float rangedoubled, DestructionType destructionType, DestructionType none, boolean fire) {
         super(world, entity, x, y, z, rangedoubled, false, destructionType);
 		this.random = new Random();
         this.affectedBlocks = Lists.newArrayList();
@@ -57,7 +58,7 @@ public class PvZExplosion extends Explosion {
     }
 
 
-
+	@Override
 	public void affectWorld(boolean particles) {
 		boolean bl = this.blockDestructionType == Explosion.DestructionType.NONE;
 		if (particles) {
@@ -71,6 +72,10 @@ public class PvZExplosion extends Explosion {
 
 	public boolean setHypnosis(boolean hypnosis) {
 		return this.hypnosis = hypnosis;
+	}
+
+	public boolean setFreeze(boolean freeze) {
+		return this.freeze = freeze;
 	}
 
     public void collectBlocksAndDamageEntities() {
@@ -136,6 +141,12 @@ public class PvZExplosion extends Explosion {
 						}
 						if (this.hypnosis && (entity instanceof PvZombieEntity || entity instanceof SummonerEntity)) {
 							entity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+						}
+						if (this.freeze && (entity instanceof PvZombieEntity || entity instanceof SummonerEntity)) {
+							entity.extinguish();
+							((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+							((LivingEntity) entity).removeStatusEffect(PvZCubed.WARM);
+							((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 						}
 					}
                 }

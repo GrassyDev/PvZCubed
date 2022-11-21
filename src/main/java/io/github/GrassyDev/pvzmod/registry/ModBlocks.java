@@ -50,6 +50,19 @@ public class ModBlocks {
 			.strength(1.9f, 1200f)
 			.luminance(3));
 
+	public static final Block PIRATE_TILE = new Block(QuiltBlockSettings
+			.of(Material.WOOD)
+			.requiresTool()
+			.sounds(BlockSoundGroup.WOOD)
+			.strength(1.9f, 1200f));
+
+
+	public static final Block DARK_PIRATE_TILE = new Block(QuiltBlockSettings
+			.of(Material.WOOD)
+			.requiresTool()
+			.sounds(BlockSoundGroup.WOOD)
+			.strength(1.9f, 1200f));
+
 	public static final Block WEST_TILE = new Block(QuiltBlockSettings
 			.of(Material.STONE)
 			.requiresTool()
@@ -96,6 +109,8 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_roof_tile"), DARK_ROOF_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"upgrade_tile"), UPGRADE_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"premium_tile"), PREMIUM_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"pirate_tile"), PIRATE_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_pirate_tile"), DARK_PIRATE_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"west_tile"), WEST_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_west_tile"), DARK_WEST_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"night_tile"), NIGHT_TILE);
