@@ -74,6 +74,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower.S
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower.SunflowerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom.SunshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.tanglekelp.TangleKelpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.tanglekelp.TangleKelpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater.ThreepeaterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater.ThreepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.twinsunflower.TwinSunflowerEntity;
@@ -237,6 +239,12 @@ public class PvZEntity implements ModInitializer {
 					Registry.ENTITY_TYPE),
 			new Identifier(ModID, "squash"),
 			QuiltEntityTypeBuilder.<SquashEntity>create(SpawnGroup.CREATURE, SquashEntity::new).setDimensions(EntityDimensions.fixed(1f,1.55f)).build()
+	);
+
+	public static final EntityType<TangleKelpEntity> TANGLE_KELP = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "tanglekelp"),
+			QuiltEntityTypeBuilder.<TangleKelpEntity>create(SpawnGroup.CREATURE, TangleKelpEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
     public static final EntityType<ThreepeaterEntity> THREEPEATER = Registry.register(
@@ -557,6 +565,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.SQUASH, SquashEntity.createSquashAttributes());
 		EntityRendererRegistry.register(PvZEntity.SQUASH, SquashEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.TANGLE_KELP, TangleKelpEntity.createTangleKelpAttributes());
+		EntityRendererRegistry.register(PvZEntity.TANGLE_KELP, TangleKelpEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntity.createThreepeaterAttributes());
         EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);

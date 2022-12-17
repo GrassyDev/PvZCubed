@@ -35,6 +35,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowqueenpe
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.squash.SquashEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunflower.SunflowerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.sunshroom.SunshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.tanglekelp.TangleKelpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.threepeater.ThreepeaterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.twinsunflower.TwinSunflowerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.wallnutentity.WallnutEntityRenderer;
@@ -106,6 +107,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.LILYPAD, LilypadEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SQUASH, SquashEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.TANGLE_KELP, TangleKelpEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);
 

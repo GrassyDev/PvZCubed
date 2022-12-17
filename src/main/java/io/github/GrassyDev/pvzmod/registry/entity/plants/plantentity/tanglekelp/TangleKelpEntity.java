@@ -4,15 +4,12 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
@@ -83,7 +80,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable, Rang
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().playOnce("peashooter.shoot"));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("tanglekelp.idle"));
 		}
 		else {
 			event.getController().setAnimation(new AnimationBuilder().loop("tanglekelp.idle"));
@@ -95,8 +92,6 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable, Rang
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new TangleKelpEntity.FireBeamGoal(this));
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
         this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
@@ -159,7 +154,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable, Rang
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createPeashooterAttributes() {
+	public static DefaultAttributeContainer.Builder createTangleKelpAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
@@ -225,77 +220,5 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable, Rang
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 
-	static class FireBeamGoal extends Goal {
-		private final TangleKelpEntity peashooterEntity;
-		private int beamTicks;
-		private int animationTicks;
 
-		public FireBeamGoal(TangleKelpEntity peashooterEntity) {
-			this.peashooterEntity = peashooterEntity;
-			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
-		}
-
-		public boolean canStart() {
-			LivingEntity livingEntity = this.peashooterEntity.getTarget();
-			return livingEntity != null && livingEntity.isAlive();
-		}
-
-		public boolean shouldContinue() {
-			return super.shouldContinue();
-		}
-
-		public void start() {
-			this.beamTicks = -7;
-			this.animationTicks = -16;
-			this.peashooterEntity.getNavigation().stop();
-			this.peashooterEntity.getLookControl().lookAt(this.peashooterEntity.getTarget(), 90.0F, 90.0F);
-			this.peashooterEntity.velocityDirty = true;
-		}
-
-		public void stop() {
-			this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 10);
-			this.peashooterEntity.setTarget((LivingEntity)null);
-		}
-
-		public void tick() {
-			LivingEntity livingEntity = this.peashooterEntity.getTarget();
-			this.peashooterEntity.getNavigation().stop();
-			this.peashooterEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.peashooterEntity.canSee(livingEntity)) &&
-					this.animationTicks >= 0) {
-				this.peashooterEntity.setTarget((LivingEntity) null);
-			} else {
-				this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
-				++this.beamTicks;
-				++this.animationTicks;
-				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					if (!this.peashooterEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peashooterEntity.world);
-						double d = this.peashooterEntity.squaredDistanceTo(livingEntity);
-						float df = (float)d;
-						double e = livingEntity.getX() - this.peashooterEntity.getX();
-						double f = livingEntity.getY() - this.peashooterEntity.getY();
-						double g = livingEntity.getZ() - this.peashooterEntity.getZ();
-						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
-						proj.updatePosition(this.peashooterEntity.getX(), this.peashooterEntity.getY() + 0.75D, this.peashooterEntity.getZ());
-						proj.setOwner(this.peashooterEntity);
-						if (livingEntity.isAlive()) {
-							this.beamTicks = -7;
-							this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
-							this.peashooterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-							this.peashooterEntity.world.spawnEntity(proj);
-						}
-					}
-				}
-				else if (this.animationTicks >= 0)
-				{
-					this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 10);
-					this.beamTicks = -7;
-					this.animationTicks = -16;
-				}
-				super.tick();
-			}
-		}
-	}
 }
