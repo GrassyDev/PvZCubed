@@ -12,11 +12,16 @@
 			}
 		},
 		"ducky.big": {
-			"loop": true,
+			"animation_length": 0.375,
 			"bones": {
 				"body": {
 					"position": {
-						"vector": [0, 0, 0]
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.375": {
+							"vector": [0, 0, 2.5]
+						}
 					},
 					"scale": {
 						"vector": [2, 1.75, 1.75]
