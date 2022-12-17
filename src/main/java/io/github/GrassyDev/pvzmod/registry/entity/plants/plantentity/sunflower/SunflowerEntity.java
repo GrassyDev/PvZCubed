@@ -257,6 +257,9 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 					twinSunflowerEntity.setCustomName(this.getCustomName());
 					twinSunflowerEntity.setCustomNameVisible(this.isCustomNameVisible());
 				}
+				if (this.hasVehicle()){
+					twinSunflowerEntity.startRiding(this.getVehicle(), true);
+				}
 
 				twinSunflowerEntity.setPersistent();
 				serverWorld.spawnEntityAndPassengers(twinSunflowerEntity);

@@ -180,6 +180,9 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 					gatlingpeaEntity.setCustomName(this.getCustomName());
 					gatlingpeaEntity.setCustomNameVisible(this.isCustomNameVisible());
 				}
+				if (this.hasVehicle()){
+					gatlingpeaEntity.startRiding(this.getVehicle(), true);
+				}
 
 				gatlingpeaEntity.setPersistent();
 				serverWorld.spawnEntityAndPassengers(gatlingpeaEntity);

@@ -123,7 +123,7 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 		this.updateFloating();
 		updateSubmergedState();
 		Entity passenger = this.getPrimaryPassenger();
-		if (passenger == null && this.age > 2){
+		if (passenger == null && this.age > 20){
 			this.discard();
 		}
 	}
@@ -136,9 +136,8 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 		double e = (double)((float)blockPos.getY() + fluidState.getHeight(this.world, blockPos));
 		Entity passenger = this.getPrimaryPassenger();
 		if ((e > d) && passenger != null) {
-			passenger.kill();
+			this.discard();
 		}
-
 	}
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/

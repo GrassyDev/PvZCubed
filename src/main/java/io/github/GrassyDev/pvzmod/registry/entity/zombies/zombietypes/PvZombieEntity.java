@@ -54,31 +54,40 @@ public abstract class PvZombieEntity extends HostileEntity {
 		if (!this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity){
 			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.FROZEN);
 		}
-		if (this.isInsideWaterOrBubbleColumn()){
-			this.despawnDucky = 0;
-		}
 		if (this.getRandom().nextFloat() < 0.8F && (this.isTouchingWater() || this.isInLava())) {
 			this.getJumpControl().setActive();
 			this.setSwimming(true);
 		}
 		else if (!this.isTouchingWater() || !this.isInLava()){
 			this.setSwimming(false);
-			this.spawnDucky = 0;
+		}
+		if (this.isInsideWaterOrBubbleColumn()){
+			this.despawnDucky = 0;
 		}
 		if (!this.isSubmergedInWater() && !this.hasVehicle()){
-			if (this.isTouchingWater() && ++this.spawnDucky >= 1) {
-				if (world instanceof ServerWorld) {
-					DuckyTubeEntity duckyTube = new DuckyTubeEntity(PvZEntity.DUCKYTUBE, this.world);
-					duckyTube.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-					world.spawnEntity(duckyTube);
-					this.startRiding(duckyTube);
-					world.playSound(null, duckyTube.getX(), duckyTube.getY(), duckyTube.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.BLOCKS, 0.33f, 0.8F);
+			if (this.isTouchingWater()) {
+				++this.spawnDucky;
+				if (this.spawnDucky == 1){
+					if (world instanceof ServerWorld) {
+						DuckyTubeEntity duckyTube = new DuckyTubeEntity(PvZEntity.DUCKYTUBE, this.world);
+						duckyTube.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+						world.spawnEntity(duckyTube);
+						this.startRiding(duckyTube);
+						world.playSound(null, duckyTube.getX(), duckyTube.getY(), duckyTube.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.BLOCKS, 0.33f, 0.8F);
+					}
 				}
 			}
 		}
-		if (!this.isInsideWaterOrBubbleColumn() && vehicle != null && ++this.despawnDucky > 10){
-			if (vehicle.isOnGround()){
-				vehicle.discard();
+		if (!this.isInsideWaterOrBubbleColumn()){
+			++this.despawnDucky;
+			if (this.despawnDucky == 10) {
+				this.spawnDucky = 0;
+				if (vehicle != null && vehicle.age > 9 && vehicle instanceof DuckyTubeEntity) {
+					dismountVehicle();
+				}
+			}
+			if (this.despawnDucky > 10){
+				this.despawnDucky = 0;
 			}
 		}
 		if (vehicle instanceof DuckyTubeEntity){
