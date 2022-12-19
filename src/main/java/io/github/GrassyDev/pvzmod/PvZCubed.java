@@ -258,8 +258,6 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARMOAN, GARGANTUARMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEDANCING, ZOMBIEDANCINGEVENT);
-
-		System.out.println("Trans rights are human rights!");
 	}
 
 	@Override
