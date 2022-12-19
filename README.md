@@ -1,6 +1,6 @@
 # Plants vs. Zombies Cubed
 
-Plants vs. Zombies Cubed aims to bring as many characters from the Plants vs. Zombies franchise to Minecraft.
+Plants vs. Zombies Cubed aims to bring as many characters from the Plants vs. Zombies franchise to Minecraft
 
 
 ## Requirements
