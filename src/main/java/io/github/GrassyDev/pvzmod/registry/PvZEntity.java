@@ -241,17 +241,17 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<SquashEntity>create(SpawnGroup.CREATURE, SquashEntity::new).setDimensions(EntityDimensions.fixed(1f,1.55f)).build()
 	);
 
-	public static final EntityType<TangleKelpEntity> TANGLE_KELP = Registry.register(
-			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "tanglekelp"),
-			QuiltEntityTypeBuilder.<TangleKelpEntity>create(SpawnGroup.CREATURE, TangleKelpEntity::new).setDimensions(EntityDimensions.fixed(0.99f, 0.1f)).build()
-	);
-
     public static final EntityType<ThreepeaterEntity> THREEPEATER = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "threepeater"),
             QuiltEntityTypeBuilder.<ThreepeaterEntity>create(SpawnGroup.CREATURE, ThreepeaterEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
+
+	public static final EntityType<TangleKelpEntity> TANGLE_KELP = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "tanglekelp"),
+			QuiltEntityTypeBuilder.<TangleKelpEntity>create(SpawnGroup.CREATURE, TangleKelpEntity::new).setDimensions(EntityDimensions.fixed(0.99f, 0.1f)).build()
+	);
 
 	public static final EntityType<GatlingpeaEntity> GATLINGPEA = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -566,11 +566,11 @@ public class PvZEntity implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(PvZEntity.SQUASH, SquashEntity.createSquashAttributes());
 		EntityRendererRegistry.register(PvZEntity.SQUASH, SquashEntityRenderer::new);
 
-		FabricDefaultAttributeRegistry.register(PvZEntity.TANGLE_KELP, TangleKelpEntity.createTangleKelpAttributes());
-		EntityRendererRegistry.register(PvZEntity.TANGLE_KELP, TangleKelpEntityRenderer::new);
-
 		FabricDefaultAttributeRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntity.createThreepeaterAttributes());
         EntityRendererRegistry.register(PvZEntity.THREEPEATER, ThreepeaterEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.TANGLE_KELP, TangleKelpEntity.createTangleKelpAttributes());
+		EntityRendererRegistry.register(PvZEntity.TANGLE_KELP, TangleKelpEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntity.createGatlingpeaAttributes());
 		EntityRendererRegistry.register(PvZEntity.GATLINGPEA, GatlingpeaEntityRenderer::new);

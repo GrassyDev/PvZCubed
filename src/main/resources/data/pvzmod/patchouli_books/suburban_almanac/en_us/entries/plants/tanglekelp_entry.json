@@ -2,7 +2,7 @@
   "name": "Tangle Kelp",
   "icon": "pvzmod:tanglekelp_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 18,
+  "sortnum": 19,
   "pages": [
     {
       "type": "text",
