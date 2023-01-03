@@ -27,9 +27,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -42,7 +40,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-;import java.util.List;
+;
 
 public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 
@@ -220,12 +218,6 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 			this.heal(4.0F);
 			this.healingTime = 1200;
 		}
-	}
-
-	public HitResult amphibiousRaycast(double maxDistance) {
-		Vec3d vec3d1 = this.getPos();
-		Vec3d vec3d2 = new Vec3d(vec3d1.x, vec3d1.y - maxDistance, vec3d1.z);
-		return this.world.raycast(new RaycastContext(vec3d1, vec3d2, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.ANY, this));
 	}
 
 

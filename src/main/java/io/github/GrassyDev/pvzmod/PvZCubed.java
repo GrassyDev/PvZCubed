@@ -3,7 +3,10 @@ package io.github.GrassyDev.pvzmod;
 import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
-import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.*;
+import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Frozen;
+import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Hypnotized;
+import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Ice;
+import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Warm;
 import io.github.GrassyDev.pvzmod.registry.world.gen.entity.PvZEntitySpawn;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.entity.damage.DamageSource;
@@ -15,12 +18,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
-import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
 
-public class PvZCubed implements ModInitializer, ClientModInitializer {
+public class PvZCubed implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod name as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
@@ -62,6 +64,7 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 				stacks.add(new ItemStack(ModItems.DOOMSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.LILYPAD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SQUASH_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.TANGLEKELP_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.THREEPEATER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.GATLINGPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TWINSUNFLOWER_SEED_PACKET));
@@ -258,10 +261,5 @@ public class PvZCubed implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARMOAN, GARGANTUARMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEDANCING, ZOMBIEDANCINGEVENT);
-	}
-
-	@Override
-	public void onInitializeClient(ModContainer mod) {
-
 	}
 }

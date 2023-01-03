@@ -116,6 +116,11 @@
   "item.pvzmod.squash_seed_packet": "\uD83D\uDDE1 Squash Seed Packet",
   "item.pvzmod.squash_seed_packet.flavour": "Up to no gourd!",
 
+  "entity.pvzmod.tanglekelp": "Tangle Kelp",
+  "item.pvzmod.tanglekelp_seed_packet": "\uD83D\uDDE1 Tangle Kelp Seed Packet",
+  "item.pvzmod.tanglekelp_seed_packet.flavour": "All tangled and",
+  "item.pvzmod.tanglekelp_seed_packet.flavour2": "waiting for a prince.",
+
   "entity.pvzmod.threepeater": "Threepeater",
   "item.pvzmod.threepeater_seed_packet": "⭘ Threepeater Seed Packet",
   "item.pvzmod.threepeater_seed_packet.flavour": "\"My favorite number is 5.\"",
