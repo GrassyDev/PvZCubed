@@ -244,7 +244,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<TangleKelpEntity> TANGLE_KELP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "tanglekelp"),
-			QuiltEntityTypeBuilder.<TangleKelpEntity>create(SpawnGroup.CREATURE, TangleKelpEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.1f)).build()
+			QuiltEntityTypeBuilder.<TangleKelpEntity>create(SpawnGroup.CREATURE, TangleKelpEntity::new).setDimensions(EntityDimensions.fixed(0.99f, 0.1f)).build()
 	);
 
     public static final EntityType<ThreepeaterEntity> THREEPEATER = Registry.register(

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:wallnut_seed_packet"
+      "item": "pvzmod:tanglekelp_seed_packet"
     },
     {
       "item": "pvzmod:plantfood"
@@ -14,7 +14,16 @@
       "item": "pvzmod:sun"
     },
     {
-      "item": "pvzmod:smallsun"
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
     }
   ],
   "result": {

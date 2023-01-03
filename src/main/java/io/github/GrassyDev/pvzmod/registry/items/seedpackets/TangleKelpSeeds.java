@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class TangleKelpSeeds extends Item {
-	public static int cooldown;
+	public static int cooldown = 500;
     public TangleKelpSeeds(Settings settings) {
         super(settings);
     }
@@ -39,6 +39,9 @@ public class TangleKelpSeeds extends Item {
 				.formatted(Formatting.DARK_RED));
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.amphibious.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.instant.tooltip")
 				.formatted(Formatting.UNDERLINE));
 
 		tooltip.add(Text.translatable("item.pvzmod.tanglekelp_seed_packet.flavour")
