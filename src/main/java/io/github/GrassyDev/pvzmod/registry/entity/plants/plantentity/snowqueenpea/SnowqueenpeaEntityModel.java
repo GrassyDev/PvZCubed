@@ -1,7 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowqueenpea;
 
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.snowpea.SnowpeaEntityRenderer;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -10,7 +8,7 @@ public class SnowqueenpeaEntityModel extends AnimatedGeoModel<SnowqueenpeaEntity
     @Override
     public Identifier getModelResource(SnowqueenpeaEntity object)
     {
-        return new Identifier("pvzmod", "geo/snowqueenpea.geo.json");
+        return new Identifier("pvzmod", "geo/snowpea.geo.json");
     }
 
 	public Identifier getTextureResource(SnowqueenpeaEntity object) {
