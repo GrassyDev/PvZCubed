@@ -1,7 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.conehead.modernday;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
@@ -11,7 +10,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -26,10 +24,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -108,7 +103,7 @@ public class HypnoConeheadEntity extends HypnoZombieEntity implements IAnimatabl
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal());
+		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal(this));
 		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));

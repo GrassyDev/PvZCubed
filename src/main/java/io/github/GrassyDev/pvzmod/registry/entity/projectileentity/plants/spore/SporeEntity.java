@@ -10,6 +10,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethea
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -157,8 +158,8 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
-        else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-                !(entity instanceof HypnoFlagzombieEntity)) {
+        else if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+                !(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);

@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -25,7 +26,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -140,8 +140,8 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-				!(entity instanceof HypnoFlagzombieEntity)) {
+		if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+				!(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM)){
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 			}

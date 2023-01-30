@@ -7,27 +7,24 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.mob.SpellcastingIllagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 
 public abstract class SummonerEntity extends HostileEntity implements Monster {
 	private int despawnDucky;
+	private int spawnDucky;
 
 	/** For Zombies that can summon other zombies**/
 
@@ -51,8 +48,19 @@ public abstract class SummonerEntity extends HostileEntity implements Monster {
 	public void tick() {
 		super.tick();
 		Entity vehicle = this.getVehicle();
-		if (this.isInsideWaterOrBubbleColumn()){
-			this.despawnDucky = 0;
+		if (this.hasStatusEffect(PvZCubed.ICE) && vehicle != null){
+			((DuckyTubeEntity) vehicle).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+			((DuckyTubeEntity) vehicle).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+		}
+		else if (!this.hasStatusEffect(PvZCubed.ICE) && vehicle != null){
+			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.ICE);
+		}
+		if (this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity){
+			vehicle.discard();
+			this.discard();
+		}
+		if (!this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity){
+			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.FROZEN);
 		}
 		if (this.getRandom().nextFloat() < 0.8F && (this.isTouchingWater() || this.isInLava())) {
 			this.getJumpControl().setActive();
@@ -61,27 +69,40 @@ public abstract class SummonerEntity extends HostileEntity implements Monster {
 		else if (!this.isTouchingWater() || !this.isInLava()){
 			this.setSwimming(false);
 		}
+		if (this.isInsideWaterOrBubbleColumn()){
+			this.despawnDucky = 0;
+		}
 		if (!this.isSubmergedInWater() && !this.hasVehicle()){
 			if (this.isTouchingWater()) {
-				if (world instanceof ServerWorld) {
-					ServerWorld serverWorld = (ServerWorld) world;
-					DuckyTubeEntity duckyTube = new DuckyTubeEntity(PvZEntity.DUCKYTUBE, this.world);
-					duckyTube.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-					world.spawnEntity(duckyTube);
-					this.startRiding(duckyTube);
-					world.playSound((PlayerEntity) null, duckyTube.getX(), duckyTube.getY(), duckyTube.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.BLOCKS, 0.33f, 0.8F);
+				++this.spawnDucky;
+				if (this.spawnDucky == 1){
+					if (world instanceof ServerWorld) {
+						DuckyTubeEntity duckyTube = new DuckyTubeEntity(PvZEntity.DUCKYTUBE, this.world);
+						duckyTube.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+						world.spawnEntity(duckyTube);
+						this.startRiding(duckyTube);
+						world.playSound(null, duckyTube.getX(), duckyTube.getY(), duckyTube.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.BLOCKS, 0.33f, 0.8F);
+					}
 				}
 			}
 		}
-		if (!this.isInsideWaterOrBubbleColumn() && vehicle != null && ++this.despawnDucky > 10){
-			if (vehicle.isOnGround()){
-				vehicle.discard();
+		if (!this.isInsideWaterOrBubbleColumn()){
+			++this.despawnDucky;
+			if (this.despawnDucky == 10) {
+				this.spawnDucky = 0;
+				if (vehicle != null && vehicle.age > 9 && vehicle instanceof DuckyTubeEntity) {
+					dismountVehicle();
+				}
+			}
+			if (this.despawnDucky > 10){
+				this.despawnDucky = 0;
 			}
 		}
 		if (vehicle instanceof DuckyTubeEntity){
 			((DuckyTubeEntity) vehicle).setTarget(this.getTarget());
 		}
 	}
+
 
 	protected int getSpellTicks() {
 		return this.spellTicks;

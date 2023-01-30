@@ -4,9 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.FumeVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
@@ -14,6 +12,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -206,8 +205,8 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4.5F);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }
-        else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-                !(entity instanceof HypnoFlagzombieEntity)) {
+        else if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+                !(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
             float sound = this.random.nextFloat();
             entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4.5F);

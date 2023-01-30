@@ -202,6 +202,10 @@
 
   "entity.pvzmod.duckytube": "Ducky Tube",
 
+  "entity.pvzmod.snorkel": "Snorkel Zombie",
+  "item.pvzmod.snorkel_egg": "Snorkel Zombie",
+  "entity.pvzmod.snorkel_hypnotized": "Hypnotized Snorkel Zombie",
+
   "entity.pvzmod.gargantuar": "Gargantuar",
   "item.pvzmod.gargantuar_egg": "Gargantuar",
   "entity.pvzmod.gargantuar_hypnotized": "Hypnotized Gargantuar",

@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -152,8 +153,8 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
-        else if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-                !(entity instanceof HypnoFlagzombieEntity)) {
+        else if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+                !(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM)){
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 			}

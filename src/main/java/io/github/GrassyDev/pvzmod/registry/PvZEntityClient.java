@@ -14,6 +14,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.newspaper.HypnoNewspaperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.screendoor.HypnoScreendoorEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.snorkel.HypnoSnorkelRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.chomper.ChomperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.doomshroom.DoomshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.flamingpea.FlamingpeaEntityRenderer;
@@ -61,6 +62,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.moder
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -175,6 +177,9 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DUCKYTUBE, DuckyTubeEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.SNORKEL, SnorkelEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.HYPNOSNORKEL, HypnoSnorkelRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNOGARGANTUAR, HypnoGargantuarEntityRenderer::new);

@@ -1,7 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.hypnoshroom;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
@@ -16,6 +15,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.moder
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -29,14 +29,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.*;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -141,6 +140,8 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 		{ return livingEntity instanceof BucketheadEntity; }));
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof ScreendoorEntity; }));
+		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
+		{ return livingEntity instanceof SnorkelEntity; }));
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof DancingZombieEntity; }));
 		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->

@@ -1,10 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies;
 
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-
-import java.nio.file.Path;
 
 public class PvZombieAttackGoal extends MeleeAttackGoal {
    private final PathAwareEntity pvzombie;
@@ -33,6 +30,5 @@ public class PvZombieAttackGoal extends MeleeAttackGoal {
       } else {
          this.pvzombie.setAttacking(false);
       }
-
    }
 }

@@ -19,8 +19,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -100,7 +98,7 @@ public class HypnoBrowncoatEntity extends HypnoZombieEntity implements IAnimatab
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal());
+		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal(this));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));

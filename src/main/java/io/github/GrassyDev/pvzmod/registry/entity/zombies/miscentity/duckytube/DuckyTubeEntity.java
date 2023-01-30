@@ -6,35 +6,30 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.lilypad.LilyPadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.snorkel.HypnoSnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
-import net.minecraft.block.BlockState;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.TargetGoal;
+import net.minecraft.entity.ai.goal.TrackTargetGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.*;
 import net.minecraft.world.Difficulty;
@@ -51,9 +46,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Stream;
 
 public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
     private MobEntity owner;
@@ -97,6 +90,9 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 		Entity passenger = this.getPrimaryPassenger();
 		if (passenger instanceof GargantuarEntity || passenger instanceof HypnoGargantuarEntity) {
 			event.getController().setAnimation(new AnimationBuilder().loop("ducky.big"));
+		}
+		else if (passenger instanceof SnorkelEntity || passenger instanceof HypnoSnorkelEntity){
+			event.getController().setAnimation(new AnimationBuilder().loop("ducky.invis"));
 		}
 		else {
 			event.getController().setAnimation(new AnimationBuilder().loop("ducky.idle"));

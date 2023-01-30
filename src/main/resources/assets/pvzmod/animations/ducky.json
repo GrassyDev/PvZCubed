@@ -33,6 +33,14 @@
 					}
 				}
 			}
+		},
+		"ducky.invis": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"scale": 0
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

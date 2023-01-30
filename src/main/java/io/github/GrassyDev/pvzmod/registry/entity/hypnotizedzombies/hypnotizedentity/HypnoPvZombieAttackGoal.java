@@ -1,9 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity;
 
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.GolemEntity;
 
 public class HypnoPvZombieAttackGoal extends MeleeAttackGoal {
    private final PathAwareEntity pvzombie;
@@ -21,7 +19,6 @@ public class HypnoPvZombieAttackGoal extends MeleeAttackGoal {
 
    public void stop() {
       super.stop();
-      this.pvzombie.setAttacking(false);
    }
 
    public void tick() {

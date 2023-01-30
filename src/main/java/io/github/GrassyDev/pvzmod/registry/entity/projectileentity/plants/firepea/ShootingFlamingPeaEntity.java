@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -142,8 +143,8 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-				!(entity instanceof HypnoFlagzombieEntity)) {
+		if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+				!(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
 			if (entity instanceof NewspaperEntity) {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 12.8f);

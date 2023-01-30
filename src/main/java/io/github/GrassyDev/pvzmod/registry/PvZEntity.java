@@ -30,6 +30,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.polevaulting.HypnoPoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.screendoor.HypnoScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.screendoor.HypnoScreendoorEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.snorkel.HypnoSnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.snorkel.HypnoSnorkelRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.cherrybomb.CherrybombEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.cherrybomb.CherrybombEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.chomper.ChomperEntity;
@@ -118,6 +120,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevault
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityDimensions;
@@ -459,6 +463,18 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<DuckyTubeEntity>create(SpawnGroup.MONSTER, DuckyTubeEntity::new).setDimensions(EntityDimensions.fixed(0.62f, 0.5f)).build()
 	);
 
+	public static final EntityType<SnorkelEntity> SNORKEL = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "snorkel"),
+			QuiltEntityTypeBuilder.<SnorkelEntity>create(SpawnGroup.MONSTER, SnorkelEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+
+	public static final EntityType<HypnoSnorkelEntity> HYPNOSNORKEL = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "snorkel_hypnotized"),
+			QuiltEntityTypeBuilder.<HypnoSnorkelEntity>create(SpawnGroup.MONSTER, HypnoSnorkelEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+
 	public static final EntityType<GargantuarEntity> GARGANTUAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "gargantuar"),
@@ -665,6 +681,12 @@ public class PvZEntity implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(PvZEntity.DUCKYTUBE, DuckyTubeEntity.createDuckyTubeAttributes());
 		EntityRendererRegistry.register(PvZEntity.DUCKYTUBE, DuckyTubeEntityRenderer::new);
 
+		FabricDefaultAttributeRegistry.register(PvZEntity.SNORKEL, SnorkelEntity.createSnorkelAttributes());
+		EntityRendererRegistry.register(PvZEntity.SNORKEL, SnorkelEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOSNORKEL, HypnoSnorkelEntity.createHypnoSnorkelAttributes());
+		EntityRendererRegistry.register(PvZEntity.HYPNOSNORKEL, HypnoSnorkelRenderer::new);
+
 		FabricDefaultAttributeRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntity.createGargantuarAttributes());
 		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);
 
@@ -676,7 +698,6 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.HYPNOIMP, HypnoImpEntity.createHypnoImpAttributes());
 		EntityRendererRegistry.register(PvZEntity.HYPNOIMP, HypnoImpEntityRenderer::new);
-
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.BERSERKER, BerserkerEntity.createBerserkerAttributes());
 		EntityRendererRegistry.register(PvZEntity.BERSERKER, BerserkerEntityRenderer::new);

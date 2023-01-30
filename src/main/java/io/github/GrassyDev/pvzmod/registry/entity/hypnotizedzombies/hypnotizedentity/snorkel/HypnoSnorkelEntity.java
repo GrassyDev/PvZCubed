@@ -1,30 +1,34 @@
-package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.newspaper;
+package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.snorkel;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -39,26 +43,19 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-
-import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
-import static io.github.GrassyDev.pvzmod.PvZCubed.NEWSPAPERANGRYEVENT;
-
-public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatable {
-
+public class HypnoSnorkelEntity extends HypnoZombieEntity implements IAnimatable {
+	private static final TrackedData<Byte> SNORKEL_FLAGS;
+	private static final byte IS_INVIS_FLAG = 16;
 	private MobEntity owner;
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private String controllerName = "walkingcontroller";
-	private boolean speedUp;
+	public boolean invisSnorkel;
 
-	public boolean speedSwitch;
 
-	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
-	public static final UUID MAX_STRENGTH_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
-
-	public HypnoNewspaperEntity(EntityType<? extends HypnoNewspaperEntity> entityType, World world) {
+	public HypnoSnorkelEntity(EntityType<? extends HypnoSnorkelEntity> entityType, World world) {
 		super(entityType, world);
+		this.invisSnorkel = false;
+		setInvisibleSnorkel(false);
 		this.ignoreCameraFrustum = true;
 		this.getNavigation().setCanSwim(true);
 		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
@@ -67,23 +64,51 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-		EntityAttributeInstance maxStrengthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-		maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
-		maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
+	}
+
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(SNORKEL_FLAGS, (byte)16);
+	}
+
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+		nbt.putBoolean("InvisSnorkel", this.isInvisibleSnorkel());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+		if (nbt.contains("InvisSnorkel")) {
+			this.setInvisibleSnorkel(nbt.getBoolean("InvisSnorkel"));
+		}
+
+	}
+
+	public boolean isInvisibleSnorkel() {
+		return ((Byte)this.dataTracker.get(SNORKEL_FLAGS) & 16) != 0;
+	}
+
+	public void setInvisibleSnorkel(boolean isInvisibleSnorkel) {
+		byte b = (Byte)this.dataTracker.get(SNORKEL_FLAGS);
+		if (isInvisibleSnorkel) {
+			this.dataTracker.set(SNORKEL_FLAGS, (byte)(b | 16));
+		} else {
+			this.dataTracker.set(SNORKEL_FLAGS, (byte)(b & -17));
+		}
+
 	}
 
 	static {
-
+		SNORKEL_FLAGS = DataTracker.registerData(SnorkelEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 30) {
-			this.speedUp = true;
+		if (status == 66) {
+			this.invisSnorkel = true;
 		}
-		else if (status == 31) {
-			this.speedUp = false;
+		else if (status == 65) {
+			this.invisSnorkel = false;
 		}
 	}
 
@@ -105,42 +130,75 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		Entity vehicle = this.getVehicle();
 		if (vehicle instanceof DuckyTubeEntity) {
-			if (this.speedUp) {
-				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky.angry"));
-			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky"));
+			if (invisSnorkel){
+				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.ducky"));
+				event.getController().setAnimationSpeed(1);
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.duckyattack"));
+				event.getController().setAnimationSpeed(1);
 			}
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				if (this.speedUp) {
-					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.angry"));
-					event.getController().setAnimationSpeed(2);
-				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
-					event.getController().setAnimationSpeed(0.75);
-				}
+				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.walking"));
+				event.getController().setAnimationSpeed(1);
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
+				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.idle"));
 				event.getController().setAnimationSpeed(1);
 			}
 		}
 		return PlayState.CONTINUE;
 	}
 
+	public void tick() {
+		LivingEntity target = this.getTarget();
+		Entity vehicle = this.getVehicle();
+		if (vehicle instanceof DuckyTubeEntity){
+			if (target != null){
+				if (this.squaredDistanceTo(target) > 4){
+					this.world.sendEntityStatus(this, (byte) 66);
+					setInvisibleSnorkel(true);
+				}
+				else {
+					this.world.sendEntityStatus(this, (byte) 65);
+					setInvisibleSnorkel(false);
+				}
+			}
+			else {
+				this.world.sendEntityStatus(this, (byte) 65);
+				setInvisibleSnorkel(false);
+			}
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 65);
+			setInvisibleSnorkel(false);
+		}
+		super.tick();
+	}
+
+	@Override
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		LivingEntity vehicle = (LivingEntity) getVehicle();
+		if (vehicle instanceof DuckyTubeEntity){
+			discard();
+		}
+	}
+
 
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new HypnoZombieEntity.AttackGoal(this));
+		this.goalSelector.add(1, new AttackGoal(this));
 		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(8, new LookAroundGoal(this));
-		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.initCustomGoals();
 	}
 
 	protected void initCustomGoals() {
-		this.targetSelector.add(2, new HypnoNewspaperEntity.TrackOwnerTargetGoal(this));
-		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1, true));
+		this.targetSelector.add(2, new HypnoSnorkelEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
 					!(livingEntity instanceof HypnoFlagzombieEntity);
@@ -148,59 +206,14 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 	}
 
 
-	/** /~*~//~*TICKING*~//~*~/ **/
-
-	public void mobTick() {
-		super.mobTick();
-		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-		EntityAttributeInstance maxStrengthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-		if (this.getTarget() != null && this.getHealth() <= 50){
-			this.world.sendEntityStatus(this, (byte) 30);
-			if (this.speedSwitch) {
-				this.playSound(NEWSPAPERANGRYEVENT, 1, 1);
-				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
-				maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
-				this.speedSwitch = false;
-			}
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 31);
-			if (!this.speedSwitch){
-				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
-				maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
-				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.15D));
-				maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-7D));
-				this.speedSwitch = true;
-			}
-		}
-	}
-
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static EntityAttributeModifier createSpeedModifier(double amount) {
-		return new EntityAttributeModifier(
-				MAX_SPEED_UUID,
-				MOD_ID,
-				amount,
-				EntityAttributeModifier.Operation.ADDITION
-		);
-	}
-
-	public static EntityAttributeModifier createStrengthModifier(double amount) {
-		return new EntityAttributeModifier(
-				MAX_STRENGTH_UUID,
-				MOD_ID,
-				amount,
-				EntityAttributeModifier.Operation.ADDITION
-		);
-	}
-
-	public static DefaultAttributeContainer.Builder createHypnoNewspaperAttributes() {
+	public static DefaultAttributeContainer.Builder createHypnoSnorkelAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.15D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 65D);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
 	}
 
 	protected SoundEvent getAmbientSound() {
@@ -242,11 +255,11 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 		}
 
 		public boolean canStart() {
-			return HypnoNewspaperEntity.this.owner != null && HypnoNewspaperEntity.this.owner.getTarget() != null && this.canTrack(HypnoNewspaperEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
+			return HypnoSnorkelEntity.this.owner != null && HypnoSnorkelEntity.this.owner.getTarget() != null && this.canTrack(HypnoSnorkelEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
 		}
 
 		public void start() {
-			HypnoNewspaperEntity.this.setTarget(HypnoNewspaperEntity.this.owner.getTarget());
+			HypnoSnorkelEntity.this.setTarget(HypnoSnorkelEntity.this.owner.getTarget());
 			super.start();
 		}
 	}

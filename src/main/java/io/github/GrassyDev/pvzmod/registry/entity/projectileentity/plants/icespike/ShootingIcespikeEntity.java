@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -142,8 +143,8 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		if (entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-				!(entity instanceof HypnoFlagzombieEntity)) {
+		if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
+				!(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (((LivingEntity) entity).hasStatusEffect(PvZCubed.ICE) || ((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				if (entity instanceof ScreendoorEntity) {
 					entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);

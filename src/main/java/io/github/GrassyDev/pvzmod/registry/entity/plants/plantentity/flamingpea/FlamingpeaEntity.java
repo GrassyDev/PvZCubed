@@ -7,7 +7,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PepperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -27,10 +26,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -42,7 +38,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
-import java.util.Random;
 
 public class FlamingpeaEntity extends PepperEntity implements IAnimatable, RangedAttackMob {
 
@@ -111,6 +106,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
+
 	}
 
 

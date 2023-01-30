@@ -1,0 +1,51 @@
+{
+  "name": "Snorkel Zombie",
+  "icon": "pvzmod:snorkel_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 12,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)50",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Hides underwater, dodging straight projectiles.",
+        "$(br2)$(#bd951a)Zombies don't breathe. They don't need air. So why does Snorkel Zombie need a snorkel to swim underwater? Answer: peer pressure."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/snorkel.png"
+      ],
+      "title": "Pool Zombie",
+      "border": "true",
+      "text": "$(#25228d)Snorkel zombies can swim underwater."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/wallnut_entry",
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/hypnoshroom_entry",
+        "pvzmod:plants/iceshroom_entry",
+        "pvzmod:plants/doomshroom_entry",
+        "pvzmod:plants/lilypad_entry",
+        "pvzmod:plants/squash_entry",
+        "pvzmod:plants/tanglekelp_entry",
+        "pvzmod:plants/snowqueenpea_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Snorkel Zombie",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Snorkel Zombie"
+      ]
+    }
+  ]
+}
