@@ -164,15 +164,6 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 		}));
 	}
 
-	/**@Override
-	public void setTarget(@Nullable LivingEntity target) {
-		if (target != null) {
-			super.setTarget(target);
-
-		}
-	}**/
-
-
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 	}

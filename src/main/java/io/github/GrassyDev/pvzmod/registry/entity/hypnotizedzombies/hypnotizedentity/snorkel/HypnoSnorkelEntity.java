@@ -6,7 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -44,7 +43,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class HypnoSnorkelEntity extends HypnoZombieEntity implements IAnimatable {
-	private static final TrackedData<Byte> SNORKEL_FLAGS;
+	private static final TrackedData<Byte> HYPNO_SNORKEL_FLAGS;
 	private static final byte IS_INVIS_FLAG = 16;
 	private MobEntity owner;
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -68,38 +67,38 @@ public class HypnoSnorkelEntity extends HypnoZombieEntity implements IAnimatable
 
 	protected void initDataTracker() {
 		super.initDataTracker();
-		this.dataTracker.startTracking(SNORKEL_FLAGS, (byte)16);
+		this.dataTracker.startTracking(HYPNO_SNORKEL_FLAGS, (byte)16);
 	}
 
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
-		nbt.putBoolean("InvisSnorkel", this.isInvisibleSnorkel());
+		nbt.putBoolean("HypnoInvisSnorkel", this.isInvisibleSnorkel());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
-		if (nbt.contains("InvisSnorkel")) {
-			this.setInvisibleSnorkel(nbt.getBoolean("InvisSnorkel"));
+		if (nbt.contains("HypnoInvisSnorkel")) {
+			this.setInvisibleSnorkel(nbt.getBoolean("HypnoInvisSnorkel"));
 		}
 
 	}
 
 	public boolean isInvisibleSnorkel() {
-		return ((Byte)this.dataTracker.get(SNORKEL_FLAGS) & 16) != 0;
+		return ((Byte)this.dataTracker.get(HYPNO_SNORKEL_FLAGS) & 16) != 0;
 	}
 
 	public void setInvisibleSnorkel(boolean isInvisibleSnorkel) {
-		byte b = (Byte)this.dataTracker.get(SNORKEL_FLAGS);
+		byte b = (Byte)this.dataTracker.get(HYPNO_SNORKEL_FLAGS);
 		if (isInvisibleSnorkel) {
-			this.dataTracker.set(SNORKEL_FLAGS, (byte)(b | 16));
+			this.dataTracker.set(HYPNO_SNORKEL_FLAGS, (byte)(b | 16));
 		} else {
-			this.dataTracker.set(SNORKEL_FLAGS, (byte)(b & -17));
+			this.dataTracker.set(HYPNO_SNORKEL_FLAGS, (byte)(b & -17));
 		}
 
 	}
 
 	static {
-		SNORKEL_FLAGS = DataTracker.registerData(SnorkelEntity.class, TrackedDataHandlerRegistry.BYTE);
+		HYPNO_SNORKEL_FLAGS = DataTracker.registerData(HypnoSnorkelEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -184,7 +183,6 @@ public class HypnoSnorkelEntity extends HypnoZombieEntity implements IAnimatable
 			discard();
 		}
 	}
-
 
 	/** /~*~//~*AI*~//~*~/ **/
 

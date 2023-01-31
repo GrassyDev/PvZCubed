@@ -237,15 +237,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 		}));
 	}
 
-	/**@Override
-	public void setTarget(@Nullable LivingEntity target) {
-		if (target != null) {
-			super.setTarget(target);
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				snorkelGoal();
-			}
-		}
-	}**/
+
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {

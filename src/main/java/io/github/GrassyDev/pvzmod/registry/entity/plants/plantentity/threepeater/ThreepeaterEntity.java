@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -97,11 +98,18 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 		this.goalSelector.add(1, new ThreepeaterEntity.FireBeamGoal(this));
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(45) + 30, 17.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 18.0F));
-        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-            return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-                    !(livingEntity instanceof HypnoFlagzombieEntity);
-        }));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+					!(livingEntity instanceof HypnoFlagzombieEntity) && !(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+		}));
+		snorkelGoal();
     }
+
+	protected void snorkelGoal() {
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel();
+		}));
+	}
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
@@ -135,6 +143,13 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+		LivingEntity target = this.getTarget();
+		if (target != null){
+			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+				this.setTarget(null);
+				snorkelGoal();
+			}
 		}
 	}
 

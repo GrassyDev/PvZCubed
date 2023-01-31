@@ -185,15 +185,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		}));
 	}
 
-	/**@Override
-	public void setTarget(@Nullable LivingEntity target) {
-		if (target != null) {
-			super.setTarget(target);
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				snorkelGoal();
-			}
-		}
-	}**/
+
 
 	private class AttackGoal extends MeleeAttackGoal {
 		public AttackGoal() {

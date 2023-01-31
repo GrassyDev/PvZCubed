@@ -110,15 +110,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 		}));
 	}
 
-	/**@Override
-	public void setTarget(@Nullable LivingEntity target) {
-		if (target != null) {
-			super.setTarget(target);
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				snorkelGoal();
-			}
-		}
-	}**/
+
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {

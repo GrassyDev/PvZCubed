@@ -98,10 +98,10 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 		this.goalSelector.add(1, new PeashooterEntity.FireBeamGoal(this));
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
-        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-            return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-                    !(livingEntity instanceof HypnoFlagzombieEntity);
-        }));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+					!(livingEntity instanceof HypnoFlagzombieEntity) && !(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+		}));
 		snorkelGoal();
 	}
 	protected void snorkelGoal() {

@@ -167,16 +167,6 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		}));
 	}
 
-	/**@Override
-	public void setTarget(@Nullable LivingEntity target) {
-		if (target != null) {
-			super.setTarget(target);
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				snorkelGoal();
-			}
-		}
-	}**/
-
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 
@@ -210,6 +200,13 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+		LivingEntity target = this.getTarget();
+		if (target != null){
+			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+				this.setTarget(null);
+				snorkelGoal();
+			}
 		}
 		if (this.age >= 2400 && !this.getPuffshroomPermanency()) {
 			this.kill();
