@@ -25,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -238,6 +239,84 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 
+	/**static class FireBeamGoal extends Goal {
+		private final PeashooterEntity peashooterEntity;
+		private int beamTicks;
+		private int animationTicks;
+
+		public FireBeamGoal(PeashooterEntity peashooterEntity) {
+			this.peashooterEntity = peashooterEntity;
+			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+		}
+
+		public boolean canStart() {
+			LivingEntity livingEntity = this.peashooterEntity.getTarget();
+			return livingEntity != null && livingEntity.isAlive();
+		}
+
+		public boolean shouldContinue() {
+			return super.shouldContinue();
+		}
+
+		public void start() {
+			this.beamTicks = -7;
+			this.animationTicks = -16;
+			this.peashooterEntity.getNavigation().stop();
+			this.peashooterEntity.getLookControl().lookAt(this.peashooterEntity.getTarget(), 90.0F, 90.0F);
+			this.peashooterEntity.velocityDirty = true;
+		}
+
+		public void stop() {
+			this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 10);
+			this.peashooterEntity.setTarget((LivingEntity)null);
+		}
+
+		public void tick() {
+			LivingEntity livingEntity = this.peashooterEntity.getTarget();
+			this.peashooterEntity.getNavigation().stop();
+			this.peashooterEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.peashooterEntity.canSee(livingEntity)) &&
+					this.animationTicks >= 0) {
+				this.peashooterEntity.setTarget((LivingEntity) null);
+			} else {
+				this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
+				++this.beamTicks;
+				++this.animationTicks;
+				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
+					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
+					if (!this.peashooterEntity.isInsideWaterOrBubbleColumn()) {
+						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peashooterEntity.world);
+						double time = 50;
+						Vec3d targetPos = livingEntity.getPos();
+						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+						double d = this.peashooterEntity.squaredDistanceTo(predictedPos);
+						float df = (float)d;
+						double e = predictedPos.getX() - this.peashooterEntity.getX();
+						double f = livingEntity.getY() - this.peashooterEntity.getY();
+						double g = predictedPos.getZ() - this.peashooterEntity.getZ();
+						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
+						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
+						proj.updatePosition(this.peashooterEntity.getX(), this.peashooterEntity.getY() + 0.75D, this.peashooterEntity.getZ());
+						proj.setOwner(this.peashooterEntity);
+						if (livingEntity.isAlive()) {
+							this.beamTicks = -7;
+							this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
+							this.peashooterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.peashooterEntity.world.spawnEntity(proj);
+						}
+					}
+				}
+				else if (this.animationTicks >= 0)
+				{
+					this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 10);
+					this.beamTicks = -7;
+					this.animationTicks = -16;
+				}
+				super.tick();
+			}
+		}
+	}**/
+
 	static class FireBeamGoal extends Goal {
 		private final PeashooterEntity peashooterEntity;
 		private int beamTicks;
@@ -282,13 +361,17 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
+					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
 					if (!this.peashooterEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peashooterEntity.world);
-						double d = this.peashooterEntity.squaredDistanceTo(livingEntity);
+						double time = 50;
+						Vec3d targetPos = livingEntity.getPos();
+						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+						double d = this.peashooterEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = livingEntity.getX() - this.peashooterEntity.getX();
+						double e = predictedPos.getX() - this.peashooterEntity.getX();
 						double f = livingEntity.getY() - this.peashooterEntity.getY();
-						double g = livingEntity.getZ() - this.peashooterEntity.getZ();
+						double g = predictedPos.getZ() - this.peashooterEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
 						proj.updatePosition(this.peashooterEntity.getX(), this.peashooterEntity.getY() + 0.75D, this.peashooterEntity.getZ());

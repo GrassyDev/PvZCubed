@@ -286,14 +286,17 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -9) {
+					double time = 50;
+					Vec3d targetPos = livingEntity.getPos();
+					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 					if (!this.threepeaterentity.isInsideWaterOrBubbleColumn()) {
 						// Middle Pea
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.threepeaterentity.world);
-						double d = this.threepeaterentity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.threepeaterentity.getX();
+						double d = this.threepeaterentity.squaredDistanceTo(predictedPos);
+						float df = (float)d;
+						double e = predictedPos.getX() - this.threepeaterentity.getX();
 						double f = livingEntity.getY() - this.threepeaterentity.getY();
-						double g = livingEntity.getZ() - this.threepeaterentity.getZ();
+						double g = predictedPos.getZ() - this.threepeaterentity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.threepeaterentity.getX(), this.threepeaterentity.getY() + 0.8D, this.threepeaterentity.getZ());
@@ -306,11 +309,11 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 						// Right Pea
 						ShootingPeaEntity proj3 = new ShootingPeaEntity(PvZEntity.PEA, this.threepeaterentity.world);
 						Vec3d vec3d3 = this.threepeaterentity.getRotationVec(1.0F).rotateY(-90);
-						double d3 = this.threepeaterentity.squaredDistanceTo(livingEntity);
+						double d3 = this.threepeaterentity.squaredDistanceTo(predictedPos);
 						float df3 = (float) d3;
-						double e3 = livingEntity.getX() - this.threepeaterentity.getX();
+						double e3 = predictedPos.getX() - this.threepeaterentity.getX();
 						double f3 = livingEntity.getY() - this.threepeaterentity.getY();
-						double g3 = livingEntity.getZ() - this.threepeaterentity.getZ();
+						double g3 = predictedPos.getZ() - this.threepeaterentity.getZ();
 						float h3 = MathHelper.sqrt(MathHelper.sqrt(df3)) * 0.5F;
 						proj3.setVelocity(e3 + vec3d3.x * 1.125, f3 * (double) h3, g3 + vec3d3.z * 1.125, 0.33F, 0F);
 						proj3.updatePosition(this.threepeaterentity.getX() + vec3d3.x * 0.55, this.threepeaterentity.getY() + 0.5, this.threepeaterentity.getZ() + vec3d3.z * 0.55);
@@ -323,11 +326,11 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 						// Left Pea
 						ShootingPeaEntity proj2 = new ShootingPeaEntity(PvZEntity.PEA, this.threepeaterentity.world);
 						Vec3d vec3d2 = this.threepeaterentity.getRotationVec(1.0F).rotateY(90);
-						double d2 = this.threepeaterentity.squaredDistanceTo(livingEntity);
+						double d2 = this.threepeaterentity.squaredDistanceTo(predictedPos);
 						float df2 = (float) d2;
-						double e2 = livingEntity.getX() - this.threepeaterentity.getX();
+						double e2 = predictedPos.getX() - this.threepeaterentity.getX();
 						double f2 = livingEntity.getY() - this.threepeaterentity.getY();
-						double g2 = livingEntity.getZ() - this.threepeaterentity.getZ();
+						double g2 = predictedPos.getZ() - this.threepeaterentity.getZ();
 						float h2 = MathHelper.sqrt(MathHelper.sqrt(df2)) * 0.5F;
 						proj2.setVelocity(e2 + vec3d2.x * 1.125, f2 * (double) h2, g2 + vec3d2.z * 1.125, 0.33F, 0);
 						proj2.updatePosition(this.threepeaterentity.getX() + vec3d2.x * 0.55, this.threepeaterentity.getY() + 0.5, this.threepeaterentity.getZ() + vec3d2.z * 0.55);

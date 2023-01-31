@@ -25,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -290,11 +291,14 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 				if (this.beamTicks >= 0 && this.animationTicks <= -6) {
 					if (!this.gatlingpeaEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.gatlingpeaEntity.world);
-						double d = this.gatlingpeaEntity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.gatlingpeaEntity.getX();
+						double time = 50;
+						Vec3d targetPos = livingEntity.getPos();
+						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+						double d = this.gatlingpeaEntity.squaredDistanceTo(predictedPos);
+						float df = (float)d;
+						double e = predictedPos.getX() - this.gatlingpeaEntity.getX();
 						double f = livingEntity.getY() - this.gatlingpeaEntity.getY();
-						double g = livingEntity.getZ() - this.gatlingpeaEntity.getZ();
+						double g = predictedPos.getZ() - this.gatlingpeaEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.gatlingpeaEntity.getX(), this.gatlingpeaEntity.getY() + 0.75D, this.gatlingpeaEntity.getZ());
@@ -309,11 +313,14 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 				}
 				else if (this.animationTicks == -3) {
 					ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.gatlingpeaEntity.world);
-					double d = this.gatlingpeaEntity.squaredDistanceTo(livingEntity);
-					float df = (float) d;
-					double e = livingEntity.getX() - this.gatlingpeaEntity.getX();
+					double time = 50;
+					Vec3d targetPos = livingEntity.getPos();
+					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+					double d = this.gatlingpeaEntity.squaredDistanceTo(predictedPos);
+					float df = (float)d;
+					double e = predictedPos.getX() - this.gatlingpeaEntity.getX();
 					double f = livingEntity.getY() - this.gatlingpeaEntity.getY();
-					double g = livingEntity.getZ() - this.gatlingpeaEntity.getZ();
+					double g = predictedPos.getZ() - this.gatlingpeaEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 					proj.updatePosition(this.gatlingpeaEntity.getX(), this.gatlingpeaEntity.getY() + 0.75D, this.gatlingpeaEntity.getZ());

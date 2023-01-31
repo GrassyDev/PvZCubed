@@ -35,6 +35,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -375,11 +376,14 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.snowpeaEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(PvZEntity.SNOWPEAPROJ, this.snowpeaEntity.world);
-						double d = this.snowpeaEntity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.snowpeaEntity.getX();
+						double time = 50;
+						Vec3d targetPos = livingEntity.getPos();
+						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+						double d = this.snowpeaEntity.squaredDistanceTo(predictedPos);
+						float df = (float)d;
+						double e = predictedPos.getX() - this.snowpeaEntity.getX();
 						double f = livingEntity.getY() - this.snowpeaEntity.getY();
-						double g = livingEntity.getZ() - this.snowpeaEntity.getZ();
+						double g = predictedPos.getZ() - this.snowpeaEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.snowpeaEntity.getX(), this.snowpeaEntity.getY() + 0.75D, this.snowpeaEntity.getZ());

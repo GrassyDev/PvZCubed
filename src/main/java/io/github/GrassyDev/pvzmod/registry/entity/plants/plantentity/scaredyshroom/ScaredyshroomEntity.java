@@ -34,6 +34,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -434,11 +435,14 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 							if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
 								this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
 								SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
-								double d = this.scaredyshroomEntity.squaredDistanceTo(livingEntity);
-								float df = (float) d;
-								double e = livingEntity.getX() - this.scaredyshroomEntity.getX();
+								double time = 50;
+								Vec3d targetPos = livingEntity.getPos();
+								Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+								double d = this.scaredyshroomEntity.squaredDistanceTo(predictedPos);
+								float df = (float)d;
+								double e = predictedPos.getX() - this.scaredyshroomEntity.getX();
 								double f = livingEntity.getY() - this.scaredyshroomEntity.getY();
-								double g = livingEntity.getZ() - this.scaredyshroomEntity.getZ();
+								double g = predictedPos.getZ() - this.scaredyshroomEntity.getZ();
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 								SporeEntity.sporeAge = 200;
 								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);

@@ -26,6 +26,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -290,11 +291,14 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 				++this.beamTicks;
 				++this.animationTicks;
 				double probability = flamingpeaEntity.random.nextDouble();
-				double d = this.flamingpeaEntity.squaredDistanceTo(livingEntity);
-				float df = (float) d;
-				double e = livingEntity.getX() - this.flamingpeaEntity.getX();
+				double time = 50;
+				Vec3d targetPos = livingEntity.getPos();
+				Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+				double d = this.flamingpeaEntity.squaredDistanceTo(predictedPos);
+				float df = (float)d;
+				double e = predictedPos.getX() - this.flamingpeaEntity.getX();
 				double f = livingEntity.getY() - this.flamingpeaEntity.getY();
-				double g = livingEntity.getZ() - this.flamingpeaEntity.getZ();
+				double g = predictedPos.getZ() - this.flamingpeaEntity.getZ();
 				float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (probability <= 0.25) {

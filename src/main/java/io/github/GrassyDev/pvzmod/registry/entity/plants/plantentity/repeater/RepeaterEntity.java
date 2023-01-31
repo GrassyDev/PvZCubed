@@ -34,6 +34,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -333,11 +334,14 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.repeaterEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.repeaterEntity.world);
-						double d = this.repeaterEntity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.repeaterEntity.getX();
+						double time = 50;
+						Vec3d targetPos = livingEntity.getPos();
+						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+						double d = this.repeaterEntity.squaredDistanceTo(predictedPos);
+						float df = (float)d;
+						double e = predictedPos.getX() - this.repeaterEntity.getX();
 						double f = livingEntity.getY() - this.repeaterEntity.getY();
-						double g = livingEntity.getZ() - this.repeaterEntity.getZ();
+						double g = predictedPos.getZ() - this.repeaterEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.repeaterEntity.getX(), this.repeaterEntity.getY() + 0.75D, this.repeaterEntity.getZ());

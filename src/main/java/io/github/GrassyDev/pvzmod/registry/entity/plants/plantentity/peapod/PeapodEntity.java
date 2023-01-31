@@ -466,14 +466,17 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -9) {
+					double time = 50;
+					Vec3d targetPos = livingEntity.getPos();
+					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 					if (!this.peapodEntity.isInsideWaterOrBubbleColumn()) {
 						// Bottom Pea
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
-						double d = this.peapodEntity.squaredDistanceTo(livingEntity);
-						float df = (float) d;
-						double e = livingEntity.getX() - this.peapodEntity.getX();
+						double d = this.peapodEntity.squaredDistanceTo(predictedPos);
+						float df = (float)d;
+						double e = predictedPos.getX() - this.peapodEntity.getX();
 						double f = livingEntity.getY() - this.peapodEntity.getY();
-						double g = livingEntity.getZ() - this.peapodEntity.getZ();
+						double g = predictedPos.getZ() - this.peapodEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 0.33D, this.peapodEntity.getZ());
@@ -487,11 +490,11 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 							// Right Pea
 							ShootingPeaEntity proj3 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
 							Vec3d vec3d3 = this.peapodEntity.getRotationVec(1.0F).rotateY(-90);
-							double d3 = this.peapodEntity.squaredDistanceTo(livingEntity);
+							double d3 = this.peapodEntity.squaredDistanceTo(predictedPos);
 							float df3 = (float) d3;
-							double e3 = livingEntity.getX() - this.peapodEntity.getX();
+							double e3 = predictedPos.getX() - this.peapodEntity.getX();
 							double f3 = livingEntity.getY() - this.peapodEntity.getY();
-							double g3 = livingEntity.getZ() - this.peapodEntity.getZ();
+							double g3 = predictedPos.getZ() - this.peapodEntity.getZ();
 							float h3 = MathHelper.sqrt(MathHelper.sqrt(df3)) * 0.5F;
 							proj3.setVelocity(e3 * (double) h3, f3 * (double) h3, g3 * (double) h3, 0.33F, 0F);
 							proj3.updatePosition(this.peapodEntity.getX() + vec3d3.x * 0.75, this.peapodEntity.getY() + 0.3, this.peapodEntity.getZ() + vec3d3.z * 0.75);
@@ -509,11 +512,11 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 							// Left Pea
 							ShootingPeaEntity proj2 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
 							Vec3d vec3d2 = this.peapodEntity.getRotationVec(1.0F).rotateY(90);
-							double d2 = this.peapodEntity.squaredDistanceTo(livingEntity);
+							double d2 = this.peapodEntity.squaredDistanceTo(predictedPos);
 							float df2 = (float) d2;
-							double e2 = livingEntity.getX() - this.peapodEntity.getX();
+							double e2 = predictedPos.getX() - this.peapodEntity.getX();
 							double f2 = livingEntity.getY() - this.peapodEntity.getY();
-							double g2 = livingEntity.getZ() - this.peapodEntity.getZ();
+							double g2 = predictedPos.getZ() - this.peapodEntity.getZ();
 							float h2 = MathHelper.sqrt(MathHelper.sqrt(df2)) * 0.5F;
 							proj2.setVelocity(e2 * (double) h2, f2 * (double) h2, g2 * (double) h2, 0.33F, 0);
 							proj2.updatePosition(this.peapodEntity.getX() + vec3d2.x * 0.75, this.peapodEntity.getY() + 0.3, this.peapodEntity.getZ() + vec3d2.z * 0.75);
@@ -529,11 +532,11 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 						if (peapodEntity.getCount().getId() >= 3) {
 							// Middle Pea
 							ShootingPeaEntity proj4 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
-							double d4 = this.peapodEntity.squaredDistanceTo(livingEntity);
+							double d4 = this.peapodEntity.squaredDistanceTo(predictedPos);
 							float df4 = (float) d4;
-							double e4 = livingEntity.getX() - this.peapodEntity.getX();
+							double e4 = predictedPos.getX() - this.peapodEntity.getX();
 							double f4 = livingEntity.getY() - this.peapodEntity.getY();
-							double g4 = livingEntity.getZ() - this.peapodEntity.getZ();
+							double g4 = predictedPos.getZ() - this.peapodEntity.getZ();
 							float h4 = MathHelper.sqrt(MathHelper.sqrt(df4)) * 0.5F;
 							proj4.setVelocity(e4 * (double) h4, f4 * (double) h4, g4 * (double) h4, 0.33F, 0F);
 							proj4.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 0.75D, this.peapodEntity.getZ());
@@ -549,11 +552,11 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 						if (peapodEntity.getCount().getId() >= 4) {
 							// Top Pea
 							ShootingPeaEntity proj5 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
-							double d5 = this.peapodEntity.squaredDistanceTo(livingEntity);
+							double d5 = this.peapodEntity.squaredDistanceTo(predictedPos);
 							float df5 = (float) d5;
-							double e5 = livingEntity.getX() - this.peapodEntity.getX();
+							double e5 = predictedPos.getX() - this.peapodEntity.getX();
 							double f5 = livingEntity.getY() - this.peapodEntity.getY();
-							double g5 = livingEntity.getZ() - this.peapodEntity.getZ();
+							double g5 = predictedPos.getZ() - this.peapodEntity.getZ();
 							float h5 = MathHelper.sqrt(MathHelper.sqrt(df5)) * 0.5F;
 							proj5.setVelocity(e5 * (double) h5, f5 * (double) h5, g5 * (double) h5, 0.33F, 0F);
 							proj5.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 1.25D, this.peapodEntity.getZ());

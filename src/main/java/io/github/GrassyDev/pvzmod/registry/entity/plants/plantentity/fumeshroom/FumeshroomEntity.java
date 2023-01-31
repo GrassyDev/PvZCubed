@@ -35,6 +35,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -396,11 +397,14 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -4) {
-					double d = this.fumeshroomEntity.squaredDistanceTo(livingEntity);
-					float df = (float) d;
-					double e = livingEntity.getX() - this.fumeshroomEntity.getX();
+					double time = 50;
+					Vec3d targetPos = livingEntity.getPos();
+					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+					double d = this.fumeshroomEntity.squaredDistanceTo(predictedPos);
+					float df = (float)d;
+					double e = predictedPos.getX() - this.fumeshroomEntity.getX();
 					double f = livingEntity.getY() - this.fumeshroomEntity.getY();
-					double g = livingEntity.getZ() - this.fumeshroomEntity.getZ();
+					double g = predictedPos.getZ() - this.fumeshroomEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 					FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
 					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);

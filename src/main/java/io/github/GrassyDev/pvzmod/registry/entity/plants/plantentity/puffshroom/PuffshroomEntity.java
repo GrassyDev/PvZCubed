@@ -32,6 +32,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -378,11 +379,14 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.puffshroomEntity.isInsideWaterOrBubbleColumn()) {
 						SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.puffshroomEntity.world);
-						double d = this.puffshroomEntity.squaredDistanceTo(livingEntity);
+						double time = 50;
+						Vec3d targetPos = livingEntity.getPos();
+						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+						double d = this.puffshroomEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = livingEntity.getX() - this.puffshroomEntity.getX();
+						double e = predictedPos.getX() - this.puffshroomEntity.getX();
 						double f = livingEntity.getY() - this.puffshroomEntity.getY();
-						double g = livingEntity.getZ() - this.puffshroomEntity.getZ();
+						double g = predictedPos.getZ() - this.puffshroomEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						SporeEntity.sporeAge = 20;
 						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);

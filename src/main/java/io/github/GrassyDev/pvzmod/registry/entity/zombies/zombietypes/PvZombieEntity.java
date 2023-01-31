@@ -37,22 +37,26 @@ public abstract class PvZombieEntity extends HostileEntity {
 		super.tick();
 		Entity vehicle = this.getVehicle();
 		if (this.hasStatusEffect(PvZCubed.ICE) && vehicle != null){
-			((DuckyTubeEntity) vehicle).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
-			((DuckyTubeEntity) vehicle).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+			if (vehicle instanceof DuckyTubeEntity duckyTube) {
+				duckyTube.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+				duckyTube.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+			}
 		}
 		else if (!this.hasStatusEffect(PvZCubed.ICE) && vehicle != null){
-			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.ICE);
+			if (vehicle instanceof DuckyTubeEntity duckyTube) {
+				duckyTube.removeStatusEffect(PvZCubed.ICE);
+			}
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity && !(this instanceof GargantuarEntity)){
 			vehicle.discard();
 			this.discard();
 		}
-		else if (this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity && this instanceof GargantuarEntity){
-			((DuckyTubeEntity) vehicle).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
-			((DuckyTubeEntity) vehicle).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+		else if (this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity duckyTube && this instanceof GargantuarEntity){
+			duckyTube.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+			duckyTube.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 		}
-		if (!this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity){
-			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.FROZEN);
+		if (!this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity duckyTube){
+			duckyTube.removeStatusEffect(PvZCubed.FROZEN);
 		}
 		if (this.getRandom().nextFloat() < 0.8F && (this.isTouchingWater() || this.isInLava())) {
 			this.getJumpControl().setActive();
@@ -90,8 +94,8 @@ public abstract class PvZombieEntity extends HostileEntity {
 				this.despawnDucky = 0;
 			}
 		}
-		if (vehicle instanceof DuckyTubeEntity){
-			((DuckyTubeEntity) vehicle).setTarget(this.getTarget());
+		if (vehicle instanceof DuckyTubeEntity duckyTube){
+			duckyTube.setTarget(this.getTarget());
 		}
 	}
 
