@@ -1,0 +1,44 @@
+{
+  "name": "Pool Gravestone",
+  "icon": "pvzmod:poolgrave_spawn",
+  "category": "pvzmod:grave_category",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)200",
+        "$(br)$(#bd951a)Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)75 Blocks",
+        "$(br2)$(#bd951a)This puddle may look shallow but it's surprisingly deep."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/poolgrave.png"
+      ],
+      "title": "Pool Zombie",
+      "border": "true",
+      "text": "$(#25228d)Spawns Pool Zombies."
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/conehead_entry",
+        "pvzmod:zombies/buckethead_entry",
+        "pvzmod:zombies/snorkel_entry"
+      ],
+      "title": "Spawnable Zombies"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Grave"
+      ]
+    }
+  ]
+}
