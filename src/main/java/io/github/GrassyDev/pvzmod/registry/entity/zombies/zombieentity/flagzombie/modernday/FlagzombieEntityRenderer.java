@@ -2,8 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzomb
 
 import com.google.common.collect.Maps;
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.fumeshroom.FumeshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FlagZombieVariants;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
