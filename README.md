@@ -28,7 +28,7 @@ Currently, this mod contains:
 3. [8/8] Night Plants
 4. [5/5] Night Zombies
 5. [4/8] Pool Plants
-6. [1/5] Pool Zombies
+6. [2/5] Pool Zombies
 7. [0/8] Fog Plants
 8. [0/5] Fog Zombies
 9. [0/8] Roof Plants
