@@ -212,14 +212,6 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		}
     }
 
-	public void tickMovement() {
-		super.tickMovement();
-		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 &&  this.deathTime == 0) {
-			this.heal(4.0F);
-			this.healingTime = 1200;
-		}
-	}
-
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
 
