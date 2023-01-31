@@ -33,6 +33,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -53,6 +54,10 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
 	public static int sporeAge;
 
 	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "spore");
+
+	private Vec3d previousPos;
+	private int tickPosCheck;
+
 	@Override
 	public void registerControllers(AnimationData animationData) {
 		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
@@ -73,6 +78,8 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
     public SporeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
 		this.setNoGravity(true);
+		this.previousPos = this.getPos();
+		this.tickPosCheck = 10;
     }
 
     public SporeEntity(World world, LivingEntity owner) {
@@ -116,10 +123,18 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!this.world.isClient && this.age == sporeAge) {
+        if (!this.world.isClient && this.age >= sporeAge) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
+
+		if (previousPos == this.getPos() && --this.tickPosCheck >= 0){
+			this.remove(RemovalReason.DISCARDED);
+		}
+		else if (this.tickPosCheck >= 0){
+			tickPosCheck = 10;
+			this.previousPos = this.getPos();
+		}
 
 		double d = (double)(180 & 255) / 255.0;
 		double e = (double)(30 & 255) / 255.0;
