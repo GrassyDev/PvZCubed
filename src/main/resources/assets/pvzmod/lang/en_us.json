@@ -229,6 +229,9 @@
   "entity.pvzmod.nightgrave": "Night Gravestone",
   "item.pvzmod.nightgrave_spawn": "Night Gravestone",
 
+  "entity.pvzmod.poolgrave": "Pool Gravestone",
+  "item.pvzmod.poolgrave_spawn": "Pool Gravestone",
+
   "itemGroup.pvzmod.blocks": "PvZ Blocks",
 
   "block.pvzmod.grass_tile": "Grass Tile",

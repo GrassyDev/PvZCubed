@@ -4,6 +4,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.b
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.poolgrave.PoolGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.poolgrave.PoolGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntity;
@@ -525,6 +527,12 @@ public class PvZEntity implements ModInitializer {
             QuiltEntityTypeBuilder.<NightGraveEntity>create(SpawnGroup.MONSTER, NightGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
     );
 
+	public static final EntityType<PoolGraveEntity> POOLGRAVESTONE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "poolgrave"),
+			QuiltEntityTypeBuilder.<PoolGraveEntity>create(SpawnGroup.MONSTER, PoolGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
+	);
+
 	@Override
 	public void onInitialize(ModContainer mod) {
 
@@ -713,6 +721,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.NIGHTGRAVESTONE, NightGraveEntity.createNightGraveAttributes());
         EntityRendererRegistry.register(PvZEntity.NIGHTGRAVESTONE, NightGraveRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.POOLGRAVESTONE, PoolGraveEntity.createPoolGraveAttributes());
+		EntityRendererRegistry.register(PvZEntity.POOLGRAVESTONE, PoolGraveRenderer::new);
 
 
     }

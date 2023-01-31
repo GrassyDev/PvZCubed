@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantua
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -174,9 +175,25 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 5.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-					!(livingEntity instanceof HypnoFlagzombieEntity);
+					!(livingEntity instanceof HypnoFlagzombieEntity) && !(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+		}));
+		snorkelGoal();
+	}
+	protected void snorkelGoal() {
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel();
 		}));
 	}
+
+	/**@Override
+	public void setTarget(@Nullable LivingEntity target) {
+		if (target != null) {
+			super.setTarget(target);
+			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+				snorkelGoal();
+			}
+		}
+	}**/
 
 	private class AttackGoal extends MeleeAttackGoal {
 		public AttackGoal() {
@@ -284,6 +301,13 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+		LivingEntity target = this.getTarget();
+		if (target != null){
+			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+				this.setTarget(null);
+				snorkelGoal();
+			}
 		}
 	}
 

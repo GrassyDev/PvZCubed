@@ -20,8 +20,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.*;
+import net.minecraft.world.RaycastContext;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -34,7 +34,6 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
     private String controllerName = "puffcontroller";

@@ -36,10 +36,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.lang.invoke.CallSite;
 import java.util.EnumSet;
-import java.util.Optional;
-import java.util.Random;
 public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, RangedAttackMob {
 
 	private String controllerName = "threepeacontroller";
