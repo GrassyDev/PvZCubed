@@ -210,11 +210,6 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 
 	public void tickMovement() {
 		super.tickMovement();
-		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.heal(4.0F);
-			this.healingTime = 8400;
-		}
-
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.damage(DamageSource.GENERIC, 9999);
 		}

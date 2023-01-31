@@ -191,11 +191,6 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 
 	public void tickMovement() {
 		super.tickMovement();
-		if (!this.world.isClient && this.isAlive() && --this.healingTime <= 0 && !this.isInsideWaterOrBubbleColumn() &&  this.deathTime == 0) {
-			this.heal(4.0F);
-			this.healingTime = 1200;
-		}
-
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.damage(DamageSource.GENERIC, 9999);
 		}
