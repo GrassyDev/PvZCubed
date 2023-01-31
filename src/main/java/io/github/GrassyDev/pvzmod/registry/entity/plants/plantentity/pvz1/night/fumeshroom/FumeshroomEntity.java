@@ -397,7 +397,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -4) {
-					double time = 50;
+					double time = (this.fumeshroomEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 					Vec3d targetPos = livingEntity.getPos();
 					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 					double d = this.fumeshroomEntity.squaredDistanceTo(predictedPos);

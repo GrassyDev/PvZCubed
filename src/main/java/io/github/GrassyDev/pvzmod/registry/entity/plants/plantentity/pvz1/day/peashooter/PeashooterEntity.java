@@ -286,7 +286,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
 					if (!this.peashooterEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peashooterEntity.world);
-						double time = 50;
+						double time = (this.peashooterEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.peashooterEntity.squaredDistanceTo(predictedPos);
@@ -364,7 +364,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
 					if (!this.peashooterEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peashooterEntity.world);
-						double time = 50;
+						double time = (this.peashooterEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.peashooterEntity.squaredDistanceTo(predictedPos);

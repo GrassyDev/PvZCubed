@@ -291,7 +291,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 				++this.beamTicks;
 				++this.animationTicks;
 				double probability = flamingpeaEntity.random.nextDouble();
-				double time = 50;
+				double time = (this.flamingpeaEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 				Vec3d targetPos = livingEntity.getPos();
 				Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 				double d = this.flamingpeaEntity.squaredDistanceTo(predictedPos);

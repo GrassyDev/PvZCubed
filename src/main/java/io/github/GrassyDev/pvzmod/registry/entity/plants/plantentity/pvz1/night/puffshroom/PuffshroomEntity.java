@@ -379,7 +379,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.puffshroomEntity.isInsideWaterOrBubbleColumn()) {
 						SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.puffshroomEntity.world);
-						double time = 50;
+						double time = (this.puffshroomEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.puffshroomEntity.squaredDistanceTo(predictedPos);
@@ -388,7 +388,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 						double f = livingEntity.getY() - this.puffshroomEntity.getY();
 						double g = predictedPos.getZ() - this.puffshroomEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						SporeEntity.sporeAge = 20;
+						proj.sporeAge = 20;
 						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
 						proj.updatePosition(this.puffshroomEntity.getX(), this.puffshroomEntity.getY() + 0.25D, this.puffshroomEntity.getZ());
 						proj.setOwner(this.puffshroomEntity);

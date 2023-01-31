@@ -22,7 +22,7 @@ public class SporeItem extends Item {
 
         if (!world.isClient) {
             SporeEntity proj = new SporeEntity(PvZEntity.SPORE, world);
-			SporeEntity.sporeAge = 20;
+			proj.sporeAge = 20;
             proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
             proj.setOwner(user);
             proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.33f, 0);

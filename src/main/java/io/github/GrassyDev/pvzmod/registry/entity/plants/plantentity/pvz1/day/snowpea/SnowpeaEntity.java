@@ -376,7 +376,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.snowpeaEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(PvZEntity.SNOWPEAPROJ, this.snowpeaEntity.world);
-						double time = 50;
+						double time = (this.snowpeaEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.snowpeaEntity.squaredDistanceTo(predictedPos);

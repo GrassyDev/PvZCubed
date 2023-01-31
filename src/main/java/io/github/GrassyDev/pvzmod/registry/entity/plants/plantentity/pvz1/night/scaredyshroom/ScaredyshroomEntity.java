@@ -435,7 +435,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 							if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
 								this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
 								SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
-								double time = 50;
+								double time = (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 								Vec3d targetPos = livingEntity.getPos();
 								Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 								double d = this.scaredyshroomEntity.squaredDistanceTo(predictedPos);
@@ -444,8 +444,8 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 								double f = livingEntity.getY() - this.scaredyshroomEntity.getY();
 								double g = predictedPos.getZ() - this.scaredyshroomEntity.getZ();
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-								SporeEntity.sporeAge = 200;
-								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
+								proj.sporeAge = 41;
+								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.9F, 0F);
 								proj.updatePosition(this.scaredyshroomEntity.getX(), this.scaredyshroomEntity.getY() + 0.75D, this.scaredyshroomEntity.getZ());
 								proj.setOwner(this.scaredyshroomEntity);
 								if (livingEntity.isAlive()) {

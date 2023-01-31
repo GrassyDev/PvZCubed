@@ -51,7 +51,7 @@ public class SporeEntity extends ThrownItemEntity implements IAnimatable {
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-	public static int sporeAge;
+	public int sporeAge;
 
 	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "spore");
 

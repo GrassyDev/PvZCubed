@@ -466,7 +466,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -9) {
-					double time = 50;
+					double time = (this.peapodEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 					Vec3d targetPos = livingEntity.getPos();
 					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 					if (!this.peapodEntity.isInsideWaterOrBubbleColumn()) {
