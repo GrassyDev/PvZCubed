@@ -328,6 +328,12 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 		}
 	}
 
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.PEAPOD_SEED_PACKET.getDefaultStack();
+	}
+
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 

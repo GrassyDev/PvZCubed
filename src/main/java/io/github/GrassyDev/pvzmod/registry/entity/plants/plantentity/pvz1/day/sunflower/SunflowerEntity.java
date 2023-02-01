@@ -177,7 +177,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn()) {
 			if (--raycastDelay >= 0){
 				this.produceSun();
-				raycastDelay = 10;
+				raycastDelay = 60;
 			}
 		}
 		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
@@ -186,7 +186,6 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 			this.sunProducingTime = 3600;
 			this.zombieSunCheck = false;
 		}
-
 
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
@@ -303,6 +302,12 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 		else {
 			return ActionResult.CONSUME;
 		}
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.SUNFLOWER_SEED_PACKET.getDefaultStack();
 	}
 
 

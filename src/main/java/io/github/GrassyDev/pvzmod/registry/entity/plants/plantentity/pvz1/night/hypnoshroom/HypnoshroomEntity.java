@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.hypnoshroom;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
@@ -31,6 +32,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -235,6 +237,15 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 			this.initGoals();
 		}
 		super.mobTick();
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.HYPNOSHROOM_SEED_PACKET.getDefaultStack();
 	}
 
 

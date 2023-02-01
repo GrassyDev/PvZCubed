@@ -206,6 +206,12 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 		}
 	}
 
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.REPEATER_SEED_PACKET.getDefaultStack();
+	}
+
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 

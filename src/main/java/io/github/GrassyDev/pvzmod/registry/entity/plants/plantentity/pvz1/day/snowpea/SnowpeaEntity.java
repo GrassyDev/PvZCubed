@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.snowpea;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
@@ -246,6 +247,12 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 		else {
 			return ActionResult.CONSUME;
 		}
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.SNOW_PEA_SEED_PACKET.getDefaultStack();
 	}
 
 

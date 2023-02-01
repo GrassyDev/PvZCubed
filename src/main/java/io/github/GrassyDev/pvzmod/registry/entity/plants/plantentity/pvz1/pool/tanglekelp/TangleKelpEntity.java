@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.tanglekelp;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
@@ -24,6 +25,7 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -61,6 +63,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 	public boolean attackLock;
 	public boolean statusSwitch = true;
 	private boolean stopAnimation;
+	private int amphibiousRaycastDelay;
 	public static final UUID MAX_RANGE_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -70,6 +73,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
     public TangleKelpEntity(EntityType<? extends TangleKelpEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
+		amphibiousRaycastDelay = 1;
         this.healingTime = 6000;
 		this.setNoGravity(true);
     }
@@ -234,24 +238,27 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 			kill();
 		}
 
-		HitResult hitResult = amphibiousRaycast(0.25);
-		if (hitResult.getType() == HitResult.Type.MISS){
-			kill();
-		}
-		if (this.age != 0) {
-			BlockPos blockPos2 = this.getBlockPos();
-			BlockState blockState = this.getLandingBlockState();
-			FluidState fluidState = world.getFluidState(this.getBlockPos().add(0, -0.5, 0));
-			if (!(fluidState.getFluid() == Fluids.WATER)) {
-				this.dryLand = true;
-				onWater = false;
-			}
-			else {
-				this.dryLand = false;
-				onWater = true;
-			}
-			if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()){
+
+		if (--amphibiousRaycastDelay >= 0) {
+			amphibiousRaycastDelay = 60;
+			HitResult hitResult = amphibiousRaycast(0.25);
+			if (hitResult.getType() == HitResult.Type.MISS) {
 				kill();
+			}
+			if (this.age != 0) {
+				BlockPos blockPos2 = this.getBlockPos();
+				BlockState blockState = this.getLandingBlockState();
+				FluidState fluidState = world.getFluidState(this.getBlockPos().add(0, -0.5, 0));
+				if (!(fluidState.getFluid() == Fluids.WATER)) {
+					this.dryLand = true;
+					onWater = false;
+				} else {
+					this.dryLand = false;
+					onWater = true;
+				}
+				if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
+					kill();
+				}
 			}
 		}
 	}
@@ -297,8 +304,17 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 		}
 		if (this.age == 3) {
 			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
-			maxRangeAttribute.addPersistentModifier(createRangeAttribute(4.0D));
+			maxRangeAttribute.addPersistentModifier(createRangeAttribute(3.0D));
 		}
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.TANGLEKELP_SEED_PACKET.getDefaultStack();
 	}
 
 

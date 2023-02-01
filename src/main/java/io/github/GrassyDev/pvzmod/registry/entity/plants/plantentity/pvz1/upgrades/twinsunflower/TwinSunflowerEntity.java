@@ -299,6 +299,12 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 		}
 	}
 
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.TWINSUNFLOWER_SEED_PACKET.getDefaultStack();
+	}
+
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 

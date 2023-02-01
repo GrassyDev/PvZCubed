@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.LilypadHats;
@@ -49,12 +50,14 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
     private String controllerName = "wallcontroller";
 
     public int healingTime;
+	private int amphibiousRaycastDelay;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private boolean dryLand;
 
 	public LilyPadEntity(EntityType<? extends LilyPadEntity> entityType, World world) {
         super(entityType, world);
+		amphibiousRaycastDelay = 1;
         this.ignoreCameraFrustum = true;
         this.healingTime = 1200;
 		this.setNoGravity(true);
@@ -190,24 +193,26 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 			kill();
 		}
 
-		HitResult hitResult = amphibiousRaycast(0.25);
-		if (hitResult.getType() == HitResult.Type.MISS){
-			kill();
-		}
-		if (this.age != 0) {
-			BlockPos blockPos2 = this.getBlockPos();
-			BlockState blockState = this.getLandingBlockState();
-			FluidState fluidState = world.getFluidState(this.getBlockPos().add(0, -0.5, 0));
-			if (!(fluidState.getFluid() == Fluids.WATER)) {
-				this.dryLand = true;
-				onWater = false;
-			}
-			else {
-				this.dryLand = false;
-				onWater = true;
-			}
-			if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()){
+		if (--amphibiousRaycastDelay >= 0) {
+			amphibiousRaycastDelay = 60;
+			HitResult hitResult = amphibiousRaycast(0.25);
+			if (hitResult.getType() == HitResult.Type.MISS) {
 				kill();
+			}
+			if (this.age != 0) {
+				BlockPos blockPos2 = this.getBlockPos();
+				BlockState blockState = this.getLandingBlockState();
+				FluidState fluidState = world.getFluidState(this.getBlockPos().add(0, -0.5, 0));
+				if (!(fluidState.getFluid() == Fluids.WATER)) {
+					this.dryLand = true;
+					onWater = false;
+				} else {
+					this.dryLand = false;
+					onWater = true;
+				}
+				if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
+					kill();
+				}
 			}
 		}
     }
@@ -232,6 +237,12 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 			return ActionResult.SUCCESS;
 		}
 		return addPlants(player, hand);
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.LILYPAD_SEED_PACKET.getDefaultStack();
 	}
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/

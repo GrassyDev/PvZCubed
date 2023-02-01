@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
@@ -358,6 +359,12 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		else {
 			return ActionResult.CONSUME;
 		}
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.CHOMPER_SEED_PACKET.getDefaultStack();
 	}
 
 

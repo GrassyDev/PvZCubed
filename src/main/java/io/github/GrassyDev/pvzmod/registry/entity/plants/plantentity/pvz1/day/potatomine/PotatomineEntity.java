@@ -389,6 +389,12 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		}
 	}
 
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.POTATOMINE_SEED_PACKET.getDefaultStack();
+	}
+
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 

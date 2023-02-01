@@ -15,6 +15,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -134,7 +135,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
 			if (--raycastDelay >= 0){
 				this.produceSun();
-				raycastDelay = 10;
+				raycastDelay = 60;
 			}
 		}
 		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep){
@@ -213,6 +214,15 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 				}
 			}
 		}
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.SUNSHROOM_SEED_PACKET.getDefaultStack();
 	}
 
 

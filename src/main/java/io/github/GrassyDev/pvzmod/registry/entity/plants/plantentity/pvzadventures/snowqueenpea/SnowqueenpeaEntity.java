@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventures.snowqueenpea;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
@@ -244,6 +245,14 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 		else {
 			return ActionResult.CONSUME;
 		}
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.SNOW_QUEENPEA_SEED_PACKET.getDefaultStack();
 	}
 
 

@@ -249,6 +249,12 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		}
 	}
 
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.PUFFSHROOM_SEED_PACKET.getDefaultStack();
+	}
+
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
