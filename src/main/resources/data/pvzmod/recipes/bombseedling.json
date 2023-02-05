@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood_mushroom"
+      "item": "pvzmod:plantfood_fire"
     }
   ],
   "result": {
-    "item": "pvzmod:puffshroom_seed_packet",
+    "item": "pvzmod:bombseedling_seed_packet",
     "count": 1
   }
 }

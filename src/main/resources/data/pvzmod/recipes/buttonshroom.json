@@ -3,10 +3,13 @@
   "ingredients": [
     {
       "item": "pvzmod:plantfood_mushroom"
+    },
+    {
+      "item": "minecraft:wheat_seeds"
     }
   ],
   "result": {
-    "item": "pvzmod:puffshroom_seed_packet",
+    "item": "pvzmod:buttonshroom_seed_packet",
     "count": 1
   }
 }

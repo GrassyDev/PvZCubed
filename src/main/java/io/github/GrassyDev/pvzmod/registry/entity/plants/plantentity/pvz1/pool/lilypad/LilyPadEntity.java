@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.LilypadHats;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -28,9 +29,11 @@ import net.minecraft.util.Util;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -331,5 +334,9 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		}
 		this.playBlockFallSound();
 		return true;
+	}
+
+	public static boolean canLilyPadSpawn(EntityType<? extends LilyPadEntity> entityType, WorldAccess worldAccess, SpawnReason reason, BlockPos pos, RandomGenerator random) {
+		return worldAccess.isSkyVisibleAllowingSea(pos) && worldAccess.getBlockState(pos.down()).isOf(Blocks.WATER);
 	}
 }

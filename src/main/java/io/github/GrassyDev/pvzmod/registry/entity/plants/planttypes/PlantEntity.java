@@ -25,6 +25,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.su
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.threepeater.ThreepeaterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.wallnutentity.WallnutEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -68,6 +70,7 @@ public abstract class PlantEntity extends GolemEntity {
 		Vec3d vec3d2 = new Vec3d(vec3d1.x, vec3d1.y - maxDistance, vec3d1.z);
 		return this.world.raycast(new RaycastContext(vec3d1, vec3d2, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.ANY, this));
 	}
+
 
 	public ActionResult addPlants(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
@@ -541,6 +544,50 @@ public abstract class PlantEntity extends GolemEntity {
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
 					player.getItemCooldownManager().set(ModItems.FIRE_PEA_SEED_PACKET, FirepeaSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**BUTTON-SHROOM**/
+			if (itemStack.isOf(ModItems.BUTTONSHROOM_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					ButtonshroomEntity plantEntity = (ButtonshroomEntity) PvZEntity.BUTTONSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+					plantEntity.startRiding(this, true);
+					world.spawnEntity(plantEntity);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.BUTTONSHROOM_SEED_PACKET, ButtonshroomSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**BOMB SEEDLING**/
+			if (itemStack.isOf(ModItems.BOMBSEEDLING_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					BombSeedlingEntity plantEntity = (BombSeedlingEntity) PvZEntity.BOMBSEEDLING.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+					plantEntity.startRiding(this, true);
+					world.spawnEntity(plantEntity);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.BOMBSEEDLING_SEED_PACKET, BombSeedlingSeeds.cooldown);
 				}
 				return ActionResult.SUCCESS;
 			} else {

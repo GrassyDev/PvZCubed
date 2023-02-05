@@ -88,6 +88,10 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.wallnutentity.WallnutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.wallnutentity.WallnutEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbage.ShootingCabbageEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
@@ -241,7 +245,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<LilyPadEntity> LILYPAD = Registry.register((
 					Registry.ENTITY_TYPE),
 			new Identifier(ModID, "lilypad"),
-			QuiltEntityTypeBuilder.<LilyPadEntity>create(SpawnGroup.CREATURE, LilyPadEntity::new).setDimensions(EntityDimensions.fixed(0.99f,0.1f)).build()
+			QuiltEntityTypeBuilder.<LilyPadEntity>create(SpawnGroup.MONSTER, LilyPadEntity::new).setDimensions(EntityDimensions.fixed(0.99f,0.1f)).build()
 	);
 
 	public static final EntityType<SquashEntity> SQUASH = Registry.register((
@@ -304,6 +308,18 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "flamingpea"),
             QuiltEntityTypeBuilder.<FlamingpeaEntity>create(SpawnGroup.CREATURE, FlamingpeaEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
+
+	public static final EntityType<ButtonshroomEntity> BUTTONSHROOM = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "buttonshroom"),
+			QuiltEntityTypeBuilder.<ButtonshroomEntity>create(SpawnGroup.MONSTER, ButtonshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
+	public static final EntityType<BombSeedlingEntity> BOMBSEEDLING = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "bombseedling"),
+			QuiltEntityTypeBuilder.<BombSeedlingEntity>create(SpawnGroup.MONSTER, BombSeedlingEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -631,6 +647,12 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntity.createFlamingpeaAttributes());
         EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.BUTTONSHROOM, ButtonshroomEntity.createButtonshroomAttributes());
+		EntityRendererRegistry.register(PvZEntity.BUTTONSHROOM, ButtonshroomEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.BOMBSEEDLING, BombSeedlingEntity.createBombSeedlingAttributes());
+		EntityRendererRegistry.register(PvZEntity.BOMBSEEDLING, BombSeedlingEntityRenderer::new);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:smallsun"
+      "item": "pvzmod:plantfood_aquatic"
     }
   ],
   "result": {
