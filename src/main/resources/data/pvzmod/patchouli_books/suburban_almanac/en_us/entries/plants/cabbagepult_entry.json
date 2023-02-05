@@ -1,0 +1,39 @@
+{
+  "name": "Cabbage-pult",
+  "icon": "pvzmod:cabbagepult_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)10",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/3s",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks (Lobbed)",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",
+        "$(br2)$(#bd951a)Cabbage-pult is okay with launching cabbages at zombies. It's what he's paid for, after all, and he's good at it. He just doesn't understand how the zombies get up on the roof in the first place."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/cabbagepult.png"
+      ],
+      "title": "\uD83C\uDFF9 Arma Family",
+      "border": "true",
+      "text": "$(#25228d)Cabbage-pults hurl cabbages at the enemy."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:cabbagepult"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Cabbage-pult",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Cabbage-pult"
+      ]
+    }
+  ]
+}

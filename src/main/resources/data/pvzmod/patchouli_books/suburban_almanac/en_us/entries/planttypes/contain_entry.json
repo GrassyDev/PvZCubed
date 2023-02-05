@@ -8,7 +8,6 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Contain family is composed of tricky plants that slows down or weakens zombies",
-        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)5 minutes",
         "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Interested",
         "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Varied"
         ]

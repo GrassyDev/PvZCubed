@@ -145,6 +145,11 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20D);
     }
 
+	@Override
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+		return false;
+	}
+
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.IMPMOANEVENT;
 	}

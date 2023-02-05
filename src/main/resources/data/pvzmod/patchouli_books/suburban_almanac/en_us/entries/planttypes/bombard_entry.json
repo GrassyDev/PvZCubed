@@ -8,7 +8,6 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Bombard family is composed of explosive plants",
-        "$(br2)$(#bd951a)Recovery Time: $()$(#ff0000)None",
         "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
         "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Deals high damage to all zombies on an area."
         ]

@@ -19,6 +19,11 @@ public class ModItems {
 
     //Items
     public static final Item PLANTFOOD = new Item(new Item.Settings().maxCount(64));
+	public static final Item PLANTFOOD_AQUATIC = new Item(new Item.Settings().maxCount(64));
+	public static final Item PLANTFOOD_COLD = new Item(new Item.Settings().maxCount(64));
+	public static final Item PLANTFOOD_FIRE = new Item(new Item.Settings().maxCount(64));
+	public static final Item PLANTFOOD_MUSHROOM = new Item(new Item.Settings().maxCount(64));
+	public static final Item PLANTFOOD_TOUGH = new Item(new Item.Settings().maxCount(64));
     public static final Item PEA = new PeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(32));
     public static final Item SPORE = new SporeItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(64));
     public static final Item FUME = new FumeItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8));
@@ -53,6 +58,7 @@ public class ModItems {
 	public static final Item SQUASH_SEED_PACKET = new SquashSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8).rarity(Rarity.COMMON));
 	public static final Item TANGLEKELP_SEED_PACKET = new TangleKelpSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item THREEPEATER_SEED_PACKET = new ThreepeaterSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8).rarity(Rarity.RARE));
+	public static final Item CABBAGEPULT_SEED_PACKET = new CabbagepultSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8).rarity(Rarity.COMMON));
 	public static final Item GATLINGPEA_SEED_PACKET = new GatlingpeaSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item TWINSUNFLOWER_SEED_PACKET = new TwinSunflowerSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item SNOW_QUEENPEA_SEED_PACKET = new SnowqueenpeaSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8).rarity(Rarity.EPIC));
@@ -107,6 +113,11 @@ public class ModItems {
     public static void registerItems() {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"icon_almanac"), ALMANAC);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood"), PLANTFOOD);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_aquatic"), PLANTFOOD_AQUATIC);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_cold"), PLANTFOOD_COLD);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_fire"), PLANTFOOD_FIRE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_mushroom"), PLANTFOOD_MUSHROOM);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_tough"), PLANTFOOD_TOUGH);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pea"), PEA);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"spore"), SPORE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"fume"), FUME);
@@ -153,6 +164,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"squash_seed_packet"), SQUASH_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"tanglekelp_seed_packet"), TANGLEKELP_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"threepeater_seed_packet"), THREEPEATER_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cabbagepult_seed_packet"), CABBAGEPULT_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gatlingpea_seed_packet"), GATLINGPEA_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"twinsunflower_seed_packet"), TWINSUNFLOWER_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowqueenpea_seed_packet"), SNOW_QUEENPEA_SEED_PACKET);

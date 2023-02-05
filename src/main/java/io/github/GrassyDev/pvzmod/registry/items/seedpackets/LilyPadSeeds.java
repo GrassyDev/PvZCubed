@@ -36,7 +36,7 @@ public class LilyPadSeeds extends Item {
 		super.appendTooltip(stack, world, tooltip, context);
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.reinforce.family")
-				.formatted(Formatting.DARK_RED));
+				.formatted(Formatting.DARK_BLUE));
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.amphibious.tooltip")
 				.formatted(Formatting.UNDERLINE));

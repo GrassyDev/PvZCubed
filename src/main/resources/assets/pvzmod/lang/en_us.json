@@ -127,6 +127,10 @@
   "item.pvzmod.threepeater_seed_packet.flavour2": "\"Mine is 27!\"",
   "item.pvzmod.threepeater_seed_packet.flavour3": "\"3.\"",
 
+  "entity.pvzmod.cabbagepult": "Cabbage-ult",
+  "item.pvzmod.cabbagepult_seed_packet": "\uD83C\uDFF9 Cabbage-pult Seed Packet",
+  "item.pvzmod.cabbagepult_seed_packet.flavour": "\"Coleslaw from above!\"",
+
   "entity.pvzmod.gatlingpea": "Gatling Pea",
   "item.pvzmod.gatlingpea_seed_packet": "⭘ Gatling Pea Seed Packet",
   "item.pvzmod.gatlingpea_seed_packet.flavour": "There is no problem that cannot",

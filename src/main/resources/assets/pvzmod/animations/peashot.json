@@ -347,6 +347,31 @@
 					}
 				}
 			}
+		},
+		"cabbage.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"pea": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 0, -180]
+						},
+						"1.0": {
+							"vector": [0, 0, -360]
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

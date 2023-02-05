@@ -42,6 +42,11 @@ public class PvZCubed implements ModInitializer {
 			.icon(() -> new ItemStack(ModItems.SUN))
 			.appendItems(stacks -> {
 				stacks.add(new ItemStack(ModItems.PLANTFOOD));
+				stacks.add(new ItemStack(ModItems.PLANTFOOD_AQUATIC));
+				stacks.add(new ItemStack(ModItems.PLANTFOOD_COLD));
+				stacks.add(new ItemStack(ModItems.PLANTFOOD_FIRE));
+				stacks.add(new ItemStack(ModItems.PLANTFOOD_MUSHROOM));
+				stacks.add(new ItemStack(ModItems.PLANTFOOD_TOUGH));
 				stacks.add(new ItemStack(ModItems.DAVES_SHOVEL));
 				stacks.add(new ItemStack(ModItems.SMALLSUN));
 				stacks.add(new ItemStack(ModItems.SUN));
@@ -66,6 +71,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.SQUASH_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.THREEPEATER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TANGLEKELP_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.CABBAGEPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.GATLINGPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TWINSUNFLOWER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SNOW_QUEENPEA_SEED_PACKET));
@@ -263,5 +269,221 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARMOAN, GARGANTUARMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEDANCING, ZOMBIEDANCINGEVENT);
+	}
+
+	private static boolean IsZero(double d) {
+        double eps = 1e-9;
+		return d > -eps && d < eps;
+	}
+
+	private static double GetCubicRoot(double value)
+	{
+		if (value > 0.0) {
+			return Math.pow(value, 1D / 3D);
+		} else if (value < 0) {
+			return Math.pow(-value, 1.0 / 3.0);
+		} else {
+			return 0.0;
+		}
+	}
+
+	// Solve quadratic equation: c0*x^2 + c1*x + c2.
+	// Returns number of solutions.
+	public static double[] SolveQuadric(double c0, double c1, double c2) {
+
+		double[] returnVal = new double[2];
+		returnVal[0] = Double.NaN;
+		returnVal[1] = Double.NaN;
+
+		double p, q, D;
+
+		/* normal form: x^2 + px + q = 0 */
+		p = c1 / (2 * c0);
+		q = c2 / c0;
+
+		D = p * p - q;
+
+		if (IsZero(D)) {
+			returnVal[0] = -p;
+			return returnVal;
+		}
+		else if (D < 0) {
+			return returnVal;
+		}
+		else /* if (D > 0) */ {
+			double sqrt_D = Math.sqrt(D);
+
+			returnVal[0] =   sqrt_D - p;
+			returnVal[1] = -sqrt_D - p;
+			return returnVal;
+		}
+	}
+
+	// Solve cubic equation: c0*x^3 + c1*x^2 + c2*x + c3.
+	// Returns number of solutions.
+	public static double[] SolveCubic(double c0, double c1, double c2, double c3)
+	{
+		double[] returnVal = new double[3];
+		returnVal[0] = Double.NaN;
+		returnVal[1] = Double.NaN;
+		returnVal[2] = Double.NaN;
+
+		int     num;
+		double  sub;
+		double  A, B, C;
+		double  sq_A, p, q;
+		double  cb_p, D;
+
+		/* normal form: x^3 + Ax^2 + Bx + C = 0 */
+		A = c1 / c0;
+		B = c2 / c0;
+		C = c3 / c0;
+
+		/*  substitute x = y - A/3 to eliminate quadric term:  x^3 +px + q = 0 */
+		sq_A = A * A;
+		p = 1.0/3 * (- 1.0/3 * sq_A + B);
+		q = 1.0/2 * (2.0/27 * A * sq_A - 1.0/3 * A * B + C);
+
+		/* use Cardano's formula */
+		cb_p = p * p * p;
+		D = q * q + cb_p;
+
+		if (IsZero(D)) {
+			if (IsZero(q)) /* one triple solution */ {
+				returnVal[0] = 0;
+				num = 1;
+			}
+			else /* one single and one double solution */ {
+				double u = GetCubicRoot(-q);
+				returnVal[0] = 2 * u;
+				returnVal[1] = - u;
+				num = 2;
+			}
+		}
+		else if (D < 0) /* Casus irreducibilis: three real solutions */ {
+			double phi = 1.0/3 * Math.acos(-q / Math.sqrt(-cb_p));
+			double t = 2 * Math.sqrt(-p);
+
+			returnVal[0] =   t * Math.cos(phi);
+			returnVal[1] = - t * Math.cos(phi + Math.PI / 3);
+			returnVal[2] = - t * Math.cos(phi - Math.PI / 3);
+			num = 3;
+		}
+		else /* one real solution */ {
+			double sqrt_D = Math.sqrt(D);
+			double u = GetCubicRoot(sqrt_D - q);
+			double v = -GetCubicRoot(sqrt_D + q);
+
+			returnVal[0] = u + v;
+			num = 1;
+		}
+
+		/* resubstitute */
+		sub = 1.0/3 * A;
+
+		if (num > 0)    returnVal[0] -= sub;
+		if (num > 1)    returnVal[1] -= sub;
+		if (num > 2)    returnVal[2] -= sub;
+
+		return returnVal;
+	}
+
+	// Solve quartic function: c0*x^4 + c1*x^3 + c2*x^2 + c3*x + c4.
+	// Returns number of solutions.
+	public static double[] SolveQuartic(double c0, double c1, double c2, double c3, double c4) {
+
+		double[] returnValue = new double[4];
+		returnValue[0] = Double.NaN;
+		returnValue[1] = Double.NaN;
+		returnValue[2] = Double.NaN;
+		returnValue[3] = Double.NaN;
+
+		double[] coeffs = new double[4];
+		double[] z;
+		double u;
+		double v;
+		double sub;
+		double  A, B, C, D;
+		double  sq_A, p, q, r;
+		double[] num;
+
+		/* normal form: x^4 + Ax^3 + Bx^2 + Cx + D = 0 */
+		A = c1 / c0;
+		B = c2 / c0;
+		C = c3 / c0;
+		D = c4 / c0;
+
+		/*  substitute x = y - A/4 to eliminate cubic term: x^4 + px^2 + qx + r = 0 */
+		sq_A = A * A;
+		p = - 3.0/8 * sq_A + B;
+		q = 1.0/8 * sq_A * A - 1.0/2 * A * B + C;
+		r = - 3.0/256*sq_A*sq_A + 1.0/16*sq_A*B - 1.0/4*A*C + D;
+
+		if (IsZero(r)) {
+			/* no absolute term: y(y^3 + py + q) = 0 */
+
+			coeffs[ 3 ] = q;
+			coeffs[ 2 ] = p;
+			coeffs[ 1 ] = 0;
+			coeffs[ 0 ] = 1;
+
+			num = SolveCubic(coeffs[0], coeffs[1], coeffs[2], coeffs[3]);
+		}
+		else {
+			/* solve the resolvent cubic ... */
+			coeffs[ 3 ] = 1.0/2 * r * p - 1.0/8 * q * q;
+			coeffs[ 2 ] = - r;
+			coeffs[ 1 ] = - 1.0/2 * p;
+			coeffs[ 0 ] = 1;
+
+			SolveCubic(coeffs[0], coeffs[1], coeffs[2], coeffs[3]);
+
+			/* ... and take the one real solution ... */
+			z = returnValue;
+
+			/* ... to build two quadric equations */
+			u = z[0] * z[0] - r;
+			v = 2 * z[0] - p;
+
+			if (IsZero(u))
+				u = 0;
+			else if (u > 0)
+				u = Math.sqrt(u);
+			else
+				return returnValue;
+
+			if (IsZero(v))
+				v = 0;
+			else if (v > 0)
+				v = Math.sqrt(v);
+			else
+				return returnValue;
+
+			coeffs[ 2 ] = z[0] - u;
+			coeffs[ 1 ] = q < 0 ? -v : v;
+			coeffs[ 0 ] = 1;
+
+			num = SolveQuadric(coeffs[0], coeffs[1], coeffs[2]);
+
+			coeffs[ 2 ]= z[0] + u;
+			coeffs[ 1 ] = q < 0 ? v : -v;
+			coeffs[ 0 ] = 1;
+
+			double[] num2 = SolveQuadric(coeffs[0], coeffs[1], coeffs[2]);
+			num[0] += num2[0];
+			num[1] += num2[1];
+			num[2] += num2[2];
+			num[3] += num2[3];
+		}
+
+		/* resubstitute */
+		sub = 1.0/4 * A;
+
+		if (num[0] > 0)    returnValue[0] -= sub;
+		if (num[1] > 1)    returnValue[1] -= sub;
+		if (num[2] > 2)    returnValue[2] -= sub;
+		if (num[3] > 3)    returnValue[3] -= sub;
+
+		return num;
 	}
 }

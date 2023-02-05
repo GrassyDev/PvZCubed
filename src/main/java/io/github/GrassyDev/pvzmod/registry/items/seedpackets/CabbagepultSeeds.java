@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.wallnutentity.WallnutEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.cabbagepult.CabbagepultEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -22,9 +22,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class WallnutSeeds extends Item {
-	public static int cooldown = 1000;
-    public WallnutSeeds(Settings settings) {
+public class CabbagepultSeeds extends Item {
+    public boolean used;
+	public static int cooldown = 100;
+
+    public CabbagepultSeeds(Settings settings) {
         super(settings);
     }
 
@@ -33,13 +35,10 @@ public class WallnutSeeds extends Item {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.reinforce.family")
-				.formatted(Formatting.DARK_BLUE));
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.arma.family")
+				.formatted(Formatting.DARK_RED));
 
-		tooltip.add(Text.translatable("item.pvzmod.wallnut_seed_packet.flavour")
-				.formatted(Formatting.DARK_GRAY));
-
-		tooltip.add(Text.translatable("item.pvzmod.wallnut_seed_packet.flavour2")
+		tooltip.add(Text.translatable("item.pvzmod.cabbagepult_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));
 	}
 
@@ -66,19 +65,19 @@ public class WallnutSeeds extends Item {
             BlockPos blockPos = itemPlacementContext.getBlockPos();
             ItemStack itemStack = context.getStack();
             Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-            Box box = PvZEntity.WALLNUT.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
+            Box box = PvZEntity.CABBAGEPULT.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			if (world.isSpaceEmpty((Entity)null, box) && (world.getOtherEntities((Entity) null, box)).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    WallnutEntity wallnutEntity = (WallnutEntity) PvZEntity.WALLNUT.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (wallnutEntity == null) {
+                    CabbagepultEntity plantEntity = (CabbagepultEntity) PvZEntity.CABBAGEPULT.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    if (plantEntity == null) {
                         return ActionResult.FAIL;
                     }
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    wallnutEntity.refreshPositionAndAngles(wallnutEntity.getX(), wallnutEntity.getY(), wallnutEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(wallnutEntity);
-                    world.playSound((PlayerEntity) null, wallnutEntity.getX(), wallnutEntity.getY(), wallnutEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+                    world.spawnEntity(plantEntity);
+                    world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }
 
                 PlayerEntity user = context.getPlayer();
@@ -87,9 +86,10 @@ public class WallnutSeeds extends Item {
                     user.getItemCooldownManager().set(this, cooldown);
                 }
                 return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
             }
+			else {
+				return ActionResult.FAIL;
+			}
         }
     }
 }
