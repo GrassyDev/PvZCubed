@@ -92,6 +92,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.b
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbage.ShootingCabbageEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
@@ -319,6 +321,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "bombseedling"),
 			QuiltEntityTypeBuilder.<BombSeedlingEntity>create(SpawnGroup.MONSTER, BombSeedlingEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
+	public static final EntityType<SmallNutEntity> SMALLNUT = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "smallnut"),
+			QuiltEntityTypeBuilder.<SmallNutEntity>create(SpawnGroup.MONSTER, SmallNutEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -647,6 +655,9 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntity.createFlamingpeaAttributes());
         EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.SMALLNUT, SmallNutEntity.createSmallnutAttributes());
+		EntityRendererRegistry.register(PvZEntity.SMALLNUT, SmallnutEntityRenderer::new);
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.BUTTONSHROOM, ButtonshroomEntity.createButtonshroomAttributes());
 		EntityRendererRegistry.register(PvZEntity.BUTTONSHROOM, ButtonshroomEntityRenderer::new);

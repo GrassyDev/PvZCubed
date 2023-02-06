@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:plantfood_tough"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:smallnut_seed_packet",
+    "count": 2
+  }
+}
