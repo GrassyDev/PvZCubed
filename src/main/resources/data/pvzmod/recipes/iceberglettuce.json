@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood_tough"
+      "item": "pvzmod:plantfood_cold"
     }
   ],
   "result": {
-    "item": "pvzmod:smallnut_seed_packet",
+    "item": "pvzmod:iceberglettuce_seed_packet",
     "count": 1
   }
 }

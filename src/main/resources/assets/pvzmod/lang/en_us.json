@@ -150,6 +150,11 @@
   "item.pvzmod.perfoomshroom_seed_packet": "⭐ Perfoom-shroom Seed Packet",
   "item.pvzmod.perfoomshroom_seed_packet.flavour": "\"My glamour is enchanting.\"",
 
+  "entity.pvzmod.iceberglettuce": "Iceberg Lettuce",
+  "item.pvzmod.iceberglettuce_seed_packet": "❄ Iceberg Lettuce Seed Packet",
+  "item.pvzmod.iceberglettuce_seed_packet.flavour": "\"FREEZE! Ha, just kidding.",
+  "item.pvzmod.iceberglettuce_seed_packet.flavour2": "Little Iceberg humor there.\"",
+
   "entity.pvzmod.peapod": "Pea Pod",
   "item.pvzmod.peapod_seed_packet": "⭘ Pea Pod Seed Packet",
   "item.pvzmod.peapod_seed_packet.flavour": "Sometimes they squabble, but they usually",
@@ -160,6 +165,26 @@
   "item.pvzmod.firepea_seed_packet.flavour": "\"Is it getting hot in here or is it just me?\"",
   "item.pvzmod.firepea": "Fire Pea",
   "item.pvzmod.plasmapea": "Plasma Pea",
+
+  "entity.pvzmod.smallnut": "Small Nut",
+  "item.pvzmod.smallnut_seed_packet": "⛨ Small Nut Seed Packet",
+  "item.pvzmod.smallnut_seed_packet.flavour": "\"I'm nuts.\"",
+
+  "entity.pvzmod.buttonshroom": "Button-shroom",
+  "item.pvzmod.buttonshroom_seed_packet": "\uD83E\uDDEA Button-shroom Seed Packet",
+  "item.pvzmod.buttonshroom_seed_packet.flavour": "Cute as a button.",
+
+  "entity.pvzmod.bombseedling": "Bomb Seedling",
+  "item.pvzmod.bombseedling_seed_packet": "☄ Bomb Seedling Seed Packet",
+  "item.pvzmod.bombseedling_seed_packet.flavour": "Mind blown.",
+
+  "entity.pvzmod.weeniebeanie": "Weenie Beanie",
+  "item.pvzmod.weeniebeanie_seed_packet": "⭘ Weenie Beanie Seed Packet",
+  "item.pvzmod.weeniebeanie_seed_packet.flavour": "I prefer to be called a \"Little Beanie.\"",
+
+  "entity.pvzmod.sunflowerseed": "Sunflower Seed",
+  "item.pvzmod.sunflowerseed_seed_packet": "☀ Sunflower Seed Seed Packet",
+  "item.pvzmod.sunflowerseed_seed_packet.flavour": "\"Mommy, where do little Sunflowers come from?\"",
 
 
   "itemGroup.pvzmod.zombies": "Zombies",

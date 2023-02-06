@@ -211,8 +211,8 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				snorkelGoal();
 			}
 		}
-		if (this.age >= 2400 && !this.getPuffshroomPermanency()) {
-			this.kill();
+		if (this.age >= 1200 && !this.getPuffshroomPermanency()) {
+			this.discard();
 		}
 	}
 

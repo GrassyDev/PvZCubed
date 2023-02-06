@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:puffshroom_seed_packet"
+      "item": "pvzmod:weeniebeanie_seed_packet"
     }
   ],
   "result": {

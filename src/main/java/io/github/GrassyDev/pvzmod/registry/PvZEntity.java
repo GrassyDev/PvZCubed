@@ -42,6 +42,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.doomshroom.DoomshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.cabbagepult.CabbagepultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.cabbagepult.CabbagepultEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.fumeshroom.FumeshroomEntity;
@@ -94,6 +96,10 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.b
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallnutEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbage.ShootingCabbageEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
@@ -298,6 +304,11 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<PerfoomshroomEntity>create(SpawnGroup.CREATURE, PerfoomshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
+	public static final EntityType<IcebergLettuceEntity> ICEBERGLETTUCE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "iceberglettuce"),
+			QuiltEntityTypeBuilder.<IcebergLettuceEntity>create(SpawnGroup.MONSTER, IcebergLettuceEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
 
 	public static final EntityType<PeapodEntity> PEAPOD = Registry.register((
 					Registry.ENTITY_TYPE),
@@ -311,6 +322,12 @@ public class PvZEntity implements ModInitializer {
             QuiltEntityTypeBuilder.<FlamingpeaEntity>create(SpawnGroup.CREATURE, FlamingpeaEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
 
+	public static final EntityType<SmallNutEntity> SMALLNUT = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "smallnut"),
+			QuiltEntityTypeBuilder.<SmallNutEntity>create(SpawnGroup.MONSTER, SmallNutEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
 	public static final EntityType<ButtonshroomEntity> BUTTONSHROOM = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "buttonshroom"),
@@ -323,11 +340,18 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<BombSeedlingEntity>create(SpawnGroup.MONSTER, BombSeedlingEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
-	public static final EntityType<SmallNutEntity> SMALLNUT = Registry.register(
+	public static final EntityType<WeenieBeanieEntity> WEENIEBEANIE = Registry.register(
 			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "smallnut"),
-			QuiltEntityTypeBuilder.<SmallNutEntity>create(SpawnGroup.MONSTER, SmallNutEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			new Identifier(ModID, "weeniebeanie"),
+			QuiltEntityTypeBuilder.<WeenieBeanieEntity>create(SpawnGroup.MONSTER, WeenieBeanieEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
+
+	public static final EntityType<SunflowerSeedEntity> SUNFLOWERSEED = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "sunflowerseed"),
+			QuiltEntityTypeBuilder.<SunflowerSeedEntity>create(SpawnGroup.MONSTER, SunflowerSeedEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -650,6 +674,9 @@ public class PvZEntity implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(PvZEntity.PERFOOMSHROOM, PerfoomshroomEntity.createPerfoomshroomAttributes());
 		EntityRendererRegistry.register(PvZEntity.PERFOOMSHROOM, PerfoomshroomEntityRenderer::new);
 
+		FabricDefaultAttributeRegistry.register(PvZEntity.ICEBERGLETTUCE, IcebergLettuceEntity.createIcebergLettuceAttributes());
+		EntityRendererRegistry.register(PvZEntity.ICEBERGLETTUCE, IcebergLettuceEntityRenderer::new);
+
 		FabricDefaultAttributeRegistry.register(PvZEntity.PEAPOD, PeapodEntity.createPeapodAttributes());
 		EntityRendererRegistry.register(PvZEntity.PEAPOD, PeapodEntityRenderer::new);
 
@@ -664,6 +691,12 @@ public class PvZEntity implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(PvZEntity.BOMBSEEDLING, BombSeedlingEntity.createBombSeedlingAttributes());
 		EntityRendererRegistry.register(PvZEntity.BOMBSEEDLING, BombSeedlingEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.WEENIEBEANIE, WeenieBeanieEntity.createWeenieBeanieAttributes());
+		EntityRendererRegistry.register(PvZEntity.WEENIEBEANIE, WeenieBeanieEntityRenderer::new);
+
+		FabricDefaultAttributeRegistry.register(PvZEntity.SUNFLOWERSEED, SunflowerSeedEntity.createSunflowerSeedAttributes());
+		EntityRendererRegistry.register(PvZEntity.SUNFLOWERSEED, SunflowerSeedEntityRenderer::new);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,11 +1,10 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.iceshroom;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.doomshroom.DoomshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.WinterEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,23 +41,18 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class IceshroomEntity extends WinterEntity implements IAnimatable {
+public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 
-	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Integer> FUSE_SPEED;
     private static final TrackedData<Boolean> CHARGED;
     private static final TrackedData<Boolean> IGNITED;
-    private int lastFuseTime;
     private int currentFuseTime;
-    private int fuseTime = 30;
+    private int fuseTime = 16;
     private int explosionRadius = 1;
-    public boolean isAsleep;
-    public boolean isTired;
-	private int reapplyTicks;
-	private String controllerName = "icecontroller";
-	private boolean exploded;
+	private String controllerName = "bombcontroller";
 
-	public IceshroomEntity(EntityType<? extends IceshroomEntity> entityType, World world) {
+    public IcebergLettuceEntity(EntityType<? extends IcebergLettuceEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
     }
@@ -68,6 +62,7 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 		this.dataTracker.startTracking(FUSE_SPEED, -1);
 		this.dataTracker.startTracking(CHARGED, false);
 		this.dataTracker.startTracking(IGNITED, false);
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, false);
 	}
 
 	public void writeCustomDataToNbt(NbtCompound nbt) {
@@ -79,6 +74,7 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 		nbt.putShort("Fuse", (short)this.fuseTime);
 		nbt.putByte("ExplosionRadius", (byte)this.explosionRadius);
 		nbt.putBoolean("ignited", this.getIgnited());
+		nbt.putBoolean("Permanent", this.getPuffshroomPermanency());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -95,44 +91,67 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 		if (nbt.getBoolean("ignited")) {
 			this.ignite();
 		}
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, nbt.getBoolean("Permanent"));
 
 	}
 
 	static {
-		FUSE_SPEED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
-		CHARGED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-		IGNITED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		FUSE_SPEED = DataTracker.registerData(IcebergLettuceEntity.class, TrackedDataHandlerRegistry.INTEGER);
+		CHARGED = DataTracker.registerData(IcebergLettuceEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		IGNITED = DataTracker.registerData(IcebergLettuceEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	}
-
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 13) {
-			this.isTired = true;
-		}
-		else if (status == 12) {
-			this.isTired = false;
-		}
 		if (status == 6) {
-			for(int i = 0; i < 1000; ++i) {
-				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
-				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+			for(int i = 0; i < 16; ++i) {
+				double d = this.random.nextDouble() / 6 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 6 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 6 * (this.random.range(-1, 1) * 1.5);
 				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 			}
-			for(int i = 0; i < 1000; ++i) {
-				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
-				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+			for(int i = 0; i < 16; ++i) {
+				double d = this.random.nextDouble() / 6 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 6 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 6 * (this.random.range(-1, 1) * 1.5);
 				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 			}
-			for(int i = 0; i < 1000; ++i) {
-				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
-				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
+			for(int i = 0; i < 16; ++i) {
+				double d = this.random.nextDouble() / 6 * (this.random.range(-1, 1) * 1.5);
+				double e = this.random.nextDouble() / 6 * (this.random.range(0, 1) * 2);
+				double f = this.random.nextDouble() / 6 * (this.random.range(-1, 1) * 1.5);
 				this.world.addParticle(ParticleTypes.ITEM_SNOWBALL, this.getX(), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
 			}
 		}
+	}
+
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(IcebergLettuceEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public enum PuffPermanency {
+		DEFAULT(false),
+		PERMANENT(true);
+
+		PuffPermanency(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	private Boolean getPuffshroomPermanency() {
+		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
+	}
+
+	public void setPuffshroomPermanency(IcebergLettuceEntity.PuffPermanency puffshroomPermanency) {
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, puffshroomPermanency.getId());
 	}
 
 
@@ -152,36 +171,29 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.getFuseSpeed();
-        if (this.isTired){
-            event.getController().setAnimation(new AnimationBuilder().loop("iceshroom.asleep"));
-        }
-        else if (i > 0) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce("iceshroom.explode"));
+        if (i > 0) {
+            event.getController().setAnimation(new AnimationBuilder().playOnce("small.seedling.bomb"));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("iceshroom.idle"));
+            event.getController().setAnimation(new AnimationBuilder().loop("small.idle"));
         }
         return PlayState.CONTINUE;
     }
 
+
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-        int i = this.getFuseSpeed();
-        this.goalSelector.add(2, new IceIgniteGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
-        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-            return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-                    !(livingEntity instanceof HypnoFlagzombieEntity);
-        }));
-    }
+		int i = this.getFuseSpeed();
+		this.goalSelector.add(2, new IcebergIgniteGoal(this));
+		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+					!(livingEntity instanceof HypnoFlagzombieEntity);
+		}));
+	}
 
 	public boolean tryAttack(Entity target) {
 		return true;
-	}
-
-	@Environment(EnvType.CLIENT)
-	public float getClientFuseTime(float timeDelta) {
-		return MathHelper.lerp(timeDelta, (float)this.lastFuseTime, (float)this.currentFuseTime) / (float)(this.fuseTime - 2);
 	}
 
 	public int getFuseSpeed() {
@@ -203,23 +215,25 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 	private void explode() {
 		if (!this.world.isClient) {
 			this.clearStatusEffects();
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 4f,5f, null, Explosion.DestructionType.NONE, false);
+			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 4f,1f, null, Explosion.DestructionType.NONE, false);
 			this.world.sendEntityStatus(this, (byte) 6);
 			Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
 			explosion.setFreeze(true);
 			explosion.collectBlocksAndDamageEntities();
 			explosion.affectWorld(true);
+			this.playSound(PvZCubed.SNOWPEAHITEVENT, 1.25F, 1.25F);
 			this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
 			this.dead = true;
 			this.spawnEffectsCloud();
+			this.clearStatusEffects();
+			this.remove(RemovalReason.KILLED);
 		}
-
 	}
 
 	private void spawnEffectsCloud() {
 		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
 		areaEffectCloudEntity.setParticleType(ParticleTypes.SNOWFLAKE);
-		areaEffectCloudEntity.setRadius(10.5F);
+		areaEffectCloudEntity.setRadius(1.5F);
 		areaEffectCloudEntity.setRadiusOnUse(-0.5F);
 		areaEffectCloudEntity.setWaitTime(1);
 		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 40);
@@ -251,13 +265,13 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+
 	public void tick() {
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.isAlive() && !this.isAsleep) {
-			this.lastFuseTime = this.currentFuseTime;
+		if (this.isAlive()) {
 			if (this.getIgnited()) {
 				this.setFuseSpeed(1);
 			}
@@ -270,47 +284,27 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
-				this.removeStatusEffect(StatusEffects.RESISTANCE);
+				removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
-			if (this.currentFuseTime >= this.fuseTime && !this.exploded) {
+			if (this.currentFuseTime >= this.fuseTime) {
 				this.currentFuseTime = this.fuseTime;
 				this.explode();
-				this.reapplyTicks = 3;
-				this.exploded = true;
-				this.remove(RemovalReason.DISCARDED);
-			}
-			if (--this.reapplyTicks >= 0 && this.exploded) {
-				this.explode();
-				this.playSound(PvZCubed.SNOWPEAHITEVENT, 1F, 1F);
-				this.remove(RemovalReason.DISCARDED);
 			}
 		}
+		if (this.age >= 1200 && !this.getPuffshroomPermanency()) {
+			this.discard();
+		}
 	}
+
 
 	public void tickMovement() {
-		super.tickMovement();
+        super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.clearStatusEffects();
-			this.damage(DamageSource.GENERIC, 9999);
-		}
-	}
-
-	protected void mobTick() {
-		float f = getLightLevelDependentValue();
-		if (f > 0.5f) {
-			isAsleep = true;
-			this.world.sendEntityStatus(this, (byte) 13);
-			this.clearGoalsAndTasks();
-			removeStatusEffect(StatusEffects.RESISTANCE);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 12);
-			isAsleep = false;
-			this.initGoals();
-		}
-		super.mobTick();
-	}
+            this.damage(DamageSource.GENERIC, 9999);
+        }
+    }
 
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
@@ -318,18 +312,18 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.ICESHROOM_SEED_PACKET.getDefaultStack();
+		return ModItems.ICEBERGLETTUCE_SEED_PACKET.getDefaultStack();
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createIceshroomAttributes() {
+	public static DefaultAttributeContainer.Builder createIcebergLettuceAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 5D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4);
     }
 
@@ -347,7 +341,7 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return null	;
 	}
 
 	@Nullable

@@ -1,8 +1,9 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -31,7 +32,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
+public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
@@ -39,7 +40,7 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 
     public int healingTime;
 
-    public ButtonshroomEntity(EntityType<? extends ButtonshroomEntity> entityType, World world) {
+    public WeenieBeanieEntity(EntityType<? extends WeenieBeanieEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.healingTime = 6000;
@@ -66,7 +67,7 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
-			DataTracker.registerData(ButtonshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+			DataTracker.registerData(WeenieBeanieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	public enum PuffPermanency {
 		DEFAULT(false),
@@ -87,7 +88,7 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
 	}
 
-	public void setPuffshroomPermanency(ButtonshroomEntity.PuffPermanency puffshroomPermanency) {
+	public void setPuffshroomPermanency(WeenieBeanieEntity.PuffPermanency puffshroomPermanency) {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, puffshroomPermanency.getId());
 	}
 
@@ -158,14 +159,14 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.BUTTONSHROOM_SEED_PACKET.getDefaultStack();
+		return ModItems.WEENIEBEANIE_SEED_PACKET.getDefaultStack();
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 
-	public static DefaultAttributeContainer.Builder createButtonshroomAttributes() {
+	public static DefaultAttributeContainer.Builder createWeenieBeanieAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
@@ -240,7 +241,7 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
-	public static boolean canButtonshroomSpawn(EntityType<? extends ButtonshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
+	public static boolean canWeenieBeanieSpawn(EntityType<? extends WeenieBeanieEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		return world.getLightLevel(pos) >= 15;
 	}
 }
