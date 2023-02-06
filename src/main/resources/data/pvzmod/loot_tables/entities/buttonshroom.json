@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:buttonshroom_seed_packet",
+          "name": "pvzmod:plantfood_mushroom",
           "functions": [
             {
               "function": "minecraft:set_count",

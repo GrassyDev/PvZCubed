@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:bombseedling_seed_packet",
+          "name": "pvzmod:plantfood_fire",
           "functions": [
             {
               "function": "minecraft:set_count",

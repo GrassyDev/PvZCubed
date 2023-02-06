@@ -19,8 +19,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -87,7 +85,7 @@ public class SmallNutEntity extends ReinforceEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
 	}
 
-	private void setPuffshroomPermanency(SmallNutEntity.PuffPermanency puffshroomPermanency) {
+	public void setPuffshroomPermanency(SmallNutEntity.PuffPermanency puffshroomPermanency) {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, puffshroomPermanency.getId());
 	}
 
@@ -156,19 +154,6 @@ public class SmallNutEntity extends ReinforceEntity implements IAnimatable {
 
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
-
-	public ActionResult interactMob(PlayerEntity player, Hand hand) {
-		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.isOf(ModItems.SMALLSUN) && !this.getPuffshroomPermanency()) {
-			this.setPuffshroomPermanency(SmallNutEntity.PuffPermanency.PERMANENT);
-			if (!player.getAbilities().creativeMode){
-				itemStack.decrement(1);
-			}
-			return ActionResult.SUCCESS;
-		} else {
-			return ActionResult.CONSUME;
-		}
-	}
 
 	@Nullable
 	@Override

@@ -66,6 +66,7 @@ public class LilyPadSeeds extends Item {
 					} else {
 						if (!world.isClient) {
 							world.spawnEntity(lilypadEntity);
+							lilypadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
 							world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 							FluidState fluidState = world.getFluidState(lilypadEntity.getBlockPos().add(0, -0.25, 0));
 							if (fluidState.getFluid() == Fluids.WATER) {

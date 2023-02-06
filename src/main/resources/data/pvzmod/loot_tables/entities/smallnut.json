@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:smallnut_seed_packet",
+          "name": "pvzmod:plantfood_tough",
           "functions": [
             {
               "function": "minecraft:set_count",

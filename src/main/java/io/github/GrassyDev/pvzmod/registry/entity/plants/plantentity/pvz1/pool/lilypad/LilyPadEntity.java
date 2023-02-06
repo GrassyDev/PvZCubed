@@ -76,18 +76,25 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		this.prevZ = z;
 	}
 
+	static {
+	}
+
 	protected void initDataTracker() {
 		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, false);
+		//Hat//
 		this.dataTracker.startTracking(DATA_ID_TYPE_HAT, 0);
 	}
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
+		tag.putBoolean("Permanent", this.getPuffshroomPermanency());
 		//Hat//
 		this.dataTracker.set(DATA_ID_TYPE_HAT, tag.getInt("Hat"));
 	}
 
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Permanent"));
 		//Variant//
 		tag.putInt("Hat", this.getTypeHat());
 	}
@@ -115,6 +122,35 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 
 	private void setHat(LilypadHats hat) {
 		this.dataTracker.set(DATA_ID_TYPE_HAT, hat.getId() & 255);
+	}
+
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(LilyPadEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public enum PuffPermanency {
+		DEFAULT(false),
+		PERMANENT(true);
+
+		PuffPermanency(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	private Boolean getPuffshroomPermanency() {
+		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
+	}
+
+	public void setPuffshroomPermanency(LilyPadEntity.PuffPermanency puffshroomPermanency) {
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, puffshroomPermanency.getId());
 	}
 
 
@@ -217,6 +253,9 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 					kill();
 				}
 			}
+		}
+		if (this.age >= 2400 && !this.getPuffshroomPermanency()) {
+			this.kill();
 		}
     }
 

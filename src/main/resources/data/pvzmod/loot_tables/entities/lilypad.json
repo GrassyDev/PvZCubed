@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:lilypad_seed_packet",
+          "name": "pvzmod:plantfood_aquatic",
           "functions": [
             {
               "function": "minecraft:set_count",

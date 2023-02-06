@@ -78,6 +78,7 @@ public class ButtonshroomSeeds extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     buttonshroomEntity.refreshPositionAndAngles(buttonshroomEntity.getX(), buttonshroomEntity.getY(), buttonshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(buttonshroomEntity);
+					buttonshroomEntity.setPuffshroomPermanency(ButtonshroomEntity.PuffPermanency.PERMANENT);
                     world.playSound((PlayerEntity) null, buttonshroomEntity.getX(), buttonshroomEntity.getY(), buttonshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }
 

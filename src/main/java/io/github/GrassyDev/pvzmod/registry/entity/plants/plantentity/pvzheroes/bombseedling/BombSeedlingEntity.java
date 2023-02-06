@@ -27,8 +27,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
@@ -140,7 +138,7 @@ public class BombSeedlingEntity extends BombardEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
 	}
 
-	private void setPuffshroomPermanency(BombSeedlingEntity.PuffPermanency puffshroomPermanency) {
+	public void setPuffshroomPermanency(BombSeedlingEntity.PuffPermanency puffshroomPermanency) {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, puffshroomPermanency.getId());
 	}
 
@@ -310,19 +308,6 @@ public class BombSeedlingEntity extends BombardEntity implements IAnimatable {
 
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
-
-	public ActionResult interactMob(PlayerEntity player, Hand hand) {
-		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.isOf(ModItems.SMALLSUN) && !this.getPuffshroomPermanency()) {
-			this.setPuffshroomPermanency(BombSeedlingEntity.PuffPermanency.PERMANENT);
-			if (!player.getAbilities().creativeMode){
-				itemStack.decrement(1);
-			}
-			return ActionResult.SUCCESS;
-		} else {
-			return ActionResult.CONSUME;
-		}
-	}
 
 	@Nullable
 	@Override
