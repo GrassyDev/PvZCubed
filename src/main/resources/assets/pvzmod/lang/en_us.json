@@ -166,8 +166,8 @@
   "item.pvzmod.firepea": "Fire Pea",
   "item.pvzmod.plasmapea": "Plasma Pea",
 
-  "entity.pvzmod.smallnut": "Small Nut",
-  "item.pvzmod.smallnut_seed_packet": "⛨ Small Nut Seed Packet",
+  "entity.pvzmod.smallnut": "Small-nut",
+  "item.pvzmod.smallnut_seed_packet": "⛨ Small-nut Seed Packet",
   "item.pvzmod.smallnut_seed_packet.flavour": "\"I'm nuts.\"",
 
   "entity.pvzmod.buttonshroom": "Button-shroom",
