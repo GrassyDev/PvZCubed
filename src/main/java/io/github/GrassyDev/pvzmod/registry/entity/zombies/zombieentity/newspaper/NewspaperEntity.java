@@ -59,6 +59,8 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	public boolean speedSwitch;
 	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 	public static final UUID MAX_STRENGTH_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
+	boolean isFrozen;
+	boolean isIced;
 
 	public NewspaperEntity(EntityType<? extends NewspaperEntity> entityType, World world) {
         super(entityType, world);
@@ -80,6 +82,18 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status == 70) {
+			this.isFrozen = true;
+			this.isIced = false;
+		}
+		else if (status == 71) {
+			this.isIced = true;
+			this.isFrozen = false;
+		}
+		else if (status == 72) {
+			this.isIced = false;
+			this.isFrozen = false;
+		}
 		if (status == 30) {
 			this.speedUp = true;
 		}
@@ -108,21 +122,57 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		if (vehicle instanceof DuckyTubeEntity) {
 			if (this.speedUp) {
 				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky.angry"));
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky"));
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				if (this.speedUp) {
 					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.angry"));
-					event.getController().setAnimationSpeed(2);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(1);
+					}
+					else {
+						event.getController().setAnimationSpeed(2);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
-					event.getController().setAnimationSpeed(0.75);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.375);
+					}
+					else {
+						event.getController().setAnimationSpeed(0.75);
+					}
 				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
-				event.getController().setAnimationSpeed(1);
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				}
+				else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}
         return PlayState.CONTINUE;
@@ -169,6 +219,15 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	public void mobTick() {
 		super.mobTick();
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.world.sendEntityStatus(this, (byte) 70);
+		}
+		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 72);
+		}
 		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 		EntityAttributeInstance maxStrengthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 		if (this.getTarget() != null && this.getHealth() <= 50){

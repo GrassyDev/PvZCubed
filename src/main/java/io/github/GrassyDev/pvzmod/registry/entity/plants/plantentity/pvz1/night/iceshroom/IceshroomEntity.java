@@ -6,7 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.doomshroom.DoomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.WinterEntity;
-import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -28,10 +27,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -41,6 +42,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class IceshroomEntity extends WinterEntity implements IAnimatable {
 
@@ -54,9 +58,7 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
     private int explosionRadius = 1;
     public boolean isAsleep;
     public boolean isTired;
-	private int reapplyTicks;
 	private String controllerName = "icecontroller";
-	private boolean exploded;
 
 	public IceshroomEntity(EntityType<? extends IceshroomEntity> entityType, World world) {
         super(entityType, world);
@@ -200,20 +202,49 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 		this.dataTracker.set(IGNITED, true);
 	}
 
-	private void explode() {
-		if (!this.world.isClient) {
-			this.clearStatusEffects();
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 4f,5f, null, Explosion.DestructionType.NONE, false);
-			this.world.sendEntityStatus(this, (byte) 6);
-			Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
-			explosion.setFreeze(true);
-			explosion.collectBlocksAndDamageEntities();
-			explosion.affectWorld(true);
-			this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-			this.dead = true;
-			this.spawnEffectsCloud();
-		}
+	private void raycastExplode() {
+		Vec3d vec3d = this.getPos();
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(10));
+		Iterator var9 = list.iterator();
+		while (true) {
+			LivingEntity livingEntity;
+			do {
+				do {
+					if (!var9.hasNext()) {
+						return;
+					}
 
+					livingEntity = (LivingEntity) var9.next();
+				} while (livingEntity == this);
+			} while (this.squaredDistanceTo(livingEntity) > 81);
+
+			boolean bl = false;
+
+			for (int i = 0; i < 2; ++i) {
+				Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+				HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+				if (hitResult.getType() == HitResult.Type.MISS) {
+					bl = true;
+					break;
+				}
+			}
+
+			if (bl) {
+				if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+						!(livingEntity instanceof HypnoFlagzombieEntity)) {
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
+					livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+					livingEntity.removeStatusEffect(PvZCubed.ICE);
+					if (livingEntity.hasStatusEffect(PvZCubed.WARM) || livingEntity.isOnFire()) {
+						livingEntity.removeStatusEffect(PvZCubed.WARM);
+						livingEntity.extinguish();
+					}
+					livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+					livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+					livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+				}
+			}
+		}
 	}
 
 	private void spawnEffectsCloud() {
@@ -273,16 +304,13 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 				this.removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
-			if (this.currentFuseTime >= this.fuseTime && !this.exploded) {
+			if (this.currentFuseTime >= this.fuseTime) {
 				this.currentFuseTime = this.fuseTime;
-				this.explode();
-				this.reapplyTicks = 3;
-				this.exploded = true;
-				this.remove(RemovalReason.DISCARDED);
-			}
-			if (--this.reapplyTicks >= 0 && this.exploded) {
-				this.explode();
+				this.raycastExplode();
+				this.world.sendEntityStatus(this, (byte) 6);
 				this.playSound(PvZCubed.SNOWPEAHITEVENT, 1F, 1F);
+				this.spawnEffectsCloud();
+				this.dead = true;
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}

@@ -5,7 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
-import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -33,11 +33,13 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -50,6 +52,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public class PotatomineEntity extends BombardEntity implements IAnimatable {
 	private String controllerName = "potatocontroller";
@@ -123,7 +126,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 	public void handleStatus(byte status) {
 		RandomGenerator randomGenerator = this.getRandom();
 		ItemStack itemStack = Items.POTATO.getDefaultStack();
-		if (status == 3) {
+		if (status == 80) {
 			for(int i = 0; i < 96; ++i) {
 				double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
@@ -133,8 +136,6 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d * -1, e, f);
 				this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack), this.getX(), this.getY(), this.getZ(), d, e, f * -1);
 			}
-		}
-		if (status == 6) {
 			for(int i = 0; i < 8; ++i) {
 				double d = this.random.nextDouble() / 2 * this.random.range(-1, 1) * 0.33;
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
@@ -254,22 +255,40 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		this.dataTracker.set(IGNITED, true);
 	}
 
-	private void explode() {
-		if (!this.world.isClient) {
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 180, 1.25f, null, Explosion.DestructionType.NONE, false);
-			this.world.sendEntityStatus(this, (byte) 3);
-			this.world.sendEntityStatus(this, (byte) 6);
-			this.removeStatusEffect(StatusEffects.RESISTANCE);
-			explosion.collectBlocksAndDamageEntities();
-			explosion.affectWorld(true);
-			Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
-			this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-			this.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 1F, 1F);
-			this.dead = true;
-			this.remove(RemovalReason.KILLED);
-			this.spawnEffectsCloud();
-		}
+	private void raycastExplode() {
+		Vec3d vec3d = this.getPos();
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(2.5));
+		Iterator var9 = list.iterator();
+		while (true) {
+			LivingEntity livingEntity;
+			do {
+				do {
+					if (!var9.hasNext()) {
+						return;
+					}
 
+					livingEntity = (LivingEntity) var9.next();
+				} while (livingEntity == this);
+			} while (this.squaredDistanceTo(livingEntity) > 6.25);
+
+			boolean bl = false;
+
+			for (int i = 0; i < 2; ++i) {
+				Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+				HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+				if (hitResult.getType() == HitResult.Type.MISS) {
+					bl = true;
+					break;
+				}
+			}
+
+			if (bl) {
+				if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+						!(livingEntity instanceof HypnoFlagzombieEntity)) {
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), 180);
+				}
+			}
+		}
 	}
 
 	private void spawnEffectsCloud() {
@@ -357,7 +376,13 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 
 			if (this.currentFuseTime >= this.fuseTime) {
 				this.currentFuseTime = this.fuseTime;
-				this.explode();
+				this.raycastExplode();
+				this.removeStatusEffect(StatusEffects.RESISTANCE);
+				this.world.sendEntityStatus(this, (byte) 80);
+				this.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 1F, 1F);
+				this.spawnEffectsCloud();
+				this.dead = true;
+				this.remove(RemovalReason.DISCARDED);
 			}
 		}
 		if (this.getTarget() instanceof Entity && this.getPotatoStage()){
@@ -459,9 +484,38 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 			this.clearStatusEffects();
 			return this.damage(DamageSource.player(playerEntity), 9999.0F);
 		}
+		else if (this.getPotatoStage()) {
+			this.raycastExplode();
+			this.removeStatusEffect(StatusEffects.RESISTANCE);
+			this.world.sendEntityStatus(this, (byte) 80);
+			this.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 1F, 1F);
+			this.spawnEffectsCloud();
+			this.dead = true;
+			this.remove(RemovalReason.DISCARDED);
+			return true;
+		}
 		else {
-			this.explode();
 			return false;
+		}
+	}
+
+	@Override
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		LivingEntity attacker = (LivingEntity) source.getAttacker();
+		if (attacker instanceof GargantuarEntity && this.getPotatoStage() && attacker.isAlive()){
+			attacker.damage(DamageSource.thrownProjectile(this, this), 180);
+		}
+		if (this.getPotatoStage()) {
+			if (!(attacker instanceof PlayerEntity)) {
+				this.raycastExplode();
+				this.removeStatusEffect(StatusEffects.RESISTANCE);
+				this.world.sendEntityStatus(this, (byte) 80);
+				this.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 1F, 1F);
+				this.spawnEffectsCloud();
+				this.dead = true;
+				this.remove(RemovalReason.DISCARDED);
+			}
 		}
 	}
 

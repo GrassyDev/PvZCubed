@@ -5,7 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
-import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -27,10 +27,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -40,6 +42,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 
@@ -212,21 +217,48 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 		this.dataTracker.set(IGNITED, true);
 	}
 
-	private void explode() {
-		if (!this.world.isClient) {
-			this.clearStatusEffects();
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 4f,1f, null, Explosion.DestructionType.NONE, false);
-			this.world.sendEntityStatus(this, (byte) 6);
-			Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
-			explosion.setFreeze(true);
-			explosion.collectBlocksAndDamageEntities();
-			explosion.affectWorld(true);
-			this.playSound(PvZCubed.SNOWPEAHITEVENT, 1.25F, 1.25F);
-			this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-			this.dead = true;
-			this.spawnEffectsCloud();
-			this.clearStatusEffects();
-			this.remove(RemovalReason.KILLED);
+	private void raycastExplode() {
+		Vec3d vec3d = this.getPos();
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(2));
+		Iterator var9 = list.iterator();
+		while (true) {
+			LivingEntity livingEntity;
+			do {
+				do {
+					if (!var9.hasNext()) {
+						return;
+					}
+
+					livingEntity = (LivingEntity) var9.next();
+				} while (livingEntity == this);
+			} while (this.squaredDistanceTo(livingEntity) > 4);
+
+			boolean bl = false;
+
+			for (int i = 0; i < 2; ++i) {
+				Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+				HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+				if (hitResult.getType() == HitResult.Type.MISS) {
+					bl = true;
+					break;
+				}
+			}
+
+			if (bl) {
+				if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+						!(livingEntity instanceof HypnoFlagzombieEntity)) {
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
+					livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+					livingEntity.removeStatusEffect(PvZCubed.ICE);
+					if (livingEntity.hasStatusEffect(PvZCubed.WARM) || livingEntity.isOnFire()) {
+						livingEntity.removeStatusEffect(PvZCubed.WARM);
+						livingEntity.extinguish();
+					}
+					livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+					livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+					livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+				}
+			}
 		}
 	}
 
@@ -289,7 +321,12 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 
 			if (this.currentFuseTime >= this.fuseTime) {
 				this.currentFuseTime = this.fuseTime;
-				this.explode();
+				this.raycastExplode();
+				this.world.sendEntityStatus(this, (byte) 6);
+				this.playSound(PvZCubed.ICEBERGEXPLOSIONEVENT, 1F, 1F);
+				this.spawnEffectsCloud();
+				this.dead = true;
+				this.remove(RemovalReason.DISCARDED);
 			}
 		}
 		if (this.age >= 1200 && !this.getPuffshroomPermanency()) {
@@ -378,8 +415,43 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 			PlayerEntity playerEntity = (PlayerEntity) attacker;
 			this.clearStatusEffects();
 			return this.damage(DamageSource.player(playerEntity), 9999.0F);
-		} else {
-			return false;
+		}
+		else {
+			this.raycastExplode();
+			this.removeStatusEffect(StatusEffects.RESISTANCE);
+			this.world.sendEntityStatus(this, (byte) 6);
+			this.playSound(PvZCubed.ICEBERGEXPLOSIONEVENT, 1F, 1F);
+			this.spawnEffectsCloud();
+			this.dead = true;
+			this.remove(RemovalReason.DISCARDED);
+			return true;
+		}
+	}
+
+	@Override
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		LivingEntity attacker = (LivingEntity) source.getAttacker();
+		if (attacker instanceof GargantuarEntity && attacker.isAlive()){
+			attacker.damage(DamageSource.thrownProjectile(this, this), 4);
+			attacker.removeStatusEffect(PvZCubed.FROZEN);
+			attacker.removeStatusEffect(PvZCubed.ICE);
+			if (attacker.hasStatusEffect(PvZCubed.WARM) || attacker.isOnFire()) {
+				attacker.removeStatusEffect(PvZCubed.WARM);
+				attacker.extinguish();
+			}
+			attacker.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+			attacker.removeStatusEffect(PvZCubed.FROZEN);
+			attacker.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+		}
+		if (!(attacker instanceof PlayerEntity)) {
+			this.raycastExplode();
+			this.removeStatusEffect(StatusEffects.RESISTANCE);
+			this.world.sendEntityStatus(this, (byte) 80);
+			this.playSound(PvZCubed.ICEBERGEXPLOSIONEVENT, 1F, 1F);
+			this.spawnEffectsCloud();
+			this.dead = true;
+			this.remove(RemovalReason.DISCARDED);
 		}
 	}
 

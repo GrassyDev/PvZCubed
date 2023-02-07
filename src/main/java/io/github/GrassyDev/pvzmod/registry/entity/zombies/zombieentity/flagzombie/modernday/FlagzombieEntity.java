@@ -61,6 +61,8 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     double tonguechance = this.random.nextDouble();
+	boolean isFrozen;
+	boolean isIced;
 
     public FlagzombieEntity(EntityType<? extends FlagzombieEntity> entityType, World world) {
         super(entityType, world);
@@ -142,22 +144,60 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 		Entity vehicle = this.getVehicle();
 		if (vehicle instanceof DuckyTubeEntity) {
 			event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.ducky"));
+			if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
+			}
 		}else {
 			if (tonguechance <= 0.5) {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
-					event.getController().setAnimationSpeed(1.66);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.83);
+					}
+					else {
+						event.getController().setAnimationSpeed(1.66);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
-					event.getController().setAnimationSpeed(1);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			} else {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking2"));
-					event.getController().setAnimationSpeed(1.66);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.83);
+					}
+					else {
+						event.getController().setAnimationSpeed(1.66);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle2"));
-					event.getController().setAnimationSpeed(1);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			}
 		}
@@ -200,6 +240,22 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
     }
+
+
+	/** /~*~//~*TICKING*~//~*~/ **/
+
+	protected void mobTick() {
+		super.mobTick();
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.world.sendEntityStatus(this, (byte) 70);
+		}
+		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 72);
+		}
+	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/

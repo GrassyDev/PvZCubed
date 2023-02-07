@@ -5,7 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
-import io.github.GrassyDev.pvzmod.registry.world.explosions.PvZExplosion;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -28,9 +27,12 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -41,6 +43,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 
@@ -250,19 +255,39 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 		this.dataTracker.set(IGNITED, true);
 	}
 
-	private void explode() {
-		if (!this.world.isClient && !this.isAsleep) {
-			this.clearStatusEffects();
-			PvZExplosion explosion = new PvZExplosion(world, this, this.getX(), this.getY(), this.getZ(), 180f, 5f, null, PvZExplosion.DestructionType.NONE, false);
-			this.world.sendEntityStatus(this, (byte) 6);
-			PvZExplosion.DestructionType destructionType = PvZExplosion.DestructionType.NONE;
-			explosion.collectBlocksAndDamageEntities();
-			explosion.affectWorld(true);
-			this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, destructionType);
-			this.playSound(PvZCubed.DOOMSHROOMEXPLOSIONEVENT, 1F, 1F);
-			this.dead = true;
-			this.spawnEffectsCloud();
-			this.remove(RemovalReason.KILLED);
+	private void raycastExplode() {
+		Vec3d vec3d = this.getPos();
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(10));
+		Iterator var9 = list.iterator();
+		while (true) {
+			LivingEntity livingEntity;
+			do {
+				do {
+					if (!var9.hasNext()) {
+						return;
+					}
+
+					livingEntity = (LivingEntity) var9.next();
+				} while (livingEntity == this);
+			} while (this.squaredDistanceTo(livingEntity) > 81);
+
+			boolean bl = false;
+
+			for (int i = 0; i < 2; ++i) {
+				Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+				HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+				if (hitResult.getType() == HitResult.Type.MISS) {
+					bl = true;
+					break;
+				}
+			}
+
+			if (bl) {
+				if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
+						!(livingEntity instanceof HypnoFlagzombieEntity)) {
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), 180);
+				}
+			}
 		}
 	}
 
@@ -335,7 +360,12 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 
 			if (this.currentFuseTime >= this.fuseTime) {
 				this.currentFuseTime = this.fuseTime;
-				this.explode();
+				this.raycastExplode();
+				this.world.sendEntityStatus(this, (byte) 6);
+				this.playSound(PvZCubed.DOOMSHROOMEXPLOSIONEVENT, 1F, 1F);
+				this.spawnEffectsCloud();
+				this.dead = true;
+				this.remove(RemovalReason.DISCARDED);
 			}
 		}
 	}

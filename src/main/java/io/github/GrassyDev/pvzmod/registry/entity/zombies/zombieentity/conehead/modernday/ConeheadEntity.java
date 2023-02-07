@@ -10,6 +10,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -45,6 +47,8 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
     double tonguechance = this.random.nextDouble();
+	boolean isFrozen;
+	boolean isIced;
 
     public ConeheadEntity(EntityType<? extends ConeheadEntity> entityType, World world) {
         super(entityType, world);
@@ -61,6 +65,22 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 
 	static {
 
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 70) {
+			this.isFrozen = true;
+			this.isIced = false;
+		}
+		else if (status == 71) {
+			this.isIced = true;
+			this.isFrozen = false;
+		}
+		else if (status == 72) {
+			this.isIced = false;
+			this.isFrozen = false;
+		}
 	}
 
 
@@ -82,29 +102,66 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 		Entity vehicle = this.getVehicle();
 		if (vehicle instanceof DuckyTubeEntity) {
 			event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
-			event.getController().setAnimationSpeed(1);
+			if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
+			}
 		}else {
 			if (tonguechance <= 0.5) {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
-					event.getController().setAnimationSpeed(1.66);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
-					event.getController().setAnimationSpeed(1);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			}
 			else {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
-					event.getController().setAnimationSpeed(1.66);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.83);
+					}
+					else {
+						event.getController().setAnimationSpeed(1.66);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
-					event.getController().setAnimationSpeed(1);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			}
 		}
-        return PlayState.CONTINUE;
-    }
+		return PlayState.CONTINUE;
+	}
 
     public ConeheadEntity(World world) {
         this(PvZEntity.CONEHEAD, world);
@@ -146,6 +203,22 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
     }
+
+
+	/** /~*~//~*TICKING*~//~*~/ **/
+
+	protected void mobTick() {
+		super.mobTick();
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.world.sendEntityStatus(this, (byte) 70);
+		}
+		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 72);
+		}
+	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/

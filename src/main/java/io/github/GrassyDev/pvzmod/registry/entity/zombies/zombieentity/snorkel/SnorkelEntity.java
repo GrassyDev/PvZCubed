@@ -53,6 +53,8 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
 	public boolean invisSnorkel;
+	boolean isFrozen;
+	boolean isIced;
 
     public SnorkelEntity(EntityType<? extends SnorkelEntity> entityType, World world) {
         super(entityType, world);
@@ -113,6 +115,18 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		else if (status == 65) {
 			this.invisSnorkel = false;
 		}
+		if (status == 70) {
+			this.isFrozen = true;
+			this.isIced = false;
+		}
+		else if (status == 71) {
+			this.isIced = true;
+			this.isFrozen = false;
+		}
+		else if (status == 72) {
+			this.isIced = false;
+			this.isFrozen = false;
+		}
 	}
 
 
@@ -135,19 +149,45 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		if (vehicle instanceof DuckyTubeEntity) {
 			if (invisSnorkel){
 				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.ducky"));
-				event.getController().setAnimationSpeed(1);
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 			else {
 				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.duckyattack"));
-				event.getController().setAnimationSpeed(1);
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.walking"));
-				event.getController().setAnimationSpeed(1);
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				}
+				else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.idle"));
-				event.getController().setAnimationSpeed(1);
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				}
+				else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}
 		return PlayState.CONTINUE;
@@ -227,6 +267,22 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
     }
+
+
+	/** /~*~//~*TICKING*~//~*~/ **/
+
+	protected void mobTick() {
+		super.mobTick();
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.world.sendEntityStatus(this, (byte) 70);
+		}
+		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 72);
+		}
+	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/

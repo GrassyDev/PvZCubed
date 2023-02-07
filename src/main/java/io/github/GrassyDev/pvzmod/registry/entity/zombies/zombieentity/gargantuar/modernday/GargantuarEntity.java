@@ -58,6 +58,8 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public boolean inLaunchAnimation;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	boolean isFrozen;
+	boolean isIced;
 
 	public GargantuarEntity(EntityType<? extends GargantuarEntity> entityType, World world) {
         super(entityType, world);
@@ -94,6 +96,18 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status == 70) {
+			this.isFrozen = true;
+			this.isIced = false;
+		}
+		else if (status == 71) {
+			this.isIced = true;
+			this.isFrozen = false;
+		}
+		else if (status == 72) {
+			this.isIced = false;
+			this.isFrozen = false;
+		}
 		RandomGenerator randomGenerator = this.getRandom();
 		if (status == 7) {
 			Entity target = this.getTarget();
@@ -170,42 +184,147 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		if (vehicle instanceof DuckyTubeEntity) {
 			if (inLaunchAnimation) {
 				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			} else if (this.getImpStage()) {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
+					if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.walk"));
+					if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky"));
+					if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			} else {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2"));
+					if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.walk2"));
+					if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2"));
+					if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			}
 		}
 		else {
 			if (inLaunchAnimation) {
 				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				}
+				else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			} else if (this.getImpStage()) {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			} else {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			}
 		}
@@ -302,6 +421,15 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public void mobTick() {
 		super.mobTick();
 		Entity vehicle = this.getVehicle();
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.world.sendEntityStatus(this, (byte) 70);
+		}
+		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 72);
+		}
 		if (this.animationTicksLeft <= 0){
 			if (this.getHealth() <= 360 && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
 				this.launchAnimation = 50;

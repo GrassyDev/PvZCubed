@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.ch
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.doomshroom.DoomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.cabbagepult.CabbagepultEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.fumeshroom.FumeshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.hypnoshroom.HypnoshroomEntity;
@@ -28,6 +29,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.wa
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -52,7 +55,6 @@ import net.minecraft.world.World;
 public abstract class PlantEntity extends GolemEntity {
 
 	public boolean onWater;
-	private float volume = 0.6f;
 
 	protected PlantEntity(EntityType<? extends GolemEntity> entityType, World world) {
 		super(entityType, world);
@@ -88,6 +90,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 		if (this.getPassengerList().isEmpty()) {
 			/**PEASHOOTER**/
+			float volume = 0.6f;
 			if (itemStack.isOf(ModItems.PEASHOOTER_SEED_PACKET) && !itemCooldown) {
 				if (world instanceof ServerWorld) {
 					ServerWorld serverWorld = (ServerWorld) world;
@@ -505,6 +508,28 @@ public abstract class PlantEntity extends GolemEntity {
 				return ActionResult.SUCCESS;
 			}
 
+			/**ICEBERG LETTUCE**/
+			if (itemStack.isOf(ModItems.ICEBERGLETTUCE_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					IcebergLettuceEntity plantEntity = (IcebergLettuceEntity) PvZEntity.ICEBERGLETTUCE.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+					plantEntity.startRiding(this, true);
+					world.spawnEntity(plantEntity);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.ICEBERGLETTUCE_SEED_PACKET, IcebergLettuceSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
 			/**PEAPOD**/
 			if (itemStack.isOf(ModItems.PEAPOD_SEED_PACKET) && !itemCooldown) {
 				if (world instanceof ServerWorld) {
@@ -611,6 +636,50 @@ public abstract class PlantEntity extends GolemEntity {
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
 					player.getItemCooldownManager().set(ModItems.BOMBSEEDLING_SEED_PACKET, BombSeedlingSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**WEENIE BEANIE**/
+			if (itemStack.isOf(ModItems.WEENIEBEANIE_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					WeenieBeanieEntity plantEntity = (WeenieBeanieEntity) PvZEntity.WEENIEBEANIE.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+					plantEntity.startRiding(this, true);
+					world.spawnEntity(plantEntity);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.WEENIEBEANIE_SEED_PACKET, WeenieBeanieSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**SUNFLOWER SEED**/
+			if (itemStack.isOf(ModItems.SUNFLOWER_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					SunflowerSeedEntity plantEntity = (SunflowerSeedEntity) PvZEntity.SUNFLOWERSEED.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+					plantEntity.startRiding(this, true);
+					world.spawnEntity(plantEntity);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.SUNFLOWERSEED_SEED_PACKET, SunflowerSeedSeeds.cooldown);
 				}
 				return ActionResult.SUCCESS;
 			} else {

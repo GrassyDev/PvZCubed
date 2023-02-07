@@ -53,6 +53,8 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
     private boolean isAggro;
     private boolean dancing;
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	boolean isFrozen;
+	boolean isIced;
 
     public DancingZombieEntity(EntityType<? extends DancingZombieEntity> entityType, World world) {
         super(entityType, world);
@@ -80,6 +82,18 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		else if (status == 12) {
 			this.dancing = false;
 		}
+		if (status == 70) {
+			this.isFrozen = true;
+			this.isIced = false;
+		}
+		else if (status == 71) {
+			this.isIced = true;
+			this.isFrozen = false;
+		}
+		else if (status == 72) {
+			this.isIced = false;
+			this.isFrozen = false;
+		}
 	}
 
 
@@ -101,14 +115,47 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		Entity vehicle = this.getVehicle();
 		if (vehicle instanceof DuckyTubeEntity) {
 			event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.ducky"));
+			if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
+			}
 		}else {
 			if (!this.dancing) {
 				event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.moonwalking"));
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				}
+				else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			} else {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancewalk"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancing"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			}
 		}
@@ -161,6 +208,15 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		}
 		else {
 			this.world.sendEntityStatus(this, (byte) 12);
+		}
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.world.sendEntityStatus(this, (byte) 70);
+		}
+		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 72);
 		}
 		super.mobTick();
 	}

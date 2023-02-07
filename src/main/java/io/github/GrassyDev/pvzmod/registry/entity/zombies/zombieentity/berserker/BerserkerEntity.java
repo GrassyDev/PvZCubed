@@ -10,6 +10,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -49,7 +51,8 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
 	private MobEntity owner;
     private int attackTicksLeft;
     public boolean firstAttack;
-    public boolean tackle;
+	boolean isFrozen;
+	boolean isIced;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
@@ -85,6 +88,22 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
 
 	static {
 
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 70) {
+			this.isFrozen = true;
+			this.isIced = false;
+		}
+		else if (status == 71) {
+			this.isIced = true;
+			this.isFrozen = false;
+		}
+		else if (status == 72) {
+			this.isIced = false;
+			this.isFrozen = false;
+		}
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
@@ -241,6 +260,19 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
 		super.tickMovement();
 		if (this.attackTicksLeft > 0) {
 			--this.attackTicksLeft;
+		}
+	}
+
+	protected void mobTick() {
+		super.mobTick();
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.world.sendEntityStatus(this, (byte) 70);
+		}
+		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 72);
 		}
 	}
 

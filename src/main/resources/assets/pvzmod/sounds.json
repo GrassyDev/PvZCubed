@@ -74,6 +74,11 @@
       "pvzmod:doomshroom_explosion"
     ]
   },
+  "iceberg.explosion": {
+    "sounds": [
+      "pvzmod:iceberg_explosion"
+    ]
+  },
   "squash.hm": {
     "sounds": [
       "pvzmod:squash_hm"

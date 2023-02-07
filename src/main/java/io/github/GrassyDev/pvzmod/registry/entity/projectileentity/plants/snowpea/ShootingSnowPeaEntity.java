@@ -155,7 +155,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
         }
         else if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM)){
+			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 			}
             float sound = this.random.nextFloat();

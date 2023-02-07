@@ -142,7 +142,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
         Entity entity = entityHitResult.getEntity();
 		if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
 				!(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM)){
+			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 			}
 			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.25F, 1F);
@@ -185,7 +185,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 5.2F);
 						}
 						else  {
-							if (!livingEntity.hasStatusEffect(PvZCubed.WARM)){
+							if (!livingEntity.hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 								livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 							}
 							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
