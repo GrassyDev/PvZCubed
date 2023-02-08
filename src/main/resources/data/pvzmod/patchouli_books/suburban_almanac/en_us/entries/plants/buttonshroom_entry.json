@@ -1,0 +1,36 @@
+{
+  "name": "Button-shroom",
+  "icon": "pvzmod:buttonshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 301,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Spawns rarely during the day. Drops Mushroom Plant Food",
+        "$(br2)$(#bd951a)Everyone's always telling her, \"You're cute as a button!\" But she's not just cute. She's smart and funny too."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/buttonshroom.png"
+      ],
+      "title": "\uD83E\uDDEA Ailment Family",
+      "border": "true",
+      "text": "$(#25228d)Their Mushroom Plant Food make fungus."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:buttonshroom"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Button Mushroom"
+      ]
+    }
+  ]
+}

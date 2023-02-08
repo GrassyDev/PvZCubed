@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "The first day on the zombie apocalypse is really important.",
-        "$(br2)Your objective is to find Puff-shrooms on the surface and punch them. When they die, they drop Plant Food.",
+        "$(br2)Your objective is to find plants on the surface and punch them. When they die, they drop Plant Food.",
         "$(br)After finding x2 Plant Food, craft a Sunflower."
         ]
     },

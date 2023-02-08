@@ -16,7 +16,9 @@
       "type": "relations",
       "entries": [
         "pvzmod:plants/sunflower_entry",
-        "pvzmod:plants/sunshroom_entry"
+        "pvzmod:plants/sunshroom_entry",
+        "pvzmod:plants/twinsunflower_entry",
+        "pvzmod:plants/sunflowerseed_entry"
       ],
       "title": "☀ Enlighten Plants:"
     }

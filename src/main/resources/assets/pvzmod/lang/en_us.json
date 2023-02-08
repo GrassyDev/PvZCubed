@@ -135,6 +135,7 @@
   "entity.pvzmod.cabbagepult": "Cabbage-ult",
   "item.pvzmod.cabbagepult_seed_packet": "\uD83C\uDFF9 Cabbage-pult Seed Packet",
   "item.pvzmod.cabbagepult_seed_packet.flavour": "\"Coleslaw from above!\"",
+  "item.pvzmod.cabbage": "Cabbage",
 
   "entity.pvzmod.gatlingpea": "Gatling Pea",
   "item.pvzmod.gatlingpea_seed_packet": "⭘ Gatling Pea Seed Packet",
@@ -195,6 +196,7 @@
   "item.pvzmod.bellflower_seed_packet": "✂ Bellflower Seed Packet",
   "item.pvzmod.bellflower_seed_packet.flavour": "\"Jingle bells, jingle flowers",
   "item.pvzmod.bellflower_seed_packet.flavour2": "Jingle all the zombies.\"",
+  "item.pvzmod.jingle": "Jingle",
 
 
   "itemGroup.pvzmod.zombies": "Zombies",
@@ -279,6 +281,8 @@
   "block.pvzmod.dark_roof_tile": "Dark Roof Tile",
   "block.pvzmod.upgrade_tile": "Upgrade Tile",
   "block.pvzmod.premium_tile": "Premium Tile",
+  "block.pvzmod.egypt_tile": "Egypt Tile",
+  "block.pvzmod.dark_egypt_tile": "Dark Egypt Tile",
   "block.pvzmod.pirate_tile": "Pirate Tile",
   "block.pvzmod.dark_pirate_tile": "Dark Pirate Tile",
   "block.pvzmod.west_tile": "West Tile",

@@ -1,0 +1,36 @@
+{
+  "name": "Weenie Beanie",
+  "icon": "pvzmod:weeniebeanie_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 304,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Spawns commonly during the day. Drops Plant Food.",
+        "$(br2)$(#bd951a)\"They all make fun of my size, but I always say that it's not the size that matters...\""
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/weeniebeanie.png"
+      ],
+      "title": "⭘ Appease Family",
+      "border": "true",
+      "text": "$(#25228d)Their Plant Food make a varied selection of plants."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:weeniebeanie"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Weenie Beanie"
+      ]
+    }
+  ]
+}

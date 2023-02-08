@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
@@ -247,7 +248,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof ReinforceEntity && !(livingEntity instanceof LilyPadEntity);
+			return livingEntity instanceof ReinforceEntity && !(livingEntity instanceof LilyPadEntity) && !(livingEntity instanceof SmallNutEntity);
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
@@ -261,6 +262,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(3, new TargetGoal<>(this, EnlightenEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, FilamentEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, LilyPadEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SmallNutEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////

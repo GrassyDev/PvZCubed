@@ -1,0 +1,40 @@
+{
+  "name": "Iceberg Lettuce",
+  "icon": "pvzmod:iceberglettuce_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 50,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Damage: $()$(#ff0000)4",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Explosion Range: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)0.75s",
+        "$(br)$(#bd951a)Freeze Time: $()$(#ff0000)10s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Completely freezes all zombies in range. Spawns rarely. Drops Cold Plant Food",
+        "$(br2)$(#bd951a)Don't get lost staring into Iceberg's adorably cute eyes. If you do, it will be your last step... but only if you're a zombie."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/iceberglettuce.png"
+      ],
+      "title": "❄ Winter Family",
+      "border": "true",
+      "text": "$(#25228d)Their Cold Plant Food make icy plants. Freeze a zombie when stepped on."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:iceberglettuce"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Iceberg Lettuce"
+      ]
+    }
+  ]
+}

@@ -17,7 +17,8 @@
       "entries": [
         "pvzmod:plants/puffshroom_entry",
         "pvzmod:plants/scaredyshroom_entry",
-        "pvzmod:plants/fumeshroom_entry"
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/buttonshroom_entry"
       ],
       "title": "\uD83E\uDDEA Ailment Plants:"
     }

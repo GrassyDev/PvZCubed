@@ -1,0 +1,36 @@
+{
+  "name": "Sunflower Seed",
+  "icon": "pvzmod:sunflowerseed_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 303,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Spawns commonly during the day. Drops itself.",
+        "$(br2)$(#bd951a)From every night's end comes the beginning of a new Sunflower's dawn."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/sunflowerseed.png"
+      ],
+      "title": "☀ Enlighten Family",
+      "border": "true",
+      "text": "$(#25228d)These seeds make flower plants."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:sunflowerpvz"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Sunflower Seed"
+      ]
+    }
+  ]
+}

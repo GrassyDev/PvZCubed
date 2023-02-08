@@ -1,0 +1,36 @@
+{
+  "name": "Small-nut",
+  "icon": "pvzmod:smallnut_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 300,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)24",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Average zombie priority. Spawns uncommonly. Drops Tough Plant Food",
+        "$(br2)$(#bd951a)A violin virtuoso, Small-Nut began taking lessons when he was still in the shell."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/smallnut.png"
+      ],
+      "title": "⛨ Reinforce Family",
+      "border": "true",
+      "text": "$(#25228d)Their Tough Plant Food make defensive plants."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:smallnut"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Small Nut"
+      ]
+    }
+  ]
+}

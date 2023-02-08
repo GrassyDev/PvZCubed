@@ -16,7 +16,8 @@
       "type": "relations",
       "entries": [
         "pvzmod:plants/wallnut_entry",
-        "pvzmod:plants/lilypad_entry"
+        "pvzmod:plants/lilypad_entry",
+        "pvzmod:plants/smallnut_entry"
       ],
       "title": "⛨ Reinforce Plants:"
     }

@@ -1,0 +1,39 @@
+{
+  "name": "Bomb Seedling",
+  "icon": "pvzmod:bombseedling_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 302,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Damage: $()$(#ff0000)32",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Explosion Range: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)0.75s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Spawns uncommonly. Drops Blazing Plant Food",
+        "$(br2)$(#bd951a)\"Don't you love creative liberty?\" says Bomb Seedling. \"I could turn into most plants before, now I'm just a resource for gameplay reasons.\" \"I can also explode\""
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/bombseedling.png"
+      ],
+      "title": "☄ Bombard Family",
+      "border": "true",
+      "text": "$(#25228d)Their Blazing Plant Food make combustive plants. Explodes nearby zombies."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:bombseedling"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Seedling"
+      ]
+    }
+  ]
+}

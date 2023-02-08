@@ -1,0 +1,38 @@
+{
+  "name": "Bellflower",
+  "icon": "pvzmod:bellflower_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)15",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Damages multiple zombies at the same time. Ignores shields.",
+        "$(br2)$(#bd951a)She wants to ask Snowdrop out soooo badly, but she feels like she's always getting the cold shoulder."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/bellflower.png"
+      ],
+      "title": "✂ Spear Family",
+      "border": "true",
+      "text": "$(#25228d)Bellflowers ring a jingle that pass through zombies."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:bellflower"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Bellflower"
+      ]
+    }
+  ]
+}

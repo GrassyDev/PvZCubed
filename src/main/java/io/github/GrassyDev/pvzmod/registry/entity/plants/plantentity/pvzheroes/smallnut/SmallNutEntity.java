@@ -186,7 +186,7 @@ public class SmallNutEntity extends ReinforceEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return null	;
+		return PvZCubed.ZOMBIEBITEEVENT;
 	}
 
 	@Nullable

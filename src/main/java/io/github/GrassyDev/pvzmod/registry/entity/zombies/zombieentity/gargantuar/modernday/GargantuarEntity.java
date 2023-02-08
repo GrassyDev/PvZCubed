@@ -2,10 +2,11 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantu
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
@@ -24,7 +25,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.*;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,7 +39,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.world.*;
+import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -346,7 +349,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new GargantuarEntity.AttackGoal());
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof ReinforceEntity && !(livingEntity instanceof LilyPadEntity);
+			return livingEntity instanceof ReinforceEntity && !(livingEntity instanceof LilyPadEntity) && !(livingEntity instanceof SmallNutEntity);
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
@@ -360,6 +363,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(3, new TargetGoal<>(this, EnlightenEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, FilamentEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, LilyPadEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SmallNutEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////

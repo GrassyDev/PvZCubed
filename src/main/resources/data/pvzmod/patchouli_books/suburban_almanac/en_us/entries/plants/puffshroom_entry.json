@@ -11,7 +11,7 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1.5s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)2.5s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Poisons Zombies. Dies after 2 minutes. Can use a Small Sun to prevent it from dying.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Poisons Zombies. Spawns commonly during the night. Drops Mushroom Plant Food",
         "$(br2)$(#bd951a)\"Like many fungi, I'd just assumed zombies were fairy tales or movie monsters. This whole experience has been a huge eye-opener for me.\""
       ]
     },
