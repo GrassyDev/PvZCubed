@@ -25,7 +25,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:fumeshroompvz"
+      "recipe": "pvzmod:plants/ailment/fumeshroompvz"
     },
     {
       "type": "text",

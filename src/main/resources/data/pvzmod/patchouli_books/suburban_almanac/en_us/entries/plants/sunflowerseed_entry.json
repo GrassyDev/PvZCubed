@@ -23,7 +23,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:sunflowerpvz"
+      "recipe": "pvzmod:plants/enlighten/sunflowerpvz"
     },
     {
       "type": "text",

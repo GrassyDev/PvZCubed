@@ -28,7 +28,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:potatomine"
+      "recipe": "pvzmod:plants/bombard/potatomine"
     },
     {
       "type": "text",

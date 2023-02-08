@@ -23,7 +23,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:weeniebeanie"
+      "recipe": "pvzmod:plants/appease/weeniebeanie"
     },
     {
       "type": "text",

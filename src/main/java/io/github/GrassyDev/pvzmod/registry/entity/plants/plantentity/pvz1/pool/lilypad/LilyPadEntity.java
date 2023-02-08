@@ -254,7 +254,7 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 				}
 			}
 		}
-		if (this.age >= 100 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
     }

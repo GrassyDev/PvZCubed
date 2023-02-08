@@ -2,19 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood"
+      "item": "pvzmod:plantfood_fire"
     },
     {
-      "item": "pvzmod:potatomine_seed_packet"
-    },
-    {
-      "item": "pvzmod:sun"
+      "item": "pvzmod:plantfood_fire"
     },
     {
       "item": "pvzmod:sun"
     },
     {
-      "item": "pvzmod:smallsun"
+      "item": "pvzmod:sun"
     }
   ],
   "result": {

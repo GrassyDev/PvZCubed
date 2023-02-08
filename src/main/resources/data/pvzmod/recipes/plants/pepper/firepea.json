@@ -2,20 +2,23 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood"
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "pvzmod:plantfood_fire"
     },
     {
       "item": "pvzmod:peashooter_seed_packet"
     },
     {
-      "item": "pvzmod:peashooter_seed_packet"
+      "item": "pvzmod:sun"
     },
     {
       "item": "pvzmod:smallsun"
     }
   ],
   "result": {
-    "item": "pvzmod:threepeater_seed_packet",
+    "item": "pvzmod:firepea_seed_packet",
     "count": 1
   }
 }

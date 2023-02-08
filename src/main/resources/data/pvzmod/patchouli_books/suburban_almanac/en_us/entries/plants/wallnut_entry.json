@@ -23,13 +23,13 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:wallnut"
+      "recipe": "pvzmod:plants/reinforce/wallnut"
     },
     {
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Wallnut"
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Wall-nut"
       ]
     }
   ]

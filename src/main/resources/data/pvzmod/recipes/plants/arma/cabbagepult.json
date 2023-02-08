@@ -5,20 +5,14 @@
       "item": "pvzmod:plantfood"
     },
     {
-      "item": "pvzmod:peashooter_seed_packet"
+      "item": "pvzmod:plantfood_tough"
     },
     {
       "item": "pvzmod:sun"
-    },
-    {
-      "item": "pvzmod:sun"
-    },
-    {
-      "item": "pvzmod:smallsun"
     }
   ],
   "result": {
-    "item": "pvzmod:snowpea_seed_packet",
+    "item": "pvzmod:cabbagepult_seed_packet",
     "count": 1
   }
 }

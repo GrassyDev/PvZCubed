@@ -28,7 +28,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:doomshroom"
+      "recipe": "pvzmod:plants/bombard/doomshroom"
     },
     {
       "type": "text",

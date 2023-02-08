@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood"
+      "item": "pvzmod:plantfood_tough"
     },
     {
       "item": "pvzmod:sun"
@@ -12,9 +12,6 @@
     },
     {
       "item": "pvzmod:sun"
-    },
-    {
-      "item": "pvzmod:smallsun"
     }
   ],
   "result": {

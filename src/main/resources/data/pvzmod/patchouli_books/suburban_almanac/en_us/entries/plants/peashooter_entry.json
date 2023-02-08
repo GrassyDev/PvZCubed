@@ -25,7 +25,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:peashooterpvz"
+      "recipe": "pvzmod:plants/appease/peashooterpvz"
     },
     {
       "type": "text",

@@ -22,6 +22,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
@@ -29,6 +30,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -41,6 +44,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
+import java.util.List;
 
 public class BellflowerEntity extends SpearEntity implements IAnimatable, RangedAttackMob {
 
@@ -236,6 +240,23 @@ public class BellflowerEntity extends SpearEntity implements IAnimatable, Ranged
 		}
 		this.playBlockFallSound();
 		return true;
+	}
+
+
+	/** /~*~//~*SPAWNING*~//~*~/ **/
+
+	public static boolean canBellflowerSpawn(EntityType<? extends BellflowerEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
+		return checkVillager(Vec3d.ofCenter(pos), world) && !checkBellflower(Vec3d.ofCenter(pos), world);
+	}
+
+	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {
+		List<VillagerEntity> list = world.getNonSpectatingEntities(VillagerEntity.class, PvZEntity.BELLFLOWER.getDimensions().getBoxAt(pos).expand(15));
+		return !list.isEmpty();
+	}
+
+	public static boolean checkBellflower(Vec3d pos, ServerWorldAccess world) {
+		List<BellflowerEntity> list = world.getNonSpectatingEntities(BellflowerEntity.class, PvZEntity.BELLFLOWER.getDimensions().getBoxAt(pos).expand(20));
+		return !list.isEmpty();
 	}
 
 

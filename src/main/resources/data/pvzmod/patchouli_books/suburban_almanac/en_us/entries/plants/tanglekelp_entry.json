@@ -26,7 +26,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:tanglekelp"
+      "recipe": "pvzmod:plants/enforce/tanglekelp"
     },
     {
       "type": "text",

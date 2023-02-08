@@ -26,7 +26,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:bombseedling"
+      "recipe": "pvzmod:plants/bombard/bombseedling"
     },
     {
       "type": "text",

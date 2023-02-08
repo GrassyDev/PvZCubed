@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -141,7 +140,7 @@ public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.age >= 100 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 	}

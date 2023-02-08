@@ -138,7 +138,7 @@ public class SmallNutEntity extends ReinforceEntity implements IAnimatable {
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.age >= 100 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 	}

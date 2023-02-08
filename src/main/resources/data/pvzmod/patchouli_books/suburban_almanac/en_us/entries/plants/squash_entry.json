@@ -27,7 +27,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:squash"
+      "recipe": "pvzmod:plants/enforce/squash"
     },
     {
       "type": "text",

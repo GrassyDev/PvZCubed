@@ -26,7 +26,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:puffshroom"
+      "recipe": "pvzmod:plants/ailment/puffshroom"
     },
     {
       "type": "text",

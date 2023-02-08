@@ -24,7 +24,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:scaredyshroom"
+      "recipe": "pvzmod:plants/ailment/scaredyshroom"
     },
     {
       "type": "text",

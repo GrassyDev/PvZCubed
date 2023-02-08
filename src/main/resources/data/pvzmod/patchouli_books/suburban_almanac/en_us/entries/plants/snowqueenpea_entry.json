@@ -28,7 +28,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:snowqueenpea"
+      "recipe": "pvzmod:plants/winter/snowqueenpea"
     },
     {
       "type": "text",

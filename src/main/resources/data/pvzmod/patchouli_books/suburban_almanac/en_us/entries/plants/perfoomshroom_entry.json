@@ -27,7 +27,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:perfoomshroom"
+      "recipe": "pvzmod:plants/enchant/perfoomshroom"
     },
     {
       "type": "text",

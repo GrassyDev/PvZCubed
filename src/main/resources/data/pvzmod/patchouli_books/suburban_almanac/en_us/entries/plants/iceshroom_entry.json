@@ -27,7 +27,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:iceshroom"
+      "recipe": "pvzmod:plants/winter/iceshroom"
     },
     {
       "type": "text",

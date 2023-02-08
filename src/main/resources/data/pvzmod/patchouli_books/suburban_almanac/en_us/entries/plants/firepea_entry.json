@@ -28,7 +28,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:firepea"
+      "recipe": "pvzmod:plants/pepper/firepea"
     },
     {
       "type": "text",

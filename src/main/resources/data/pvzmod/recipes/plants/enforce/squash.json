@@ -2,20 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:puffshroom_seed_packet"
+      "item": "pvzmod:plantfood_tough"
     },
     {
-      "item": "pvzmod:smallsun"
-    },
-    {
-      "item": "pvzmod:smallsun"
+      "item": "pvzmod:sun"
     },
     {
       "item": "pvzmod:smallsun"
     }
   ],
   "result": {
-    "item": "pvzmod:hypnoshroom_seed_packet",
+    "item": "pvzmod:squash_seed_packet",
     "count": 1
   }
 }

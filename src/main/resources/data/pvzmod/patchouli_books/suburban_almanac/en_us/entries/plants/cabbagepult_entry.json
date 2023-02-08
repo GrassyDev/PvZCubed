@@ -25,7 +25,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:cabbagepult"
+      "recipe": "pvzmod:plants/arma/cabbagepult"
     },
     {
       "type": "text",

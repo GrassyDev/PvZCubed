@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -12,10 +13,15 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.mob.SpellcastingIllagerEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
@@ -144,5 +150,10 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 			--this.spellTicks;
 		}
 
+	}
+
+	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {
+		List<VillagerEntity> list = world.getNonSpectatingEntities(VillagerEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(40));
+		return !list.isEmpty();
 	}
 }

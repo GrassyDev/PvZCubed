@@ -2,20 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood"
+      "item": "pvzmod:plantfood_mushroom"
+    },
+    {
+      "item": "pvzmod:scaredyshroom_seed_packet"
     },
     {
       "item": "pvzmod:sun"
-    },
-    {
-      "item": "pvzmod:sun"
-    },
-    {
-      "item": "pvzmod:smallsun"
     }
   ],
   "result": {
-    "item": "pvzmod:cabbagepult_seed_packet",
+    "item": "pvzmod:fumeshroom_seed_packet",
     "count": 1
   }
 }

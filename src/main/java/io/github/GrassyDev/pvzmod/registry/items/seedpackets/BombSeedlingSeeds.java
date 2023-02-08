@@ -36,6 +36,9 @@ public class BombSeedlingSeeds extends Item {
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.bombard.family")
 				.formatted(Formatting.GOLD));
 
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.instant.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
 		tooltip.add(Text.translatable("item.pvzmod.bombseedling_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));
 	}

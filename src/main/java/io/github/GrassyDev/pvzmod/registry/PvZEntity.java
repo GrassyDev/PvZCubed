@@ -208,7 +208,7 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<PuffshroomEntity> PUFFSHROOM = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "puffshroom"),
-            QuiltEntityTypeBuilder.<PuffshroomEntity>create(SpawnGroup.MONSTER, PuffshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+            QuiltEntityTypeBuilder.<PuffshroomEntity>create(SpawnGroup.CREATURE, PuffshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
 
     public static final EntityType<SunshroomEntity> SUNSHROOM = Registry.register(
@@ -256,7 +256,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<LilyPadEntity> LILYPAD = Registry.register((
 					Registry.ENTITY_TYPE),
 			new Identifier(ModID, "lilypad"),
-			QuiltEntityTypeBuilder.<LilyPadEntity>create(SpawnGroup.MONSTER, LilyPadEntity::new).setDimensions(EntityDimensions.fixed(0.99f,0.1f)).build()
+			QuiltEntityTypeBuilder.<LilyPadEntity>create(SpawnGroup.CREATURE, LilyPadEntity::new).setDimensions(EntityDimensions.fixed(0.99f,0.1f)).build()
 	);
 
 	public static final EntityType<SquashEntity> SQUASH = Registry.register((
@@ -310,7 +310,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<IcebergLettuceEntity> ICEBERGLETTUCE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "iceberglettuce"),
-			QuiltEntityTypeBuilder.<IcebergLettuceEntity>create(SpawnGroup.MONSTER, IcebergLettuceEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			QuiltEntityTypeBuilder.<IcebergLettuceEntity>create(SpawnGroup.CREATURE, IcebergLettuceEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
 	public static final EntityType<PeapodEntity> PEAPOD = Registry.register((
@@ -328,31 +328,31 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<SmallNutEntity> SMALLNUT = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "smallnut"),
-			QuiltEntityTypeBuilder.<SmallNutEntity>create(SpawnGroup.MONSTER, SmallNutEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			QuiltEntityTypeBuilder.<SmallNutEntity>create(SpawnGroup.CREATURE, SmallNutEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
 	public static final EntityType<ButtonshroomEntity> BUTTONSHROOM = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "buttonshroom"),
-			QuiltEntityTypeBuilder.<ButtonshroomEntity>create(SpawnGroup.MONSTER, ButtonshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			QuiltEntityTypeBuilder.<ButtonshroomEntity>create(SpawnGroup.CREATURE, ButtonshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
 	public static final EntityType<BombSeedlingEntity> BOMBSEEDLING = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "bombseedling"),
-			QuiltEntityTypeBuilder.<BombSeedlingEntity>create(SpawnGroup.MONSTER, BombSeedlingEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			QuiltEntityTypeBuilder.<BombSeedlingEntity>create(SpawnGroup.CREATURE, BombSeedlingEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
 	public static final EntityType<WeenieBeanieEntity> WEENIEBEANIE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "weeniebeanie"),
-			QuiltEntityTypeBuilder.<WeenieBeanieEntity>create(SpawnGroup.MONSTER, WeenieBeanieEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			QuiltEntityTypeBuilder.<WeenieBeanieEntity>create(SpawnGroup.CREATURE, WeenieBeanieEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
 	public static final EntityType<SunflowerSeedEntity> SUNFLOWERSEED = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "sunflowerseed"),
-			QuiltEntityTypeBuilder.<SunflowerSeedEntity>create(SpawnGroup.MONSTER, SunflowerSeedEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			QuiltEntityTypeBuilder.<SunflowerSeedEntity>create(SpawnGroup.CREATURE, SunflowerSeedEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
 	public static final EntityType<BellflowerEntity> BELLFLOWER = Registry.register(

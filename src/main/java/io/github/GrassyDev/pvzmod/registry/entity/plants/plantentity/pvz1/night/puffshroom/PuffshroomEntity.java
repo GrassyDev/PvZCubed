@@ -211,7 +211,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				snorkelGoal();
 			}
 		}
-		if (this.age >= 100 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 	}
@@ -323,7 +323,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canPuffshroomSpawn(EntityType<? extends PuffshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return spawnDark(world, pos, random);
+		return spawnDark(world, pos, random) && pos.getY() >= 50;
 	}
 
 	public static boolean spawnDark(ServerWorldAccess world, BlockPos pos, RandomGenerator random) {

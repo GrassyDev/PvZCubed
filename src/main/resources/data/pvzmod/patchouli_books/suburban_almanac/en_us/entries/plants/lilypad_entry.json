@@ -24,7 +24,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:lilypad"
+      "recipe": "pvzmod:plants/reinforce/lilypad"
     },
     {
       "type": "text",

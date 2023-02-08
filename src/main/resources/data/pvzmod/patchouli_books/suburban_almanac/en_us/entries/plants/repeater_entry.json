@@ -25,7 +25,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:repeaterpvz"
+      "recipe": "pvzmod:plants/appease/repeaterpvz"
     },
     {
       "type": "text",

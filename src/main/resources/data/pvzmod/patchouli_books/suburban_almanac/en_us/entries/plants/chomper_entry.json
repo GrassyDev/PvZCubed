@@ -25,7 +25,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:chomper"
+      "recipe": "pvzmod:plants/enforce/chomper"
     },
     {
       "type": "text",

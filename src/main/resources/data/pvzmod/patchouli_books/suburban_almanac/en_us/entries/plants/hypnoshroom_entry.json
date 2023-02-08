@@ -25,7 +25,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:hypnoshroom"
+      "recipe": "pvzmod:plants/enchant/hypnoshroom"
     },
     {
       "type": "text",

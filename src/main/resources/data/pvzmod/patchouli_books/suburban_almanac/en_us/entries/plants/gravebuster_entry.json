@@ -25,7 +25,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:gravebuster"
+      "recipe": "pvzmod:plants/contain/gravebuster"
     },
     {
       "type": "text",

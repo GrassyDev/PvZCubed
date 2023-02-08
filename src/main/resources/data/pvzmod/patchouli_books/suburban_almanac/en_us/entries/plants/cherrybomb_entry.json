@@ -27,7 +27,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:cherrybomb"
+      "recipe": "pvzmod:plants/bombard/cherrybomb"
     },
     {
       "type": "text",

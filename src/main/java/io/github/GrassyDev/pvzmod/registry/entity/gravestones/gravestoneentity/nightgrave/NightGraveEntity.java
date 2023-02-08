@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.GraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
@@ -11,9 +10,10 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzo
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
@@ -27,7 +27,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.SpellcastingIllagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -36,8 +35,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionType;
 import org.jetbrains.annotations.Nullable;
@@ -49,8 +48,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
-
-import static net.minecraft.entity.mob.HostileEntity.isSpawnDark;
 
 public class NightGraveEntity extends GraveEntity implements IAnimatable {
 
@@ -178,7 +175,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canNightGraveSpawn(EntityType<? extends NightGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return world.getDifficulty() != Difficulty.PEACEFUL && spawnDark(world, pos, random) && pos.getY() >= 60;
+		return world.getDifficulty() != Difficulty.PEACEFUL && spawnDark(world, pos, random) && pos.getY() >= 60 && !checkVillager(Vec3d.ofCenter(pos), world);
 	}
 
 	public static boolean spawnDark(ServerWorldAccess world, BlockPos pos, RandomGenerator random) {

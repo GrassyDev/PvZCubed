@@ -23,7 +23,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:smallnut"
+      "recipe": "pvzmod:plants/reinforce/smallnut"
     },
     {
       "type": "text",

@@ -27,7 +27,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:iceberglettuce"
+      "recipe": "pvzmod:plants/winter/iceberglettuce"
     },
     {
       "type": "text",

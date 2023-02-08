@@ -23,7 +23,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:buttonshroom"
+      "recipe": "pvzmod:plants/ailment/buttonshroom"
     },
     {
       "type": "text",
