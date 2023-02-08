@@ -26,6 +26,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.su
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.threepeater.ThreepeaterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.wallnutentity.WallnutEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bellflower.BellflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
@@ -80,12 +81,13 @@ public abstract class PlantEntity extends GolemEntity {
 		Item item = itemStack.getItem();
 		SoundEvent sound = null;
 		boolean itemCooldown = player.getItemCooldownManager().isCoolingDown(item);
-		if (this instanceof LilyPadEntity) {
+		if (this instanceof LilyPadEntity lilyPadEntity) {
 			if (onWater) {
 				sound = SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED;
 			} else {
 				sound = PvZCubed.PLANTPLANTEDEVENT;
 			}
+			lilyPadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
 		}
 
 		if (this.getPassengerList().isEmpty()) {
@@ -257,6 +259,7 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
+					plantEntity.setPuffshroomPermanency(PuffshroomEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
 				if (!player.getAbilities().creativeMode) {
@@ -521,6 +524,7 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
+					plantEntity.setPuffshroomPermanency(IcebergLettuceEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
 				if (!player.getAbilities().creativeMode) {
@@ -587,6 +591,7 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
+					plantEntity.setPuffshroomPermanency(SmallNutEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
 				if (!player.getAbilities().creativeMode) {
@@ -609,6 +614,7 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
+					plantEntity.setPuffshroomPermanency(ButtonshroomEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
 				if (!player.getAbilities().creativeMode) {
@@ -631,6 +637,7 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
+					plantEntity.setPuffshroomPermanency(BombSeedlingEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
 				if (!player.getAbilities().creativeMode) {
@@ -653,6 +660,7 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
+					plantEntity.setPuffshroomPermanency(WeenieBeanieEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
 				if (!player.getAbilities().creativeMode) {
@@ -663,10 +671,33 @@ public abstract class PlantEntity extends GolemEntity {
 			}
 
 			/**SUNFLOWER SEED**/
-			if (itemStack.isOf(ModItems.SUNFLOWER_SEED_PACKET) && !itemCooldown) {
+			if (itemStack.isOf(ModItems.SUNFLOWERSEED_SEED_PACKET) && !itemCooldown) {
 				if (world instanceof ServerWorld) {
 					ServerWorld serverWorld = (ServerWorld) world;
 					SunflowerSeedEntity plantEntity = (SunflowerSeedEntity) PvZEntity.SUNFLOWERSEED.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+					plantEntity.startRiding(this, true);
+					world.spawnEntity(plantEntity);
+					plantEntity.setPuffshroomPermanency(SunflowerSeedEntity.PuffPermanency.PERMANENT);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.SUNFLOWERSEED_SEED_PACKET, SunflowerSeedSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**BELLFLOWER**/
+			if (itemStack.isOf(ModItems.BELLFLOWER_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					BellflowerEntity plantEntity = (BellflowerEntity) PvZEntity.BELLFLOWER.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
 					if (plantEntity == null) {
 						return ActionResult.FAIL;
 					}
@@ -679,10 +710,10 @@ public abstract class PlantEntity extends GolemEntity {
 				}
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
-					player.getItemCooldownManager().set(ModItems.SUNFLOWERSEED_SEED_PACKET, SunflowerSeedSeeds.cooldown);
+					player.getItemCooldownManager().set(ModItems.BELLFLOWER_SEED_PACKET, BellflowerSeeds.cooldown);
 				}
 				return ActionResult.SUCCESS;
-			} else {
+			}else {
 				return ActionResult.CONSUME;
 			}
 		}

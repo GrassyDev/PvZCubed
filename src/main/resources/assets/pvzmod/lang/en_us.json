@@ -2,6 +2,11 @@
   "itemGroup.pvzmod.plants": "Plants",
 
   "item.pvzmod.plantfood": "Plant Food",
+  "item.pvzmod.plantfood_aquatic": "Aquatic Plant Food",
+  "item.pvzmod.plantfood_cold": "Cold Plant Food",
+  "item.pvzmod.plantfood_fire": "Blazing Plant Food",
+  "item.pvzmod.plantfood_tough": "Tough Plant Food",
+  "item.pvzmod.plantfood_mushroom": "Mushroom Plant Food",
 
   "item.pvzmod.daves_shovel": "Dave's Shovel",
 
@@ -185,6 +190,11 @@
   "entity.pvzmod.sunflowerseed": "Sunflower Seed",
   "item.pvzmod.sunflowerseed_seed_packet": "☀ Sunflower Seed Seed Packet",
   "item.pvzmod.sunflowerseed_seed_packet.flavour": "\"Mommy, where do little Sunflowers come from?\"",
+
+  "entity.pvzmod.bellflower": "Bellflower",
+  "item.pvzmod.bellflower_seed_packet": "✂ Bellflower Seed Packet",
+  "item.pvzmod.bellflower_seed_packet.flavour": "\"Jingle bells, jingle flowers",
+  "item.pvzmod.bellflower_seed_packet.flavour2": "Jingle all the zombies.\"",
 
 
   "itemGroup.pvzmod.zombies": "Zombies",

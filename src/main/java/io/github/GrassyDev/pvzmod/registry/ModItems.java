@@ -29,9 +29,11 @@ public class ModItems {
     public static final Item FUME = new FumeItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8));
     public static final Item SNOWPEAPROJ = new SnowPeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(32));
     public static final Item FIREPEA = new FirepeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
+	public static final Item CABBAGE = new CabbageItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(32));
 	public static final Item SNOWQUEENPEAPROJ = new SnowqueenpeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
 	public static final Item PLASMAPEA = new PlasmapeaItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
 	public static final Item ICESPIKE = new IcespikeItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16));
+	public static final Item JINGLE = new JingleItem(new Item.Settings().group(PvZCubed.PLANTS).maxCount(32));
     public static final Item SUN = new Item(new Item.Settings().group(PvZCubed.PLANTS));
     public static final Item SMALLSUN = new Item(new Item.Settings().group(PvZCubed.PLANTS));
     public static final Item LARGESUN = new Item(new Item.Settings().group(PvZCubed.PLANTS));
@@ -71,6 +73,7 @@ public class ModItems {
 	public static final Item BOMBSEEDLING_SEED_PACKET = new BombSeedlingSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item WEENIEBEANIE_SEED_PACKET = new WeenieBeanieSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item SUNFLOWERSEED_SEED_PACKET = new SunflowerSeedSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(16).rarity(Rarity.COMMON));
+	public static final Item BELLFLOWER_SEED_PACKET = new BellflowerSeeds(new Item.Settings().group(PvZCubed.PLANTS).maxCount(8).rarity(Rarity.COMMON));
 
     //Zombie Spawn
     public static final Item BROWNCOATEGG = new BrowncoatEgg(new Item.Settings().group(PvZCubed.ZOMBIES));
@@ -129,9 +132,11 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"fume"), FUME);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowpeaproj"), SNOWPEAPROJ);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"firepea"), FIREPEA);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cabbage"), CABBAGE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowqueenpeaproj"), SNOWQUEENPEAPROJ);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plasmapea"), PLASMAPEA);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"icespike"), ICESPIKE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"jingle"), JINGLE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sun"), SUN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"smallsun"), SMALLSUN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"largesun"), LARGESUN);
@@ -183,6 +188,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"bombseedling_seed_packet"), BOMBSEEDLING_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"weeniebeanie_seed_packet"), WEENIEBEANIE_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sunflowerseed_seed_packet"), SUNFLOWERSEED_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"bellflower_seed_packet"), BELLFLOWER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"browncoat_egg"), BROWNCOATEGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"flagzombie_egg"), FLAGZOMBIEEGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"conehead_egg"), CONEHEADEGG);

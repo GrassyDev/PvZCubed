@@ -1,12 +1,12 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.puffshroom;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bellflower;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingle.JingleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,28 +14,22 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.world.LightType;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -48,82 +42,32 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
-public class PuffshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
+public class BellflowerEntity extends AppeaseEntity implements IAnimatable, RangedAttackMob {
 
-	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-
-    private String controllerName = "puffcontroller";
-    public boolean isTired;
+    private String controllerName = "bellcontroller";
 
     public int healingTime;
 
 	public boolean isFiring;
 
-    public PuffshroomEntity(EntityType<? extends PuffshroomEntity> entityType, World world) {
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
+    public BellflowerEntity(EntityType<? extends BellflowerEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.healingTime = 6000;
     }
-
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, false);
-	}
-
-	public void writeCustomDataToNbt(NbtCompound tag) {
-		super.writeCustomDataToNbt(tag);
-		tag.putBoolean("Permanent", this.getPuffshroomPermanency());
-	}
-
-	public void readCustomDataFromNbt(NbtCompound tag) {
-		super.readCustomDataFromNbt(tag);
-		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Permanent"));
-	}
 
 	static {
 	}
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 13) {
-			this.isTired = true;
-			this.isFiring = false;
-		} else if (status == 12) {
-			this.isTired = false;
-		}
 		if (status == 11) {
 			this.isFiring = true;
 		} else if (status == 10) {
 			this.isFiring = false;
 		}
-	}
-
-	/** /~*~//~*VARIANTS*~//~*~/ **/
-
-	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
-			DataTracker.registerData(PuffshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-
-	public enum PuffPermanency {
-		DEFAULT(false),
-		PERMANENT(true);
-
-		PuffPermanency(boolean id) {
-			this.id = id;
-		}
-
-		private final boolean id;
-
-		public boolean getId() {
-			return this.id;
-		}
-	}
-
-	private Boolean getPuffshroomPermanency() {
-		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
-	}
-
-	public void setPuffshroomPermanency(PuffshroomEntity.PuffPermanency puffshroomPermanency) {
-		this.dataTracker.set(DATA_ID_TYPE_COUNT, puffshroomPermanency.getId());
 	}
 
 
@@ -142,23 +86,23 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.isTired) {
-			event.getController().setAnimation(new AnimationBuilder().loop("puffshroom.asleep"));
-		} else if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().playOnce("puffshroom.shoot"));
-		} else {
-			event.getController().setAnimation(new AnimationBuilder().loop("puffshroom.idle"));
+		if (this.isFiring) {
+			event.getController().setAnimation(new AnimationBuilder().playOnce("bellflower.shoot"));
 		}
-		return PlayState.CONTINUE;
+		else {
+			event.getController().setAnimation(new AnimationBuilder().loop("bellflower.idle"));
+		}
+        return PlayState.CONTINUE;
     }
 
 
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new PuffshroomEntity.FireBeamGoal(this));
-		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(25) + 20, 6.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+		this.goalSelector.add(1, new BellflowerEntity.FireBeamGoal(this));
+        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
+        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
 					!(livingEntity instanceof HypnoFlagzombieEntity) && !(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
 		}));
@@ -172,7 +116,6 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
-
 	}
 
 
@@ -211,9 +154,6 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				snorkelGoal();
 			}
 		}
-		if (this.age >= 100 && !this.getPuffshroomPermanency()) {
-			this.discard();
-		}
 	}
 
 	public void tickMovement() {
@@ -223,70 +163,48 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		}
 	}
 
-	protected void mobTick() {
-		float f = this.getLightLevelDependentValue();
-		if (f > 0.25f) {
-			this.world.sendEntityStatus(this, (byte) 13);
-			this.clearGoalsAndTasks();
-		} else {
-			this.world.sendEntityStatus(this, (byte) 12);
-			this.initGoals();
-		}
-		super.mobTick();
-	}
-
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
 
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.PUFFSHROOM_SEED_PACKET.getDefaultStack();
+		return ModItems.BELLFLOWER_SEED_PACKET.getDefaultStack();
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-
-	public static DefaultAttributeContainer.Builder createPuffshroomAttributes() {
+	public static DefaultAttributeContainer.Builder createBellflowerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 15.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6D);
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6.0D);
     }
 
-	protected boolean canClimb() {
-		return false;
-	}
+	protected boolean canClimb() {return false;}
 
-	public boolean collides() {
-		return true;
-	}
+	public boolean collides() {return true;}
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-		return 0.5F;
+		return 0.60F;
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
-	}
+	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.ZOMBIEBITEEVENT;}
 
 	@Nullable
-	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
-	}
+	protected SoundEvent getDeathSound() {return PvZCubed.PLANTPLANTEDEVENT;}
 
-	public boolean hurtByWater() {
-		return false;
-	}
+	public boolean hurtByWater() {return false;}
 
 	public boolean isPushable() {
 		return false;
 	}
 
 	protected void pushAway(Entity entity) {
+
 	}
 
 	public boolean startRiding(Entity entity, boolean force) {
@@ -320,42 +238,21 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		return true;
 	}
 
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canPuffshroomSpawn(EntityType<? extends PuffshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return spawnDark(world, pos, random);
-	}
-
-	public static boolean spawnDark(ServerWorldAccess world, BlockPos pos, RandomGenerator random) {
-		if (world.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
-			return false;
-		} else {
-			DimensionType dimensionType = world.getDimension();
-			int i = dimensionType.getMonsterSpawnBlockLightLimit();
-			if (i < 15 && world.getLightLevel(LightType.BLOCK, pos) > i) {
-				return false;
-			} else {
-				int j = world.toServerWorld().isThundering() ? world.getLightLevel(pos, 10) : world.getLightLevel(pos);
-				return j <= dimensionType.getMonsterSpawnLightLevel().get(random);
-			}
-		}
-	}
-
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final PuffshroomEntity puffshroomEntity;
+		private final BellflowerEntity bellflower;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(PuffshroomEntity puffshroomEntity) {
-			this.puffshroomEntity = puffshroomEntity;
-			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+		public FireBeamGoal(BellflowerEntity bellflower) {
+			this.bellflower = bellflower;
+			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.puffshroomEntity.getTarget();
+			LivingEntity livingEntity = this.bellflower.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -366,54 +263,54 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.puffshroomEntity.getNavigation().stop();
-			this.puffshroomEntity.getLookControl().lookAt(this.puffshroomEntity.getTarget(), 90.0F, 90.0F);
-			this.puffshroomEntity.velocityDirty = true;
+			this.bellflower.getNavigation().stop();
+			this.bellflower.getLookControl().lookAt(this.bellflower.getTarget(), 90.0F, 90.0F);
+			this.bellflower.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 10);
-			this.puffshroomEntity.setTarget((LivingEntity)null);
+			this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 10);
+			this.bellflower.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.puffshroomEntity.getTarget();
-			this.puffshroomEntity.getNavigation().stop();
-			this.puffshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.puffshroomEntity.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.bellflower.getTarget();
+			this.bellflower.getNavigation().stop();
+			this.bellflower.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.bellflower.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.puffshroomEntity.setTarget((LivingEntity) null);
+				this.bellflower.setTarget((LivingEntity) null);
 			} else {
-				this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 11);
+				this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 11);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					if (!this.puffshroomEntity.isInsideWaterOrBubbleColumn()) {
-						SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.puffshroomEntity.world);
-						double time = (this.puffshroomEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
+					if (!this.bellflower.isInsideWaterOrBubbleColumn()) {
+						double time = (this.bellflower.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.puffshroomEntity.squaredDistanceTo(predictedPos);
+						double d = this.bellflower.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.puffshroomEntity.getX();
-						double f = livingEntity.getY() - this.puffshroomEntity.getY();
-						double g = predictedPos.getZ() - this.puffshroomEntity.getZ();
+						double e = predictedPos.getX() - this.bellflower.getX();
+						double f = livingEntity.getY() - this.bellflower.getY();
+						double g = predictedPos.getZ() - this.bellflower.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.sporeAge = 20;
-						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
-						proj.updatePosition(this.puffshroomEntity.getX(), this.puffshroomEntity.getY() + 0.25D, this.puffshroomEntity.getZ());
-						proj.setOwner(this.puffshroomEntity);
+						JingleEntity proj = new JingleEntity(PvZEntity.JINGLE, this.bellflower.world);
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
+						proj.updatePosition(this.bellflower.getX(), this.bellflower.getY() + 0.5D, this.bellflower.getZ());
+						proj.setOwner(this.bellflower);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 11);
-							this.puffshroomEntity.playSound(PvZCubed.MUSHROOMSHOOTEVENT, 0.3F, 1);
-							this.puffshroomEntity.world.spawnEntity(proj);
+							this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 11);
+							this.bellflower.playSound(SoundEvents.BLOCK_BELL_USE, 0.3F, (float) (1.5 + Math.random() * (3 - 1.5)));
+							this.bellflower.world.spawnEntity(proj);
 						}
 					}
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 10);
+					this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 10);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

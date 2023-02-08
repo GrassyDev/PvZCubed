@@ -60,6 +60,7 @@ public class LilyPadSeeds extends Item {
 			if (hitResult.getType() == HitResult.Type.BLOCK) {
 				if (world instanceof ServerWorld) {
 					LilyPadEntity lilypadEntity = this.createEntity(world, hitResult);
+					lilypadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
 					lilypadEntity.setYaw(user.getYaw());
 					if (!world.isSpaceEmpty(lilypadEntity, lilypadEntity.getBoundingBox())) {
 						return TypedActionResult.fail(itemStack);

@@ -84,14 +84,17 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.BOMBSEEDLING_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.WEENIEBEANIE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SUNFLOWERSEED_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.BELLFLOWER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
 				stacks.add(new ItemStack(ModItems.FUME));
 				stacks.add(new ItemStack(ModItems.SPORE));
 				stacks.add(new ItemStack(ModItems.FIREPEA));
+				stacks.add(new ItemStack(ModItems.CABBAGE));
 				stacks.add(new ItemStack(ModItems.SNOWQUEENPEAPROJ));
 				stacks.add(new ItemStack(ModItems.PLASMAPEA));
 				stacks.add(new ItemStack(ModItems.ICESPIKE));
+				stacks.add(new ItemStack(ModItems.JINGLE));
 			}).build();
 
 	public static final ItemGroup ZOMBIES = FabricItemGroupBuilder.create(

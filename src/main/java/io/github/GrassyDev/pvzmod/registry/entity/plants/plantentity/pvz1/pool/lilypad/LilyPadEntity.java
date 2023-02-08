@@ -87,14 +87,14 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 	}
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
-		tag.putBoolean("Permanent", this.getPuffshroomPermanency());
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Permanent"));
 		//Hat//
 		this.dataTracker.set(DATA_ID_TYPE_HAT, tag.getInt("Hat"));
 	}
 
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
-		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Permanent"));
+		tag.putBoolean("Permanent", this.getPuffshroomPermanency());
 		//Variant//
 		tag.putInt("Hat", this.getTypeHat());
 	}
@@ -254,7 +254,7 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 				}
 			}
 		}
-		if (this.age >= 1200 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 100 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
     }

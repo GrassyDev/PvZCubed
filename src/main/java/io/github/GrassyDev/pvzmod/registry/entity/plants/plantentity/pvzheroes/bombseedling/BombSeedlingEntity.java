@@ -321,7 +321,7 @@ public class BombSeedlingEntity extends BombardEntity implements IAnimatable {
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}
-		if (this.age >= 1200 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 100 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 	}

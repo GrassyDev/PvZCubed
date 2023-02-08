@@ -140,7 +140,7 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.age >= 1200 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 100 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 	}
