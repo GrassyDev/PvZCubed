@@ -27,6 +27,10 @@
     }
   },
   "rewards": {
+    "recipes": [
+      "pvzmod:plants/ailment/fumeshroom",
+      "pvzmod:plants/enchant/hypnoshroom"
+    ],
     "experience": 25
   }
 }

@@ -27,6 +27,11 @@
     }
   },
   "rewards": {
+    "recipes": [
+      "pvzmod:plants/bombard/doomshroom",
+      "pvzmod:plants/enchant/perfoomshroom",
+      "pvzmod:plants/winter/iceshroom"
+    ],
     "experience": 25
   }
 }

@@ -27,6 +27,11 @@
     }
   },
   "rewards": {
+    "recipes": [
+      "pvzmod:plants/appease/gatlingpea",
+      "pvzmod:plants/pepper/firepea",
+      "pvzmod:plants/winter/snowqueenpea"
+    ],
     "experience": 25
   }
 }

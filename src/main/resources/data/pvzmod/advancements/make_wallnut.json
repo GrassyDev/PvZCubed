@@ -27,6 +27,9 @@
     }
   },
   "rewards": {
+    "recipes": [
+      "pvzmod:plants/enforce/chomper"
+    ],
     "experience": 25
   }
 }

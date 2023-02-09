@@ -27,6 +27,26 @@
     }
   },
   "rewards": {
+    "recipes": [
+      "pvzmod:plants/ailment/buttonshroom",
+      "pvzmod:plants/ailment/puffshroom",
+      "pvzmod:plants/ailment/scaredyshroom",
+      "pvzmod:plants/appease/peashooterpvz",
+      "pvzmod:plants/appease/weeniebeanie",
+      "pvzmod:plants/arma/cabbagepult",
+      "pvzmod:plants/bombard/bombseedling",
+      "pvzmod:plants/bombard/potatomine",
+      "pvzmod:plants/contain/gravebuster",
+      "pvzmod:plants/enforce/tanglekelp",
+      "pvzmod:plants/enlighten/sunflowerpvz",
+      "pvzmod:plants/enlighten/sunshroom",
+      "pvzmod:plants/enlighten/twinsunflower",
+      "pvzmod:plants/reinforce/lilypad",
+      "pvzmod:plants/reinforce/smallnut",
+      "pvzmod:plants/reinforce/wallnut",
+      "pvzmod:plants/spear/bellflower",
+      "pvzmod:plants/winter/iceberglettuce"
+    ],
     "experience": 25
   }
 }
