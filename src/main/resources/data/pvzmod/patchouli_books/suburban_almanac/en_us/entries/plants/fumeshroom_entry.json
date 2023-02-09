@@ -3,6 +3,7 @@
   "icon": "pvzmod:fumeshroom_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 10,
+  "advancement": "pvzmod:make_scaredyshroom",
   "pages": [
     {
       "type": "text",

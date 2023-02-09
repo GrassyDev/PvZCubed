@@ -3,6 +3,7 @@
   "icon": "pvzmod:cherrybomb_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 2,
+  "advancement": "pvzmod:make_potatomine",
   "pages": [
     {
       "type": "text",

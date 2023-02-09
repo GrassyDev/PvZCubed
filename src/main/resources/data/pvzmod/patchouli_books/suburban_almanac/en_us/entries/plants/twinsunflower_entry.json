@@ -2,6 +2,7 @@
   "name": "Twin Sunflower",
   "icon": "pvzmod:twinsunflower_seed_packet",
   "category": "pvzmod:plant_category",
+  "advancement": "pvzmod:make_peashooter",
   "sortnum": 20,
   "pages": [
     {

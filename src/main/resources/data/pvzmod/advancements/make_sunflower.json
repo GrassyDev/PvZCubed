@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:sunflower_seed_packet"
+    },
+    "title": "Plants vs. Zombies",
+    "description": "Craft a Sunflower",
+    "background": "pvzmod:textures/gui/advancement/background.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:sunflower_seed_packet"
+            ],
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

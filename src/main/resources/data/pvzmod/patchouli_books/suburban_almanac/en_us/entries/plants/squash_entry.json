@@ -3,6 +3,7 @@
   "icon": "pvzmod:squash_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 17,
+  "advancement": "pvzmod:make_potatomine",
   "pages": [
     {
       "type": "text",

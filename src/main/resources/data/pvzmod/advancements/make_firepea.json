@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:firepea_seed_packet"
+    },
+    "title": "Fire Peashooter",
+    "description": "Craft a Fire Peashooter",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "pvzmod:make_repeater",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:firepea_seed_packet"
+            ],
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

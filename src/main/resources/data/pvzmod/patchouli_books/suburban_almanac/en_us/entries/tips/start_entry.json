@@ -8,21 +8,22 @@
       "type": "text",
       "text": [
         "The first day on the zombie apocalypse is really important.",
-        "$(br2)Your objective is to find plants on the surface and punch them. When they die, they drop Plant Food.",
-        "$(br)After finding x2 Plant Food, craft a Sunflower."
+        "$(br2)Your objective is to find plants on the surface and punch them. When they die, they drop different types of Plant Food. ",
+        "The Plant Foods are important to make different plants, but most importantly you will find Sunflower Seeds around. Punch them to get their Seed Packet."
         ]
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:sunflowerpvz",
+      "recipe": "pvzmod:plants/enlighten/sunflowerpvz",
       "text": [
-        "Sunflowers are the most important plants to make. They produce Sun, which are used to craft every other plant.",
+        "After finding x2 Sunflower Seed Seed Packet, craft a Sunflower. ",
+        "Sunflowers produce Sun, which is used to craft most plants.",
         "$(br)After crafting your Sunflowers, find a nice place to call home and plant them on your lawn."
       ]
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:peashooterpvz",
+      "recipe": "pvzmod:plants/appease/peashooterpvz",
       "text": [
         "When you place your Sunflower, you will notice that it will give you 2 Suns already, this is the perfect amount to make a Peashooter, make one."
       ]
@@ -30,15 +31,25 @@
     {
       "type": "text",
       "text": [
-        "You may have already noticed the main threat of this mod by this point: the Zombies.",
-        "$(br)While you can defeat them by yourself with skill, they have a lot of health and will easily overwhelm you, so the best solution is to craft Plants.",
-        "Your first Peashooter will be crucial on dealing with them quickly, but only one Peashooter is too weak, be sure to aid it by attacking Coneheads and planting more Plants."
+        "$(br2)You may have already noticed the main threat of this mod by now: the Zombies.",
+        "$(br2)While you can defeat them by yourself, they have lots of health and will easily overwhelm you, so the best solution is to craft Plants. ",
+        "Your first Peashooter will be crucial for that, but be sure to help it by attacking tough zombies and planting more Plants."
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/spear/bellflower",
+      "text": [
+        "Bellflowers are weak but cheap and effective, make one or two if you can. ",
+        "They deal the same damage as the Peashooter, but to all zombies in an area while ignoring armor, with limited range being the drawback."
       ]
     },
     {
       "type": "text",
       "text": [
-        "The Zombies will spawn from things called \"Graves\", at the start the Graves will vanish the moment they spawn a group of zombies, but later on they will stay for longer.",
+        "$(br2)The Zombies will spawn from Graves. At first the Graves will vanish the moment they spawn a wave of zombies, ",
+        "but later on they will spawn more waves before vanishing. ",
+        "Difficulty influences this. Strong Zombies will not spawn on the first days on Normal and below.",
         "$(br2)While you wait for night time, we recommend crafting these plants to help you."
       ]
     },
@@ -51,7 +62,11 @@
         "pvzmod:plants/potatomine_entry",
         "pvzmod:plants/snowpea_entry",
         "pvzmod:plants/repeater_entry",
-        "pvzmod:plants/cherrybomb_entry"
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/squash_entry",
+        "pvzmod:plants/tanglekelp_entry",
+        "pvzmod:plants/cabbagepult_entry",
+        "pvzmod:plants/bellflower_entry"
       ],
       "title": "Recommended Plants:"
     }

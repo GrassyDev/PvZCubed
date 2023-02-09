@@ -3,6 +3,7 @@
   "icon": "pvzmod:peashooter_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 0,
+  "advancement": "pvzmod:make_sunflower",
   "pages": [
     {
       "type": "text",

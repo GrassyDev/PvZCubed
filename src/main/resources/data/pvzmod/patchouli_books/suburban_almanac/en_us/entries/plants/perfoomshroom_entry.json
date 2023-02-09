@@ -3,6 +3,7 @@
   "icon": "pvzmod:perfoomshroom_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 31,
+  "advancement": "pvzmod:make_perfoomshroom",
   "pages": [
     {
       "type": "text",

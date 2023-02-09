@@ -3,6 +3,7 @@
   "icon": "pvzmod:chomper_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 6,
+  "advancement": "pvzmod:make_wallnut",
   "pages": [
     {
       "type": "text",

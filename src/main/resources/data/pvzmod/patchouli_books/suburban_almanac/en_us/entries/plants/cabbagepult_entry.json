@@ -2,7 +2,8 @@
   "name": "Cabbage-pult",
   "icon": "pvzmod:cabbagepult_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 0,
+  "sortnum": 33,
+  "advancement": "pvzmod:make_peashooter",
   "pages": [
     {
       "type": "text",

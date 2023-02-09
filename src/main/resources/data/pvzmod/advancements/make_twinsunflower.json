@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:twinsunflower_seed_packet"
+    },
+    "title": "Twin Sunflower",
+    "description": "Craft a Twin Sunflower",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "pvzmod:make_sunflower",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:twinsunflower_seed_packet"
+            ],
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

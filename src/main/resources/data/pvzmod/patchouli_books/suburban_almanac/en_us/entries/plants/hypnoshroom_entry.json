@@ -3,6 +3,7 @@
   "icon": "pvzmod:hypnoshroom_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 12,
+  "advancement": "pvzmod:make_scaredyshroom",
   "pages": [
     {
       "type": "text",

@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:wallnut_seed_packet"
+    },
+    "title": "Wall-nut",
+    "description": "Craft a Wall-nut",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "pvzmod:make_sunflower",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:wallnut_seed_packet"
+            ],
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

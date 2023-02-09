@@ -37,7 +37,7 @@ public class PvZCubed implements ModInitializer {
 
 	public static final String MOD_ID = "pvzmod";
 
-	public static final ItemGroup PLANTS = FabricItemGroupBuilder.create(
+	public static final ItemGroup PVZPLANTS = FabricItemGroupBuilder.create(
 					new Identifier(MOD_ID, "plants"))
 			.icon(() -> new ItemStack(ModItems.SUN))
 			.appendItems(stacks -> {
@@ -97,7 +97,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.JINGLE));
 			}).build();
 
-	public static final ItemGroup ZOMBIES = FabricItemGroupBuilder.create(
+	public static final ItemGroup PVZZOMBIES = FabricItemGroupBuilder.create(
 					new Identifier(MOD_ID, "zombies"))
 			.icon(() -> new ItemStack(ModItems.WAVE_FLAG))
 			.appendItems(stacks -> {
@@ -117,7 +117,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
 			}).build();
 
-	public static final ItemGroup GRAVES = FabricItemGroupBuilder.create(
+	public static final ItemGroup PVZGRAVES = FabricItemGroupBuilder.create(
 					new Identifier(MOD_ID, "graves"))
 			.icon(() -> new ItemStack(ModItems.BASICGRAVESPAWN))
 			.appendItems(stacks -> {
