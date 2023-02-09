@@ -14,14 +14,6 @@
         ]
     },
     {
-      "type": "crafting",
-      "recipe": "pvzmod:plants/bombard/potatomine",
-      "text": [
-        "Potato Mines will ensure the safety of your plants if you have a hole in your defenses,",
-        "as it will be able to instantly kill any zombie that can spawn at this moment in the game."
-      ]
-    },
-    {
       "type": "text",
       "text": [
         "$(br2)Mushrooms are nocturnal Plants, meaning that they can only function when it's dark.",

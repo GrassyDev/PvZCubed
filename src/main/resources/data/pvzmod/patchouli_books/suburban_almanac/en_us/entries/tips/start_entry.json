@@ -45,6 +45,28 @@
       ]
     },
     {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/bombard/potatomine",
+      "text": [
+        "Potato Mines will ensure the safety of your plants if you have a hole in your defenses,",
+        "as it will be able to instantly kill any zombie that can spawn at this moment in the game."
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/reinforce/wallnut",
+      "text": [
+        "Wall-nuts are one of the most import plants to have. They funnel the zombies to their location, allowing your plants to attack without risking themselves."
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/reinforce/cabbagepult",
+      "text": [
+        "Cabbage-pults are really useful long range plants that while weaker than a peashooter can ignore shields and shoot through weird terrain."
+      ]
+    },
+    {
       "type": "text",
       "text": [
         "$(br2)The Zombies will spawn from Graves. At first the Graves will vanish the moment they spawn a wave of zombies, ",
