@@ -241,6 +241,7 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canButtonshroomSpawn(EntityType<? extends ButtonshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return world.getLightLevel(pos) >= 15;
+		BlockPos blockPos = pos.down();
+		return world.getLightLevel(pos) >= 10 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
 	}
 }

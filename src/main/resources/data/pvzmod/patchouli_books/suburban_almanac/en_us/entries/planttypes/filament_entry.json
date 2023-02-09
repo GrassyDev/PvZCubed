@@ -9,7 +9,7 @@
       "text": [
         "$(#ff0000)The Filament family is composed of electric plants",
         "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Hits multiple zombies with electric arcs, dealing full damage and ignoring shields."
+        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Hits multiple zombies with electric arcs."
         ]
     },
     {

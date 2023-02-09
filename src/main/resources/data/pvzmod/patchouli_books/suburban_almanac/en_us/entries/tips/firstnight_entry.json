@@ -8,9 +8,8 @@
       "type": "text",
       "text": [
         "The sun sets, the mushrooms wake up, and the danger increases.",
-        "$(br2)In dark areas on and near the surface a new grave type will spawn, the Night Grave. ",
-        "This grave is dangerous, because it can spawn zombies tougher than before.",
-        "$(br2)If you didn't do this already, it's recommended to place some potato mines near your plants."
+        "$(br2)A new grave type will spawn in dark areas on and near the surface, the Night Grave. ",
+        "This grave is dangerous, because it can spawn zombies tougher than before."
         ]
     },
     {
@@ -33,15 +32,15 @@
       "type": "crafting",
       "recipe": "pvzmod:plants/ailment/fumeshroompvz",
       "text": [
-        "The next plant you can make is the Fume-shroom. It's a better Bellflower.",
+        "$(br2)The next plant you can make is the Fume-shroom. It's a better Bellflower.",
         "$(br2)Fume-shrooms are good crowd controlling plants."
       ]
     },
     {
       "type": "text",
       "text": [
-        "$(br2)One of the main uses of the Fume-shroom is dealing with shielded zombies, like the Screen Door Zombie, as it will deal direct damage to the zombie instead of the shield.",
-        "$(br2)Just don't depend on it to deal with Newspaper Zombies, as they have way more non-shield health and will quickly eat the Fume-shroom after being attacked."
+        "$(br2)One of the main uses of the Fume-shroom is dealing with shielded zombies like the Screen Door Zombie, as it will deal direct damage to the zombie instead of the shield.",
+        "$(br)Fume-shroom can finish off Newspaper Zombies, but they can't easily deal with them by themselves."
       ]
     },
     {

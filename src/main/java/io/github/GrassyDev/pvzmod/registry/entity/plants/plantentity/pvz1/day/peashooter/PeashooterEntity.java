@@ -245,7 +245,8 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canPeashooterSpawn(EntityType<? extends PeashooterEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return checkVillager(Vec3d.ofCenter(pos), world) && !checkPeashooter(Vec3d.ofCenter(pos), world);
+		BlockPos blockPos = pos.down();
+		return checkVillager(Vec3d.ofCenter(pos), world) && !checkPeashooter(Vec3d.ofCenter(pos), world) && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
 	}
 
 	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {

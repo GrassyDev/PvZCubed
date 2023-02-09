@@ -1,5 +1,6 @@
 {
   "name": "Suburban Almanac",
+  "filler_texture": "pvzmod:textures/gui/entries/background.png",
   "model": "pvzmod:icon_almanac",
   "landing_text": "Braaaaainz!",
   "version": 0,

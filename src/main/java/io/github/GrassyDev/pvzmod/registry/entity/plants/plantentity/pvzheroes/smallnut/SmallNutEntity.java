@@ -4,10 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -21,6 +18,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -234,5 +233,13 @@ public class SmallNutEntity extends ReinforceEntity implements IAnimatable {
 		}
 		this.playBlockFallSound();
 		return true;
+	}
+
+
+	/** /~*~//~*SPAWNING*~//~*~/ **/
+
+	public static boolean canSmallnutSpawn(EntityType<? extends SmallNutEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
+		BlockPos blockPos = pos.down();
+		return pos.getY() > 50 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
 	}
 }

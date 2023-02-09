@@ -255,6 +255,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, AppeaseEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SpearEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, PepperEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, WinterEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, BombardEntity.class, false, true));

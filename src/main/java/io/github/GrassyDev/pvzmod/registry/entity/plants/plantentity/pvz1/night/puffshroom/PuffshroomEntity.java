@@ -32,10 +32,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -323,22 +321,8 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canPuffshroomSpawn(EntityType<? extends PuffshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return spawnDark(world, pos, random) && pos.getY() >= 50;
-	}
-
-	public static boolean spawnDark(ServerWorldAccess world, BlockPos pos, RandomGenerator random) {
-		if (world.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
-			return false;
-		} else {
-			DimensionType dimensionType = world.getDimension();
-			int i = dimensionType.getMonsterSpawnBlockLightLimit();
-			if (i < 15 && world.getLightLevel(LightType.BLOCK, pos) > i) {
-				return false;
-			} else {
-				int j = world.toServerWorld().isThundering() ? world.getLightLevel(pos, 10) : world.getLightLevel(pos);
-				return j <= dimensionType.getMonsterSpawnLightLevel().get(random);
-			}
-		}
+		BlockPos blockPos = pos.down();
+		return  world.getLightLevel(pos) <= 6 && pos.getY() >= 50 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
 	}
 
 

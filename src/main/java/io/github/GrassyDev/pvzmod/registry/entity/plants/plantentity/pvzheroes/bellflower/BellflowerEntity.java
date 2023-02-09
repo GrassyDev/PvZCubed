@@ -246,7 +246,8 @@ public class BellflowerEntity extends SpearEntity implements IAnimatable, Ranged
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canBellflowerSpawn(EntityType<? extends BellflowerEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return checkVillager(Vec3d.ofCenter(pos), world) && !checkBellflower(Vec3d.ofCenter(pos), world);
+		BlockPos blockPos = pos.down();
+		return checkVillager(Vec3d.ofCenter(pos), world) && !checkBellflower(Vec3d.ofCenter(pos), world) && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
 	}
 
 	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {
@@ -308,7 +309,7 @@ public class BellflowerEntity extends SpearEntity implements IAnimatable, Ranged
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
 					if (!this.bellflower.isInsideWaterOrBubbleColumn()) {
-						double time = (this.bellflower.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+						double time = 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.bellflower.squaredDistanceTo(predictedPos);

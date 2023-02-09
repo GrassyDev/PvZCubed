@@ -175,7 +175,8 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
 	public static boolean canPoolGraveSpawn(EntityType<? extends PoolGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		return world.getDifficulty() != Difficulty.PEACEFUL && canMobSpawn(type, world, spawnReason, pos, random) && pos.getY() >= 60 && !checkVillager(Vec3d.ofCenter(pos), world);
+		BlockPos blockPos = pos.down();
+		return world.getDifficulty() != Difficulty.PEACEFUL && canMobSpawn(type, world, spawnReason, pos, random) && pos.getY() >= 50 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type) && !checkVillager(Vec3d.ofCenter(pos), world);
 	}
 
 

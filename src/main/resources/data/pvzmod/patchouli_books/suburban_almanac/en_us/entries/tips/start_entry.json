@@ -25,7 +25,7 @@
       "type": "crafting",
       "recipe": "pvzmod:plants/appease/peashooterpvz",
       "text": [
-        "When you place your Sunflower, you will notice that it will give you 2 Suns already, this is the perfect amount to make a Peashooter, make one."
+        "When you place your Sunflower you will notice that it will give you 2 Suns already, this is the perfect amount to make a Peashooter, make one."
       ]
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:plants/reinforce/cabbagepult",
+      "recipe": "pvzmod:plants/arma/cabbagepult",
       "text": [
         "Cabbage-pults are really useful long range plants that while weaker than a peashooter can ignore shields and shoot through weird terrain."
       ]
