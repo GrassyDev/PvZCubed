@@ -3,7 +3,7 @@
     "icon": {
       "item": "pvzmod:scaredyshroom_seed_packet"
     },
-    "title": "Scaredy-shroom",
+    "title": "The Mushrooms",
     "description": "Craft a Scaredy-shroom",
     "frame": "task",
     "show_toast": true,
@@ -20,7 +20,10 @@
             "items": [
               "pvzmod:scaredyshroom_seed_packet"
             ],
-            "count": 1
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
           }
         ]
       }

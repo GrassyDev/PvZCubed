@@ -207,7 +207,7 @@ public class BombSeedlingEntity extends BombardEntity implements IAnimatable {
 
 	private void raycastExplode() {
 		Vec3d vec3d = this.getPos();
-		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(2));
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(3));
 		Iterator var9 = list.iterator();
 		while (true) {
 			LivingEntity livingEntity;
@@ -353,7 +353,7 @@ public class BombSeedlingEntity extends BombardEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 2D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 32);
     }
 

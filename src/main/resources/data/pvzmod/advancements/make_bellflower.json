@@ -1,10 +1,10 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:potatomine_seed_packet"
+      "item": "pvzmod:bellflower_seed_packet"
     },
-    "title": "The Explosives",
-    "description": "Craft a Potato Mine",
+    "title": "The Flowers",
+    "description": "Craft a Bellflower",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:potatomine_seed_packet"
+              "pvzmod:bellflower_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -31,8 +31,6 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/bombard/cherrybomb",
-      "pvzmod:plants/enforce/squash"
     ],
     "experience": 25
   }

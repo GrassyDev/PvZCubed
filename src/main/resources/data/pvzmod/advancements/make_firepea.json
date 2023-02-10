@@ -20,7 +20,10 @@
             "items": [
               "pvzmod:firepea_seed_packet"
             ],
-            "count": 1
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
           }
         ]
       }

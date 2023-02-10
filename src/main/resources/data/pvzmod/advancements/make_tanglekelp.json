@@ -3,7 +3,7 @@
     "icon": {
       "item": "pvzmod:tanglekelp_seed_packet"
     },
-    "title": "Tangle Kelp",
+    "title": "The Swimmers",
     "description": "Craft a Tangle Kelp",
     "frame": "task",
     "show_toast": true,
@@ -20,7 +20,10 @@
             "items": [
               "pvzmod:tanglekelp_seed_packet"
             ],
-            "count": 1
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
           }
         ]
       }

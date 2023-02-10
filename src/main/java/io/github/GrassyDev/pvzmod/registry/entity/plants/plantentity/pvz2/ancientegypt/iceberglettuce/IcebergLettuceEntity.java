@@ -190,7 +190,6 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		int i = this.getFuseSpeed();
 		this.goalSelector.add(2, new IcebergIgniteGoal(this));
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
@@ -221,7 +220,7 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 
 	private void raycastExplode() {
 		Vec3d vec3d = this.getPos();
-		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(2));
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(3));
 		Iterator var9 = list.iterator();
 		while (true) {
 			LivingEntity livingEntity;
@@ -233,7 +232,7 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 
 					livingEntity = (LivingEntity) var9.next();
 				} while (livingEntity == this);
-			} while (this.squaredDistanceTo(livingEntity) > 6.25);
+			} while (this.squaredDistanceTo(livingEntity) > 4);
 
 			boolean bl = false;
 
@@ -362,7 +361,7 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 2D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4);
     }
 
