@@ -245,7 +245,6 @@ public class PvZCubed implements ModInitializer {
 	public static final Identifier SILENCE = new Identifier("pvzmod:silence");
 	public static SoundEvent SILENCEVENET = new SoundEvent(SILENCE);
 
-
 	@Override
 	public void onInitialize(ModContainer mod) {
 		LOGGER.info("{} says: Trans Rights are Human Rights!", mod.metadata().name());
