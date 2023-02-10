@@ -190,13 +190,12 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
                 !(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
-			System.out.println(zombieMaterial);
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-            entity.playSound(sound, 0.125F, 1F);
+            entity.playSound(sound, 0.28F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4.5F);
             ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
         }

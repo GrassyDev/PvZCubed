@@ -159,13 +159,12 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
                 !(entity instanceof HypnoFlagzombieEntity)) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
-			System.out.println(zombieMaterial);
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			entity.playSound(sound, 0.125F, 1F);
+			entity.playSound(sound, 0.28F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);

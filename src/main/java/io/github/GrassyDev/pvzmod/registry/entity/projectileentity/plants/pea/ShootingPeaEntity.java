@@ -204,7 +204,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			entity.playSound(sound, 0.33F, 1F);
+			entity.playSound(sound, 0.28F, 1F);
 			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);

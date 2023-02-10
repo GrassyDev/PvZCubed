@@ -4,11 +4,8 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -30,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -155,18 +153,15 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 5.2F);
 				}
 				else if ((entity instanceof BucketheadEntity) ||
-						(entity instanceof BerserkerEntity)){
-					entity.playSound(PvZCubed.BUCKETHITEVENT, 0.125F, 1F);
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
-				}
-				else if ((entity instanceof ConeheadEntity) ||
-						(entity instanceof FootballEntity) ||
-						(entity instanceof BackupDancerEntity)) {
-					entity.playSound(PvZCubed.CONEHITEVENT, 0.125F, 1F);
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
-				}
-				else  {
-					entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
+						(entity instanceof BerserkerEntity)) {
+					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+					SoundEvent sound;
+					sound = switch (zombieMaterial) {
+						case "metallic" -> PvZCubed.BUCKETHITEVENT;
+						case "plastic" -> PvZCubed.CONEHITEVENT;
+						default -> PvZCubed.PEAHITEVENT;
+					};
+					entity.playSound(sound, 0.28F, 1F);
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
 				}
 			}
@@ -179,7 +174,14 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 					entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 2.6F);
 				} else {
-					entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
+					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+					SoundEvent sound;
+					sound = switch (zombieMaterial) {
+						case "metallic" -> PvZCubed.BUCKETHITEVENT;
+						case "plastic" -> PvZCubed.CONEHITEVENT;
+						default -> PvZCubed.PEAHITEVENT;
+					};
+					entity.playSound(sound, 0.28F, 1F);
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 2);
 				}
 			}
