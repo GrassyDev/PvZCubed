@@ -233,7 +233,7 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 
 					livingEntity = (LivingEntity) var9.next();
 				} while (livingEntity == this);
-			} while (this.squaredDistanceTo(livingEntity) > 4);
+			} while (this.squaredDistanceTo(livingEntity) > 6.25);
 
 			boolean bl = false;
 
