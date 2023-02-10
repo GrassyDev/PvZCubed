@@ -92,6 +92,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
 				stacks.add(new ItemStack(ModItems.FUME));
+				stacks.add(new ItemStack(ModItems.HYPNO));
 				stacks.add(new ItemStack(ModItems.SPORE));
 				stacks.add(new ItemStack(ModItems.FIREPEA));
 				stacks.add(new ItemStack(ModItems.CABBAGE));
