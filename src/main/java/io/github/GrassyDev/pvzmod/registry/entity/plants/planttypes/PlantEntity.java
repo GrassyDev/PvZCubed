@@ -128,6 +128,10 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+					plantEntity.sunProducingTime = 600;
+					plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+					plantEntity.dropItem(ModItems.SUN);
+					plantEntity.dropItem(ModItems.SUN);
 				}
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
@@ -283,6 +287,7 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+					plantEntity.sunProducingTime = 100;
 				}
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
