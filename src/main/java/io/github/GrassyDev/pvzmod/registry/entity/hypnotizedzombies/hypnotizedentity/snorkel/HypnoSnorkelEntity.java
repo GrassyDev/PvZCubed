@@ -57,6 +57,7 @@ public class HypnoSnorkelEntity extends HypnoZombieEntity implements IAnimatable
 		setInvisibleSnorkel(false);
 		this.ignoreCameraFrustum = true;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);

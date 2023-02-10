@@ -59,6 +59,7 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
 		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
