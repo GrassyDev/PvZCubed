@@ -50,7 +50,7 @@ Currently, this mod contains:
 6. [0/?] Zombie Bots (not guaranteed)
 
 ### PvZ 2
-1. [3/6] Ancient Egypt Plants
+1. [4/6] Ancient Egypt Plants
 2. [0/14] Ancient Egypt Zombies
 3. [2/8] Pirate Seas Plants
 4. [0/15] Pirate Seas Zombies
@@ -80,6 +80,10 @@ Currently, this mod contains:
 ### Plants vs. Zombies: All Stars
 1. [1/?] Plants
 2. [0/?] Zombies
+
+### Plants vs. Zombies Heroes
+1. [6/?] Plant Cards
+2. [0/?] Zombies Cards
 
 
 There's also plans to include some exclusives from PvZ Adventures, Garden Warfare and Neighborville, Heroes, PvZ3, and the chinese PvZ games.
