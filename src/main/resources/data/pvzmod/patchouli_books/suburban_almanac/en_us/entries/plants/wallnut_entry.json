@@ -2,7 +2,7 @@
   "name": "Wall-nut",
   "icon": "pvzmod:wallnut_seed_packet",
   "category": "pvzmod:plant_category",
-  "advancement": "pvzmod:make_peashooter",
+  "advancement": "pvzmod:make_sunflower",
   "sortnum": 6,
   "pages": [
     {

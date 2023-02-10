@@ -3,7 +3,7 @@
   "icon": "pvzmod:cabbagepult_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 33,
-  "advancement": "pvzmod:make_peashooter",
+  "advancement": "pvzmod:make_sunflower",
   "pages": [
     {
       "type": "text",

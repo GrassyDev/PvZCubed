@@ -1,0 +1,47 @@
+{
+  "name": "Tip: Projectile types",
+  "icon": "pvzmod:cabbage",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 14,
+  "advancement": "pvzmod:make_cabbagepult",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "Plants have multiple different projectiles, some with different properties.",
+        "$(br2)The most common type of projectile is the Pea type: they shoot straight and hit one target.",
+        "$(br2)These projectiles are stopped by shields and go over Snorkel Zombies."
+        ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)The second most common type of projectile is the Spear type: they shoot straight and go through Zombies.",
+        "$(br2)These projectiles go through shields and go over Snorkel Zombies."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)The third most common type of projectile is the Lobbed type: they shoot in an arc and hit the targeted Zombie regardless of obstructions.",
+        "$(br2)These projectiles ignore shields, hit Snorkel Zombies, and plants that shoot these projectiles have target priority against shield and Snorkel Zombies."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Another type of projectile is the Splash type: any projectile can splash, and they deal damage to every Zombie around the impact area.",
+        "$(br2)The splash ignores shields and hit Snorkel Zombies."
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/bellflower_entry",
+        "pvzmod:plants/cabbagepult_entry",
+        "pvzmod:plants/firepea_entry"
+      ]
+    }
+  ]
+}
