@@ -86,7 +86,7 @@ Currently, this mod contains:
 2. [0/?] Zombies Cards
 
 
-There's also plans to include some exclusives from PvZ Adventures, Garden Warfare and Neighborville, Heroes, PvZ3, and the chinese PvZ games.
+There's also plans to include some exclusives from PvZ Adventures, Garden Warfare and Neighborville, PvZ3, and the chinese PvZ games.
 
 
 
