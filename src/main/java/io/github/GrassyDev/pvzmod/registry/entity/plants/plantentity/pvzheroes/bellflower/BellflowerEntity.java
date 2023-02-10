@@ -247,7 +247,7 @@ public class BellflowerEntity extends SpearEntity implements IAnimatable, Ranged
 
 	public static boolean canBellflowerSpawn(EntityType<? extends BellflowerEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return checkVillager(Vec3d.ofCenter(pos), world) && !checkBellflower(Vec3d.ofCenter(pos), world) && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
+		return checkVillager(Vec3d.ofCenter(pos), world) && !checkBellflower(Vec3d.ofCenter(pos), world);
 	}
 
 	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {

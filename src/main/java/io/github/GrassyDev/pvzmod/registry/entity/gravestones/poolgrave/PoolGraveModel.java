@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.poolgrave;
+package io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave;
 
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

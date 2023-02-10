@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": {
+    "pvzmod:backup_dancer": "plastic",
+    "pvzmod:berserker": "metallic",
+    "pvzmod:browncoat": "flesh",
+    "pvzmod:conehead": "plastic",
+    "pvzmod:dancing_zombie": "flesh",
+    "pvzmod:buckethead": "metallic",
+    "pvzmod:flagzombie": "flesh",
+    "pvzmod:football": "metallic",
+    "pvzmod:gargantuar": "flesh",
+    "pvzmod:imp": "flesh",
+    "pvzmod:newspaper": "paper",
+    "pvzmod:polevaulting": "flesh",
+    "pvzmod:screendoor": "metallic",
+    "pvzmod:snorkel": "flesh"
+  }
+}

@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.basicgrave;
+package io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;

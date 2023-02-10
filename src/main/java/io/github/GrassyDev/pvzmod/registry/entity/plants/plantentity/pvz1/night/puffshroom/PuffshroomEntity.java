@@ -322,7 +322,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	public static boolean canPuffshroomSpawn(EntityType<? extends PuffshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return  world.getLightLevel(pos) <= 6 && pos.getY() >= 50 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
+		return  world.getLightLevel(pos) <= 6 && pos.getY() >= 50;
 	}
 
 

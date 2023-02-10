@@ -9,6 +9,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Ice;
 import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Warm;
 import io.github.GrassyDev.pvzmod.registry.world.gen.entity.PvZEntitySpawn;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
@@ -18,15 +19,18 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import org.quiltmc.qsl.registry.attachment.api.RegistryEntryAttachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
 
 public class PvZCubed implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod name as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Plants vs. Zombies Cubed");
+
+	// Thanks to Ennui Langeweile for the help with Registry Entry Attachments
+	public static final RegistryEntryAttachment<EntityType<?>, String> ZOMBIE_MATERIAL =
+			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_material")).build();
 
 	public static final DamageSource HYPNO_DAMAGE = new HypnoDamage().setHypnoDamage();
 	public static final StatusEffect HYPNOTIZED = new Hypnotized();

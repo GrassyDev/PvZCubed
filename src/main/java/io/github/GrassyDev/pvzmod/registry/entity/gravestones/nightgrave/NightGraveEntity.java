@@ -1,8 +1,8 @@
-package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.nightgrave;
+package io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.GraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
@@ -178,7 +178,12 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 
 	public static boolean canNightGraveSpawn(EntityType<? extends NightGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getDifficulty() != Difficulty.PEACEFUL && world.getLightLevel(pos) <= 6 && pos.getY() >= 50 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type) && !checkVillager(Vec3d.ofCenter(pos), world);
+		return world.getDifficulty() != Difficulty.PEACEFUL &&
+				world.getLightLevel(pos) <= 6 &&
+				pos.getY() >= 50 &&
+				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type)  &&
+				!checkVillager(Vec3d.ofCenter(pos), world) &&
+				!checkPlant(Vec3d.ofCenter(pos), world);
 	}
 
 

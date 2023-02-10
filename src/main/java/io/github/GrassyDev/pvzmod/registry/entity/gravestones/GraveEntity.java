@@ -1,7 +1,8 @@
-package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity;
+package io.github.GrassyDev.pvzmod.registry.entity.gravestones;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -153,7 +154,12 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	}
 
 	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {
-		List<VillagerEntity> list = world.getNonSpectatingEntities(VillagerEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(40));
+		List<VillagerEntity> list = world.getNonSpectatingEntities(VillagerEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(30));
+		return !list.isEmpty();
+	}
+
+	public static boolean checkPlant(Vec3d pos, ServerWorldAccess world) {
+		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(5));
 		return !list.isEmpty();
 	}
 }

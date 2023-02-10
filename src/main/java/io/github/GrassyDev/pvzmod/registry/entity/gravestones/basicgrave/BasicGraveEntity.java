@@ -1,15 +1,14 @@
-package io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.poolgrave;
+package io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.gravestoneentity.GraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -51,7 +50,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class PoolGraveEntity extends GraveEntity implements IAnimatable {
+public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";
 
@@ -63,7 +62,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-    public PoolGraveEntity(EntityType<PoolGraveEntity> entityType, World world) {
+    public BasicGraveEntity(EntityType<BasicGraveEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 25;
@@ -107,8 +106,8 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
     }
 
     protected void initCustomGoals() {
-        this.goalSelector.add(1, new PoolGraveEntity.summonZombieGoal(this));
-        this.targetSelector.add(2, new PoolGraveEntity.TrackOwnerTargetGoal(this));
+        this.goalSelector.add(1, new BasicGraveEntity.summonZombieGoal(this));
+        this.targetSelector.add(2, new BasicGraveEntity.TrackOwnerTargetGoal(this));
     }
 
 
@@ -148,11 +147,11 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createPoolGraveAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 75.0D)
+	public static DefaultAttributeContainer.Builder createBasicGraveAttributes() {
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 200D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 140D);
     }
 
 	protected SoundEvent getDeathSound() {
@@ -174,9 +173,14 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 
 	/** /~*~//~*SPAWNING*~//~*~/ **/
 
-	public static boolean canPoolGraveSpawn(EntityType<? extends PoolGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
+	public static boolean canBasicGraveSpawn(EntityType<? extends BasicGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getDifficulty() != Difficulty.PEACEFUL && canMobSpawn(type, world, spawnReason, pos, random) && pos.getY() >= 50 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type) && !checkVillager(Vec3d.ofCenter(pos), world);
+		return world.getDifficulty() != Difficulty.PEACEFUL &&
+				canMobSpawn(type, world, spawnReason, pos, random) &&
+				pos.getY() >= 50 &&
+				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type) &&
+				!checkVillager(Vec3d.ofCenter(pos), world) &&
+				!checkPlant(Vec3d.ofCenter(pos), world);
 	}
 
 
@@ -190,12 +194,12 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = PoolGraveEntity.this.getTarget();
+			LivingEntity livingEntity = BasicGraveEntity.this.getTarget();
 			if (livingEntity != null && livingEntity.isAlive()) {
-				if (PoolGraveEntity.this.isSpellcasting()) {
+				if (BasicGraveEntity.this.isSpellcasting()) {
 					return false;
 				} else {
-					return PoolGraveEntity.this.age >= this.startTime;
+					return BasicGraveEntity.this.age >= this.startTime;
 				}
 			} else {
 				return false;
@@ -203,28 +207,28 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 		}
 
 		public boolean shouldContinue() {
-			LivingEntity livingEntity = PoolGraveEntity.this.getTarget();
+			LivingEntity livingEntity = BasicGraveEntity.this.getTarget();
 			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0;
 		}
 
 		public void start() {
 			this.spellCooldown = this.getTickCount(this.getInitialCooldown());
-			PoolGraveEntity.this.spellTicks = this.getSpellTicks();
-			this.startTime = PoolGraveEntity.this.age + this.startTimeDelay();
+			BasicGraveEntity.this.spellTicks = this.getSpellTicks();
+			this.startTime = BasicGraveEntity.this.age + this.startTimeDelay();
 			SoundEvent soundEvent = this.getSoundPrepare();
 			if (soundEvent != null) {
-				PoolGraveEntity.this.playSound(soundEvent, 1.0F, 1.0F);
+				BasicGraveEntity.this.playSound(soundEvent, 1.0F, 1.0F);
 			}
 
-			PoolGraveEntity.this.setSpell(this.getSpell());
+			BasicGraveEntity.this.setSpell(this.getSpell());
 		}
 
 		public void tick() {
 			--this.spellCooldown;
 			if (this.spellCooldown == 0) {
 				this.castSpell();
-				PoolGraveEntity.this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, 70, 1)));
-				PoolGraveEntity.this.playSound(PoolGraveEntity.this.getCastSpellSound(), 1.0F, 1.0F);
+				BasicGraveEntity.this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, 70, 1)));
+				BasicGraveEntity.this.playSound(BasicGraveEntity.this.getCastSpellSound(), 1.0F, 1.0F);
 			}
 
 		}
@@ -242,17 +246,17 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 		@Nullable
 		protected abstract SoundEvent getSoundPrepare();
 
-		protected abstract Spell getSpell();
+		protected abstract GraveEntity.Spell getSpell();
 	}
 
-	class summonZombieGoal extends PoolGraveEntity.CastSpellGoal {
+	class summonZombieGoal extends BasicGraveEntity.CastSpellGoal {
         private final TargetPredicate closeZombiePredicate;
 
-		private final PoolGraveEntity poolGraveEntity;
+		private final BasicGraveEntity basicGraveEntity;
 
-		private summonZombieGoal(PoolGraveEntity poolGraveEntity) {
+		private summonZombieGoal(BasicGraveEntity basicGraveEntity) {
             super();
-			this.poolGraveEntity = poolGraveEntity;
+			this.basicGraveEntity = basicGraveEntity;
 			this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
 		}
 
@@ -260,18 +264,18 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
             if (!super.canStart()) {
                 return false;
             } else {
-                int b = PoolGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int c = PoolGraveEntity.this.world.getTargets(ConeheadEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int u = PoolGraveEntity.this.world.getTargets(BucketheadEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int p = PoolGraveEntity.this.world.getTargets(PoleVaultingEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int f = PoolGraveEntity.this.world.getTargets(FlagzombieEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-				int g = PoolGraveEntity.this.world.getTargets(GargantuarEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                return PoolGraveEntity.this.random.nextInt(8) + 1 > b &&
-                        PoolGraveEntity.this.random.nextInt(8) + 1 > c &&
-                        PoolGraveEntity.this.random.nextInt(8) + 1 > u &&
-                        PoolGraveEntity.this.random.nextInt(8) + 1 > p &&
-                        PoolGraveEntity.this.random.nextInt(8) + 1 > f &&
-						PoolGraveEntity.this.random.nextInt(8) + 1 > g;
+                int b = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int c = BasicGraveEntity.this.world.getTargets(ConeheadEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int u = BasicGraveEntity.this.world.getTargets(BucketheadEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int p = BasicGraveEntity.this.world.getTargets(PoleVaultingEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int f = BasicGraveEntity.this.world.getTargets(FlagzombieEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int g = BasicGraveEntity.this.world.getTargets(GargantuarEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                return BasicGraveEntity.this.random.nextInt(8) + 1 > b &&
+                        BasicGraveEntity.this.random.nextInt(8) + 1 > c &&
+                        BasicGraveEntity.this.random.nextInt(8) + 1 > u &&
+                        BasicGraveEntity.this.random.nextInt(8) + 1 > p &&
+                        BasicGraveEntity.this.random.nextInt(8) + 1 > f &&
+						BasicGraveEntity.this.random.nextInt(8) + 1 > g;
             }
         }
 
@@ -284,8 +288,8 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
         }
 
         protected void castSpell() {
-            ServerWorld serverWorld = (ServerWorld) PoolGraveEntity.this.world;
-			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.poolGraveEntity.getBlockPos());
+            ServerWorld serverWorld = (ServerWorld)BasicGraveEntity.this.world;
+			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.basicGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
             double probability = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 			double probability11 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
@@ -296,107 +300,107 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
             double probability5 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 
-            for(int b = 0; b < 2; ++b) { // 100% x3 Browncoat
-                BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-                BrowncoatEntity browncoatEntity = (BrowncoatEntity)PvZEntity.BROWNCOAT.create(PoolGraveEntity.this.world);
+            for(int b = 0; b < 2; ++b) { // 100% x1 Browncoat
+                BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+                BrowncoatEntity browncoatEntity = (BrowncoatEntity)PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-                browncoatEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-                browncoatEntity.setOwner(PoolGraveEntity.this);
+                browncoatEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+                browncoatEntity.setOwner(BasicGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
-            if (probability <= 0.5) { // 50% x2 Conehead
-                for(int c = 0; c < 2; ++c) {
-                    BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-                    ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(PoolGraveEntity.this.world);
+            if (probability <= 0.5) { // 50% x1 Conehead
+                for(int c = 0; c < 1; ++c) {
+                    BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+                    ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
                     coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-                    coneheadEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-                    coneheadEntity.setOwner(PoolGraveEntity.this);
+                    coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+                    coneheadEntity.setOwner(BasicGraveEntity.this);
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
 			if (probability11 <= 0.3) { // 30% x1 Conehead
 				for(int c = 0; c < 1; ++c) {
-					BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-					ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(PoolGraveEntity.this.world);
+					BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+					ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					coneheadEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-					coneheadEntity.setOwner(PoolGraveEntity.this);
+					coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+					coneheadEntity.setOwner(BasicGraveEntity.this);
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
             if (probability2 <= 0.15) { // 15% x1 Buckethead
                 for(int u = 0; u < 1; ++u) {
-                    BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-                    BucketheadEntity bucketheadEntity = (BucketheadEntity) PvZEntity.BUCKETHEAD.create(PoolGraveEntity.this.world);
+                    BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+                    BucketheadEntity bucketheadEntity = (BucketheadEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
                     bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-                    bucketheadEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-                    bucketheadEntity.setOwner(PoolGraveEntity.this);
+                    bucketheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+                    bucketheadEntity.setOwner(BasicGraveEntity.this);
                     serverWorld.spawnEntityAndPassengers(bucketheadEntity);
                 }
             }
-			if (probability4 <= 0.3) { // 30% x1 SnorkelZombie
+			if (probability21 <= 0.15) { // 15% x1 Buckethead
 				for(int u = 0; u < 1; ++u) {
-					BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-					SnorkelEntity snorkelEntity = (SnorkelEntity) PvZEntity.SNORKEL.create(PoolGraveEntity.this.world);
-					snorkelEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					snorkelEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-					snorkelEntity.setOwner(PoolGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(snorkelEntity);
+					BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+					BucketheadEntity bucketheadEntity = (BucketheadEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
+					bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+					bucketheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+					bucketheadEntity.setOwner(BasicGraveEntity.this);
+					serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 				}
 			}
-			if (probability21 <= 0.2) { // 20% x1 SnorkelZombie
-				for(int u = 0; u < 1; ++u) {
-					BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-					SnorkelEntity snorkelEntity = (SnorkelEntity) PvZEntity.SNORKEL.create(PoolGraveEntity.this.world);
-					snorkelEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					snorkelEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-					snorkelEntity.setOwner(PoolGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(snorkelEntity);
-				}
-			}
-            /**if (probability3 <= 0.15) { // 15% x1 DolphinRiderZombie
+            if (probability3 <= 0.15) { // 15% x1 Pole Vaulting Zombie
                 for(int p = 0; p < 1; ++p) {
-                    BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-                    PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(PoolGraveEntity.this.world);
+                    BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+                    PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(BasicGraveEntity.this.world);
                     poleVaultingEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-                    poleVaultingEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-                    poleVaultingEntity.setOwner(PoolGraveEntity.this);
+                    poleVaultingEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+                    poleVaultingEntity.setOwner(BasicGraveEntity.this);
                     serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
                 }
-            }**/
+            }
 			if (difficulty >= 1.509) {
-				if (probability5 <= 0.2) { // 20% x1 Flag Zombie
+				if (probability5 <= 0.15) { // 15% x1 Flag Zombie
 					for (int f = 0; f < 1; ++f) {
-						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-						FlagzombieEntity flagzombieEntity = (FlagzombieEntity) PvZEntity.FLAGZOMBIE.create(PoolGraveEntity.this.world);
+						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						FlagzombieEntity flagzombieEntity = (FlagzombieEntity) PvZEntity.FLAGZOMBIE.create(BasicGraveEntity.this.world);
 						flagzombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						flagzombieEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						flagzombieEntity.setOwner(PoolGraveEntity.this);
+						flagzombieEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						flagzombieEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(flagzombieEntity);
 					}
 				}
 			}
-			/**if (difficulty >= 2.09) {
-				if (probability6 <= 0.085) { // 8.5% x1 Zomboni
+            if (probability4 <= 0.15) { // 20% x1 Pole Vaulting Zombie
+                for(int p = 0; p < 1; ++p) {
+                    BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+                    PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(BasicGraveEntity.this.world);
+                    poleVaultingEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+                    poleVaultingEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+                    poleVaultingEntity.setOwner(BasicGraveEntity.this);
+                    serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
+                }
+            }
+			if (difficulty >= 2.09) {
+				if (probability6 <= 0.085) { // 8.5% x1 Gargantuar
 					for (int g = 0; g < 1; ++g) {
-						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-						GargantuarEntity gargantuarEntity = (GargantuarEntity) PvZEntity.GARGANTUAR.create(PoolGraveEntity.this.world);
+						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						GargantuarEntity gargantuarEntity = (GargantuarEntity) PvZEntity.GARGANTUAR.create(BasicGraveEntity.this.world);
 						gargantuarEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						gargantuarEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						gargantuarEntity.setOwner(PoolGraveEntity.this);
+						gargantuarEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						gargantuarEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(gargantuarEntity);
 					}
 				}
-			}**/
-			++this.poolGraveEntity.spawnCounter;
+			}
+			++this.basicGraveEntity.spawnCounter;
         }
 
         protected SoundEvent getSoundPrepare() {
             return PvZCubed.GRAVERISINGEVENT;
         }
 
-        protected Spell getSpell() {
-            return Spell.SUMMON_VEX;
+        protected GraveEntity.Spell getSpell() {
+            return GraveEntity.Spell.SUMMON_VEX;
         }
     }
 
@@ -408,11 +412,11 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
         }
 
         public boolean canStart() {
-            return PoolGraveEntity.this.owner != null && PoolGraveEntity.this.owner.getTarget() != null && this.canTrack(PoolGraveEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
+            return BasicGraveEntity.this.owner != null && BasicGraveEntity.this.owner.getTarget() != null && this.canTrack(BasicGraveEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
         }
 
         public void start() {
-            PoolGraveEntity.this.setTarget(PoolGraveEntity.this.owner.getTarget());
+            BasicGraveEntity.this.setTarget(BasicGraveEntity.this.owner.getTarget());
             super.start();
         }
     }

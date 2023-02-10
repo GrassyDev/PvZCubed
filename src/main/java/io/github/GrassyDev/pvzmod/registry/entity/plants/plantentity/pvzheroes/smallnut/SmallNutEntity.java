@@ -240,6 +240,6 @@ public class SmallNutEntity extends ReinforceEntity implements IAnimatable {
 
 	public static boolean canSmallnutSpawn(EntityType<? extends SmallNutEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return pos.getY() > 50 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
+		return pos.getY() > 50;
 	}
 }

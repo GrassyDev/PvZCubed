@@ -294,16 +294,15 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
 						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
+						float dist = (this.plantEntity.squaredDistanceTo(predictedPos) >= 729) ? 1.1f : 1f;
 						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.plantEntity.getX();
 						double f = predictedPos.getY() - this.plantEntity.getY();
-						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						Vec3d projPos = new Vec3d(this.plantEntity.getX(), this.plantEntity.getY() + 1.75D, this.plantEntity.getZ());
 						Vec3d vel = this.plantEntity.solve_ballistic_arc_lateral(projPos, 1F, predictedPos, 5);
 						System.out.println(f);
-						proj.setVelocity(vel.getX(), -3.9200000762939453 + 28 / (h * 2.2), vel.getZ(),1F, 0F);
+						proj.setVelocity(vel.getX(), -3.9200000762939453 + 28 / (h * 2.2), vel.getZ(),dist, 0F);
 						proj.updatePosition(projPos.getX(), projPos.getY(), projPos.getZ());
 						proj.setOwner(this.plantEntity);
 						if (plantEntity.getTarget() != null){
@@ -367,185 +366,4 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
 
 		return fire_velocity.subtract(0, -(3*a - 4*b + c) / time, 0);
 	}
-
-	/**static class FireBeamGoal extends Goal {
-		private final CabbagepultEntity plantEntity;
-		private int beamTicks;
-		private int animationTicks;
-
-		public FireBeamGoal(CabbagepultEntity plantEntity) {
-			this.plantEntity = plantEntity;
-			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
-		}
-
-		public boolean canStart() {
-			LivingEntity livingEntity = this.plantEntity.getTarget();
-			return livingEntity != null && livingEntity.isAlive();
-		}
-
-		public boolean shouldContinue() {
-			return super.shouldContinue();
-		}
-
-		public void start() {
-			this.beamTicks = -16;
-			this.animationTicks = -32;
-			this.plantEntity.getNavigation().stop();
-			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
-			this.plantEntity.velocityDirty = true;
-		}
-
-		public void stop() {
-			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 10);
-			this.plantEntity.setTarget((LivingEntity)null);
-		}
-
-		public void tick() {
-			LivingEntity livingEntity = this.plantEntity.getTarget();
-			this.plantEntity.getNavigation().stop();
-			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.plantEntity.canSee(livingEntity)) &&
-					this.animationTicks >= 0) {
-				this.plantEntity.setTarget((LivingEntity) null);
-			} else {
-				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 11);
-				++this.beamTicks;
-				++this.animationTicks;
-				if (this.beamTicks >= 0 && this.animationTicks <= -16) {
-					// Huge thanks to Forrest Smith(forrestthewoods) for the trajectory code (https://www.forrestthewoods.com/blog/solving_ballistic_trajectories/)
-					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingCabbageEntity proj = new ShootingCabbageEntity(PvZEntity.CABBAGE, this.plantEntity.world);
-						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
-						Vec3d targetPos = livingEntity.getPos();
-						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.plantEntity.squaredDistanceTo(predictedPos);
-						float df = (float)d;
-						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						Vec3d projPos = new Vec3d(this.plantEntity.getX(), this.plantEntity.getY() + 1.75D, this.plantEntity.getZ());
-						Vec3d vel = this.plantEntity.solve_ballistic_arc(projPos, 1F, targetPos, livingEntity.getVelocity(), 9.8F);
-						proj.setVelocity(vel.getX(), vel.getY() * h, vel.getZ(), 1F, 0F);
-						proj.updatePosition(projPos.getX(), projPos.getY(), projPos.getZ());
-						proj.setOwner(this.plantEntity);
-						if (livingEntity.isAlive()) {
-							this.beamTicks = -7;
-							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 11);
-							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
-							this.plantEntity.world.spawnEntity(proj);
-						}
-					}
-				}
-				else if (this.animationTicks >= 0)
-				{
-					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 10);
-					this.beamTicks = -16;
-					this.animationTicks = -32;
-				}
-				super.tick();
-			}
-		}
-	}
-
-	Vec3d s0;
-	Vec3d s1;
-
-	public Vec3d solve_ballistic_arc(Vec3d proj_pos, float proj_speed, Vec3d target_pos, Vec3d target_velocity, float gravity) {
-
-		// Initialize output parameters
-		s0 = Vec3d.ZERO;
-		s1 = Vec3d.ZERO;
-
-		// Derivation
-		//
-		//  For full derivation see: blog.forrestthewoods.com
-		//  Here is an abbreviated version.
-		//
-		//  Four equations, four unknowns (solution.x, solution.y, solution.z, time):
-		//
-		//  (1) proj_pos.x + solution.x*time = target_pos.x + target_vel.x*time
-		//  (2) proj_pos.y + solution.y*time + .5*G*t = target_pos.y + target_vel.y*time
-		//  (3) proj_pos.z + solution.z*time = target_pos.z + target_vel.z*time
-		//  (4) proj_speed^2 = solution.x^2 + solution.y^2 + solution.z^2
-		//
-		//  (5) Solve for solution.x and solution.z in equations (1) and (3)
-		//  (6) Square solution.x and solution.z from (5)
-		//  (7) Solve solution.y^2 by plugging (6) into (4)
-		//  (8) Solve solution.y by rearranging (2)
-		//  (9) Square (8)
-		//  (10) Set (8) = (7). All solution.xyz terms should be gone. Only time remains.
-		//  (11) Rearrange 10. It will be of the form a*^4 + b*t^3 + c*t^2 + d*t * e. This is a quartic.
-		//  (12) Solve the quartic using SolveQuartic.
-		//  (13) If there are no positive, real roots there is no solution.
-		//  (14) Each positive, real root is one valid solution
-		//  (15) Plug each time value into (1) (2) and (3) to calculate solution.xyz
-		//  (16) The end.
-
-		double G = gravity;
-
-		double A = proj_pos.x;
-		double B = proj_pos.y;
-		double C = proj_pos.z;
-		double M = target_pos.x;
-		double N = target_pos.y;
-		double O = target_pos.z;
-		double P = target_velocity.x;
-		double Q = target_velocity.y;
-		double R = target_velocity.z;
-		double S = proj_speed;
-
-		double H = M - A;
-		double J = O - C;
-		double K = N - B;
-		double L = -.5f * G;
-
-		// Quartic Coeffecients
-		double c0 = L*L;
-		double c1 = -2*Q*L;
-		double c2 = Q*Q - 2*K*L - S*S + P*P + R*R;
-		double c3 = 2*K*Q + 2*H*P + 2*J*R;
-		double c4 = K*K + H*H + J*J;
-
-		// Solve quartic
-		double[] times = new double[4];
-
-
-
-		double[] numTimes = PvZCubed.SolveQuartic(c0, c1, c2, c3, c4);
-
-		times[0] = numTimes[0];
-		times[1] = numTimes[1];
-		times[2] = numTimes[2];
-		times[3] = numTimes[3];
-
-
-
-		// Sort so faster collision is found first
-		Arrays.sort(times);
-
-		// Plug quartic solutions into base equations
-		// There should never be more than 2 positive, real roots.
-		Vec3d[] solutions = new Vec3d[2];
-		int numSolutions = 0;
-
-		for (int i = 0; i < times.length && numSolutions < 2; ++i) {
-			double t = times[i];
-			if (t <= 0 || Double.isNaN(t))
-				continue;
-
-			solutions[numSolutions] = new Vec3d ((float)((H+P*t)/t), (float)((K+Q*t-L*t*t)/ t), (float)((J+R*t)/t));
-			++numSolutions;
-		}
-
-		// Write out solutions
-		if (numSolutions > 0) {
-			s0 = solutions[0];
-			return s0;
-		}
-		if (numSolutions > 1) {
-			s1 = solutions[1];
-			return s1;
-		}
-		else {
-			return s0;
-		}
-	}**/
 }

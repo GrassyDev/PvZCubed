@@ -4,11 +4,6 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
@@ -29,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -124,15 +120,15 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
-		if (!this.world.isClient && this.age > 40 && target != null) {
+		if (!this.world.isClient && this.age > 50 && target != null) {
 			if (target.getHealth() > 0) {
 				this.setVelocity(0, this.getVelocity().getY(), 0);
 				this.setPosition(target.getPos().getX(), this.getY() - 0.0005, target.getZ());
 			}
 		}
 		if (target != null){
-			if ((target.getHealth() > 0 && (this.getPos().getX() <= target.getPos().getX() + 0.5 && this.getPos().getX() >= target.getPos().getX() - 1) &&
-					this.getPos().getZ() <= target.getPos().getZ() + 0.5 && this.getPos().getZ() >= target.getPos().getZ() - 1)){
+			if ((target.getHealth() > 0 && (this.getPos().getX() <= target.getPos().getX() + 0.2 && this.getPos().getX() >= target.getPos().getX() - 0.2) &&
+					this.getPos().getZ() <= target.getPos().getZ() + 0.2 && this.getPos().getZ() >= target.getPos().getZ() - 0.2)){
 				this.setVelocity(0, this.getVelocity().getY(), 0);
 				this.setPosition(target.getPos().getX(), this.getY() - 0.0005, target.getZ());
 			}
@@ -159,27 +155,17 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
-        if ((entity instanceof BucketheadEntity) ||
-                (entity instanceof BerserkerEntity)) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.125F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-            this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
-        }
-        else if ((entity instanceof ConeheadEntity) ||
-                (entity instanceof FootballEntity) ||
-                (entity instanceof BackupDancerEntity)) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.CONEHITEVENT, 0.125F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
         else if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
                 !(entity instanceof HypnoFlagzombieEntity)) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
+			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+			SoundEvent sound;
+			System.out.println(zombieMaterial);
+			sound = switch (zombieMaterial) {
+				case "metallic" -> PvZCubed.BUCKETHITEVENT;
+				case "plastic" -> PvZCubed.CONEHITEVENT;
+				default -> PvZCubed.PEAHITEVENT;
+			};
+			entity.playSound(sound, 0.125F, 1F);
             entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
             this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);

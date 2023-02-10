@@ -242,6 +242,6 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable 
 
 	public static boolean canSunflowerSeedSpawn(EntityType<? extends SunflowerSeedEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getLightLevel(pos) >= 10 && world.getBlockState(blockPos).allowsSpawning(world, blockPos, type);
+		return world.getLightLevel(pos) >= 10;
 	}
 }
