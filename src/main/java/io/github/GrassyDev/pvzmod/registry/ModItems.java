@@ -24,17 +24,17 @@ public class ModItems {
 	public static final Item PLANTFOOD_FIRE = new Item(new Item.Settings().maxCount(64));
 	public static final Item PLANTFOOD_MUSHROOM = new Item(new Item.Settings().maxCount(64));
 	public static final Item PLANTFOOD_TOUGH = new Item(new Item.Settings().maxCount(64));
-    public static final Item PEA = new PeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32));
-    public static final Item SPORE = new SporeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(64));
-    public static final Item FUME = new FumeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8));
-	public static final Item HYPNO = new HypnoItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32));
-    public static final Item SNOWPEAPROJ = new SnowPeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32));
-    public static final Item FIREPEA = new FirepeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16));
-	public static final Item CABBAGE = new CabbageItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32));
-	public static final Item SNOWQUEENPEAPROJ = new SnowqueenpeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16));
-	public static final Item PLASMAPEA = new PlasmapeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16));
-	public static final Item ICESPIKE = new IcespikeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16));
-	public static final Item JINGLE = new JingleItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32));
+    public static final Item PEA = new PeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
+    public static final Item SPORE = new SporeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(64).rarity(Rarity.UNCOMMON));
+    public static final Item FUME = new FumeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
+	public static final Item HYPNO = new HypnoItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.EPIC));
+    public static final Item SNOWPEAPROJ = new SnowPeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
+    public static final Item FIREPEA = new FirepeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.RARE));
+	public static final Item CABBAGE = new CabbageItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
+	public static final Item SNOWQUEENPEAPROJ = new SnowqueenpeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
+	public static final Item PLASMAPEA = new PlasmapeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
+	public static final Item ICESPIKE = new IcespikeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
+	public static final Item JINGLE = new JingleItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
     public static final Item SUN = new Item(new Item.Settings().group(PvZCubed.PVZPLANTS));
     public static final Item SMALLSUN = new Item(new Item.Settings().group(PvZCubed.PVZPLANTS));
     public static final Item LARGESUN = new Item(new Item.Settings().group(PvZCubed.PVZPLANTS));
@@ -77,26 +77,26 @@ public class ModItems {
 	public static final Item BELLFLOWER_SEED_PACKET = new BellflowerSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
 
     //Zombie Spawn
-    public static final Item BROWNCOATEGG = new BrowncoatEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item FLAGZOMBIEEGG = new FlagzombieEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item CONEHEADEGG = new ConeheadEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item POLEVAULTINGEGG = new PoleVaultingEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item BUCKETHEADEGG = new BucketheadEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item SCREENDOOREGG = new ScreendoorEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item NEWSPAPEREGG = new NewspaperEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item FOOTBALLEGG = new FootballEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item DANCINGZOMBIEEGG = new DancingZombieEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-    public static final Item BACKUPDANCEREGG = new BackupDancerEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-	public static final Item SNORKELEGG = new SnorkelEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-	public static final Item GARGANTUAREGG = new GargantuarEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-	public static final Item IMPEGG = new ImpEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
-	public static final Item BERSERKEREGG = new BerserkerEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES));
+    public static final Item BROWNCOATEGG = new BrowncoatEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+    public static final Item FLAGZOMBIEEGG = new FlagzombieEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
+    public static final Item CONEHEADEGG = new ConeheadEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+    public static final Item POLEVAULTINGEGG = new PoleVaultingEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+    public static final Item BUCKETHEADEGG = new BucketheadEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+    public static final Item SCREENDOOREGG = new ScreendoorEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+    public static final Item NEWSPAPEREGG = new NewspaperEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+    public static final Item FOOTBALLEGG = new FootballEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
+    public static final Item DANCINGZOMBIEEGG = new DancingZombieEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
+    public static final Item BACKUPDANCEREGG = new BackupDancerEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+	public static final Item SNORKELEGG = new SnorkelEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
+	public static final Item GARGANTUAREGG = new GargantuarEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
+	public static final Item IMPEGG = new ImpEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
+	public static final Item BERSERKEREGG = new BerserkerEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
+	public static final Item LOCUSTSWARMEGG = new LocustswarmEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
 
     //Grave Spawn
-    public static final Item BASICGRAVESPAWN = new BasicGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES));
-    public static final Item NIGHTGRAVESPAWN = new NightGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES));
-
-	public static final Item POOLGRAVESPAWN = new PoolGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES));
+    public static final Item BASICGRAVESPAWN = new BasicGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.COMMON));
+    public static final Item NIGHTGRAVESPAWN = new NightGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.UNCOMMON));
+	public static final Item POOLGRAVESPAWN = new PoolGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.RARE));
 
     //Blocks
     public static final BlockItem GRASS_TILE = new BlockItem(ModBlocks.GRASS_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
@@ -209,6 +209,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gargantuar_egg"), GARGANTUAREGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"imp_egg"), IMPEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"berserker_egg"), BERSERKEREGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"locustswarm_egg"), LOCUSTSWARMEGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"basicgrave_spawn"), BASICGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightgrave_spawn"), NIGHTGRAVESPAWN);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"poolgrave_spawn"), POOLGRAVESPAWN);

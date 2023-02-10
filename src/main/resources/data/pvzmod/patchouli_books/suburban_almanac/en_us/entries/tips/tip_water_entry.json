@@ -1,0 +1,41 @@
+{
+  "name": "Tip: Water",
+  "icon": "minecraft:water_bucket",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 13,
+  "advancement": "pvzmod:make_tanglekelp",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "This mod's mechanics change depending on whether the Plants and/or Zombies are on normal blocks or water.",
+        "$(br2)For a plant to be planted on water it either needs the Amphibious trait, or to be planted on top of a Lily Pad.",
+        "$(br2)Some plants work differently depending on whether they are on land or water."
+        ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)When Zombies enter water, they will start riding a Ducky Tube. The Zombie's speed is the same as Ducky Tube's speed, ",
+        "unifying zombie speeds, making slow zombies faster and fast zombies slower.",
+        "$(br2)Freeze slows down the Ducky Tube, while a complete freeze kills the zombie if it's riding a Ducky Tube. Zombies on water are immune to fire damage, including fire splash."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)If the body of water is only one block deep (including the block of water itself), the zombies will go through it, entering the Ducky Tube, ",
+        "but if it's deeper, the zombies will more likely go around it, keep this in mind when using water."
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/lilypad_entry",
+        "pvzmod:plants/tanglekelp_entry",
+        "pvzmod:zombies/duckytube_entry",
+        "pvzmod:zombies/snorkel_entry"
+      ]
+    }
+  ]
+}

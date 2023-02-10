@@ -3,6 +3,7 @@
   "icon": "pvzmod:largesun",
   "category": "pvzmod:tutorial_category",
   "sortnum": 10,
+  "advancement": "pvzmod:make_sunflower",
   "pages": [
     {
       "type": "text",

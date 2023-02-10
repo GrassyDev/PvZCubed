@@ -83,7 +83,7 @@ Currently, this mod contains:
 
 ### Plants vs. Zombies Heroes
 1. [6/?] Plant Cards
-2. [0/?] Zombies Cards
+2. [1/?] Zombies Cards
 
 
 There's also plans to include some exclusives from PvZ Adventures, Garden Warfare and Neighborville, PvZ3, and the chinese PvZ games.

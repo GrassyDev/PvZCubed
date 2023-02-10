@@ -106,6 +106,7 @@ public class PvZCubed implements ModInitializer {
 					new Identifier(MOD_ID, "zombies"))
 			.icon(() -> new ItemStack(ModItems.WAVE_FLAG))
 			.appendItems(stacks -> {
+				stacks.add(new ItemStack(ModItems.LOCUSTSWARMEGG));
 				stacks.add(new ItemStack(ModItems.BROWNCOATEGG));
 				stacks.add(new ItemStack(ModItems.FLAGZOMBIEEGG));
 				stacks.add(new ItemStack(ModItems.CONEHEADEGG));

@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,16 +15,28 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class GargantuarEgg extends Item {
     public GargantuarEgg(Settings settings) {
         super(settings);
     }
+
+	@Override
+	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		super.appendTooltip(stack, world, tooltip, context);
+
+		tooltip.add(Text.translatable("item.pvzmod.creative")
+				.formatted(Formatting.UNDERLINE));
+	}
 
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();

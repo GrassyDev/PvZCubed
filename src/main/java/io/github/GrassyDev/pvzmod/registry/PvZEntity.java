@@ -114,6 +114,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowqu
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm.LocustSwarmEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm.LocustswarmEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
@@ -591,6 +593,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<HypnoBerserkerEntity>create(SpawnGroup.CREATURE, HypnoBerserkerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
 	);
 
+	public static final EntityType<LocustSwarmEntity> LOCUSTSWARM = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "locustswarm"),
+			QuiltEntityTypeBuilder.<LocustSwarmEntity>create(SpawnGroup.MONSTER, LocustSwarmEntity::new).setDimensions(EntityDimensions.fixed(0.62f, 0.5f)).build()
+	);
+
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final EntityType<BasicGraveEntity> BASICGRAVESTONE = Registry.register(
@@ -814,6 +822,9 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntity.createHypnoBerserkerAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LOCUSTSWARM, LocustSwarmEntity.createLocustSwarmAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.LOCUSTSWARM, LocustswarmEntityRenderer::new);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////

@@ -29,6 +29,7 @@
   "item.pvzmod.seed_packet.nocturnal.tooltip": "Nocturnal",
   "item.pvzmod.seed_packet.amphibious.tooltip": "Amphibious",
   "item.pvzmod.seed_packet.upgrade.tooltip": "Upgrade",
+  "item.pvzmod.creative": "Creative Only",
 
   "entity.pvzmod.sunflower": "Sunflower",
   "item.pvzmod.sunflower_seed_packet": "☀ Sunflower Seed Packet",
@@ -259,6 +260,9 @@
   "entity.pvzmod.berserker": "Berserker",
   "item.pvzmod.berserker_egg": "Berserker",
   "entity.pvzmod.berserker_hypnotized": "Hypnotized Berserker",
+
+  "entity.pvzmod.locustswarm": "Locust Swarm",
+  "item.pvzmod.locustswarm_egg": "Locust Swarm",
 
   "item.pvzmod.wave_flag": "Wave Flag",
   "item.pvzmod.cone": "Cone",
