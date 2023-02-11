@@ -350,11 +350,11 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
             if (probability3 <= 0.2) { // 20% x1 Screendoor
                 for(int c = 0; c < 1; ++c) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
-                    ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(NightGraveEntity.this.world);
-                    screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-                    screendoorEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-                    screendoorEntity.setOwner(NightGraveEntity.this);
-                    serverWorld.spawnEntityAndPassengers(screendoorEntity);
+					ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(NightGraveEntity.this.world);
+					screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+					world.spawnEntity(screendoorEntity);
+					screendoorEntity.setOwner(NightGraveEntity.this);
+					screendoorEntity.createShield();
                 }
             }
 			if (difficulty >= 1.509) {

@@ -2,10 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firep
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -143,8 +140,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-				!(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+		if (!world.isClient && entity instanceof Monster  && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
 			if (entity instanceof NewspaperEntity) {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 12.8f);
@@ -184,13 +180,8 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 					}
 
 					if (bl) {
-						if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-								!(livingEntity instanceof HypnoFlagzombieEntity)) {
-							if (livingEntity instanceof ScreendoorEntity) {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 53.4F);
-							} else {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-							}
+						if (livingEntity instanceof Monster) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
 							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
 							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 							livingEntity.removeStatusEffect(PvZCubed.ICE);

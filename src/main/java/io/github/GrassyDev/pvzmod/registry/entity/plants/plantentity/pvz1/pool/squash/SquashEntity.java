@@ -120,8 +120,7 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 	protected void initGoals() {
 		this.goalSelector.add(1, new SquashEntity.AttackGoal());
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-					!(livingEntity instanceof HypnoFlagzombieEntity);
+			return livingEntity instanceof Monster ;
 		}));
 	}
 
@@ -167,8 +166,7 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-						!(livingEntity instanceof HypnoFlagzombieEntity)) {
+				if (livingEntity instanceof Monster ) {
 					float f = 180f;
 					boolean bl2 = livingEntity.damage(DamageSource.mob(this), f);
 					if (bl2) {

@@ -13,7 +13,8 @@
     "pvzmod:imp": "flesh",
     "pvzmod:newspaper": "paper",
     "pvzmod:polevaulting": "flesh",
-    "pvzmod:screendoor": "metallic",
+    "pvzmod:screendoor": "flesh",
+    "pvzmod:screendoorshield": "metallic",
     "pvzmod:snorkel": "flesh"
   }
 }

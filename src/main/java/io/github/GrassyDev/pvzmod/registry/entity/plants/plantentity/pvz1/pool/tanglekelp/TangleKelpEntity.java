@@ -151,8 +151,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 	protected void initGoals() {
 		this.goalSelector.add(1, new TangleKelpEntity.AttackGoal());
         this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-            return (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-                    !(livingEntity instanceof HypnoFlagzombieEntity) && !(livingEntity instanceof GargantuarEntity)) && livingEntity.isInsideWaterOrBubbleColumn() ;
+            return (livingEntity instanceof Monster  && !(livingEntity instanceof GargantuarEntity)) && livingEntity.isInsideWaterOrBubbleColumn() ;
         }));
     }
 

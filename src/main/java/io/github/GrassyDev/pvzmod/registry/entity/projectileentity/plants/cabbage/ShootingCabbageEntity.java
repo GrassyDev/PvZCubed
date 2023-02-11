@@ -2,10 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabba
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -143,20 +140,13 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		if (entity instanceof ScreendoorEntity) {
-			entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 53.334F);
-			this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
-		}
 		if (entity instanceof NewspaperEntity) {
 			entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
 			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 19.256F);
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
-        else if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-                !(entity instanceof HypnoFlagzombieEntity)) {
+        else if (!world.isClient && entity instanceof Monster) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {

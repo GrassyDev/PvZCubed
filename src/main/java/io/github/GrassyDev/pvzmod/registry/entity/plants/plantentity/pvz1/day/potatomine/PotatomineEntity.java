@@ -230,8 +230,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		this.goalSelector.add(2, new PotatoIgniteGoal(this));
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-					!(livingEntity instanceof HypnoFlagzombieEntity);
+			return livingEntity instanceof Monster ;
 		}));
 	}
 
@@ -283,8 +282,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-						!(livingEntity instanceof HypnoFlagzombieEntity)) {
+				if (livingEntity instanceof Monster ) {
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 180);
 				}
 			}

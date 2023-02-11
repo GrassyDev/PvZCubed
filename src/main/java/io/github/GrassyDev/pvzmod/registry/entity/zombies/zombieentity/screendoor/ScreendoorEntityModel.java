@@ -20,6 +20,6 @@ public class ScreendoorEntityModel extends AnimatedGeoModel<ScreendoorEntity> {
     @Override
     public Identifier getAnimationResource(ScreendoorEntity object)
     {
-        return new Identifier ("pvzmod", "animations/screendoor.json");
+        return new Identifier ("pvzmod", "animations/newbrowncoat.json");
     }
 }

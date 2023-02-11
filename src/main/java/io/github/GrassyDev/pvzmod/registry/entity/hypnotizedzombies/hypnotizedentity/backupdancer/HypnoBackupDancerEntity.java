@@ -99,8 +99,7 @@ public class HypnoBackupDancerEntity extends HypnoZombieEntity implements IAnima
 		this.targetSelector.add(2, new HypnoBackupDancerEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-					!(livingEntity instanceof HypnoFlagzombieEntity);
+			return livingEntity instanceof Monster ;
 		}));
 	}
 

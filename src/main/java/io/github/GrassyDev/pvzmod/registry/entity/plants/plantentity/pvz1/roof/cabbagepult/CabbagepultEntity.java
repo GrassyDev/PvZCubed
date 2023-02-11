@@ -113,8 +113,7 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
 			return livingEntity instanceof ScreendoorEntity;
 		}));
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-					!(livingEntity instanceof HypnoFlagzombieEntity);
+			return livingEntity instanceof Monster ;
 		}));
 	}
 
@@ -301,7 +300,6 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						Vec3d projPos = new Vec3d(this.plantEntity.getX(), this.plantEntity.getY() + 1.75D, this.plantEntity.getZ());
 						Vec3d vel = this.plantEntity.solve_ballistic_arc_lateral(projPos, 1F, predictedPos, 5);
-						System.out.println(f);
 						proj.setVelocity(vel.getX(), -3.9200000762939453 + 28 / (h * 2.2), vel.getZ(),dist, 0F);
 						proj.updatePosition(projPos.getX(), projPos.getY(), projPos.getZ());
 						proj.setOwner(this.plantEntity);

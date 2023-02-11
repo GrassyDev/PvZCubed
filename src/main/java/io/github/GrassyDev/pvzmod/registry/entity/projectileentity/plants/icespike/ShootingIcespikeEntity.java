@@ -2,12 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.icesp
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -139,54 +133,32 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
-        Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-				!(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			if (((LivingEntity) entity).hasStatusEffect(PvZCubed.ICE) || ((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
-				if (entity instanceof ScreendoorEntity) {
-					entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 26.667F);
-				}
-				else if (entity instanceof NewspaperEntity) {
-					entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 5.2F);
-				}
-				else if ((entity instanceof BucketheadEntity) ||
-						(entity instanceof BerserkerEntity)) {
-					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
-					SoundEvent sound;
-					sound = switch (zombieMaterial) {
-						case "metallic" -> PvZCubed.BUCKETHITEVENT;
-						case "plastic" -> PvZCubed.CONEHITEVENT;
-						default -> PvZCubed.PEAHITEVENT;
-					};
-					entity.playSound(sound, 0.28F, 1F);
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
-				}
-			}
-			else {
-				if (entity instanceof ScreendoorEntity) {
-					entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 13.334F);
-				}
-				if (entity instanceof NewspaperEntity) {
-					entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 2.6F);
-				} else {
-					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
-					SoundEvent sound;
-					sound = switch (zombieMaterial) {
-						case "metallic" -> PvZCubed.BUCKETHITEVENT;
-						case "plastic" -> PvZCubed.CONEHITEVENT;
-						default -> PvZCubed.PEAHITEVENT;
-					};
-					entity.playSound(sound, 0.28F, 1F);
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 2);
-				}
+		super.onEntityHit(entityHitResult);
+		Entity entity = entityHitResult.getEntity();
+		if (!world.isClient && entity instanceof Monster && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+			if (((LivingEntity) entity).hasStatusEffect(PvZCubed.ICE) || ((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
+				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+				SoundEvent sound;
+				sound = switch (zombieMaterial) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				entity.playSound(sound, 0.28F, 1F);
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
+			} else {
+				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+				SoundEvent sound;
+				sound = switch (zombieMaterial) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				entity.playSound(sound, 0.28F, 1F);
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 2);
 			}
 		}
-    }
+	}
 
     @Environment(EnvType.CLIENT)
     private ParticleEffect getParticleParameters() {

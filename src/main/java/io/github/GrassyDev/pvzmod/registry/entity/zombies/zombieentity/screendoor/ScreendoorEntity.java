@@ -33,6 +33,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -106,36 +107,66 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		Entity vehicle = this.getVehicle();
-		if (vehicle instanceof DuckyTubeEntity) {
-			event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky"));
-			if (this.isIced) {
-				event.getController().setAnimationSpeed(0.5);
-			}
-			else {
-				event.getController().setAnimationSpeed(1);
-			}
-		}else {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.walking"));
-				if (this.isFrozen) {
-					event.getController().setAnimationSpeed(0);
-				}
-				else if (this.isIced) {
-					event.getController().setAnimationSpeed(0.83);
-				}
-				else {
-					event.getController().setAnimationSpeed(1.66);
+		ScreendoorShieldEntity screendoorShieldEntity = (ScreendoorShieldEntity) this.getFirstPassenger();
+		if (this.hasPassenger(screendoorShieldEntity)) {
+			if (vehicle instanceof DuckyTubeEntity) {
+				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky"));
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				} else {
+					event.getController().setAnimationSpeed(1);
 				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.idle"));
-				if (this.isFrozen) {
-					event.getController().setAnimationSpeed(0);
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("screendoor.walking"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.83);
+					} else {
+						event.getController().setAnimationSpeed(1.66);
+					}
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("screendoor.idle"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					} else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
-				else if (this.isIced) {
+			}
+		}
+		else {
+			if (vehicle instanceof DuckyTubeEntity) {
+				event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
+				if (this.isIced) {
 					event.getController().setAnimationSpeed(0.5);
 				}
 				else {
 					event.getController().setAnimationSpeed(1);
+				}
+			}
+			else {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					} else {
+						event.getController().setAnimationSpeed(1);
+					}
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					} else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			}
 		}
@@ -196,15 +227,34 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	public void updatePassengerPosition(Entity passenger) {
+		if (this.hasPassenger(passenger)) {
+			float g = (float)((this.isRemoved() ? 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
+			float f = 0.4F;
+
+			Vec3d vec3d = new Vec3d((double)f, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+			passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double)g, this.getZ() + vec3d.z);
+			passenger.setBodyYaw(this.bodyYaw);
+		}
+	}
+
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public void createShield(){
+		ScreendoorShieldEntity screendoorShieldEntity = new ScreendoorShieldEntity(PvZEntity.SCREEENDOORSHIELD, this.world);
+		screendoorShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		screendoorShieldEntity.startRiding(this);
+		world.spawnEntity(screendoorShieldEntity);
+	}
 
 	public static DefaultAttributeContainer.Builder createScreendoorAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 180D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }
 
 	protected SoundEvent getAmbientSound() {
@@ -213,6 +263,11 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
+	}
+
+	@Override
+	public double getMountedHeightOffset() {
+		return 0.05;
 	}
 
 	public MobEntity getOwner() {

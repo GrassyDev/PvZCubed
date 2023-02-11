@@ -2,10 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowq
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -140,8 +137,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster && !(entity instanceof HypnoDancingZombieEntity) &&
-				!(entity instanceof HypnoFlagzombieEntity) && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+		if (!world.isClient && entity instanceof Monster  && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 			}
@@ -176,11 +172,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 				}
 
 				if (bl) {
-					if (livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-							!(livingEntity instanceof HypnoFlagzombieEntity)) {
-						if (livingEntity instanceof ScreendoorEntity) {
-							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 26.667F);
-						}
+					if (livingEntity instanceof Monster) {
 						if (livingEntity instanceof NewspaperEntity) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 5.2F);
 						}

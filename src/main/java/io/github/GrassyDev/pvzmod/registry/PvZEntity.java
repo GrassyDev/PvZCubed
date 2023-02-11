@@ -142,6 +142,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevault
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -499,6 +500,13 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "screendoor"),
             QuiltEntityTypeBuilder.<ScreendoorEntity>create(SpawnGroup.MONSTER, ScreendoorEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
     );
+
+	public static final EntityType<ScreendoorShieldEntity> SCREEENDOORSHIELD = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "screendoorshield"),
+			QuiltEntityTypeBuilder.<ScreendoorShieldEntity>create(SpawnGroup.MONSTER, ScreendoorShieldEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.8f)).build()
+	);
+
     public static final EntityType<HypnoScreendoorEntity> HYPNOSCREENDOOR = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "screendoor_hypnotized"),
@@ -770,6 +778,9 @@ public class PvZEntity implements ModInitializer {
 
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SCREEENDOOR, ScreendoorEntity.createScreendoorAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.SCREEENDOOR, ScreendoorEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SCREEENDOORSHIELD, ScreendoorShieldEntity.createScreendoorShieldAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.SCREEENDOOR, ScreendoorEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOSCREENDOOR, HypnoScreendoorEntity.createHypnoScreendoorAttributes().build());

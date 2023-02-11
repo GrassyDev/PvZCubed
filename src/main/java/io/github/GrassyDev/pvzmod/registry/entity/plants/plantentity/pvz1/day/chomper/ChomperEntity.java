@@ -4,14 +4,13 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -175,8 +174,8 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		this.goalSelector.add(1, new ChomperEntity.AttackGoal());
 		this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 5.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof HypnoDancingZombieEntity) &&
-					!(livingEntity instanceof HypnoFlagzombieEntity) && !(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+			return livingEntity instanceof Monster  && !(livingEntity instanceof ScreendoorShieldEntity) &&
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
 		}));
 		snorkelGoal();
 	}
@@ -201,12 +200,12 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
-		if (target instanceof ScreendoorEntity) {
+		if (target instanceof ScreendoorEntity && target.getFirstPassenger() != null) {
 			if (i <= 0) {
+				Entity shieldTarget = target.getFirstPassenger();
 				this.attackTicksLeft = 200;
 				this.world.sendEntityStatus(this, (byte) 5);
-				float f = 153f;
-				boolean bl = target.damage(DamageSource.mob(this), f);
+				boolean bl = shieldTarget.damage(DamageSource.mob(this), 180);
 				if (bl) {
 					this.applyDamageEffects(this, target);
 				}
