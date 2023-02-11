@@ -333,6 +333,10 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
+		float time = 300 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
+		if (this.age <= time && !this.getPuffshroomPermanency()) {
+			this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
+		}
 	}
 
 

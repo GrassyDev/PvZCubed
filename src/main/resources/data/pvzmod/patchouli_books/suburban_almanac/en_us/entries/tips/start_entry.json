@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "The first day on the zombie apocalypse is really important.",
-        "$(br2)Your objective is to find plants on the surface and punch them. When they die, they drop different types of Plant Food. ",
+        "$(br2)Your objective is to find plants on the surface and punch them (they will glow). When they die, they drop different types of Plant Food. ",
         "The Plant Foods are important to make different plants, but most importantly you will find Sunflower Seeds around. Punch them to get their Seed Packet."
         ]
     },

@@ -14,6 +14,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -256,6 +258,10 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 		}
 		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
+		}
+		float time = 300 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
+		if (this.age <= time && !this.getPuffshroomPermanency()) {
+			this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
 		}
     }
 
