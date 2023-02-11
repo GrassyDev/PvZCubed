@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -139,7 +140,9 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
         Entity entity = entityHitResult.getEntity();
 		if (!world.isClient && entity instanceof Monster  && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
-				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+				if (!(entity instanceof ZombieShieldEntity)) {
+					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+				}
 			}
 			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.25F, 1F);
 			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
@@ -178,7 +181,9 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 						}
 						else  {
 							if (!livingEntity.hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
-								livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+								if (!(livingEntity instanceof ZombieShieldEntity)) {
+									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+								}
 							}
 							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
 						}

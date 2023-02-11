@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -149,7 +150,9 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
 			}
 			if (!entity.isInsideWaterOrBubbleColumn()) {
-				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+				if (!(entity instanceof ZombieShieldEntity)) {
+					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+				}
 				((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
 				entity.setOnFireFor(4);
@@ -182,7 +185,9 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 					if (bl) {
 						if (livingEntity instanceof Monster) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+							if (!(livingEntity instanceof ZombieShieldEntity)) {
+								livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+							}
 							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 							livingEntity.removeStatusEffect(PvZCubed.ICE);
 							livingEntity.setOnFireFor(4);

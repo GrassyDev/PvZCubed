@@ -3,10 +3,7 @@ package io.github.GrassyDev.pvzmod;
 import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
-import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Frozen;
-import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Hypnotized;
-import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Ice;
-import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.Warm;
+import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.*;
 import io.github.GrassyDev.pvzmod.registry.world.gen.entity.PvZEntitySpawn;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.entity.EntityType;
@@ -38,6 +35,7 @@ public class PvZCubed implements ModInitializer {
 	public static final StatusEffect ICE = new Ice();
 	public static final StatusEffect FROZEN = new Frozen();
 	public static final StatusEffect WARM = new Warm();
+	public static final StatusEffect PVZPOISON = new PvZPoison();
 
 	public static final String MOD_ID = "pvzmod";
 
@@ -257,6 +255,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "frozen"), FROZEN);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "hypnotized"), HYPNOTIZED);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "warm"), WARM);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "pvzpoison"), PVZPOISON);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEASHOOT, PEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEAHIT, PEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREPEAHIT, FIREPEAHITEVENT);

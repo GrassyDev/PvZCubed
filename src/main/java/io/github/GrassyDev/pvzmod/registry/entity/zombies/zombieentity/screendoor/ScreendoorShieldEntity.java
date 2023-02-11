@@ -2,10 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendo
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -20,7 +19,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class ScreendoorShieldEntity extends PvZombieEntity implements IAnimatable {
+public class ScreendoorShieldEntity extends ZombieShieldEntity implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "shieldcontroller";
 
@@ -53,10 +52,6 @@ public class ScreendoorShieldEntity extends PvZombieEntity implements IAnimatabl
 		super.tick();
 		if (this.getVehicle() != null){
 			if (this.dead){
-				this.discard();
-			}
-			LivingEntity vehicle = (LivingEntity) this.getVehicle();
-			if (vehicle.isDead()){
 				this.discard();
 			}
 		}

@@ -6,8 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnlightenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.TwinSunflowerSeeds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -197,7 +196,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 	protected void produceSun() {
 		Vec3d vec3d = this.getPos();
 		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(15));
-		List<PvZombieEntity> zombieList = this.world.getNonSpectatingEntities(PvZombieEntity.class, this.getBoundingBox().expand(15));
+		List<GeneralPvZombieEntity> zombieList = this.world.getNonSpectatingEntities(GeneralPvZombieEntity.class, this.getBoundingBox().expand(15));
 		Iterator var9 = list.iterator();
 		while (true) {
 			LivingEntity livingEntity;
@@ -223,7 +222,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				if (livingEntity instanceof PvZombieEntity || livingEntity instanceof SummonerEntity) {
+				if (livingEntity instanceof GeneralPvZombieEntity) {
 					if (livingEntity.getY() < (this.getY() + 1) && livingEntity.getY() > (this.getY() - 1)){
 						if ((this.prevZombie == null || zombieList.get(0) != prevZombie) && !zombieList.isEmpty()){
 							prevZombie = zombieList.get(0);

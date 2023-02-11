@@ -2,11 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.FumeVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -17,7 +15,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
@@ -172,13 +169,7 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		if (entity instanceof NewspaperEntity) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 5.85F);
-            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
-        }
-        else if (!world.isClient && entity instanceof Monster &&  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+        if (!world.isClient && entity instanceof Monster &&  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
@@ -187,15 +178,16 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 				default -> PvZCubed.PEAHITEVENT;
 			};
             entity.playSound(sound, 0.28F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4.5F);
-            ((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(StatusEffects.WITHER, 60, 6)));
+			if (!(entity instanceof ZombieShieldEntity)) {
+				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.PVZPOISON, 60, 6)));
+			}
+			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4.5F);
         }
     }
 
     @Environment(EnvType.CLIENT)
     public void handleStatus(byte status) {
         if (status == 3) {
-
 			double d = (double) (180 & 255) / 255.0;
 			double e = (double) (30 & 255) / 255.0;
 			double f = (double) (200 & 255) / 255.0;
