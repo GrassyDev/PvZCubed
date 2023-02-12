@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizeden
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -109,7 +110,7 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
         this.targetSelector.add(2, new HypnoDancingZombieEntity.TrackOwnerTargetGoal(this));
         this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
         this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
-            return livingEntity instanceof Monster ;
+            return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity);
         }));
     }
 

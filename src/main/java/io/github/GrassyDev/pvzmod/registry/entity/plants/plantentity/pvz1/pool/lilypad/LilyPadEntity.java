@@ -195,7 +195,7 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 
 	/**protected void initGoals() {
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster ;
+			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity);
 		}));
 	}**/
 

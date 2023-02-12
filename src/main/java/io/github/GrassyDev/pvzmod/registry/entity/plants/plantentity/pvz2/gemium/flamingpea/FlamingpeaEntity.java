@@ -6,8 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PepperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamingpea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -98,7 +98,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(30) + 25, 15.0F));
 		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof Monster  && !(livingEntity instanceof ScreendoorShieldEntity) &&
+			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity) &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
 		}));
 		snorkelGoal();

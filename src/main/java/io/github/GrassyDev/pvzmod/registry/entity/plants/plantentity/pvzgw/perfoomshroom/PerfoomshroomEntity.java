@@ -2,9 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.perf
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -225,7 +225,7 @@ public class PerfoomshroomEntity extends EnchantEntity implements IAnimatable {
 		this.goalSelector.add(2, new PerfoomIgniteGoal(this));
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster ;
+			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity);
 		}));
 	}
 
@@ -282,7 +282,7 @@ public class PerfoomshroomEntity extends EnchantEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				if (livingEntity instanceof Monster ) {
+				if (livingEntity instanceof Monster && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity)) {
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 100);
 					livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
 				}

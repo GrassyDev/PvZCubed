@@ -2,10 +2,10 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.p
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -230,7 +230,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		this.goalSelector.add(2, new PotatoIgniteGoal(this));
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster ;
+			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity);
 		}));
 	}
 
@@ -282,7 +282,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				if (livingEntity instanceof Monster ) {
+				if (livingEntity instanceof Monster && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity)) {
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 180);
 				}
 			}

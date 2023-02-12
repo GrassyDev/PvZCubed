@@ -13,7 +13,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
-public class GeneralPvZombieEntity extends HostileEntity {
+public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 	}
