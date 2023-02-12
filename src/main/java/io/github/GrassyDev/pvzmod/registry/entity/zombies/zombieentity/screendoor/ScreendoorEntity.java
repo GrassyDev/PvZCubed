@@ -243,7 +243,7 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public void createShield(){
-		ScreendoorShieldEntity screendoorShieldEntity = new ScreendoorShieldEntity(PvZEntity.SCREEENDOORSHIELD, this.world);
+		ScreendoorShieldEntity screendoorShieldEntity = new ScreendoorShieldEntity(PvZEntity.SCREENDOORSHIELD, this.world);
 		screendoorShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		screendoorShieldEntity.startRiding(this);
 		world.spawnEntity(screendoorShieldEntity);

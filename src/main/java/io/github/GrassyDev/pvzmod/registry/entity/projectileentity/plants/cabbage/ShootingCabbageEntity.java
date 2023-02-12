@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabba
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -143,13 +142,7 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		if (entity instanceof NewspaperEntity) {
-			entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 19.256F);
-			this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
-		}
-        else if (!world.isClient && entity instanceof Monster &&
+		if (!world.isClient && entity instanceof Monster &&
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity))) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;

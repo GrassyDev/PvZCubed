@@ -38,7 +38,7 @@ public class ScreendoorShieldEntity extends ZombieShieldEntity implements IAnima
 	}
 
 	public ScreendoorShieldEntity(World world) {
-		this(PvZEntity.SCREEENDOORSHIELD, world);
+		this(PvZEntity.SCREENDOORSHIELD, world);
 	}
 
 	static {

@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -35,6 +36,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -166,7 +168,12 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 					}
 				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
+				if (this.speedUp) {
+					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle.angry"));
+				}
+				else {
+					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
+				}
 				if (this.isFrozen) {
 					event.getController().setAnimationSpeed(0);
 				}
@@ -235,19 +242,23 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		}
 		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 		EntityAttributeInstance maxStrengthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-		if (this.getTarget() != null && this.getHealth() <= 50){
+		if (this.getFirstPassenger() == null){
 			this.world.sendEntityStatus(this, (byte) 30);
 			if (this.speedSwitch) {
 				this.playSound(NEWSPAPERANGRYEVENT, 1, 1);
+				assert maxSpeedAttribute != null;
 				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				assert maxStrengthAttribute != null;
 				maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
 				this.speedSwitch = false;
 			}
 		}
-		else {
+		else if (this.getFirstPassenger() instanceof ZombieShieldEntity) {
 			this.world.sendEntityStatus(this, (byte) 31);
 			if (!this.speedSwitch){
+				assert maxSpeedAttribute != null;
 				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				assert maxStrengthAttribute != null;
 				maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
 				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.15D));
 				maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-7D));
@@ -256,8 +267,27 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	public void updatePassengerPosition(Entity passenger) {
+		if (this.hasPassenger(passenger)) {
+			float g = (float)((this.isRemoved() ? 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
+			float f = 0.4F;
+
+			Vec3d vec3d = new Vec3d((double)f, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+			passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double)g, this.getZ() + vec3d.z);
+			passenger.setBodyYaw(this.bodyYaw);
+		}
+	}
+
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public void createShield(){
+		NewspaperShieldEntity newspaperShieldEntity = new NewspaperShieldEntity(PvZEntity.NEWSPAPERSHIELD, this.world);
+		newspaperShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		newspaperShieldEntity.startRiding(this);
+		world.spawnEntity(newspaperShieldEntity);
+	}
 
 	public static EntityAttributeModifier createSpeedModifier(double amount) {
 		return new EntityAttributeModifier(
@@ -277,12 +307,12 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		);
 	}
 
-	public static DefaultAttributeContainer.Builder createHypnoNewspaperAttributes() {
+	public static DefaultAttributeContainer.Builder createNewspaperAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 65D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }
 
 	protected SoundEvent getAmbientSound() {
@@ -291,6 +321,11 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
+	}
+
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
 	}
 
 	public MobEntity getOwner() {

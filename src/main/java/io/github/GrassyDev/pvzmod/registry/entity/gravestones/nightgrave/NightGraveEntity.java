@@ -346,6 +346,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     newspaperEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     newspaperEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
                     newspaperEntity.setOwner(NightGraveEntity.this);
+					newspaperEntity.createShield();
                     serverWorld.spawnEntityAndPassengers(newspaperEntity);
                 }
             }

@@ -474,9 +474,9 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
 				ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(FlagzombieEntity.this.world);
 				screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-				world.spawnEntity(screendoorEntity);
 				screendoorEntity.setOwner(FlagzombieEntity.this);
 				screendoorEntity.createShield();
+				serverWorld.spawnEntityAndPassengers(screendoorEntity);
             }
             for(int p = 0; p < 1; ++p) { // 1 Conehead
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
@@ -484,6 +484,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 coneheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 coneheadEntity.setOwner(FlagzombieEntity.this);
+				coneheadEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(coneheadEntity);
             }
             for(int d = 0; d < 1; ++d) { // 1 Buckethead
@@ -492,6 +493,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 bucketheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 bucketheadEntity.setOwner(FlagzombieEntity.this);
+				bucketheadEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(bucketheadEntity);
             }
             for(int t = 0; t < 1; ++t) { // 1 Browncoat

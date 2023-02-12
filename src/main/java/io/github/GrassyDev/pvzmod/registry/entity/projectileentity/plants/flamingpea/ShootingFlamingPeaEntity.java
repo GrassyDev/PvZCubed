@@ -201,7 +201,12 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 									generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
 								}
 								else {
-									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+									if (livingEntity instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.isFlammabe) {
+										livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 99999);
+									}
+									else {
+										livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+									}
 								}
 								if (!(livingEntity instanceof ZombieShieldEntity)) {
 									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
