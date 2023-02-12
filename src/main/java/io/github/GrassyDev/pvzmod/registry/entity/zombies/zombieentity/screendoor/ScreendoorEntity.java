@@ -267,7 +267,7 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
 
 	@Override
 	public double getMountedHeightOffset() {
-		return 0.05;
+		return 0;
 	}
 
 	public MobEntity getOwner() {

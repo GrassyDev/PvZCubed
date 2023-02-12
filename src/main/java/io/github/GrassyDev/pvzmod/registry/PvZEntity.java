@@ -520,7 +520,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<ScreendoorShieldEntity> SCREEENDOORSHIELD = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "screendoorshield"),
-			QuiltEntityTypeBuilder.<ScreendoorShieldEntity>create(SpawnGroup.MONSTER, ScreendoorShieldEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.8f)).build()
+			QuiltEntityTypeBuilder.<ScreendoorShieldEntity>create(SpawnGroup.MONSTER, ScreendoorShieldEntity::new).setDimensions(EntityDimensions.fixed(0.85f, 1.8f)).build()
 	);
 
     public static final EntityType<HypnoScreendoorEntity> HYPNOSCREENDOOR = Registry.register(
