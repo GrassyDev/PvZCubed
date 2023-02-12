@@ -3,6 +3,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabba
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -146,7 +149,8 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
-        else if (!world.isClient && entity instanceof Monster) {
+        else if (!world.isClient && entity instanceof Monster &&
+				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity))) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
@@ -155,7 +159,17 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			entity.playSound(sound, 0.28F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+			float damage = 8F;
+			if (damage > ((LivingEntity) entity).getHealth() &&
+					!(entity instanceof ZombieShieldEntity) &&
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+				float damage2 = damage - ((LivingEntity) entity).getHealth();
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+			}
+			else {
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+			}
             this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
         }

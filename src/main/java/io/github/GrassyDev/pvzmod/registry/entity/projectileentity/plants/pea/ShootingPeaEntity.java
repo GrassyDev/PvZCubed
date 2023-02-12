@@ -2,10 +2,11 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -161,40 +162,12 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
         return null;
     }
 
-    /**protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
-        Entity entity = entityHitResult.getEntity();
-        if ((entity instanceof BucketheadEntity) ||
-                (entity instanceof ScreendoorEntity) ||
-                (entity instanceof BerserkerEntity)) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.BUCKETHITEVENT, 0.125F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-            this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
-        }
-        else if ((entity instanceof ConeheadEntity) ||
-                (entity instanceof FootballEntity) ||
-                (entity instanceof BackupDancerEntity)) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.CONEHITEVENT, 0.125F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
-        else if (!world.isClient && entity instanceof Monster &&  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-            float sound = this.random.nextFloat();
-            entity.playSound(PvZCubed.PEAHITEVENT, 0.125F, 1F);
-            entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-            this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
-        }
-    }**/
-
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster  && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+		if (!world.isClient && entity instanceof Monster &&
+				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
@@ -203,7 +176,17 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			entity.playSound(sound, 0.28F, 1F);
-			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+			float damage = 8F;
+			if (damage > ((LivingEntity) entity).getHealth() &&
+					!(entity instanceof ZombieShieldEntity) &&
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+				float damage2 = damage - ((LivingEntity) entity).getHealth();
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+			}
+			else {
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+			}
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}

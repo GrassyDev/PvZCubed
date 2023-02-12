@@ -4,6 +4,8 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.FumeVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -169,7 +171,9 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if (!world.isClient && entity instanceof Monster &&  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+        if (!world.isClient && entity instanceof Monster &&
+				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+				  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
@@ -181,7 +185,17 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 			if (!(entity instanceof ZombieShieldEntity)) {
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.PVZPOISON, 60, 6)));
 			}
-			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4.5F);
+			float damage = 4.5F;
+			if (damage > ((LivingEntity) entity).getHealth() &&
+					!(entity instanceof ZombieShieldEntity) &&
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+				float damage2 = damage - ((LivingEntity) entity).getHealth();
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+			}
+			else {
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+			}
         }
     }
 

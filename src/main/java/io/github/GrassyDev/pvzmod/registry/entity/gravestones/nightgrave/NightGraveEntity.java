@@ -324,6 +324,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     coneheadEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
                     coneheadEntity.setOwner(NightGraveEntity.this);
+					coneheadEntity.createProp();
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
@@ -334,6 +335,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 					coneheadEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 					coneheadEntity.setOwner(NightGraveEntity.this);
+					coneheadEntity.createProp();
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}

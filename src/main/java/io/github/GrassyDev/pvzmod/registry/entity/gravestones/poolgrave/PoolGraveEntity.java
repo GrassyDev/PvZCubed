@@ -316,6 +316,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
                     coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     coneheadEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                     coneheadEntity.setOwner(PoolGraveEntity.this);
+					coneheadEntity.createProp();
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
@@ -326,6 +327,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 					coneheadEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 					coneheadEntity.setOwner(PoolGraveEntity.this);
+					coneheadEntity.createProp();
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
@@ -336,6 +338,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
                     bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     bucketheadEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                     bucketheadEntity.setOwner(PoolGraveEntity.this);
+					bucketheadEntity.createProp();
                     serverWorld.spawnEntityAndPassengers(bucketheadEntity);
                 }
             }

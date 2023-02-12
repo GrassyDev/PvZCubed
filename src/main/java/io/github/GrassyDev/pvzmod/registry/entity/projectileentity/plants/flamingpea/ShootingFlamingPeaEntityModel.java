@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea;
+package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamingpea;
 
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

@@ -103,8 +103,14 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		Entity vehicle = this.getVehicle();
+		BucketheadGearEntity bucketheadGearEntity = (BucketheadGearEntity) this.getFirstPassenger();
 		if (vehicle instanceof DuckyTubeEntity) {
-			event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
+			if (this.hasPassenger(bucketheadGearEntity)) {
+				event.getController().setAnimation(new AnimationBuilder().loop("headwear.ducky"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
+			}
 			if (this.isIced) {
 				event.getController().setAnimationSpeed(0.5);
 			}
@@ -114,7 +120,12 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 		}else {
 			if (tonguechance <= 0.5) {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
+					if (this.hasPassenger(bucketheadGearEntity)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("headwear.walking"));
+					}
+					else {
+						event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
+					}
 					if (this.isFrozen) {
 						event.getController().setAnimationSpeed(0);
 					}
@@ -125,7 +136,12 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 						event.getController().setAnimationSpeed(1);
 					}
 				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
+					if (this.hasPassenger(bucketheadGearEntity)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("headwear.idle"));
+					}
+					else {
+						event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
+					}
 					if (this.isFrozen) {
 						event.getController().setAnimationSpeed(0);
 					}
@@ -139,7 +155,12 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 			}
 			else {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
+					if (this.hasPassenger(bucketheadGearEntity)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("headwear.walking2"));
+					}
+					else {
+						event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
+					}
 					if (this.isFrozen) {
 						event.getController().setAnimationSpeed(0);
 					}
@@ -150,7 +171,12 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 						event.getController().setAnimationSpeed(1.66);
 					}
 				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
+					if (this.hasPassenger(bucketheadGearEntity)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("headwear.idle2"));
+					}
+					else {
+						event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
+					}
 					if (this.isFrozen) {
 						event.getController().setAnimationSpeed(0);
 					}
@@ -227,12 +253,19 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	public void createProp(){
+		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.BUCKETHEADGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+		world.spawnEntity(propentity);
+	}
+
 	public static DefaultAttributeContainer.Builder createBucketheadAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.15D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 137D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }
 
 	protected SoundEvent getAmbientSound() {
@@ -241,6 +274,11 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
+	}
+
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
 	}
 
 	public MobEntity getOwner() {

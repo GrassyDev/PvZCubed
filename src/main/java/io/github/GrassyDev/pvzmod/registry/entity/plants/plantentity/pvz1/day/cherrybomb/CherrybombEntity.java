@@ -2,8 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.c
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -314,7 +312,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
         super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.clearStatusEffects();
-            this.damage(DamageSource.GENERIC, 9999);
+            this.kill();
         }
     }
 
@@ -398,7 +396,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
-			this.damage(DamageSource.GENERIC, 9999);
+			this.kill();
 		}
 		this.playBlockFallSound();
 		return true;

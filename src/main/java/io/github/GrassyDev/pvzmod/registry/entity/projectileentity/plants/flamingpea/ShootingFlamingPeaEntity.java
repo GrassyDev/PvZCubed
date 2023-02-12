@@ -1,9 +1,10 @@
-package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea;
+package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamingpea;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -141,13 +142,20 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster  && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+		if (!world.isClient && entity instanceof Monster &&
+				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
-			if (entity instanceof NewspaperEntity) {
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 12.8f);
+			float damage = 8F;
+			if (damage > ((LivingEntity) entity).getHealth() &&
+					!(entity instanceof ZombieShieldEntity) &&
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+				float damage2 = damage - ((LivingEntity) entity).getHealth();
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
 			}
-			else  {
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
+			else {
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
 			if (!entity.isInsideWaterOrBubbleColumn()) {
 				if (!(entity instanceof ZombieShieldEntity)) {
@@ -184,17 +192,28 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 
 					if (bl) {
 						if (livingEntity instanceof Monster) {
-							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 8);
-							if (!(livingEntity instanceof ZombieShieldEntity)) {
-								livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+							if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity))){
+								if (damage > livingEntity.getHealth() &&
+										!(livingEntity instanceof ZombieShieldEntity) &&
+										livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+									float damage2 = damage - livingEntity.getHealth();
+									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+									generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+								}
+								else {
+									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+								}
+								if (!(livingEntity instanceof ZombieShieldEntity)) {
+									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+								}
+								livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+								livingEntity.removeStatusEffect(PvZCubed.ICE);
+								livingEntity.setOnFireFor(4);
+								this.world.sendEntityStatus(this, (byte) 3);
+								this.remove(RemovalReason.DISCARDED);
 							}
-							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
-							livingEntity.removeStatusEffect(PvZCubed.ICE);
-							livingEntity.setOnFireFor(4);
 						}
 					}
-					this.world.sendEntityStatus(this, (byte) 3);
-					this.remove(RemovalReason.DISCARDED);
 				}
 			}
 			else {

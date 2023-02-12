@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.firepea;
+package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamingpea;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoProjectilesRenderer;

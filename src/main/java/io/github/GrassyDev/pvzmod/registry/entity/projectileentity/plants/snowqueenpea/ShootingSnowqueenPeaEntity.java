@@ -2,8 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowq
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -138,14 +139,26 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster  && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+		if (!world.isClient && entity instanceof Monster &&
+				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				if (!(entity instanceof ZombieShieldEntity)) {
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 				}
 			}
 			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.25F, 1F);
-			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
+			float damage = 4F;
+			if (damage > ((LivingEntity) entity).getHealth() &&
+					!(entity instanceof ZombieShieldEntity) &&
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+				float damage2 = damage - ((LivingEntity) entity).getHealth();
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+			}
+			else {
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+			}
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 			Vec3d vec3d = this.getPos();
@@ -176,21 +189,27 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 
 				if (bl) {
 					if (livingEntity instanceof Monster) {
-						if (livingEntity instanceof NewspaperEntity) {
-							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 5.2F);
-						}
-						else  {
-							if (!livingEntity.hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
+						if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity))) {
+							if (damage > livingEntity.getHealth() &&
+									!(livingEntity instanceof ZombieShieldEntity) &&
+									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+								float damage2 = damage - livingEntity.getHealth();
+								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+								generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+							}
+							else {
+								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+							}
+							if (!livingEntity.hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
 								if (!(livingEntity instanceof ZombieShieldEntity)) {
 									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 								}
 							}
-							livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 4);
+							this.world.sendEntityStatus(this, (byte) 3);
+							this.remove(RemovalReason.DISCARDED);
 						}
 					}
 				}
-				this.world.sendEntityStatus(this, (byte) 3);
-				this.remove(RemovalReason.DISCARDED);
 			}
 		}
     }

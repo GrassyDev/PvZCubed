@@ -7,8 +7,8 @@
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 2,
-				"visible_bounds_height": 5,
-				"visible_bounds_offset": [0, 1.5, 0]
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
 			},
 			"bones": [
 				{
@@ -40,7 +40,7 @@
 					]
 				},
 				{
-					"name": "cone",
+					"name": "headwear",
 					"parent": "head",
 					"pivot": [1, 32.25, -2],
 					"rotation": [14.52007, 5.82233, 10.43371],

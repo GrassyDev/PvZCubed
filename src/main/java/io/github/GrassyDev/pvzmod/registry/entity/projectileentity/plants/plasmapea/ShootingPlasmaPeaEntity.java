@@ -3,6 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasm
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -136,19 +138,37 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
     protected Item getDefaultItem() {
         return null;
     }
+	public LivingEntity entityStore = null;
+	public LivingEntity entityStoreVehicle = null;
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster  && !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
-			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 12);
-			if (!(entity instanceof ZombieShieldEntity)) {
-				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+		if (!world.isClient && entity instanceof Monster &&
+				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+			Entity entity2 = entityHitResult.getEntity();
+			if (entity2 != entityStore && entityStoreVehicle != entity2) {
+				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
+				float damage = 18F;
+				if (damage > ((LivingEntity) entity).getHealth() &&
+						!(entity instanceof ZombieShieldEntity) &&
+						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+					float damage2 = damage - ((LivingEntity) entity).getHealth();
+					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+				} else {
+					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				}
+				entityStore = (LivingEntity) entityHitResult.getEntity();
+				entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
+				if (!(entity instanceof ZombieShieldEntity)) {
+					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+				}
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+				entity.setOnFireFor(4);
 			}
-			((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
-			((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
-			entity.setOnFireFor(4);
 		}
 	}
 

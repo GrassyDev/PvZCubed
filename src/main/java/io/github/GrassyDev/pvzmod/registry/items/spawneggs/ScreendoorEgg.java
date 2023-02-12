@@ -55,8 +55,8 @@ public class ScreendoorEgg extends Item {
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     screendoorEntity.refreshPositionAndAngles(screendoorEntity.getX(), screendoorEntity.getY(), screendoorEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(screendoorEntity);
 					screendoorEntity.createShield();
+                    world.spawnEntity(screendoorEntity);
                     world.playSound((PlayerEntity) null, screendoorEntity.getX(), screendoorEntity.getY(), screendoorEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 

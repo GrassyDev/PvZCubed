@@ -209,7 +209,7 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.damage(DamageSource.GENERIC, 9999);
+			this.kill();
 		}
 	}
 
@@ -323,7 +323,7 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
-			this.damage(DamageSource.GENERIC, 9999);
+			this.kill();
 		}
 		this.playBlockFallSound();
 		return true;

@@ -315,6 +315,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                     coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                     coneheadEntity.setOwner(BasicGraveEntity.this);
+					coneheadEntity.createProp();
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
@@ -325,6 +326,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 					coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 					coneheadEntity.setOwner(BasicGraveEntity.this);
+					coneheadEntity.createProp();
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
@@ -335,6 +337,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                     bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     bucketheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                     bucketheadEntity.setOwner(BasicGraveEntity.this);
+					bucketheadEntity.createProp();
                     serverWorld.spawnEntityAndPassengers(bucketheadEntity);
                 }
             }
@@ -345,6 +348,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 					bucketheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 					bucketheadEntity.setOwner(BasicGraveEntity.this);
+					bucketheadEntity.createProp();
 					serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 				}
 			}

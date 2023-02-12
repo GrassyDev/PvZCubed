@@ -23,6 +23,6 @@ public class PvZPoison extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-		entity.damage(DamageSource.GENERIC, 2.0F);
+		entity.damage(DamageSource.GENERIC, 0.5F);
     }
 }

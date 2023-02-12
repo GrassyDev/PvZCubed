@@ -40,7 +40,7 @@
 					]
 				},
 				{
-					"name": "bucket",
+					"name": "headwear",
 					"parent": "head",
 					"pivot": [0.25, 31, -1],
 					"rotation": [2.45744, -0.65182, 7.47178],
@@ -59,7 +59,7 @@
 				},
 				{
 					"name": "buckethandle",
-					"parent": "bucket",
+					"parent": "headwear",
 					"pivot": [5.75, 32.5, -1],
 					"rotation": [47.5, 0, 0],
 					"cubes": [
