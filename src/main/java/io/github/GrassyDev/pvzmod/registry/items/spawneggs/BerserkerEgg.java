@@ -55,7 +55,8 @@ public class BerserkerEgg extends Item {
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     berserkerEntity.refreshPositionAndAngles(berserkerEntity.getX(), berserkerEntity.getY(), berserkerEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(berserkerEntity);
+					berserkerEntity.createProp();
+                    ((ServerWorld) world).spawnEntityAndPassengers(berserkerEntity);
                     world.playSound((PlayerEntity) null, berserkerEntity.getX(), berserkerEntity.getY(), berserkerEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 

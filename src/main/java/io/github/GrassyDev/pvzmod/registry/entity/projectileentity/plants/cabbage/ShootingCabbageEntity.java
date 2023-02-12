@@ -151,7 +151,7 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			entity.playSound(sound, 0.28F, 1F);
+			entity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
 			float damage = 8F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&

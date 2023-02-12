@@ -99,13 +99,17 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
     protected Item getDefaultItem() {
         return null;
     }
+	public LivingEntity entityStore = null;
+	public LivingEntity entityStoreVehicle = null;
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
+		float damage = 8F;
         if (!world.isClient && entity instanceof Monster &&
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+			Entity entity2 = entityHitResult.getEntity();
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
@@ -113,19 +117,26 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			entity.playSound(sound, 0.28F, 1F);
-			float damage = 8F;
-			if (damage > ((LivingEntity) entity).getHealth() &&
-					!(entity instanceof ZombieShieldEntity) &&
-					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
-				float damage2 = damage - ((LivingEntity) entity).getHealth();
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+			if (entity2 != entityStore && entityStoreVehicle != entity2) {
+				entity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+				if (damage > ((LivingEntity) entity).getHealth() &&
+						!(entity instanceof ZombieShieldEntity) &&
+						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+					float damage2 = damage - ((LivingEntity) entity).getHealth();
+					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+				}
+				else {
+					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				}
 			}
 			else {
+				entity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-        }
+			entityStore = (LivingEntity) entityHitResult.getEntity();
+			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
+		}
     }
 
     @Environment(EnvType.CLIENT)

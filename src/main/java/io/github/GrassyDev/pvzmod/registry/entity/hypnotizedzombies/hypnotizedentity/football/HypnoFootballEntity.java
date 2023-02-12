@@ -27,7 +27,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -231,17 +230,17 @@ public class HypnoFootballEntity extends HypnoZombieEntity implements IAnimatabl
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
+
 	private float getAttackDamage(){
 		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 	}
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
-	}
-
-	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
 	}
 
 	public MobEntity getOwner() {

@@ -355,9 +355,9 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
 					ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(NightGraveEntity.this.world);
 					screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					world.spawnEntity(screendoorEntity);
 					screendoorEntity.setOwner(NightGraveEntity.this);
 					screendoorEntity.createShield();
+					serverWorld.spawnEntityAndPassengers(screendoorEntity);
                 }
             }
 			if (difficulty >= 1.509) {
@@ -368,6 +368,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						footballEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 						footballEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						footballEntity.setOwner(NightGraveEntity.this);
+						footballEntity.createProp();
 						serverWorld.spawnEntityAndPassengers(footballEntity);
 					}
 				}
@@ -380,6 +381,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						berserkerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 						berserkerEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						berserkerEntity.setOwner(NightGraveEntity.this);
+						berserkerEntity.createProp();
 						serverWorld.spawnEntityAndPassengers(berserkerEntity);
 					}
 				}

@@ -258,7 +258,6 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 		ConeheadGearEntity propentity = new ConeheadGearEntity(PvZEntity.CONEHEADGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
-		world.spawnEntity(propentity);
 	}
 
 	public static DefaultAttributeContainer.Builder createConeheadAttributes() {
@@ -271,6 +270,11 @@ public class ConeheadEntity extends PvZombieEntity implements IAnimatable {
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {

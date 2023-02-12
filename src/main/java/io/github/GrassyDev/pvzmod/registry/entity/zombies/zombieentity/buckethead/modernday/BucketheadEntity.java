@@ -217,8 +217,9 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
         this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
         this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
+        this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
         this.targetSelector.add(3, new TargetGoal<>(this, AppeaseEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SpearEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, PepperEntity.class, false, true));
         this.targetSelector.add(3, new TargetGoal<>(this, WinterEntity.class, false, true));
         this.targetSelector.add(3, new TargetGoal<>(this, BombardEntity.class, false, true));
@@ -257,7 +258,6 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.BUCKETHEADGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
-		world.spawnEntity(propentity);
 	}
 
 	public static DefaultAttributeContainer.Builder createBucketheadAttributes() {
@@ -270,6 +270,11 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {

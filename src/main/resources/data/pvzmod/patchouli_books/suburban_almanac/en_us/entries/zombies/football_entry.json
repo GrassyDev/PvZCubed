@@ -7,7 +7,7 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)167",
+        "$(#bd951a)Health: $()$(#ff0000)27, 140(Helmet)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)180(tackle), 7(normal)",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Tackles the first plant it sees.",

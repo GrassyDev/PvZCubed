@@ -38,7 +38,7 @@ public class JingleItem extends Item {
             JingleEntity proj = new JingleEntity(PvZEntity.JINGLE, world);
             proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
             proj.setOwner(user);
-            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.85F, 0);
+            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.33F, 0);
             world.spawnEntity(proj);
         }
 

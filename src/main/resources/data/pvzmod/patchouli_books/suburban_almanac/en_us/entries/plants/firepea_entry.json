@@ -9,9 +9,9 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)16",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)16 DMG/1.5s, 8 DMG (area)",
-        "$(br)$(#bd951a)Fire Radius: $()$(#ff0000)3 Blocks",
-        "$(br)$(#bd951a)Pierce DMG: $()$(#ff0000)4 DMG (Plasma)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)16 DMG/1.5s, 8 DMG (Splash)",
+        "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)2.5 Blocks",
+        "$(br)$(#bd951a)Plasma Damage: $()$(#ff0000)18 DMG/1.5s (Pierce)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Sets zombies on fire. 75% Fire Pea, 25% Plasma Pea",

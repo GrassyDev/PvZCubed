@@ -31,7 +31,14 @@
       "type": "text",
       "text": [
         "$(br2)Another type of projectile is the Splash type: any projectile can splash, and they deal damage to every Zombie around the impact area.",
-        "$(br2)The splash ignores shields and hit Snorkel Zombies."
+        "$(br2)The splash ignores shields and hits Snorkel Zombies."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Similar to Splash, there's Explosion. They are not a type of projectile, but are another type of damage worth explaining.",
+        "$(br2)Explosions deal damage in an area, hitting every zombie except for ones behind shields, hitting the shields instead."
       ]
     },
     {

@@ -7,7 +7,8 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)180",
+        "$(#bd951a)Health: $()$(#ff0000)27",
+        "$(br)$(#bd951a)Newspaper Health: $()$(#ff0000)153",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
         "$(br2)$(#bd951a)He got his screen door from the last inexpertly defended home he visited, after he ATE THE HOMEOWNER'S BRAINS."

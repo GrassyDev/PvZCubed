@@ -1,8 +1,8 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -19,11 +19,11 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimatable {
+public class FootballGearEntity extends ZombiePropEntity implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "shieldcontroller";
 
-    public NewspaperShieldEntity(EntityType<? extends NewspaperShieldEntity> entityType, World world) {
+    public FootballGearEntity(EntityType<? extends FootballGearEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
@@ -35,11 +35,10 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-		this.isFlammabe = true;
 	}
 
-	public NewspaperShieldEntity(World world) {
-		this(PvZEntity.NEWSPAPERSHIELD, world);
+	public FootballGearEntity(World world) {
+		this(PvZEntity.FOOTBALLGEAR, world);
 	}
 
 	static {
@@ -47,6 +46,7 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 	}
 
 	/** /~*~//~*TICKING*~//~*~/ **/
+
 
 	public void tick() {
 		super.tick();
@@ -57,9 +57,6 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 		}
 		else {
 			this.discard();
-		}
-		if (this.isOnFire()){
-			this.kill();
 		}
 	}
 
@@ -83,12 +80,12 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createNewspaperShieldAttributes() {
+	public static DefaultAttributeContainer.Builder createFootballGearAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 15D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 140D);
     }
 
 	protected SoundEvent getAmbientSound() {

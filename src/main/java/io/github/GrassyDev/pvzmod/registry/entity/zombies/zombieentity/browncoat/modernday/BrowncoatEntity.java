@@ -235,6 +235,11 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
+	}
+
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
 	}

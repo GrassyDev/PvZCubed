@@ -246,7 +246,6 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
 		ScreendoorShieldEntity screendoorShieldEntity = new ScreendoorShieldEntity(PvZEntity.SCREENDOORSHIELD, this.world);
 		screendoorShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		screendoorShieldEntity.startRiding(this);
-		world.spawnEntity(screendoorShieldEntity);
 	}
 
 	public static DefaultAttributeContainer.Builder createScreendoorAttributes() {
@@ -259,6 +258,11 @@ public class ScreendoorEntity extends PvZombieEntity implements IAnimatable {
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {

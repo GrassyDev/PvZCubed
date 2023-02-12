@@ -129,17 +129,17 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
+
 	protected SoundEvent getCastSpellSound() {
 		return PvZCubed.ENTITYRISINGEVENT;
 	}
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
-	}
-
-	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
 	}
 
 	public MobEntity getOwner() {

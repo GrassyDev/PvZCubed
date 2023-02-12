@@ -279,6 +279,11 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
+	}
+
 	protected SoundEvent getCastSpellSound() {
 		return PvZCubed.ENTITYRISINGEVENT;
 	}

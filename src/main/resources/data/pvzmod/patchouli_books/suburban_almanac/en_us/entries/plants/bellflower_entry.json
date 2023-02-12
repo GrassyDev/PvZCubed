@@ -9,9 +9,8 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)15",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s (Pierce)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Damages multiple zombies at the same time. Ignores shields.",
         "$(br2)$(#bd951a)She wants to ask Snowdrop out soooo badly, but she feels like she's always getting the cold shoulder."
       ]
     },

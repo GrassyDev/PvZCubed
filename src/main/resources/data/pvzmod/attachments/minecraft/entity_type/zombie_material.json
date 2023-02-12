@@ -1,8 +1,9 @@
 {
   "replace": false,
   "values": {
-    "pvzmod:backup_dancer": "plastic",
-    "pvzmod:berserker": "metallic",
+    "pvzmod:backup_dancer": "flesh",
+    "pvzmod:berserker": "flesh",
+    "pvzmod:berserkergear": "metallic",
     "pvzmod:browncoat": "flesh",
     "pvzmod:conehead": "flesh",
     "pvzmod:coneheadgear": "plastic",
@@ -10,7 +11,8 @@
     "pvzmod:buckethead": "flesh",
     "pvzmod:bucketheadgear": "metallic",
     "pvzmod:flagzombie": "flesh",
-    "pvzmod:football": "metallic",
+    "pvzmod:football": "flesh",
+    "pvzmod:footballgear": "metallic",
     "pvzmod:gargantuar": "flesh",
     "pvzmod:imp": "flesh",
     "pvzmod:newspaper": "paper",

@@ -241,6 +241,11 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
+	}
+
 	protected SoundEvent getCastSpellSound() {
 		return PvZCubed.ENTITYRISINGEVENT;
 	}
@@ -437,6 +442,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound) null);
                 backupDancerEntity.setOwner(DancingZombieEntity.this);
+				backupDancerEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int p = 0; p < 1; ++p) { // 1 backup
@@ -445,6 +451,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 backupDancerEntity.setOwner(DancingZombieEntity.this);
+				backupDancerEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int d = 0; d < 1; ++d) { // 1 backup
@@ -453,6 +460,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 backupDancerEntity.setOwner(DancingZombieEntity.this);
+				backupDancerEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int t = 0; t < 1; ++t) { // 1 backup
@@ -461,6 +469,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 backupDancerEntity.setOwner(DancingZombieEntity.this);
+				backupDancerEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
         }

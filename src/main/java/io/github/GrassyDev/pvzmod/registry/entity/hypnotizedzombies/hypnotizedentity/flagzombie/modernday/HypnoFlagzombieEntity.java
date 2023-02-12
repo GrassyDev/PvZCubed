@@ -189,6 +189,11 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.ZOMBIEBITEEVENT;
+	}
+
 	protected SoundEvent getCastSpellSound() {
 		return PvZCubed.ENTITYRISINGEVENT;
 	}
@@ -196,12 +201,6 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
 	}
-
-	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
-	}
-
 	public MobEntity getOwner() {
 		return this.owner;
 	}

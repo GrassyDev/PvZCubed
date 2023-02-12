@@ -9,9 +9,9 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)28",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)x1 12 DMG/1.5s, 4 DMG (area)",
-        "$(br)$(#bd951a)Ice Radius: $()$(#ff0000)3 Blocks",
-        "$(br)$(#bd951a)Pierce DMG: $()$(#ff0000)x1 2 DMG, 4 DMG (Frozen Target)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)12 DMG/1.5s, 4 DMG (Splash)",
+        "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)2.5 Blocks",
+        "$(br)$(#bd951a)Ice Spike DMG: $()$(#ff0000)4 DMG/1.5s (Pierce), 8 DMG/1.5s (Pierce, Frozen Target)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Shoots an Ice Spike then shoots a Snow Queen Pea.",

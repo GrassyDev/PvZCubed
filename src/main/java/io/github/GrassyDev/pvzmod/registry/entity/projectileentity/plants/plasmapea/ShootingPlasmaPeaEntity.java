@@ -148,9 +148,9 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			Entity entity2 = entityHitResult.getEntity();
+			float damage = 18F;
 			if (entity2 != entityStore && entityStoreVehicle != entity2) {
 				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
-				float damage = 18F;
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
 						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
@@ -174,6 +174,12 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
 				entity.setOnFireFor(4);
 			}
+			else {
+				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
+				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+			}
+			entityStore = (LivingEntity) entityHitResult.getEntity();
+			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
 		}
 	}
 

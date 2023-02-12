@@ -63,6 +63,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	boolean isFrozen;
 	boolean isIced;
+	int animationMultiplier = 1;
 
 	public GargantuarEntity(EntityType<? extends GargantuarEntity> entityType, World world) {
         super(entityType, world);
@@ -377,10 +378,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public boolean tryAttack(Entity target) {
 		if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.inLaunchAnimation) {
 			if (this.firstAttack && this.animationTicksLeft <= 0) {
-				this.animationTicksLeft = 90;
+				this.animationTicksLeft = 90 * animationMultiplier;
 				this.firstAttack = false;
 			}
-			else if (this.animationTicksLeft == 40) {
+			else if (this.animationTicksLeft == 40 * animationMultiplier) {
 				if (this.hasStatusEffect(PvZCubed.ICE) && this.squaredDistanceTo(target) < 32D) {
 					target.damage(DamageSource.mob(this), 720f);
 				} else if (this.squaredDistanceTo(target) < 32D) {
@@ -393,7 +394,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	//Launch Imp
 	public boolean tryLaunch(Entity target){
-		if (this.getImpStage().equals(Boolean.TRUE) && launchAnimation == 20){
+		if (this.getImpStage().equals(Boolean.TRUE) && launchAnimation == 20 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN)){
 			ImpEntity imp = new ImpEntity(PvZEntity.IMP, this.world);
 			if (target != null){
 				double d = this.squaredDistanceTo(target);
@@ -432,13 +433,15 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){
 			this.world.sendEntityStatus(this, (byte) 71);
+			this.animationMultiplier = 2;
 		}
 		else {
 			this.world.sendEntityStatus(this, (byte) 72);
+			this.animationMultiplier = 1;
 		}
 		if (this.animationTicksLeft <= 0){
 			if (this.getHealth() <= 360 && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
-				this.launchAnimation = 50;
+				this.launchAnimation = 50 * animationMultiplier;
 				this.inLaunchAnimation = true;
 				this.world.sendEntityStatus(this, (byte) 44);
 			}
@@ -458,11 +461,11 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				this.world.sendEntityStatus(this, (byte) 43);
 			}
 		}
-		if (this.animationTicksLeft == 40 && !inLaunchAnimation) {
-			if (!this.isInsideWaterOrBubbleColumn()) {
+		if (this.animationTicksLeft == 40 * animationMultiplier && !inLaunchAnimation) {
+			if (!this.isInsideWaterOrBubbleColumn() && !this.hasStatusEffect(PvZCubed.FROZEN)) {
 				this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
 			}
-			else {
+			else if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
 				world.sendEntityStatus(this, (byte) 7);
 				this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
 			}
@@ -500,6 +503,11 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.GARGANTUARMOANEVENT;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {

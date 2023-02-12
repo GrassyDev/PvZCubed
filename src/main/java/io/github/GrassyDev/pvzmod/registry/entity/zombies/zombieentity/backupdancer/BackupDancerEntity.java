@@ -10,6 +10,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.s
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -103,13 +104,29 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		Entity vehicle = this.getVehicle();
+		ConeheadGearEntity coneheadGearEntity = (ConeheadGearEntity) this.getFirstPassenger();
 		if (vehicle instanceof DuckyTubeEntity) {
-			event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.ducky"));
+			if (this.hasPassenger(coneheadGearEntity)) {
+				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.ducky"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.ducky2"));
+			}
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.dancing"));
+				if (this.hasPassenger(coneheadGearEntity)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.dancing"));
+				}
+				else {
+					event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.dancing2"));
+				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.idle"));
+				if (this.hasPassenger(coneheadGearEntity)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.idle"));
+				}
+				else {
+					event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.idle2"));
+				}
 			}
 		}
         return PlayState.CONTINUE;
@@ -172,16 +189,27 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	public void createProp(){
+		ConeheadGearEntity propentity = new ConeheadGearEntity(PvZEntity.CONEHEADGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
 	public static DefaultAttributeContainer.Builder createBackupDancerAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 64D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {
@@ -190,6 +218,11 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 	public MobEntity getOwner() {
 		return this.owner;
+	}
+
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
 	}
 
 	protected SoundEvent getStepSound() {

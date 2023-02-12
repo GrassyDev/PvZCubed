@@ -231,6 +231,9 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	public void mobTick() {
 		super.mobTick();
+		if (this.isOnFire() && this.getFirstPassenger() instanceof NewspaperShieldEntity){
+			this.getFirstPassenger().setOnFireFor(this.getFireTicks());
+		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
@@ -286,7 +289,6 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		NewspaperShieldEntity newspaperShieldEntity = new NewspaperShieldEntity(PvZEntity.NEWSPAPERSHIELD, this.world);
 		newspaperShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		newspaperShieldEntity.startRiding(this);
-		world.spawnEntity(newspaperShieldEntity);
 	}
 
 	public static EntityAttributeModifier createSpeedModifier(double amount) {
@@ -317,6 +319,11 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {

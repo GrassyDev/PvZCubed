@@ -155,17 +155,71 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		Entity vehicle = this.getVehicle();
+		BerserkerGearEntity berserkerGearEntity = (BerserkerGearEntity) this.getFirstPassenger();
 		if (vehicle instanceof DuckyTubeEntity) {
-			event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
+			if (this.hasPassenger(berserkerGearEntity)) {
+				event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("football.ducky2"));
+			}
+			if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
+			}
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				if (!this.getTackleStage()) {
-					event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
+					if (this.hasPassenger(berserkerGearEntity)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
+					}
+					else {
+						event.getController().setAnimation(new AnimationBuilder().loop("football.running2"));
+					}
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
+					if (this.hasPassenger(berserkerGearEntity)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
+					}
+					else {
+						event.getController().setAnimation(new AnimationBuilder().loop("football.tackle2"));
+					}
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
+				if (this.hasPassenger(berserkerGearEntity)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
+				}
+				else {
+					event.getController().setAnimation(new AnimationBuilder().loop("football.idle2"));
+				}
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				}
+				else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}
 		return PlayState.CONTINUE;
@@ -284,16 +338,27 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	public void createProp(){
+		BerserkerGearEntity propentity = new BerserkerGearEntity(PvZEntity.BERSERKERGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
 	public static DefaultAttributeContainer.Builder createBerserkerAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.21D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 360D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
 	}
 
 	private float getAttackDamage(){
@@ -302,6 +367,11 @@ public class BerserkerEntity extends PvZombieEntity implements IAnimatable {
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
+	}
+
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
 	}
 
 	public MobEntity getOwner() {

@@ -56,7 +56,7 @@ public class NewspaperEgg extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     newspaperEntity.refreshPositionAndAngles(newspaperEntity.getX(), newspaperEntity.getY(), newspaperEntity.getZ(), f, 0.0F);
 					newspaperEntity.createShield();
-                    world.spawnEntity(newspaperEntity);
+                    ((ServerWorld) world).spawnEntityAndPassengers(newspaperEntity);
                     world.playSound((PlayerEntity) null, newspaperEntity.getX(), newspaperEntity.getY(), newspaperEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
