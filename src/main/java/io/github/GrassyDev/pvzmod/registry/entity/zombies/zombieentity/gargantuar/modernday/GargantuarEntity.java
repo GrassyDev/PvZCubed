@@ -393,7 +393,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	//Launch Imp
-	public boolean tryLaunch(Entity target){
+	public void tryLaunch(Entity target){
 		if (this.getImpStage().equals(Boolean.TRUE) && launchAnimation == 20 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN)){
 			ImpEntity imp = new ImpEntity(PvZEntity.IMP, this.world);
 			if (target != null){
@@ -404,22 +404,16 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				double g = target.getZ() - this.getZ();
 				float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 				imp.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.25F, 0F);
-				imp.updatePosition(this.getX(), this.getY() + 3.95D, this.getZ());
-				imp.setOwner(this);
-					this.setImpStage(ImpStage.NOIMP);
-					this.playSound(PvZCubed.IMPLAUNCHEVENT, 1F, 1);
-					this.world.spawnEntity(imp);
 			}
 			else {
 				imp.setVelocity(random.range(-1, 1), 0, random.range(-1, 1), 2.25F, 0F);
-				imp.updatePosition(this.getX(), this.getY() + 3.95D, this.getZ());
-				imp.setOwner(this);
-					this.setImpStage(ImpStage.NOIMP);
-					this.playSound(PvZCubed.IMPLAUNCHEVENT, 1F, 1);
-					this.world.spawnEntity(imp);
 			}
+			imp.updatePosition(this.getX(), this.getY() + 3.95D, this.getZ());
+			imp.setOwner(this);
+			this.setImpStage(ImpStage.NOIMP);
+			this.playSound(PvZCubed.IMPLAUNCHEVENT, 1F, 1);
+			this.world.spawnEntity(imp);
 		}
-		return false;
 	}
 
 

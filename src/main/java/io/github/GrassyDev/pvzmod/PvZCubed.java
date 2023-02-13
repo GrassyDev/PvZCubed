@@ -150,6 +150,8 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.DARK_NIGHT_TILE));
 				stacks.add(new ItemStack(ModItems.SAND_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_SAND_TILE));
+				stacks.add(new ItemStack(ModItems.UNDERWATER_TILE));
+				stacks.add(new ItemStack(ModItems.DARK_UNDERWATER_TILE));
 			}).build();
 
 	public static final Identifier PEASHOOT = new Identifier("pvzmod:pea.shoot");

@@ -213,6 +213,7 @@
 
   "entity.pvzmod.conehead": "Conehead Zombie",
   "item.pvzmod.conehead_egg": "Conehead Zombie",
+  "entity.pvzmod.coneheadgear": "Plastic Wear",
   "entity.pvzmod.conehead_hypnotized": "Hypnotized Conehead",
 
   "entity.pvzmod.polevaulting": "Pole Vaulting Zombie",
@@ -221,18 +222,22 @@
 
   "entity.pvzmod.buckethead": "Buckethead Zombie",
   "item.pvzmod.buckethead_egg": "Buckethead Zombie",
+  "entity.pvzmod.bucketheadgear": "Bucket",
   "entity.pvzmod.buckethead_hypnotized": "Hypnotized Buckethead",
 
   "entity.pvzmod.screendoor": "Screen Door Zombie",
   "item.pvzmod.screendoor_egg": "Screen Door Zombie",
+  "entity.pvzmod.screendoorshield": "Screen Door Shield",
   "entity.pvzmod.screendoor_hypnotized": "Hypnotized Screen Door Zombie",
 
   "entity.pvzmod.newspaper": "Newspaper Zombie",
   "item.pvzmod.newspaper_egg": "Newspaper Zombie",
+  "entity.pvzmod.newspapershield": "Newspaper Shield",
   "entity.pvzmod.newspaper_hypnotized": "Hypnotized Newspaper Zombie",
 
   "entity.pvzmod.football": "Football Zombie",
   "item.pvzmod.football_egg": "Football Zombie",
+  "entity.pvzmod.footballgear": "Football Helmet",
   "entity.pvzmod.football_hypnotized": "Hypnotized Football Zombie",
 
   "entity.pvzmod.dancing_zombie": "Dancing Zombie",
@@ -259,6 +264,7 @@
 
   "entity.pvzmod.berserker": "Berserker",
   "item.pvzmod.berserker_egg": "Berserker",
+  "entity.pvzmod.berserkergear": "Berserker Helmet",
   "entity.pvzmod.berserker_hypnotized": "Hypnotized Berserker",
 
   "entity.pvzmod.locustswarm": "Locust Swarm",
@@ -295,5 +301,7 @@
   "block.pvzmod.night_tile": "Night Tile",
   "block.pvzmod.dark_night_tile": "Dark Night Tile",
   "block.pvzmod.sand_tile": "Sand Tile",
-  "block.pvzmod.dark_sand_tile": "Dark Sand Tile"
+  "block.pvzmod.dark_sand_tile": "Dark Sand Tile",
+  "block.pvzmod.underwater_tile": "Underwater Tile",
+  "block.pvzmod.dark_underwater_tile": "Dark Underwater Tile"
 }

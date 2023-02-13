@@ -115,6 +115,8 @@ public class ModItems {
 	public static final BlockItem DARK_NIGHT_TILE = new BlockItem(ModBlocks.DARK_NIGHT_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem SAND_TILE = new BlockItem(ModBlocks.SAND_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem DARK_SAND_TILE = new BlockItem(ModBlocks.DARK_SAND_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
+	public static final BlockItem UNDERWATER_TILE = new BlockItem(ModBlocks.UNDERWATER_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
+	public static final BlockItem DARK_UNDERWATER_TILE = new BlockItem(ModBlocks.DARK_UNDERWATER_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 
     //Tools
     public static ToolItem DAVES_SHOVEL = new PlantKillingShovel(PlantKillingMaterial.INSTANCE, 2, 0F, new Item.Settings().group(PvZCubed.PVZPLANTS).rarity(Rarity.EPIC));
@@ -161,6 +163,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_night_tile"), DARK_NIGHT_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sand_tile"), SAND_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_sand_tile"), DARK_SAND_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"underwater_tile"), UNDERWATER_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_underwater_tile"), DARK_UNDERWATER_TILE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sunflower_seed_packet"), SUNFLOWER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peashooter_seed_packet"), PEASHOOTER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cherrybomb_seed_packet"), CHERRYBOMB_SEED_PACKET);

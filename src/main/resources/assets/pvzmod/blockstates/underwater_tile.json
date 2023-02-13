@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "pvzmod:block/underwater_tile" }
+  }
+}
