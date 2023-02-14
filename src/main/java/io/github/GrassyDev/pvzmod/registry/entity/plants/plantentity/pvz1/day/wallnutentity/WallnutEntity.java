@@ -7,7 +7,10 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEnt
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -34,8 +37,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
-
-;
 
 public class WallnutEntity extends ReinforceEntity implements IAnimatable {
     private String controllerName = "wallcontroller";
@@ -153,37 +154,30 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
-		if (this.getVehicle() != null) {
+		if (this.hasVehicle()) {
 			super.setPosition(x, y, z);
 		} else {
-			super.setPosition((double) MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
+			super.setPosition((double)MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
 		}
 
-		if (this.age > 5 && this.getVehicle() == null) {
+		if (this.age != 0) {
 			BlockPos blockPos2 = this.getBlockPos();
 			BlockState blockState = this.getLandingBlockState();
-			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this))) {
+			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				this.kill();
 			}
+
 		}
 	}
 
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
-	Entity entityVehicle;
-
-	public Entity Vehicle(Entity entity){
-		return this.entityVehicle = entity;
-	}
-
 	public void tick() {
 		super.tick();
-		if (!this.isAiDisabled() && this.isAlive() && this.getVehicle() == null) {
+		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-
-		this.setNoGravity(this.getVehicle() != null);
 
         WallnutEntity.Crack crack = this.getCrack();
         if (crack == Crack.HIGH) {
@@ -202,7 +196,7 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 
 	public void tickMovement() {
 		super.tickMovement();
-		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0 && this.age > 5 && this.getVehicle() == null) {
+		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.kill();
 		}
 	}
@@ -251,10 +245,6 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 	public boolean hurtByWater() {
 		return false;
 	}
-
-	/**public boolean isCollidable() {
-		return this.isAlive();
-	}**/
 
 	public boolean isPushable() {
 		return false;

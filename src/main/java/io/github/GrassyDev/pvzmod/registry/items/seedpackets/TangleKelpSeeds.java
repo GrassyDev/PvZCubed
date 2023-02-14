@@ -1,8 +1,10 @@
 package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.tanglekelp.TangleKelpEntity;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -65,17 +67,23 @@ public class TangleKelpSeeds extends Item {
 						return TypedActionResult.fail(itemStack);
 					} else {
 						if (!world.isClient) {
-							world.spawnEntity(aquaticEntity);
-							world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
-							FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));
-							if (fluidState.getFluid() == Fluids.WATER) {
-								world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, SoundCategory.BLOCKS, 0.25f, 0.8F);
-							} else {
-								world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+							List<Entity> list = world.getNonSpectatingEntities(Entity.class, PvZEntity.TANGLE_KELP.getDimensions().getBoxAt(aquaticEntity.getPos()));
+							if (list.isEmpty()){
+								world.spawnEntity(aquaticEntity);
+								world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
+								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));
+								if (fluidState.getFluid() == Fluids.WATER) {
+									world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, SoundCategory.BLOCKS, 0.25f, 0.8F);
+								} else {
+									world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+								}
+								if (!user.getAbilities().creativeMode) {
+									itemStack.decrement(1);
+									user.getItemCooldownManager().set(this, cooldown);
+								}
 							}
-							if (!user.getAbilities().creativeMode) {
-								itemStack.decrement(1);
-								user.getItemCooldownManager().set(this, cooldown);
+							else {
+								return TypedActionResult.pass(itemStack);
 							}
 						}
 

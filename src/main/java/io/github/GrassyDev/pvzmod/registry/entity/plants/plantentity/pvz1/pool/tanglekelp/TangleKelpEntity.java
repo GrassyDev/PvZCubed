@@ -341,11 +341,6 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 
 	public boolean collides() {return true;}
 
-	public boolean isCollidable() {
-		return this.isAlive();
-	}
-
-
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
 		return 0.075F;
 	}

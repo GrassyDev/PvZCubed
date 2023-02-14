@@ -1,8 +1,10 @@
 package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -59,25 +61,30 @@ public class LilyPadSeeds extends Item {
 		} else {
 			if (hitResult.getType() == HitResult.Type.BLOCK) {
 				if (world instanceof ServerWorld) {
-					LilyPadEntity lilypadEntity = this.createEntity(world, hitResult);
-					lilypadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
-					lilypadEntity.setYaw(user.getYaw());
-					if (!world.isSpaceEmpty(lilypadEntity, lilypadEntity.getBoundingBox())) {
+					LilyPadEntity aquaticEntity = this.createEntity(world, hitResult);
+					aquaticEntity.setYaw(user.getYaw());
+					if (!world.isSpaceEmpty(aquaticEntity, aquaticEntity.getBoundingBox())) {
 						return TypedActionResult.fail(itemStack);
 					} else {
 						if (!world.isClient) {
-							world.spawnEntity(lilypadEntity);
-							lilypadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
-							world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
-							FluidState fluidState = world.getFluidState(lilypadEntity.getBlockPos().add(0, -0.25, 0));
-							if (fluidState.getFluid() == Fluids.WATER) {
-								world.playSound((PlayerEntity) null, lilypadEntity.getX(), lilypadEntity.getY(), lilypadEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, SoundCategory.BLOCKS, 0.25f, 0.8F);
-							} else {
-								world.playSound((PlayerEntity) null, lilypadEntity.getX(), lilypadEntity.getY(), lilypadEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+							List<Entity> list = world.getNonSpectatingEntities(Entity.class, PvZEntity.LILYPAD.getDimensions().getBoxAt(aquaticEntity.getPos()));
+							if (list.isEmpty()){
+								world.spawnEntity(aquaticEntity);
+								aquaticEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
+								world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
+								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));
+								if (fluidState.getFluid() == Fluids.WATER) {
+									world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, SoundCategory.BLOCKS, 0.25f, 0.8F);
+								} else {
+									world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+								}
+								if (!user.getAbilities().creativeMode) {
+									itemStack.decrement(1);
+									user.getItemCooldownManager().set(this, cooldown);
+								}
 							}
-							if (!user.getAbilities().creativeMode) {
-								itemStack.decrement(1);
-								user.getItemCooldownManager().set(this, cooldown);
+							else {
+								return TypedActionResult.pass(itemStack);
 							}
 						}
 

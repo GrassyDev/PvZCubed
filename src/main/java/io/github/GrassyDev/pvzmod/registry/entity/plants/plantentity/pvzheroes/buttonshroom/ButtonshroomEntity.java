@@ -227,8 +227,8 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
-			PlayerEntity playerEntity = (PlayerEntity) attacker;
-			return this.damage(DamageSource.player(playerEntity), 9999.0F);
+			this.kill();
+			return true;
 		} else {
 			return false;
 		}

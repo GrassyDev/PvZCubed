@@ -18,7 +18,7 @@
 				{
 					"name": "head",
 					"parent": "all",
-					"pivot": [0, 23, 0],
+					"pivot": [0, 13, 0],
 					"rotation": [0, 0, 0],
 					"cubes": [
 						{"origin": [-3.5, 19, -4.5], "size": [6.5, 1, 7], "pivot": [0, 22, -1], "rotation": [0, 90, 0], "uv": [18, 34]},
