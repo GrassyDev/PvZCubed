@@ -30,7 +30,9 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Stream;
 
 ;
@@ -151,30 +153,37 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 
 	public void setPosition(double x, double y, double z) {
 		BlockPos blockPos = this.getBlockPos();
-		if (this.hasVehicle()) {
+		if (this.getVehicle() != null) {
 			super.setPosition(x, y, z);
 		} else {
 			super.setPosition((double) MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
 		}
 
-		if (this.age != 0) {
+		if (this.age > 5 && this.getVehicle() == null) {
 			BlockPos blockPos2 = this.getBlockPos();
 			BlockState blockState = this.getLandingBlockState();
-			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
+			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this))) {
 				this.kill();
 			}
-
 		}
 	}
 
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	Entity entityVehicle;
+
+	public Entity Vehicle(Entity entity){
+		return this.entityVehicle = entity;
+	}
+
 	public void tick() {
 		super.tick();
-		if (!this.isAiDisabled() && this.isAlive()) {
+		if (!this.isAiDisabled() && this.isAlive() && this.getVehicle() == null) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
+
+		this.setNoGravity(this.getVehicle() != null);
 
         WallnutEntity.Crack crack = this.getCrack();
         if (crack == Crack.HIGH) {
@@ -193,7 +202,7 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 
 	public void tickMovement() {
 		super.tickMovement();
-		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0 && this.age > 5 && this.getVehicle() == null) {
 			this.kill();
 		}
 	}

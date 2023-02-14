@@ -9,12 +9,13 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.l
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -31,11 +32,13 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
@@ -78,6 +81,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
+		this.colliderOffset = 3F;
     }
 
 	protected void initDataTracker() {
@@ -185,8 +189,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		Entity vehicle = this.getVehicle();
-		if (vehicle instanceof DuckyTubeEntity) {
+		if (this.isInsideWaterOrBubbleColumn()) {
 			if (inLaunchAnimation) {
 				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
 				if (this.isIced) {
@@ -198,14 +201,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			} else if (this.getImpStage()) {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
-					if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
-				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.walk"));
 					if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
 					}
@@ -224,14 +219,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			} else {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2"));
-					if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
-				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.walk2"));
 					if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
 					}
@@ -419,9 +406,21 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	public void tick() {
+		super.tick();
+		this.updateFloating();
+		if (this.getAttacking() == null){
+			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
+				this.setTarget(CollidesWithPlayer());
+			}
+			else if (this.CollidesWithPlant() != null){
+				this.setTarget(CollidesWithPlant());
+			}
+		}
+	}
+
 	public void mobTick() {
 		super.mobTick();
-		Entity vehicle = this.getVehicle();
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
@@ -441,10 +440,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			}
 			if (this.launchAnimation > 0) {
 				this.getNavigation().stop();
-				if (vehicle instanceof DuckyTubeEntity){
-					((DuckyTubeEntity) vehicle).getNavigation().stop();
-					((DuckyTubeEntity) vehicle).getNavigation().stop();
-				}
 				--launchAnimation;
 				tryLaunch(getTarget());
 				this.inLaunchAnimation = true;
@@ -472,10 +467,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		}
 		if (this.animationTicksLeft > 0) {
 			this.getNavigation().stop();
-			if (vehicle instanceof DuckyTubeEntity){
-				((DuckyTubeEntity) vehicle).getNavigation().stop();
-				((DuckyTubeEntity) vehicle).getNavigation().stop();
-			}
 			--this.animationTicksLeft;
 			this.world.sendEntityStatus(this, (byte) 13);
 		}
@@ -486,6 +477,23 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public boolean canWalkOnFluid(FluidState state) {
+		return state.isIn(FluidTags.WATER);
+	}
+
+	protected boolean shouldSwimInFluids() {
+		return true;
+	}
+
+	private void updateFloating() {
+		if (this.isInsideWaterOrBubbleColumn()) {
+			ShapeContext shapeContext = ShapeContext.of(this);
+			if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
+				this.onGround = true;
+			}
+		}
+	}
 
 	public static DefaultAttributeContainer.Builder createGargantuarAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)

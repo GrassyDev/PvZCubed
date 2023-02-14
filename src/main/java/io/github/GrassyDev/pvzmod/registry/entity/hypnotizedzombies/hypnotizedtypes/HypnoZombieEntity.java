@@ -41,16 +41,10 @@ public abstract class HypnoZombieEntity extends GolemEntity {
 		} else if (!this.hasStatusEffect(PvZCubed.ICE) && vehicle != null) {
 			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.ICE);
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity && !(this instanceof HypnoGargantuarEntity)) {
-			vehicle.discard();
+		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn() && !(this instanceof HypnoGargantuarEntity)) {
 			this.discard();
-		} else if (this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity && this instanceof HypnoGargantuarEntity) {
-			((DuckyTubeEntity) vehicle).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
-			((DuckyTubeEntity) vehicle).addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 		}
-		if (!this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity) {
-			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.FROZEN);
-		}
+
 		if (this.getRandom().nextFloat() < 0.8F && (this.isTouchingWater() || this.isInLava())) {
 			this.getJumpControl().setActive();
 			this.setSwimming(true);
@@ -78,16 +72,10 @@ public abstract class HypnoZombieEntity extends GolemEntity {
 			++this.despawnDucky;
 			if (this.despawnDucky == 10) {
 				this.spawnDucky = 0;
-				if (vehicle != null && vehicle.age > 9 && vehicle instanceof DuckyTubeEntity) {
-					dismountVehicle();
-				}
 			}
 			if (this.despawnDucky > 10) {
 				this.despawnDucky = 0;
 			}
-		}
-		if (vehicle instanceof DuckyTubeEntity) {
-			((DuckyTubeEntity) vehicle).setTarget(this.getTarget());
 		}
 	}
 

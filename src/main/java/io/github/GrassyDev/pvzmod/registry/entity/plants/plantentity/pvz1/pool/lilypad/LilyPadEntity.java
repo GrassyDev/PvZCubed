@@ -349,7 +349,7 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 	}
 
 	public boolean isCollidable() {
-		return this.isAlive();
+		return false;
 	}
 
 	public boolean isPushable() {

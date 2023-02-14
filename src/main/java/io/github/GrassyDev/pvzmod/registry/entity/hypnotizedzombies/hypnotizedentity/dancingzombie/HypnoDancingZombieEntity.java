@@ -5,7 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -81,8 +80,7 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		Entity vehicle = this.getVehicle();
-		if (vehicle instanceof DuckyTubeEntity) {
+		if (this.isInsideWaterOrBubbleColumn()) {
 			event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.ducky"));
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {

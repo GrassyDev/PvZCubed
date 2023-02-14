@@ -1,17 +1,15 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
-import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
-import net.minecraft.entity.Entity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -20,10 +18,48 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public int despawnDucky;
 	public int spawnDucky;
 
+	public float colliderOffset = 0.4F;
+
+	public PlantEntity CollidesWithPlant(){
+		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.BROWNCOAT.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
+		if (!list.isEmpty()){
+			if (list.get(0) instanceof LilyPadEntity lilyPadEntity){
+				if (!(lilyPadEntity.hasPassengers())) {
+					return lilyPadEntity;
+				} else {
+					return (PlantEntity) lilyPadEntity.getFirstPassenger();
+				}
+			}
+			else {
+				return list.get(0);
+			}
+		}
+		else {
+			return null;
+		}
+	}
+	public PlayerEntity CollidesWithPlayer(){
+		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+		List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, PvZEntity.BROWNCOAT.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
+		if (!list.isEmpty()){
+			return list.get(0);
+		}
+		else {
+			return null;
+		}
+	}
+
 	public void tick() {
 		super.tick();
-		Entity vehicle = this.getVehicle();
-		if (!(this instanceof ZombiePropEntity)) {
+		/**Entity vehicle = this.getVehicle();
+		if(this.isInsideWaterOrBubbleColumn() && this.getFirstPassenger() == null) {
+			DuckyTubeEntity duckyTube = new DuckyTubeEntity(PvZEntity.DUCKYTUBE, this.world);
+			duckyTube.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			duckyTube.startRiding(this);
+			world.spawnEntity(duckyTube);
+		}**/
+		/**if (!(this instanceof ZombiePropEntity)) {
 			if (this.hasStatusEffect(PvZCubed.ICE) && vehicle != null) {
 				if (vehicle instanceof DuckyTubeEntity duckyTube) {
 					duckyTube.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, this.getStatusEffect(PvZCubed.ICE).getDuration(), 1)));
@@ -80,7 +116,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			}
 			if (vehicle instanceof DuckyTubeEntity duckyTube) {
 				duckyTube.setTarget(this.getTarget());
-			}
-		}
+			}*
+		}**/
 	}
 }

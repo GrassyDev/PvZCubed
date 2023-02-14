@@ -47,11 +47,11 @@ public abstract class HypnoSummonerEntity extends PathAwareEntity {
 		} else if (!this.hasStatusEffect(PvZCubed.ICE) && vehicle != null) {
 			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.ICE);
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity) {
+		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()) {
 			vehicle.discard();
 			this.discard();
 		}
-		if (!this.hasStatusEffect(PvZCubed.FROZEN) && vehicle instanceof DuckyTubeEntity) {
+		if (!this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()) {
 			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.FROZEN);
 		}
 		if (this.getRandom().nextFloat() < 0.8F && (this.isTouchingWater() || this.isInLava())) {
@@ -81,16 +81,13 @@ public abstract class HypnoSummonerEntity extends PathAwareEntity {
 			++this.despawnDucky;
 			if (this.despawnDucky == 10) {
 				this.spawnDucky = 0;
-				if (vehicle != null && vehicle.age > 9 && vehicle instanceof DuckyTubeEntity) {
+				if (vehicle != null && vehicle.age > 9 && this.isInsideWaterOrBubbleColumn()) {
 					dismountVehicle();
 				}
 			}
 			if (this.despawnDucky > 10) {
 				this.despawnDucky = 0;
 			}
-		}
-		if (vehicle instanceof DuckyTubeEntity) {
-			((DuckyTubeEntity) vehicle).setTarget(this.getTarget());
 		}
 	}
 

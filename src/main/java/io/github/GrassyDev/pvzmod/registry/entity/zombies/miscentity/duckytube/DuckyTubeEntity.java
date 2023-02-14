@@ -1,22 +1,13 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube;
 
-import com.google.common.collect.Sets;
-import com.google.common.collect.UnmodifiableIterator;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.snorkel.HypnoSnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.TargetGoal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -29,13 +20,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -44,9 +32,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
-
-import java.util.Iterator;
-import java.util.Set;
 
 public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
     private MobEntity owner;
@@ -109,19 +94,12 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
     }
 
     protected void initCustomGoals() {
-		this.targetSelector.add(2, new DuckyTubeEntity.TrackOwnerTargetGoal(this));
-		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
-		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(3, new TargetGoal<>(this, LivingEntity.class, false, true));
     }
 
 	public void tick() {
 		super.tick();
-		this.updateFloating();
-		updateSubmergedState();
-		Entity passenger = this.getPrimaryPassenger();
-		if (passenger == null && this.age > 20){
-			this.discard();
+		if (!this.hasVehicle()){
+			kill();
 		}
 	}
 
@@ -139,6 +117,13 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	/**public boolean collides() {
+		return !this.isRemoved();
+	}
+
+	public boolean isCollidable() {
+		return this.isAlive();
+	}
 
 	public boolean canWalkOnFluid(FluidState state) {
 		return state.isIn(FluidTags.WATER);
@@ -239,13 +224,13 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 		}
 	}
 
-	public static DefaultAttributeContainer.Builder createDuckyTubeAttributes() {
+	**/public static DefaultAttributeContainer.Builder createDuckyTubeAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
-    }
+    }/**
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.SILENCEVENET;
@@ -265,7 +250,7 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 
 	public void setOwner(MobEntity owner) {
 		this.owner = owner;
-	}
+	}**/
 
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
@@ -329,7 +314,7 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 
-	class TrackOwnerTargetGoal extends TrackTargetGoal {
+	/**class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
@@ -344,5 +329,5 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
             DuckyTubeEntity.this.setTarget(DuckyTubeEntity.this.owner.getTarget());
             super.start();
         }
-    }
+    }**/
 }

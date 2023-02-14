@@ -9,7 +9,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.l
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
@@ -103,9 +102,8 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		Entity vehicle = this.getVehicle();
 		ConeheadGearEntity coneheadGearEntity = (ConeheadGearEntity) this.getFirstPassenger();
-		if (vehicle instanceof DuckyTubeEntity) {
+		if (this.isInsideWaterOrBubbleColumn()) {
 			if (this.hasPassenger(coneheadGearEntity)) {
 				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.ducky"));
 			}
@@ -172,6 +170,18 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 
 	/** /~*~//~*TICKING*~//~*~/ **/
+
+	public void tick() {
+		super.tick();
+		if (this.getAttacking() == null){
+			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
+				this.setTarget(CollidesWithPlayer());
+			}
+			else if (this.CollidesWithPlant() != null){
+				this.setTarget(CollidesWithPlant());
+			}
+		}
+	}
 
 	protected void mobTick() {
 		super.mobTick();

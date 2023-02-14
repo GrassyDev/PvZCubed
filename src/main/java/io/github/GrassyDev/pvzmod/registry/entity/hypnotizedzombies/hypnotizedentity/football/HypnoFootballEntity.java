@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizede
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -120,8 +119,7 @@ public class HypnoFootballEntity extends HypnoZombieEntity implements IAnimatabl
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		Entity vehicle = this.getVehicle();
-		if (vehicle instanceof DuckyTubeEntity) {
+		if (this.isInsideWaterOrBubbleColumn()) {
 			event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
@@ -159,7 +157,7 @@ public class HypnoFootballEntity extends HypnoZombieEntity implements IAnimatabl
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
 		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-			if (this.getTackleStage() && this.getVehicle() != null) {
+			if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {
 				if (i <= 0) {
 					if (this.hasStatusEffect(PvZCubed.ICE)) {
 						this.attackTicksLeft = 20;

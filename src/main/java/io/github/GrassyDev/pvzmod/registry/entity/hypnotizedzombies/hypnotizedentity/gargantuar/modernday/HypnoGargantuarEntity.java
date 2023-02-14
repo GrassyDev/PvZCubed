@@ -5,7 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -180,23 +179,18 @@ public class HypnoGargantuarEntity extends HypnoZombieEntity implements IAnimata
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		Entity vehicle = this.getVehicle();
-		if (vehicle instanceof DuckyTubeEntity) {
+		if (this.isInsideWaterOrBubbleColumn()) {
 			if (inLaunchAnimation) {
 				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
 			} else if (this.getImpStage()) {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
-				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.walk"));
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky"));
 				}
 			} else {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2"));
-				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.walk2"));
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2"));
 				}

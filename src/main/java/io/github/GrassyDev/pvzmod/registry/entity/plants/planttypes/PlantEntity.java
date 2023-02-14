@@ -35,6 +35,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.w
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -59,6 +60,11 @@ public abstract class PlantEntity extends GolemEntity {
 
 	protected PlantEntity(EntityType<? extends GolemEntity> entityType, World world) {
 		super(entityType, world);
+	}
+
+	public void rideLilyPad(LivingEntity livingEntity){
+		this.refreshPositionAndAngles(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), livingEntity.bodyYaw, 0.0F);
+		this.startRiding(livingEntity);
 	}
 
 	public void tick() {
@@ -173,8 +179,8 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
-					plantEntity.startRiding(this, true);
 					world.spawnEntity(plantEntity);
+					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
 				if (!player.getAbilities().creativeMode) {

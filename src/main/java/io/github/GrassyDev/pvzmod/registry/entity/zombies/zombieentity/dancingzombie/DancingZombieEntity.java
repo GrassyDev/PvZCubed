@@ -9,12 +9,13 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.l
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -29,12 +30,14 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
@@ -115,8 +118,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		Entity vehicle = this.getVehicle();
-		if (vehicle instanceof DuckyTubeEntity) {
+		if (this.isInsideWaterOrBubbleColumn()) {
 			event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.ducky"));
 			if (this.isIced) {
 				event.getController().setAnimationSpeed(0.5);
@@ -207,6 +209,19 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	public void tick() {
+		super.tick();
+		this.updateFloating();
+		if (this.getAttacking() == null){
+			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
+				this.setTarget(CollidesWithPlayer());
+			}
+			else if (this.CollidesWithPlant() != null){
+				this.setTarget(CollidesWithPlant());
+			}
+		}
+	}
+
 	protected void mobTick() {
 		if (this.isAggro) {
 			this.world.sendEntityStatus(this, (byte) 13);
@@ -228,6 +243,23 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public boolean canWalkOnFluid(FluidState state) {
+		return state.isIn(FluidTags.WATER);
+	}
+
+	protected boolean shouldSwimInFluids() {
+		return true;
+	}
+
+	private void updateFloating() {
+		if (this.isInsideWaterOrBubbleColumn()) {
+			ShapeContext shapeContext = ShapeContext.of(this);
+			if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
+				this.onGround = true;
+			}
+		}
+	}
 
 	public static DefaultAttributeContainer.Builder createDancingZombieAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
