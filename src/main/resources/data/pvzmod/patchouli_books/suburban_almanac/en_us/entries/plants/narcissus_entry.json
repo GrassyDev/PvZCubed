@@ -1,0 +1,41 @@
+{
+  "name": "Narcissus",
+  "icon": "pvzmod:narcissus_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 100,
+  "advancement": "pvzmod:make_bellflower",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)15",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)x5 2 DMG/2s (Pierce)",
+        "$(br)$(#bd951a)Big Bubble: $()$(#ff0000)2 DMG/2s (Destroys Armor)",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Amphibious. 25% Big Bubble/shot if in water. Extinguishes Zombies.",
+        "$(br2)$(#bd951a)\"How DARE a ZOMBIE have nicer things than me!?\", says Narcissus, enraged. \"If I can't have nice things, you also can't!\""
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/narcissus.png"
+      ],
+      "title": "✂ Spear Family",
+      "border": "true",
+      "text": "$(#25228d)They sometimes shoot Big Bubbles that destroys armor if in water."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/spear/narcissus"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies Online: $()$(#ff0000)Narcissus",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Narcissus"
+      ]
+    }
+  ]
+}

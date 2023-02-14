@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood"
+      "item": "pvzmod:plantfood_aquatic"
     },
     {
-      "item": "pvzmod:plantfood_tough"
+      "item": "pvzmod:sunflowerseed_seed_packet"
     },
     {
       "item": "pvzmod:sun"
@@ -15,7 +15,7 @@
     }
   ],
   "result": {
-    "item": "pvzmod:cabbagepult_seed_packet",
+    "item": "pvzmod:narcissus_seed_packet",
     "count": 1
   }
 }
