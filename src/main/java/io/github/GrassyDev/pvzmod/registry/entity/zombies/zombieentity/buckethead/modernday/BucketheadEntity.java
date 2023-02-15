@@ -5,9 +5,10 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.buckethead.modernday.HypnoBucketheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.*;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
@@ -214,28 +215,18 @@ public class BucketheadEntity extends PvZombieEntity implements IAnimatable {
 
         this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof ReinforceEntity && !(livingEntity instanceof LilyPadEntity) && !(livingEntity instanceof SmallNutEntity);
-		}));
-        this.targetSelector.add(2, new TargetGoal<>(this, EnforceEntity.class, false, true));
-        this.targetSelector.add(2, new TargetGoal<>(this, ContainEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, EnchantEntity.class, false, true));
-        this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal<>(this, AppeaseEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, SpearEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, PepperEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal<>(this, WinterEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal<>(this, BombardEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal<>(this, AilmentEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal<>(this, EnlightenEntity.class, false, true));
-        this.targetSelector.add(3, new TargetGoal<>(this, FilamentEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, LilyPadEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, SmallNutEntity.class, false, true));
-        this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
-        this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
-        ////////// Hypnotized Zombie targets ///////
-        this.targetSelector.add(1, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
-        this.targetSelector.add(1, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+
+		this.targetSelector.add(2, new TargetGoal<>(this, PlantEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, MerchantEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
+		////////// Hypnotized Zombie targets ///////
+		this.targetSelector.add(2, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
+		this.targetSelector.add(2, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+		////////// Must-Protect Plants ///////
+		this.targetSelector.add(1, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, SunshroomEntity.class, false, true));
     }
 
 	/** /~*~//~*TICKING*~//~*~/ **/

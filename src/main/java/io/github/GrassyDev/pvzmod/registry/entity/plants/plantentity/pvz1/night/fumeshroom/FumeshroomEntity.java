@@ -57,8 +57,6 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	private String controllerName = "fumecontroller";
 
-	private int healingTime;
-
 	private boolean isTired;
 
 	private boolean isFiring;
@@ -67,7 +65,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	public FumeshroomEntity(EntityType<? extends FumeshroomEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
-		this.healingTime = 6000;
+
 	}
 
 	protected void initDataTracker() {

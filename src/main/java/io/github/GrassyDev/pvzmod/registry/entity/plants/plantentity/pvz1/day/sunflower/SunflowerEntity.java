@@ -57,7 +57,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
     private String controllerName = "suncontroller";
     public int sunProducingTime = 3600;
 
-    public int healingTime;
+
 	int raycastDelay = 10;
 
 	Entity prevZombie;
@@ -68,7 +68,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 	public SunflowerEntity(EntityType<? extends SunflowerEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	protected void initDataTracker() {

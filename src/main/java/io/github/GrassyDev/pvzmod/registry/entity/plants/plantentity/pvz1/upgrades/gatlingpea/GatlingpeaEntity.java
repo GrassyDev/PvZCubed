@@ -44,7 +44,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 
     private String controllerName = "peacontroller";
 
-    public int healingTime;
+
 
 	public boolean isFiring;
 
@@ -53,7 +53,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
     public GatlingpeaEntity(EntityType<? extends GatlingpeaEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	static {

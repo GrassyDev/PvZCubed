@@ -56,8 +56,6 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 
 	private String controllerName = "scaredycontroller";
 
-	private int healingTime;
-
 	private boolean isTired;
 
 	private boolean isFiring;
@@ -69,7 +67,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
     public ScaredyshroomEntity(EntityType<? extends ScaredyshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
         this.animationScare = 30;
     }
 

@@ -46,7 +46,7 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
 
     private String controllerName = "peacontroller";
 
-    public int healingTime;
+
 
 	public boolean isFiring;
 
@@ -55,7 +55,7 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
     public CabbagepultEntity(EntityType<? extends CabbagepultEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	static {

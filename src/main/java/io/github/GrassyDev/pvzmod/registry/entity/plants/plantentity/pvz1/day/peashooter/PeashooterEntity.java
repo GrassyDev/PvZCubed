@@ -48,7 +48,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 
     private String controllerName = "peacontroller";
 
-    public int healingTime;
+
 
 	public boolean isFiring;
 
@@ -57,7 +57,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
     public PeashooterEntity(EntityType<? extends PeashooterEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	static {

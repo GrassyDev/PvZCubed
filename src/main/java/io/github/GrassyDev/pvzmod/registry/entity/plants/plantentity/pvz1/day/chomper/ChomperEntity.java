@@ -55,7 +55,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 			DataTracker.registerData(ChomperEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    public int healingTime;
+
     private int attackTicksLeft;
     public boolean notEating;
     public boolean eatingShield;
@@ -64,7 +64,6 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
     public ChomperEntity(EntityType<? extends ChomperEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 2400;
     }
 
 	protected void initDataTracker() {

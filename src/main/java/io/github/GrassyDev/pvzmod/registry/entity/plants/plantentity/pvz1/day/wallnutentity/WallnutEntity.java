@@ -20,6 +20,8 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -41,7 +43,7 @@ import java.util.stream.Stream;
 public class WallnutEntity extends ReinforceEntity implements IAnimatable {
     private String controllerName = "wallcontroller";
 
-    public int healingTime;
+
 
     public int damageTaken;
 
@@ -50,7 +52,6 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
     public WallnutEntity(EntityType<? extends WallnutEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 1200;
     }
 
 	static {
@@ -208,6 +209,19 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 	@Override
 	public ItemStack getPickBlockStack() {
 		return ModItems.WALLNUT_SEED_PACKET.getDefaultStack();
+	}
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.LARGESUN) && this.getHealth() < this.getMaxHealth()) {
+			this.setHealth(this.getMaxHealth());
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.CONSUME;
+		}
 	}
 
 

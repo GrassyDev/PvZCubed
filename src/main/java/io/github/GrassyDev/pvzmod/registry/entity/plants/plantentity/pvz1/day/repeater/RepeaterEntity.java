@@ -50,7 +50,7 @@ import java.util.EnumSet;
 public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IAnimatable {
 	private String controllerName = "peacontroller";
 
-	public int healingTime;
+
 
 	public boolean isFiring;
 
@@ -59,7 +59,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 	public RepeaterEntity(EntityType<? extends RepeaterEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
-		this.healingTime = 6000;
+
 	}
 
 	static {

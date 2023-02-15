@@ -47,7 +47,7 @@ public class NarcissusEntity extends SpearEntity implements IAnimatable, RangedA
 
     private String controllerName = "kelpcontroller";
 
-    public int healingTime;
+
 	private int amphibiousRaycastDelay;
 
 	private boolean isFiring;
@@ -60,7 +60,7 @@ public class NarcissusEntity extends SpearEntity implements IAnimatable, RangedA
         super(entityType, world);
         this.ignoreCameraFrustum = true;
 		amphibiousRaycastDelay = 1;
-        this.healingTime = 6000;
+
 		this.setNoGravity(true);
     }
 

@@ -58,7 +58,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-	public int healingTime;
+
 
 	public boolean isFiring;
 
@@ -68,7 +68,6 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	public SnowpeaEntity(EntityType<? extends SnowpeaEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
-		this.healingTime = 8400;
 	}
 
 	protected void initDataTracker() {

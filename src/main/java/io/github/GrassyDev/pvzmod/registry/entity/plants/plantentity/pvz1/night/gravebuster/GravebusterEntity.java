@@ -2,12 +2,14 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ContainEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -34,7 +36,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    public int healingTime;
+
     private int attackTicksLeft;
     private boolean notready;
     private boolean used;
@@ -43,7 +45,7 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
     public GravebusterEntity(EntityType<? extends GravebusterEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
         this.notready = true;
         this.attackTicksLeft = 80;
     }
@@ -77,9 +79,7 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 	protected void initGoals() {
 		this.goalSelector.add(1, new MeleeAttackGoal(this, 0D, true));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof BasicGraveEntity; }));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof NightGraveEntity; }));
+			return livingEntity instanceof GraveEntity; }));
 	}
 
 	public boolean tryAttack(Entity target) {

@@ -54,14 +54,13 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
     private String controllerName = "puffcontroller";
     public boolean isTired;
 
-    public int healingTime;
+
 
 	public boolean isFiring;
 
     public PuffshroomEntity(EntityType<? extends PuffshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
     }
 
 	protected void initDataTracker() {

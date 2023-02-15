@@ -46,14 +46,13 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private String controllerName = "peacontroller";
 
-	public int healingTime;
+
 
 	public boolean isFiring;
 
 	public FlamingpeaEntity(EntityType<? extends FlamingpeaEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 8400;
     }
 
 	static {

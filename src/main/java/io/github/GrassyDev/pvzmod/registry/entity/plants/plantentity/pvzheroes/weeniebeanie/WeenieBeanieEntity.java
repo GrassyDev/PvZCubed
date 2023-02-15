@@ -39,12 +39,12 @@ public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
 
     private String controllerName = "puffcontroller";
 
-    public int healingTime;
+
 
     public WeenieBeanieEntity(EntityType<? extends WeenieBeanieEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	protected void initDataTracker() {

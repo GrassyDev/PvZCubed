@@ -39,12 +39,12 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 
     private String controllerName = "puffcontroller";
 
-    public int healingTime;
+
 
     public ButtonshroomEntity(EntityType<? extends ButtonshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	protected void initDataTracker() {

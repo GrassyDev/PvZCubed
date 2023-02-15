@@ -49,7 +49,7 @@ public class BellflowerEntity extends SpearEntity implements IAnimatable, Ranged
 
     private String controllerName = "bellcontroller";
 
-    public int healingTime;
+
 
 	public boolean isFiring;
 
@@ -58,7 +58,7 @@ public class BellflowerEntity extends SpearEntity implements IAnimatable, Ranged
     public BellflowerEntity(EntityType<? extends BellflowerEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	static {

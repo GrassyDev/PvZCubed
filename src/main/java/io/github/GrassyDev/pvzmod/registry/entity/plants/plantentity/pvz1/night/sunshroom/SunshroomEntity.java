@@ -41,7 +41,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
     public boolean isTired;
     public int sunProducingTime = 3600;
 
-    public int healingTime;
+
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private Entity prevZombie;
@@ -51,7 +51,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 	public SunshroomEntity(EntityType<? extends SunshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	static {

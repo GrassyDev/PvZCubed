@@ -54,7 +54,7 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 			DataTracker.registerData(LilyPadEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private String controllerName = "wallcontroller";
 
-    public int healingTime;
+
 	private int amphibiousRaycastDelay;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -64,7 +64,6 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
         super(entityType, world);
 		amphibiousRaycastDelay = 1;
         this.ignoreCameraFrustum = true;
-        this.healingTime = 1200;
 		this.setNoGravity(true);
 		LilypadHats hat = Util.getRandom(LilypadHats.values(), this.random);
 		setHat(hat);

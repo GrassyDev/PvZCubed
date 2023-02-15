@@ -57,7 +57,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
     public boolean isAsleep;
     public boolean isTired;
 
-    public int healingTime;
+
     private static final TrackedData<Integer> HYPNO_BEAM_TARGET_ID;
     private LivingEntity cachedBeamTarget;
     private int beamTicks;
@@ -65,7 +65,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
     public HypnoshroomEntity(EntityType<? extends HypnoshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	protected void initDataTracker() {

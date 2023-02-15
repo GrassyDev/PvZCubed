@@ -53,7 +53,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 
     private String controllerName = "kelpcontroller";
 
-    public int healingTime;
+
 
 	public boolean isFiring;
 	private int animationTicksLeft;
@@ -73,7 +73,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
 		amphibiousRaycastDelay = 1;
-        this.healingTime = 6000;
+
 		this.setNoGravity(true);
     }
 

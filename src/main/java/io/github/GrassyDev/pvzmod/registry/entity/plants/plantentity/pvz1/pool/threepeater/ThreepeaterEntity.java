@@ -43,7 +43,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 
 	private String controllerName = "threepeacontroller";
 
-    public int healingTime;
+
 
 	public boolean isFiring;
 
@@ -52,7 +52,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
     public ThreepeaterEntity(EntityType<? extends ThreepeaterEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 6000;
+
     }
 
 	static  {

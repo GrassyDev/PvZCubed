@@ -51,7 +51,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 public class SquashEntity extends EnforceEntity implements IAnimatable {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    public int healingTime;
+
 	private int animationTicksLeft;
 	public boolean firstAttack;
 	public boolean inAnimation;
@@ -64,7 +64,6 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 	public SquashEntity(EntityType<? extends SquashEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-        this.healingTime = 2400;
     }
 
 	static {

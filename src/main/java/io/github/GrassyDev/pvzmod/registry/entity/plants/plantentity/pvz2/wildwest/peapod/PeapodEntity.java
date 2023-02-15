@@ -64,7 +64,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
 public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAnimatable {
 	private String controllerName = "peacontroller";
 
-	public int healingTime;
+
 
 	public boolean isFiring;
 
@@ -75,7 +75,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 	public PeapodEntity(EntityType<? extends PeapodEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
-		this.healingTime = 6000;
+
 	}
 
 	protected void initDataTracker() {
