@@ -160,7 +160,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 			else {
 				entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.25F, 1F);
 			}
-			float damage = 8F;
+			float damage = 4F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){

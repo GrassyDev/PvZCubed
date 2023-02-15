@@ -7,9 +7,8 @@
     {
       "type": "text",
       "text": [
-        "$(#ff0000)The Appease family is composed of peashooters and plants that shoot standard projectiles",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Single-target straight shot damage"
+        "$(#ff0000)The Appease family is composed of peashooters and plants that shoot standard projectiles.",
+        "$(br2)$()$(#bd951a)The most basic family whose main trait is shooting projectiles that go straight."
         ]
     },
     {

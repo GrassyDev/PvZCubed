@@ -8,8 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Spear family is composed of plants that deal piercing damage",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Hits through multiple zombies, ignoring shields."
+        "$(br2)$()$(#bd951a)Hits through multiple zombies, ignoring shields."
         ]
     },
     {

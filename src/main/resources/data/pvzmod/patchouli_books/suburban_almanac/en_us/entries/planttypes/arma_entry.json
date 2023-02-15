@@ -7,9 +7,8 @@
     {
       "type": "text",
       "text": [
-        "$(#ff0000)The Arma family is composed of plants that shoot from afar",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Lobbing shots or launching shots that ignores shields"
+        "$(#ff0000)The Arma family is composed of plants that shoot from afar.",
+        "$(br2)$()$(#bd951a)They shoot lobbed/launched projectiles that ignores shields."
         ]
     },
     {

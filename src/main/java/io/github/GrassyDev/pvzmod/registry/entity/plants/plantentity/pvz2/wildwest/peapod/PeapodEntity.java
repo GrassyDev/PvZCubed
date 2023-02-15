@@ -297,10 +297,10 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
 			this.addCount();
 			EntityAttributeInstance maxHealthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
-			double health = this.getMaxHealth() - 15;
+			double health = this.getMaxHealth() - 12;
 			maxHealthAttribute.removeModifier(MAX_HEALTH_UUID);
-			maxHealthAttribute.addPersistentModifier(createHealthModifier(health + 15));
-			heal(15);
+			maxHealthAttribute.addPersistentModifier(createHealthModifier(health + 12));
+			heal(12);
 			if (!player.getAbilities().creativeMode){
 				itemStack.decrement(1);
 				player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, PeaPodSeeds.cooldown);
@@ -349,7 +349,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 
 	public static DefaultAttributeContainer.Builder createPeapodAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 15)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 12)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);

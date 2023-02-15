@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
@@ -83,10 +84,15 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZCubed.SILENCEVENET;
+	}
+
 	public static DefaultAttributeContainer.Builder createNewspaperShieldAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 15D);
     }

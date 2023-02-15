@@ -164,10 +164,10 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.375);
+						event.getController().setAnimationSpeed(0.25);
 					}
 					else {
-						event.getController().setAnimationSpeed(0.75);
+						event.getController().setAnimationSpeed(0.5);
 					}
 				}
 			} else {
@@ -269,8 +269,8 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
 				assert maxStrengthAttribute != null;
 				maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
-				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.15D));
-				maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-7D));
+				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.11D));
+				maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-4D));
 				this.speedSwitch = true;
 			}
 		}
@@ -334,8 +334,8 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createNewspaperAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }

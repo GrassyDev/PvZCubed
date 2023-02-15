@@ -360,7 +360,7 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createIcebergLettuceAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 2D)

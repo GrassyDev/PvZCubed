@@ -7,9 +7,8 @@
     {
       "type": "text",
       "text": [
-        "$(#ff0000)The Ailment family is composed of ailment-inducing plants",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Inflicts status effects on zombies. Can poison, dealing 3 damage/second directly to the zombie, ignoring armor."
+        "$(#ff0000)The Ailment family is composed of ailment-inducing plants.",
+        "$(br2)$()$(#bd951a)Inflicts various status effects on zombies, one of them is poison, dealing 3 damage/second directly to the zombie, ignoring armor."
         ]
     },
     {

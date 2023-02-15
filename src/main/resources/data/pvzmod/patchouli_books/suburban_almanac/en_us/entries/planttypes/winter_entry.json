@@ -8,8 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Winter family is composed of cold plants",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Freezes zombies, slowing them down and halving their damage. Some also freeze them completely. Doesn't freeze the zombie if it only hits their shield."
+        "$(br2)$()$(#bd951a)Freezes zombies, slowing them down and halving their eating damage. Some also freeze them completely. Doesn't freeze the zombie if it only hits their shield or they are warm."
         ]
     },
     {

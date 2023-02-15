@@ -7,7 +7,7 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)56",
+        "$(#bd951a)Health: $()$(#ff0000)20",
         "$(br)$(#bd951a)Contact Damage: $()$(#ff0000)12",
         "$(br)$(#bd951a)Chew Time: $()$(#ff0000)4s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",

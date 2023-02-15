@@ -14,7 +14,8 @@ public class FlamingpeaEntityModel extends AnimatedGeoModel<FlamingpeaEntity> {
     @Override
     public Identifier getTextureResource(FlamingpeaEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/peashooter/flamingpea.png");
+		return object.isWet()? new Identifier ("pvzmod", "textures/entity/peashooter/flamingpea_wet.png") :
+				new Identifier ("pvzmod", "textures/entity/peashooter/flamingpea.png");
     }
 
     @Override

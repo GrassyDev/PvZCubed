@@ -193,8 +193,8 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 
 	public static DefaultAttributeContainer.Builder createHypnoNewspaperAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 65D);
 	}

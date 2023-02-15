@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flami
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -115,7 +116,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			this.onCollision(hitResult);
 		}
 
-        if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
+        if (!this.world.isClient && this.isWet()) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
@@ -132,6 +133,16 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			this.world.addParticle(ParticleTypes.SMALL_FLAME, this.getX(), this.getY(), this.getZ(), d, e, f);
 			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d, e * -1, f);
 		}
+
+		if (this.isWet()){
+			ShootingPeaEntity shootingPeaEntity = (ShootingPeaEntity) PvZEntity.PEA.create(world);
+			shootingPeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+			shootingPeaEntity.setVelocity(this.getVelocity());
+			shootingPeaEntity.age = this.age;
+			shootingPeaEntity.setOwner(this.getOwner());
+			world.spawnEntity(shootingPeaEntity);
+			this.remove(RemovalReason.DISCARDED);
+		}
     }
 
     @Override
@@ -146,7 +157,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
-			float damage = 8F;
+			float damage = 4F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
@@ -157,7 +168,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			else {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-			if (!entity.isInsideWaterOrBubbleColumn()) {
+			if (!entity.isWet()) {
 				if (!(entity instanceof ZombieShieldEntity)) {
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 				}

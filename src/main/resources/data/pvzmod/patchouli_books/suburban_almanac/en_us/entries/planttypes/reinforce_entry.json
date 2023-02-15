@@ -8,8 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Reinforce family is composed of defensive plants",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Hungry",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Supports other plants."
+        "$(br2)$()$(#bd951a)Consists of support and defensive plants."
         ]
     },
     {

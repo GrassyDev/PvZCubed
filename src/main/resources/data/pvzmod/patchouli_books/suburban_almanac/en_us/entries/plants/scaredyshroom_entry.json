@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "text",
-      "text": ["$(#bd951a)Health: $()$(#ff0000)3",
+      "text": ["$(#bd951a)Health: $()$(#ff0000)12",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1.5s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",

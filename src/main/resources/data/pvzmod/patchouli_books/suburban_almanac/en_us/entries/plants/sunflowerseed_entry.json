@@ -8,9 +8,13 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1s (Area)",
+        "$(br)$(#bd951a)Damage Radius: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Sun: $()$(#ff0000)Small",
+        "$(br)$(#bd951a)Sun Rate: $()$(#ff0000)3 minutes, after shooting.",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)2.5s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Spawns commonly during the day. Drops itself.",
-        "$(br2)$(#bd951a)From every night's end comes the beginning of a new Sunflower's dawn."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Produces sun when attacking. Spawns commonly during the day. Drops Petal Plant Food.",
+        "$(br)$(#bd951a)From every night's end comes the beginning of a new Sunflower's dawn."
       ]
     },
     {
@@ -20,11 +24,11 @@
       ],
       "title": "☀ Enlighten Family",
       "border": "true",
-      "text": "$(#25228d)These seeds make flower plants."
+      "text": "$(#25228d)Their Petal Plant Food make flower plants."
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:plants/enlighten/sunflowerpvz"
+      "recipe": "pvzmod:plants/enlighten/sunflowerseed"
     },
     {
       "type": "text",

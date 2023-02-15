@@ -10,10 +10,6 @@
 						"0.0": {
 							"vector": [1, 1, 1]
 						},
-						"0.0417": {
-							"vector": [1, 1, 1],
-							"easing": "easeInElastic"
-						},
 						"0.7083": {
 							"vector": [1, 0.95, 1],
 							"easing": "linear"

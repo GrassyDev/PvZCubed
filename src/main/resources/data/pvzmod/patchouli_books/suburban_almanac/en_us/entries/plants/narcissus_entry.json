@@ -8,7 +8,7 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)15",
+        "$(#bd951a)Health: $()$(#ff0000)16",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)x5 2 DMG/2s (Pierce)",
         "$(br)$(#bd951a)Big Bubble: $()$(#ff0000)2 DMG/2s (Destroys Armor)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",

@@ -23,7 +23,7 @@
 							"vector": [1, 1, 1]
 						},
 						"1.75": {
-							"vector": [1.3, 1, 1.3],
+							"vector": [1.4, 1, 1.5],
 							"easing": "easeOutBounce",
 							"easingArgs": [0.3]
 						}
@@ -38,7 +38,7 @@
 							"vector": [0, 0, 0]
 						},
 						"1.75": {
-							"vector": [-1, 0, -1],
+							"vector": [-1, 1, -1],
 							"easing": "easeOutBounce",
 							"easingArgs": [0.3]
 						}
@@ -48,7 +48,7 @@
 							"vector": [1, 1, 1]
 						},
 						"1.75": {
-							"vector": [1.3, 1, 1.3],
+							"vector": [1.4, 1.1, 1.5],
 							"easing": "easeOutBounce",
 							"easingArgs": [0.3]
 						}

@@ -206,6 +206,14 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 				if (bl) {
 					this.applyDamageEffects(this, target);
 				}
+				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(passenger.getType()).orElse("flesh");
+				SoundEvent sound;
+				sound = switch (zombieMaterial) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				passenger.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
 				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
 				return bl;
 			} else {
@@ -222,6 +230,14 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 				if (bl) {
 					this.applyDamageEffects(this, target);
 				}
+				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(target.getType()).orElse("flesh");
+				SoundEvent sound;
+				sound = switch (zombieMaterial) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				target.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
 				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
 				return bl;
 			} else {
@@ -350,7 +366,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createChomperAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 45.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 36.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3.5D)

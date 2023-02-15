@@ -9,14 +9,14 @@
       "text": [
         "The first day on the zombie apocalypse is really important.",
         "$(br2)Your objective is to find plants on the surface and punch them (they will glow). When they die, they drop different types of Plant Food. ",
-        "The Plant Foods are important to make different plants, but most importantly you will find Sunflower Seeds around. Punch them to get their Seed Packet."
+        "The Plant Foods are important to make different plants, but most importantly you will find Sunflower Seeds around. Punch them to get Petal Plant Food."
         ]
     },
     {
       "type": "crafting",
       "recipe": "pvzmod:plants/enlighten/sunflowerpvz",
       "text": [
-        "After finding x2 Sunflower Seed Seed Packet, craft a Sunflower. ",
+        "After finding x2 Petal Plant Food, craft a Sunflower. ",
         "Sunflowers produce Sun, which is used to craft most plants.",
         "$(br)After crafting your Sunflowers, find a nice place to call home and plant them on your lawn."
       ]
@@ -41,7 +41,7 @@
       "recipe": "pvzmod:plants/spear/bellflower",
       "text": [
         "Bellflowers are weak but cheap and effective, make one or two if you can. ",
-        "They deal the same damage as the Peashooter, but to all zombies in an area while ignoring armor, with limited range being the drawback."
+        "They deal double the damage of a Peashooter to all zombies in an area while ignoring shields, but have really short range."
       ]
     },
     {
@@ -56,7 +56,8 @@
       "type": "crafting",
       "recipe": "pvzmod:plants/reinforce/wallnut",
       "text": [
-        "Wall-nuts are one of the most import plants to have. They funnel the zombies to their location, allowing your plants to attack without risking themselves."
+        "Wall-nuts are handy walls that slows zombies down. Plant them in the way between the zombies and your sun-producers. ",
+        "Zombies will try to attack your sun-producers, but they will stop to eat any plants in their way."
       ]
     },
     {

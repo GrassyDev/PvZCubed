@@ -221,7 +221,7 @@ public class NarcissusEntity extends SpearEntity implements IAnimatable, RangedA
 
 	public static DefaultAttributeContainer.Builder createNarcissusAttributes() {
         return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 15.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 16.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6D);

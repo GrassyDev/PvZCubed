@@ -8,8 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Enlighten family is composed of sun-producing plants",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Produces sun."
+        "$(br2)$()$(#bd951a)They produce sun."
         ]
     },
     {

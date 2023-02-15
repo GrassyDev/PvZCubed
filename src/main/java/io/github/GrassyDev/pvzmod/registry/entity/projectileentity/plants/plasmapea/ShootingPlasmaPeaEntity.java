@@ -148,7 +148,7 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			Entity entity2 = entityHitResult.getEntity();
-			float damage = 18F;
+			float damage = 12F;
 			if (entity2 != entityStore && entityStoreVehicle != entity2) {
 				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
 				if (damage > ((LivingEntity) entity).getHealth() &&

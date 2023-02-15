@@ -216,7 +216,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 
 	public static DefaultAttributeContainer.Builder createRepeaterAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);

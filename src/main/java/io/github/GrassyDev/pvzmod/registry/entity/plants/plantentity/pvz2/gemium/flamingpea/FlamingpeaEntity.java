@@ -25,6 +25,7 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -42,11 +43,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.EnumSet;
 
 public class FlamingpeaEntity extends PepperEntity implements IAnimatable, RangedAttackMob {
-
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private String controllerName = "peacontroller";
-
-
 
 	public boolean isFiring;
 
@@ -83,9 +81,19 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().playOnce("peashooter.shoot"));
+			if (this.isWet()){
+				event.getController().setAnimation(new AnimationBuilder().playOnce("peashooter.wetflame.shoot"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().playOnce("peashooter.shoot"));
+			}
 		} else {
-			event.getController().setAnimation(new AnimationBuilder().loop("peashooter.idle"));
+			if (this.isWet()){
+				event.getController().setAnimation(new AnimationBuilder().loop("peashooter.wetflame.idle"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("peashooter.idle"));
+			}
 		}
 		return PlayState.CONTINUE;
 	}
@@ -325,6 +333,9 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 							this.beamTicks = -7;
 							this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 11);
 							this.flamingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 1F, 1);
+							if (this.flamingpeaEntity.isWet()){
+								this.flamingpeaEntity.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH, 1F, 1);
+							}
 							this.flamingpeaEntity.world.spawnEntity(proj);
 						}
 					}

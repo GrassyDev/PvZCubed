@@ -10,10 +10,6 @@
 						"0.0": {
 							"vector": [0, -2, 0]
 						},
-						"0.0417": {
-							"vector": [0, -2, 0],
-							"easing": "easeInElastic"
-						},
 						"1.5": {
 							"vector": [0, -2.25, 0],
 							"easing": "linear"
@@ -377,10 +373,6 @@
 					"position": {
 						"0.0": {
 							"vector": [0, -2, 0]
-						},
-						"0.0417": {
-							"vector": [0, -2, 0],
-							"easing": "easeInElastic"
 						},
 						"1.5": {
 							"vector": [0, -2.25, 0],

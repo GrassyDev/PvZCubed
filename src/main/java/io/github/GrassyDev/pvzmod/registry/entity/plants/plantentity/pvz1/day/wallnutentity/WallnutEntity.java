@@ -1,11 +1,10 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.wallnutentity;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -22,6 +21,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -38,6 +39,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class WallnutEntity extends ReinforceEntity implements IAnimatable {
@@ -55,22 +57,6 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
     }
 
 	static {
-	}
-
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status == 3) {
-			this.damageTaken = 0;
-		}
-		if (status == 4) {
-			this.damageTaken = 1;
-		}
-		if (status == 5) {
-			this.damageTaken = 2;
-		}
-		if (status == 6) {
-			this.damageTaken = 3;
-		}
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
@@ -112,6 +98,18 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 		return WallnutEntity.Crack.from(this.getHealth() / this.getMaxHealth());
 	}
 
+	public static final Map<Crack, Identifier> LOCATION_BY_VARIANT =
+			Util.make(Maps.newEnumMap(Crack.class), (map) -> {
+				map.put(Crack.NONE,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/wallnut/wallnut.png"));
+				map.put(Crack.LOW,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/wallnut/wallnut.png"));
+				map.put(Crack.MEDIUM,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/wallnut/wallnut_dmg1.png"));
+				map.put(Crack.HIGH,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/wallnut/wallnut_dmg2.png"));
+			});
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -128,17 +126,11 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (this.damageTaken == 3){
-            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.damage3"));
-        }
-        else if (this.damageTaken == 2){
-            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.damage2"));
-        }
-        else if (this.damageTaken == 1){
-            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.damage1"));
+        if (this.getCrack().equals(Crack.NONE)){
+            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.idle"));
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().loop("wallnut.idle"));
+			event.getController().setAnimation(new AnimationBuilder().loop("wallnut.damage"));
         }
         return PlayState.CONTINUE;
     }
@@ -179,20 +171,6 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-
-        WallnutEntity.Crack crack = this.getCrack();
-        if (crack == Crack.HIGH) {
-            this.world.sendEntityStatus(this, (byte)6);
-        }
-        else if (crack == Crack.MEDIUM) {
-            this.world.sendEntityStatus(this, (byte)5);
-        }
-        else if (crack == Crack.LOW) {
-            this.world.sendEntityStatus(this, (byte)4);
-        }
-        else if (crack == Crack.NONE) {
-            this.world.sendEntityStatus(this, (byte)3);
-        }
     }
 
 	public void tickMovement() {

@@ -22,6 +22,7 @@ public class ModItems {
 	public static final Item PLANTFOOD_AQUATIC = new Item(new Item.Settings().maxCount(64));
 	public static final Item PLANTFOOD_COLD = new Item(new Item.Settings().maxCount(64));
 	public static final Item PLANTFOOD_FIRE = new Item(new Item.Settings().maxCount(64));
+	public static final Item PLANTFOOD_FLOWER = new Item(new Item.Settings().maxCount(64));
 	public static final Item PLANTFOOD_MUSHROOM = new Item(new Item.Settings().maxCount(64));
 	public static final Item PLANTFOOD_TOUGH = new Item(new Item.Settings().maxCount(64));
     public static final Item PEA = new PeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
@@ -133,6 +134,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_aquatic"), PLANTFOOD_AQUATIC);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_cold"), PLANTFOOD_COLD);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_fire"), PLANTFOOD_FIRE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_flower"), PLANTFOOD_FLOWER);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_mushroom"), PLANTFOOD_MUSHROOM);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plantfood_tough"), PLANTFOOD_TOUGH);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pea"), PEA);

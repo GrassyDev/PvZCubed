@@ -309,7 +309,7 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 
 	public static DefaultAttributeContainer.Builder createTwinSunflowerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 25D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 28D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
     }

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:plantfood",
+          "name": "pvzmod:plantfood_flower",
           "functions": [
             {
               "function": "minecraft:set_count",

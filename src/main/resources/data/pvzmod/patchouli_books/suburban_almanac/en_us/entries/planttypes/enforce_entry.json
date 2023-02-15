@@ -8,8 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Enforce family is composed of plants with limited range",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Interested",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)High up-close damage."
+        "$(br2)$()$(#bd951a)They are melee plants."
         ]
     },
     {

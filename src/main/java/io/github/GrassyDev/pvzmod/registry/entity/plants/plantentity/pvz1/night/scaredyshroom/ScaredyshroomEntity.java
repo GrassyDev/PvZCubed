@@ -315,7 +315,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 
 	public static DefaultAttributeContainer.Builder createScaredyshroomAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 3.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 30.0D);

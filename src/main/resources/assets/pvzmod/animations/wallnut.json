@@ -129,7 +129,7 @@
 				}
 			}
 		},
-		"wallnut.damage2": {
+		"wallnut.damage": {
 			"loop": true,
 			"animation_length": 0.5,
 			"bones": {
@@ -141,7 +141,7 @@
 						"vector": [0, 0, 0]
 					},
 					"scale": {
-						"vector": [0, 0, 0]
+						"vector": [1, 1, 1]
 					}
 				},
 				"DMGHIGH": {
@@ -152,57 +152,18 @@
 						"vector": [0, 6, 0]
 					},
 					"scale": {
-						"vector": [0, 0, 0]
+						"vector": [0.8, 0.4, 0.7]
 					}
 				},
 				"DMGMED": {
 					"rotation": {
-						"vector": [-2.5, 0, 0]
+						"vector": [0, 0, 0]
 					},
 					"position": {
-						"vector": [0, 0, 0]
+						"vector": [0, 6, 0]
 					},
 					"scale": {
-						"vector": [1, 1, 1]
-					}
-				}
-			}
-		},
-		"wallnut.damage3": {
-			"loop": true,
-			"animation_length": 0.5,
-			"bones": {
-				"NUT": {
-					"rotation": {
-						"vector": [-5, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
-					},
-					"scale": {
-						"vector": [0, 0, 0]
-					}
-				},
-				"DMGHIGH": {
-					"rotation": {
-						"vector": [-2.5, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
-					},
-					"scale": {
-						"vector": [1, 1, 1]
-					}
-				},
-				"DMGMED": {
-					"rotation": {
-						"vector": [-2.5, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
-					},
-					"scale": {
-						"vector": [0, 0, 0]
+						"vector": [0.8, 0.4, 0.7]
 					}
 				}
 			}

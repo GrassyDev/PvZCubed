@@ -230,7 +230,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createSunshroomAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 3.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
     }

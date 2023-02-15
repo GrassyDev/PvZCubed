@@ -3,13 +3,10 @@
   "ingredients": [
     {
       "item": "pvzmod:plantfood_flower"
-    },
-    {
-      "item": "pvzmod:plantfood_flower"
     }
   ],
   "result": {
-    "item": "pvzmod:sunflower_seed_packet",
+    "item": "pvzmod:sunflowerseed_seed_packet",
     "count": 1
   }
 }

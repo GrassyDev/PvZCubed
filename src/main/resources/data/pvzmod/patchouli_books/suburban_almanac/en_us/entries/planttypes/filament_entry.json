@@ -8,8 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Filament family is composed of electric plants",
-        "$(br2)$(#bd951a)Zombie Priority: $()$(#ff0000)Average",
-        "$(br2)$(#bd951a)Characteristics: $()$(#ff0000)Hits multiple zombies with electric arcs."
+        "$(br2)$()$(#bd951a)Hits multiple zombies with electric arcs and deals extra damage to wet zombies. Electricity doesn't work against zombies with plastic, paper, and rubber, unless they are wet"
         ]
     },
     {

@@ -611,7 +611,7 @@
 							"easing": "easeInBack"
 						},
 						"2.0": {
-							"vector": [1.2, 1.2, 1.2],
+							"vector": [1.5, 1.5, 1.5],
 							"easing": "easeInSine"
 						}
 					}
@@ -642,7 +642,7 @@
 							"vector": [1, 1, 1]
 						},
 						"2.0": {
-							"vector": [1.5, 1.25, 1.5],
+							"vector": [2, 2, 2],
 							"easing": "easeInSine"
 						}
 					}
@@ -784,6 +784,9 @@
 						},
 						"1.5": {
 							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0, 1, 0]
 						}
 					},
 					"scale": {

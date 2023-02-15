@@ -58,7 +58,7 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private String controllerName = "puffcontroller";
-	public int sunProducingTime = 1200;
+	public int sunProducingTime = 3600;
 	public boolean produceSun;
 
 	public boolean isFiring;
@@ -289,7 +289,7 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 			if (this.produceSun){
 				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
 				this.dropItem(ModItems.SMALLSUN);
-				this.sunProducingTime = 1200;
+				this.sunProducingTime = 3600;
 				this.produceSun = false;
 			}
 		}

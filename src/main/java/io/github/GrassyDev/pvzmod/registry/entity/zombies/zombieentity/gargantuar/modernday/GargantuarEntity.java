@@ -425,7 +425,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			this.animationMultiplier = 1;
 		}
 		if (this.animationTicksLeft <= 0){
-			if (this.getHealth() <= 360 && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
+			if (this.getHealth() <= 180 && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
 				this.launchAnimation = 50 * animationMultiplier;
 				this.inLaunchAnimation = true;
 				this.world.sendEntityStatus(this, (byte) 44);
@@ -489,10 +489,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createGargantuarAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 10.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 540D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 360D);
     }
 
 	protected SoundEvent getAmbientSound() {

@@ -147,10 +147,10 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.83);
+						event.getController().setAnimationSpeed(0.7);
 					}
 					else {
-						event.getController().setAnimationSpeed(1.66);
+						event.getController().setAnimationSpeed(1.4);
 					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
@@ -247,8 +247,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createBrowncoatAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }

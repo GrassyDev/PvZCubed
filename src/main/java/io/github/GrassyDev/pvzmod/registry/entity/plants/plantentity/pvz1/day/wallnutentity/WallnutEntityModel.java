@@ -14,7 +14,7 @@ public class WallnutEntityModel extends AnimatedGeoModel<WallnutEntity> {
     @Override
     public Identifier getTextureResource(WallnutEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/wallnut/wallnut.png");
+		return WallnutEntity.LOCATION_BY_VARIANT.get(object.getCrack());
     }
 
     @Override

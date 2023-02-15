@@ -8,6 +8,7 @@
     {
       "type": "text",
       "text": [
+        "$(#bd951a)Health: $()$(#ff0000)12",
         "$(#bd951a)Damage: $()$(#ff0000)180",
         "$(br)$(#bd951a)Activation Range: $()$(#ff0000)5 Blocks",
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)10 Blocks",

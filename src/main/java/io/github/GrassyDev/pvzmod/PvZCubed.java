@@ -47,6 +47,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_AQUATIC));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_COLD));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_FIRE));
+				stacks.add(new ItemStack(ModItems.PLANTFOOD_FLOWER));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_MUSHROOM));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_TOUGH));
 				stacks.add(new ItemStack(ModItems.DAVES_SHOVEL));

@@ -146,10 +146,10 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 			Entity entity2 = entityHitResult.getEntity();
 			float damage;
 			if (((LivingEntity) entity).hasStatusEffect(PvZCubed.ICE) || ((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
-				damage = 8F;
+				damage = 4F;
 			}
 			else {
-				damage = 4F;
+				damage = 2F;
 			}
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;

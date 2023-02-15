@@ -107,8 +107,8 @@ public class HypnoScreendoorEntity extends HypnoZombieEntity implements IAnimata
 
 	public static DefaultAttributeContainer.Builder createHypnoScreendoorAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 50.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 180D);
 	}
