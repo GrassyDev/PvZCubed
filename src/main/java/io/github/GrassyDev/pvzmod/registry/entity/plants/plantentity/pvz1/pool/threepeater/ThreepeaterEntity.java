@@ -300,7 +300,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 						double d = this.threepeaterentity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.threepeaterentity.getX();
-						double f = livingEntity.getY() - this.threepeaterentity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.threepeaterentity.getY();
 						double g = predictedPos.getZ() - this.threepeaterentity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);

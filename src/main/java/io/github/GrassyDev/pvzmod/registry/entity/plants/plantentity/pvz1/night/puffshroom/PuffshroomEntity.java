@@ -385,7 +385,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 						double d = this.puffshroomEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.puffshroomEntity.getX();
-						double f = livingEntity.getY() - this.puffshroomEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.puffshroomEntity.getY();
 						double g = predictedPos.getZ() - this.puffshroomEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.sporeAge = 20;

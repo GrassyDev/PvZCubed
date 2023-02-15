@@ -299,7 +299,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 						double d = this.gatlingpeaEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.gatlingpeaEntity.getX();
-						double f = livingEntity.getY() - this.gatlingpeaEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.gatlingpeaEntity.getY();
 						double g = predictedPos.getZ() - this.gatlingpeaEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
@@ -321,7 +321,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 					double d = this.gatlingpeaEntity.squaredDistanceTo(predictedPos);
 					float df = (float)d;
 					double e = predictedPos.getX() - this.gatlingpeaEntity.getX();
-					double f = livingEntity.getY() - this.gatlingpeaEntity.getY();
+					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.gatlingpeaEntity.getY();
 					double g = predictedPos.getZ() - this.gatlingpeaEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);

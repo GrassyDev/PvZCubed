@@ -450,7 +450,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 								double d = this.scaredyshroomEntity.squaredDistanceTo(predictedPos);
 								float df = (float)d;
 								double e = predictedPos.getX() - this.scaredyshroomEntity.getX();
-								double f = livingEntity.getY() - this.scaredyshroomEntity.getY();
+								double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.scaredyshroomEntity.getY();
 								double g = predictedPos.getZ() - this.scaredyshroomEntity.getZ();
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 								proj.sporeAge = 41;

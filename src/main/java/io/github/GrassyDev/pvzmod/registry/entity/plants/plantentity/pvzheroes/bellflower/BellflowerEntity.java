@@ -314,7 +314,7 @@ public class BellflowerEntity extends SpearEntity implements IAnimatable, Ranged
 						double d = this.bellflower.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.bellflower.getX();
-						double f = livingEntity.getY() - this.bellflower.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.bellflower.getY();
 						double g = predictedPos.getZ() - this.bellflower.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						JingleEntity proj = new JingleEntity(PvZEntity.JINGLE, this.bellflower.world);

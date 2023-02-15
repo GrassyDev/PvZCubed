@@ -339,7 +339,7 @@ public class NarcissusEntity extends SpearEntity implements IAnimatable, RangedA
 						double d = this.narcissus.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.narcissus.getX();
-						double f = livingEntity.getY() - this.narcissus.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.narcissus.getY();
 						double g = predictedPos.getZ() - this.narcissus.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						ArmorBubbleEntity proj = new ArmorBubbleEntity(PvZEntity.ARMORBUBBLE, this.narcissus.world);
@@ -358,7 +358,7 @@ public class NarcissusEntity extends SpearEntity implements IAnimatable, RangedA
 					double d = this.narcissus.squaredDistanceTo(predictedPos);
 					float df = (float)d;
 					double e = predictedPos.getX() - this.narcissus.getX();
-					double f = livingEntity.getY() - this.narcissus.getY();
+					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.narcissus.getY();
 					double g = predictedPos.getZ() - this.narcissus.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 					BubbleEntity proj = new BubbleEntity(PvZEntity.BUBBLE, this.narcissus.world);

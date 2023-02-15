@@ -301,7 +301,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 				double d = this.flamingpeaEntity.squaredDistanceTo(predictedPos);
 				float df = (float)d;
 				double e = predictedPos.getX() - this.flamingpeaEntity.getX();
-				double f = livingEntity.getY() - this.flamingpeaEntity.getY();
+				double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.flamingpeaEntity.getY();
 				double g = predictedPos.getZ() - this.flamingpeaEntity.getZ();
 				float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {

@@ -340,7 +340,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 						double d = this.repeaterEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.repeaterEntity.getX();
-						double f = livingEntity.getY() - this.repeaterEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.repeaterEntity.getY();
 						double g = predictedPos.getZ() - this.repeaterEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);

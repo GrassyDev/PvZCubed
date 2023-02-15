@@ -475,7 +475,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 						double d = this.peapodEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.peapodEntity.getX();
-						double f = livingEntity.getY() - this.peapodEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.peapodEntity.getY();
 						double g = predictedPos.getZ() - this.peapodEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);

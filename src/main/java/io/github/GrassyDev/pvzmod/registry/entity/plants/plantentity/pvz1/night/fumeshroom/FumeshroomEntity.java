@@ -404,7 +404,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 					double d = this.fumeshroomEntity.squaredDistanceTo(predictedPos);
 					float df = (float)d;
 					double e = predictedPos.getX() - this.fumeshroomEntity.getX();
-					double f = livingEntity.getY() - this.fumeshroomEntity.getY();
+					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.fumeshroomEntity.getY();
 					double g = predictedPos.getZ() - this.fumeshroomEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 					FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
