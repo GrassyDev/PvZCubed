@@ -11,8 +11,9 @@
         "$(br)$(#bd951a)Activation Range: $()$(#ff0000)2 Blocks",
         "$(br)$(#bd951a)Explosion Range: $()$(#ff0000)2 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)0.75s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)2.5s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Spawns uncommonly. Drops Blazing Plant Food",
-        "$(br2)$(#bd951a)\"Don't you love creative liberty?\" says Bomb Seedling. \"I could turn into most plants before, now I'm just a resource for gameplay reasons.\", \"I can also explode\""
+        "$(br2)$(#bd951a)\"Don't you love creative liberty?\" says Bomb Seedling. \"I could turn into most plants before, now I'm just a resource for gameplay reasons.\", \"I can also explode.\""
       ]
     },
     {

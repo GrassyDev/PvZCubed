@@ -12,8 +12,9 @@
         "$(br)$(#bd951a)Sun: $()$(#ff0000)Small (40%), Normal (30%), Large (30%)",
         "$(br)$(#bd951a)Sun Rate: $()$(#ff0000)5 seconds (First Time), 3 minutes",
         "$(br)$(#bd951a)Zombie Sun Radius: $()$(#ff0000)15 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Produces a random size of sun",
-        "$(br2)$(#bd951a)Sun-shroom hates sun. He hates it so much that when it builds up in his system, he spits it out as fast as he can. He just won't abide it."
+        "$(br2)$(#bd951a)Sun-shroom hates sun. He hates it so much that when it builds up in his system, he spits it out as fast as he can"
       ]
     },
     {

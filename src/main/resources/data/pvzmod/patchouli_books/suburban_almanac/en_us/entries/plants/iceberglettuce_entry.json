@@ -12,8 +12,9 @@
         "$(br)$(#bd951a)Explosion Range: $()$(#ff0000)2 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)0.75s",
         "$(br)$(#bd951a)Freeze Time: $()$(#ff0000)10s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Completely freezes all zombies in range. Spawns rarely. Drops Cold Plant Food",
-        "$(br2)$(#bd951a)Don't get lost staring into Iceberg's adorably cute eyes. If you do, it will be your last step... but only if you're a zombie."
+        "$(br)$(#bd951a)Don't get lost staring into Iceberg's adorably cute eyes. If you do, it will be your last step... but only if you're a zombie."
       ]
     },
     {

@@ -11,11 +11,11 @@
         "$(#bd951a)Health: $()$(#ff0000)16",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)16 DMG/1.5s, 8 DMG (Splash)",
         "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)2.5 Blocks",
-        "$(br)$(#bd951a)Plasma Damage: $()$(#ff0000)18 DMG/1.5s (Pierce)",
+        "$(br)$(#bd951a)Plasma DMG: $()$(#ff0000)18 DMG/1.5s (Pierce)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Sets zombies on fire. 75% Fire Pea, 25% Plasma Pea",
-        "$(br2)$(#bd951a)Fire Pea had a relationship with Snow Queen Pea a few months back. Her passion may have cooled since then, but her burning peas have never been hotter."
+        "$(br)$(#bd951a)She had a relationship with Snow Queen Pea a few months back. She may have cooled since then, but her burning peas have never been hotter."
       ]
     },
     {

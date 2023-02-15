@@ -81,7 +81,8 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-		this.colliderOffset = 3F;
+		this.colliderOffset = 2F;
+		this.entityBox = PvZEntity.GARGANTUAR;
     }
 
 	protected void initDataTracker() {

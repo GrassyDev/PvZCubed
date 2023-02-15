@@ -15,7 +15,7 @@
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Shoots an Ice Spike then shoots a Snow Queen Pea.",
-        "$(br2)$(#bd951a)Snow Queen Pea may be happy with Sunflower, but she still has feelings for Fire Pea..."
+        "$(br)$(#bd951a)Snow Queen Pea may be happy with Sunflower, but she still has feelings for Fire Pea..."
       ]
     },
     {

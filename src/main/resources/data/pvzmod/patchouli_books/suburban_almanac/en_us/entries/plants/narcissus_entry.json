@@ -12,8 +12,9 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)x5 2 DMG/2s (Pierce)",
         "$(br)$(#bd951a)Big Bubble: $()$(#ff0000)2 DMG/2s (Destroys Armor)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)7.5s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Amphibious. 25% Big Bubble/shot if in water. Extinguishes Zombies.",
-        "$(br2)$(#bd951a)\"How DARE a ZOMBIE have nicer things than me!?\", says Narcissus, enraged. \"If I can't have nice things, you also can't!\""
+        "$(br2)$(#bd951a)\"How DARE a ZOMBIE have nicer things than me!?\", says Narcissus, enraged. \"If I can't have nice things, no one can!\""
       ]
     },
     {

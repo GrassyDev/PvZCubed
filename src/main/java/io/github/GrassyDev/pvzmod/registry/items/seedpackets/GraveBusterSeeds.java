@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.SpawnReason;
@@ -66,7 +67,8 @@ public class GraveBusterSeeds extends Item {
             ItemStack itemStack = context.getStack();
             Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
             Box box = PvZEntity.GRAVEBUSTER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-                if (world instanceof ServerWorld) {
+			List<GraveEntity> list = world.getNonSpectatingEntities(GraveEntity.class, box.expand(30));
+                if (world instanceof ServerWorld && !list.isEmpty()) {
                     ServerWorld serverWorld = (ServerWorld) world;
                     GravebusterEntity gravebusterEntity = (GravebusterEntity) PvZEntity.GRAVEBUSTER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (gravebusterEntity == null) {
@@ -78,6 +80,9 @@ public class GraveBusterSeeds extends Item {
                     world.spawnEntity(gravebusterEntity);
                     world.playSound((PlayerEntity) null, gravebusterEntity.getX(), gravebusterEntity.getY(), gravebusterEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }
+				else {
+					return ActionResult.PASS;
+				}
 
 			PlayerEntity user = context.getPlayer();
 			if (!user.getAbilities().creativeMode) {

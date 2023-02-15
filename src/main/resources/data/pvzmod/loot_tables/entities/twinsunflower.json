@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:twinsunflower_seed_packet",
+          "name": "minecraft:diamond",
           "functions": [
             {
               "function": "minecraft:set_count",

@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ContainEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -12,6 +13,7 @@ import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -168,7 +170,7 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createGravebusterAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 45.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 56.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 0D)
@@ -227,10 +229,9 @@ public class GravebusterEntity extends ContainEntity implements IAnimatable {
 
 	public boolean damage(DamageSource source, float amount) {
 		if (!(source.getSource() instanceof PlayerEntity)) {
-			if (!source.isMagic() && source.getSource() instanceof LivingEntity) {
-				LivingEntity livingEntity = (LivingEntity)source.getSource();
+			if (!source.isMagic() && source.getSource() instanceof HostileEntity hostileEntity && !(hostileEntity instanceof GargantuarEntity)) {
 				if (!source.isExplosive()) {
-					livingEntity.damage(DamageSource.thorns(this), 8.0F);
+					hostileEntity.damage(DamageSource.thrownProjectile(this, this), 12.0F);
 				}
 			}
 		}

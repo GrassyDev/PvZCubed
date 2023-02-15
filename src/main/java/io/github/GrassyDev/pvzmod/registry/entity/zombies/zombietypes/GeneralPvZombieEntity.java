@@ -18,6 +18,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public float colliderOffset = 0.4F;
 
+	public EntityType<? extends HostileEntity> entityBox = PvZEntity.BROWNCOAT;
+
 	@Override
 	public boolean canBeRiddenInWater() {
 		return true;
@@ -25,7 +27,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public PlantEntity CollidesWithPlant(){
 		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.BROWNCOAT.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
+		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
 		if (!list.isEmpty()){
 			if (list.get(0) instanceof LilyPadEntity lilyPadEntity){
 				if (!(lilyPadEntity.hasPassengers())) {
@@ -42,9 +44,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			return null;
 		}
 	}
+
 	public PlayerEntity CollidesWithPlayer(){
 		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-		List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, PvZEntity.BROWNCOAT.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
+		List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
 		if (!list.isEmpty()){
 			return list.get(0);
 		}

@@ -24,7 +24,7 @@ import java.util.List;
 
 public class BellflowerSeeds extends Item {
     public boolean used;
-	public static int cooldown = 100;
+	public static int cooldown = 50;
 
     public BellflowerSeeds(Settings settings) {
         super(settings);

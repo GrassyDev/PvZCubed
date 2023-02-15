@@ -15,7 +15,8 @@
     {
       "type": "relations",
       "entries": [
-        "pvzmod:plants/bellflower_entry"
+        "pvzmod:plants/bellflower_entry",
+        "pvzmod:plants/narcissus_entry"
       ],
       "title": "✂ Spear Plants:"
     }

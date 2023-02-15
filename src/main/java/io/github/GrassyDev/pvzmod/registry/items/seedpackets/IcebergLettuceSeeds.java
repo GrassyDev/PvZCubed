@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class IcebergLettuceSeeds extends Item {
-	public static int cooldown = 50;
+	public static int cooldown = 400;
     public IcebergLettuceSeeds(Settings settings) {
         super(settings);
     }

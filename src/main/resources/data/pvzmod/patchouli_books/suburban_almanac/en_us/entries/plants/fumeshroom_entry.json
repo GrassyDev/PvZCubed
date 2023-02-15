@@ -11,8 +11,9 @@
         "$(#bd951a)Health: $()$(#ff0000)30",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)x5 4.5 DMG/2s (Pierce)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)7.5s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Poisons zombies.",
-        "$(br2)$(#bd951a)\"I was in a dead-end job producing yeast spores for a bakery,\" says Fume-shroom. \"Then Puff-shroom, bless 'im, told me about this great opportunity blasting zombies. Now I really feel like I'm making a difference.\""
+        "$(br2)$(#bd951a)\"I was in a dead-end job producing yeast spores for a bakery,\" says Fume-shroom. \"Then Puff-shroom, bless 'im, told me about this great opportunity blasting zombies.\""
       ]
     },
     {

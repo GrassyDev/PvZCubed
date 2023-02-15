@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SunflowerSeeds extends Item {
-	public static int cooldown = 100;
+	public static int cooldown = 50;
 
 	public SunflowerSeeds(Item.Settings settings) {
         super(settings);

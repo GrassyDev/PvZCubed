@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SmallnutSeeds extends Item {
-	public static int cooldown = 600;
+	public static int cooldown = 200;
     public SmallnutSeeds(Settings settings) {
         super(settings);
     }

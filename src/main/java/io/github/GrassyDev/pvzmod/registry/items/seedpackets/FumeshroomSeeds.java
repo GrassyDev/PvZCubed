@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FumeshroomSeeds extends Item {
-	public static int cooldown = 100;
+	public static int cooldown = 150;
     public FumeshroomSeeds(Settings settings) {
         super(settings);
     }

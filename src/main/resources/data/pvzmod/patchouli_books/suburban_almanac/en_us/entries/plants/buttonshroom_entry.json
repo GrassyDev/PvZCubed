@@ -8,6 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)2.5s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Spawns rarely during the day. Drops Mushroom Plant Food",
         "$(br2)$(#bd951a)Everyone's always telling her, \"You're cute as a button!\" But she's not just cute. She's smart and funny too."
       ]
