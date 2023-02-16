@@ -1,0 +1,43 @@
+{
+  "name": "Jalapeno",
+  "icon": "pvzmod:jalapeno_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 20,
+  "advancement": "pvzmod:make_potatomine",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Damage: $()$(#ff0000)180",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)12 Blocks",
+        "$(br)$(#bd951a)Damage Area: $()$(#ff0000)10 Blocks in front and behind, 3 wide.",
+        "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Sets zombies on fire. Leaves a fire trail that deals 8 dmg/s to zombies and lasts 5 seconds.",
+        "$(br)$(#bd951a)\"NNNNNGGGGG!!!!!!!!\" Jalapeno says. He's not going to explode, not this time. But soon. Oh, so soon. It's close."
+        ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/jalapeno.png"
+      ],
+      "title": "\uD83D\uDD25 Pepper Family",
+      "border": "true",
+      "text": "$(#25228d)Jalapenos destroy an entire row of zombies."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/pepper/jalapeno"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Jalapeno",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Jalapeno",
+        "$(br2)$(#bd951a)(Seed Packet flavour text) Plants vs. Zombies Garden Warfare: $()$(#ff0000)Sombrero Bean Bomb"
+      ]
+    }
+  ]
+}

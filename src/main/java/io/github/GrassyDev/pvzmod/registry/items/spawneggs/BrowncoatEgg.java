@@ -53,6 +53,7 @@ public class BrowncoatEgg extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     browncoatEntity.refreshPositionAndAngles(browncoatEntity.getX(), browncoatEntity.getY(), browncoatEntity.getZ(), f, 0.0F);
                     world.spawnEntity(browncoatEntity);
+					browncoatEntity.setPersistent();
                     world.playSound((PlayerEntity) null, browncoatEntity.getX(), browncoatEntity.getY(), browncoatEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 

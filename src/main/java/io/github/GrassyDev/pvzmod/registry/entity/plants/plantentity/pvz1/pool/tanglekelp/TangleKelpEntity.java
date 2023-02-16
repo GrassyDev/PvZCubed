@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,6 +32,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -46,8 +48,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
-import static io.github.GrassyDev.pvzmod.PvZCubed.SILENCEVENET;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 
@@ -68,6 +69,8 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	private boolean dryLand;
+
+	public Vec3d originalVec3d;
 
     public TangleKelpEntity(EntityType<? extends TangleKelpEntity> entityType, World world) {
         super(entityType, world);
@@ -149,10 +152,62 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new TangleKelpEntity.AttackGoal());
-        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-            return (livingEntity instanceof Monster && !(livingEntity instanceof GargantuarEntity)) && livingEntity.isInsideWaterOrBubbleColumn() &&
-					!(livingEntity instanceof ZombiePropEntity);
-        }));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
+		}));
+		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
+		}));
+		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
+		}));
+		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
+		}));
+		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
+		}));
+		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
+		}));
+		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
+		}));
+		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
+		}));
+		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
+		}));
+		this.targetSelector.add(11, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof GargantuarEntity) &&
+					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
+		}));
+		this.targetSelector.add(12, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity);
+		}));
     }
 
 	//Smash

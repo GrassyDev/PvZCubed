@@ -10,8 +10,11 @@ group = project.maven_group
 repositories {
 	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 	maven { url 'https://maven.blamejared.com' }
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
 }
-
 dependencies {
 	minecraft libs.minecraft
 	mappings variantOf(libs.quilt.mappings) { classifier "intermediary-v2" }
@@ -26,6 +29,8 @@ dependencies {
 	modImplementation 'software.bernie.geckolib:geckolib-quilt-1.19:3.1.35'
 
 	modImplementation "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
+	modCompileOnly "dev.emi:emi:0.6.3+1.19.2:api"
+	modLocalRuntime "dev.emi:emi:0.6.3+1.19.2"
 }
 
 processResources {

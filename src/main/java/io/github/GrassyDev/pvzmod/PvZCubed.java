@@ -1,5 +1,7 @@
 package io.github.GrassyDev.pvzmod;
 
+import dev.emi.emi.api.EmiPlugin;
+import dev.emi.emi.api.EmiRegistry;
 import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
@@ -21,13 +23,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
 
-public class PvZCubed implements ModInitializer {
+public class PvZCubed implements ModInitializer, EmiPlugin {
 	// This logger is used to write text to the console and the log file.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Plants vs. Zombies Cubed");
 
 	// Thanks to Ennui Langeweile for the help with Registry Entry Attachments
 	public static final RegistryEntryAttachment<EntityType<?>, String> ZOMBIE_MATERIAL =
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_material")).build();
+	public static final RegistryEntryAttachment<EntityType<?>, Integer> ZOMBIE_STRENGTH =
+			RegistryEntryAttachment.intBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_strength")).build();
+
 
 	public static final DamageSource HYPNO_DAMAGE = new HypnoDamage().setHypnoDamage();
 	public static final StatusEffect HYPNOTIZED = new Hypnotized();
@@ -50,10 +55,11 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_FLOWER));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_MUSHROOM));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_TOUGH));
-				stacks.add(new ItemStack(ModItems.DAVES_SHOVEL));
 				stacks.add(new ItemStack(ModItems.SMALLSUN));
 				stacks.add(new ItemStack(ModItems.SUN));
 				stacks.add(new ItemStack(ModItems.LARGESUN));
+				stacks.add(new ItemStack(ModItems.DAVES_SHOVEL));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.PEASHOOTER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SUNFLOWER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.CHERRYBOMB_SEED_PACKET));
@@ -74,21 +80,28 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.SQUASH_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.THREEPEATER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TANGLEKELP_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.JALAPENO_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.CABBAGEPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.GATLINGPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TWINSUNFLOWER_SEED_PACKET));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.SNOW_QUEENPEA_SEED_PACKET));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.PERFOOMSHROOM_SEED_PACKET));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.ICEBERGLETTUCE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.SMALLNUT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BUTTONSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BOMBSEEDLING_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.WEENIEBEANIE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SUNFLOWERSEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BELLFLOWER_SEED_PACKET));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
 				stacks.add(new ItemStack(ModItems.FUME));
@@ -109,6 +122,7 @@ public class PvZCubed implements ModInitializer {
 			.icon(() -> new ItemStack(ModItems.WAVE_FLAG))
 			.appendItems(stacks -> {
 				stacks.add(new ItemStack(ModItems.LOCUSTSWARMEGG));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.BROWNCOATEGG));
 				stacks.add(new ItemStack(ModItems.FLAGZOMBIEEGG));
 				stacks.add(new ItemStack(ModItems.CONEHEADEGG));
@@ -122,6 +136,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.SNORKELEGG));
 				stacks.add(new ItemStack(ModItems.GARGANTUAREGG));
 				stacks.add(new ItemStack(ModItems.IMPEGG));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
 			}).build();
 
@@ -189,6 +204,8 @@ public class PvZCubed implements ModInitializer {
 
 	public static final Identifier CHERRYBOMBEXPLOSION = new Identifier("pvzmod:cherrybomb.explosion");
 	public static SoundEvent CHERRYBOMBEXPLOSIONEVENT = new SoundEvent(CHERRYBOMBEXPLOSION);
+	public static final Identifier JALAPENOEXPLOSION = new Identifier("pvzmod:jalapeno.explosion");
+	public static SoundEvent JALAPENOEXPLOSIONEVENT = new SoundEvent(JALAPENOEXPLOSION);
 	public static final Identifier POTATOMINEEXPLOSION = new Identifier("pvzmod:potatomine.explosion");
 	public static SoundEvent POTATOMINEEXPLOSIONEVENT = new SoundEvent(POTATOMINEEXPLOSION);
 	public static final Identifier DOOMSHROOMEXPLOSION = new Identifier("pvzmod:doomshroom.explosion");
@@ -274,6 +291,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.MUSHROOMSHOOT, MUSHROOMSHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FUMESHROOMSHOOT, FUMESHROOMSHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.CHERRYBOMBEXPLOSION, CHERRYBOMBEXPLOSIONEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.JALAPENOEXPLOSION, JALAPENOEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.POTATOMINEEXPLOSION, POTATOMINEEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.DOOMSHROOMEXPLOSION, DOOMSHROOMEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ICEBERGEXPLOSION, ICEBERGEXPLOSIONEVENT);
@@ -293,5 +311,10 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARMOAN, GARGANTUARMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEDANCING, ZOMBIEDANCINGEVENT);
+	}
+
+	@Override
+	public void register(EmiRegistry registry) {
+
 	}
 }

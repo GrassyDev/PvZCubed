@@ -32,7 +32,8 @@
   "rewards": {
     "recipes": [
       "pvzmod:plants/bombard/cherrybomb",
-      "pvzmod:plants/enforce/squash"
+      "pvzmod:plants/enforce/squash",
+      "pvzmod:plants/pepper/jalapeno"
     ],
     "experience": 25
   }

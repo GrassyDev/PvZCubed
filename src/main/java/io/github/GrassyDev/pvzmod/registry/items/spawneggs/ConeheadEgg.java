@@ -56,6 +56,7 @@ public class ConeheadEgg extends Item {
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 				coneheadEntity.refreshPositionAndAngles(coneheadEntity.getX(), coneheadEntity.getY(), coneheadEntity.getZ(), f, 0.0F);
 				coneheadEntity.createProp();
+				coneheadEntity.setPersistent();
 				((ServerWorld) world).spawnEntityAndPassengers(coneheadEntity);
 				world.playSound((PlayerEntity) null, coneheadEntity.getX(), coneheadEntity.getY(), coneheadEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 			}

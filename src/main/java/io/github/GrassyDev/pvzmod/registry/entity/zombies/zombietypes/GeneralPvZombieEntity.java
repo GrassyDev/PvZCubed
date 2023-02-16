@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.minecraft.entity.EntityType;
@@ -58,5 +59,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void tick() {
 		super.tick();
+		if (this.getTarget() instanceof FireTrailEntity){
+			this.setTarget(null);
+		}
 	}
 }

@@ -64,6 +64,11 @@
       "pvzmod:cherrybomb_explosion"
     ]
   },
+  "jalapeno.explosion": {
+    "sounds": [
+      "pvzmod:jalapeno_explosion"
+    ]
+  },
   "potatomine.explosion": {
     "sounds": [
       "pvzmod:potatomine_explosion"

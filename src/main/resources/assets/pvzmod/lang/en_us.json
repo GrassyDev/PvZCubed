@@ -126,16 +126,23 @@
   "item.pvzmod.squash_seed_packet": "\uD83D\uDDE1 Squash Seed Packet",
   "item.pvzmod.squash_seed_packet.flavour": "Up to no gourd!",
 
-  "entity.pvzmod.tanglekelp": "Tangle Kelp",
-  "item.pvzmod.tanglekelp_seed_packet": "\uD83D\uDDE1 Tangle Kelp Seed Packet",
-  "item.pvzmod.tanglekelp_seed_packet.flavour": "All tangled and",
-  "item.pvzmod.tanglekelp_seed_packet.flavour2": "waiting for a prince.",
-
   "entity.pvzmod.threepeater": "Threepeater",
   "item.pvzmod.threepeater_seed_packet": "⭘ Threepeater Seed Packet",
   "item.pvzmod.threepeater_seed_packet.flavour": "\"My favorite number is 5.\"",
   "item.pvzmod.threepeater_seed_packet.flavour2": "\"Mine is 27!\"",
   "item.pvzmod.threepeater_seed_packet.flavour3": "\"3.\"",
+
+  "entity.pvzmod.tanglekelp": "Tangle Kelp",
+  "item.pvzmod.tanglekelp_seed_packet": "\uD83D\uDDE1 Tangle Kelp Seed Packet",
+  "item.pvzmod.tanglekelp_seed_packet.flavour": "All tangled and",
+  "item.pvzmod.tanglekelp_seed_packet.flavour2": "waiting for a prince.",
+
+  "entity.pvzmod.jalapeno": "Jalapeno",
+  "item.pvzmod.jalapeno_seed_packet": "\uD83D\uDD25 Jalapeno Seed Packet",
+  "item.pvzmod.jalapeno_seed_packet.flavour": "\"Ándale!\"",
+  "item.pvzmod.jalapeno_seed_packet.flavour2": "(Pause)",
+  "item.pvzmod.jalapeno_seed_packet.flavour3": "\"Arriba!\"",
+  "item.pvzmod.jalapeno_seed_packet.flavour4": "(Explosion)",
 
   "entity.pvzmod.cabbagepult": "Cabbage-ult",
   "item.pvzmod.cabbagepult_seed_packet": "\uD83C\uDFF9 Cabbage-pult Seed Packet",

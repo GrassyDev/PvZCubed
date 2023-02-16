@@ -214,7 +214,7 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 			if (bl) {
 				if (livingEntity instanceof Monster && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity)) {
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 180);
-					if (!livingEntity.isInsideWaterOrBubbleColumn()) {
+					if (!livingEntity.isWet()) {
 						if (!(livingEntity instanceof ZombieShieldEntity)) {
 							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 							livingEntity.removeStatusEffect(PvZCubed.ICE);
@@ -273,6 +273,9 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		if (this.getTarget() != null){
+			this.getLookControl().lookAt(this.getTarget(), 90.0F, 90.0F);
+		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}

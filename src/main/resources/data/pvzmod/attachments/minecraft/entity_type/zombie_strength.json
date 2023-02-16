@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": {
+    "pvzmod:backup_dancer": 2,
+    "pvzmod:berserker": 8,
+    "pvzmod:browncoat": 1,
+    "pvzmod:conehead": 3,
+    "pvzmod:dancing_zombie": 5,
+    "pvzmod:buckethead": 4,
+    "pvzmod:flagzombie": 6,
+    "pvzmod:football": 7,
+    "pvzmod:gargantuar": 9,
+    "pvzmod:imp": 3,
+    "pvzmod:newspaper": 4,
+    "pvzmod:polevaulting": 3,
+    "pvzmod:screendoor": 4,
+    "pvzmod:snorkel": 2
+  }
+}

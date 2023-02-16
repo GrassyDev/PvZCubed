@@ -14,7 +14,8 @@
     {
       "type": "relations",
       "entries": [
-        "pvzmod:plants/firepea_entry"
+        "pvzmod:plants/firepea_entry",
+        "pvzmod:plants/jalapeno_entry"
       ],
       "title": "\uD83D\uDD25 Pepper Plants:"
     }

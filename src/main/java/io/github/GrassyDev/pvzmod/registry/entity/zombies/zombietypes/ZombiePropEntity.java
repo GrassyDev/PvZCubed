@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -17,15 +18,27 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 	/** For Hypnotized Zombies **/
 	protected ZombiePropEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
+		this.noClip = true;
 	}
 
 	public EntityGroup getGroup() {
 		return EntityGroup.DEFAULT;
 	}
 
+	public boolean isPushable() {
+		return false;
+	}
+
+	protected void pushAway(Entity entity) {
+	}
+
 	public void tick() {
 		super.tick();
 		LivingEntity vehicle = (LivingEntity) this.getVehicle();
+		if (vehicle != null && this.getCustomName() != vehicle.getCustomName()){
+			vehicle.setCustomName(this.getCustomName());
+			((HostileEntity) vehicle).setPersistent();
+		}
 		if (this.hasStatusEffect(PvZCubed.ICE) && vehicle != null && !(this instanceof ZombieShieldEntity)){
 			vehicle.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, Objects.requireNonNull(this.getStatusEffect(PvZCubed.ICE)).getDuration(), 1)));
 		}

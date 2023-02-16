@@ -70,6 +70,7 @@ public class TangleKelpSeeds extends Item {
 							List<Entity> list = world.getNonSpectatingEntities(Entity.class, PvZEntity.TANGLE_KELP.getDimensions().getBoxAt(aquaticEntity.getPos()));
 							if (list.isEmpty()){
 								world.spawnEntity(aquaticEntity);
+								aquaticEntity.originalVec3d = aquaticEntity.getPos();
 								world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));
 								if (fluidState.getFluid() == Fluids.WATER) {
