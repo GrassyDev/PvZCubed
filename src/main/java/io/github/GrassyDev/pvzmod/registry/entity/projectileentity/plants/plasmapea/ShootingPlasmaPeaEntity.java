@@ -158,10 +158,10 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
 				} else {
-					if (entity instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.isFlammabe) {
+					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+					if ("paper".equals(zombieMaterial)) {
 						entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 99999);
-					}
-					else {
+					} else {
 						entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 					}
 				}

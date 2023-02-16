@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import java.util.Objects;
 
 public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements Monster {
-	public boolean isFlammabe;
 
 	/** For Hypnotized Zombies **/
 	protected ZombiePropEntity(EntityType<? extends HostileEntity> entityType, World world) {

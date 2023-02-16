@@ -36,7 +36,6 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-		this.isFlammabe = true;
 	}
 
 	public NewspaperShieldEntity(World world) {
