@@ -16,11 +16,8 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -175,7 +172,6 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 	}
 
 	protected void produceSun() {
-		Vec3d vec3d = this.getPos();
 		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(15));
 		List<GeneralPvZombieEntity> zombieList = this.world.getNonSpectatingEntities(GeneralPvZombieEntity.class, this.getBoundingBox().expand(15));
 		Iterator var9 = list.iterator();
@@ -191,24 +187,11 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 				} while (livingEntity == this);
 			} while (this.squaredDistanceTo(livingEntity) > 225);
 
-			boolean bl = false;
-
-			for (int i = 0; i < 2; ++i) {
-				Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
-				HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-				if (hitResult.getType() == HitResult.Type.MISS) {
-					bl = true;
-					break;
-				}
-			}
-
-			if (bl) {
-				if (livingEntity instanceof GeneralPvZombieEntity) {
-					if (livingEntity.getY() < (this.getY() + 1) && livingEntity.getY() > (this.getY() - 1)){
-						if ((this.prevZombie == null || zombieList.get(0) != prevZombie) && !zombieList.isEmpty()){
-							prevZombie = zombieList.get(0);
-							this.zombieSunCheck = true;
-						}
+			if (livingEntity instanceof GeneralPvZombieEntity) {
+				if (livingEntity.getY() < (this.getY() + 1) && livingEntity.getY() > (this.getY() - 1)) {
+					if ((this.prevZombie == null || zombieList.get(0) != prevZombie) && !zombieList.isEmpty()) {
+						prevZombie = zombieList.get(0);
+						this.zombieSunCheck = true;
 					}
 				}
 			}

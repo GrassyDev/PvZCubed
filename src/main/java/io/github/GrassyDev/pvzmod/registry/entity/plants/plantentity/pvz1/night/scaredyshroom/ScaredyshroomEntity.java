@@ -22,6 +22,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,6 +50,8 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
 
 public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
 
@@ -159,14 +162,14 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 		if (this.isTired) {
 			event.getController().setAnimation(new AnimationBuilder().loop("scaredyshroom.asleep"));
 		}
+		else if (this.isFiring) {
+			event.getController().setAnimation(new AnimationBuilder().playOnce("scaredyshroom.attack"));
+		}
 		else if (this.animationScare <= 0 && this.isAfraid){
 			event.getController().setAnimation(new AnimationBuilder().loop("scaredyshroom.afraid"));
 		}
 		else if (this.isAfraid){
 			event.getController().setAnimation(new AnimationBuilder().playOnce("scaredyshroom.hiding"));
-		}
-		else if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().playOnce("scaredyshroom.attack"));
 		}
 		else {
 			event.getController().setAnimation(new AnimationBuilder().loop("scaredyshroom.idle"));
@@ -182,13 +185,9 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(45) + 40, 30.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(livingEntity.getAttacker() instanceof ScaredyshroomEntity);
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(livingEntity.hasStatusEffect(PvZCubed.PVZPOISON));
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel() && (livingEntity.getAttacker() == null));
-		}));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity) &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
 		}));
@@ -205,6 +204,29 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 
+	}
+
+
+
+	protected List<HostileEntity> checkForZombies() {
+		List<HostileEntity> list = this.world.getNonSpectatingEntities(HostileEntity.class, this.getBoundingBox().expand(5));
+		Iterator var9 = list.iterator();
+		while (true) {
+			HostileEntity hostileEntity;
+			do {
+				if (!var9.hasNext()) {
+					return list;
+				}
+				hostileEntity = (HostileEntity) var9.next();
+			} while (this.squaredDistanceTo(hostileEntity) > 49);
+
+			if (!(hostileEntity instanceof ZombiePropEntity)) {
+				if (hostileEntity.getY() < (this.getY() + 2) && hostileEntity.getY() > (this.getY() - 2)) {
+					list.add(hostileEntity);
+					return list;
+				}
+			}
+		}
 	}
 
 
@@ -232,6 +254,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 
 	public void tick() {
 		super.tick();
+		this.checkForZombies();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
@@ -435,10 +458,16 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 					this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
 					++this.animationTicks;
 					++this.beamTicks;
-					if (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) < 36) {
-						this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 4);
-					} else if (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) >= 36 && !this.scaredyshroomEntity.isAfraid)  {
-						if (this.beamTicks >= 0 && this.animationTicks >=-7) {
+					if (this.beamTicks >= 0 && this.animationTicks >= -7){
+						if (!(this.scaredyshroomEntity.checkForZombies().isEmpty())){
+							this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 4);
+						}
+						else {
+							this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
+						}
+					}
+					if (this.scaredyshroomEntity.checkForZombies().isEmpty())  {
+						if (this.beamTicks >= 0 && this.animationTicks >= -7) {
 							if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
 								this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
 								SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
