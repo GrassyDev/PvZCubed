@@ -28,12 +28,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -209,23 +207,16 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 	}
 
 	private float boxOffset;
-	List<LivingEntity> checkList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().shrink(0.5, 0 , 0));
+	List<LivingEntity> checkList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().shrink(0.5, 0, 0));
 
 	private void raycastExplode() {
-		RandomGenerator randomGenerator = this.getRandom();
 		Vec3d vec3d = this.getPos();
 		Vec3d vec3d2 = new Vec3d((double) boxOffset, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(1).offset(vec3d2));
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(1, 4, 1).offset(vec3d2).offset(0, -1.5, 0));
 		Vec3d vec3d3 = this.getBoundingBox().offset(vec3d2).getCenter();
 		FireTrailEntity fireTrailEntity = new FireTrailEntity(PvZEntity.FIRETRAIL, this.world);
-		fireTrailEntity.updatePositionAndAngles(vec3d3.getX(), vec3d3.getY()-0.3, vec3d3.getZ(), this.bodyYaw, 0.0F);
+		fireTrailEntity.updatePositionAndAngles(vec3d3.getX(), this.getBlockY() + 1, vec3d3.getZ(), this.bodyYaw, 0.0F);
 		List<SunflowerEntity> listFlames = this.world.getNonSpectatingEntities(SunflowerEntity.class, fireTrailEntity.getBoundingBox());
-		for(int i = 0; i < 170; ++i) {
-			double e = this.random.nextDouble() / 2 * ((this.random.range(0, 1)) + 0.1f);
-			this.world.addParticle(ParticleTypes.FLAME, fireTrailEntity.getX() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
-					fireTrailEntity.getY(), fireTrailEntity.getZ() + (double)MathHelper.nextBetween(randomGenerator,
-							-0.5F, 0.5F), 0, e, 0);
-		}
 		if (listFlames.isEmpty()){
 			world.spawnEntity(fireTrailEntity);
 		}
@@ -244,25 +235,15 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 
 			boolean bl = false;
 
-			for (int i = 0; i < 2; ++i) {
-				Vec3d vec3d6 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
-				HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d6, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-				if (hitResult.getType() == HitResult.Type.MISS) {
-					bl = true;
-					break;
-				}
-			}
-			if (bl) {
-				if (livingEntity instanceof Monster && checkList != null && !checkList.contains(livingEntity)) {
-					checkList.add(livingEntity);
-					livingEntity.damage(DamageSource.thrownProjectile(this, this), 180);
-					if (!livingEntity.isWet()) {
-						if (!(livingEntity instanceof ZombieShieldEntity)) {
-							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
-							livingEntity.removeStatusEffect(PvZCubed.ICE);
-							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
-							livingEntity.setOnFireFor(4);
-						}
+			if (livingEntity instanceof Monster && checkList != null && !checkList.contains(livingEntity)) {
+				checkList.add(livingEntity);
+				livingEntity.damage(DamageSource.thrownProjectile(this, this), 180);
+				if (!livingEntity.isWet()) {
+					if (!(livingEntity instanceof ZombieShieldEntity)) {
+						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+						livingEntity.removeStatusEffect(PvZCubed.ICE);
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+						livingEntity.setOnFireFor(4);
 					}
 				}
 			}
@@ -296,6 +277,7 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		RandomGenerator randomGenerator = this.getRandom();
 		if (this.getTarget() != null){
 			this.getLookControl().lookAt(this.getTarget(), 90.0F, 90.0F);
 		}
@@ -309,7 +291,6 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 
 			int i = this.getFuseSpeed();
 			if (i > 0 && this.currentFuseTime == 0) {
-				RandomGenerator randomGenerator = this.getRandom();
 				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 				this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
 				for(int j = 0; j < 4; ++j) {

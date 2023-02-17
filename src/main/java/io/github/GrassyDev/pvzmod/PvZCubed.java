@@ -33,7 +33,6 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 	public static final RegistryEntryAttachment<EntityType<?>, Integer> ZOMBIE_STRENGTH =
 			RegistryEntryAttachment.intBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_strength")).build();
 
-
 	public static final DamageSource HYPNO_DAMAGE = new HypnoDamage().setHypnoDamage();
 	public static final StatusEffect HYPNOTIZED = new Hypnotized();
 

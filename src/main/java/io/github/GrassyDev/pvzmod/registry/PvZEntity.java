@@ -301,7 +301,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<JalapenoEntity> JALAPENO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "jalapeno"),
-			QuiltEntityTypeBuilder.<JalapenoEntity>create(SpawnGroup.CREATURE, JalapenoEntity::new).setDimensions(EntityDimensions.fixed(1f,1.55f)).build()
+			QuiltEntityTypeBuilder.<JalapenoEntity>create(SpawnGroup.CREATURE, JalapenoEntity::new).setDimensions(EntityDimensions.fixed(1f,1f)).build()
 	);
 	public static final EntityType<FireTrailEntity> FIRETRAIL = Registry.register(
 			Registry.ENTITY_TYPE,

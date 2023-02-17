@@ -11,9 +11,11 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -36,6 +38,7 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
     public FireTrailEntity(EntityType<? extends FireTrailEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
+		this.setInvulnerable(true);
     }
 
 	static {
@@ -113,6 +116,19 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		RandomGenerator randomGenerator = this.getRandom();
+		for(int i = 0; i < 3; ++i) {
+			double e = this.random.nextDouble() / 4 * ((this.random.range(0, 1)) + 0.1f);
+			this.world.addParticle(ParticleTypes.FLAME, this.getX()  + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
+					this.getY(), this.getZ() + (double)MathHelper.nextBetween(randomGenerator,
+							-0.5F, 0.5F), 0, e, 0);
+		}
+		if (this.isInsideWall()){
+			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
+		}
+		if (!this.onGround){
+			this.setPosition(this.getX(), this.getY() - 1, this.getZ());
+		}
 		if (this.getTarget() != null){
 			this.getLookControl().lookAt(this.getTarget(), 90.0F, 90.0F);
 		}
@@ -195,7 +211,6 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 		this.prevBodyYaw = 0.0F;
 		this.bodyYaw = 0.0F;
 	}
-
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 

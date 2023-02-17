@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
@@ -32,6 +33,7 @@ import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -230,6 +232,15 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 			this.world.sendEntityStatus(this, (byte) 72);
 		}
 		super.mobTick();
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.DANCINGZOMBIEEGG.getDefaultStack();
 	}
 
 
