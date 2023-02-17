@@ -29,7 +29,8 @@
 			],
 			"emi": [
 				"io.github.GrassyDev.pvzmod.PvZCubed"
-			]
+			],
+			"modmenu": [ "com.example.mod.ExampleModMenuApiImpl" ]
 		},
 		"depends": [
 			{
