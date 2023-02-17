@@ -13,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -194,133 +195,229 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.isInsideWaterOrBubbleColumn()) {
-			if (inLaunchAnimation) {
-				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
-				if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				}
-				else {
-					event.getController().setAnimationSpeed(1);
-				}
-			} else if (this.getImpStage()) {
-				if (inAnimation) {
-					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
+		ZombiePropEntity zombiePropEntity = (ZombiePropEntity) this.getFirstPassenger();
+		if (this.hasPassenger(zombiePropEntity)){
+			if (this.isInsideWaterOrBubbleColumn()) {
+				if (inLaunchAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
 					if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
+					} else {
 						event.getController().setAnimationSpeed(1);
+					}
+				} else if (this.getImpStage()) {
+					if (inAnimation) {
+						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
+						if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky"));
+						if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
 					}
 				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky"));
-					if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
+					if (inAnimation) {
+						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2"));
+						if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2"));
+						if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
 					}
 				}
 			} else {
-				if (inAnimation) {
-					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2"));
-					if (this.isIced) {
+				if (inLaunchAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
+					} else {
 						event.getController().setAnimationSpeed(1);
+					}
+				} else if (this.getImpStage()) {
+					if (inAnimation) {
+						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
 					}
 				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2"));
-					if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
+					if (inAnimation) {
+						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
 					}
 				}
 			}
 		}
 		else {
-			if (inLaunchAnimation) {
-				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
-				if (this.isFrozen) {
-					event.getController().setAnimationSpeed(0);
-				}
-				else if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				}
-				else {
-					event.getController().setAnimationSpeed(1);
-				}
-			} else if (this.getImpStage()) {
-				if (inAnimation) {
-					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
+			if (this.isInsideWaterOrBubbleColumn()) {
+				if (inLaunchAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw.gearless"));
+					if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
+					} else {
 						event.getController().setAnimationSpeed(1);
 					}
-				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
+				} else if (this.getImpStage()) {
+					if (inAnimation) {
+						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash.gearless"));
+						if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.gearless"));
+						if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
 					}
 				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
+					if (inAnimation) {
+						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2.gearless"));
+						if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2.gearless"));
+						if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
 					}
 				}
 			} else {
-				if (inAnimation) {
-					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
+				if (inLaunchAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw.gearless"));
 					if (this.isFrozen) {
 						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
+					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
+					} else {
 						event.getController().setAnimationSpeed(1);
 					}
-				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
+				} else if (this.getImpStage()) {
+					if (inAnimation) {
+						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash.gearless"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk.gearless"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle.gearless"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
 					}
 				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
+					if (inAnimation) {
+						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2.gearless"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2.gearless"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
+					} else {
+						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2.gearless"));
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						} else {
+							event.getController().setAnimationSpeed(1);
+						}
 					}
 				}
 			}

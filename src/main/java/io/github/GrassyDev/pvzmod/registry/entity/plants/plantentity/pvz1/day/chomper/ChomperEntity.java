@@ -223,10 +223,14 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		if (target instanceof GraveEntity ||
 				target instanceof ImpEntity ||
 		        target instanceof GargantuarEntity) {
+			Entity damaged = target;
+			if (passenger instanceof ZombiePropEntity zombiePropEntity){
+				damaged = zombiePropEntity;
+			}
 			if (i <= 0) {
 				this.attackTicksLeft = 30;
 				this.world.sendEntityStatus(this, (byte) 6);
-				boolean bl = target.damage(DamageSource.mob(this), 32);
+				boolean bl = damaged.damage(DamageSource.mob(this), 32);
 				if (bl) {
 					this.applyDamageEffects(this, target);
 				}

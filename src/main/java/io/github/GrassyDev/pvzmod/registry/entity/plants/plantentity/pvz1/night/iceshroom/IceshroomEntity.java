@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.doomshroom.DoomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.WinterEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -200,6 +201,7 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 	public void ignite() {
 		this.dataTracker.set(IGNITED, true);
 	}
+	List<LivingEntity> checkList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().shrink(0.5, 0, 0));
 
 	private void raycastExplode() {
 		Vec3d vec3d = this.getPos();
@@ -229,9 +231,35 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				if (livingEntity instanceof Monster && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity)) {
-					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
-					if (!(livingEntity instanceof ZombieShieldEntity)) {
+				float damage = 4;
+				if (livingEntity instanceof Monster && checkList != null && !checkList.contains(livingEntity)) {
+					if (damage > livingEntity.getHealth() &&
+							!(livingEntity instanceof ZombieShieldEntity) &&
+							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+						float damage2 = damage - livingEntity.getHealth();
+						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+						generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
+						checkList.add(livingEntity);
+						checkList.add(generalPvZombieEntity);
+					} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null) {
+						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+						checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
+						checkList.add(zombieShieldEntity);
+					} else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {
+						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+						checkList.add(livingEntity);
+						checkList.add(zombieShieldEntity);
+					} else {
+						if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add(livingEntity);
+							checkList.add(generalPvZombieEntity);
+						} else if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity) && !checkList.contains(livingEntity)) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add(livingEntity);
+						}
+					}
+					if (!(livingEntity instanceof ZombieShieldEntity) && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity)) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						if (livingEntity.hasStatusEffect(PvZCubed.WARM) || livingEntity.isOnFire()) {

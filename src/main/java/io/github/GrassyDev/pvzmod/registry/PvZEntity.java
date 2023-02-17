@@ -148,6 +148,10 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballGearEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
@@ -679,6 +683,18 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<HypnoBerserkerEntity>create(SpawnGroup.CREATURE, HypnoBerserkerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
 	);
 
+	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "defensiveend"),
+			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+	);
+
+	public static final EntityType<DefensiveEndGearEntity> DEFENSIVEENDGEAR = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "defensiveendgear"),
+			QuiltEntityTypeBuilder.<DefensiveEndGearEntity>create(SpawnGroup.MONSTER, DefensiveEndGearEntity::new).setDimensions(EntityDimensions.fixed(1.425f, 3.95f)).build()
+	);
+
 	public static final EntityType<LocustSwarmEntity> LOCUSTSWARM = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "locustswarm"),
@@ -935,6 +951,12 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntity.createHypnoBerserkerAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND, DefensiveEndEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEENDGEAR, DefensiveEndGearEntity.createDefensiveEndGearAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, DefensiveEndGearEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LOCUSTSWARM, LocustSwarmEntity.createLocustSwarmAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.LOCUSTSWARM, LocustswarmEntityRenderer::new);

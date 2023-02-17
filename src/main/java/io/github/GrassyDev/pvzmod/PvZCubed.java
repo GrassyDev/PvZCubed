@@ -137,6 +137,8 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 				stacks.add(new ItemStack(ModItems.IMPEGG));
 				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
+				stacks.add(new ItemStack(ModItems.DEFENSIVEENDEGG));
 			}).build();
 
 	public static final ItemGroup PVZGRAVES = FabricItemGroupBuilder.create(
