@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.fumeshroom.FumeshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -73,13 +74,23 @@ public class FumeshroomSeeds extends Item {
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    FumeshroomEntity fumeshroomEntity = (FumeshroomEntity) PvZEntity.FUMESHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+					double random = Math.random();
+                    FumeshroomEntity fumeshroomEntity = PvZEntity.FUMESHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (fumeshroomEntity == null) {
                         return ActionResult.FAIL;
                     }
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     fumeshroomEntity.refreshPositionAndAngles(fumeshroomEntity.getX(), fumeshroomEntity.getY(), fumeshroomEntity.getZ(), f, 0.0F);
+					if (random <= 0.125) {
+						fumeshroomEntity.setVariant(FumeshroomVariants.GAY);
+					}
+					else if (random <= 0.25) {
+						fumeshroomEntity.setVariant(FumeshroomVariants.TRANS);
+					}
+					else {
+						fumeshroomEntity.setVariant(FumeshroomVariants.DEFAULT);
+					}
                     world.spawnEntity(fumeshroomEntity);
                     world.playSound((PlayerEntity) null, fumeshroomEntity.getX(), fumeshroomEntity.getY(), fumeshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }

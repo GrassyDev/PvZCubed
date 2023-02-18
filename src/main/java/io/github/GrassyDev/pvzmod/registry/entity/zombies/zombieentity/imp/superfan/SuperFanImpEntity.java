@@ -2,16 +2,15 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.supe
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.SuperFanImpVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -27,7 +26,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.RaycastContext;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -63,6 +64,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 		this.dataTracker.startTracking(CHARGED, false);
 		this.dataTracker.startTracking(IGNITED, false);
 		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, true);
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 	}
 
 	public void writeCustomDataToNbt(NbtCompound nbt) {
@@ -75,6 +77,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 		nbt.putByte("ExplosionRadius", (byte)this.explosionRadius);
 		nbt.putBoolean("ignited", this.getIgnited());
 		nbt.putBoolean("Fire", this.getFireStage());
+		nbt.putInt("Variant", this.getTypeVariant());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -92,7 +95,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 			this.ignite();
 		}
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, nbt.getBoolean("Fire"));
-
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
 	}
 
 	static {
@@ -151,6 +154,34 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 
 	private void setFireStage(SuperFanImpEntity.FireStage fireStage) {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, fireStage.getId());
+	}
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(SuperFanImpEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		if (this.getType().equals(PvZEntity.NEWYEARIMP)){
+			setVariant(SuperFanImpVariants.NEWYEAR);
+		}
+		else {
+			setVariant(SuperFanImpVariants.DEFAULT);
+		}
+		setFireStage(FireStage.FIRE);
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public SuperFanImpVariants getVariant() {
+		return SuperFanImpVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(SuperFanImpVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
 
@@ -270,6 +301,13 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	}
 
 	private void raycastExplode() {
+		double squaredDist;
+		if (this.getVariant().equals(SuperFanImpVariants.NEWYEAR)){
+			squaredDist = 25;
+		}
+		else {
+			squaredDist = 9;
+		}
 		Vec3d vec3d = this.getPos();
 		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5));
 		Iterator var9 = list.iterator();
@@ -283,7 +321,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 
 					livingEntity = (LivingEntity) var9.next();
 				} while (livingEntity == this);
-			} while (this.squaredDistanceTo(livingEntity) > 16);
+			} while (this.squaredDistanceTo(livingEntity) > squaredDist);
 
 			boolean bl = false;
 
@@ -399,6 +437,13 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.SUPERFANIMPEGG.getDefaultStack();
+		ItemStack itemStack;
+		if (this.getVariant().equals(SuperFanImpVariants.NEWYEAR)){
+			itemStack = ModItems.NEWYEARIMPEGG.getDefaultStack();
+		}
+		else{
+			itemStack = ModItems.SUPERFANIMPEGG.getDefaultStack();
+		}
+		return itemStack;
 	}
 }

@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -25,8 +25,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class DefensiveEndEgg extends Item {
-    public DefensiveEndEgg(Settings settings) {
+public class NewYearImpEgg extends Item {
+    public NewYearImpEgg(Settings settings) {
         super(settings);
     }
 
@@ -44,20 +44,20 @@ public class DefensiveEndEgg extends Item {
         BlockPos blockPos = itemPlacementContext.getBlockPos();
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-        Box box = PvZEntity.DEFENSIVEEND.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+        Box box = PvZEntity.NEWYEARIMP.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    DefensiveEndEntity gargantuarEntity = (DefensiveEndEntity) PvZEntity.DEFENSIVEEND.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (gargantuarEntity == null) {
+                    SuperFanImpEntity impEntity = (SuperFanImpEntity) PvZEntity.NEWYEARIMP.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    if (impEntity == null) {
                         return ActionResult.FAIL;
                     }
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-					gargantuarEntity.refreshPositionAndAngles(gargantuarEntity.getX(), gargantuarEntity.getY(), gargantuarEntity.getZ(), f, 0.0F);
-                    ((ServerWorld) world).spawnEntityAndPassengers(gargantuarEntity);
-					gargantuarEntity.setPersistent();
-                    world.playSound((PlayerEntity) null, gargantuarEntity.getX(), gargantuarEntity.getY(), gargantuarEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+					impEntity.refreshPositionAndAngles(impEntity.getX(), impEntity.getY(), impEntity.getZ(), f, 0.0F);
+                    world.spawnEntity(impEntity);
+					impEntity.setPersistent();
+                    world.playSound((PlayerEntity) null, impEntity.getX(), impEntity.getY(), impEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
                 }
 
                 itemStack.decrement(1);

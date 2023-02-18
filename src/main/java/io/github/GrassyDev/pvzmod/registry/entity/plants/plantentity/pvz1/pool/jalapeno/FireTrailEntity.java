@@ -65,7 +65,6 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {

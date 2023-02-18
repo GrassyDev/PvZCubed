@@ -244,13 +244,23 @@ public class PvZEntity implements ModInitializer {
             QuiltEntityTypeBuilder.<SunshroomEntity>create(SpawnGroup.CREATURE, SunshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
 
-    public static final EntityType<FumeshroomEntity> FUMESHROOM = Registry.register(
+    public static final EntityType <FumeshroomEntity> FUMESHROOM = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "fumeshroom"),
             QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
     );
+	public static final EntityType <FumeshroomEntity> FUMESHROOM_GAY = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "fumeshroom_gay"),
+			QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
+	);
+	public static final EntityType <FumeshroomEntity> FUMESHROOM_TRANS = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "fumeshroom_trans"),
+			QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
+	);
 
-    public static final EntityType<GravebusterEntity> GRAVEBUSTER = Registry.register(
+	public static final EntityType<GravebusterEntity> GRAVEBUSTER = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "gravebuster"),
             QuiltEntityTypeBuilder.<GravebusterEntity>create(SpawnGroup.CREATURE, GravebusterEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
@@ -690,6 +700,11 @@ public class PvZEntity implements ModInitializer {
 			new Identifier(ModID, "superfanimp"),
 			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
+	public static final EntityType<SuperFanImpEntity> NEWYEARIMP = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "newyearimp"),
+			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
+	);
 
 	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -764,6 +779,10 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUMESHROOM, FumeshroomEntity.createFumeshroomAttributes().build());
         EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUMESHROOM_GAY, FumeshroomEntity.createFumeshroomAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FUMESHROOM_GAY, FumeshroomEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUMESHROOM_TRANS, FumeshroomEntity.createFumeshroomAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FUMESHROOM_TRANS, FumeshroomEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GRAVEBUSTER, GravebusterEntity.createGravebusterAttributes().build());
         EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer::new);
@@ -962,6 +981,8 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUPERFANIMP, SuperFanImpEntity.createImpAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMP, SuperFanImpEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWYEARIMP, SuperFanImpEntity.createImpAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.NEWYEARIMP, SuperFanImpEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND, DefensiveEndEntity.createGargantuarAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);

@@ -288,6 +288,10 @@
   "item.pvzmod.superfanimp_egg": "Super-Fan Imp",
   "entity.pvzmod.superfanimp_hypnotized": "Hypnotized Super-Fan Imp",
 
+  "entity.pvzmod.newyearimp": "New Years Imp",
+  "item.pvzmod.newyearimp_egg": "New Years Imp",
+  "entity.pvzmod.newyearimp_hypnotized": "Hypnotized New Years Imp",
+
   "entity.pvzmod.defensiveend": "Defensive End",
   "item.pvzmod.defensiveend_egg": "Defensive End",
   "entity.pvzmod.defensiveendgear": "Football Helmet",

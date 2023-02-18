@@ -17,7 +17,7 @@ public class SuperFanImpEntityModel extends AnimatedGeoModel<SuperFanImpEntity> 
     @Override
     public Identifier getTextureResource(SuperFanImpEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/imp/superfanimp.png");
+		return SuperFanImpEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
     }
 
     @Override

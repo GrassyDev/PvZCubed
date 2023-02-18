@@ -32,7 +32,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -61,11 +60,9 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	private boolean isFiring;
 
-
 	public FumeshroomEntity(EntityType<? extends FumeshroomEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
-
 	}
 
 	protected void initDataTracker() {
@@ -111,8 +108,6 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		FumeshroomVariants variant = Util.getRandom(FumeshroomVariants.values(), this.random);
-		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -124,7 +119,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		return FumeshroomVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(FumeshroomVariants variant) {
+	public void setVariant(FumeshroomVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
@@ -171,8 +166,6 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel();
 		}));
 	}
-
-
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {

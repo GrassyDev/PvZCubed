@@ -17,7 +17,7 @@ public class DefensiveEndEntityModel extends AnimatedGeoModel<DefensiveEndEntity
     @Override
     public Identifier getTextureResource(DefensiveEndEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend.png");
+		return DefensiveEndEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
     }
 
     @Override
