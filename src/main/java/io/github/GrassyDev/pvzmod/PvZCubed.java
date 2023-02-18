@@ -39,6 +39,7 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 	public static final StatusEffect ICE = new Ice();
 	public static final StatusEffect FROZEN = new Frozen();
 	public static final StatusEffect WARM = new Warm();
+	public static final StatusEffect WET = new Wet();
 	public static final StatusEffect PVZPOISON = new PvZPoison();
 
 	public static final String MOD_ID = "pvzmod";
@@ -137,6 +138,8 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 				stacks.add(new ItemStack(ModItems.IMPEGG));
 				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
+				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
+				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
 				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.DEFENSIVEENDEGG));
 			}).build();
@@ -279,6 +282,7 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "frozen"), FROZEN);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "hypnotized"), HYPNOTIZED);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "warm"), WARM);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "wet"), WET);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "pvzpoison"), PVZPOISON);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEASHOOT, PEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEAHIT, PEAHITEVENT);

@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantu
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -12,6 +13,8 @@ import software.bernie.geckolib3.core.IAnimatable;
 public class DefensiveEndEntity extends GargantuarEntity implements IAnimatable {
 	public DefensiveEndEntity(EntityType<? extends GargantuarEntity> entityType, World world) {
 		super(entityType, world);
+		this.impEntity = new SuperFanImpEntity(PvZEntity.SUPERFANIMP, this.world);
+		this.healthImp = 360;
 	}
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
@@ -22,8 +25,9 @@ public class DefensiveEndEntity extends GargantuarEntity implements IAnimatable 
 		return ModItems.DEFENSIVEENDEGG.getDefaultStack();
 	}
 
-
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+
 
 	public void createProp(){
 		DefensiveEndGearEntity propentity = new DefensiveEndGearEntity(PvZEntity.DEFENSIVEENDGEAR, this.world);

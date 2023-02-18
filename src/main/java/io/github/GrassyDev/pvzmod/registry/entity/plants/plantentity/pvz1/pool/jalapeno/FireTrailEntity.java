@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -86,13 +87,17 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 			} while (this.squaredDistanceTo(livingEntity) > 100);
 
 			if (livingEntity instanceof Monster && !livingEntity.isWet()) {
-				livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
-				if (!livingEntity.isWet()) {
-					if (!(livingEntity instanceof ZombieShieldEntity)) {
-						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
-						livingEntity.removeStatusEffect(PvZCubed.ICE);
-						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
-						livingEntity.setOnFireFor(4);
+				if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity) ||
+				livingEntity.getFirstPassenger() instanceof ZombieShieldEntity) {
+					System.out.println(livingEntity);
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
+					if (!livingEntity.isWet()) {
+						if (!(livingEntity instanceof ZombieShieldEntity)) {
+							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+							livingEntity.removeStatusEffect(PvZCubed.ICE);
+							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+							livingEntity.setOnFireFor(4);
+						}
 					}
 				}
 			}

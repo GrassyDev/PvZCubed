@@ -57,8 +57,8 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
+	protected boolean isFrozen;
+	protected boolean isIced;
 
     public ImpEntity(EntityType<? extends ImpEntity> entityType, World world) {
         super(entityType, world);

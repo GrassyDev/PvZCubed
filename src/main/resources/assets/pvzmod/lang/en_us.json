@@ -284,6 +284,15 @@
   "entity.pvzmod.berserkergear": "Berserker Helmet",
   "entity.pvzmod.berserker_hypnotized": "Hypnotized Berserker",
 
+  "entity.pvzmod.superfanimp": "Super-Fan Imp",
+  "item.pvzmod.superfanimp_egg": "Super-Fan Imp",
+  "entity.pvzmod.superfanimp_hypnotized": "Hypnotized Super-Fan Imp",
+
+  "entity.pvzmod.defensiveend": "Defensive End",
+  "item.pvzmod.defensiveend_egg": "Defensive End",
+  "entity.pvzmod.defensiveendgear": "Football Helmet",
+  "entity.pvzmod.defensiveend_hypnotized": "Hypnotized Defensive End",
+
   "entity.pvzmod.locustswarm": "Locust Swarm",
   "item.pvzmod.locustswarm_egg": "Locust Swarm",
 

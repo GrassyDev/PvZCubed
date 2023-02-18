@@ -82,6 +82,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantua
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
@@ -250,6 +251,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.BERSERKER, BerserkerEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, BerserkerGearEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.SUPERFANIMP, SuperFanImpEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, DefensiveEndGearEntityRenderer::new);

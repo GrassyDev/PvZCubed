@@ -214,7 +214,6 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 	List<LivingEntity> checkList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().shrink(0.5, 0, 0));
 
 	private void raycastExplode() {
-		Vec3d vec3d = this.getPos();
 		Vec3d vec3d2 = new Vec3d((double) boxOffset, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(1, 4, 1).offset(vec3d2).offset(0, -1.5, 0));
 		Vec3d vec3d3 = this.getBoundingBox().offset(vec3d2).getCenter();
@@ -261,9 +260,17 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						}
 						checkList.add(livingEntity);
-						checkList.add(generalPvZombieEntity);
+						if (!(livingEntity instanceof ZombieShieldEntity)){
+							checkList.add(generalPvZombieEntity);
+						}
 					}
-					else {
+					else if (livingEntity.getFirstPassenger() instanceof ZombieShieldEntity
+							&& !checkList.contains(livingEntity)){
+						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+						checkList.add(livingEntity);
+					}
+					else if ((!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity))
+							&& !checkList.contains(livingEntity)) {
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add(livingEntity);
 					}

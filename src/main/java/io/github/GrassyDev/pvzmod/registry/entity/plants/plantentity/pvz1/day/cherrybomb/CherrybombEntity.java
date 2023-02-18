@@ -157,7 +157,6 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		int i = this.getFuseSpeed();
 		this.goalSelector.add(2, new CherryIgniteGoal(this));
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {

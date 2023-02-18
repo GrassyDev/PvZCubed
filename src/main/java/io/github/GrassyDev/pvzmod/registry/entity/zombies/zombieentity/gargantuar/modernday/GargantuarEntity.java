@@ -73,6 +73,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	boolean isIced;
 	int animationMultiplier = 1;
 
+	protected ImpEntity impEntity;
+
+	protected float healthImp;
+
 	public GargantuarEntity(EntityType<? extends GargantuarEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
@@ -88,6 +92,8 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 		this.colliderOffset = 2F;
 		this.entityBox = PvZEntity.GARGANTUAR;
+		this.impEntity = new ImpEntity(PvZEntity.IMP, this.world);
+		this.healthImp = 180;
     }
 
 	protected void initDataTracker() {
@@ -474,7 +480,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	//Launch Imp
 	public void tryLaunch(Entity target){
 		if (this.getImpStage().equals(Boolean.TRUE) && launchAnimation == 20 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN)){
-			ImpEntity imp = new ImpEntity(PvZEntity.IMP, this.world);
 			if (target != null){
 				double d = this.squaredDistanceTo(target);
 				float df = (float) d;
@@ -482,16 +487,16 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				double f = target.getY() - this.getY();
 				double g = target.getZ() - this.getZ();
 				float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-				imp.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.25F, 0F);
+				impEntity.setVelocity(e * (double) h, f * (double) h, g * (double) h, 2.25F, 0F);
 			}
 			else {
-				imp.setVelocity(random.range(-1, 1), 0, random.range(-1, 1), 2.25F, 0F);
+				impEntity.setVelocity(random.range(-1, 1), 0, random.range(-1, 1), 2.25F, 0F);
 			}
-			imp.updatePosition(this.getX(), this.getY() + 3.95D, this.getZ());
-			imp.setOwner(this);
+			impEntity.updatePosition(this.getX(), this.getY() + 3.95D, this.getZ());
+			impEntity.setOwner(this);
 			this.setImpStage(ImpStage.NOIMP);
 			this.playSound(PvZCubed.IMPLAUNCHEVENT, 1F, 1);
-			this.world.spawnEntity(imp);
+			this.world.spawnEntity(impEntity);
 		}
 	}
 
@@ -525,7 +530,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			this.animationMultiplier = 1;
 		}
 		if (this.animationTicksLeft <= 0){
-			if (this.getHealth() <= 180 && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
+			if (this.getHealth() <= this.healthImp && (this.getFirstPassenger() == null || !(this.getFirstPassenger() instanceof ZombiePropEntity)) && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
 				this.launchAnimation = 50 * animationMultiplier;
 				this.inLaunchAnimation = true;
 				this.world.sendEntityStatus(this, (byte) 44);
