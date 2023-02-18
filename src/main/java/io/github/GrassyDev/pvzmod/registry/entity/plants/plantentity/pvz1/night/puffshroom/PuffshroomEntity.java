@@ -378,7 +378,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.puffshroomEntity.isInsideWaterOrBubbleColumn()) {
 						SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.puffshroomEntity.world);
-						double time = (this.puffshroomEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+						double time = (this.puffshroomEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.puffshroomEntity.squaredDistanceTo(predictedPos);

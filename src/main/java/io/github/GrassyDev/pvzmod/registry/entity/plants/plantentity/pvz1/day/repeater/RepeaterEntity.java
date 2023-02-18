@@ -334,7 +334,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.repeaterEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.repeaterEntity.world);
-						double time = (this.repeaterEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+						double time = (this.repeaterEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.repeaterEntity.squaredDistanceTo(predictedPos);

@@ -8,6 +8,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariant
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -170,6 +171,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 	protected void initGoals() {
 		this.goalSelector.add(1, new ChomperEntity.AttackGoal());
 		this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 5.0F));
+		this.goalSelector.add(2, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 15.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity) &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
@@ -214,7 +216,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 					default -> PvZCubed.PEAHITEVENT;
 				};
 				passenger.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
-				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+				this.chomperAudioDelay = 3;
 				return bl;
 			} else {
 				return false;
@@ -242,7 +244,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 					default -> PvZCubed.PEAHITEVENT;
 				};
 				target.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
-				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+				this.chomperAudioDelay = 3;
 				return bl;
 			} else {
 				return false;
@@ -256,7 +258,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 				if (bl) {
 					this.applyDamageEffects(this, target);
 				}
-				this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+				this.chomperAudioDelay = 3;
 				return bl;
 			} else {
 				return false;
@@ -288,8 +290,13 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 
 	/** //~*~//~TICKING~//~*~// **/
 
+	private int chomperAudioDelay = -1;
+
 	public void tick() {
 		super.tick();
+		if (--this.chomperAudioDelay == 0){
+			this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}

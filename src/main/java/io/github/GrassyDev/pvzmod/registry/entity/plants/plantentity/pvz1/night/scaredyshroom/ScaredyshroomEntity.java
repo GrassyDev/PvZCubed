@@ -471,7 +471,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 							if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
 								this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
 								SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
-								double time = (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+								double time = (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 								Vec3d targetPos = livingEntity.getPos();
 								Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 								double d = this.scaredyshroomEntity.squaredDistanceTo(predictedPos);

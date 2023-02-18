@@ -293,7 +293,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 				if (this.beamTicks >= 0 && this.animationTicks <= -6) {
 					if (!this.gatlingpeaEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.gatlingpeaEntity.world);
-						double time = (this.gatlingpeaEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+						double time = (this.gatlingpeaEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.gatlingpeaEntity.squaredDistanceTo(predictedPos);
@@ -315,7 +315,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 				}
 				else if (this.animationTicks == -3) {
 					ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.gatlingpeaEntity.world);
-					double time = (this.gatlingpeaEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+					double time = (this.gatlingpeaEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 					Vec3d targetPos = livingEntity.getPos();
 					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 					double d = this.gatlingpeaEntity.squaredDistanceTo(predictedPos);

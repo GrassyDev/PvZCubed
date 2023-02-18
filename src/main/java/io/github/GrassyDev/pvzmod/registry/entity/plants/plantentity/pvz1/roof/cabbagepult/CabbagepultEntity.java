@@ -289,7 +289,7 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
 					// Huge thanks to Forrest Smith(forrestthewoods) for the trajectory code (https://www.forrestthewoods.com/blog/solving_ballistic_trajectories/)
 					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingCabbageEntity proj = new ShootingCabbageEntity(PvZEntity.CABBAGE, this.plantEntity.world);
-						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						float dist = (this.plantEntity.squaredDistanceTo(predictedPos) >= 729) ? 1.1f : 1f;

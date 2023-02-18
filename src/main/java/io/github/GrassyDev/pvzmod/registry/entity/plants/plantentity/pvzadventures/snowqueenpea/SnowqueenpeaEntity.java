@@ -377,7 +377,7 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 				if (this.beamTicks >= 0 && this.animationTicks <= -7 && this.animationTicks > -9) {
 					if (!this.snowqueenpeaentity.isInsideWaterOrBubbleColumn()) {
 						ShootingSnowqueenPeaEntity proj = new ShootingSnowqueenPeaEntity(PvZEntity.SNOWQUEENPEAPROJ, this.snowqueenpeaentity.world);
-						double time = (this.snowqueenpeaentity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+						double time = (this.snowqueenpeaentity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.snowqueenpeaentity.squaredDistanceTo(predictedPos);
@@ -400,7 +400,7 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 				if (this.beamTicks >= 0 && this.animationTicks <= -9 && this.animationTicks > -11) {
 					if (!this.snowqueenpeaentity.isInsideWaterOrBubbleColumn()) {
 						ShootingIcespikeEntity proj = new ShootingIcespikeEntity(PvZEntity.ICESPIKEPROJ, this.snowqueenpeaentity.world);
-						double time = (this.snowqueenpeaentity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+						double time = (this.snowqueenpeaentity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.snowqueenpeaentity.squaredDistanceTo(predictedPos);

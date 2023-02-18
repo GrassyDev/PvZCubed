@@ -291,7 +291,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -9) {
-					double time = (this.threepeaterentity.squaredDistanceTo(livingEntity) > 6) ? 50 : 1;
+					double time = (this.threepeaterentity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 					Vec3d targetPos = livingEntity.getPos();
 					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 					if (!this.threepeaterentity.isInsideWaterOrBubbleColumn()) {
