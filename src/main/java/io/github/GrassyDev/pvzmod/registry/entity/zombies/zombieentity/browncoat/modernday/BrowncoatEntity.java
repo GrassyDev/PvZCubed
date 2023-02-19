@@ -327,8 +327,24 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	boolean armless;
+	boolean geardmg;
+	boolean gearless;
+
 	public void tick() {
 		super.tick();
+		if (this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno() && this.getHypno()){
+			this.setTarget(null);
+		}
+		this.armless = this.getHealth() < this.getMaxHealth() / 2;
+		if (this.getFirstPassenger() instanceof ZombiePropEntity zombiePropEntity){
+			this.geardmg = zombiePropEntity.getHealth() < zombiePropEntity.getMaxHealth() / 2;
+			this.gearless = false;
+		}
+		else {
+			this.gearless = true;
+			this.geardmg = false;
+		}
 		this.updateFloating();
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){

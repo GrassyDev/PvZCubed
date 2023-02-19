@@ -1,7 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday;
 
 import com.google.common.collect.Maps;
-import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
@@ -19,30 +18,6 @@ public class BrowncoatEntityRenderer extends GeoEntityRenderer<BrowncoatEntity> 
 		super(ctx, new BrowncoatEntityModel());
         this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
     }
-
-	public static final Map<BrowncoatVariants, Identifier> LOCATION_BY_VARIANT =
-			Util.make(Maps.newEnumMap(BrowncoatVariants.class), (map) -> {
-				map.put(BrowncoatVariants.BROWNCOAT,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat.png"));
-				map.put(BrowncoatVariants.BROWNCOATHYPNO,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
-				map.put(BrowncoatVariants.CONEHEAD,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat.png"));
-				map.put(BrowncoatVariants.CONEHEADHYPNO,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
-				map.put(BrowncoatVariants.BUCKETHEAD,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat.png"));
-				map.put(BrowncoatVariants.BUCKETHEADHYPNO,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
-				map.put(BrowncoatVariants.SCREENDOOR,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat.png"));
-				map.put(BrowncoatVariants.SCREENDOORHYPNO,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
-			});
-
-	public Identifier getTextureResource(BrowncoatEntity object) {
-		return LOCATION_BY_VARIANT.get(object.getVariant());
-	}
 
 	public static final Map<BrowncoatVariants, Identifier> LOCATION_MODEL_BY_VARIANT =
 			Util.make(Maps.newEnumMap(BrowncoatVariants.class), (map) -> {
