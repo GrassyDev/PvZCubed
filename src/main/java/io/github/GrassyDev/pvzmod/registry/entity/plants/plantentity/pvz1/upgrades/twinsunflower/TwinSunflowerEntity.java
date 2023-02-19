@@ -213,7 +213,7 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 				} while (livingEntity == this);
 			} while (this.squaredDistanceTo(livingEntity) > 900);
 
-			if (livingEntity instanceof GeneralPvZombieEntity) {
+			if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 				if (livingEntity.getY() < (this.getY() + 1) && livingEntity.getY() > (this.getY() - 1)) {
 					if ((this.prevZombie == null || zombieList.get(0) != prevZombie) && !zombieList.isEmpty()) {
 						prevZombie = zombieList.get(0);

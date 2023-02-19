@@ -22,14 +22,22 @@ public class BrowncoatEntityRenderer extends GeoEntityRenderer<BrowncoatEntity> 
 
 	public static final Map<BrowncoatVariants, Identifier> LOCATION_BY_VARIANT =
 			Util.make(Maps.newEnumMap(BrowncoatVariants.class), (map) -> {
-				map.put(BrowncoatVariants.DEFAULT,
+				map.put(BrowncoatVariants.BROWNCOAT,
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat.png"));
+				map.put(BrowncoatVariants.BROWNCOATHYPNO,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
 				map.put(BrowncoatVariants.CONEHEAD,
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/conehead.png"));
+				map.put(BrowncoatVariants.CONEHEADHYPNO,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/conehead_hypnotized.png"));
 				map.put(BrowncoatVariants.BUCKETHEAD,
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/buckethead.png"));
+				map.put(BrowncoatVariants.BUCKETHEADHYPNO,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/buckethead_hypnotized.png"));
 				map.put(BrowncoatVariants.SCREENDOOR,
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/screendoor.png"));
+				map.put(BrowncoatVariants.SCREENDOORHYPNO,
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/screendoor_hypnotized.png"));
 			});
 
 	public Identifier getTextureResource(BrowncoatEntity object) {
@@ -38,13 +46,21 @@ public class BrowncoatEntityRenderer extends GeoEntityRenderer<BrowncoatEntity> 
 
 	public static final Map<BrowncoatVariants, Identifier> LOCATION_MODEL_BY_VARIANT =
 			Util.make(Maps.newEnumMap(BrowncoatVariants.class), (map) -> {
-				map.put(BrowncoatVariants.DEFAULT,
+				map.put(BrowncoatVariants.BROWNCOAT,
 				        new Identifier("pvzmod", "geo/browncoat.geo.json"));
+				map.put(BrowncoatVariants.BROWNCOATHYPNO,
+						new Identifier("pvzmod", "geo/browncoat.geo.json"));
 				map.put(BrowncoatVariants.CONEHEAD,
+						new Identifier("pvzmod", "geo/conehead.geo.json"));
+				map.put(BrowncoatVariants.CONEHEADHYPNO,
 						new Identifier("pvzmod", "geo/conehead.geo.json"));
 				map.put(BrowncoatVariants.BUCKETHEAD,
 						new Identifier("pvzmod", "geo/buckethead.geo.json"));
+				map.put(BrowncoatVariants.BUCKETHEADHYPNO,
+						new Identifier("pvzmod", "geo/buckethead.geo.json"));
 				map.put(BrowncoatVariants.SCREENDOOR,
+						new Identifier("pvzmod", "geo/screendoor.geo.json"));
+				map.put(BrowncoatVariants.SCREENDOORHYPNO,
 						new Identifier("pvzmod", "geo/screendoor.geo.json"));
 			});
 

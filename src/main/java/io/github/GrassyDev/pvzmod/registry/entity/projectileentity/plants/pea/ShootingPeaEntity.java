@@ -165,7 +165,8 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster &&
+		if (!world.isClient && entity instanceof Monster monster &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
@@ -179,7 +180,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 			float damage = 4F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
-					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
 				float damage2 = damage - ((LivingEntity) entity).getHealth();
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);

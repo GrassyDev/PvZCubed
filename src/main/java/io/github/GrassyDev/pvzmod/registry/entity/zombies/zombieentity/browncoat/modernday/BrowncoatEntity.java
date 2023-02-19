@@ -3,9 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoa
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
@@ -15,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -115,6 +114,10 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	public void setHypno(IsHypno hypno) {
+		super.setHypno(hypno);
+	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
@@ -127,17 +130,41 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getType().equals(PvZEntity.CONEHEAD)){
 			setVariant(BrowncoatVariants.CONEHEAD);
 			createConeheadProp();
+			this.initCustomGoals();
 		}
 		else if (this.getType().equals(PvZEntity.BUCKETHEAD)){
 			setVariant(BrowncoatVariants.BUCKETHEAD);
 			createBucketProp();
+			this.initCustomGoals();
 		}
 		else if (this.getType().equals(PvZEntity.SCREENDOOR)){
 			createShield();
 			setVariant(BrowncoatVariants.SCREENDOOR);
+			this.initCustomGoals();
+		}
+		else if (this.getType().equals(PvZEntity.BROWNCOATHYPNO)){
+			setVariant(BrowncoatVariants.BROWNCOATHYPNO);
+			this.setHypno(IsHypno.TRUE);
+			this.initHypnoGoals();
+		}
+		else if (this.getType().equals(PvZEntity.CONEHEADHYPNO)){
+			setVariant(BrowncoatVariants.CONEHEADHYPNO);
+			this.setHypno(IsHypno.TRUE);
+			this.initHypnoGoals();
+		}
+		else if (this.getType().equals(PvZEntity.BUCKETHEADHYPNO)){
+			setVariant(BrowncoatVariants.BUCKETHEADHYPNO);
+			this.setHypno(IsHypno.TRUE);
+			this.initHypnoGoals();
+		}
+		else if (this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
+			setVariant(BrowncoatVariants.SCREENDOORHYPNO);
+			this.setHypno(IsHypno.TRUE);
+			this.initHypnoGoals();
 		}
 		else {
-			setVariant(BrowncoatVariants.DEFAULT);
+			setVariant(BrowncoatVariants.BROWNCOAT);
+			this.initCustomGoals();
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
@@ -247,28 +274,51 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
-        this.initCustomGoals();
     }
 
     protected void initCustomGoals() {
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.targetSelector.add(2, new BrowncoatEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-		this.targetSelector.add(2, new TargetGoal<>(this, PlantEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, MerchantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.getHypno());
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(1, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
     }
+
+	protected void initHypnoGoals(){
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(2, new BrowncoatEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
+		////////// Hypnotized Zombie targets ///////
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && !(zombiePropEntity.getHypno()));
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+		}));
+	}
 
 
 	/** /~*~//~*TICKING*~//~*~/ **/
@@ -276,7 +326,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		this.updateFloating();
-		if (this.getAttacking() == null){
+		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
@@ -301,7 +351,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	@Override
 	public void updatePassengerPosition(Entity passenger) {
-		if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR)) {
+		if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) ||
+				this.getVariant().equals(BrowncoatVariants.SCREENDOORHYPNO)) {
 			if (this.hasPassenger(passenger)) {
 				float g = (float) ((this.isRemoved() ? 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
 				float f = 0.4F;
@@ -400,6 +451,22 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
+	protected EntityType<?> hypnoType;
+	protected void checkHypno(){
+		if (this.getType().equals(PvZEntity.CONEHEAD)){
+			hypnoType = PvZEntity.CONEHEADHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.BUCKETHEAD)){
+			hypnoType = PvZEntity.BUCKETHEADHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.SCREENDOOR)){
+			hypnoType = PvZEntity.SCREENDOORHYPNO;
+		}
+		else {
+			hypnoType = PvZEntity.BROWNCOATHYPNO;
+		}
+	}
+
 	public boolean damage(DamageSource source, float amount) {
         if (!super.damage(source, amount)) {
             return false;
@@ -412,9 +479,10 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
                 livingEntity = (LivingEntity)source.getAttacker();
             }
 
-            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
+            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
+				checkHypno();
                 this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoBrowncoatEntity hypnotizedZombie = (HypnoBrowncoatEntity) PvZEntity.HYPNOBROWNCOAT.create(world);
+                BrowncoatEntity hypnotizedZombie = (BrowncoatEntity) hypnoType.create(world);
                 hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
                 hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
                 hypnotizedZombie.setAiDisabled(this.isAiDisabled());
@@ -423,6 +491,10 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
                     hypnotizedZombie.setCustomName(this.getCustomName());
                     hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
                 }
+				if (this.getFirstPassenger() != null){
+					Entity entity = this.getFirstPassenger();
+					entity.startRiding(hypnotizedZombie);
+				}
 
                 hypnotizedZombie.setPersistent();
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);

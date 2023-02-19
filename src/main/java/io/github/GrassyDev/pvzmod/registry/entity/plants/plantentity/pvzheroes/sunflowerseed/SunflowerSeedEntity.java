@@ -167,14 +167,18 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
 		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity) &&
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity) &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
 		snorkelGoal();
 	}
 	protected void snorkelGoal() {
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel();
+			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
 		}));
 	}
 
@@ -210,7 +214,9 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 			}
 
 			if (bl) {
-				if (livingEntity instanceof Monster ) {
+				if (livingEntity instanceof Monster &&
+						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
+								&& (generalPvZombieEntity.getHypno()))) {
 					if (livingEntity.getY() < (this.getY() + 1.5) && livingEntity.getY() > (this.getY() - 1.5)) {
 						if (!world.isClient &&
 								!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
@@ -226,7 +232,7 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 							float damage = 4F;
 							if (damage > livingEntity.getHealth() &&
 									!(livingEntity instanceof ZombieShieldEntity) &&
-									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 								float damage2 = damage - ((LivingEntity) livingEntity).getHealth();
 								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 								generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);

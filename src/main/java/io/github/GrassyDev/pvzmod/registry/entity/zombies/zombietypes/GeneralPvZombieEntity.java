@@ -5,11 +5,20 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.j
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -19,6 +28,58 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	}
 
 	public float colliderOffset = 0.4F;
+
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_HYPNOTIZED, false);
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("Hypnotized", this.getHypno());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_HYPNOTIZED, tag.getBoolean("Hypnotized"));
+	}
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	protected static final TrackedData<Boolean> DATA_ID_HYPNOTIZED =
+			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+		public enum IsHypno {
+		FALSE(false),
+		TRUE(true);
+
+		IsHypno(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean getHypno() {
+		return this.dataTracker.get(DATA_ID_HYPNOTIZED);
+	}
+
+	public void setHypno(GeneralPvZombieEntity.IsHypno hypno) {
+		this.dataTracker.set(DATA_ID_HYPNOTIZED, hypno.getId());
+	}
+
+	/** ----------------------------------------------------------------------- **/
 
 	public EntityType<? extends HostileEntity> entityBox = PvZEntity.BROWNCOAT;
 

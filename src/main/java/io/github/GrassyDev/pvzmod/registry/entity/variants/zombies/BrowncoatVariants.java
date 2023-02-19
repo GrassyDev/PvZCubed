@@ -4,10 +4,14 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public enum BrowncoatVariants {
-	DEFAULT(0),
-	CONEHEAD(1),
-	BUCKETHEAD(2),
-	SCREENDOOR(3);
+	BROWNCOAT(0),
+	BROWNCOATHYPNO(1),
+	CONEHEAD(2),
+	CONEHEADHYPNO(3),
+	BUCKETHEAD(4),
+	BUCKETHEADHYPNO(5),
+	SCREENDOOR(6),
+	SCREENDOORHYPNO(7);
 
 	private static final BrowncoatVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(BrowncoatVariants::getId)).toArray(BrowncoatVariants[]::new);

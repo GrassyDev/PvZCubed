@@ -3,12 +3,10 @@ package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizede
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.browncoat.modernday.HypnoBrowncoatEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.buckethead.modernday.HypnoBucketheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.conehead.modernday.HypnoConeheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.screendoor.HypnoScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FlagZombieVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -167,8 +165,12 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 		this.goalSelector.add(1, new HypnoFlagzombieEntity.summonZombieGoal());
 		this.targetSelector.add(2, new HypnoFlagzombieEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof ZombiePropEntity);
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
 	}
 
@@ -292,10 +294,10 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 				if (!super.canStart()) {
 					return false;
 				} else {
-					int b = HypnoFlagzombieEntity.this.world.getTargets(HypnoScreendoorEntity.class, this.closeZombiePredicate, HypnoFlagzombieEntity.this, HypnoFlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-					int p = HypnoFlagzombieEntity.this.world.getTargets(HypnoConeheadEntity.class, this.closeZombiePredicate, HypnoFlagzombieEntity.this, HypnoFlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-					int d = HypnoFlagzombieEntity.this.world.getTargets(HypnoBucketheadEntity.class, this.closeZombiePredicate, HypnoFlagzombieEntity.this, HypnoFlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-					int t = HypnoFlagzombieEntity.this.world.getTargets(HypnoBrowncoatEntity.class, this.closeZombiePredicate, HypnoFlagzombieEntity.this, HypnoFlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
+					int b = HypnoFlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, HypnoFlagzombieEntity.this, HypnoFlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
+					int p = HypnoFlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, HypnoFlagzombieEntity.this, HypnoFlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
+					int d = HypnoFlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, HypnoFlagzombieEntity.this, HypnoFlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
+					int t = HypnoFlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, HypnoFlagzombieEntity.this, HypnoFlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
 					return HypnoFlagzombieEntity.this.random.nextInt(8) + 1 > b &&
 							HypnoFlagzombieEntity.this.random.nextInt(8) + 1 > p &&
 							HypnoFlagzombieEntity.this.random.nextInt(8) + 1 > d &&
@@ -319,7 +321,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 
 			for (int b = 0; b < 1; ++b) { // 1 hypno screendoor
 				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
-				HypnoScreendoorEntity hypnoScreendoorEntity = (HypnoScreendoorEntity) PvZEntity.HYPNOSCREENDOOR.create(HypnoFlagzombieEntity.this.world);
+				BrowncoatEntity hypnoScreendoorEntity = (BrowncoatEntity) PvZEntity.SCREENDOORHYPNO.create(HypnoFlagzombieEntity.this.world);
 				hypnoScreendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				hypnoScreendoorEntity.initialize(serverWorld, HypnoFlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				hypnoScreendoorEntity.setOwner(HypnoFlagzombieEntity.this);
@@ -327,7 +329,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 			}
 			for (int p = 0; p < 1; ++p) { // 1 hypno conehead
 				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
-				HypnoConeheadEntity hypnoConeheadEntity = (HypnoConeheadEntity) PvZEntity.HYPNOCONEHEAD.create(HypnoFlagzombieEntity.this.world);
+				BrowncoatEntity hypnoConeheadEntity = (BrowncoatEntity) PvZEntity.CONEHEADHYPNO.create(HypnoFlagzombieEntity.this.world);
 				hypnoConeheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				hypnoConeheadEntity.initialize(serverWorld, HypnoFlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				hypnoConeheadEntity.setOwner(HypnoFlagzombieEntity.this);
@@ -335,7 +337,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 			}
 			for (int d = 0; d < 1; ++d) { // 1 hypno buckethead
 				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
-				HypnoBucketheadEntity hypnoBucketheadEntity = (HypnoBucketheadEntity) PvZEntity.HYPNOBUCKETHEAD.create(HypnoFlagzombieEntity.this.world);
+				BrowncoatEntity hypnoBucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEADHYPNO.create(HypnoFlagzombieEntity.this.world);
 				hypnoBucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				hypnoBucketheadEntity.initialize(serverWorld, HypnoFlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				hypnoBucketheadEntity.setOwner(HypnoFlagzombieEntity.this);
@@ -343,7 +345,7 @@ public class HypnoFlagzombieEntity extends HypnoSummonerEntity implements IAnima
 			}
 			for (int t = 0; t < 1; ++t) { // 1 hypno browncoat
 				BlockPos blockPos = HypnoFlagzombieEntity.this.getBlockPos().add(-2 + HypnoFlagzombieEntity.this.random.nextInt(10), 1, -2 + HypnoFlagzombieEntity.this.random.nextInt(10));
-				HypnoBrowncoatEntity hypnoBrowncoatEntity = (HypnoBrowncoatEntity) PvZEntity.HYPNOBROWNCOAT.create(HypnoFlagzombieEntity.this.world);
+				BrowncoatEntity hypnoBrowncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOATHYPNO.create(HypnoFlagzombieEntity.this.world);
 				hypnoBrowncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				hypnoBrowncoatEntity.initialize(serverWorld, HypnoFlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				hypnoBrowncoatEntity.setOwner(HypnoFlagzombieEntity.this);

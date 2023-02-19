@@ -153,14 +153,15 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (!world.isClient && entity instanceof Monster &&
+		if (!world.isClient && entity instanceof Monster monster &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
 			float damage = 4F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
-					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
 				float damage2 = damage - ((LivingEntity) entity).getHealth();
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
@@ -202,11 +203,13 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 					}
 
 					if (bl) {
-						if (livingEntity instanceof Monster) {
+						if (livingEntity instanceof Monster &&
+								!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
+										&& (generalPvZombieEntity.getHypno()))) {
 							if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity))){
 								if (damage > livingEntity.getHealth() &&
 										!(livingEntity instanceof ZombieShieldEntity) &&
-										livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+										livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
 									float damage2 = damage - livingEntity.getHealth();
 									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 									generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
