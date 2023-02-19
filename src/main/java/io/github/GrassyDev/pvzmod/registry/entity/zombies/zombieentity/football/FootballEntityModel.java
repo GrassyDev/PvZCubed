@@ -9,16 +9,16 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class FootballEntityModel extends AnimatedGeoModel<FootballEntity> {
 
     @Override
-    public Identifier getModelResource(FootballEntity object)
-    {
-        return new Identifier("pvzmod", "geo/football.geo.json");
-    }
+	public Identifier getModelResource(FootballEntity object)
+	{
+		return FootballEntityRenderer.LOCATION_MODEL_BY_VARIANT.get(object.getVariant());
+	}
 
-    @Override
-    public Identifier getTextureResource(FootballEntity object)
-    {
-        return new Identifier("pvzmod", "textures/entity/football/football.png");
-    }
+	@Override
+	public Identifier getTextureResource(FootballEntity object)
+	{
+		return FootballEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
+	}
 
     @Override
     public Identifier getAnimationResource(FootballEntity object)

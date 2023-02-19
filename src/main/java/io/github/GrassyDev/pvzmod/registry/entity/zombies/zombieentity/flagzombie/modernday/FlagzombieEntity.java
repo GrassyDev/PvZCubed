@@ -13,9 +13,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FlagZombieVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.SummonerEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
@@ -488,9 +485,9 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 if (!super.canStart()) {
                     return false;
                 } else {
-                    int b = FlagzombieEntity.this.world.getTargets(ScreendoorEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int p = FlagzombieEntity.this.world.getTargets(ConeheadEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int d = FlagzombieEntity.this.world.getTargets(BucketheadEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
+                    int b = FlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
+                    int p = FlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
+                    int d = FlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
                     int t = FlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
                     return FlagzombieEntity.this.random.nextInt(8) + 1 > b &&
                             FlagzombieEntity.this.random.nextInt(8) + 1 > p &&
@@ -514,28 +511,26 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld) FlagzombieEntity.this.world;
             for(int b = 0; b < 1; ++b) { // 1 Screendoor
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
-				ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(FlagzombieEntity.this.world);
+				BrowncoatEntity screendoorEntity = (BrowncoatEntity) PvZEntity.SCREENDOOR.create(FlagzombieEntity.this.world);
 				screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+				screendoorEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				screendoorEntity.setOwner(FlagzombieEntity.this);
-				screendoorEntity.createShield();
 				serverWorld.spawnEntityAndPassengers(screendoorEntity);
             }
             for(int p = 0; p < 1; ++p) { // 1 Conehead
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
-                ConeheadEntity coneheadEntity = (ConeheadEntity)PvZEntity.CONEHEAD.create(FlagzombieEntity.this.world);
+				BrowncoatEntity coneheadEntity = (BrowncoatEntity)PvZEntity.CONEHEAD.create(FlagzombieEntity.this.world);
                 coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 coneheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 coneheadEntity.setOwner(FlagzombieEntity.this);
-				coneheadEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(coneheadEntity);
             }
             for(int d = 0; d < 1; ++d) { // 1 Buckethead
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
-                BucketheadEntity bucketheadEntity = (BucketheadEntity)PvZEntity.BUCKETHEAD.create(FlagzombieEntity.this.world);
+				BrowncoatEntity bucketheadEntity = (BrowncoatEntity)PvZEntity.BUCKETHEAD.create(FlagzombieEntity.this.world);
                 bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 bucketheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 bucketheadEntity.setOwner(FlagzombieEntity.this);
-				bucketheadEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(bucketheadEntity);
             }
             for(int t = 0; t < 1; ++t) { // 1 Browncoat

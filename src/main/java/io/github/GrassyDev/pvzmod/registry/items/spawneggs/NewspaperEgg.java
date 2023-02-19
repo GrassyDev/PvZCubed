@@ -44,7 +44,7 @@ public class NewspaperEgg extends Item {
         BlockPos blockPos = itemPlacementContext.getBlockPos();
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-        Box box = PvZEntity.SCREEENDOOR.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+        Box box = PvZEntity.NEWSPAPER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;

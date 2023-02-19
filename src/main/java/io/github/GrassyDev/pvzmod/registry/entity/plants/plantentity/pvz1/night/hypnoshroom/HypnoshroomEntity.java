@@ -4,10 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
@@ -15,7 +12,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantua
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -131,7 +127,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof BrowncoatEntity; }));
 		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof ConeheadEntity; }));
+		{ return livingEntity instanceof BrowncoatEntity; }));
 		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof PoleVaultingEntity; }));
 		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
@@ -139,9 +135,9 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof NewspaperEntity; }));
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof BucketheadEntity; }));
+		{ return livingEntity instanceof BrowncoatEntity; }));
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof ScreendoorEntity; }));
+		{ return livingEntity instanceof BrowncoatEntity; }));
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof SnorkelEntity; }));
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
@@ -151,7 +147,7 @@ public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, Ran
 		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof FootballEntity; }));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof BerserkerEntity; }));
+		{ return livingEntity instanceof FootballEntity; }));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
 		{ return livingEntity instanceof GargantuarEntity; }));
 	}

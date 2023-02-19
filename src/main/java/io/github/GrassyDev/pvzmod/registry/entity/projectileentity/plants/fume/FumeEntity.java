@@ -177,7 +177,7 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			Entity entity2 = entityHitResult.getEntity();
-			float damage = 4.5F;
+			float damage = 2.5F;
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {

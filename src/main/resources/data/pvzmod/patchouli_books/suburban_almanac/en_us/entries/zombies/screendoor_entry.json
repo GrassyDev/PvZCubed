@@ -28,14 +28,13 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/potatomine_entry",
-        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/jalapeno_entry",
+        "pvzmod:plants/bellflower_entry",
         "pvzmod:plants/hypnoshroom_entry",
-        "pvzmod:plants/iceshroom_entry",
         "pvzmod:plants/squash_entry",
         "pvzmod:plants/snowqueenpea_entry",
-        "pvzmod:plants/perfoomshroom_entry",
-        "pvzmod:plants/firepea_entry"
+        "pvzmod:plants/firepea_entry",
+        "pvzmod:plants/cabbagepult_entry"
       ]
     },
     {

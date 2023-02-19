@@ -4,8 +4,6 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
@@ -265,8 +263,8 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                 return false;
             } else {
                 int b = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int c = BasicGraveEntity.this.world.getTargets(ConeheadEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int u = BasicGraveEntity.this.world.getTargets(BucketheadEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int c = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int u = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 int p = BasicGraveEntity.this.world.getTargets(PoleVaultingEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 int f = BasicGraveEntity.this.world.getTargets(FlagzombieEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
 				int g = BasicGraveEntity.this.world.getTargets(GargantuarEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
@@ -311,44 +309,40 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
             if (probability <= 0.5) { // 50% x1 Conehead
                 for(int c = 0; c < 1; ++c) {
                     BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-                    ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
                     coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                     coneheadEntity.setOwner(BasicGraveEntity.this);
-					coneheadEntity.createProp();
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
 			if (probability11 <= 0.3) { // 30% x1 Conehead
 				for(int c = 0; c < 1; ++c) {
 					BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-					ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 					coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 					coneheadEntity.setOwner(BasicGraveEntity.this);
-					coneheadEntity.createProp();
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
             if (probability2 <= 0.15) { // 15% x1 Buckethead
                 for(int u = 0; u < 1; ++u) {
                     BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-                    BucketheadEntity bucketheadEntity = (BucketheadEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
+                    BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
                     bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     bucketheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                     bucketheadEntity.setOwner(BasicGraveEntity.this);
-					bucketheadEntity.createProp();
                     serverWorld.spawnEntityAndPassengers(bucketheadEntity);
                 }
             }
 			if (probability21 <= 0.15) { // 15% x1 Buckethead
 				for(int u = 0; u < 1; ++u) {
 					BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-					BucketheadEntity bucketheadEntity = (BucketheadEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
+					BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
 					bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 					bucketheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 					bucketheadEntity.setOwner(BasicGraveEntity.this);
-					bucketheadEntity.createProp();
 					serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 				}
 			}

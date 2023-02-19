@@ -1,0 +1,52 @@
+{
+  "name": "Defensive End",
+  "icon": "pvzmod:defensiveend_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 300,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)360, 140(Metal Helmet)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)360",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Gargantuar. Throws a Super-Fan Imp when the helmet is destroyed. Small chance to carry a New Years Imp",
+        "$(br2)$(#bd951a)Somebody once told him the best defense is a good offence. He disagrees. Da fence he like best is da one he SMASH through."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/defensiveend.png"
+      ],
+      "title": "Night Zombie",
+      "border": "true",
+      "text": "$(#25228d)Defensive Ends have extra health and launch explosive Imps."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/hypnoshroom_entry",
+        "pvzmod:plants/iceshroom_entry",
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/doomshroom_entry",
+        "pvzmod:plants/jalapeno_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/gatlingpea_entry",
+        "pvzmod:plants/scaredyshroom_entry",
+        "pvzmod:plants/snowqueenpea_entry",
+        "pvzmod:plants/squash_entry",
+        "pvzmod:plants/perfoomshroom_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: Garden Wafare: $()$(#ff0000)All-Star",
+        "$(br2)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Defensive End"
+      ]
+    }
+  ]
+}

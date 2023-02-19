@@ -10,8 +10,11 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.su
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FootballVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -43,6 +46,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -80,17 +85,20 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void initDataTracker() {
 		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, true);
 	}
 
 	@Override
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
+		tag.putInt("Variant", this.getTypeVariant());
 		tag.putBoolean("Tackle", this.getTackleStage());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Tackle"));
 	}
 
@@ -143,6 +151,47 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, tackleStage.getId());
 	}
 
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(FootballEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		if (this.getType().equals(PvZEntity.BERSERKER)){
+			setVariant(FootballVariants.BERSERKER);
+			createBerserkerProp();
+		}
+		else {
+			setVariant(FootballVariants.DEFAULT);
+			createFootballProp();
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public FootballVariants getVariant() {
+		return FootballVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(FootballVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+	public void createFootballProp(){
+		FootballGearEntity propentity = new FootballGearEntity(PvZEntity.FOOTBALLGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
+	public void createBerserkerProp(){
+		BerserkerGearEntity propentity = new BerserkerGearEntity(PvZEntity.BERSERKERGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -159,9 +208,9 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		FootballGearEntity footballGearEntity = (FootballGearEntity) this.getFirstPassenger();
+		ZombiePropEntity zombiePropEntity = (ZombiePropEntity) this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
-			if (this.hasPassenger(footballGearEntity)) {
+			if (this.hasPassenger(zombiePropEntity)) {
 				event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
 			}
 			else {
@@ -176,54 +225,36 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				if (!this.getTackleStage()) {
-					if (this.hasPassenger(footballGearEntity)) {
+					if (this.hasPassenger(zombiePropEntity)) {
 						event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
 					}
 					else {
 						event.getController().setAnimation(new AnimationBuilder().loop("football.running2"));
 					}
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
 				} else {
-					if (this.hasPassenger(footballGearEntity)) {
+					if (this.hasPassenger(zombiePropEntity)) {
 						event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
 					}
 					else {
 						event.getController().setAnimation(new AnimationBuilder().loop("football.tackle2"));
 					}
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
 				}
 			} else {
-				if (this.hasPassenger(footballGearEntity)) {
+				if (this.hasPassenger(zombiePropEntity)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
 				}
 				else {
 					event.getController().setAnimation(new AnimationBuilder().loop("football.idle2"));
 				}
-				if (this.isFrozen) {
-					event.getController().setAnimationSpeed(0);
-				}
-				else if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				}
-				else {
-					event.getController().setAnimationSpeed(1);
-				}
+			}
+			if (this.isFrozen) {
+				event.getController().setAnimationSpeed(0);
+			}
+			else if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
 			}
 		}
         return PlayState.CONTINUE;
@@ -373,13 +404,15 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
-	public void createProp(){
-		FootballGearEntity propentity = new FootballGearEntity(PvZEntity.FOOTBALLGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+	public static DefaultAttributeContainer.Builder createFootballAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.21D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
 	}
 
-	public static DefaultAttributeContainer.Builder createFootballAttributes() {
+	public static DefaultAttributeContainer.Builder createBerserkerAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.21D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)

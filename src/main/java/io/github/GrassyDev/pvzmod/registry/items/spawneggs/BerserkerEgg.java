@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -48,14 +48,13 @@ public class BerserkerEgg extends Item {
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    BerserkerEntity berserkerEntity = (BerserkerEntity) PvZEntity.BERSERKER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    FootballEntity berserkerEntity = (FootballEntity) PvZEntity.BERSERKER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (berserkerEntity == null) {
                         return ActionResult.FAIL;
                     }
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     berserkerEntity.refreshPositionAndAngles(berserkerEntity.getX(), berserkerEntity.getY(), berserkerEntity.getZ(), f, 0.0F);
-					berserkerEntity.createProp();
 					berserkerEntity.setPersistent();
                     ((ServerWorld) world).spawnEntityAndPassengers(berserkerEntity);
                     world.playSound((PlayerEntity) null, berserkerEntity.getX(), berserkerEntity.getY(), berserkerEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);

@@ -10,8 +10,14 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.su
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -24,6 +30,9 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -39,7 +48,10 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -55,7 +67,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-    double tonguechance = this.random.nextDouble();
 	boolean isFrozen;
 	boolean isIced;
 
@@ -73,8 +84,19 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
-	static {
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+	}
 
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+		nbt.putInt("Variant", this.getTypeVariant());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -94,6 +116,63 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(BrowncoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		if (this.getType().equals(PvZEntity.CONEHEAD)){
+			setVariant(BrowncoatVariants.CONEHEAD);
+			createConeheadProp();
+		}
+		else if (this.getType().equals(PvZEntity.BUCKETHEAD)){
+			setVariant(BrowncoatVariants.BUCKETHEAD);
+			createBucketProp();
+		}
+		else if (this.getType().equals(PvZEntity.SCREENDOOR)){
+			createShield();
+			setVariant(BrowncoatVariants.SCREENDOOR);
+		}
+		else {
+			setVariant(BrowncoatVariants.DEFAULT);
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public BrowncoatVariants getVariant() {
+		return BrowncoatVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(BrowncoatVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+	public void createConeheadProp(){
+		ConeheadGearEntity propentity = new ConeheadGearEntity(PvZEntity.CONEHEADGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
+	public void createBucketProp(){
+		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.BUCKETHEADGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
+	public void createShield(){
+		ScreendoorShieldEntity screendoorShieldEntity = new ScreendoorShieldEntity(PvZEntity.SCREENDOORSHIELD, this.world);
+		screendoorShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		screendoorShieldEntity.startRiding(this);
+	}
+
+
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
@@ -109,64 +188,56 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		ZombiePropEntity zombiePropEntity = (ZombiePropEntity) this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
-			event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
+			if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
+				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky"));
+			}
+			else if (this.hasPassenger(zombiePropEntity)) {
+				event.getController().setAnimation(new AnimationBuilder().loop("headwear.ducky"));
+			}
+			else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR)) {
+				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky2"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
+			}
 			if (this.isIced) {
 				event.getController().setAnimationSpeed(0.5);
 			}
 			else {
 				event.getController().setAnimationSpeed(1);
 			}
-		}else {
-			if (tonguechance <= 0.5) {
-				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+		} else {
+			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
+					event.getController().setAnimation(new AnimationBuilder().loop("screendoor.walking"));
+				}
+				else if (this.hasPassenger(zombiePropEntity)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("headwear.walking"));
+				}
+				else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
-				} else {
+				}
+			} else {
+				if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
+					event.getController().setAnimation(new AnimationBuilder().loop("screendoor.idle"));
+				}
+				else if (this.hasPassenger(zombiePropEntity)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("headwear.idle"));
+				}
+				else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
 				}
 			}
+			if (this.isFrozen) {
+				event.getController().setAnimationSpeed(0);
+			}
+			else if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
 			else {
-				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.7);
-					}
-					else {
-						event.getController().setAnimationSpeed(1.4);
-					}
-				} else {
-					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
-				}
+				event.getController().setAnimationSpeed(1);
 			}
 		}
 		return PlayState.CONTINUE;
@@ -228,17 +299,50 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	public void updatePassengerPosition(Entity passenger) {
+		if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR)) {
+			if (this.hasPassenger(passenger)) {
+				float g = (float) ((this.isRemoved() ? 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
+				float f = 0.4F;
 
-	/** /~*~//~*INTERACTION*~//~*~/ **/
+				Vec3d vec3d = new Vec3d((double) f, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double) g, this.getZ() + vec3d.z);
+				passenger.setBodyYaw(this.bodyYaw);
+			}
+		}
+		else {
+			super.updatePassengerPosition(passenger);
+		}
+	}
+
 
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.BROWNCOATEGG.getDefaultStack();
+		ItemStack itemStack;
+		if (this.getVariant().equals(BrowncoatVariants.CONEHEAD)){
+			itemStack = ModItems.CONEHEADEGG.getDefaultStack();
+		}
+		else if (this.getVariant().equals(BrowncoatVariants.BUCKETHEAD)){
+			itemStack = ModItems.BUCKETHEADEGG.getDefaultStack();
+		}
+		else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR)){
+			itemStack = ModItems.SCREENDOOREGG.getDefaultStack();
+		}
+		else{
+			itemStack = ModItems.BROWNCOATEGG.getDefaultStack();
+		}
+		return itemStack;
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
+	}
 
 	public boolean canWalkOnFluid(FluidState state) {
 		return state.isIn(FluidTags.WATER);

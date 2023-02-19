@@ -3,13 +3,12 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorEntity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -272,19 +271,25 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                 return false;
             } else {
                 int a = NightGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int h = NightGraveEntity.this.world.getTargets(ConeheadEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int h = NightGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 int b = NightGraveEntity.this.world.getTargets(NewspaperEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int c = NightGraveEntity.this.world.getTargets(ScreendoorEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int c = NightGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 int u = NightGraveEntity.this.world.getTargets(FootballEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int p = NightGraveEntity.this.world.getTargets(BerserkerEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+                int p = NightGraveEntity.this.world.getTargets(FootballEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 int f = NightGraveEntity.this.world.getTargets(DancingZombieEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int i = NightGraveEntity.this.world.getTargets(SuperFanImpEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int j = NightGraveEntity.this.world.getTargets(SuperFanImpEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int k = NightGraveEntity.this.world.getTargets(DefensiveEndEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 return NightGraveEntity.this.random.nextInt(8) + 1 > a &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > h &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > b &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > c &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > u &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > p &&
-                        NightGraveEntity.this.random.nextInt(8) + 1 > f  ;
+						NightGraveEntity.this.random.nextInt(8) + 1 > f &&
+                        NightGraveEntity.this.random.nextInt(8) + 1 > i &&
+						NightGraveEntity.this.random.nextInt(8) + 1 > j &&
+						NightGraveEntity.this.random.nextInt(8) + 1 > k  ;
             }
         }
 
@@ -307,9 +312,13 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 			double probability4 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 			double probability5 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability7 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability8 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability9 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 
 
-            for(int a = 0; a < 2; ++a) { // 100% x2 Browncoat
+
+			for(int a = 0; a < 2; ++a) { // 100% x2 Browncoat
                 BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                 BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(NightGraveEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -320,22 +329,20 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
             if (probability <= 0.5) { // 50% x1 Conehead
                 for (int h = 0; h < 1; ++h) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
-                    ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(NightGraveEntity.this.world);
+					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(NightGraveEntity.this.world);
                     coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                     coneheadEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
                     coneheadEntity.setOwner(NightGraveEntity.this);
-					coneheadEntity.createProp();
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
 			if (probability11 <= 0.3) { // 30% x1 Conehead
 				for (int h = 0; h < 1; ++h) {
 					BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
-					ConeheadEntity coneheadEntity = (ConeheadEntity) PvZEntity.CONEHEAD.create(NightGraveEntity.this.world);
+					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(NightGraveEntity.this.world);
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 					coneheadEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 					coneheadEntity.setOwner(NightGraveEntity.this);
-					coneheadEntity.createProp();
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
@@ -352,14 +359,26 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
             }
             if (probability3 <= 0.2) { // 20% x1 Screendoor
                 for(int c = 0; c < 1; ++c) {
-                    BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
-					ScreendoorEntity screendoorEntity = (ScreendoorEntity) PvZEntity.SCREEENDOOR.create(NightGraveEntity.this.world);
+					BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+					BrowncoatEntity screendoorEntity = (BrowncoatEntity) PvZEntity.SCREENDOOR.create(NightGraveEntity.this.world);
 					screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+					screendoorEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 					screendoorEntity.setOwner(NightGraveEntity.this);
-					screendoorEntity.createShield();
 					serverWorld.spawnEntityAndPassengers(screendoorEntity);
                 }
             }
+			if (difficulty >= 1.509) {
+				if (probability9 <= 0.15) { // 10% x2 Super-Fan Imp
+					for (int j = 0; j < 2; ++j) {
+						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						SuperFanImpEntity superFanImpEntity = (SuperFanImpEntity) PvZEntity.SUPERFANIMP.create(NightGraveEntity.this.world);
+						superFanImpEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						superFanImpEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						superFanImpEntity.setOwner(NightGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(superFanImpEntity);
+					}
+				}
+			}
 			if (difficulty >= 1.509) {
 				if (probability4 <= 0.15) { // 15% x1 Football
 					for (int u = 0; u < 1; ++u) {
@@ -368,7 +387,6 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						footballEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 						footballEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						footballEntity.setOwner(NightGraveEntity.this);
-						footballEntity.createProp();
 						serverWorld.spawnEntityAndPassengers(footballEntity);
 					}
 				}
@@ -377,11 +395,10 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				if (probability5 <= 0.085) { // 8.5% x1 Berserker
 					for (int p = 0; p < 1; ++p) {
 						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
-						BerserkerEntity berserkerEntity = (BerserkerEntity) PvZEntity.BERSERKER.create(NightGraveEntity.this.world);
+						FootballEntity berserkerEntity = (FootballEntity) PvZEntity.BERSERKER.create(NightGraveEntity.this.world);
 						berserkerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 						berserkerEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						berserkerEntity.setOwner(NightGraveEntity.this);
-						berserkerEntity.createProp();
 						serverWorld.spawnEntityAndPassengers(berserkerEntity);
 					}
 				}
@@ -395,6 +412,30 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						dancingZombieEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						dancingZombieEntity.setOwner(NightGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(dancingZombieEntity);
+					}
+				}
+			}
+			if (difficulty >= 1.509) {
+				if (probability8 <= 0.1) { // 10% x2 New Years Imp
+					for (int j = 0; j < 2; ++j) {
+						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						SuperFanImpEntity superFanImpEntity = (SuperFanImpEntity) PvZEntity.NEWYEARIMP.create(NightGraveEntity.this.world);
+						superFanImpEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						superFanImpEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						superFanImpEntity.setOwner(NightGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(superFanImpEntity);
+					}
+				}
+			}
+			if (difficulty >= 2.09) {
+				if (probability7 <= 0.065) { // 6.5% x1 Defensive End
+					for (int k = 0; k < 1; ++k) {
+						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						DefensiveEndEntity defensiveEndEntity = (DefensiveEndEntity) PvZEntity.DEFENSIVEEND.create(NightGraveEntity.this.world);
+						defensiveEndEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						defensiveEndEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						defensiveEndEntity.setOwner(NightGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(defensiveEndEntity);
 					}
 				}
 			}

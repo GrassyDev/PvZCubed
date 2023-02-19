@@ -28,7 +28,8 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/peashooter_entry",
-        "pvzmod:plants/squash_entry"
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/chomper_entry"
       ]
     },
     {

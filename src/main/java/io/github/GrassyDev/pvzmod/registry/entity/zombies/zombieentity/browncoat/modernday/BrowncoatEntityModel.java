@@ -8,13 +8,13 @@ public class BrowncoatEntityModel extends AnimatedGeoModel<BrowncoatEntity> {
     @Override
     public Identifier getModelResource(BrowncoatEntity object)
     {
-        return new Identifier("pvzmod", "geo/browncoat.geo.json");
+		return BrowncoatEntityRenderer.LOCATION_MODEL_BY_VARIANT.get(object.getVariant());
     }
 
     @Override
     public Identifier getTextureResource(BrowncoatEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/browncoat/browncoat.png");
+		return BrowncoatEntityRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
     }
 
     @Override

@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,6 +25,13 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	@Override
 	public boolean canBeRiddenInWater() {
 		return true;
+	}
+
+	public boolean isPushable() {
+		return false;
+	}
+
+	protected void pushAway(Entity entity) {
 	}
 
 	public PlantEntity CollidesWithPlant(){

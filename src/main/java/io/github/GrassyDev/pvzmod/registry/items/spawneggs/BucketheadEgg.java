@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -48,14 +48,13 @@ public class BucketheadEgg extends Item {
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    BucketheadEntity bucketheadEntity = (BucketheadEntity) PvZEntity.BUCKETHEAD.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+					BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (bucketheadEntity == null) {
                         return ActionResult.FAIL;
                     }
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     bucketheadEntity.refreshPositionAndAngles(bucketheadEntity.getX(), bucketheadEntity.getY(), bucketheadEntity.getZ(), f, 0.0F);
-					bucketheadEntity.createProp();
 					bucketheadEntity.setPersistent();
                     ((ServerWorld) world).spawnEntityAndPassengers(bucketheadEntity);
                     world.playSound((PlayerEntity) null, bucketheadEntity.getX(), bucketheadEntity.getY(), bucketheadEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);

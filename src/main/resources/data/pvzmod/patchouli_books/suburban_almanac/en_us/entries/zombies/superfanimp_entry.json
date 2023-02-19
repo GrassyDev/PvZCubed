@@ -1,0 +1,48 @@
+{
+  "name": "Super-Fan Imp",
+  "icon": "pvzmod:superfanimp_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 100,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)20",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8, 30 (Explosion)",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)3 Blocks",
+        "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Explodes near a plant, or bites it if it's fire is extinguished.",
+        "$(br2)$(#bd951a)Super-Fan Imp has season tickets and is super pumped about exploding on contact with fans of the opposing team."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/superfanimp.png"
+      ],
+      "title": "Night Zombie",
+      "border": "true",
+      "text": "$(#25228d)An all-too-enthusiastic imp who explodes with rah-rah-rah fervor."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/narcissus_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: Garden Warfare: $()$(#ff0000)Imp Punt",
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Super-Fan Imp"
+      ]
+    }
+  ]
+}

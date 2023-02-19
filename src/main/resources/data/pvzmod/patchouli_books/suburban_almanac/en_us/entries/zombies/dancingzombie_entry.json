@@ -29,6 +29,7 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/jalapeno_entry",
         "pvzmod:plants/fumeshroom_entry",
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",

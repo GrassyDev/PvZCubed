@@ -142,7 +142,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
         if (!world.isClient && entity instanceof Monster &&
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
+			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !entity.isOnFire() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				if (!(entity instanceof ZombieShieldEntity)) {
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 				}

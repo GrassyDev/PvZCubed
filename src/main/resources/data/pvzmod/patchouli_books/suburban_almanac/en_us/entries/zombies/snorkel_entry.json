@@ -27,12 +27,10 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
+        "pvzmod:plants/cabbagepult_entry",
         "pvzmod:plants/wallnut_entry",
-        "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/chomper_entry",
-        "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",
-        "pvzmod:plants/doomshroom_entry",
         "pvzmod:plants/lilypad_entry",
         "pvzmod:plants/squash_entry",
         "pvzmod:plants/tanglekelp_entry",

@@ -1,7 +1,9 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -10,8 +12,10 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -104,6 +108,19 @@ public class ConeheadGearEntity extends ZombiePropEntity implements IAnimatable 
 
 	protected SoundEvent getStepSound() {
 		return PvZCubed.SILENCEVENET;
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		ItemStack itemStack;
+		if (this.getVehicle() instanceof BackupDancerEntity){
+			itemStack = ModItems.BACKUPDANCEREGG.getDefaultStack();
+		}
+		else {
+			itemStack = ModItems.CONEHEADEGG.getDefaultStack();
+		}
+		return itemStack;
 	}
 
 }
