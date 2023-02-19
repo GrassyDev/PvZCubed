@@ -328,7 +328,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
 							this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
-							this.peashooterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.peashooterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.peashooterEntity.world.spawnEntity(proj);
 						}
 					}

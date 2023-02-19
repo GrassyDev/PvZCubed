@@ -148,7 +148,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 				}
 			}
-			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.25F, 1F);
+			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.2F, 1F);
 			float damage = 4F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&

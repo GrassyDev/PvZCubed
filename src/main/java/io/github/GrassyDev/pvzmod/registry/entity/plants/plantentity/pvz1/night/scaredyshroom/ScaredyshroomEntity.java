@@ -499,7 +499,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 								if (livingEntity.isAlive()) {
 									this.beamTicks = -13;
 									this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
-									this.scaredyshroomEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+									this.scaredyshroomEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 									this.scaredyshroomEntity.world.spawnEntity(proj);
 								}
 							}

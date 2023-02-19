@@ -160,7 +160,7 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			if (entity2 != entityStore && entityStoreVehicle != entity2) {
-				entity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
 						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -174,7 +174,7 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 				entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
 			}
 			else {
-				entity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
 			entityStore = (LivingEntity) entityHitResult.getEntity();

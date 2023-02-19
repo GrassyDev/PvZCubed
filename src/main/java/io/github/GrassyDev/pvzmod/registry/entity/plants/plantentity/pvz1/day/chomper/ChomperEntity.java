@@ -219,7 +219,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 					case "plastic" -> PvZCubed.CONEHITEVENT;
 					default -> PvZCubed.PEAHITEVENT;
 				};
-				passenger.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+				passenger.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
 				return bl;
 			} else {
@@ -247,7 +247,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 					case "plastic" -> PvZCubed.CONEHITEVENT;
 					default -> PvZCubed.PEAHITEVENT;
 				};
-				target.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+				target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
 				return bl;
 			} else {

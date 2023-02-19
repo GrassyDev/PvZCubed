@@ -313,7 +313,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 11);
-							this.gatlingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.gatlingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.gatlingpeaEntity.world.spawnEntity(proj);
 						}
 					}
@@ -334,7 +334,7 @@ public class GatlingpeaEntity extends AppeaseEntity implements IAnimatable, Rang
 					proj.setOwner(this.gatlingpeaEntity);
 					if (livingEntity.isAlive()) {
 						this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 11);
-						this.gatlingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+						this.gatlingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 						this.gatlingpeaEntity.world.spawnEntity(proj);
 					}
 				}

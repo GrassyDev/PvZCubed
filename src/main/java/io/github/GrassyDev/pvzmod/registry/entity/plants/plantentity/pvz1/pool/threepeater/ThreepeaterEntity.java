@@ -313,7 +313,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 						proj.setOwner(this.threepeaterentity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -16;
-							this.threepeaterentity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.threepeaterentity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.threepeaterentity.world.spawnEntity(proj);
 						}
 						// Right Pea
@@ -330,7 +330,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 						proj3.setOwner(this.threepeaterentity);
 						if (livingEntity.isAlive()) {
 							this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 11);
-							this.threepeaterentity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.threepeaterentity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.threepeaterentity.world.spawnEntity(proj3);
 						}
 						// Left Pea
@@ -346,7 +346,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 						proj2.updatePosition(this.threepeaterentity.getX() + vec3d2.x * 0.55, this.threepeaterentity.getY() + 0.5, this.threepeaterentity.getZ() + vec3d2.z * 0.55);
 						proj2.setOwner(this.threepeaterentity);
 						if (livingEntity.isAlive()) {
-							this.threepeaterentity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.threepeaterentity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.threepeaterentity.world.spawnEntity(proj2);
 						}
 					}

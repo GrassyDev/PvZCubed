@@ -488,7 +488,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 						proj.setOwner(this.peapodEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -16;
-							this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.peapodEntity.world.spawnEntity(proj);
 						}
 						if (peapodEntity.getCount().getId() >= 1) {
@@ -509,7 +509,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 									proj3.setVariant(ShootingPeaVariants.BLACK);
 								}
 								this.peapodEntity.world.sendEntityStatus(this.peapodEntity, (byte) 11);
-								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 								this.peapodEntity.world.spawnEntity(proj3);
 							}
 						}
@@ -530,7 +530,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
 									proj2.setVariant(ShootingPeaVariants.PURPLE);
 								}
-								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 								this.peapodEntity.world.spawnEntity(proj2);
 							}
 						}
@@ -550,7 +550,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
 									proj4.setVariant(ShootingPeaVariants.BLUE);
 								}
-								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 								this.peapodEntity.world.spawnEntity(proj4);
 							}
 						}
@@ -570,7 +570,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
 									proj5.setVariant(ShootingPeaVariants.CYAN);
 								}
-								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 								this.peapodEntity.world.spawnEntity(proj5);
 							}
 						}

@@ -309,7 +309,7 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
 							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 11);
-							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.plantEntity.world.spawnEntity(proj);
 						}
 					}

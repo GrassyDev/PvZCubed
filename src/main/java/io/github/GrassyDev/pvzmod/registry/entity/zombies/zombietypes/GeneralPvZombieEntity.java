@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
@@ -8,12 +9,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -28,6 +31,11 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	}
 
 	public float colliderOffset = 0.4F;
+
+	public boolean armless;
+	public boolean geardmg;
+	public boolean gearless;
+
 
 	protected void initDataTracker() {
 		super.initDataTracker();
@@ -95,6 +103,16 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected void pushAway(Entity entity) {
 	}
 
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return (this.getHypno()) ? PvZCubed.ZOMBIEBITEEVENT : PvZCubed.SILENCEVENET;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return PvZCubed.POPHEADEVENT;
+	}
+
 	public PlantEntity CollidesWithPlant(){
 		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
@@ -126,8 +144,29 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 	}
 
+	boolean pop = true;
+
 	public void tick() {
 		super.tick();
+		this.armless = this.getHealth() < this.getMaxHealth() / 2;
+		Entity entity = this;
+		if (this.getHealth() < this.getMaxHealth() / 2 && !(entity instanceof ZombiePropEntity)){
+			if (this.pop){
+				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
+				pop = false;
+			}
+		}
+		if (this.getFirstPassenger() instanceof ZombiePropEntity zombiePropEntity){
+			this.geardmg = zombiePropEntity.getHealth() < zombiePropEntity.getMaxHealth() / 2;
+			this.gearless = false;
+		}
+		else {
+			this.gearless = true;
+			this.geardmg = false;
+		}
+		if (this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno() && this.getHypno()){
+			this.setTarget(null);
+		}
 		if (this.getTarget() instanceof FireTrailEntity){
 			this.setTarget(null);
 		}

@@ -337,7 +337,7 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 				this.currentFuseTime = this.fuseTime;
 				this.raycastExplode();
 				this.world.sendEntityStatus(this, (byte) 6);
-				this.playSound(PvZCubed.SNOWPEAHITEVENT, 1F, 1F);
+				this.playSound(PvZCubed.SNOWPEAHITEVENT, 0.2F, 1F);
 				this.spawnEffectsCloud();
 				this.dead = true;
 				this.remove(RemovalReason.DISCARDED);

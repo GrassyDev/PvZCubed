@@ -156,10 +156,10 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			if (entity instanceof ZombieShieldEntity){
-				entity.playSound(sound, 0.25F, 1F);
+				entity.playSound(sound, 0.2F, 1F);
 			}
 			else {
-				entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.25F, 1F);
+				entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.2F, 1F);
 			}
 			float damage = 4F;
 			if (damage > ((LivingEntity) entity).getHealth() &&

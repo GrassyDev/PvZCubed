@@ -5,9 +5,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
 import java.util.Objects;
@@ -29,6 +31,16 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 	}
 
 	protected void pushAway(Entity entity) {
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return (this.getHypno()) ? PvZCubed.ZOMBIEBITEEVENT : PvZCubed.SILENCEVENET;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return PvZCubed.POPLIMBEVENT;
 	}
 
 	public void tick() {

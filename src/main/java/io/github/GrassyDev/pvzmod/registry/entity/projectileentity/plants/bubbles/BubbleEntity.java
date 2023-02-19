@@ -122,7 +122,7 @@ public class BubbleEntity extends ThrownItemEntity implements IAnimatable {
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			if (entity2 != entityStore && entityStoreVehicle != entity2) {
-				entity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
 						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -139,7 +139,7 @@ public class BubbleEntity extends ThrownItemEntity implements IAnimatable {
 				entity.extinguish();
 			}
 			else {
-				entity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
 			entityStore = (LivingEntity) entityHitResult.getEntity();

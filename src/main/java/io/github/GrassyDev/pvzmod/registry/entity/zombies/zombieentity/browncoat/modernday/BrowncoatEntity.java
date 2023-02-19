@@ -215,14 +215,11 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
 				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky"));
 			}
-			else if (this.hasPassenger(zombiePropEntity)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("headwear.ducky"));
-			}
 			else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR)) {
 				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky2"));
 			}
 			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.ducky"));
+				event.getController().setAnimation(new AnimationBuilder().loop("headwear.ducky"));
 			}
 			if (this.isIced) {
 				event.getController().setAnimationSpeed(0.5);
@@ -235,21 +232,15 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 				if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
 					event.getController().setAnimation(new AnimationBuilder().loop("screendoor.walking"));
 				}
-				else if (this.hasPassenger(zombiePropEntity)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("headwear.walking"));
-				}
 				else {
-					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.walking"));
+					event.getController().setAnimation(new AnimationBuilder().loop("headwear.walking"));
 				}
 			} else {
 				if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
 					event.getController().setAnimation(new AnimationBuilder().loop("screendoor.idle"));
 				}
-				else if (this.hasPassenger(zombiePropEntity)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("headwear.idle"));
-				}
 				else {
-					event.getController().setAnimation(new AnimationBuilder().loop("newbrowncoat.idle"));
+					event.getController().setAnimation(new AnimationBuilder().loop("headwear.idle"));
 				}
 			}
 			if (this.isFrozen) {
@@ -327,24 +318,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
-	boolean armless;
-	boolean geardmg;
-	boolean gearless;
-
 	public void tick() {
 		super.tick();
-		if (this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno() && this.getHypno()){
-			this.setTarget(null);
-		}
-		this.armless = this.getHealth() < this.getMaxHealth() / 2;
-		if (this.getFirstPassenger() instanceof ZombiePropEntity zombiePropEntity){
-			this.geardmg = zombiePropEntity.getHealth() < zombiePropEntity.getMaxHealth() / 2;
-			this.gearless = false;
-		}
-		else {
-			this.gearless = true;
-			this.geardmg = false;
-		}
 		this.updateFloating();
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
@@ -443,11 +418,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {

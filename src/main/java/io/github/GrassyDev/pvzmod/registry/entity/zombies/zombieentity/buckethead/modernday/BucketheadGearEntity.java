@@ -9,7 +9,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
@@ -82,12 +81,8 @@ public class BucketheadGearEntity extends ZombiePropEntity implements IAnimatabl
         return PlayState.CONTINUE;
     }
 
-	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
-	}
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
 	public static DefaultAttributeContainer.Builder createBucketheadGearAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)

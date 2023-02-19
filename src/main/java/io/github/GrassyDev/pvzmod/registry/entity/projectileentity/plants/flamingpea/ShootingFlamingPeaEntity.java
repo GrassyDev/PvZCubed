@@ -157,7 +157,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.25F, 1F);
+			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, 1F);
 			float damage = 4F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&

@@ -137,7 +137,7 @@ public class ArmorBubbleEntity extends ThrownItemEntity implements IAnimatable {
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			entity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+			entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 			float damage = 2F;
 			if (entity instanceof ZombiePropEntity && !(entity instanceof ZombieShieldEntity)){
 				entity.kill();

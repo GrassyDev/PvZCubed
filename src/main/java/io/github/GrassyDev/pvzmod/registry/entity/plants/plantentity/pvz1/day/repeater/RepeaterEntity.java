@@ -354,7 +354,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.repeaterEntity.world.sendEntityStatus(this.repeaterEntity, (byte) 11);
-							this.repeaterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.repeaterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.repeaterEntity.world.spawnEntity(proj);
 						}
 					}

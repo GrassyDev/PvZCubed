@@ -228,7 +228,7 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 								case "plastic" -> PvZCubed.CONEHITEVENT;
 								default -> PvZCubed.PEAHITEVENT;
 							};
-							livingEntity.playSound(sound, 0.4F, (float) (0.5F + Math.random()));
+							livingEntity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 							float damage = 4F;
 							if (damage > livingEntity.getHealth() &&
 									!(livingEntity instanceof ZombieShieldEntity) &&
@@ -445,7 +445,7 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 					if (!this.sunflowerSeedEntity.isInsideWaterOrBubbleColumn()) {
 						this.beamTicks = -6;
 						this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 11);
-						this.sunflowerSeedEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+						this.sunflowerSeedEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 						this.sunflowerSeedEntity.splashDamage();
 						this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 6);
 						this.sunflowerSeedEntity.produceSun = true;

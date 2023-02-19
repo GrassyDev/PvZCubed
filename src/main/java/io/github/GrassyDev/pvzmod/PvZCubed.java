@@ -234,6 +234,12 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 	public static final Identifier ZOMBIEBITE = new Identifier("pvzmod:zombie.bite");
 	public static SoundEvent ZOMBIEBITEEVENT = new SoundEvent(ZOMBIEBITE);
 
+	public static final Identifier POPLIMB = new Identifier("pvzmod:pop.limb");
+	public static SoundEvent POPLIMBEVENT = new SoundEvent(POPLIMB);
+
+	public static final Identifier POPHEAD = new Identifier("pvzmod:pop.head");
+	public static SoundEvent POPHEADEVENT = new SoundEvent(POPHEAD);
+
 	public static final Identifier POLEVAULT = new Identifier("pvzmod:polevaulting.vault");
 	public static SoundEvent POLEVAULTEVENT = new SoundEvent(POLEVAULT);
 
@@ -299,6 +305,8 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PLANTPLANTED, PLANTPLANTEDEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SUNDROP, SUNDROPEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEBITE, ZOMBIEBITEEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.POPLIMB, POPLIMBEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.POPHEAD, POPHEADEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.POLEVAULT, POLEVAULTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARSMASH, GARGANTUARSMASHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPLAUNCH, IMPLAUNCHEVENT);

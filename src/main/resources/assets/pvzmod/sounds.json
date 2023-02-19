@@ -114,6 +114,16 @@
       "pvzmod:zombie_bite"
     ]
   },
+  "pop.limb": {
+    "sounds": [
+      "pvzmod:pop_limb"
+    ]
+  },
+  "pop.head": {
+    "sounds": [
+      "pvzmod:pop_head"
+    ]
+  },
   "polevaulting.vault": {
     "sounds": [
       "pvzmod:polevaulting_vault"

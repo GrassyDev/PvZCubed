@@ -397,7 +397,7 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 11);
-							this.snowqueenpeaentity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.snowqueenpeaentity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.snowqueenpeaentity.world.spawnEntity(proj);
 						}
 					}
@@ -421,7 +421,7 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 11);
-							this.snowqueenpeaentity.playSound(PvZCubed.PEASHOOTEVENT, 0.3F, 1);
+							this.snowqueenpeaentity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.snowqueenpeaentity.world.spawnEntity(proj);
 						}
 					}
