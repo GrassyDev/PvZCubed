@@ -59,7 +59,6 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 				stacks.add(new ItemStack(ModItems.SUN));
 				stacks.add(new ItemStack(ModItems.LARGESUN));
 				stacks.add(new ItemStack(ModItems.DAVES_SHOVEL));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.PEASHOOTER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SUNFLOWER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.CHERRYBOMB_SEED_PACKET));
@@ -84,24 +83,18 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 				stacks.add(new ItemStack(ModItems.CABBAGEPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.GATLINGPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TWINSUNFLOWER_SEED_PACKET));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.SNOW_QUEENPEA_SEED_PACKET));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.PERFOOMSHROOM_SEED_PACKET));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.ICEBERGLETTUCE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.SMALLNUT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BUTTONSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BOMBSEEDLING_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.WEENIEBEANIE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SUNFLOWERSEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BELLFLOWER_SEED_PACKET));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
 				stacks.add(new ItemStack(ModItems.FUME));
@@ -122,7 +115,6 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 			.icon(() -> new ItemStack(ModItems.WAVE_FLAG))
 			.appendItems(stacks -> {
 				stacks.add(new ItemStack(ModItems.LOCUSTSWARMEGG));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.BROWNCOATEGG));
 				stacks.add(new ItemStack(ModItems.FLAGZOMBIEEGG));
 				stacks.add(new ItemStack(ModItems.CONEHEADEGG));
@@ -136,13 +128,9 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 				stacks.add(new ItemStack(ModItems.SNORKELEGG));
 				stacks.add(new ItemStack(ModItems.GARGANTUAREGG));
 				stacks.add(new ItemStack(ModItems.IMPEGG));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.NEWYEARIMPEGG));
-				stacks.add(new ItemStack(ItemStack.EMPTY.getItem()));
 				stacks.add(new ItemStack(ModItems.DEFENSIVEENDEGG));
 			}).build();
 
