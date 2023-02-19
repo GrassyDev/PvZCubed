@@ -145,26 +145,21 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		else if (this.getType().equals(PvZEntity.BROWNCOATHYPNO)){
 			setVariant(BrowncoatVariants.BROWNCOATHYPNO);
 			this.setHypno(IsHypno.TRUE);
-			this.initHypnoGoals();
 		}
 		else if (this.getType().equals(PvZEntity.CONEHEADHYPNO)){
 			setVariant(BrowncoatVariants.CONEHEADHYPNO);
 			this.setHypno(IsHypno.TRUE);
-			this.initHypnoGoals();
 		}
 		else if (this.getType().equals(PvZEntity.BUCKETHEADHYPNO)){
 			setVariant(BrowncoatVariants.BUCKETHEADHYPNO);
 			this.setHypno(IsHypno.TRUE);
-			this.initHypnoGoals();
 		}
 		else if (this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
 			setVariant(BrowncoatVariants.SCREENDOORHYPNO);
 			this.setHypno(IsHypno.TRUE);
-			this.initHypnoGoals();
 		}
 		else {
 			setVariant(BrowncoatVariants.BROWNCOAT);
-			this.initCustomGoals();
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
@@ -274,6 +269,15 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
+		if (this.getType().equals(PvZEntity.BROWNCOATHYPNO) ||
+				this.getType().equals(PvZEntity.CONEHEADHYPNO) ||
+				this.getType().equals(PvZEntity.BUCKETHEADHYPNO) ||
+				this.getType().equals(PvZEntity.SCREENDOORHYPNO)) {
+			initHypnoGoals();
+		}
+		else {
+			initCustomGoals();
+		}
     }
 
     protected void initCustomGoals() {
@@ -367,18 +371,19 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	/** /~*~//~*INTERACTION*~//~*~/ **/
 
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
 		ItemStack itemStack;
-		if (this.getVariant().equals(BrowncoatVariants.CONEHEAD)){
+		if (this.getVariant().equals(BrowncoatVariants.CONEHEAD) || this.getType().equals(PvZEntity.CONEHEADHYPNO)){
 			itemStack = ModItems.CONEHEADEGG.getDefaultStack();
 		}
-		else if (this.getVariant().equals(BrowncoatVariants.BUCKETHEAD)){
+		else if (this.getVariant().equals(BrowncoatVariants.BUCKETHEAD) || this.getType().equals(PvZEntity.BUCKETHEADHYPNO)){
 			itemStack = ModItems.BUCKETHEADEGG.getDefaultStack();
 		}
-		else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR)){
+		else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) || this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
 			itemStack = ModItems.SCREENDOOREGG.getDefaultStack();
 		}
 		else{
@@ -493,6 +498,9 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
                 }
 				if (this.getFirstPassenger() != null){
 					Entity entity = this.getFirstPassenger();
+					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+						generalPvZombieEntity.setHypno(IsHypno.TRUE);
+					}
 					entity.startRiding(hypnotizedZombie);
 				}
 

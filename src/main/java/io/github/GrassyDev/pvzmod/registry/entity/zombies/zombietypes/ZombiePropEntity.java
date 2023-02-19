@@ -39,6 +39,9 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 			this.setHypno(IsHypno.TRUE);
 			vehicle.damage(PvZCubed.HYPNO_DAMAGE, 0);
 		}
+		if (vehicle instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()){
+			this.setHypno(IsHypno.TRUE);
+		}
 		if (vehicle != null && this.getCustomName() != vehicle.getCustomName()){
 			vehicle.setCustomName(this.getCustomName());
 			((HostileEntity) vehicle).setPersistent();

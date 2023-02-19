@@ -27,17 +27,17 @@ public class BrowncoatEntityRenderer extends GeoEntityRenderer<BrowncoatEntity> 
 				map.put(BrowncoatVariants.BROWNCOATHYPNO,
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
 				map.put(BrowncoatVariants.CONEHEAD,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/conehead.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat.png"));
 				map.put(BrowncoatVariants.CONEHEADHYPNO,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/conehead_hypnotized.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
 				map.put(BrowncoatVariants.BUCKETHEAD,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/buckethead.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat.png"));
 				map.put(BrowncoatVariants.BUCKETHEADHYPNO,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/buckethead_hypnotized.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
 				map.put(BrowncoatVariants.SCREENDOOR,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/screendoor.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat.png"));
 				map.put(BrowncoatVariants.SCREENDOORHYPNO,
-						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/screendoor_hypnotized.png"));
+						new Identifier(PvZCubed.MOD_ID, "textures/entity/browncoat/browncoat_hypnotized.png"));
 			});
 
 	public Identifier getTextureResource(BrowncoatEntity object) {
