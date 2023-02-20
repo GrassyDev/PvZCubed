@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntityRenderer;
@@ -63,24 +62,21 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm.LocustswarmEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.screendoor.ScreendoorShieldEntityRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -213,7 +209,11 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.POLEVAULTING, PoleVaultingEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.BUCKETHEADGEAR, BucketheadGearEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BUCKETGEAR, BucketheadGearEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.MEDALLIONGEAR, BucketheadGearEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, BucketheadGearEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FOOTBALLGEAR, BucketheadGearEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, BucketheadGearEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPERSHIELD, NewspaperShieldEntityRenderer::new);
@@ -223,15 +223,13 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BERSERKER, FootballEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, BerserkerGearEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.FOOTBALLGEAR, FootballGearEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNODANCINGZOMBIE, HypnoDancingZombieEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.BACKUPDANCER, BackupDancerEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.HYPNOBACKUPDANCER, HypnoBackupDancerEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BACKUPDANCERHYPNO, BackupDancerEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DUCKYTUBE, DuckyTubeEntityRenderer::new);
 
@@ -249,7 +247,6 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMP, SuperFanImpEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, DefensiveEndGearEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.LOCUSTSWARM, LocustswarmEntityRenderer::new);
 

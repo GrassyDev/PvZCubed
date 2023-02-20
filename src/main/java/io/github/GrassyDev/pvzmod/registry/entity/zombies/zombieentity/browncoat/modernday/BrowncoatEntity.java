@@ -10,9 +10,9 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday.BucketheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor.ScreendoorShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.screendoor.ScreendoorShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -20,8 +20,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShie
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -119,6 +117,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		super.setHypno(hypno);
 	}
 
+
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
@@ -183,7 +182,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	public void createBucketProp(){
-		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.BUCKETHEADGEAR, this.world);
+		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.BUCKETGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
 	}
@@ -210,9 +209,9 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		ZombiePropEntity zombiePropEntity = (ZombiePropEntity) this.getFirstPassenger();
+		Entity entity = this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
-			if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
+			if (this.hasPassenger(entity) && entity instanceof ZombieShieldEntity){
 				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky"));
 			}
 			else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR)) {
@@ -229,14 +228,14 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			}
 		} else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
+				if (this.hasPassenger(entity) && entity instanceof ZombieShieldEntity){
 					event.getController().setAnimation(new AnimationBuilder().loop("screendoor.walking"));
 				}
 				else {
 					event.getController().setAnimation(new AnimationBuilder().loop("headwear.walking"));
 				}
 			} else {
-				if (this.hasPassenger(zombiePropEntity) && zombiePropEntity instanceof ZombieShieldEntity){
+				if (this.hasPassenger(entity) && entity instanceof ZombieShieldEntity){
 					event.getController().setAnimation(new AnimationBuilder().loop("screendoor.idle"));
 				}
 				else {
@@ -320,7 +319,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		this.updateFloating();
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
@@ -397,15 +395,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	protected boolean shouldSwimInFluids() {
 		return true;
-	}
-
-	private void updateFloating() {
-		if (this.isInsideWaterOrBubbleColumn()) {
-			ShapeContext shapeContext = ShapeContext.of(this);
-			if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
-				this.onGround = true;
-			}
-		}
 	}
 
 	public static DefaultAttributeContainer.Builder createBrowncoatAttributes() {

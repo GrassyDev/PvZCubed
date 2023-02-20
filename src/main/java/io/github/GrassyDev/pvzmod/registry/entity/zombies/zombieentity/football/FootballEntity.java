@@ -12,7 +12,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FootballVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.berserker.BerserkerGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
@@ -181,13 +181,13 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	public void createFootballProp(){
-		FootballGearEntity propentity = new FootballGearEntity(PvZEntity.FOOTBALLGEAR, this.world);
+		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.FOOTBALLGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
 	}
 
 	public void createBerserkerProp(){
-		BerserkerGearEntity propentity = new BerserkerGearEntity(PvZEntity.BERSERKERGEAR, this.world);
+		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.BERSERKERGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
 	}

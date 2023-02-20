@@ -3,8 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizede
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.minecraft.block.BlockState;
@@ -194,7 +194,8 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
 			this.startTime = HypnoDancingZombieEntity.this.age + this.startTimeDelay();
 			SoundEvent soundEvent = this.getSoundPrepare();
 			if (soundEvent != null) {
-				HypnoDancingZombieEntity.this.playSound(soundEvent, 1.0F, 1.0F);
+				playSound(PvZCubed.ENTITYRISINGEVENT);
+				HypnoDancingZombieEntity.this.playSound(soundEvent, 0.75F, 1.0F);
 			}
 
 			HypnoDancingZombieEntity.this.setSpell(this.getSpell());
@@ -238,10 +239,10 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
                 if (!super.canStart()) {
                     return false;
                 } else {
-                    int b = HypnoDancingZombieEntity.this.world.getTargets(HypnoBackupDancerEntity.class, this.closeZombiePredicate, HypnoDancingZombieEntity.this, HypnoDancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int p = HypnoDancingZombieEntity.this.world.getTargets(HypnoBackupDancerEntity.class, this.closeZombiePredicate, HypnoDancingZombieEntity.this, HypnoDancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int d = HypnoDancingZombieEntity.this.world.getTargets(HypnoBackupDancerEntity.class, this.closeZombiePredicate, HypnoDancingZombieEntity.this, HypnoDancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int t = HypnoDancingZombieEntity.this.world.getTargets(HypnoBackupDancerEntity.class, this.closeZombiePredicate, HypnoDancingZombieEntity.this, HypnoDancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
+                    int b = HypnoDancingZombieEntity.this.world.getTargets(BackupDancerEntity.class, this.closeZombiePredicate, HypnoDancingZombieEntity.this, HypnoDancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
+                    int p = HypnoDancingZombieEntity.this.world.getTargets(BackupDancerEntity.class, this.closeZombiePredicate, HypnoDancingZombieEntity.this, HypnoDancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
+                    int d = HypnoDancingZombieEntity.this.world.getTargets(BackupDancerEntity.class, this.closeZombiePredicate, HypnoDancingZombieEntity.this, HypnoDancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
+                    int t = HypnoDancingZombieEntity.this.world.getTargets(BackupDancerEntity.class, this.closeZombiePredicate, HypnoDancingZombieEntity.this, HypnoDancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
                     return HypnoDancingZombieEntity.this.random.nextInt(8) + 1 > b &&
                             HypnoDancingZombieEntity.this.random.nextInt(8) + 1 > p &&
                             HypnoDancingZombieEntity.this.random.nextInt(8) + 1 > d &&
@@ -265,37 +266,45 @@ public class HypnoDancingZombieEntity extends HypnoSummonerEntity implements IAn
 
             for(int b = 0; b < 1; ++b) { // 1 backup
                 BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(-1, 1, 0);
-                HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
+                BackupDancerEntity hypnoBackupDancerEntity = (BackupDancerEntity)PvZEntity.BACKUPDANCERHYPNO.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound) null);
                 hypnoBackupDancerEntity.setOwner(HypnoDancingZombieEntity.this);
+				hypnoBackupDancerEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(hypnoBackupDancerEntity);
+				HypnoDancingZombieEntity.this.playSound(PvZCubed.ENTITYRISINGEVENT, 1F, 1.0F);
             }
             for(int p = 0; p < 1; ++p) { // 1 backup
                 BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(0, 1, +1);
-                HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
+				BackupDancerEntity hypnoBackupDancerEntity = (BackupDancerEntity)PvZEntity.BACKUPDANCERHYPNO.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 hypnoBackupDancerEntity.setOwner(HypnoDancingZombieEntity.this);
+				hypnoBackupDancerEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(hypnoBackupDancerEntity);
+				HypnoDancingZombieEntity.this.playSound(PvZCubed.ENTITYRISINGEVENT, 1F, 1.0F);
             }
             for(int d = 0; d < 1; ++d) { // 1 backup
                 BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(+1, 1, 0);
-                HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
+				BackupDancerEntity hypnoBackupDancerEntity = (BackupDancerEntity)PvZEntity.BACKUPDANCERHYPNO.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 hypnoBackupDancerEntity.setOwner(HypnoDancingZombieEntity.this);
+				hypnoBackupDancerEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(hypnoBackupDancerEntity);
+				HypnoDancingZombieEntity.this.playSound(PvZCubed.ENTITYRISINGEVENT, 1F, 1.0F);
             }
             for(int t = 0; t < 1; ++t) { // 1 backup
                 BlockPos blockPos = HypnoDancingZombieEntity.this.getBlockPos().add(+0, 1, -1);
-                HypnoBackupDancerEntity hypnoBackupDancerEntity = (HypnoBackupDancerEntity) PvZEntity.HYPNOBACKUPDANCER.create(HypnoDancingZombieEntity.this.world);
+				BackupDancerEntity hypnoBackupDancerEntity = (BackupDancerEntity) PvZEntity.BACKUPDANCERHYPNO.create(HypnoDancingZombieEntity.this.world);
                 hypnoBackupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 hypnoBackupDancerEntity.initialize(serverWorld, HypnoDancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 hypnoBackupDancerEntity.setOwner(HypnoDancingZombieEntity.this);
+				hypnoBackupDancerEntity.createProp();
                 serverWorld.spawnEntityAndPassengers(hypnoBackupDancerEntity);
-                HypnoDancingZombieEntity.this.dancing = false;
+				HypnoDancingZombieEntity.this.playSound(PvZCubed.ENTITYRISINGEVENT, 1F, 1.0F);
             }
+			HypnoDancingZombieEntity.this.dancing = false;
         }
 
         protected SoundEvent getSoundPrepare() {

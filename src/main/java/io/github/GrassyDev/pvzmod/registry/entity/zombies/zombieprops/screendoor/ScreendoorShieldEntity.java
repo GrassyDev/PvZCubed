@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.screendoor;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.screendoor;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;

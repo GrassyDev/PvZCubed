@@ -230,7 +230,7 @@
 
   "entity.pvzmod.conehead": "Conehead Zombie",
   "item.pvzmod.conehead_egg": "Conehead Zombie",
-  "entity.pvzmod.coneheadgear": "Plastic Wear",
+  "entity.pvzmod.coneheadgear": "Cone",
   "entity.pvzmod.conehead_hypnotized": "Hypnotized Conehead",
 
   "entity.pvzmod.polevaulting": "Pole Vaulting Zombie",
@@ -260,6 +260,7 @@
   "entity.pvzmod.dancing_zombie": "Dancing Zombie",
   "item.pvzmod.dancingzombie_egg": "Dancing Zombie",
   "entity.pvzmod.dancing_zombie_hypnotized": "Hypnotized Dancing Zombie",
+  "entity.pvzmod.medalliongear": "Medallion",
 
   "entity.pvzmod.backup_dancer": "Backup Dancer",
   "item.pvzmod.backupdancer_egg": "Backup Dancer",

@@ -1,7 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -35,10 +34,6 @@ public class DefensiveEndGearEntity extends ZombiePropEntity implements IAnimata
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-	}
-
-	public DefensiveEndGearEntity(World world) {
-		this(PvZEntity.DEFENSIVEENDGEAR, world);
 	}
 
 	static {

@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.buckethead.modernday;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;

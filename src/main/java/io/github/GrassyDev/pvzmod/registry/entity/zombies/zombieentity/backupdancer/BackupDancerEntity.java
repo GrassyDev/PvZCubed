@@ -3,16 +3,17 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupda
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.backupdancer.HypnoBackupDancerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BackupDancerVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -23,11 +24,15 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -35,8 +40,11 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -49,10 +57,9 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
-
+	private MobEntity owner;
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    private MobEntity owner;
-    private String controllerName = "walkingcontroller";
+	private String controllerName = "walkingcontroller";
 	boolean isFrozen;
 	boolean isIced;
 
@@ -69,6 +76,21 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
     }
+
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+	}
+
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+		nbt.putInt("Variant", this.getTypeVariant());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+	}
 
 	static {
 
@@ -90,6 +112,49 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	public void setHypno(IsHypno hypno) {
+		super.setHypno(hypno);
+	}
+
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(BackupDancerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		if (this.getType().equals(PvZEntity.BACKUPDANCERHYPNO)){
+			setVariant(BackupDancerVariants.BACKUPDANCERHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else {
+			setVariant(BackupDancerVariants.BACKUPDANCER);
+			createProp();
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public BackupDancerVariants getVariant() {
+		return BackupDancerVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(BackupDancerVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+	public void createProp(){
+		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.MEDALLIONGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -106,68 +171,78 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		ConeheadGearEntity coneheadGearEntity = (ConeheadGearEntity) this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
-			if (this.hasPassenger(coneheadGearEntity)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.ducky"));
-			}
-			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.ducky2"));
-			}
+			event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.ducky"));
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				if (this.hasPassenger(coneheadGearEntity)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.dancing"));
-				}
-				else {
-					event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.dancing2"));
-				}
+				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.dancing"));
 			} else {
-				if (this.hasPassenger(coneheadGearEntity)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.idle"));
-				}
-				else {
-					event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.idle2"));
-				}
+				event.getController().setAnimation(new AnimationBuilder().loop("backupdancer.idle"));
 			}
 		}
         return PlayState.CONTINUE;
     }
-
-
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-        this.initCustomGoals();
-    }
+		if (this.getType().equals(PvZEntity.BACKUPDANCERHYPNO)) {
+			initHypnoGoals();
+		}
+		else {
+			initCustomGoals();
+		}
+	}
 
-    protected void initCustomGoals() {
-        this.targetSelector.add(2, new BackupDancerEntity.TrackOwnerTargetGoal(this));
-
-        this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
+	protected void initCustomGoals() {
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
+		this.targetSelector.add(2, new BackupDancerEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-
-		this.targetSelector.add(2, new TargetGoal<>(this, PlantEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, MerchantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.getHypno());
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(1, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, SunshroomEntity.class, false, true));
-    }
+		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+	}
+
+	protected void initHypnoGoals(){
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(2, new BackupDancerEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
+		////////// Hypnotized Zombie targets ///////
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && !(zombiePropEntity.getHypno()));
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+		}));
+	}
 
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
 		super.tick();
-		if (this.getAttacking() == null){
+		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
@@ -202,10 +277,17 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public void createProp(){
-		ConeheadGearEntity propentity = new ConeheadGearEntity(PvZEntity.CONEHEADGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
+	}
+
+	public boolean canWalkOnFluid(FluidState state) {
+		return state.isIn(FluidTags.WATER);
+	}
+
+	protected boolean shouldSwimInFluids() {
+		return true;
 	}
 
 	public static DefaultAttributeContainer.Builder createBackupDancerAttributes() {
@@ -220,22 +302,12 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
-	}
-
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
 	}
 
 	public MobEntity getOwner() {
 		return this.owner;
-	}
-
-	@Override
-	public double getMountedHeightOffset() {
-		return 0;
 	}
 
 	protected SoundEvent getStepSound() {
@@ -264,9 +336,9 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 				livingEntity = (LivingEntity)source.getAttacker();
 			}
 
-			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
+			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
 				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-				HypnoBackupDancerEntity hypnotizedZombie = (HypnoBackupDancerEntity)PvZEntity.HYPNOBACKUPDANCER.create(world);
+				BackupDancerEntity hypnotizedZombie = (BackupDancerEntity) PvZEntity.BACKUPDANCERHYPNO.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
 				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
@@ -274,6 +346,13 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 				if (this.hasCustomName()) {
 					hypnotizedZombie.setCustomName(this.getCustomName());
 					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
+				}
+				if (this.getFirstPassenger() != null){
+					Entity entity = this.getFirstPassenger();
+					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+						generalPvZombieEntity.setHypno(IsHypno.TRUE);
+					}
+					entity.startRiding(hypnotizedZombie);
 				}
 
 				hypnotizedZombie.setPersistent();
