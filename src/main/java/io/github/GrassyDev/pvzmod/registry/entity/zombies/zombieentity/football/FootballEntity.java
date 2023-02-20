@@ -3,23 +3,20 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.football.HypnoFootballEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FootballVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -122,6 +119,12 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	public void setHypno(IsHypno hypno) {
+		super.setHypno(hypno);
+	}
+
+
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
@@ -161,6 +164,14 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 			setVariant(FootballVariants.BERSERKER);
 			createBerserkerProp();
 		}
+		else if (this.getType().equals(PvZEntity.FOOTBALLHYPNO)){
+			setVariant(FootballVariants.FOOTBALLHYPNO);
+			setHypno(IsHypno.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.BERSERKERHYPNO)){
+			setVariant(FootballVariants.BERSERKERHYPNO);
+			setHypno(IsHypno.TRUE);
+		}
 		else {
 			setVariant(FootballVariants.DEFAULT);
 			createFootballProp();
@@ -181,13 +192,13 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	public void createFootballProp(){
-		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.FOOTBALLGEAR, this.world);
+		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.FOOTBALLGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
 	}
 
 	public void createBerserkerProp(){
-		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.BERSERKERGEAR, this.world);
+		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BERSERKERGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
 	}
@@ -210,12 +221,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		ZombiePropEntity zombiePropEntity = (ZombiePropEntity) this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
-			if (this.hasPassenger(zombiePropEntity)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
-			}
-			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("football.ducky2"));
-			}
+			event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
 			if (this.isIced) {
 				event.getController().setAnimationSpeed(0.5);
 			}
@@ -225,27 +231,12 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				if (!this.getTackleStage()) {
-					if (this.hasPassenger(zombiePropEntity)) {
-						event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
-					}
-					else {
-						event.getController().setAnimation(new AnimationBuilder().loop("football.running2"));
-					}
+					event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
 				} else {
-					if (this.hasPassenger(zombiePropEntity)) {
-						event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
-					}
-					else {
-						event.getController().setAnimation(new AnimationBuilder().loop("football.tackle2"));
-					}
+					event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
 				}
 			} else {
-				if (this.hasPassenger(zombiePropEntity)) {
-					event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
-				}
-				else {
-					event.getController().setAnimation(new AnimationBuilder().loop("football.idle2"));
-				}
+				event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
 			}
 			if (this.isFrozen) {
 				event.getController().setAnimationSpeed(0);
@@ -260,81 +251,110 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-    public FootballEntity(World world) {
-        this(PvZEntity.FOOTBALL, world);
-    }
-
-        protected void initGoals() {
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-            this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
-        this.initCustomGoals();
-    }
-
 
 	/** /~*~//~*AI*~//~*~/ **/
 
-	protected void initCustomGoals() {
-        this.targetSelector.add(2, new FootballEntity.TrackOwnerTargetGoal(this));
-        this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
-		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+	protected void initGoals() {
+		if (this.getType().equals(PvZEntity.FOOTBALLHYPNO) ||
+				this.getType().equals(PvZEntity.BERSERKERHYPNO)) {
+			initHypnoGoals();
+		}
+		else {
+			initCustomGoals();
+		}
+	}
 
-		this.targetSelector.add(2, new TargetGoal<>(this, PlantEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, MerchantEntity.class, false, true));
+	protected void initCustomGoals() {
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
+		this.targetSelector.add(2, new FootballEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.getHypno());
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(1, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, SunshroomEntity.class, false, true));
-    }
+		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+	}
+
+	protected void initHypnoGoals(){
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(2, new FootballEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
+		////////// Hypnotized Zombie targets ///////
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && !(zombiePropEntity.getHypno()));
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+		}));
+	}
 
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
-		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-			if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {
-				if (i <= 0) {
-					if (this.hasStatusEffect(PvZCubed.ICE)) {
+		if (!(this.getPassengerList().contains(target))) {
+			if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
+				if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {
+					if (i <= 0) {
+						if (this.hasStatusEffect(PvZCubed.ICE)) {
+							this.attackTicksLeft = 20;
+							float f = 360f;
+							boolean bl = target.damage(DamageSource.mob(this), f);
+							if (bl) {
+								this.applyDamageEffects(this, target);
+							}
+							this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+							this.setTackleStage(TackleStage.EATING);
+							return bl;
+						} else {
+							this.attackTicksLeft = 20;
+							float f = 180f;
+							boolean bl = target.damage(DamageSource.mob(this), f);
+							if (bl) {
+								this.applyDamageEffects(this, target);
+							}
+							this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+							this.setTackleStage(TackleStage.EATING);
+							return bl;
+						}
+					} else {
+						return false;
+					}
+				} else {
+					if (i <= 0) {
 						this.attackTicksLeft = 20;
-						float f = 360f;
+						float f = this.getAttackDamage();
 						boolean bl = target.damage(DamageSource.mob(this), f);
 						if (bl) {
 							this.applyDamageEffects(this, target);
 						}
-						this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-						this.setTackleStage(TackleStage.EATING);
 						return bl;
 					} else {
-						this.attackTicksLeft = 20;
-						float f = 180f;
-						boolean bl = target.damage(DamageSource.mob(this), f);
-						if (bl) {
-							this.applyDamageEffects(this, target);
-						}
-						this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-						this.setTackleStage(TackleStage.EATING);
-						return bl;
+						return false;
 					}
-				} else {
-					return false;
 				}
 			} else {
-				if (i <= 0) {
-					this.attackTicksLeft = 20;
-					float f = this.getAttackDamage();
-					boolean bl = target.damage(DamageSource.mob(this), f);
-					if (bl) {
-						this.applyDamageEffects(this, target);
-					}
-					return bl;
-				} else {
-					return false;
-				}
+				return false;
 			}
-		}  else {
+		} else {
 			return false;
 		}
 	}
@@ -344,8 +364,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		this.updateFloating();
-		if (this.getAttacking() == null){
+		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
@@ -387,21 +406,17 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
+	}
+
 	public boolean canWalkOnFluid(FluidState state) {
 		return state.isIn(FluidTags.WATER);
 	}
 
 	protected boolean shouldSwimInFluids() {
 		return true;
-	}
-
-	private void updateFloating() {
-		if (this.isInsideWaterOrBubbleColumn()) {
-			ShapeContext shapeContext = ShapeContext.of(this);
-			if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
-				this.onGround = true;
-			}
-		}
 	}
 
 	public static DefaultAttributeContainer.Builder createFootballAttributes() {
@@ -424,22 +439,8 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
-	}
-
-	private float getAttackDamage(){
-		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-	}
-
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
-	}
-
-	@Override
-	public double getMountedHeightOffset() {
-		return 0;
 	}
 
 	public MobEntity getOwner() {
@@ -457,47 +458,63 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.owner = owner;
 	}
 
+	private float getAttackDamage(){
+		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+	}
+
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
-	public boolean damage(DamageSource source, float amount) {
-        if (!super.damage(source, amount)) {
-            return false;
-        } else if (!(this.world instanceof ServerWorld)) {
-            return false;
-        } else {
-            ServerWorld serverWorld = (ServerWorld)this.world;
-            LivingEntity livingEntity = this.getTarget();
-            if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
-                livingEntity = (LivingEntity)source.getAttacker();
-            }
+	protected EntityType<?> hypnoType;
+	protected void checkHypno(){
+		if (this.getType().equals(PvZEntity.BERSERKER)){
+			hypnoType = PvZEntity.BERSERKERHYPNO;
+		}
+		else {
+			hypnoType = PvZEntity.FOOTBALLHYPNO;
+		}
+	}
 
-            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
-                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoFootballEntity hypnotizedZombie = (HypnoFootballEntity) PvZEntity.HYPNOFOOTBALL.create(world);
+	public boolean damage(DamageSource source, float amount) {
+		if (!super.damage(source, amount)) {
+			return false;
+		} else if (!(this.world instanceof ServerWorld)) {
+			return false;
+		} else {
+			ServerWorld serverWorld = (ServerWorld)this.world;
+			LivingEntity livingEntity = this.getTarget();
+			if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
+				livingEntity = (LivingEntity)source.getAttacker();
+			}
+
+			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
+				checkHypno();
+				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+				FootballEntity hypnotizedZombie = (FootballEntity) hypnoType.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
 				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
 				hypnotizedZombie.setHealth(this.getHealth());
-				if (this.getTackleStage().equals(Boolean.TRUE)){
-					hypnotizedZombie.setTackleStage(HypnoFootballEntity.TackleStage.TACKLING);
-				}
-				else {
-					hypnotizedZombie.setTackleStage(HypnoFootballEntity.TackleStage.EATING);
-				}
-                if (this.hasCustomName()) {
+				if (this.hasCustomName()) {
 					hypnotizedZombie.setCustomName(this.getCustomName());
 					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
-                }
+				}
+				if (this.getFirstPassenger() != null){
+					Entity entity = this.getFirstPassenger();
+					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+						generalPvZombieEntity.setHypno(IsHypno.TRUE);
+					}
+					entity.startRiding(hypnotizedZombie);
+				}
 
 				hypnotizedZombie.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
-                this.remove(RemovalReason.DISCARDED);
-            }
+				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
+				this.remove(RemovalReason.DISCARDED);
+			}
 
-            return true;
-        }
-    }
+			return true;
+		}
+	}
 
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
 		super.onKilledOther(serverWorld, livingEntity);

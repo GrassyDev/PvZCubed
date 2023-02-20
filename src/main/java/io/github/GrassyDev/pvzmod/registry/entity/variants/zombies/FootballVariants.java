@@ -5,7 +5,9 @@ import java.util.Comparator;
 
 public enum FootballVariants {
 	DEFAULT(0),
-	BERSERKER(1);
+	BERSERKER(1),
+	FOOTBALLHYPNO(2),
+	BERSERKERHYPNO(3);
 
 	private static final FootballVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(FootballVariants::getId)).toArray(FootballVariants[]::new);

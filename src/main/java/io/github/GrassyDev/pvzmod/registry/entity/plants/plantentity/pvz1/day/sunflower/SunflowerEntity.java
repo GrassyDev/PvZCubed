@@ -55,7 +55,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
     public int sunProducingTime = 3600;
 
 
-	int raycastDelay = 10;
+	int raycastDelay = 20;
 
 	Entity prevZombie;
 

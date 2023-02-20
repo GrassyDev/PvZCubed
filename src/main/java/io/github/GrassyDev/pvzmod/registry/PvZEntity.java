@@ -6,14 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGr
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.football.HypnoFootballEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.football.HypnoFootballEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntity;
@@ -142,10 +134,10 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevault
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.screendoor.ScreendoorShieldEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.screendoor.ScreendoorShieldEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntityRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -503,7 +495,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<BrowncoatEntity> SCREENDOOR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "screendoor"),
-			QuiltEntityTypeBuilder.<BrowncoatEntity>create(SpawnGroup.MONSTER, BrowncoatEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+			QuiltEntityTypeBuilder.<BrowncoatEntity>create(SpawnGroup.MONSTER, BrowncoatEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
 	);
 	public static final EntityType<BrowncoatEntity> SCREENDOORHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -516,36 +508,36 @@ public class PvZEntity implements ModInitializer {
 			new Identifier(ModID, "coneheadgear"),
 			QuiltEntityTypeBuilder.<ConeheadGearEntity>create(SpawnGroup.MONSTER, ConeheadGearEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
 	);
-	public static final EntityType<BucketheadGearEntity> BUCKETGEAR = Registry.register(
+	public static final EntityType<MetalHelmetEntity> BUCKETGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "bucketheadgear"),
-			QuiltEntityTypeBuilder.<BucketheadGearEntity>create(SpawnGroup.MONSTER, BucketheadGearEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
+			QuiltEntityTypeBuilder.<MetalHelmetEntity>create(SpawnGroup.MONSTER, MetalHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
 	);
-	public static final EntityType<BucketheadGearEntity> MEDALLIONGEAR = Registry.register(
+	public static final EntityType<MetalHelmetEntity> MEDALLIONGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "medalliongear"),
-			QuiltEntityTypeBuilder.<BucketheadGearEntity>create(SpawnGroup.MONSTER, BucketheadGearEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
+			QuiltEntityTypeBuilder.<MetalHelmetEntity>create(SpawnGroup.MONSTER, MetalHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
 	);
-	public static final EntityType<BucketheadGearEntity> FOOTBALLGEAR = Registry.register(
+	public static final EntityType<MetalHelmetEntity> FOOTBALLGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "footballgear"),
-			QuiltEntityTypeBuilder.<BucketheadGearEntity>create(SpawnGroup.MONSTER, BucketheadGearEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
+			QuiltEntityTypeBuilder.<MetalHelmetEntity>create(SpawnGroup.MONSTER, MetalHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
 	);
-	public static final EntityType<BucketheadGearEntity> BERSERKERGEAR = Registry.register(
+	public static final EntityType<MetalHelmetEntity> BERSERKERGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "berserkergear"),
-			QuiltEntityTypeBuilder.<BucketheadGearEntity>create(SpawnGroup.MONSTER, BucketheadGearEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
+			QuiltEntityTypeBuilder.<MetalHelmetEntity>create(SpawnGroup.MONSTER, MetalHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
 	);
 
-	public static final EntityType<BucketheadGearEntity> DEFENSIVEENDGEAR = Registry.register(
+	public static final EntityType<MetalHelmetEntity> DEFENSIVEENDGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveendgear"),
-			QuiltEntityTypeBuilder.<BucketheadGearEntity>create(SpawnGroup.MONSTER, BucketheadGearEntity::new).setDimensions(EntityDimensions.fixed(1.425f, 3.95f)).build()
+			QuiltEntityTypeBuilder.<MetalHelmetEntity>create(SpawnGroup.MONSTER, MetalHelmetEntity::new).setDimensions(EntityDimensions.fixed(1.425f, 3.95f)).build()
 	);
-	public static final EntityType<ScreendoorShieldEntity> SCREENDOORSHIELD = Registry.register(
+	public static final EntityType<MetalShieldEntity> SCREENDOORSHIELD = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "screendoorshield"),
-			QuiltEntityTypeBuilder.<ScreendoorShieldEntity>create(SpawnGroup.MONSTER, ScreendoorShieldEntity::new).setDimensions(EntityDimensions.fixed(0.85f, 1.8f)).build()
+			QuiltEntityTypeBuilder.<MetalShieldEntity>create(SpawnGroup.MONSTER, MetalShieldEntity::new).setDimensions(EntityDimensions.fixed(0.85f, 1.8f)).build()
 	);
 
     public static final EntityType<FlagzombieEntity> FLAGZOMBIE = Registry.register(
@@ -553,11 +545,34 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "flagzombie"),
             QuiltEntityTypeBuilder.<FlagzombieEntity>create(SpawnGroup.MONSTER, FlagzombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
     );
-    public static final EntityType<HypnoFlagzombieEntity> HYPNOFLAGZOMBIE = Registry.register(
+	public static final EntityType<FlagzombieEntity> FLAGZOMBIE_G = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "flagzombie_g"),
+			QuiltEntityTypeBuilder.<FlagzombieEntity>create(SpawnGroup.MONSTER, FlagzombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+
+	public static final EntityType<FlagzombieEntity> FLAGZOMBIE_T = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "flagzombie_t"),
+			QuiltEntityTypeBuilder.<FlagzombieEntity>create(SpawnGroup.MONSTER, FlagzombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+    public static final EntityType<FlagzombieEntity> FLAGZOMBIEHYPNO = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "flagzombie_hypnotized"),
-            QuiltEntityTypeBuilder.<HypnoFlagzombieEntity>create(SpawnGroup.CREATURE, HypnoFlagzombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+            QuiltEntityTypeBuilder.<FlagzombieEntity>create(SpawnGroup.CREATURE, FlagzombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
     );
+	public static final EntityType<FlagzombieEntity> FLAGZOMBIE_GHYPNO= Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "flagzombie_g_hypnotized"),
+			QuiltEntityTypeBuilder.<FlagzombieEntity>create(SpawnGroup.CREATURE, FlagzombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+	public static final EntityType<FlagzombieEntity> FLAGZOMBIE_THYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "flagzombie_t_hypnotized"),
+			QuiltEntityTypeBuilder.<FlagzombieEntity>create(SpawnGroup.CREATURE, FlagzombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+
+
     public static final EntityType<PoleVaultingEntity> POLEVAULTING = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "polevaulting"),
@@ -589,30 +604,33 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "football"),
             QuiltEntityTypeBuilder.<FootballEntity>create(SpawnGroup.MONSTER, FootballEntity::new).setDimensions(EntityDimensions.fixed(0.6f, 1.85f)).build()
     );
-
 	public static final EntityType<FootballEntity> BERSERKER = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "berserker"),
 			QuiltEntityTypeBuilder.<FootballEntity>create(SpawnGroup.MONSTER, FootballEntity::new).setDimensions(EntityDimensions.fixed(0.6f, 1.85f)).build()
 	);
-
-    public static final EntityType<HypnoFootballEntity> HYPNOFOOTBALL = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(ModID, "football_hypnotized"),
-            QuiltEntityTypeBuilder.<HypnoFootballEntity>create(SpawnGroup.CREATURE, HypnoFootballEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
-    );
+	public static final EntityType<FootballEntity> FOOTBALLHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "football_hypnotized"),
+			QuiltEntityTypeBuilder.<FootballEntity>create(SpawnGroup.MONSTER, FootballEntity::new).setDimensions(EntityDimensions.fixed(0.6f, 1.85f)).build()
+	);
+	public static final EntityType<FootballEntity> BERSERKERHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "berserker_hypnotized"),
+			QuiltEntityTypeBuilder.<FootballEntity>create(SpawnGroup.MONSTER, FootballEntity::new).setDimensions(EntityDimensions.fixed(0.6f, 1.85f)).build()
+	);
 
     public static final EntityType<DancingZombieEntity> DANCINGZOMBIE = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "dancing_zombie"),
             QuiltEntityTypeBuilder.<DancingZombieEntity>create(SpawnGroup.MONSTER, DancingZombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
     );
-    public static final EntityType<HypnoDancingZombieEntity> HYPNODANCINGZOMBIE = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(ModID, "dancing_zombie_hypnotized"),
-            QuiltEntityTypeBuilder.<HypnoDancingZombieEntity>create(SpawnGroup.CREATURE, HypnoDancingZombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
-    );
 
+	public static final EntityType<DancingZombieEntity> DANCINGZOMBIEHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "dancing_zombie_hypnotized"),
+			QuiltEntityTypeBuilder.<DancingZombieEntity>create(SpawnGroup.MONSTER, DancingZombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
     public static final EntityType<BackupDancerEntity> BACKUPDANCER = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "backup_dancer"),
@@ -664,12 +682,6 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "imp_hypnotized"),
 			QuiltEntityTypeBuilder.<HypnoImpEntity>create(SpawnGroup.CREATURE, HypnoImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
-	);
-
-	public static final EntityType<HypnoBerserkerEntity> HYPNOBERSERKER = Registry.register(
-			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "berserker_hypnotized"),
-			QuiltEntityTypeBuilder.<HypnoBerserkerEntity>create(SpawnGroup.CREATURE, HypnoBerserkerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
 	);
 
 	public static final EntityType<SuperFanImpEntity> SUPERFANIMP = Registry.register(
@@ -862,9 +874,16 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FLAGZOMBIE, FlagzombieEntity.createFlagzombieZombieAttributes().build());
         EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer::new);
-
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOFLAGZOMBIE, HypnoFlagzombieEntity.createHypnoFlagzombieAttributes().build());
-        EntityRendererRegistry.register(PvZEntity.HYPNOFLAGZOMBIE, HypnoFlagzombieEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FLAGZOMBIEHYPNO, FlagzombieEntity.createFlagzombieZombieAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FLAGZOMBIE_G, FlagzombieEntity.createFlagzombieZombieAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FLAGZOMBIE_T, FlagzombieEntity.createFlagzombieZombieAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FLAGZOMBIE_GHYPNO, FlagzombieEntity.createFlagzombieZombieAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FLAGZOMBIE_THYPNO, FlagzombieEntity.createFlagzombieZombieAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer::new);
 
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.CONEHEADGEAR, ConeheadGearEntity.createConeheadGearAttributes().build());
@@ -877,20 +896,20 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOPOLEVAULTING, HypnoPoleVaultingEntity.createHypnoPoleVaultingAttributes().build());
         EntityRendererRegistry.register(PvZEntity.HYPNOPOLEVAULTING, HypnoPoleVaultingEntityRenderer::new);
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BUCKETGEAR, BucketheadGearEntity.createBucketGearAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.BUCKETGEAR, BucketheadGearEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BUCKETGEAR, MetalHelmetEntity.createBucketGearAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BUCKETGEAR, MetalHelmetEntityRenderer::new);
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.MEDALLIONGEAR, BucketheadGearEntity.createMedallionGearAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.MEDALLIONGEAR, BucketheadGearEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.MEDALLIONGEAR, MetalHelmetEntity.createMedallionGearAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.MEDALLIONGEAR, MetalHelmetEntityRenderer::new);
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FOOTBALLGEAR, BucketheadGearEntity.createFootballGearAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.FOOTBALLGEAR, BucketheadGearEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FOOTBALLGEAR, MetalHelmetEntity.createFootballGearAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FOOTBALLGEAR, MetalHelmetEntityRenderer::new);
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BERSERKERGEAR, BucketheadGearEntity.createBerserkerGearAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, BucketheadGearEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BERSERKERGEAR, MetalHelmetEntity.createBerserkerGearAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, MetalHelmetEntityRenderer::new);
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEENDGEAR, BucketheadGearEntity.createDefensiveEndGearAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, BucketheadGearEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntity.createDefensiveEndGearAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntityRenderer::new);
 
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWSPAPER, NewspaperEntity.createNewspaperAttributes().build());
@@ -902,22 +921,22 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNONEWSPAPER, HypnoNewspaperEntity.createHypnoNewspaperAttributes().build());
         EntityRendererRegistry.register(PvZEntity.HYPNONEWSPAPER, HypnoNewspaperEntityRenderer::new);
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SCREENDOORSHIELD, ScreendoorShieldEntity.createScreendoorShieldAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.SCREENDOORSHIELD, ScreendoorShieldEntityRenderer::new);
-
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SCREENDOORSHIELD, MetalShieldEntity.createScreendoorShieldAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.SCREENDOORSHIELD, MetalShieldEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FOOTBALL, FootballEntity.createFootballAttributes().build());
         EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
-
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntity.createHypnoFootballAttributes().build());
-        EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntityRenderer::new);
-
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FOOTBALLHYPNO, FootballEntity.createFootballAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BERSERKER, FootballEntity.createBerserkerAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BERSERKERHYPNO, FootballEntity.createBerserkerAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DANCINGZOMBIE, DancingZombieEntity.createDancingZombieAttributes().build());
         EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer::new);
-
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNODANCINGZOMBIE, HypnoDancingZombieEntity.createHypnoDancingZombieAttributes().build());
-        EntityRendererRegistry.register(PvZEntity.HYPNODANCINGZOMBIE, HypnoDancingZombieEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DANCINGZOMBIEHYPNO, DancingZombieEntity.createDancingZombieAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer::new);
 
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BACKUPDANCER, BackupDancerEntity.createBackupDancerAttributes().build());
@@ -946,12 +965,6 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOIMP, HypnoImpEntity.createHypnoImpAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.HYPNOIMP, HypnoImpEntityRenderer::new);
-
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BERSERKER, FootballEntity.createBerserkerAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.BERSERKER, FootballEntityRenderer::new);
-
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntity.createHypnoBerserkerAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUPERFANIMP, SuperFanImpEntity.createImpAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMP, SuperFanImpEntityRenderer::new);

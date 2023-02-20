@@ -8,9 +8,9 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.su
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BackupDancerVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -127,11 +127,11 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
 		if (this.getType().equals(PvZEntity.BACKUPDANCERHYPNO)){
-			setVariant(BackupDancerVariants.BACKUPDANCERHYPNO);
+			setVariant(DefaultAndHypnoVariants.HYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else {
-			setVariant(BackupDancerVariants.BACKUPDANCER);
+			setVariant(DefaultAndHypnoVariants.DEFAULT);
 			createProp();
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
@@ -141,16 +141,16 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
 	}
 
-	public BackupDancerVariants getVariant() {
-		return BackupDancerVariants.byId(this.getTypeVariant() & 255);
+	public DefaultAndHypnoVariants getVariant() {
+		return DefaultAndHypnoVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	public void setVariant(BackupDancerVariants variant) {
+	public void setVariant(DefaultAndHypnoVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
 	public void createProp(){
-		BucketheadGearEntity propentity = new BucketheadGearEntity(PvZEntity.MEDALLIONGEAR, this.world);
+		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.MEDALLIONGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
 	}
@@ -182,6 +182,7 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 		}
         return PlayState.CONTINUE;
     }
+
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {

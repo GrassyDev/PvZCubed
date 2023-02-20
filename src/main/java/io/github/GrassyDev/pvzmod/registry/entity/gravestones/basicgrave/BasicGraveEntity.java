@@ -359,8 +359,19 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 			if (difficulty >= 1.509) {
 				if (probability5 <= 0.15) { // 15% x1 Flag Zombie
 					for (int f = 0; f < 1; ++f) {
+						double random = Math.random();
+						EntityType<?> flagType;
+						if (random <= 0.125){
+							flagType = PvZEntity.FLAGZOMBIE_G;
+						}
+						else if (random <= 0.25){
+							flagType = PvZEntity.FLAGZOMBIE_T;
+						}
+						else {
+							flagType = PvZEntity.FLAGZOMBIE;
+						}
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						FlagzombieEntity flagzombieEntity = (FlagzombieEntity) PvZEntity.FLAGZOMBIE.create(BasicGraveEntity.this.world);
+						FlagzombieEntity flagzombieEntity = (FlagzombieEntity) flagType.create(BasicGraveEntity.this.world);
 						flagzombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 						flagzombieEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						flagzombieEntity.setOwner(BasicGraveEntity.this);

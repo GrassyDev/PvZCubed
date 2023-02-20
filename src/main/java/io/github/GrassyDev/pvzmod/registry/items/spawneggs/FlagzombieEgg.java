@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -46,9 +47,20 @@ public class FlagzombieEgg extends Item {
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
         Box box = PvZEntity.FLAGZOMBIE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
+				 double random = Math.random();
+				 EntityType<?> flagType;
+				 if (random <= 0.125){
+					 flagType = PvZEntity.FLAGZOMBIE_G;
+				 }
+				 else if (random <= 0.25){
+					 flagType = PvZEntity.FLAGZOMBIE_T;
+				 }
+				 else {
+					 flagType = PvZEntity.FLAGZOMBIE;
+				 }
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    FlagzombieEntity flagzombieEntity = (FlagzombieEntity) PvZEntity.FLAGZOMBIE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    FlagzombieEntity flagzombieEntity = (FlagzombieEntity) flagType.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (flagzombieEntity == null) {
                         return ActionResult.FAIL;
                     }

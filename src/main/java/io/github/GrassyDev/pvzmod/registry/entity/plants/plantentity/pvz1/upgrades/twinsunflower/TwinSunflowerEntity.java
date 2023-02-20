@@ -50,7 +50,7 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
     public int sunProducingTime = 3600;
 
 
-	int raycastDelay = 10;
+	int raycastDelay = 20;
 
 	Entity prevZombie;
 
@@ -170,7 +170,7 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn()) {
 			if (--raycastDelay >= 0){
 				this.produceSun();
-				raycastDelay = 10;
+				raycastDelay = 20;
 			}
 		}
 		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){

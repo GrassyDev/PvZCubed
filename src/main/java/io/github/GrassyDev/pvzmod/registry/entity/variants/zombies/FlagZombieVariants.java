@@ -5,8 +5,11 @@ import java.util.Comparator;
 
 public enum FlagZombieVariants {
 	DEFAULT(0),
-	GAY(1),
-	TRANS(2);
+	DEFAULTHYPNO(1),
+	GAY(2),
+	GAYHYPNO(3),
+	TRANS(4),
+	TRANSHYPNO(5);
 
 	private static final FlagZombieVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(FlagZombieVariants::getId)).toArray(FlagZombieVariants[]::new);

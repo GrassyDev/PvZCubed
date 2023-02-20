@@ -3,10 +3,6 @@ package io.github.GrassyDev.pvzmod.registry;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.berserker.HypnoBerserkerEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.dancingzombie.HypnoDancingZombieEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.flagzombie.modernday.HypnoFlagzombieEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.football.HypnoFootballEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.newspaper.HypnoNewspaperEntityRenderer;
@@ -75,8 +71,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.BucketheadGearEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.screendoor.ScreendoorShieldEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntityRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -203,30 +199,35 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.SCREENDOORHYPNO, BrowncoatEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE, FlagzombieEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.HYPNOFLAGZOMBIE, HypnoFlagzombieEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIEHYPNO, FlagzombieEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE_T, FlagzombieEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE_THYPNO, FlagzombieEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE_G, FlagzombieEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FLAGZOMBIE_GHYPNO, FlagzombieEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.CONEHEADGEAR, ConeheadGearEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.POLEVAULTING, PoleVaultingEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.BUCKETGEAR, BucketheadGearEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.MEDALLIONGEAR, BucketheadGearEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, BucketheadGearEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.FOOTBALLGEAR, BucketheadGearEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, BucketheadGearEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BUCKETGEAR, MetalHelmetEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.MEDALLIONGEAR, MetalHelmetEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, MetalHelmetEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FOOTBALLGEAR, MetalHelmetEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPERSHIELD, NewspaperShieldEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNONEWSPAPER, HypnoNewspaperEntityRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.SCREENDOORSHIELD, ScreendoorShieldEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.SCREENDOORSHIELD, MetalShieldEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BERSERKER, FootballEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.HYPNOFOOTBALL, HypnoFootballEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FOOTBALLHYPNO, FootballEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BERSERKERHYPNO, FootballEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.HYPNODANCINGZOMBIE, HypnoDancingZombieEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIEHYPNO, DancingZombieEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.BACKUPDANCER, BackupDancerEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BACKUPDANCERHYPNO, BackupDancerEntityRenderer::new);
@@ -241,8 +242,6 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.IMP, ImpEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.HYPNOIMP, HypnoImpEntityRenderer::new);
-
-		EntityRendererRegistry.register(PvZEntity.HYPNOBERSERKER, HypnoBerserkerEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMP, SuperFanImpEntityRenderer::new);
 

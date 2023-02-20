@@ -225,8 +225,12 @@
   "entity.pvzmod.browncoat_hypnotized": "Hypnotized Browncoat",
 
   "entity.pvzmod.flagzombie": "Flag Zombie",
+  "entity.pvzmod.flagzombie_g": "Flag Zombie",
+  "entity.pvzmod.flagzombie_t": "Flag Zombie",
   "item.pvzmod.flagzombie_egg": "Flag Zombie",
   "entity.pvzmod.flagzombie_hypnotized": "Hypnotized Flag Zombie",
+  "entity.pvzmod.flagzombie_g_hypnotized": "Hypnotized Flag Zombie",
+  "entity.pvzmod.flagzombie_t_hypnotized": "Hypnotized Flag Zombie",
 
   "entity.pvzmod.conehead": "Conehead Zombie",
   "item.pvzmod.conehead_egg": "Conehead Zombie",

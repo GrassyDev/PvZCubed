@@ -43,7 +43,7 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private Entity prevZombie;
 	private boolean zombieSunCheck;
-	private int raycastDelay = 10;
+	private int raycastDelay = 20;
 
 	public SunshroomEntity(EntityType<? extends SunshroomEntity> entityType, World world) {
         super(entityType, world);

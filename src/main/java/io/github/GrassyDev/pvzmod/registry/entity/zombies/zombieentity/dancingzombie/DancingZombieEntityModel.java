@@ -14,7 +14,20 @@ public class DancingZombieEntityModel extends AnimatedGeoModel<DancingZombieEnti
     @Override
     public Identifier getTextureResource(DancingZombieEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/dancingzombie/dancingzombie.png");
+		Identifier identifier;
+		if (object.getHypno()){
+			identifier = new Identifier("pvzmod", "textures/entity/dancingzombie/dancingzombie_hypnotized.png");
+			if (object.armless){
+				identifier = new Identifier("pvzmod", "textures/entity/dancingzombie/dancingzombie_dmg1_hypnotized.png");
+			}
+		}
+		else {
+			identifier = new Identifier("pvzmod", "textures/entity/dancingzombie/dancingzombie.png");
+			if (object.armless){
+				identifier = new Identifier("pvzmod", "textures/entity/dancingzombie/dancingzombie_dmg1.png");
+			}
+		}
+		return identifier;
     }
 
     @Override
