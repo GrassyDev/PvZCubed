@@ -172,14 +172,16 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-        int i = this.getFuseSpeed();
-        this.goalSelector.add(2, new IceIgniteGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
-        this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-            return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					!(livingEntity instanceof ZombiePropEntity);
-        }));
     }
+
+	protected void awakeGoals() {
+		this.goalSelector.add(2, new IceIgniteGoal(this));
+		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
+	}
 
 	public boolean tryAttack(Entity target) {
 		return true;
@@ -364,9 +366,9 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 12);
-			this.initGoals();
 			this.isAsleep = false;
+			this.world.sendEntityStatus(this, (byte) 12);
+			this.awakeGoals();
 			sleepSwitch = false;
 			awakeSwitch = true;
 		}
@@ -375,9 +377,9 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
 			this.world.sendEntityStatus(this, (byte) 13);
+			this.isAsleep = true;
 			this.clearGoalsAndTasks();
 			this.removeStatusEffect(StatusEffects.RESISTANCE);
-			this.isAsleep = true;
 			sleepSwitch = true;
 			awakeSwitch = false;
 		}

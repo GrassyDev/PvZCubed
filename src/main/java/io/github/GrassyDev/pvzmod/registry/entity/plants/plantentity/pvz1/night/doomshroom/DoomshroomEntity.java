@@ -226,6 +226,9 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
+	}
+
+	protected void awakeGoals() {
 		this.goalSelector.add(2, new DoomIgniteGoal(this));
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
@@ -440,8 +443,8 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
 			this.world.sendEntityStatus(this, (byte) 12);
-			this.initGoals();
 			this.isAsleep = false;
+			this.awakeGoals();
 			sleepSwitch = false;
 			awakeSwitch = true;
 		}
@@ -449,11 +452,11 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
+			this.isAsleep = true;
 			this.world.sendEntityStatus(this, (byte) 13);
 			this.clearGoalsAndTasks();
 			this.removeStatusEffect(StatusEffects.RESISTANCE);
 			sleepSwitch = true;
-			this.isAsleep = true;
 			awakeSwitch = false;
 		}
 		super.mobTick();
