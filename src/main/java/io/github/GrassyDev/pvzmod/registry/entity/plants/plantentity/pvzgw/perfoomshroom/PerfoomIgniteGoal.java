@@ -26,12 +26,17 @@ public class PerfoomIgniteGoal extends Goal {
     }
 
     public void tick() {
-        if (this.target == null) {
-            this.doom.setFuseSpeed(-1);
-        } else if (this.doom.squaredDistanceTo(this.target) > 25.0D || this.doom.isInsideWaterOrBubbleColumn()) {
-            this.doom.setFuseSpeed(-1);
-        } else {
-            this.doom.setFuseSpeed(1);
-        }
+		if (!doom.isAsleep) {
+			if (this.target == null) {
+				this.doom.setFuseSpeed(-1);
+			} else if (this.doom.squaredDistanceTo(this.target) > 25.0D || this.doom.isInsideWaterOrBubbleColumn()) {
+				this.doom.setFuseSpeed(-1);
+			} else {
+				this.doom.setFuseSpeed(1);
+			}
+		}
+		else {
+			this.doom.setFuseSpeed(-1);
+		}
     }
 }

@@ -32,8 +32,10 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LightType;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -46,6 +48,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class IceshroomEntity extends WinterEntity implements IAnimatable {
 
@@ -353,22 +356,33 @@ public class IceshroomEntity extends WinterEntity implements IAnimatable {
 		}
 	}
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	protected void mobTick() {
-		float f = getLightLevelDependentValue();
-		if (f > 0.5f) {
-			isAsleep = true;
+		if ((this.world.getAmbientDarkness() >= 2 ||
+				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+				&& !awakeSwitch) {
+			this.world.sendEntityStatus(this, (byte) 12);
+			this.initGoals();
+			this.isAsleep = false;
+			sleepSwitch = false;
+			awakeSwitch = true;
+		}
+		else if (this.world.getAmbientDarkness() < 2 &&
+				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+				&& !sleepSwitch) {
 			this.world.sendEntityStatus(this, (byte) 13);
 			this.clearGoalsAndTasks();
-			removeStatusEffect(StatusEffects.RESISTANCE);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 12);
-			isAsleep = false;
-			this.initGoals();
+			this.removeStatusEffect(StatusEffects.RESISTANCE);
+			this.isAsleep = true;
+			sleepSwitch = true;
+			awakeSwitch = false;
 		}
 		super.mobTick();
 	}
-
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
 

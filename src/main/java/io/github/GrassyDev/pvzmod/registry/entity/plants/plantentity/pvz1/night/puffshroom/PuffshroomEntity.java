@@ -34,8 +34,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -47,6 +49,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
+import java.util.Optional;
 
 public class PuffshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
 
@@ -54,8 +57,6 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
     private String controllerName = "puffcontroller";
     public boolean isTired;
-
-
 
 	public boolean isFiring;
 
@@ -217,7 +218,7 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
-		float time = 300 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
+		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
 		if (this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
 			this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
 		}
@@ -230,14 +231,27 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		}
 	}
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	protected void mobTick() {
-		float f = this.getLightLevelDependentValue();
-		if (f > 0.25f) {
-			this.world.sendEntityStatus(this, (byte) 13);
-			this.clearGoalsAndTasks();
-		} else {
+		if ((this.world.getAmbientDarkness() >= 2 ||
+				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+				&& !awakeSwitch) {
 			this.world.sendEntityStatus(this, (byte) 12);
 			this.initGoals();
+			sleepSwitch = false;
+			awakeSwitch = true;
+		}
+		else if (this.world.getAmbientDarkness() < 2 &&
+				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+				&& !sleepSwitch) {
+			this.world.sendEntityStatus(this, (byte) 13);
+			this.clearGoalsAndTasks();
+			sleepSwitch = true;
+			awakeSwitch = false;
 		}
 		super.mobTick();
 	}
@@ -331,7 +345,9 @@ public class PuffshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	public static boolean canPuffshroomSpawn(EntityType<? extends PuffshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return  world.getLightLevel(pos) <= 6 && pos.getY() >= 50;
+		return world.getAmbientDarkness() >= 2 ||
+				world.getLightLevel(LightType.SKY, pos) < 2 ||
+				world.getBiome(blockPos).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS));
 	}
 
 

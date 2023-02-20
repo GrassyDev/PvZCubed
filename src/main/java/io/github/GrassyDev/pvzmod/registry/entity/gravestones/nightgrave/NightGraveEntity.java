@@ -36,10 +36,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -177,14 +174,13 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 
 	public static boolean canNightGraveSpawn(EntityType<? extends NightGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getDifficulty() != Difficulty.PEACEFUL &&
-				world.getLightLevel(pos) <= 6 &&
-				pos.getY() >= 50 &&
+		return world.getDifficulty() != Difficulty.PEACEFUL && (
+				world.getAmbientDarkness() >= 2 ||
+				world.getLightLevel(LightType.SKY, pos) < 2 ) &&
 				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type)  &&
 				!checkVillager(Vec3d.ofCenter(pos), world) &&
 				!checkPlant(Vec3d.ofCenter(pos), world);
 	}
-
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 

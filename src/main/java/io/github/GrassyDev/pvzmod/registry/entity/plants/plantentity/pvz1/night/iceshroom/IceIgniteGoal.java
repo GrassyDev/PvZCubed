@@ -26,12 +26,17 @@ public class IceIgniteGoal extends Goal {
     }
 
     public void tick() {
-        if (this.target == null) {
-            this.ice.setFuseSpeed(-1);
-        } else if (this.ice.squaredDistanceTo(this.target) > 25.0D || this.ice.isInsideWaterOrBubbleColumn()) {
-            this.ice.setFuseSpeed(-1);
-        } else {
-            this.ice.setFuseSpeed(1);
-        }
+		if (!ice.isAsleep) {
+			if (this.target == null) {
+				this.ice.setFuseSpeed(-1);
+			} else if (this.ice.squaredDistanceTo(this.target) > 25.0D || this.ice.isInsideWaterOrBubbleColumn()) {
+				this.ice.setFuseSpeed(-1);
+			} else {
+				this.ice.setFuseSpeed(1);
+			}
+		}
+		else {
+			this.ice.setFuseSpeed(-1);
+		}
     }
 }

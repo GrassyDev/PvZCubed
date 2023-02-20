@@ -21,6 +21,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -142,7 +143,7 @@ public class SmallNutEntity extends ReinforceEntity implements IAnimatable {
 		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
-		float time = 300 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
+		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
 		if (this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
 			this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
 		}
@@ -246,6 +247,7 @@ public class SmallNutEntity extends ReinforceEntity implements IAnimatable {
 
 	public static boolean canSmallnutSpawn(EntityType<? extends SmallNutEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return pos.getY() > 50;
+		return world.getAmbientDarkness() < 4 &&
+				world.getLightLevel(LightType.SKY, pos) > 10;
 	}
 }

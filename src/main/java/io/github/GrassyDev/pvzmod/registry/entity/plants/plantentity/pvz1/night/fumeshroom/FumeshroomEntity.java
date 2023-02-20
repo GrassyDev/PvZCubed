@@ -36,9 +36,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LightType;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -50,6 +52,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
+import java.util.Optional;
 
 public class FumeshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
 
@@ -222,14 +225,27 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 		}
 	}
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	protected void mobTick() {
-		float f = this.getLightLevelDependentValue();
-		if (f > 0.25f) {
-			this.world.sendEntityStatus(this, (byte) 13);
-			this.clearGoalsAndTasks();
-		} else {
+		if ((this.world.getAmbientDarkness() >= 2 ||
+				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+				&& !awakeSwitch) {
 			this.world.sendEntityStatus(this, (byte) 12);
 			this.initGoals();
+			sleepSwitch = false;
+			awakeSwitch = true;
+		}
+		else if (this.world.getAmbientDarkness() < 2 &&
+				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+				&& !sleepSwitch) {
+			this.world.sendEntityStatus(this, (byte) 13);
+			this.clearGoalsAndTasks();
+			sleepSwitch = true;
+			awakeSwitch = false;
 		}
 		super.mobTick();
 	}
