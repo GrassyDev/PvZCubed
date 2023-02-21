@@ -106,9 +106,15 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
 		float damage = 8F;
-        if (!world.isClient && entity instanceof Monster monster &&
+		ZombiePropEntity zombiePropEntity = null;
+		for (Entity entity1 : entity.getPassengerList()) {
+			if (entity1 instanceof ZombiePropEntity zpe) {
+				zombiePropEntity = zpe;
+			}
+		}
+		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+				!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
 				  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			Entity entity2 = entityHitResult.getEntity();
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");

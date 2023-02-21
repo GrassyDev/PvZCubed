@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -9,7 +10,10 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.Objects;
@@ -85,6 +89,16 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 		}
 		if (this.getHealth() <= 0 && this.isOnFire() && vehicle != null && !(this instanceof ZombieShieldEntity)){
 			vehicle.setOnFireFor(this.getFireTicks());
+		}
+	}
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		if (this.getHypno() && this.getVehicle() instanceof GargantuarEntity gargantuarEntity){
+			player.startRiding(gargantuarEntity, true);
+			return ActionResult.success(this.world.isClient);
+		}
+		else {
+			return ActionResult.FAIL;
 		}
 	}
 }

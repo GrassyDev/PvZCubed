@@ -499,12 +499,11 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 					hypnotizedZombie.setCustomName(this.getCustomName());
 					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
 				}
-				if (this.getFirstPassenger() != null){
-					Entity entity = this.getFirstPassenger();
-					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
-						generalPvZombieEntity.setHypno(IsHypno.TRUE);
+				for (Entity entity1 : this.getPassengerList()) {
+					if (entity1 instanceof ZombiePropEntity zpe) {
+						zpe.setHypno(IsHypno.TRUE);
+						zpe.startRiding(hypnotizedZombie);
 					}
-					entity.startRiding(hypnotizedZombie);
 				}
 
 				hypnotizedZombie.setPersistent();

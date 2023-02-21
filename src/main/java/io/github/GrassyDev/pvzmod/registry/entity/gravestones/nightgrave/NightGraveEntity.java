@@ -6,7 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import net.minecraft.entity.EntityData;
@@ -275,7 +275,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                 int f = NightGraveEntity.this.world.getTargets(DancingZombieEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
 				int i = NightGraveEntity.this.world.getTargets(SuperFanImpEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
 				int j = NightGraveEntity.this.world.getTargets(SuperFanImpEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-				int k = NightGraveEntity.this.world.getTargets(DefensiveEndEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int k = NightGraveEntity.this.world.getTargets(GargantuarEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 return NightGraveEntity.this.random.nextInt(8) + 1 > a &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > h &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > b &&
@@ -427,7 +427,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				if (probability7 <= 0.065) { // 6.5% x1 Defensive End
 					for (int k = 0; k < 1; ++k) {
 						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
-						DefensiveEndEntity defensiveEndEntity = (DefensiveEndEntity) PvZEntity.DEFENSIVEEND.create(NightGraveEntity.this.world);
+						GargantuarEntity defensiveEndEntity = (GargantuarEntity) PvZEntity.DEFENSIVEEND.create(NightGraveEntity.this.world);
 						defensiveEndEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 						defensiveEndEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						defensiveEndEntity.setOwner(NightGraveEntity.this);

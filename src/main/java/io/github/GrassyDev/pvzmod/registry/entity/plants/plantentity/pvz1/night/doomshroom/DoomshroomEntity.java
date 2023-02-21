@@ -298,6 +298,12 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+					ZombiePropEntity zombiePropEntity2 = null;
+					for (Entity entity1 : livingEntity.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							zombiePropEntity2 = zpe;
+						}
+					}
 					if (damage > livingEntity.getHealth() &&
 							!(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -307,37 +313,22 @@ public class DoomshroomEntity extends BombardEntity implements IAnimatable {
 						checkList.add(livingEntity);
 						checkList.add(generalPvZombieEntity);
 					} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
-						String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombieShieldEntity.getType()).orElse("flesh");
-						if ("paper".equals(zombieMaterial)) {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), 99999);
-						} else {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-						}
+						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
 						checkList.add(zombieShieldEntity);
 					}
 					else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {
-						String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombieShieldEntity.getType()).orElse("flesh");
-						if ("paper".equals(zombieMaterial)) {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), 99999);
-						} else {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-						}
+						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add(livingEntity);
 						checkList.add(zombieShieldEntity);
 					}
 					else {
-						if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombiePropEntity.getType()).orElse("flesh");
-							if ("paper".equals(zombieMaterial)) {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), 99999);
-							} else {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							}
+						if (livingEntity instanceof ZombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
 						}
-						else if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity) && !checkList.contains(livingEntity)) {
+						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 						}

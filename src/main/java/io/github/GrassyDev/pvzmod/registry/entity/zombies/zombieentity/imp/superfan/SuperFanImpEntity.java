@@ -146,11 +146,11 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 		}
 	}
 
-	private Boolean getFireStage() {
+	public Boolean getFireStage() {
 		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
 	}
 
-	private void setFireStage(SuperFanImpEntity.FireStage fireStage) {
+	public void setFireStage(SuperFanImpEntity.FireStage fireStage) {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, fireStage.getId());
 	}
 
@@ -407,6 +407,9 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 		else if (this.isOnFire() || this.hasStatusEffect(PvZCubed.WARM)){
 			this.setFireStage(FireStage.FIRE);
 			this.attackTick = 20;
+		}
+		if (this.age < 20){
+			this.setTarget(null);
 		}
 		if (this.isAlive() && this.age > 20 && this.getFireStage()) {
 			if (this.getIgnited()) {

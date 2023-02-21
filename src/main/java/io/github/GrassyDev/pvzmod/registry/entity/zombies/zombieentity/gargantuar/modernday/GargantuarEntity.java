@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.GargantuarVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
@@ -18,8 +19,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieProp
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -45,6 +44,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
@@ -445,21 +446,27 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	protected void setImp(){
 		if (this.getType().equals(PvZEntity.GARGANTUARHYPNO)){
 			this.impEntity = new ImpEntity(PvZEntity.IMPHYPNO, this.world);
+			this.healthImp = this.getMaxHealth() / 2;
 		}
 		else if (this.getType().equals(PvZEntity.DEFENSIVEEND)){
-			this.impEntity = new ImpEntity(PvZEntity.SUPERFANIMP, this.world);
+			this.impEntity = new SuperFanImpEntity(PvZEntity.SUPERFANIMP, this.world);
+			this.healthImp = this.getMaxHealth();
 		}
 		else if (this.getType().equals(PvZEntity.DEFENSIVEENDHYPNO)){
-			this.impEntity = new ImpEntity(PvZEntity.SUPERFANIMPHYPNO, this.world);
+			this.impEntity = new SuperFanImpEntity(PvZEntity.SUPERFANIMPHYPNO, this.world);
+			this.healthImp = this.getMaxHealth();
 		}
 		else if (this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEAR)){
-			this.impEntity = new ImpEntity(PvZEntity.NEWYEARIMP, this.world);
+			this.impEntity = new SuperFanImpEntity(PvZEntity.NEWYEARIMP, this.world);
+			this.healthImp = this.getMaxHealth();
 		}
 		else if (this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO)){
-			this.impEntity = new ImpEntity(PvZEntity.NEWYEARIMPHYPNO, this.world);
+			this.impEntity = new SuperFanImpEntity(PvZEntity.NEWYEARIMPHYPNO, this.world);
+			this.healthImp = this.getMaxHealth();
 		}
 		else {
 			this.impEntity = new ImpEntity(PvZEntity.IMP, this.world);
+			this.healthImp = this.getMaxHealth() / 2;
 		}
 	}
 
@@ -486,6 +493,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			if (this.getHypno()){
 				impEntity.setHypno(IsHypno.TRUE);
 			}
+			impEntity.initialize((ServerWorldAccess) world, world.getLocalDifficulty(impEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
 			this.world.spawnEntity(impEntity);
 		}
 	}
@@ -495,7 +503,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		this.updateFloating();
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
@@ -520,7 +527,14 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			this.animationMultiplier = 1;
 		}
 		if (this.animationTicksLeft <= 0){
-			if (this.getHealth() <= this.healthImp && (this.getFirstPassenger() == null || !(this.getFirstPassenger() instanceof ZombiePropEntity)) && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
+			this.setImp();
+			ZombiePropEntity zombiePropEntity = null;
+			for (Entity entity : this.getPassengerList()) {
+				if (entity instanceof ZombiePropEntity zpe) {
+					zombiePropEntity = zpe;
+				}
+			}
+			if (this.getHealth() <= this.healthImp && (zombiePropEntity == null) && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
 				this.launchAnimation = 50 * animationMultiplier;
 				this.inLaunchAnimation = true;
 				this.world.sendEntityStatus(this, (byte) 44);
@@ -568,11 +582,47 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.GARGANTUAREGG.getDefaultStack();
+		if (this.getType().equals(PvZEntity.GARGANTUAR) || this.getType().equals(PvZEntity.GARGANTUARHYPNO)){
+			return ModItems.GARGANTUAREGG.getDefaultStack();
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEEND) ||
+				this.getType().equals(PvZEntity.DEFENSIVEENDHYPNO) ||
+				this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEAR) ||
+				this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO)){
+			return ModItems.DEFENSIVEENDEGG.getDefaultStack();
+		}
+		else {
+			return ModItems.GARGANTUAREGG.getDefaultStack();
+		}
+	}
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		if (this.getHypno()){
+			player.startRiding(this, true);
+			return ActionResult.success(this.world.isClient);
+		}
+		else {
+			return ActionResult.FAIL;
+		}
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
+	}
+
+	@Override
+	public void updatePassengerPosition(Entity passenger) {
+		if (passenger instanceof PlayerEntity){
+			passenger.setPosition(this.getX(), this.getY() + 3.25, this.getZ());
+		}
+		else {
+			super.updatePassengerPosition(passenger);
+		}
+	}
 
 	public void createProp(){
 		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.DEFENSIVEENDGEAR, this.world);
@@ -586,15 +636,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	protected boolean shouldSwimInFluids() {
 		return true;
-	}
-
-	private void updateFloating() {
-		if (this.isInsideWaterOrBubbleColumn()) {
-			ShapeContext shapeContext = ShapeContext.of(this);
-			if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
-				this.onGround = true;
-			}
-		}
 	}
 
 	public static DefaultAttributeContainer.Builder createGargantuarAttributes() {
@@ -675,12 +716,11 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				else {
 					hypnotizedZombie.setImpStage(GargantuarEntity.ImpStage.NOIMP);
 				}
-				if (this.getFirstPassenger() != null){
-					Entity entity = this.getFirstPassenger();
-					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
-						generalPvZombieEntity.setHypno(IsHypno.TRUE);
+				for (Entity entity1 : this.getPassengerList()) {
+					if (entity1 instanceof ZombiePropEntity zpe) {
+						zpe.setHypno(IsHypno.TRUE);
+						zpe.startRiding(hypnotizedZombie);
 					}
-					entity.startRiding(hypnotizedZombie);
 				}
 
 				hypnotizedZombie.setPersistent();

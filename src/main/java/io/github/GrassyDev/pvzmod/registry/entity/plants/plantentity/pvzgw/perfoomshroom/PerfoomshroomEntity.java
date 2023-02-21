@@ -295,6 +295,12 @@ public class PerfoomshroomEntity extends EnchantEntity implements IAnimatable {
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+					ZombiePropEntity zombiePropEntity2 = null;
+					for (Entity entity1 : livingEntity.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							zombiePropEntity2 = zpe;
+						}
+					}
 					if (damage > livingEntity.getHealth() &&
 							!(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -323,7 +329,7 @@ public class PerfoomshroomEntity extends EnchantEntity implements IAnimatable {
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
 						}
-						else if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity) && !checkList.contains(livingEntity)) {
+						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
 							checkList.add(livingEntity);

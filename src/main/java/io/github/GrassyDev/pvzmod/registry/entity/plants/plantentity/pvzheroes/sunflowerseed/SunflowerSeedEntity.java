@@ -218,9 +218,15 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 				if (livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) {
+					ZombiePropEntity zombiePropEntity2 = null;
+					for (Entity entity1 : livingEntity.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							zombiePropEntity2 = zpe;
+						}
+					}
 					if (livingEntity.getY() < (this.getY() + 1.5) && livingEntity.getY() > (this.getY() - 1.5)) {
 						if (!world.isClient &&
-								!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+								!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 								!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 							SoundEvent sound;

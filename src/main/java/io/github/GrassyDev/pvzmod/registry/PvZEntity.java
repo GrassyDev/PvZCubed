@@ -114,8 +114,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombi
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
@@ -668,28 +666,28 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.CREATURE, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
 	);
 
-	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND = Registry.register(
+	public static final EntityType<GargantuarEntity> DEFENSIVEEND = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveend"),
-			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
 	);
 
-	public static final EntityType<DefensiveEndEntity> DEFENSIVEENDHYPNO = Registry.register(
+	public static final EntityType<GargantuarEntity> DEFENSIVEENDHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveend_hypnotized"),
-			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
 	);
 
-	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND_NEWYEAR = Registry.register(
+	public static final EntityType<GargantuarEntity> DEFENSIVEEND_NEWYEAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveend_newyear"),
-			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
 	);
 
-	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND_NEWYEARHYPNO = Registry.register(
+	public static final EntityType<GargantuarEntity> DEFENSIVEEND_NEWYEARHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveend_newyear_hypnotized"),
-			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
 	);
 
 	public static final EntityType<ImpEntity> IMP = Registry.register(
@@ -985,14 +983,14 @@ public class PvZEntity implements ModInitializer {
 		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GARGANTUARHYPNO, GargantuarEntity.createGargantuarAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.GARGANTUARHYPNO, GargantuarEntityRenderer::new);
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND, DefensiveEndEntity.createGargantuarAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEENDHYPNO, DefensiveEndEntity.createGargantuarAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDHYPNO, DefensiveEndEntityRenderer::new);
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND_NEWYEAR, DefensiveEndEntity.createGargantuarAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO, DefensiveEndEntity.createGargantuarAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDHYPNO, DefensiveEndEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND, GargantuarEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, GargantuarEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEENDHYPNO, GargantuarEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDHYPNO, GargantuarEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND_NEWYEAR, GargantuarEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, GargantuarEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO, GargantuarEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDHYPNO, GargantuarEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.IMP, ImpEntity.createImpAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.IMP, ImpEntityRenderer::new);

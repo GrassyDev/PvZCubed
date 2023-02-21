@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -57,7 +57,7 @@ public class DefensiveEndEgg extends Item {
 						defensiveVariant = PvZEntity.DEFENSIVEEND;
 					}
                     ServerWorld serverWorld = (ServerWorld) world;
-                    DefensiveEndEntity gargantuarEntity = (DefensiveEndEntity) defensiveVariant.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+					GargantuarEntity gargantuarEntity = (GargantuarEntity) defensiveVariant.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (gargantuarEntity == null) {
                         return ActionResult.FAIL;
                     }

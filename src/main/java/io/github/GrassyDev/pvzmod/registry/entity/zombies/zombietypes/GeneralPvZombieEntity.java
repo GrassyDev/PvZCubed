@@ -150,6 +150,23 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void tick() {
 		super.tick();
+
+		// thanks to Pluiedev for this hipster code
+		var zombiePropEntity = this.getPassengerList()
+				.stream()
+				.filter(e -> e instanceof ZombiePropEntity)
+				.map(e -> (ZombiePropEntity) e)
+				.findFirst();
+
+		if (zombiePropEntity.isPresent()) {
+			var e = zombiePropEntity.get();
+			this.geardmg = e.getHealth() < e.getMaxHealth() / 2;
+			this.gearless = false;
+		} else {
+			this.gearless = true;
+			this.geardmg = false;
+		}
+
 		this.armless = this.getHealth() < this.getMaxHealth() / 2;
 		Entity entity = this;
 		if (this.getHealth() < this.getMaxHealth() / 2 && !(entity instanceof ZombiePropEntity) &&
@@ -158,14 +175,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
 				pop = false;
 			}
-		}
-		if (this.getFirstPassenger() instanceof ZombiePropEntity zombiePropEntity){
-			this.geardmg = zombiePropEntity.getHealth() < zombiePropEntity.getMaxHealth() / 2;
-			this.gearless = false;
-		}
-		else {
-			this.gearless = true;
-			this.geardmg = false;
 		}
 		if (this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno() && this.getHypno()){
 			this.setTarget(null);

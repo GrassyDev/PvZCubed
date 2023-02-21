@@ -241,6 +241,12 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 			if (((livingEntity instanceof Monster &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 							&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+				ZombiePropEntity zombiePropEntity2 = null;
+				for (Entity entity1 : livingEntity.getPassengerList()) {
+					if (entity1 instanceof ZombiePropEntity zpe) {
+						zombiePropEntity2 = zpe;
+					}
+				}
 				if (damage > livingEntity.getHealth() &&
 						!(livingEntity instanceof ZombieShieldEntity) &&
 						livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -249,7 +255,7 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
 					checkList.add(livingEntity);
 					checkList.add(generalPvZombieEntity);
-				} else if (livingEntity.getFirstPassenger() instanceof ZombieShieldEntity){
+				} else if (zombiePropEntity2 instanceof ZombieShieldEntity){
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 					checkList.add(livingEntity);
 				}
@@ -266,20 +272,15 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 							checkList.add(generalPvZombieEntity);
 						}
 					}
-					else if (livingEntity.getFirstPassenger() instanceof ZombieShieldEntity
-							&& !checkList.contains(livingEntity)){
-						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-						checkList.add(livingEntity);
-					}
-					else if ((!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity))
+					else if ((zombiePropEntity2 == null)
 							&& !checkList.contains(livingEntity)) {
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add(livingEntity);
 					}
 				}
 
-				if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity) ||
-						livingEntity.getFirstPassenger() instanceof ZombieShieldEntity){
+				if (zombiePropEntity2 == null ||
+						zombiePropEntity2 instanceof ZombieShieldEntity){
 					livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 					livingEntity.removeStatusEffect(PvZCubed.ICE);
 					livingEntity.setOnFireFor(4);

@@ -139,9 +139,15 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
+		ZombiePropEntity zombiePropEntity2 = null;
+		for (Entity entity1 : entity.getPassengerList()) {
+			if (entity1 instanceof ZombiePropEntity zpe) {
+				zombiePropEntity2 = zpe;
+			}
+		}
 		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !entity.isOnFire() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				if (!(entity instanceof ZombieShieldEntity)) {
@@ -192,7 +198,13 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 					if (livingEntity instanceof Monster &&
 							!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 									&& (generalPvZombieEntity.getHypno()))) {
-						if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity))) {
+						ZombiePropEntity zombiePropEntity3 = null;
+						for (Entity entity1 : livingEntity.getPassengerList()) {
+							if (entity1 instanceof ZombiePropEntity zpe) {
+								zombiePropEntity3 = zpe;
+							}
+						}
+						if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
 							if (damage > livingEntity.getHealth() &&
 									!(livingEntity instanceof ZombieShieldEntity) &&
 									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

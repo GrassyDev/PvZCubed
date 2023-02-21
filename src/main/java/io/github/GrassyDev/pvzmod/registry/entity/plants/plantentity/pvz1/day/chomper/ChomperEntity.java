@@ -203,7 +203,12 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
-		LivingEntity passenger = (LivingEntity) target.getFirstPassenger();
+		ZombiePropEntity passenger = null;
+		for (Entity entity1 : target.getPassengerList()) {
+			if (entity1 instanceof ZombiePropEntity zpe) {
+				passenger = zpe;
+			}
+		}
 		if (passenger instanceof ZombieShieldEntity zombieShieldEntity) {
 			if (i <= 0) {
 				this.attackTicksLeft = 200;
@@ -230,8 +235,8 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 				target instanceof ImpEntity ||
 		        target instanceof GargantuarEntity) {
 			Entity damaged = target;
-			if (passenger instanceof ZombiePropEntity zombiePropEntity){
-				damaged = zombiePropEntity;
+			if (passenger != null){
+				damaged = passenger;
 			}
 			if (i <= 0) {
 				this.attackTicksLeft = 30;

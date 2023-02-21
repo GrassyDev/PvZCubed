@@ -255,7 +255,12 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 				float damage = 4;
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {ZombiePropEntity zombiePropEntity2 = null;
+					for (Entity entity1 : livingEntity.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							zombiePropEntity2 = zpe;
+						}
+					}
 					if (damage > livingEntity.getHealth() &&
 							!(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -280,12 +285,12 @@ public class IcebergLettuceEntity extends BombardEntity implements IAnimatable {
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
 						}
-						else if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity) && !checkList.contains(livingEntity)) {
+						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 						}
 					}
-					if (!(livingEntity instanceof ZombieShieldEntity) && !(livingEntity.getFirstPassenger() instanceof ZombieShieldEntity)) {
+					if (!(livingEntity instanceof ZombieShieldEntity) && !(zombiePropEntity2 instanceof ZombieShieldEntity)) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						if (livingEntity.hasStatusEffect(PvZCubed.WARM) || livingEntity.isOnFire()) {

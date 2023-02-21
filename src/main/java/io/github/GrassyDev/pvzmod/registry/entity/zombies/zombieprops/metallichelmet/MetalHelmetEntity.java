@@ -183,7 +183,7 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 333D);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 140D);
 	}
 
 	protected SoundEvent getAmbientSound() {

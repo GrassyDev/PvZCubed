@@ -139,9 +139,15 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
+		ZombiePropEntity zombiePropEntity2 = null;
+		for (Entity entity1 : entity.getPassengerList()) {
+			if (entity1 instanceof ZombiePropEntity zpe) {
+				zombiePropEntity2 = zpe;
+			}
+		}
         if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(entity.getFirstPassenger() instanceof ZombiePropEntity && !(entity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
+				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !entity.isOnFire() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				if (!(entity instanceof ZombieShieldEntity)) {

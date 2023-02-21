@@ -292,6 +292,12 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+					ZombiePropEntity zombiePropEntity2 = null;
+					for (Entity entity1 : livingEntity.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							zombiePropEntity2 = zpe;
+						}
+					}
 					if (damage > livingEntity.getHealth() &&
 							!(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -316,7 +322,7 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
 						}
-						else if (!(livingEntity.getFirstPassenger() instanceof ZombiePropEntity) && !checkList.contains(livingEntity)) {
+						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 						}
@@ -540,9 +546,15 @@ public class PotatomineEntity extends BombardEntity implements IAnimatable {
 		float damage = 180;
 		LivingEntity attacker = (LivingEntity) source.getAttacker();
 		if (attacker instanceof GargantuarEntity && this.getPotatoStage() && attacker.isAlive()){
-			if (attacker.getFirstPassenger() instanceof ZombiePropEntity zombiePropEntity){
-				float damage2 = damage - zombiePropEntity.getHealth();
-				zombiePropEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+			ZombiePropEntity zombiePropEntity2 = null;
+			for (Entity entity1 : attacker.getPassengerList()) {
+				if (entity1 instanceof ZombiePropEntity zpe) {
+					zombiePropEntity2 = zpe;
+				}
+			}
+			if (zombiePropEntity2 != null){
+				float damage2 = damage - zombiePropEntity2.getHealth();
+				zombiePropEntity2.damage(DamageSource.thrownProjectile(this, this), damage);
 				attacker.damage(DamageSource.thrownProjectile(this, this), damage2);
 			}
 			else {
