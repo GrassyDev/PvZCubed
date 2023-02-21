@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.defensiveend.DefensiveEndEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -44,11 +45,19 @@ public class DefensiveEndEgg extends Item {
         BlockPos blockPos = itemPlacementContext.getBlockPos();
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
+		EntityType<?> defensiveVariant;
         Box box = PvZEntity.DEFENSIVEEND.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
+					double random = Math.random();
+					if (random <= 0.25){
+						defensiveVariant = PvZEntity.DEFENSIVEEND_NEWYEAR;
+					}
+					else {
+						defensiveVariant = PvZEntity.DEFENSIVEEND;
+					}
                     ServerWorld serverWorld = (ServerWorld) world;
-                    DefensiveEndEntity gargantuarEntity = (DefensiveEndEntity) PvZEntity.DEFENSIVEEND.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    DefensiveEndEntity gargantuarEntity = (DefensiveEndEntity) defensiveVariant.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (gargantuarEntity == null) {
                         return ActionResult.FAIL;
                     }

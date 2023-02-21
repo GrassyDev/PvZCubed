@@ -40,7 +40,7 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.POPLIMBEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public void tick() {

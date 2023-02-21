@@ -2,12 +2,10 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.supe
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.SuperFanImpVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ImpVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
@@ -162,12 +160,6 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		if (this.getType().equals(PvZEntity.NEWYEARIMP)){
-			setVariant(SuperFanImpVariants.NEWYEAR);
-		}
-		else {
-			setVariant(SuperFanImpVariants.DEFAULT);
-		}
 		setFireStage(FireStage.FIRE);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
@@ -176,11 +168,11 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
 	}
 
-	public SuperFanImpVariants getVariant() {
-		return SuperFanImpVariants.byId(this.getTypeVariant() & 255);
+	public ImpVariants getVariant() {
+		return ImpVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	public void setVariant(SuperFanImpVariants variant) {
+	public void setVariant(ImpVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
@@ -280,6 +272,18 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	@Override
 	protected void initGoals() {
 		super.initGoals();
+	}
+
+	@Override
+	protected void initCustomGoals() {
+		super.initCustomGoals();
+		this.goalSelector.add(2, new ImpIgniteGoal(this));
+		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
+	}
+
+	@Override
+	protected void initHypnoGoals() {
+		super.initHypnoGoals();
 		this.goalSelector.add(2, new ImpIgniteGoal(this));
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
 	}
@@ -302,7 +306,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 
 	private void raycastExplode() {
 		double squaredDist;
-		if (this.getVariant().equals(SuperFanImpVariants.NEWYEAR)){
+		if (this.getVariant().equals(ImpVariants.NEWYEAR)){
 			squaredDist = 25;
 		}
 		else {
@@ -335,8 +339,15 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				if (livingEntity instanceof PlantEntity || livingEntity instanceof HypnoSummonerEntity || livingEntity instanceof HypnoZombieEntity) {
-					livingEntity.damage(DamageSource.explosion(this), 30);
+				if (this.getHypno()){
+					if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+						livingEntity.damage(DamageSource.explosion(this), 30);
+					}
+				}
+				else {
+					if (livingEntity instanceof PlantEntity || (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno())) {
+						livingEntity.damage(DamageSource.explosion(this), 30);
+					}
 				}
 			}
 		}
@@ -438,7 +449,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	@Override
 	public ItemStack getPickBlockStack() {
 		ItemStack itemStack;
-		if (this.getVariant().equals(SuperFanImpVariants.NEWYEAR)){
+		if (this.getVariant().equals(ImpVariants.NEWYEAR)){
 			itemStack = ModItems.NEWYEARIMPEGG.getDefaultStack();
 		}
 		else{

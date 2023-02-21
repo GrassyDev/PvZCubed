@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday;
 
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -17,7 +18,11 @@ public class GargantuarEntityModel extends AnimatedGeoModel<GargantuarEntity> {
     @Override
     public Identifier getTextureResource(GargantuarEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/gargantuar/gargantuar.png");
+		Identifier identifier = new Identifier("pvzmod", "textures/entity/gargantuar/gargantuar.png");
+		if (object.getType().equals(PvZEntity.GARGANTUARHYPNO)){
+			identifier = new Identifier("pvzmod", "textures/entity/gargantuar/gargantuar_hypnotized.png");
+		}
+        return identifier;
     }
 
     @Override

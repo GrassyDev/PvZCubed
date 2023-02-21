@@ -6,10 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGr
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.imp.modernday.HypnoImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.newspaper.HypnoNewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.newspaper.HypnoNewspaperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.polevaulting.HypnoPoleVaultingEntity;
@@ -666,10 +662,34 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
 	);
 
-	public static final EntityType<HypnoGargantuarEntity> HYPNOGARGANTUAR = Registry.register(
+	public static final EntityType<GargantuarEntity> GARGANTUARHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "gargantuar_hypnotized"),
-			QuiltEntityTypeBuilder.<HypnoGargantuarEntity>create(SpawnGroup.CREATURE, HypnoGargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.CREATURE, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
+	);
+
+	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "defensiveend"),
+			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+	);
+
+	public static final EntityType<DefensiveEndEntity> DEFENSIVEENDHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "defensiveend_hypnotized"),
+			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+	);
+
+	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND_NEWYEAR = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "defensiveend_newyear"),
+			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+	);
+
+	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND_NEWYEARHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "defensiveend_newyear_hypnotized"),
+			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
 	);
 
 	public static final EntityType<ImpEntity> IMP = Registry.register(
@@ -678,10 +698,10 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
 
-	public static final EntityType<HypnoImpEntity> HYPNOIMP = Registry.register(
+	public static final EntityType<ImpEntity> IMPHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "imp_hypnotized"),
-			QuiltEntityTypeBuilder.<HypnoImpEntity>create(SpawnGroup.CREATURE, HypnoImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.CREATURE, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
 
 	public static final EntityType<SuperFanImpEntity> SUPERFANIMP = Registry.register(
@@ -689,16 +709,23 @@ public class PvZEntity implements ModInitializer {
 			new Identifier(ModID, "superfanimp"),
 			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
+
+	public static final EntityType<SuperFanImpEntity> SUPERFANIMPHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "superfanimp_hypnotized"),
+			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
+	);
+
 	public static final EntityType<SuperFanImpEntity> NEWYEARIMP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "newyearimp"),
 			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
 
-	public static final EntityType<DefensiveEndEntity> DEFENSIVEEND = Registry.register(
+	public static final EntityType<SuperFanImpEntity> NEWYEARIMPHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "defensiveend"),
-			QuiltEntityTypeBuilder.<DefensiveEndEntity>create(SpawnGroup.MONSTER, DefensiveEndEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			new Identifier(ModID, "newyearimp_hypnotized"),
+			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
 
 	public static final EntityType<LocustSwarmEntity> LOCUSTSWARM = Registry.register(
@@ -956,23 +983,29 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GARGANTUAR, GargantuarEntity.createGargantuarAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);
-
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOGARGANTUAR, HypnoGargantuarEntity.createHypnoGargantuarAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.HYPNOGARGANTUAR, HypnoGargantuarEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GARGANTUARHYPNO, GargantuarEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.GARGANTUARHYPNO, GargantuarEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND, DefensiveEndEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEENDHYPNO, DefensiveEndEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDHYPNO, DefensiveEndEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND_NEWYEAR, DefensiveEndEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO, DefensiveEndEntity.createGargantuarAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDHYPNO, DefensiveEndEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.IMP, ImpEntity.createImpAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.IMP, ImpEntityRenderer::new);
-
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.HYPNOIMP, HypnoImpEntity.createHypnoImpAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.HYPNOIMP, HypnoImpEntityRenderer::new);
-
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.IMPHYPNO, ImpEntity.createImpAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.IMPHYPNO, ImpEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUPERFANIMP, SuperFanImpEntity.createImpAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMP, SuperFanImpEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUPERFANIMPHYPNO, SuperFanImpEntity.createImpAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.SUPERFANIMPHYPNO, SuperFanImpEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWYEARIMP, SuperFanImpEntity.createImpAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.NEWYEARIMP, SuperFanImpEntityRenderer::new);
-
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEEND, DefensiveEndEntity.createGargantuarAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.DEFENSIVEEND, DefensiveEndEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWYEARIMPHYPNO, SuperFanImpEntity.createImpAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.NEWYEARIMPHYPNO, SuperFanImpEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LOCUSTSWARM, LocustSwarmEntity.createLocustSwarmAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.LOCUSTSWARM, LocustswarmEntityRenderer::new);

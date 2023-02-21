@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.supe
 
 import com.google.common.collect.Maps;
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.SuperFanImpVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ImpVariants;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -20,11 +20,11 @@ public class SuperFanImpEntityRenderer extends GeoEntityRenderer<SuperFanImpEnti
         this.shadowRadius = 0.4F; //change 0.7 to the desired shadow size.
     }
 
-	public static final Map<SuperFanImpVariants, Identifier> LOCATION_BY_VARIANT =
-			Util.make(Maps.newEnumMap(SuperFanImpVariants.class), (map) -> {
-				map.put(SuperFanImpVariants.DEFAULT,
+	public static final Map<ImpVariants, Identifier> LOCATION_BY_VARIANT =
+			Util.make(Maps.newEnumMap(ImpVariants.class), (map) -> {
+				map.put(ImpVariants.DEFAULT,
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/imp/superfanimp.png"));
-				map.put(SuperFanImpVariants.NEWYEAR,
+				map.put(ImpVariants.NEWYEAR,
 						new Identifier(PvZCubed.MOD_ID, "textures/entity/imp/newyearimp.png"));
 			});
 

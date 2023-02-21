@@ -3,15 +3,16 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantu
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.GargantuarVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
@@ -31,6 +32,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -100,17 +102,20 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void initDataTracker() {
 		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, true);
 	}
 
 	@Override
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
+		tag.putInt("Variant", this.getTypeVariant());
 		tag.putBoolean("Imp", this.getImpStage());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Imp"));
 	}
 
@@ -167,6 +172,31 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
 		setImpStage(ImpStage.IMP);
+		if (this.getType().equals(PvZEntity.GARGANTUARHYPNO)){
+			setVariant(GargantuarVariants.GARGANTUARHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEEND)){
+			setVariant(GargantuarVariants.DEFENSIVEEND);
+			this.initCustomGoals();
+			createProp();
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEENDHYPNO)){
+			setVariant(GargantuarVariants.DEFENSIVEENDHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEAR)){
+			setVariant(GargantuarVariants.DEFENSIVEEND_NEWYEAR);
+			this.initCustomGoals();
+			createProp();
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO)){
+			setVariant(GargantuarVariants.DEFENSIVEEND_NEWYEARHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else {
+			setVariant(GargantuarVariants.GARGANTUAR);
+		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -193,6 +223,26 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, impStage.getId());
 	}
 
+	@Override
+	public void setHypno(IsHypno hypno) {
+		super.setHypno(hypno);
+	}
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(GargantuarEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public GargantuarVariants getVariant() {
+		return GargantuarVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(GargantuarVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -209,165 +259,50 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		ZombiePropEntity zombiePropEntity = (ZombiePropEntity) this.getFirstPassenger();
-		if (this.hasPassenger(zombiePropEntity)){
-			if (this.isInsideWaterOrBubbleColumn()) {
-				if (inLaunchAnimation) {
-					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
-					if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
-				} else if (this.getImpStage()) {
-					if (inAnimation) {
-						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
-						if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky"));
-						if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					}
+		if (this.isInsideWaterOrBubbleColumn()) {
+			if (inLaunchAnimation) {
+				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
 				} else {
-					if (inAnimation) {
-						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2"));
-						if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2"));
-						if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					}
+					event.getController().setAnimationSpeed(1);
+				}
+			} else if (this.getImpStage()) {
+				if (inAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky"));
+				}
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				} else {
+					event.getController().setAnimationSpeed(1);
 				}
 			} else {
-				if (inLaunchAnimation) {
-					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					} else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
-				} else if (this.getImpStage()) {
-					if (inAnimation) {
-						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					}
+				if (inAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2"));
 				} else {
-					if (inAnimation) {
-						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					}
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2"));
+				}
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				} else {
+					event.getController().setAnimationSpeed(1);
 				}
 			}
-		}
-		else {
-			if (this.isInsideWaterOrBubbleColumn()) {
-				if (inLaunchAnimation) {
-					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw.gearless"));
-					if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
-				} else if (this.getImpStage()) {
-					if (inAnimation) {
-						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash.gearless"));
-						if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky.gearless"));
-						if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					}
+		} else {
+			if (inLaunchAnimation) {
+				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				} else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
 				} else {
-					if (inAnimation) {
-						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash2.gearless"));
-						if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2.gearless"));
-						if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					}
+					event.getController().setAnimationSpeed(1);
 				}
-			} else {
-				if (inLaunchAnimation) {
-					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw.gearless"));
+			} else if (this.getImpStage()) {
+				if (inAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
 					if (this.isFrozen) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
@@ -375,63 +310,52 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 					} else {
 						event.getController().setAnimationSpeed(1);
 					}
-				} else if (this.getImpStage()) {
-					if (inAnimation) {
-						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash.gearless"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk.gearless"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
+				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
 					} else {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle.gearless"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
+						event.getController().setAnimationSpeed(1);
 					}
 				} else {
-					if (inAnimation) {
-						event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2.gearless"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
-					} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2.gearless"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
 					} else {
-						event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2.gearless"));
-						if (this.isFrozen) {
-							event.getController().setAnimationSpeed(0);
-						} else if (this.isIced) {
-							event.getController().setAnimationSpeed(0.5);
-						} else {
-							event.getController().setAnimationSpeed(1);
-						}
+						event.getController().setAnimationSpeed(1);
+					}
+				}
+			} else {
+				if (inAnimation) {
+					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					} else {
+						event.getController().setAnimationSpeed(1);
+					}
+				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					} else {
+						event.getController().setAnimationSpeed(1);
+					}
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					} else {
+						event.getController().setAnimationSpeed(1);
 					}
 				}
 			}
@@ -439,54 +363,109 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-
 	/** /~*~//~*AI*~//~*~/ **/
+
 	protected void initGoals() {
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-            this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
-        this.initCustomGoals();
-    }
+		if (this.getType().equals(PvZEntity.GARGANTUARHYPNO) ||
+				this.getType().equals(PvZEntity.DEFENSIVEENDHYPNO) ||
+				this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO)) {
+			initHypnoGoals();
+		}
+		else {
+			initCustomGoals();
+		}
+	}
 
-    protected void initCustomGoals() {
-        this.targetSelector.add(2, new GargantuarEntity.TrackOwnerTargetGoal(this));
-
+	protected void initCustomGoals() {
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(1, new GargantuarEntity.AttackGoal());
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
+		this.targetSelector.add(2, new GargantuarEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-
-		this.targetSelector.add(2, new TargetGoal<>(this, PlantEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, MerchantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.getHypno());
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(1, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, SunshroomEntity.class, false, true));
-    }
+		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+	}
+
+	protected void initHypnoGoals(){
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(1, new GargantuarEntity.AttackGoal());
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(2, new GargantuarEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
+		////////// Hypnotized Zombie targets ///////
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && !(zombiePropEntity.getHypno()));
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+		}));
+	}
+
 
 	//Smash
 	public boolean tryAttack(Entity target) {
-		if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.inLaunchAnimation) {
-			if (this.firstAttack && this.animationTicksLeft <= 0) {
-				this.animationTicksLeft = 90 * animationMultiplier;
-				this.firstAttack = false;
-			}
-			else if (this.animationTicksLeft == 40 * animationMultiplier) {
-				if (this.hasStatusEffect(PvZCubed.ICE) && this.squaredDistanceTo(target) < 32D) {
-					target.damage(DamageSource.mob(this), 720f);
-				} else if (this.squaredDistanceTo(target) < 32D) {
-					target.damage(DamageSource.mob(this), 360f);
+		if (!this.getPassengerList().contains(target)) {
+			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.inLaunchAnimation) {
+				if (this.firstAttack && this.animationTicksLeft <= 0) {
+					this.animationTicksLeft = 90 * animationMultiplier;
+					this.firstAttack = false;
+				} else if (this.animationTicksLeft == 40 * animationMultiplier) {
+					if (this.hasStatusEffect(PvZCubed.ICE) && this.squaredDistanceTo(target) < 32D) {
+						target.damage(DamageSource.mob(this), 720f);
+					} else if (this.squaredDistanceTo(target) < 32D) {
+						target.damage(DamageSource.mob(this), 360f);
+					}
 				}
 			}
 		}
 		return false;
 	}
 
+	protected void setImp(){
+		if (this.getType().equals(PvZEntity.GARGANTUARHYPNO)){
+			this.impEntity = new ImpEntity(PvZEntity.IMPHYPNO, this.world);
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEEND)){
+			this.impEntity = new ImpEntity(PvZEntity.SUPERFANIMP, this.world);
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEENDHYPNO)){
+			this.impEntity = new ImpEntity(PvZEntity.SUPERFANIMPHYPNO, this.world);
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEAR)){
+			this.impEntity = new ImpEntity(PvZEntity.NEWYEARIMP, this.world);
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO)){
+			this.impEntity = new ImpEntity(PvZEntity.NEWYEARIMPHYPNO, this.world);
+		}
+		else {
+			this.impEntity = new ImpEntity(PvZEntity.IMP, this.world);
+		}
+	}
+
 	//Launch Imp
 	public void tryLaunch(Entity target){
+		this.setImp();
 		if (this.getImpStage().equals(Boolean.TRUE) && launchAnimation == 20 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN)){
 			if (target != null){
 				double d = this.squaredDistanceTo(target);
@@ -504,6 +483,9 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			impEntity.setOwner(this);
 			this.setImpStage(ImpStage.NOIMP);
 			this.playSound(PvZCubed.IMPLAUNCHEVENT, 1F, 1);
+			if (this.getHypno()){
+				impEntity.setHypno(IsHypno.TRUE);
+			}
 			this.world.spawnEntity(impEntity);
 		}
 	}
@@ -514,7 +496,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		this.updateFloating();
-		if (this.getAttacking() == null){
+		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
@@ -592,6 +574,12 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	public void createProp(){
+		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.DEFENSIVEENDGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
 	public boolean canWalkOnFluid(FluidState state) {
 		return state.isIn(FluidTags.WATER);
 	}
@@ -621,17 +609,8 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		return PvZCubed.GARGANTUARMOANEVENT;
 	}
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
-	}
-
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
-	}
-
-	protected SoundEvent getHurtSound() {
-		return PvZCubed.SILENCEVENET;
 	}
 
 	public MobEntity getOwner() {
@@ -652,44 +631,66 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
-	public boolean damage(DamageSource source, float amount) {
-        if (!super.damage(source, amount)) {
-            return false;
-        } else if (!(this.world instanceof ServerWorld)) {
-            return false;
-        } else {
-            ServerWorld serverWorld = (ServerWorld)this.world;
-            LivingEntity livingEntity = this.getTarget();
-            if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
-                livingEntity = (LivingEntity)source.getAttacker();
-            }
+	protected EntityType<?> hypnoType;
 
-            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
-                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoGargantuarEntity hypnotizedZombie = (HypnoGargantuarEntity) PvZEntity.HYPNOGARGANTUAR.create(world);
+	protected void checkHypno(){
+		if (this.getType().equals(PvZEntity.DEFENSIVEEND)){
+			hypnoType = PvZEntity.DEFENSIVEENDHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEAR)){
+			hypnoType = PvZEntity.DEFENSIVEEND_NEWYEARHYPNO;
+		}
+		else {
+			hypnoType = PvZEntity.GARGANTUARHYPNO;
+		}
+	}
+
+	public boolean damage(DamageSource source, float amount) {
+		if (!super.damage(source, amount)) {
+			return false;
+		} else if (!(this.world instanceof ServerWorld)) {
+			return false;
+		} else {
+			ServerWorld serverWorld = (ServerWorld)this.world;
+			LivingEntity livingEntity = this.getTarget();
+			if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
+				livingEntity = (LivingEntity)source.getAttacker();
+			}
+
+			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
+				checkHypno();
+				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+				GargantuarEntity hypnotizedZombie = (GargantuarEntity) hypnoType.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
 				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
 				hypnotizedZombie.setHealth(this.getHealth());
-				if (this.getImpStage().equals(Boolean.TRUE)){
-					hypnotizedZombie.setImpStage(HypnoGargantuarEntity.ImpStage.IMP);
-				}
-				else {
-					hypnotizedZombie.setImpStage(HypnoGargantuarEntity.ImpStage.NOIMP);
-				}
-                if (this.hasCustomName()) {
+				if (this.hasCustomName()) {
 					hypnotizedZombie.setCustomName(this.getCustomName());
 					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
-                }
+				}
+				if (this.getImpStage().equals(Boolean.TRUE)){
+					hypnotizedZombie.setImpStage(GargantuarEntity.ImpStage.IMP);
+				}
+				else {
+					hypnotizedZombie.setImpStage(GargantuarEntity.ImpStage.NOIMP);
+				}
+				if (this.getFirstPassenger() != null){
+					Entity entity = this.getFirstPassenger();
+					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+						generalPvZombieEntity.setHypno(IsHypno.TRUE);
+					}
+					entity.startRiding(hypnotizedZombie);
+				}
 
 				hypnotizedZombie.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
-                this.remove(RemovalReason.DISCARDED);
-            }
+				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
+				this.remove(RemovalReason.DISCARDED);
+			}
 
-            return true;
-        }
-    }
+			return true;
+		}
+	}
 
 
 	/** /~*~//~*GOALS*~//~*~/ **/

@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.snorkel.HypnoSnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
@@ -74,7 +73,7 @@ public class DuckyTubeEntity extends PathAwareEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		Entity passenger = this.getPrimaryPassenger();
-		if (passenger instanceof GargantuarEntity || passenger instanceof HypnoGargantuarEntity) {
+		if (passenger instanceof GargantuarEntity) {
 			event.getController().setAnimation(new AnimationBuilder().loop("ducky.big"));
 		}
 		else if (passenger instanceof SnorkelEntity || passenger instanceof HypnoSnorkelEntity){

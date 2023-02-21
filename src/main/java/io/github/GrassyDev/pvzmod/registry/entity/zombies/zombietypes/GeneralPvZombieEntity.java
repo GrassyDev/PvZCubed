@@ -5,6 +5,8 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -110,7 +112,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.POPHEADEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public PlantEntity CollidesWithPlant(){
@@ -150,7 +152,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		super.tick();
 		this.armless = this.getHealth() < this.getMaxHealth() / 2;
 		Entity entity = this;
-		if (this.getHealth() < this.getMaxHealth() / 2 && !(entity instanceof ZombiePropEntity)){
+		if (this.getHealth() < this.getMaxHealth() / 2 && !(entity instanceof ZombiePropEntity) &&
+				!(entity instanceof GargantuarEntity) && !(entity instanceof ImpEntity)){
 			if (this.pop){
 				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
 				pop = false;

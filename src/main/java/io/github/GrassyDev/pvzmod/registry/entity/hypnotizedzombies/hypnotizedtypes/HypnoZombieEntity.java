@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedt
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.gargantuar.modernday.HypnoGargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.duckytube.DuckyTubeEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
@@ -41,7 +40,7 @@ public abstract class HypnoZombieEntity extends GolemEntity {
 		} else if (!this.hasStatusEffect(PvZCubed.ICE) && vehicle != null) {
 			((DuckyTubeEntity) vehicle).removeStatusEffect(PvZCubed.ICE);
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn() && !(this instanceof HypnoGargantuarEntity)) {
+		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()) {
 			this.discard();
 		}
 
