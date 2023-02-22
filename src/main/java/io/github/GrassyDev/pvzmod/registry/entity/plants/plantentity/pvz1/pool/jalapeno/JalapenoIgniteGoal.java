@@ -13,7 +13,7 @@ public class JalapenoIgniteGoal extends Goal {
 
     public boolean canStart() {
         LivingEntity livingEntity = this.pepper.getTarget();
-        return this.pepper.getFuseSpeed() > 0 || livingEntity != null && this.pepper.squaredDistanceTo(livingEntity) < 144.0D;
+        return this.pepper.getFuseSpeed() > 0 || livingEntity != null && this.pepper.squaredDistanceTo(livingEntity) < 144.0D && !pepper.isWet();
     }
 
     public void start() {
@@ -26,12 +26,14 @@ public class JalapenoIgniteGoal extends Goal {
     }
 
     public void tick() {
-        if (this.target == null) {
-            this.pepper.setFuseSpeed(-1);
-        } else if (this.pepper.squaredDistanceTo(this.target) > 144D || this.pepper.isInsideWaterOrBubbleColumn()) {
-            this.pepper.setFuseSpeed(-1);
-        } else {
-            this.pepper.setFuseSpeed(1);
-        }
+		if (!pepper.isWet()) {
+			if (this.target == null) {
+				this.pepper.setFuseSpeed(-1);
+			} else if (this.pepper.squaredDistanceTo(this.target) > 144D || this.pepper.isInsideWaterOrBubbleColumn()) {
+				this.pepper.setFuseSpeed(-1);
+			} else {
+				this.pepper.setFuseSpeed(1);
+			}
+		}
     }
 }

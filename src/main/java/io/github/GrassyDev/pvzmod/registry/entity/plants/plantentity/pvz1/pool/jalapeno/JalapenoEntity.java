@@ -50,19 +50,19 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_STRENGTH;
 
 public class JalapenoEntity extends BombardEntity implements IAnimatable {
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    private static final TrackedData<Integer> FUSE_SPEED;
-    private static final TrackedData<Boolean> CHARGED;
-    private static final TrackedData<Boolean> IGNITED;
-    private int currentFuseTime;
-    private int fuseTime = 30;
-    private int explosionRadius = 1;
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	private static final TrackedData<Integer> FUSE_SPEED;
+	private static final TrackedData<Boolean> CHARGED;
+	private static final TrackedData<Boolean> IGNITED;
+	private int currentFuseTime;
+	private int fuseTime = 30;
+	private int explosionRadius = 1;
 	private String controllerName = "bombcontroller";
 
-    public JalapenoEntity(EntityType<? extends JalapenoEntity> entityType, World world) {
-        super(entityType, world);
-        this.ignoreCameraFrustum = true;
-    }
+	public JalapenoEntity(EntityType<? extends JalapenoEntity> entityType, World world) {
+		super(entityType, world);
+		this.ignoreCameraFrustum = true;
+	}
 
 	protected void initDataTracker() {
 		super.initDataTracker();
@@ -73,12 +73,12 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
-		if ((Boolean)this.dataTracker.get(CHARGED)) {
+		if ((Boolean) this.dataTracker.get(CHARGED)) {
 			nbt.putBoolean("powered", true);
 		}
 
-		nbt.putShort("Fuse", (short)this.fuseTime);
-		nbt.putByte("ExplosionRadius", (byte)this.explosionRadius);
+		nbt.putShort("Fuse", (short) this.fuseTime);
+		nbt.putByte("ExplosionRadius", (byte) this.explosionRadius);
 		nbt.putBoolean("ignited", this.getIgnited());
 	}
 
@@ -106,7 +106,9 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+	/**
+	 * /~*~//~*GECKOLIB ANIMATION*~//~*~/
+	 **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
@@ -121,17 +123,19 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        int i = this.getFuseSpeed();
-        if (i > 0) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce("jalapeno.explosion"));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("jalapeno.idle"));
-        }
-        return PlayState.CONTINUE;
-    }
+		int i = this.getFuseSpeed();
+		if (i > 0) {
+			event.getController().setAnimation(new AnimationBuilder().playOnce("jalapeno.explosion"));
+		} else {
+			event.getController().setAnimation(new AnimationBuilder().loop("jalapeno.idle"));
+		}
+		return PlayState.CONTINUE;
+	}
 
 
-	/** /~*~//~*AI*~//~*~/ **/
+	/**
+	 * /~*~//~*AI*~//~*~/
+	 **/
 
 	protected void initGoals() {
 		int i = this.getFuseSpeed();
@@ -195,7 +199,7 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 	}
 
 	public int getFuseSpeed() {
-		return (Integer)this.dataTracker.get(FUSE_SPEED);
+		return (Integer) this.dataTracker.get(FUSE_SPEED);
 	}
 
 	public void setFuseSpeed(int fuseSpeed) {
@@ -203,7 +207,7 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 	}
 
 	public boolean getIgnited() {
-		return (Boolean)this.dataTracker.get(IGNITED);
+		return (Boolean) this.dataTracker.get(IGNITED);
 	}
 
 	public void ignite() {
@@ -220,75 +224,75 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 		FireTrailEntity fireTrailEntity = new FireTrailEntity(PvZEntity.FIRETRAIL, this.world);
 		fireTrailEntity.updatePositionAndAngles(vec3d3.getX(), this.getBlockY() + 1, vec3d3.getZ(), this.bodyYaw, 0.0F);
 		List<SunflowerEntity> listFlames = this.world.getNonSpectatingEntities(SunflowerEntity.class, fireTrailEntity.getBoundingBox());
-		if (listFlames.isEmpty()){
+		if (listFlames.isEmpty()) {
 			world.spawnEntity(fireTrailEntity);
 		}
-		Iterator var9 = list.iterator();
-		while (true) {
-			LivingEntity livingEntity;
-			do {
+		if (!fireTrailEntity.isWet()) {
+			Iterator var9 = list.iterator();
+			while (true) {
+				LivingEntity livingEntity;
 				do {
-					if (!var9.hasNext()) {
-						return;
-					}
-
-					livingEntity = (LivingEntity) var9.next();
-				} while (livingEntity == this);
-			} while (this.squaredDistanceTo(livingEntity) > 100);
-
-			float damage = 180;
-
-			if (((livingEntity instanceof Monster &&
-					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-							&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
-				ZombiePropEntity zombiePropEntity2 = null;
-				for (Entity entity1 : livingEntity.getPassengerList()) {
-					if (entity1 instanceof ZombiePropEntity zpe) {
-						zombiePropEntity2 = zpe;
-					}
-				}
-				if (damage > livingEntity.getHealth() &&
-						!(livingEntity instanceof ZombieShieldEntity) &&
-						livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-					float damage2 = damage - livingEntity.getHealth();
-					livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
-					checkList.add(livingEntity);
-					checkList.add(generalPvZombieEntity);
-				} else if (zombiePropEntity2 instanceof ZombieShieldEntity){
-					livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-					checkList.add(livingEntity);
-				}
-				else {
-					if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
-						String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombiePropEntity.getType()).orElse("flesh");
-						if ("paper".equals(zombieMaterial)) {
-							livingEntity.kill();
-						} else {
-							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+					do {
+						if (!var9.hasNext()) {
+							return;
 						}
+
+						livingEntity = (LivingEntity) var9.next();
+					} while (livingEntity == this);
+				} while (this.squaredDistanceTo(livingEntity) > 100);
+
+				float damage = 180;
+
+				if (((livingEntity instanceof Monster &&
+						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
+								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+					ZombiePropEntity zombiePropEntity2 = null;
+					for (Entity entity1 : livingEntity.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							zombiePropEntity2 = zpe;
+						}
+					}
+					if (damage > livingEntity.getHealth() &&
+							!(livingEntity instanceof ZombieShieldEntity) &&
+							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+						float damage2 = damage - livingEntity.getHealth();
+						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+						generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
 						checkList.add(livingEntity);
-						if (!(livingEntity instanceof ZombieShieldEntity)){
-							checkList.add(generalPvZombieEntity);
-						}
-					}
-					else if ((zombiePropEntity2 == null)
-							&& !checkList.contains(livingEntity)) {
+						checkList.add(generalPvZombieEntity);
+					} else if (zombiePropEntity2 instanceof ZombieShieldEntity) {
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add(livingEntity);
+					} else {
+						if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombiePropEntity.getType()).orElse("flesh");
+							if ("paper".equals(zombieMaterial)) {
+								livingEntity.kill();
+							} else {
+								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							}
+							checkList.add(livingEntity);
+							if (!(livingEntity instanceof ZombieShieldEntity)) {
+								checkList.add(generalPvZombieEntity);
+							}
+						} else if ((zombiePropEntity2 == null)
+								&& !checkList.contains(livingEntity)) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add(livingEntity);
+						}
 					}
-				}
 
-				if (zombiePropEntity2 == null ||
-						zombiePropEntity2 instanceof ZombieShieldEntity){
-					livingEntity.removeStatusEffect(PvZCubed.FROZEN);
-					livingEntity.removeStatusEffect(PvZCubed.ICE);
-					livingEntity.setOnFireFor(4);
-					this.world.sendEntityStatus(this, (byte) 3);
-					this.remove(RemovalReason.DISCARDED);
-				}
-				if (!(livingEntity instanceof ZombieShieldEntity)) {
-					livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+					if (zombiePropEntity2 == null ||
+							zombiePropEntity2 instanceof ZombieShieldEntity) {
+						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+						livingEntity.removeStatusEffect(PvZCubed.ICE);
+						livingEntity.setOnFireFor(4);
+						this.world.sendEntityStatus(this, (byte) 3);
+						this.remove(RemovalReason.DISCARDED);
+					}
+					if (!(livingEntity instanceof ZombieShieldEntity)) {
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+					}
 				}
 			}
 		}
@@ -322,6 +326,9 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		RandomGenerator randomGenerator = this.getRandom();
+		if (this.isWet()){
+			this.setTarget(null);
+		}
 		if (this.getTarget() != null){
 			this.getLookControl().lookAt(this.getTarget(), 90.0F, 90.0F);
 		}
@@ -352,9 +359,11 @@ public class JalapenoEntity extends BombardEntity implements IAnimatable {
 			if (this.currentFuseTime >= this.fuseTime) {
 				this.currentFuseTime = this.fuseTime;
 				this.playSound(PvZCubed.JALAPENOEXPLOSIONEVENT, 3F, 1F);
-				for (int u = -9; u < 10; ++u) {
-					this.boxOffset = (float) u;
-					this.raycastExplode();
+				if (!this.isWet()){
+					for (int u = -9; u < 10; ++u) {
+						this.boxOffset = (float) u;
+						this.raycastExplode();
+					}
 				}
 				this.world.sendEntityStatus(this, (byte) 6);
 				this.dead = true;
