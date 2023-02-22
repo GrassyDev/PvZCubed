@@ -214,7 +214,7 @@ public class HypnoNewspaperEntity extends HypnoZombieEntity implements IAnimatab
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public MobEntity getOwner() {

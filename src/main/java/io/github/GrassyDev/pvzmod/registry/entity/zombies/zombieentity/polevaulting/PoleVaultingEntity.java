@@ -3,9 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaul
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.polevaulting.HypnoPoleVaultingEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
@@ -13,13 +11,14 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -46,6 +45,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -85,17 +86,20 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, true);
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 	}
 
 	@Override
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putBoolean("Pole", this.getPoleStage());
+		tag.putInt("Variant", this.getTypeVariant());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Pole"));
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 	}
 
 	static {
@@ -115,6 +119,11 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 			this.isIced = false;
 			this.isFrozen = false;
 		}
+	}
+
+	@Override
+	public void setHypno(IsHypno hypno) {
+		super.setHypno(hypno);
 	}
 
 
@@ -145,6 +154,34 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	private void setPoleStage(PoleVaultingEntity.PoleStage poleStage) {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, poleStage.getId());
+	}
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(PoleVaultingEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		if (this.getType().equals(PvZEntity.POLEVAULTINGHYPNO)){
+			setVariant(BrowncoatVariants.BROWNCOATHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else {
+			setVariant(BrowncoatVariants.BROWNCOAT);
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public BrowncoatVariants getVariant() {
+		return BrowncoatVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(BrowncoatVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
 
@@ -228,33 +265,67 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*AI*~//~*~/ **/
 
+
+
+
+	/** /~*~//~*AI*~//~*~/ **/
+
 	protected void initGoals() {
-		/**this.goalSelector.add(1, new PoleVaultingEntity.FaceTowardTargetGoal(this));
-		this.goalSelector.add(1, new PoleVaultingEntity.SwimmingGoal(this));
-		this.goalSelector.add(3, new PoleVaultingEntity.RandomLookGoal(this));
-		this.goalSelector.add(5, new PoleVaultingEntity.MoveGoal(this));**/
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.add(8, new LookAroundGoal(this));
-		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
-		this.initCustomGoals();
+		if (this.getType().equals(PvZEntity.POLEVAULTINGHYPNO)) {
+			initHypnoGoals();
+		}
+		else {
+			initCustomGoals();
+		}
 	}
 
 	protected void initCustomGoals() {
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.targetSelector.add(2, new PoleVaultingEntity.TrackOwnerTargetGoal(this));
-		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1D, true));
+		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
-
-		this.targetSelector.add(2, new TargetGoal<>(this, PlantEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, MerchantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, 0, false, false, (livingEntity) -> {
+			return !(livingEntity instanceof ReinforceEntity reinforceEntity);
+		}));
+		this.targetSelector.add(5, new TargetGoal<>(this, PlantEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ReinforceEntity reinforceEntity && !(reinforceEntity instanceof LilyPadEntity));
+		}));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.getHypno());
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(1, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+	}
+
+	protected void initHypnoGoals(){
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(2, new PoleVaultingEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
+		////////// Hypnotized Zombie targets ///////
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && !(zombiePropEntity.getHypno()));
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+		}));
 	}
 
 
@@ -262,8 +333,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		this.updateFloating();
-		if (this.getAttacking() == null){
+		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
@@ -306,21 +376,17 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
+	}
+
 	public boolean canWalkOnFluid(FluidState state) {
 		return state.isIn(FluidTags.WATER);
 	}
 
 	protected boolean shouldSwimInFluids() {
 		return true;
-	}
-
-	private void updateFloating() {
-		if (this.isInsideWaterOrBubbleColumn()) {
-			ShapeContext shapeContext = ShapeContext.of(this);
-			if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
-				this.onGround = true;
-			}
-		}
 	}
 
 	public static DefaultAttributeContainer.Builder createPoleVaultingAttributes() {
@@ -335,21 +401,8 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
-	}
-
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
-	}
-
-	float getJumpSoundPitch() {
-		return ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-	}
-
-	protected SoundEvent getJumpSound() {
-		return PvZCubed.POLEVAULTEVENT;
 	}
 
 	public MobEntity getOwner() {
@@ -368,7 +421,18 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 
+
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
+
+	protected EntityType<?> hypnoType;
+	protected void checkHypno(){
+		if (this.getType().equals(PvZEntity.POLEVAULTING)){
+			hypnoType = PvZEntity.POLEVAULTINGHYPNO;
+		}
+		else {
+			hypnoType = PvZEntity.POLEVAULTINGHYPNO;
+		}
+	}
 
 	public boolean damage(DamageSource source, float amount) {
 		if (!super.damage(source, amount)) {
@@ -376,28 +440,29 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		} else if (!(this.world instanceof ServerWorld)) {
 			return false;
 		} else {
-			ServerWorld serverWorld = (ServerWorld) this.world;
+			ServerWorld serverWorld = (ServerWorld)this.world;
 			LivingEntity livingEntity = this.getTarget();
 			if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
-				livingEntity = (LivingEntity) source.getAttacker();
+				livingEntity = (LivingEntity)source.getAttacker();
 			}
 
-			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
+			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
+				checkHypno();
 				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-				HypnoPoleVaultingEntity hypnotizedZombie = (HypnoPoleVaultingEntity) PvZEntity.HYPNOPOLEVAULTING.create(world);
+				PoleVaultingEntity hypnotizedZombie = (PoleVaultingEntity) hypnoType.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
 				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
 				hypnotizedZombie.setHealth(this.getHealth());
-				if (this.getPoleStage().equals(Boolean.TRUE)){
-					hypnotizedZombie.setPoleStage(HypnoPoleVaultingEntity.PoleStage.POLE);
-				}
-				else {
-					hypnotizedZombie.setPoleStage(HypnoPoleVaultingEntity.PoleStage.NOPOLE);
-				}
 				if (this.hasCustomName()) {
 					hypnotizedZombie.setCustomName(this.getCustomName());
 					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
+				}
+				for (Entity entity1 : this.getPassengerList()) {
+					if (entity1 instanceof ZombiePropEntity zpe) {
+						zpe.setHypno(IsHypno.TRUE);
+						zpe.startRiding(hypnotizedZombie);
+					}
 				}
 
 				hypnotizedZombie.setPersistent();

@@ -317,7 +317,7 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable

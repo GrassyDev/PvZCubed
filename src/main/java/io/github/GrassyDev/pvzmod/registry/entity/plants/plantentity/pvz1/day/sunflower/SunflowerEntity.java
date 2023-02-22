@@ -316,7 +316,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable

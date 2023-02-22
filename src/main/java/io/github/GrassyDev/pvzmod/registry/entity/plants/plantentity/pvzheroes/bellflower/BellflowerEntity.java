@@ -200,7 +200,7 @@ public class BellflowerEntity extends SpearEntity implements IAnimatable, Ranged
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.ZOMBIEBITEEVENT;}
+	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.SILENCEVENET;}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {return PvZCubed.PLANTPLANTEDEVENT;}

@@ -283,7 +283,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable

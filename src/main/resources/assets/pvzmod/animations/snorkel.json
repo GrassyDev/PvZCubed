@@ -1847,24 +1847,24 @@
 					},
 					"position": {
 						"0.0": {
-							"vector": [0, -28, -2],
+							"vector": [0, -22, -2],
 							"easing": "easeInElastic",
 							"easingArgs": [0.25]
 						},
 						"0.5": {
-							"vector": [0, -27, -1],
+							"vector": [0, -21.3, -1],
 							"easing": "easeInSine"
 						},
 						"1.0": {
-							"vector": [0, -28, 0],
+							"vector": [0, -22, 0],
 							"easing": "easeInElastic"
 						},
 						"1.5": {
-							"vector": [0, -27.3, -2],
+							"vector": [0, -21.3, -2],
 							"easing": "easeInSine"
 						},
 						"2.0": {
-							"vector": [0, -28, -2],
+							"vector": [0, -22, -2],
 							"easing": "easeInElastic",
 							"easingArgs": [0.25]
 						}

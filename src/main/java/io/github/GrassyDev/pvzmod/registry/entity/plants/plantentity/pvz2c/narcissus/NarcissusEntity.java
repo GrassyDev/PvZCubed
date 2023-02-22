@@ -243,7 +243,7 @@ public class NarcissusEntity extends SpearEntity implements IAnimatable, RangedA
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable

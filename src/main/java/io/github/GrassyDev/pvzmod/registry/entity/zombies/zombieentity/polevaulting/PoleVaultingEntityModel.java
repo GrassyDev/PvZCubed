@@ -14,7 +14,20 @@ public class PoleVaultingEntityModel extends AnimatedGeoModel<PoleVaultingEntity
     @Override
     public Identifier getTextureResource(PoleVaultingEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/browncoat/polevaulting.png");
+		Identifier identifier;
+		if (object.getHypno()){
+			identifier = new Identifier("pvzmod", "textures/entity/polevaulting/polevaulting_hypnotized.png");
+			if (object.armless){
+				identifier = new Identifier("pvzmod", "textures/entity/polevaulting/polevaulting_dmg1_hypnotized.png");
+			}
+		}
+		else {
+			identifier = new Identifier("pvzmod", "textures/entity/polevaulting/polevaulting.png");
+			if (object.armless){
+				identifier = new Identifier("pvzmod", "textures/entity/polevaulting/polevaulting_dmg1.png");
+			}
+		}
+		return identifier;
     }
 
     @Override

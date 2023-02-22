@@ -382,7 +382,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable

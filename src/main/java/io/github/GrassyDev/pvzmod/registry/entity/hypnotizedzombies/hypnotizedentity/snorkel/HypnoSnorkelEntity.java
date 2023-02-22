@@ -223,7 +223,7 @@ public class HypnoSnorkelEntity extends HypnoZombieEntity implements IAnimatable
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public MobEntity getOwner() {

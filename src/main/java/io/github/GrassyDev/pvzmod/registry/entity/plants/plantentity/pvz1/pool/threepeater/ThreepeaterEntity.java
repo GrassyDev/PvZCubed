@@ -200,7 +200,7 @@ public class ThreepeaterEntity extends AppeaseEntity implements IAnimatable, Ran
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable

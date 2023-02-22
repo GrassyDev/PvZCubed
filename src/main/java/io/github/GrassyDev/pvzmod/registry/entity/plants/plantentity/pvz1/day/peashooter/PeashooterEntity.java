@@ -199,7 +199,7 @@ public class PeashooterEntity extends AppeaseEntity implements IAnimatable, Rang
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.ZOMBIEBITEEVENT;}
+	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.SILENCEVENET;}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {return PvZCubed.PLANTPLANTEDEVENT;}

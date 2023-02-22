@@ -241,7 +241,7 @@ public class RepeaterEntity extends AppeaseEntity implements RangedAttackMob, IA
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable

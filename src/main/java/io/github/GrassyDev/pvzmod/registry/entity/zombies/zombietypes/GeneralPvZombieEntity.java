@@ -182,5 +182,17 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.getTarget() instanceof FireTrailEntity){
 			this.setTarget(null);
 		}
+
+		if (this.submergedInWater){
+			this.jump();
+		}
+	}
+
+	@Override
+	public boolean tryAttack(Entity target) {
+		if (!this.hasStatusEffect(PvZCubed.FROZEN)){
+			target.playSound(PvZCubed.ZOMBIEBITEEVENT, 0.75f, 1f);
+		}
+		return super.tryAttack(target);
 	}
 }

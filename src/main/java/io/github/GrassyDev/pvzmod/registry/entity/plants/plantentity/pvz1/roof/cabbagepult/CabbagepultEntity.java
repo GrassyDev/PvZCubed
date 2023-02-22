@@ -194,7 +194,7 @@ public class CabbagepultEntity extends AppeaseEntity implements IAnimatable, Ran
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.ZOMBIEBITEEVENT;}
+	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.SILENCEVENET;}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {return PvZCubed.PLANTPLANTEDEVENT;}

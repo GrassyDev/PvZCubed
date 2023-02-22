@@ -374,7 +374,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable

@@ -208,7 +208,7 @@ public class HypnoPoleVaultingEntity extends HypnoZombieEntity implements IAnima
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	public MobEntity getOwner() {

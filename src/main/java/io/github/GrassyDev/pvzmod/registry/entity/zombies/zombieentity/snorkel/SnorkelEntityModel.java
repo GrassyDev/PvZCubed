@@ -17,7 +17,20 @@ public class SnorkelEntityModel extends AnimatedGeoModel<SnorkelEntity> {
     @Override
     public Identifier getTextureResource(SnorkelEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/snorkel/snorkel.png");
+		Identifier identifier;
+		if (object.getHypno()){
+			identifier = new Identifier("pvzmod", "textures/entity/snorkel/snorkel_hypnotized.png");
+			if (object.armless){
+				identifier = new Identifier("pvzmod", "textures/entity/snorkel/snorkel_dmg1_hypnotized.png");
+			}
+		}
+		else {
+			identifier = new Identifier("pvzmod", "textures/entity/snorkel/snorkel.png");
+			if (object.armless){
+				identifier = new Identifier("pvzmod", "textures/entity/snorkel/snorkel_dmg1.png");
+			}
+		}
+		return identifier;
     }
 
     @Override

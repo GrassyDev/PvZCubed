@@ -206,7 +206,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.ZOMBIEBITEEVENT;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable
