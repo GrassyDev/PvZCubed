@@ -14,7 +14,20 @@ public class NewspaperEntityModel extends AnimatedGeoModel<NewspaperEntity> {
     @Override
     public Identifier getTextureResource(NewspaperEntity object)
     {
-        return new Identifier("pvzmod", "textures/entity/newspaper/newspaper.png");
+		Identifier identifier;
+		if (object.getHypno()){
+			identifier = new Identifier("pvzmod", "textures/entity/newspaper/newspaper_hypnotized.png");
+			if (object.armless){
+				identifier = new Identifier("pvzmod", "textures/entity/newspaper/newspaper_dmg1_hypnotized.png");
+			}
+		}
+		else {
+			identifier = new Identifier("pvzmod", "textures/entity/newspaper/newspaper.png");
+			if (object.armless){
+				identifier = new Identifier("pvzmod", "textures/entity/newspaper/newspaper_dmg1.png");
+			}
+		}
+		return identifier;
     }
 
     @Override

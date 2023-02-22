@@ -1,9 +1,8 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -113,7 +112,7 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				if (livingEntity instanceof PlantEntity || livingEntity instanceof HypnoSummonerEntity || livingEntity instanceof HypnoZombieEntity) {
+				if (livingEntity instanceof PlantEntity || (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno())) {
 					livingEntity.kill();
 				}
 			}

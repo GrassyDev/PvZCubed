@@ -377,7 +377,8 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 		if (i <= 0) {
 				this.attackTick = 20;
 				boolean bl = target.damage(DamageSource.mob(this), this.getAttackDamage());
-				if (bl) {
+				if (bl && !this.hasStatusEffect(PvZCubed.FROZEN)) {
+					target.playSound(PvZCubed.ZOMBIEBITEEVENT, 0.75f, 1f);
 					this.applyDamageEffects(this, target);
 				}
 				return bl;

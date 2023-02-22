@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.minecraft.entity.EntityGroup;
@@ -9,8 +10,10 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -101,6 +104,15 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 
 	protected SoundEvent getStepSound() {
 		return PvZCubed.SILENCEVENET;
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.NEWSPAPEREGG.getDefaultStack();
 	}
 
 }

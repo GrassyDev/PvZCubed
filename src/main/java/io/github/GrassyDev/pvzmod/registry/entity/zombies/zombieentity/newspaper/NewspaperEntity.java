@@ -3,21 +3,20 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspape
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.newspaper.HypnoNewspaperEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoSummonerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedtypes.HypnoZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.NewspaperVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -27,6 +26,9 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -44,6 +46,8 @@ import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -88,6 +92,21 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+	}
+
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+		nbt.putInt("Variant", this.getTypeVariant());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+	}
+
 	static {
 
 	}
@@ -112,6 +131,45 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		else if (status == 31) {
 			this.speedUp = false;
 		}
+	}
+
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(NewspaperEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		if (this.getType().equals(PvZEntity.NEWSPAPERHYPNO)){
+			setVariant(NewspaperVariants.DEFAULTHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else {
+			createShield();
+			setVariant(NewspaperVariants.DEFAULT);
+			this.initCustomGoals();
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public NewspaperVariants getVariant() {
+		return NewspaperVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(NewspaperVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+	public void createShield(){
+		NewspaperShieldEntity newspaperShieldEntity = new NewspaperShieldEntity(PvZEntity.NEWSPAPERSHIELD, this.world);
+		newspaperShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		newspaperShieldEntity.startRiding(this);
 	}
 
 
@@ -198,28 +256,56 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-		this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
-        this.initCustomGoals();
-    }
+		if (this.getType().equals(PvZEntity.NEWSPAPERHYPNO)) {
+			initHypnoGoals();
+		}
+		else {
+			initCustomGoals();
+		}
+	}
 
-    protected void initCustomGoals() {
-        this.targetSelector.add(2, new NewspaperEntity.TrackOwnerTargetGoal(this));
-        this.goalSelector.add(1, new PvZombieAttackGoal(this, 1, true));
-        this.goalSelector.add(3, new WanderAroundFarGoal(this, 1));
-
-		this.targetSelector.add(2, new TargetGoal<>(this, PlantEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, PlayerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, MerchantEntity.class, false, true));
+	protected void initCustomGoals() {
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
+		this.targetSelector.add(2, new NewspaperEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoZombieEntity.class, false, true));
-		this.targetSelector.add(2, new TargetGoal<>(this, HypnoSummonerEntity.class, false, true));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.getHypno());
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(1, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(1, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+	}
+
+	protected void initHypnoGoals(){
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+		this.targetSelector.add(2, new NewspaperEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
+		////////// Hypnotized Zombie targets ///////
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && !(zombiePropEntity.getHypno()));
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+		}));
 	}
 
 
@@ -227,8 +313,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		this.updateFloating();
-		if (this.getAttacking() == null){
+		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
@@ -303,27 +388,17 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
+	}
+
 	public boolean canWalkOnFluid(FluidState state) {
 		return state.isIn(FluidTags.WATER);
 	}
 
 	protected boolean shouldSwimInFluids() {
 		return true;
-	}
-
-	private void updateFloating() {
-		if (this.isInsideWaterOrBubbleColumn()) {
-			ShapeContext shapeContext = ShapeContext.of(this);
-			if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
-				this.onGround = true;
-			}
-		}
-	}
-
-	public void createShield(){
-		NewspaperShieldEntity newspaperShieldEntity = new NewspaperShieldEntity(PvZEntity.NEWSPAPERSHIELD, this.world);
-		newspaperShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		newspaperShieldEntity.startRiding(this);
 	}
 
 	public static EntityAttributeModifier createSpeedModifier(double amount) {
@@ -356,18 +431,8 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
-	}
-
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
-	}
-
-	@Override
-	public double getMountedHeightOffset() {
-		return 0;
 	}
 
 	public MobEntity getOwner() {
@@ -388,38 +453,55 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
-	public boolean damage(DamageSource source, float amount) {
-        if (!super.damage(source, amount)) {
-            return false;
-        } else if (!(this.world instanceof ServerWorld)) {
-            return false;
-        } else {
-            ServerWorld serverWorld = (ServerWorld)this.world;
-            LivingEntity livingEntity = this.getTarget();
-            if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
-                livingEntity = (LivingEntity)source.getAttacker();
-            }
+	protected EntityType<?> hypnoType;
+	protected void checkHypno(){
+		if (this.getType().equals(PvZEntity.NEWSPAPER)){
+			hypnoType = PvZEntity.NEWSPAPERHYPNO;
+		}
+		else {
+			hypnoType = PvZEntity.NEWSPAPERHYPNO;
+		}
+	}
 
-            if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
-                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-                HypnoNewspaperEntity hypnotizedZombie = (HypnoNewspaperEntity) PvZEntity.HYPNONEWSPAPER.create(world);
+	public boolean damage(DamageSource source, float amount) {
+		if (!super.damage(source, amount)) {
+			return false;
+		} else if (!(this.world instanceof ServerWorld)) {
+			return false;
+		} else {
+			ServerWorld serverWorld = (ServerWorld)this.world;
+			LivingEntity livingEntity = this.getTarget();
+			if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
+				livingEntity = (LivingEntity)source.getAttacker();
+			}
+
+			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
+				checkHypno();
+				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+				NewspaperEntity hypnotizedZombie = (NewspaperEntity) hypnoType.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
 				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
 				hypnotizedZombie.setHealth(this.getHealth());
-                if (this.hasCustomName()) {
+				if (this.hasCustomName()) {
 					hypnotizedZombie.setCustomName(this.getCustomName());
 					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
-                }
+				}
+				for (Entity entity1 : this.getPassengerList()) {
+					if (entity1 instanceof ZombiePropEntity zpe) {
+						zpe.setHypno(IsHypno.TRUE);
+						zpe.startRiding(hypnotizedZombie);
+					}
+				}
 
 				hypnotizedZombie.setPersistent();
-                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
-                this.remove(RemovalReason.DISCARDED);
-            }
+				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
+				this.remove(RemovalReason.DISCARDED);
+			}
 
-            return true;
-        }
-    }
+			return true;
+		}
+	}
 
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
 		super.onKilledOther(serverWorld, livingEntity);

@@ -151,6 +151,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public void tick() {
 		super.tick();
 
+		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
+			this.remove(RemovalReason.KILLED);
+		}
+
 		// thanks to Pluiedev for this hipster code
 		var zombiePropEntity = this.getPassengerList()
 				.stream()
@@ -191,7 +195,11 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	@Override
 	public boolean tryAttack(Entity target) {
 		if (!this.hasStatusEffect(PvZCubed.FROZEN)){
-			target.playSound(PvZCubed.ZOMBIEBITEEVENT, 0.75f, 1f);
+			float sound = 0.75f;
+			if (this.getHypno()){
+				sound = 0.33f;
+			}
+			target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
 		}
 		return super.tryAttack(target);
 	}

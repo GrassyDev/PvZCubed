@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.PathAwareEntity;

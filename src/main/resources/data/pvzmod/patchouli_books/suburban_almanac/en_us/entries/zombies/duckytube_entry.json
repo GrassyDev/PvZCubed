@@ -7,8 +7,7 @@
     {
       "type": "text",
       "text": [
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Is used by zombies when they enter water. Prevents the zombie's movement-based abilities. Zombie drowns if completely frozen.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)When zombies enter water, they are in the \"Ducky Tube Mode\". In this mode they can't be burned and being completely frozen instantly kills them.",
         "$(br2)$(#bd951a)Zombie Ducky, joy of joys. When it squeezes, you make noise!"
       ]
     },
@@ -19,7 +18,7 @@
       ],
       "title": "Pool Zombie",
       "border": "true",
-      "text": "$(#25228d)This Ducky Tube allows zombies to float on water."
+      "text": "$(#25228d)A way to float on water."
     },
     {
       "type": "relations",

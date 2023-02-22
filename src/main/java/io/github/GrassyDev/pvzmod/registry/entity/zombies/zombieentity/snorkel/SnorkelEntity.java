@@ -3,12 +3,12 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.hypnotizedzombies.hypnotizedentity.HypnoPvZombieAttackGoal;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
@@ -218,11 +218,11 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
 		if (this.getType().equals(PvZEntity.SNORKELHYPNO)){
-			setVariant(BrowncoatVariants.BROWNCOATHYPNO);
+			setVariant(DefaultAndHypnoVariants.HYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else {
-			setVariant(BrowncoatVariants.BROWNCOAT);
+			setVariant(DefaultAndHypnoVariants.DEFAULT);
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
@@ -231,11 +231,11 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
 	}
 
-	public BrowncoatVariants getVariant() {
-		return BrowncoatVariants.byId(this.getTypeVariant() & 255);
+	public DefaultAndHypnoVariants getVariant() {
+		return DefaultAndHypnoVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	public void setVariant(BrowncoatVariants variant) {
+	public void setVariant(DefaultAndHypnoVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
