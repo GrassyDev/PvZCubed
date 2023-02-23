@@ -175,7 +175,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		Entity entity = this;
 		if (this.getHealth() < this.getMaxHealth() / 2 && !(entity instanceof ZombiePropEntity) &&
 				!(entity instanceof GargantuarEntity) && !(entity instanceof ImpEntity)){
-			if (this.pop){
+			if (this.pop && !this.dead){
 				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
 				pop = false;
 			}

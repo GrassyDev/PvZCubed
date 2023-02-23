@@ -29,7 +29,6 @@ dependencies {
 	modImplementation 'software.bernie.geckolib:geckolib-quilt-1.19:3.1.35'
 
 	modImplementation "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
-	modImplementation("com.terraformersmc:modmenu:4.1.2")
 	modCompileOnly "dev.emi:emi:0.6.3+1.19.2:api"
 	modLocalRuntime "dev.emi:emi:0.6.3+1.19.2"
 }
