@@ -33,7 +33,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -105,8 +104,6 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		SnowPeaVariants variant = Util.getRandom(SnowPeaVariants.values(), this.random);
-		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -118,7 +115,7 @@ public class SnowpeaEntity extends WinterEntity implements IAnimatable, RangedAt
 		return SnowPeaVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(SnowPeaVariants variant) {
+	public void setVariant(SnowPeaVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 

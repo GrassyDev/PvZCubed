@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27, 37(Plastic Medallion)",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Slow",
         "$(br2)$(#bd951a)Backup Dancer Zombie is highly experienced in the backup arts, having spent time as a backup singer, a backup flyswatter, and a backup for Dr. Zomboss's personal computer."
       ]

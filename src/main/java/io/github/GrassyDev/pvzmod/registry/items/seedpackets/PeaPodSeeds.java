@@ -3,6 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildwest.peapod.PeapodEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodVariants;
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -22,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PeaPodSeeds extends Item {
+public class PeaPodSeeds extends Item implements FabricItem {
 	public static int cooldown = 75;
 	public boolean used;
 
@@ -79,6 +81,13 @@ public class PeaPodSeeds extends Item {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					peapodEntity.refreshPositionAndAngles(peapodEntity.getX(), peapodEntity.getY(), peapodEntity.getZ(), f, 0.0F);
+					double random = Math.random();
+					if (random <= 0.25) {
+						peapodEntity.setVariant(PeapodVariants.PLURAL);
+					}
+					else {
+						peapodEntity.setVariant(PeapodVariants.DEFAULT);
+					}
 					world.spawnEntity(peapodEntity);
 					world.playSound((PlayerEntity) null, peapodEntity.getX(), peapodEntity.getY(), peapodEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 				}

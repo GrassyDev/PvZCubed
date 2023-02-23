@@ -148,7 +148,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 		return FlagZombieVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(FlagZombieVariants variant) {
+	public void setVariant(FlagZombieVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 

@@ -23,6 +23,14 @@
     },
     {
       "type": "crafting",
+      "recipe": "pvzmod:plants/enlighten/sunshroom",
+      "text": [
+        "$(br2)Sun-shrooms are important because Sunflowers produce small sun during night/rain/thunder/caves instead of the normal size.",
+        "$(br)Sun-shrooms have a random chance to produce small, normal, or large suns."
+      ]
+    },
+    {
+      "type": "crafting",
       "recipe": "pvzmod:plants/ailment/scaredyshroom",
       "text": [
         "$(br2)Scaredy-shroom will deal with zombies from afar, helping thinning their numbers. They also poison the target."

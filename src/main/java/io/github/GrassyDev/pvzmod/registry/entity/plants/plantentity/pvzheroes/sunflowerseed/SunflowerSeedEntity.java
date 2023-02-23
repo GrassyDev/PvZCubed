@@ -300,7 +300,7 @@ public class SunflowerSeedEntity extends EnlightenEntity implements IAnimatable,
 
 		if (!this.world.isClient && this.isAlive() && this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn()){
 			if (this.produceSun){
-				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
+				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 				this.dropItem(ModItems.SMALLSUN);
 				this.sunProducingTime = 3600;
 				this.produceSun = false;

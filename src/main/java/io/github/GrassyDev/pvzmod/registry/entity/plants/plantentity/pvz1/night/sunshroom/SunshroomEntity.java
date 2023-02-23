@@ -12,9 +12,13 @@ import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -36,10 +40,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
-    private String controllerName = "puffcontroller";
+
+	private static final TrackedData<Integer> SUN_SPEED;
+
+	private String controllerName = "puffcontroller";
     public boolean isAsleep;
     public boolean isTired;
-    public int sunProducingTime = 3600;
+    public int sunProducingTime;
 
 
 
@@ -54,7 +61,26 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 
     }
 
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(SUN_SPEED, -1);
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		if (tag.contains("Fuse", 99)) {
+			this.sunProducingTime = tag.getShort("Fuse");
+		}
+	}
+
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		//Variant//
+		tag.putShort("Fuse", (short)this.sunProducingTime);
+	}
+
 	static {
+		SUN_SPEED = DataTracker.registerData(SunshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -122,10 +148,48 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	private int currentFuseTime;
+
+	public void setFuseSpeed(int fuseSpeed) {
+		this.dataTracker.set(SUN_SPEED, fuseSpeed);
+	}
+
+	public int getFuseSpeed() {
+		return (Integer)this.dataTracker.get(SUN_SPEED);
+	}
+
 	public void tick() {
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+
+		if (this.isAlive()) {
+			this.setFuseSpeed(1);
+
+			int i = this.getFuseSpeed();
+
+			this.currentFuseTime += i;
+			if (this.currentFuseTime < 0) {
+				this.currentFuseTime = 0;
+			}
+
+			if (this.currentFuseTime >= this.sunProducingTime) {
+				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
+					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+					double probability = this.random.nextDouble();
+					if (probability <= 0.45) { // 45%
+						this.dropItem(ModItems.SMALLSUN);
+					} else if (probability <= 0.75) { // 0.70 - 0.40 = 30%
+						this.dropItem(ModItems.SUN);
+					} else { // 25%
+						this.dropItem(ModItems.LARGESUN);
+					}
+					this.sunProducingTime = 2400;
+					this.zombieSunCheck = false;
+					this.currentFuseTime = this.sunProducingTime;
+				}
+			}
 		}
 	}
 
@@ -137,21 +201,6 @@ public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
 				raycastDelay = 60;
 			}
 		}
-		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep){
-			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
-			double probability = this.random.nextDouble();
-			if (probability <= 0.4) { // 40%
-				this.dropItem(ModItems.SMALLSUN);
-			} else if (probability <= 0.70) { // 0.70 - 0.40 = 30%
-				this.dropItem(ModItems.SUN);
-			} else { // 30%
-				this.dropItem(ModItems.LARGESUN);
-			}
-			this.sunProducingTime = 3600;
-			this.zombieSunCheck = false;
-		}
-
-
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.kill();

@@ -39,7 +39,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -125,9 +124,6 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 		//Set Count
 		PeapodCountVariants count = PeapodCountVariants.ONE;
 		setCount(count);
-		//Set Skin
-		PeapodVariants variant = Util.getRandom(PeapodVariants.values(), this.random);
-		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -157,7 +153,7 @@ public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAni
 		return PeapodVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(PeapodVariants variant) {
+	public void setVariant(PeapodVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 

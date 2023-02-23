@@ -34,7 +34,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
@@ -116,8 +115,6 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		ChomperVariants variant = Util.getRandom(ChomperVariants.values(), this.random);
-		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -129,7 +126,7 @@ public class ChomperEntity extends EnforceEntity implements IAnimatable {
 		return ChomperVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(ChomperVariants variant) {
+	public void setVariant(ChomperVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 

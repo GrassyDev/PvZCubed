@@ -34,7 +34,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -106,8 +105,6 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		SnowQueenPeaVariants variant = Util.getRandom(SnowQueenPeaVariants.values(), this.random);
-		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -119,7 +116,7 @@ public class SnowqueenpeaEntity extends WinterEntity implements IAnimatable, Ran
 		return SnowQueenPeaVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(SnowQueenPeaVariants variant) {
+	public void setVariant(SnowQueenPeaVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 

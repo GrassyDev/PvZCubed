@@ -164,7 +164,6 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
 			this.world.sendEntityStatus(this, (byte) 6);
 			this.playSound(SoundEvents.ENTITY_SILVERFISH_AMBIENT, 1F, 1F);
 			this.spawnEffectsCloud();
-			this.dead = true;
 			this.remove(RemovalReason.DISCARDED);
 		}
 	}

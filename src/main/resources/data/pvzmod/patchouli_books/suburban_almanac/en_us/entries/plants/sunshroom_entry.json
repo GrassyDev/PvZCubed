@@ -9,7 +9,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)4",
-        "$(br)$(#bd951a)Sun: $()$(#ff0000)Small (40%), Normal (30%), Large (30%)",
+        "$(br)$(#bd951a)Sun: $()$(#ff0000)Small (45%), Normal (30%), Large (25%)",
         "$(br)$(#bd951a)Sun Rate: $()$(#ff0000)5 seconds (First Time), 3 minutes",
         "$(br)$(#bd951a)Zombie Sun Radius: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",

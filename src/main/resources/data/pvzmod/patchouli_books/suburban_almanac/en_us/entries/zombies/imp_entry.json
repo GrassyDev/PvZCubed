@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)20",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)14",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Eats any plant in front of it, ignoring priority.",
         "$(br2)$(#bd951a)Imp may be small, but he's wiry. He's proficient in zombie judo, zombie karate, and zombie bare-knuckle brawling. He also plays the Melodica."

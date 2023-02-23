@@ -204,16 +204,6 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "fumeshroom"),
             QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
     );
-	public static final EntityType <FumeshroomEntity> FUMESHROOM_GAY = Registry.register(
-			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "fumeshroom_gay"),
-			QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
-	);
-	public static final EntityType <FumeshroomEntity> FUMESHROOM_TRANS = Registry.register(
-			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "fumeshroom_trans"),
-			QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
-	);
 
 	public static final EntityType<GravebusterEntity> GRAVEBUSTER = Registry.register(
             Registry.ENTITY_TYPE,
@@ -773,10 +763,6 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUMESHROOM, FumeshroomEntity.createFumeshroomAttributes().build());
         EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer::new);
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUMESHROOM_GAY, FumeshroomEntity.createFumeshroomAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.FUMESHROOM_GAY, FumeshroomEntityRenderer::new);
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUMESHROOM_TRANS, FumeshroomEntity.createFumeshroomAttributes().build());
-		EntityRendererRegistry.register(PvZEntity.FUMESHROOM_TRANS, FumeshroomEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GRAVEBUSTER, GravebusterEntity.createGravebusterAttributes().build());
         EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer::new);

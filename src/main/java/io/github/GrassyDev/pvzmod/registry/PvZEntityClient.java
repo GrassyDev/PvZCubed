@@ -99,8 +99,6 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.FUMESHROOM_GAY, FumeshroomEntityRenderer::new);
-		EntityRendererRegistry.register(PvZEntity.FUMESHROOM_TRANS, FumeshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer::new);
 

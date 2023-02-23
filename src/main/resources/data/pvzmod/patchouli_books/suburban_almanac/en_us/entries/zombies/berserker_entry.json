@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27, 333(Metal Helmet)",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)180(tackle), 7(normal)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)180(tackle), 4(normal)",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Tackles the first plant it sees.",
         "$(br2)$(#bd951a)Berserker is dressed to kill and to rampage on the field. He also has no idea what a football is."

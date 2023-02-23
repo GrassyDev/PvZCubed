@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnlightenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.TwinSunflowerVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.TwinSunflowerSeeds;
 import net.minecraft.block.BlockState;
@@ -27,9 +28,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.LightType;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -51,11 +52,13 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(SunflowerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
+	private static final TrackedData<Integer> SUN_SPEED;
+
     private String controllerName = "suncontroller";
-    public int sunProducingTime = 3600;
+    public int sunProducingTime;
 
 
-	int raycastDelay = 20;
+	int raycastDelay = 2400;
 
 	Entity prevZombie;
 
@@ -63,28 +66,34 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 	private boolean zombieSunCheck;
 
 	public SunflowerEntity(EntityType<? extends SunflowerEntity> entityType, World world) {
-        super(entityType, world);
-        this.ignoreCameraFrustum = true;
-
-    }
+		super(entityType, world);
+		this.ignoreCameraFrustum = true;
+	}
 
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+		this.dataTracker.startTracking(SUN_SPEED, -1);
 	}
+
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
 		//Variant//
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
+		if (tag.contains("Fuse", 99)) {
+			this.sunProducingTime = tag.getShort("Fuse");
+		}
 	}
 
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		//Variant//
 		tag.putInt("Variant", this.getTypeVariant());
+		tag.putShort("Fuse", (short)this.sunProducingTime);
 	}
 
 	static {
+		SUN_SPEED = DataTracker.registerData(SunflowerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	}
 
 
@@ -93,8 +102,6 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		SunflowerVariants variant = Util.getRandom(SunflowerVariants.values(), this.random);
-		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -106,7 +113,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 		return SunflowerVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(SunflowerVariants variant) {
+	public void setVariant(SunflowerVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
@@ -161,10 +168,48 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	private int currentFuseTime;
+
+	public void setFuseSpeed(int fuseSpeed) {
+		this.dataTracker.set(SUN_SPEED, fuseSpeed);
+	}
+
+	public int getFuseSpeed() {
+		return (Integer)this.dataTracker.get(SUN_SPEED);
+	}
+
 	public void tick() {
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+
+		if (this.isAlive()) {
+			this.setFuseSpeed(1);
+
+			int i = this.getFuseSpeed();
+
+			this.currentFuseTime += i;
+			if (this.currentFuseTime < 0) {
+				this.currentFuseTime = 0;
+			}
+
+			if (this.currentFuseTime >= this.sunProducingTime) {
+				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
+					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+					if (this.world.getAmbientDarkness() >= 2 ||
+							this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2){
+						this.dropItem(ModItems.SMALLSUN);
+					}
+					else if (this.world.getAmbientDarkness() < 2 &&
+							this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2) {
+						this.dropItem(ModItems.SUN);
+					}
+					this.sunProducingTime = 2400;
+					this.zombieSunCheck = false;
+					this.currentFuseTime = this.sunProducingTime;
+				}
+			}
 		}
 	}
 
@@ -176,18 +221,10 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 				raycastDelay = 60;
 			}
 		}
-		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
-			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
-			this.dropItem(ModItems.SUN);
-			this.sunProducingTime = 3600;
-			this.zombieSunCheck = false;
-		}
-
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.kill();
 		}
-
 	}
 
 	protected void produceSun() {
@@ -232,6 +269,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 				twinSunflowerEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				twinSunflowerEntity.initialize(serverWorld, world.getLocalDifficulty(twinSunflowerEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
 				twinSunflowerEntity.setAiDisabled(this.isAiDisabled());
+				twinSunflowerEntity.setPersistent();
 				if (this.hasCustomName()) {
 					twinSunflowerEntity.setCustomName(this.getCustomName());
 					twinSunflowerEntity.setCustomNameVisible(this.isCustomNameVisible());
@@ -239,8 +277,39 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 				if (this.hasVehicle()){
 					twinSunflowerEntity.startRiding(this.getVehicle(), true);
 				}
-
-				twinSunflowerEntity.setPersistent();
+				if (this.getVariant().equals(SunflowerVariants.LESBIAN)){
+					double random = Math.random();
+					if (random <= 0.5) {
+						twinSunflowerEntity.setVariant(TwinSunflowerVariants.LESBIAN);
+					}
+					else {
+						twinSunflowerEntity.setVariant(TwinSunflowerVariants.LESBIAN_WLW);
+					}
+				}
+				else if (this.getVariant().equals(SunflowerVariants.WLW)){
+					double random = Math.random();
+					if (random <= 0.33) {
+						twinSunflowerEntity.setVariant(TwinSunflowerVariants.WLW);
+					}
+					else if (random <= 0.66) {
+						twinSunflowerEntity.setVariant(TwinSunflowerVariants.WLW_MLM);
+					}
+					else {
+						twinSunflowerEntity.setVariant(TwinSunflowerVariants.LESBIAN_WLW);
+					}
+				}
+				else if (this.getVariant().equals(SunflowerVariants.MLM)){
+					double random = Math.random();
+					if (random <= 0.5) {
+						twinSunflowerEntity.setVariant(TwinSunflowerVariants.MLM);
+					}
+					else {
+						twinSunflowerEntity.setVariant(TwinSunflowerVariants.WLW_MLM);
+					}
+				}
+				else {
+					twinSunflowerEntity.setVariant(TwinSunflowerVariants.DEFAULT);
+				}
 				serverWorld.spawnEntityAndPassengers(twinSunflowerEntity);
 				this.remove(RemovalReason.DISCARDED);
 			}

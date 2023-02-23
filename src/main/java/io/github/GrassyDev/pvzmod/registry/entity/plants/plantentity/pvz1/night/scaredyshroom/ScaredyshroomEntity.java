@@ -129,8 +129,6 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		ScaredyshroomVariants variant = Util.getRandom(ScaredyshroomVariants.values(), this.random);
-		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -142,7 +140,7 @@ public class ScaredyshroomEntity extends AilmentEntity implements IAnimatable, R
 		return ScaredyshroomVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(ScaredyshroomVariants variant) {
+	public void setVariant(ScaredyshroomVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 

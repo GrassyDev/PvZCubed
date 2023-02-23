@@ -22,7 +22,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
@@ -46,8 +45,10 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
 			DataTracker.registerData(TwinSunflowerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
+	private static final TrackedData<Integer> SUN_SPEED;
+
     private String controllerName = "suncontroller";
-    public int sunProducingTime = 3600;
+    public int sunProducingTime;
 
 
 	int raycastDelay = 20;
@@ -68,20 +69,27 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+		this.dataTracker.startTracking(SUN_SPEED, -1);
 	}
+
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
 		//Variant//
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
+		if (tag.contains("Fuse", 99)) {
+			this.sunProducingTime = tag.getShort("Fuse");
+		}
 	}
 
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		//Variant//
 		tag.putInt("Variant", this.getTypeVariant());
+		tag.putShort("Fuse", (short)this.sunProducingTime);
 	}
 
 	static {
+		SUN_SPEED = DataTracker.registerData(TwinSunflowerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	}
 
 
@@ -90,8 +98,6 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		TwinSunflowerVariants variant = Util.getRandom(TwinSunflowerVariants.values(), this.random);
-		setVariant(variant);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -103,7 +109,7 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 		return TwinSunflowerVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	private void setVariant(TwinSunflowerVariants variant) {
+	public void setVariant(TwinSunflowerVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
@@ -158,10 +164,50 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	private int currentFuseTime;
+
+	public void setFuseSpeed(int fuseSpeed) {
+		this.dataTracker.set(SUN_SPEED, fuseSpeed);
+	}
+
+	public int getFuseSpeed() {
+		return (Integer)this.dataTracker.get(SUN_SPEED);
+	}
+
 	public void tick() {
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+
+		if (this.isAlive()) {
+			this.setFuseSpeed(1);
+
+			int i = this.getFuseSpeed();
+
+			this.currentFuseTime += i;
+			if (this.currentFuseTime < 0) {
+				this.currentFuseTime = 0;
+			}
+
+			if (this.currentFuseTime >= this.sunProducingTime) {
+				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()) {
+					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+					this.dropItem(ModItems.SUN);
+					this.sunProducingTime = 2400;
+					secondSunTick = 20;
+					zombieSunCheck = false;
+					secondSunStart = true;
+				}
+				if (secondSunStart) {
+					if (--secondSunTick < 0) {
+						this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+						this.dropItem(ModItems.SUN);
+						secondSunStart = false;
+						this.currentFuseTime = this.sunProducingTime;
+					}
+				}
+			}
 		}
 	}
 
@@ -174,16 +220,16 @@ public class TwinSunflowerEntity extends EnlightenEntity implements IAnimatable 
 			}
 		}
 		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
-			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
+			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 			this.dropItem(ModItems.SUN);
-			this.sunProducingTime = 3600;
+			this.sunProducingTime = 2400;
 			secondSunTick = 6;
 			zombieSunCheck = false;
 			secondSunStart = true;
 		}
 		if (secondSunStart) {
 			if (--secondSunTick < 0) {
-				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.75F + 1F);
+				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 				this.dropItem(ModItems.SUN);
 				secondSunStart = false;
 			}

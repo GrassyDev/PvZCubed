@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)7",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
         "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Summons a Buckethead, a Screendoor, a Conehead, and a Browncoat around him.",
