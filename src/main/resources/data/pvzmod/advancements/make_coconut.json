@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:coconutcannon_seed_packet"
+    },
+    "title": "Coconut Fannon",
+    "description": "Craft a Coconut Cannon",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "pvzmod:make_cherrybomb",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:coconutcannon_seed_packet"
+            ],
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+    ],
+    "experience": 25
+  }
+}

@@ -53,6 +53,9 @@ public class BellflowerSeeds extends Item implements FabricItem {
 				float progress = nbtCompound.getFloat("Cooldown");
 				player.getItemCooldownManager().set(this, (int) Math.floor(cooldown * progress));
 			}
+			if (!player.getItemCooldownManager().isCoolingDown(this) && (nbtCompound.getFloat("Cooldown") != 0 || nbtCompound.get("Cooldown") == null)){
+				nbtCompound.putFloat("Cooldown", 0);
+			}
 		}
 	}
 
