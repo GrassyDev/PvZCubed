@@ -292,7 +292,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(5, new TargetGoal<>(this, PlantEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof ReinforceEntity reinforceEntity && !(reinforceEntity instanceof LilyPadEntity));
 		}));
-		this.targetSelector.add(4, new TargetGoal<>(this, PlayerEntity.class, false, true));
+		this.targetSelector.add(6, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////

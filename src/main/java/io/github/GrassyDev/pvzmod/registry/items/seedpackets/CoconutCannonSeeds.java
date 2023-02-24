@@ -64,6 +64,12 @@ public class CoconutCannonSeeds extends Item implements FabricItem {
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.bombard.family")
 				.formatted(Formatting.GOLD));
 
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.2x2.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.interactive.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
 		tooltip.add(Text.translatable("item.pvzmod.coconutcannon_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));
 
@@ -94,7 +100,7 @@ public class CoconutCannonSeeds extends Item implements FabricItem {
             BlockPos blockPos = itemPlacementContext.getBlockPos();
             ItemStack itemStack = context.getStack();
             Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-            Box box = PvZEntity.COCONUTCANNON.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+            Box box = PvZEntity.COCONUTCANNON.getDimensions().getBoxAt(vec3d.getX() - 0.5, vec3d.getY(), vec3d.getZ() - 0.5);
              if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
                 if (world instanceof ServerWorld) {
                     ServerWorld serverWorld = (ServerWorld) world;

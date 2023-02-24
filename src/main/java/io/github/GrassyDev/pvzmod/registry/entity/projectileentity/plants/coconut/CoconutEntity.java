@@ -96,11 +96,6 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 			this.onCollision(hitResult);
 		}
 
-        if (!this.world.isClient && this.isWet()) {
-            this.world.sendEntityStatus(this, (byte) 3);
-            this.remove(RemovalReason.DISCARDED);
-        }
-
         if (!this.world.isClient && this.age == 60) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
@@ -120,8 +115,6 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
         return null;
     }
 
-	List<LivingEntity> checkList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().shrink(0.5, 0, 0));
-
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
@@ -133,19 +126,22 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(zombiePropEntity2 instanceof ZombiePropEntity && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
+				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			entity.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 0.8F, 1F);
-			float damage = 90f;
+			float damage = 90F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
-					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
 				float damage2 = damage - ((LivingEntity) entity).getHealth();
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
-			} else {
+			}
+			else {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
+			this.world.sendEntityStatus(this, (byte) 3);
+			this.remove(RemovalReason.DISCARDED);
 			Vec3d vec3d = this.getPos();
 			List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
 			Iterator var9 = list.iterator();
@@ -159,7 +155,7 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 
 						livingEntity = (LivingEntity) var9.next();
 					} while (livingEntity == this.getOwner());
-				} while (this.squaredDistanceTo(livingEntity) > 12.25);
+				} while (this.squaredDistanceTo(livingEntity) > 6);
 
 				boolean bl = false;
 
@@ -173,50 +169,8 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 				}
 
 				if (bl) {
-					if (((livingEntity instanceof Monster &&
-							!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-									&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
-						ZombiePropEntity zombiePropEntity3 = null;
-						for (Entity entity1 : livingEntity.getPassengerList()) {
-							if (entity1 instanceof ZombiePropEntity zpe) {
-								zombiePropEntity3 = zpe;
-							}
-						}
-						if (damage > livingEntity.getHealth() &&
-								!(livingEntity instanceof ZombieShieldEntity) &&
-								livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-							float damage2 = damage - livingEntity.getHealth();
-							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
-							checkList.add(livingEntity);
-							checkList.add(generalPvZombieEntity);
-						} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
-							checkList.add(zombieShieldEntity);
-						}
-						else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							checkList.add(livingEntity);
-							checkList.add(zombieShieldEntity);
-						}
-						else {
-							if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-								checkList.add(livingEntity);
-								checkList.add(generalPvZombieEntity);
-							}
-							else if (zombiePropEntity3 == null && !checkList.contains(livingEntity)) {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-								checkList.add(livingEntity);
-							}
-						}
-						this.world.sendEntityStatus(this, (byte) 3);
-						this.remove(RemovalReason.DISCARDED);
-					}
-				}/**
-				if (bl) {
 					if (livingEntity instanceof Monster &&
+							!(livingEntity instanceof ZombieShieldEntity) &&
 							!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 									&& (generalPvZombieEntity.getHypno()))) {
 						ZombiePropEntity zombiePropEntity3 = null;
@@ -225,23 +179,25 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 								zombiePropEntity3 = zpe;
 							}
 						}
-						if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
+						if (zombiePropEntity3 instanceof ZombieShieldEntity){
+							zombiePropEntity3.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+						}
+						else if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
 							if (damage > livingEntity.getHealth() &&
 									!(livingEntity instanceof ZombieShieldEntity) &&
-									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
 								float damage2 = damage - livingEntity.getHealth();
 								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 								generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
-							} else {
-								if (livingEntity instanceof ZombiePropEntity) {
-									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-								}
+							}
+							else {
+								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 							}
 							this.world.sendEntityStatus(this, (byte) 3);
 							this.remove(RemovalReason.DISCARDED);
 						}
 					}
-				}**/
+				}
 			}
 		}
 	}

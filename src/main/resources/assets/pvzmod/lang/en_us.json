@@ -1,6 +1,7 @@
 {
   "itemGroup.pvzmod.plants": "Plants",
 
+
   "item.pvzmod.plantfood": "Plant Food",
   "item.pvzmod.plantfood_aquatic": "Aquatic Plant Food",
   "item.pvzmod.plantfood_cold": "Cold Plant Food",
@@ -9,7 +10,9 @@
   "item.pvzmod.plantfood_tough": "Tough Plant Food",
   "item.pvzmod.plantfood_mushroom": "Mushroom Plant Food",
 
+
   "item.pvzmod.daves_shovel": "Dave's Shovel",
+
 
   "item.pvzmod.seed_packet.ailment.family": "Ailment Family",
   "item.pvzmod.seed_packet.appease.family": "Appease Family",
@@ -26,13 +29,18 @@
   "item.pvzmod.seed_packet.spear.family": "Spear Family",
   "item.pvzmod.seed_packet.winter.family": "Winter Family",
 
+
   "item.pvzmod.seed_packet.instant.tooltip": "Instant Use",
+  "item.pvzmod.seed_packet.interactive.tooltip": "Interactive",
   "item.pvzmod.seed_packet.nocturnal.tooltip": "Nocturnal",
   "item.pvzmod.seed_packet.amphibious.tooltip": "Amphibious",
   "item.pvzmod.seed_packet.upgrade.tooltip": "Upgrade",
   "item.pvzmod.seed_packet.grave.tooltip": "Plantable on Graves",
   "item.pvzmod.seed_packet.graveonly.tooltip": "Only on Graves",
+  "item.pvzmod.seed_packet.2x2.tooltip": "2x2",
+  "item.pvzmod.seed_packet.3x3.tooltip": "3x3",
   "item.pvzmod.creative": "Creative Only",
+
 
   "entity.pvzmod.sunflower": "Sunflower",
   "item.pvzmod.sunflower_seed_packet": "☀ Sunflower Seed Packet",
@@ -42,24 +50,29 @@
   "item.pvzmod.sun": "Sun",
   "item.pvzmod.largesun": "Large Sun",
 
+
   "entity.pvzmod.peashooter": "Peashooter",
   "item.pvzmod.peashooter_seed_packet": "⭘ Peashooter Seed Packet",
   "item.pvzmod.peashooter_seed_packet.flavour": "Started fighting Zombies in",
   "item.pvzmod.peashooter_seed_packet.flavour2": "2009... and never stopped.",
   "item.pvzmod.pea": "Pea",
 
+
   "entity.pvzmod.cherrybomb": "Cherry Bomb",
   "item.pvzmod.cherrybomb_seed_packet": "☄ Cherry Bomb Seed Packet",
   "item.pvzmod.cherrybomb_seed_packet.flavour": "\"Explode? Detonate? ... Explodonate!\"",
+
 
   "entity.pvzmod.wallnut": "Wall-nut",
   "item.pvzmod.wallnut_seed_packet": "⛨ Wall-nut Seed Packet",
   "item.pvzmod.wallnut_seed_packet.flavour": "Works well with others.",
   "item.pvzmod.wallnut_seed_packet.flavour2": "Says so, right there on his resume.",
 
+
   "entity.pvzmod.potatomine": "Potato Mine",
   "item.pvzmod.potatomine_seed_packet": "☄ Potato Mine Seed Packet",
   "item.pvzmod.potatomine_seed_packet.flavour": "\"I'm starchy and explosive!\"",
+
 
   "entity.pvzmod.snowpea": "Snow Pea",
   "item.pvzmod.snowpea_seed_packet": "❄ Snow Pea Seed Packet",
@@ -67,19 +80,23 @@
   "item.pvzmod.snowpea_seed_packet.flavour2": "the Great Freeze Tag Wars of '08.",
   "item.pvzmod.snowpeaproj": "Snow Pea",
 
+
   "entity.pvzmod.chomper": "Chomper",
   "item.pvzmod.chomper_seed_packet": "\uD83D\uDDE1 Chomper Seed Packet",
   "item.pvzmod.chomper_seed_packet.flavour": "\"A free buffet? How kind! Don't mind if I do!\"",
 
+
   "entity.pvzmod.repeater": "Repeater",
   "item.pvzmod.repeater_seed_packet": "⭘ Repeater Seed Packet",
   "item.pvzmod.repeater_seed_packet.flavour": "\"Yes! Yes! Let's do this! Let's do this!\"",
+
 
   "entity.pvzmod.puffshroom": "Puff-shroom",
   "item.pvzmod.puffshroom_seed_packet": "\uD83E\uDDEA Puff-shroom Seed Packet",
   "item.pvzmod.puffshroom_seed_packet.flavour": "\"He huffs and puffs and,",
   "item.pvzmod.puffshroom_seed_packet.flavour2": "occasionally, blows a Zombie down.\"",
   "item.pvzmod.spore": "Spore",
+
 
   "entity.pvzmod.sunshroom": "Sun-shroom",
   "item.pvzmod.sunshroom_seed_packet": "☀ Sun-shroom Seed Packet",
@@ -93,9 +110,11 @@
   "item.pvzmod.fumeshroom_seed_packet.flavour2": "I don't think they know how much that hurts.\"",
   "item.pvzmod.fume": "Fume",
 
+
   "entity.pvzmod.gravebuster": "Grave Buster",
   "item.pvzmod.gravebuster_seed_packet": "⏳ Grave Buster Seed Packet",
   "item.pvzmod.gravebuster_seed_packet.flavour": "\"MUST. DESTROY. GRAVES.\"",
+
 
   "entity.pvzmod.hypnoshroom": "Hypno-shroom",
   "item.pvzmod.hypnoshroom_seed_packet": "⭐ Hypno-shroom Seed Packet",

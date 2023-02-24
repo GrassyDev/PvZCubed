@@ -29,6 +29,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -211,13 +212,28 @@ public class CoconutCannonEntity extends BombardEntity implements IAnimatable, R
 		if (this.hasVehicle()) {
 			super.setPosition(x, y, z);
 		} else {
-			super.setPosition((double)MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
+			super.setPosition((double)MathHelper.floor(x), (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z));
 		}
 
 		if (this.age != 0) {
 			BlockPos blockPos2 = this.getBlockPos();
+			BlockPos blockPos3 = this.getBlockPos().add(-0.5, 0, 0);
+			BlockPos blockPos4 = this.getBlockPos().add(0, 0, -0.5);
+			BlockPos blockPos5 = this.getBlockPos().add(0.5, 0, 0);
+			BlockPos blockPos6 = this.getBlockPos().add(-0.5, 0, -0.5);
 			BlockState blockState = this.getLandingBlockState();
-			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
+			BlockState blockState3 = this.world.getBlockState(this.getSteppingPosition().add(-0.5, 0, 0));
+			BlockState blockState4 = this.world.getBlockState(this.getSteppingPosition().add(0, 0, -0.5));
+			BlockState blockState5 = this.world.getBlockState(this.getSteppingPosition().add(0.5, 0, 0));
+			BlockState blockState6 = this.world.getBlockState(this.getSteppingPosition().add(-0.5, 0, -0.5));
+			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this) ||
+					!blockState3.hasSolidTopSurface(world, blockPos3, this) ||
+					!blockState4.hasSolidTopSurface(world, blockPos4, this) ||
+					!blockState6.hasSolidTopSurface(world, blockPos4, this) ||
+					!blockState5.hasSolidTopSurface(world, blockPos5, this)) && !this.hasVehicle()) {
+				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
+					this.dropItem(ModItems.COCONUTCANNON_SEED_PACKET);
+				}
 				this.kill();
 			}
 
@@ -280,10 +296,10 @@ public class CoconutCannonEntity extends BombardEntity implements IAnimatable, R
 
 	public static DefaultAttributeContainer.Builder createCoconutCannonAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 36.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15.0D);
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 30.0D);
     }
 
 	protected boolean canClimb() {return false;}

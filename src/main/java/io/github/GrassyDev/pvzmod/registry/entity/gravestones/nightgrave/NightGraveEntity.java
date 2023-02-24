@@ -37,6 +37,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.*;
+import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -436,6 +437,25 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			++this.nightGraveEntity.spawnCounter;
+			WorldChunk chunk1 = this.nightGraveEntity.world.getWorldChunk(this.nightGraveEntity.getBlockPos());
+			long time1 = chunk1.getInhabitedTime();
+			chunk1.setInhabitedTime(time1 + 2400);
+
+			WorldChunk chunk2 = this.nightGraveEntity.world.getWorldChunk(this.nightGraveEntity.getBlockPos().south(16));
+			long time2 = chunk2.getInhabitedTime();
+			chunk2.setInhabitedTime(time2 + 2400);
+
+			WorldChunk chunk3 = this.nightGraveEntity.world.getWorldChunk(this.nightGraveEntity.getBlockPos().north(16));
+			long time3 = chunk3.getInhabitedTime();
+			chunk3.setInhabitedTime(time3 + 2400);
+
+			WorldChunk chunk4 = this.nightGraveEntity.world.getWorldChunk(this.nightGraveEntity.getBlockPos().west(16));
+			long time4 = chunk4.getInhabitedTime();
+			chunk4.setInhabitedTime(time4 + 2400);
+
+			WorldChunk chunk5 = this.nightGraveEntity.world.getWorldChunk(this.nightGraveEntity.getBlockPos().east(16));
+			long time5 = chunk5.getInhabitedTime();
+			chunk5.setInhabitedTime(time5 + 2400);
         }
 
         protected SoundEvent getSoundPrepare() {

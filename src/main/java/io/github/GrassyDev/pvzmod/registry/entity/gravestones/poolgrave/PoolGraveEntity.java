@@ -37,6 +37,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -388,6 +389,25 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}**/
 			++this.poolGraveEntity.spawnCounter;
+			WorldChunk chunk1 = this.poolGraveEntity.world.getWorldChunk(this.poolGraveEntity.getBlockPos());
+			long time1 = chunk1.getInhabitedTime();
+			chunk1.setInhabitedTime(time1 + 3600);
+
+			WorldChunk chunk2 = this.poolGraveEntity.world.getWorldChunk(this.poolGraveEntity.getBlockPos().south(16));
+			long time2 = chunk2.getInhabitedTime();
+			chunk2.setInhabitedTime(time2 + 3600);
+
+			WorldChunk chunk3 = this.poolGraveEntity.world.getWorldChunk(this.poolGraveEntity.getBlockPos().north(16));
+			long time3 = chunk3.getInhabitedTime();
+			chunk3.setInhabitedTime(time3 + 3600);
+
+			WorldChunk chunk4 = this.poolGraveEntity.world.getWorldChunk(this.poolGraveEntity.getBlockPos().west(16));
+			long time4 = chunk4.getInhabitedTime();
+			chunk4.setInhabitedTime(time4 + 3600);
+
+			WorldChunk chunk5 = this.poolGraveEntity.world.getWorldChunk(this.poolGraveEntity.getBlockPos().east(16));
+			long time5 = chunk5.getInhabitedTime();
+			chunk5.setInhabitedTime(time5 + 3600);
         }
 
         protected SoundEvent getSoundPrepare() {

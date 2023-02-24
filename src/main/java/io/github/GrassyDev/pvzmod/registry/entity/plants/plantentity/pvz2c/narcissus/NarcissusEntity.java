@@ -206,6 +206,8 @@ public class NarcissusEntity extends SpearEntity implements IAnimatable, RangedA
 					onWater = true;
 				}
 				if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
+				this.dropLoot(DamageSource.GENERIC, true);
+				this.kill();
 					kill();
 				}
 			}

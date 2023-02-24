@@ -30,6 +30,9 @@
     }
   },
   "rewards": {
+    "recipes": [
+      "pvzmod:plants/bombard/coconutcannon"
+    ],
     "experience": 25
   }
 }

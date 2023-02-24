@@ -26,9 +26,6 @@
 			],
 			"client_init": [
 				"io.github.GrassyDev.pvzmod.registry.PvZEntityClient"
-			],
-			"emi": [
-				"io.github.GrassyDev.pvzmod.PvZCubed"
 			]
 		},
 		"depends": [

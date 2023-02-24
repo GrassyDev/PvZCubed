@@ -250,6 +250,8 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 					onWater = true;
 				}
 				if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
+				this.dropLoot(DamageSource.GENERIC, true);
+				this.kill();
 					kill();
 				}
 			}

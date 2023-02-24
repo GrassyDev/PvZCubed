@@ -313,7 +313,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<CoconutCannonEntity> COCONUTCANNON = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "coconutcannon"),
-			QuiltEntityTypeBuilder.<CoconutCannonEntity>create(SpawnGroup.CREATURE, CoconutCannonEntity::new).setDimensions(EntityDimensions.fixed(3f, 1.8f)).build()
+			QuiltEntityTypeBuilder.<CoconutCannonEntity>create(SpawnGroup.CREATURE, CoconutCannonEntity::new).setDimensions(EntityDimensions.fixed(2f, 1.8f)).build()
 	);
 
 	public static final EntityType<PeapodEntity> PEAPOD = Registry.register((

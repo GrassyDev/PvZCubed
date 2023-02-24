@@ -1,0 +1,43 @@
+{
+  "name": "Coconut Cannon",
+  "icon": "pvzmod:coconutcannon_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 0,
+  "advancement": "pvzmod:make_cherrybomb",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)36",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)180 (Direct), 90 (Explosion)",
+        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)3.5 Blocks",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks",
+        "$(br)$(#bd951a)Recharge Time: $()$(#ff0000)15s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)2x2. Interactive. Has to recharge between shots.",
+        "$(br)$(#bd951a)Sure, he's a hairy old man, but Coconut Cannon can still fire on all cylinders. The reason he's so hairy: he's in-between waxings."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/coconutcannon.png"
+      ],
+      "title": "☄ Bombard Family",
+      "border": "true",
+      "text": "$(#25228d)Coconut Cannons fire when clicked, causing a medium explosion on projectile impact."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/bombard/coconutcannon"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Coconut Cannon",
+        "$(br2)$(#bd951a)(Seed Packet flavour text) Plants vs. Zombies: Garden Warfare: $()$(#ff0000)Tallnut Cannon"
+      ]
+    }
+  ]
+}

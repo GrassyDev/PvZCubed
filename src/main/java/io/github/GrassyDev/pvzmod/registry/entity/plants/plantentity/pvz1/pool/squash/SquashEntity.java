@@ -275,6 +275,8 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 				BlockPos blockPos2 = this.getBlockPos();
 				BlockState blockState = this.getLandingBlockState();
 				if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
+				this.dropLoot(DamageSource.GENERIC, true);
+				this.kill();
 					this.kill();
 				}
 			}

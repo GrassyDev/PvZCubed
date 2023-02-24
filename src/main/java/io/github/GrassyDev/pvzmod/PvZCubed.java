@@ -1,7 +1,5 @@
 package io.github.GrassyDev.pvzmod;
 
-import dev.emi.emi.api.EmiPlugin;
-import dev.emi.emi.api.EmiRegistry;
 import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
@@ -23,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
 
-public class PvZCubed implements ModInitializer, EmiPlugin {
+public class PvZCubed implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Plants vs. Zombies Cubed");
 
@@ -315,10 +313,5 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARMOAN, GARGANTUARMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEDANCING, ZOMBIEDANCINGEVENT);
-	}
-
-	@Override
-	public void register(EmiRegistry registry) {
-
 	}
 }
