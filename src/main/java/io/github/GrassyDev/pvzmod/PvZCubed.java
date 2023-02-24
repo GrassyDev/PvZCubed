@@ -86,6 +86,7 @@ public class PvZCubed implements ModInitializer, EmiPlugin {
 				stacks.add(new ItemStack(ModItems.SNOW_QUEENPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PERFOOMSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.ICEBERGLETTUCE_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.COCONUTCANNON_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));

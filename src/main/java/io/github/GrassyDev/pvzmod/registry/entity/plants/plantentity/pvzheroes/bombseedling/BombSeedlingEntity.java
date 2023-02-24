@@ -239,7 +239,7 @@ public class BombSeedlingEntity extends BombardEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				float damage = 180;
+				float damage = 32;
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {

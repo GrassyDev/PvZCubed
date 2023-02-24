@@ -173,6 +173,11 @@
   "item.pvzmod.iceberglettuce_seed_packet.flavour": "\"FREEZE! Ha, just kidding.",
   "item.pvzmod.iceberglettuce_seed_packet.flavour2": "Little Iceberg humor there.\"",
 
+  "entity.pvzmod.coconutcannon": "Coconut Cannon",
+  "item.pvzmod.coconutcannon_seed_packet": "☄ Coconut Cannon Seed Packet",
+  "item.pvzmod.coconutcannon_seed_packet.flavour": "Exploding Zombies and Plants alike with",
+  "item.pvzmod.coconutcannon_seed_packet.flavour2": "bowling nuts ever since 2014.",
+
   "entity.pvzmod.peapod": "Pea Pod",
   "item.pvzmod.peapod_seed_packet": "⭘ Pea Pod Seed Packet",
   "item.pvzmod.peapod_seed_packet.flavour": "Sometimes they squabble, but they usually",

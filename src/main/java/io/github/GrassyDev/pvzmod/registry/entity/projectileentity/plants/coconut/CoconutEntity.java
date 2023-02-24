@@ -120,6 +120,8 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
         return null;
     }
 
+	List<LivingEntity> checkList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().shrink(0.5, 0, 0));
+
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
@@ -171,6 +173,49 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 				}
 
 				if (bl) {
+					if (((livingEntity instanceof Monster &&
+							!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
+									&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+						ZombiePropEntity zombiePropEntity3 = null;
+						for (Entity entity1 : livingEntity.getPassengerList()) {
+							if (entity1 instanceof ZombiePropEntity zpe) {
+								zombiePropEntity3 = zpe;
+							}
+						}
+						if (damage > livingEntity.getHealth() &&
+								!(livingEntity instanceof ZombieShieldEntity) &&
+								livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+							float damage2 = damage - livingEntity.getHealth();
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
+							checkList.add(livingEntity);
+							checkList.add(generalPvZombieEntity);
+						} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
+							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
+							checkList.add(zombieShieldEntity);
+						}
+						else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {
+							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add(livingEntity);
+							checkList.add(zombieShieldEntity);
+						}
+						else {
+							if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+								checkList.add(livingEntity);
+								checkList.add(generalPvZombieEntity);
+							}
+							else if (zombiePropEntity3 == null && !checkList.contains(livingEntity)) {
+								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+								checkList.add(livingEntity);
+							}
+						}
+						this.world.sendEntityStatus(this, (byte) 3);
+						this.remove(RemovalReason.DISCARDED);
+					}
+				}/**
+				if (bl) {
 					if (livingEntity instanceof Monster &&
 							!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 									&& (generalPvZombieEntity.getHypno()))) {
@@ -196,7 +241,7 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 							this.remove(RemovalReason.DISCARDED);
 						}
 					}
-				}
+				}**/
 			}
 		}
 	}

@@ -61,7 +61,7 @@
 							"vector": [1, 1, 1]
 						},
 						"0.75": {
-							"vector": [1, 0.98, 1],
+							"vector": [1, 0.95, 1],
 							"easing": "easeOutSine"
 						},
 						"1.5": {
@@ -69,7 +69,7 @@
 							"easing": "easeInSine"
 						},
 						"2.25": {
-							"vector": [1, 0.98, 1],
+							"vector": [1, 0.95, 1],
 							"easing": "easeOutSine"
 						},
 						"3.0": {
@@ -613,8 +613,11 @@
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
+						"0.5": {
+							"vector": [0, -2, 0]
+						},
 						"1.0": {
-							"vector": [0, -1, 0],
+							"vector": [0, -5, 0],
 							"easing": "easeInElastic"
 						}
 					},
@@ -769,7 +772,7 @@
 				},
 				"brows": {
 					"position": {
-						"vector": [0, -1, 0],
+						"vector": [0, -5, 0],
 						"easing": "easeInElastic"
 					},
 					"scale": {
