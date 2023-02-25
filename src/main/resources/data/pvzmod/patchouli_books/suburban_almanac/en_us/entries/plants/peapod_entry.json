@@ -2,7 +2,7 @@
   "name": "Peapod",
   "icon": "pvzmod:peapod_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 51,
+  "sortnum": 52,
   "advancement": "pvzmod:make_peashooter",
   "pages": [
     {

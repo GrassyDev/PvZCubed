@@ -76,6 +76,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.b
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.navybean.NavyBeanEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.navybean.NavyBeanEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntity;
@@ -94,6 +96,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.Sh
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowqueenpea.ShootingSnowqueenPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit.SpitEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm.LocustSwarmEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm.LocustswarmEntityRenderer;
@@ -147,6 +150,12 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "peashooter"),
             QuiltEntityTypeBuilder.<PeashooterEntity>create(SpawnGroup.CREATURE, PeashooterEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
+
+	public static final EntityType<NavyBeanEntity> NAVYBEAN = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "navybean"),
+			QuiltEntityTypeBuilder.<NavyBeanEntity>create(SpawnGroup.CREATURE, NavyBeanEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
 
     public static final EntityType<SunflowerEntity> SUNFLOWER = Registry.register((
             Registry.ENTITY_TYPE),
@@ -378,6 +387,12 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "pea"),
             QuiltEntityTypeBuilder.<ShootingPeaEntity>create(SpawnGroup.MISC, ShootingPeaEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
     );
+
+	public static final EntityType<SpitEntity> SPIT = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "spit"),
+			QuiltEntityTypeBuilder.<SpitEntity>create(SpawnGroup.MISC, SpitEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
 
 	public static final EntityType<ShootingSnowPeaEntity> SNOWPEAPROJ = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -748,6 +763,9 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEASHOOTER, PeashooterEntity.createPeashooterAttributes().build());
         EntityRendererRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NAVYBEAN, NavyBeanEntity.createNavyBeanAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.NAVYBEAN, NavyBeanEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUNFLOWER, SunflowerEntity.createSunflowerAttributes().build());
         EntityRendererRegistry.register(PvZEntity.SUNFLOWER, SunflowerEntityRenderer::new);

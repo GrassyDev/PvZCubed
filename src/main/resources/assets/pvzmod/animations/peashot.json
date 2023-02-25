@@ -372,6 +372,22 @@
 					}
 				}
 			}
+		},
+		"spit.idle": {
+			"loop": true,
+			"bones": {
+				"pea": {
+					"rotation": {
+						"vector": [0, -90, 0]
+					},
+					"position": {
+						"vector": [0, -3, 0]
+					},
+					"scale": {
+						"vector": [1.5, 0.4, 0.6]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

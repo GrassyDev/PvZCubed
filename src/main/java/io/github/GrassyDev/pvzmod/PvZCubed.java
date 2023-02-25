@@ -58,6 +58,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.LARGESUN));
 				stacks.add(new ItemStack(ModItems.DAVES_SHOVEL));
 				stacks.add(new ItemStack(ModItems.PEASHOOTER_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.NAVYBEAN_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SUNFLOWER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.CHERRYBOMB_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.WALLNUT_SEED_PACKET));

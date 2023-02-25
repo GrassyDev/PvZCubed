@@ -37,6 +37,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.perfo
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bellflower.BellflowerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.navybean.NavyBeanEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntityRenderer;
@@ -52,6 +53,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.Sh
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmapeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowqueenpea.ShootingSnowqueenPeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit.SpitEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm.LocustswarmEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntityRenderer;
@@ -83,6 +85,8 @@ public class PvZEntityClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 
 		EntityRendererRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.NAVYBEAN, NavyBeanEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SUNFLOWER, SunflowerEntityRenderer::new);
 
@@ -158,6 +162,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 
 		EntityRendererRegistry.register(PvZEntity.PEA, ShootingPeaEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.SPIT, SpitEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SNOWPEAPROJ, ShootingSnowPeaEntityRenderer::new);
 

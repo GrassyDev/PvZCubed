@@ -58,6 +58,12 @@
   "item.pvzmod.pea": "Pea",
 
 
+  "entity.pvzmod.navybean": "Navy Bean",
+  "item.pvzmod.navybean_seed_packet": "\uD83D\uDDE1 Navy Bean Seed Packet",
+  "item.pvzmod.navybean_seed_packet.flavour": "Was *this* close to becoming an Army Bean.",
+  "item.pvzmod.spit": "Spit",
+
+
   "entity.pvzmod.cherrybomb": "Cherry Bomb",
   "item.pvzmod.cherrybomb_seed_packet": "☄ Cherry Bomb Seed Packet",
   "item.pvzmod.cherrybomb_seed_packet.flavour": "\"Explode? Detonate? ... Explodonate!\"",
