@@ -9,8 +9,9 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)36",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)Insta-kill, Varies (shielded zombies), 16 DMG/1.5s (if target is Immune)",
-        "$(br)$(#bd951a)Chew Time: $()$(#ff0000)10s",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)Insta-kill, 16 DMG/1.5s (if target is Immune)",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Chew Time: $()$(#ff0000)10s, 1.5s (Imps)",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Kills a zombie instantly, but has to chew it afterwards. Immune if they are either big or a grave",
         "$(br2)$(#bd951a)Chomper never gets the hint when you offer her a mint."

@@ -9,7 +9,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)24",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)x2 8 DMG/1.5s",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)x2 4 DMG/1.5s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)7.5s",
         "$(br2)$(#bd951a)Repeater is fierce. He's from the streets. He doesn't take attitude from anybody, plant or zombie, and he shoots peas to keep people at a distance. Secretly, though, Repeater yearns for love."

@@ -1,0 +1,44 @@
+{
+  "name": "Admiral Navy Bean",
+  "icon": "pvzmod:admiralnavybean_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 306,
+  "advancement": "pvzmod:make_navybean",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)32",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)24 DMG/1s (Melee), x2 2 DMG/1.5s (Spit)",
+        "$(br)$(#bd951a)Melee Range: $()$(#ff0000)4 Blocks",
+        "$(br)$(#bd951a)Spit Range: $()$(#ff0000)15 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Amphibious. Can only spit on water.",
+        "$(br)$(#bd951a)Farewell and adieu to you, Spanish Lilies",
+        "$(br)$(#bd951a)Farewell and adieu to you, Lilies of Spain",
+        "$(br)$(#bd951a)For we have received orders,",
+        "$(br)$(#bd951a)For to sail to Dark Ages"
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/admiralnavybean.png"
+      ],
+      "title": "\uD83D\uDDE1 Enforce Family",
+      "border": "true",
+      "text": "$(#25228d)Admiral Navy Beans are twice as strong and twice as sailor as Navy Beans."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/enforce/admiralnavybean"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: Heroes: $()$(#ff0000)Navy Bean"
+      ]
+    }
+  ]
+}

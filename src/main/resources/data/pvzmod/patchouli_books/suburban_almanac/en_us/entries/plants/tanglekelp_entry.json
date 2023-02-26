@@ -3,7 +3,7 @@
   "icon": "pvzmod:tanglekelp_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 19,
-  "advancement": "pvzmod:make_sunflower",
+  "advancement": "pvzmod:make_navybean",
   "pages": [
     {
       "type": "text",

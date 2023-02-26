@@ -58,7 +58,6 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.LARGESUN));
 				stacks.add(new ItemStack(ModItems.DAVES_SHOVEL));
 				stacks.add(new ItemStack(ModItems.PEASHOOTER_SEED_PACKET));
-				stacks.add(new ItemStack(ModItems.NAVYBEAN_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SUNFLOWER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.CHERRYBOMB_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.WALLNUT_SEED_PACKET));
@@ -93,6 +92,8 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.BUTTONSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BOMBSEEDLING_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.WEENIEBEANIE_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.NAVYBEAN_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.ADMIRALNAVYBEAN_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SUNFLOWERSEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BELLFLOWER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEA));
@@ -103,10 +104,12 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.FIREPEA));
 				stacks.add(new ItemStack(ModItems.CABBAGE));
 				stacks.add(new ItemStack(ModItems.SNOWQUEENPEAPROJ));
+				stacks.add(new ItemStack(ModItems.COCONUT));
 				stacks.add(new ItemStack(ModItems.PLASMAPEA));
 				stacks.add(new ItemStack(ModItems.ICESPIKE));
 				stacks.add(new ItemStack(ModItems.BUBBLES));
 				stacks.add(new ItemStack(ModItems.ARMORBUBBLE));
+				stacks.add(new ItemStack(ModItems.SPIT));
 				stacks.add(new ItemStack(ModItems.JINGLE));
 			}).build();
 

@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Enforce family is composed of plants with limited range",
-        "$(br2)$()$(#bd951a)They are melee plants."
+        "$(br2)$()$(#bd951a)They are plants that specialize in short range."
         ]
     },
     {
@@ -16,7 +16,9 @@
       "entries": [
         "pvzmod:plants/chomper_entry",
         "pvzmod:plants/squash_entry",
-        "pvzmod:plants/tanglekelp_entry"
+        "pvzmod:plants/tanglekelp_entry",
+        "pvzmod:plants/navybean_entry",
+        "pvzmod:plants/admiralnavybean_entry"
       ],
       "title": "\uD83D\uDDE1 Enforce Plants:"
     }

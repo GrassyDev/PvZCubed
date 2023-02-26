@@ -9,7 +9,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)10",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1.5s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",
         "$(br2)$(#bd951a)How can a single plant grow and shoot so many peas so quickly? Peashooter says, \"Hard work, commitment, and a healthy, well-balanced breakfast of sunlight and high-fiber carbon dioxide make it all possible.\""
