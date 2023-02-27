@@ -195,7 +195,7 @@ public class CoconutCannonEntity extends BombardEntity implements IAnimatable, R
 	}
 
 	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
 		}));
 	}
