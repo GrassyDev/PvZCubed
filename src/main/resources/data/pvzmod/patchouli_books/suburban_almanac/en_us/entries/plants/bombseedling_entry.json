@@ -23,7 +23,7 @@
       ],
       "title": "☄ Bombard Family",
       "border": "true",
-      "text": "$(#25228d)Their Blazing Plant Food make combustive plants. Explodes nearby zombies."
+      "text": "$(#25228d)Explodes nearby zombies and their Blazing Plant Food makes combustive plants. "
     },
     {
       "type": "crafting",

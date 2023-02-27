@@ -8,6 +8,8 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Melee Damage: $()$(#ff0000)8 DMG/1s",
+        "$(br)$(#bd951a)Melee Range: $()$(#ff0000)2 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)2.5s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Spawns commonly during the day. Drops Plant Food.",
         "$(br2)$(#bd951a)\"They all make fun of my size, but I always say that it's not the size that matters...\""
@@ -18,9 +20,9 @@
       "images": [
         "pvzmod:textures/gui/entries/weeniebeanie.png"
       ],
-      "title": "⭘ Appease Family",
+      "title": "\uD83D\uDDE1 Enforce Family",
       "border": "true",
-      "text": "$(#25228d)Their Plant Food make a varied selection of plants."
+      "text": "$(#25228d)They whack zombies and their Plant Food makes a varied selection of plants."
     },
     {
       "type": "crafting",

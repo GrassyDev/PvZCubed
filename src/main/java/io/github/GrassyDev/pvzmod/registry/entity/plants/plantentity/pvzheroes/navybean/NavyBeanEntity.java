@@ -130,9 +130,7 @@ public class NavyBeanEntity extends EnforceEntity implements IAnimatable, Ranged
 		return PlayState.CONTINUE;
 	}
 
-	/**
-	 * /~*~//~**~//~*~//
-	 **/
+	/** /~*~//~AI~//~*~// **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new NavyBeanEntity.FireBeamGoal(this));

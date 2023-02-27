@@ -3,8 +3,16 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -14,6 +22,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -35,11 +44,13 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
+public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable, RangedAttackMob {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private String controllerName = "puffcontroller";
+
+	private int attackTicksLeft;
 
 
 
@@ -65,6 +76,15 @@ public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
 	}
 
 	static {
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status == 6) {
+			this.attackTicksLeft = 20;
+		} else {
+			super.handleStatus(status);
+		}
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
@@ -111,9 +131,76 @@ public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(new AnimationBuilder().loop("small.idle"));
+		int i = this.attackTicksLeft;
+		if (i <= 0) {
+			event.getController().setAnimation(new AnimationBuilder().loop("navybean.idle"));
+		} else {
+			event.getController().setAnimation(new AnimationBuilder().playOnce("navybean.hit"));
+		}
 		return PlayState.CONTINUE;
     }
+
+	/** /~*~//~AI~//~*~// **/
+
+	protected void initGoals() {
+		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof ZombiePropEntity) &&
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+		}));
+		snorkelGoal();
+	}
+
+	protected void snorkelGoal() {
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
+		}));
+	}
+
+	@Override
+	public void attack(LivingEntity target, float pullProgress) {
+		if (target.squaredDistanceTo(this) <= 9) {
+			this.tryAttack(target);
+		}
+	}
+
+	public boolean tryAttack(Entity target) {
+		int i = this.attackTicksLeft;
+		ZombiePropEntity passenger = null;
+		for (Entity entity1 : target.getPassengerList()) {
+			if (entity1 instanceof ZombiePropEntity zpe) {
+				passenger = zpe;
+			}
+		}
+		Entity damaged = target;
+		if (passenger != null) {
+			damaged = passenger;
+		}
+		if (i <= 0) {
+			this.attackTicksLeft = 20;
+			this.world.sendEntityStatus(this, (byte) 6);
+			boolean bl = damaged.damage(DamageSource.mob(this), this.getAttackDamage());
+			if (bl) {
+				this.applyDamageEffects(this, target);
+			}
+			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(target.getType()).orElse("flesh");
+			SoundEvent sound;
+			sound = switch (zombieMaterial) {
+				case "metallic" -> PvZCubed.BUCKETHITEVENT;
+				case "plastic" -> PvZCubed.CONEHITEVENT;
+				default -> PvZCubed.PEAHITEVENT;
+			};
+			target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+			this.chomperAudioDelay = 3;
+			return bl;
+		} else {
+			return false;
+		}
+	}
 
 
 	/** /~*~//~*POSITION*~//~*~/ **/
@@ -142,10 +229,22 @@ public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	private int chomperAudioDelay = -1;
+
 	public void tick() {
 		super.tick();
+		if (--this.chomperAudioDelay == 0) {
+			this.playSound(PvZCubed.PEASHOOTEVENT, 1.0F, 1.0F);
+		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
+		}
+		LivingEntity target = this.getTarget();
+		if (target != null) {
+			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+				this.setTarget(null);
+				snorkelGoal();
+			}
 		}
 		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
@@ -160,6 +259,10 @@ public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.kill();
+		}
+
+		if (this.attackTicksLeft > 0) {
+			--this.attackTicksLeft;
 		}
 	}
 
@@ -181,7 +284,8 @@ public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6D);
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8D);
     }
 
 	protected boolean canClimb() {
@@ -194,6 +298,10 @@ public class WeenieBeanieEntity extends AppeaseEntity implements IAnimatable {
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
 		return 0.5F;
+	}
+
+	private float getAttackDamage() {
+		return (float) this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 	}
 
 	@Nullable

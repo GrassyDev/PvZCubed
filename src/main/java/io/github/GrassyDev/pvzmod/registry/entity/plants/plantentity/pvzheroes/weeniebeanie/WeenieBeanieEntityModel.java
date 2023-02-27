@@ -20,6 +20,6 @@ public class WeenieBeanieEntityModel extends AnimatedGeoModel<WeenieBeanieEntity
     @Override
     public Identifier getAnimationResource(WeenieBeanieEntity object)
     {
-        return new Identifier ("pvzmod", "animations/small.json");
+        return new Identifier ("pvzmod", "animations/navybean.json");
     }
 }

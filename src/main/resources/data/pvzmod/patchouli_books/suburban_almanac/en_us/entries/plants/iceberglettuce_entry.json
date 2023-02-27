@@ -24,7 +24,7 @@
       ],
       "title": "❄ Winter Family",
       "border": "true",
-      "text": "$(#25228d)Their Cold Plant Food make icy plants. Freeze a zombie when stepped on."
+      "text": "$(#25228d)Freeze a zombie when stepped on and their Cold Plant Food makes icy plants."
     },
     {
       "type": "crafting",

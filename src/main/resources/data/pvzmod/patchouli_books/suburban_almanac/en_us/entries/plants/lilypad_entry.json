@@ -20,7 +20,7 @@
       ],
       "title": "⛨ Reinforce Family",
       "border": "true",
-      "text": "$(#25228d)Lily Pads let you plant non-aquatic plants on top of them."
+      "text": "$(#25228d)Lets you plant on top of them and their Aquatic Plant food makes aquatic plants."
     },
     {
       "type": "crafting",
