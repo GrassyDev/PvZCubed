@@ -408,7 +408,9 @@ public class AdmiralNavyBeanEntity extends EnforceEntity implements IAnimatable,
 
 		public void stop() {
 			this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 10);
-			this.admiralNavyBeanEntity.setTarget((LivingEntity) null);
+			if (admiralNavyBeanEntity.getTarget() != null){
+				this.admiralNavyBeanEntity.attack(admiralNavyBeanEntity.getTarget(), 0);
+			}
 		}
 
 		public void tick() {
@@ -435,8 +437,9 @@ public class AdmiralNavyBeanEntity extends EnforceEntity implements IAnimatable,
 						double g = predictedPos.getZ() - this.admiralNavyBeanEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePositionAndAngles(this.admiralNavyBeanEntity.getX(), this.admiralNavyBeanEntity.getY() + 0.75D, this.admiralNavyBeanEntity.getZ(), admiralNavyBeanEntity.getYaw(), admiralNavyBeanEntity.getPitch());
+						proj.updatePosition(this.admiralNavyBeanEntity.getX(), this.admiralNavyBeanEntity.getY() + 0.75D, this.admiralNavyBeanEntity.getZ());
 						proj.setOwner(this.admiralNavyBeanEntity);
+						proj.setYaw(this.admiralNavyBeanEntity.getYaw());
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 11);

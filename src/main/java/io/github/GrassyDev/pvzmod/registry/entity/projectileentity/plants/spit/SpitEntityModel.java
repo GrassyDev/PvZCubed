@@ -8,7 +8,7 @@ public class SpitEntityModel extends AnimatedGeoModel<SpitEntity> {
     @Override
     public Identifier getModelResource(SpitEntity object)
     {
-        return new Identifier("pvzmod", "geo/spike.geo.json");
+        return new Identifier("pvzmod", "geo/spit.geo.json");
     }
 
     @Override

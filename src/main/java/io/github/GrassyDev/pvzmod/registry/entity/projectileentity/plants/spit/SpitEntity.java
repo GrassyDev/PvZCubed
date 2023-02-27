@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -38,6 +39,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.UUID;
+
 public class SpitEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
@@ -46,6 +49,19 @@ public class SpitEntity extends ThrownItemEntity implements IAnimatable {
 	public SpitEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
 		super(entityType, world);
 		this.setNoGravity(true);
+	}
+
+	public SpitEntity(World world, LivingEntity owner) {
+		super(EntityType.SNOWBALL, owner, world);
+	}
+
+	@Environment(EnvType.CLIENT)
+	public SpitEntity(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
+		super(PvZEntity.SPIT, world);
+		updatePosition(x, y, z);
+		updateTrackedPositionAndAngles(x, y, z, yaw, pitch, interpolation, interpolate);
+		setId(id);
+		setUuid(uuid);
 	}
 
 	@Override

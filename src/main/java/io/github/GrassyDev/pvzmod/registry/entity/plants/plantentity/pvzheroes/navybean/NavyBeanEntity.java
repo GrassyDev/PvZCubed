@@ -410,7 +410,10 @@ public class NavyBeanEntity extends EnforceEntity implements IAnimatable, Ranged
 
 		public void stop() {
 			this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 10);
-			this.navyBeanEntity.setTarget((LivingEntity) null);
+			this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 10);
+			if (navyBeanEntity.getTarget() != null){
+				this.navyBeanEntity.attack(navyBeanEntity.getTarget(), 0);
+			}
 		}
 
 		public void tick() {
@@ -437,8 +440,9 @@ public class NavyBeanEntity extends EnforceEntity implements IAnimatable, Ranged
 						double g = predictedPos.getZ() - this.navyBeanEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePositionAndAngles(this.navyBeanEntity.getX(), this.navyBeanEntity.getY() + 0.75D, this.navyBeanEntity.getZ(), navyBeanEntity.getYaw(), navyBeanEntity.getPitch());
+						proj.updatePosition(this.navyBeanEntity.getX(), this.navyBeanEntity.getY() + 0.75D, this.navyBeanEntity.getZ());
 						proj.setOwner(this.navyBeanEntity);
+						proj.setYaw(this.navyBeanEntity.getYaw());
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
 							this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 11);
