@@ -37,6 +37,13 @@
     {
       "type": "text",
       "text": [
+        "$(br2)Another type of projectile is the Elemental type: they complement a projectile by giving it special properties.",
+        "$(br2)Some Examples: Ice can slow down zombies on a direct hit; Fire is useless on humid environments; Paper shields are destroyed quickly by both Fire and Water; etc."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
         "$(br2)Similar to Splash, there's Explosion. They are not a type of projectile, but are another type of damage worth explaining.",
         "$(br2)Explosions deal damage in an area, hitting every zombie except for ones behind shields, hitting the shields instead."
       ]
@@ -47,7 +54,9 @@
         "pvzmod:plants/peashooter_entry",
         "pvzmod:plants/bellflower_entry",
         "pvzmod:plants/cabbagepult_entry",
-        "pvzmod:plants/firepea_entry"
+        "pvzmod:plants/firepea_entry",
+        "pvzmod:plants/navybean_entry",
+        "pvzmod:plants/snowpea_entry"
       ]
     }
   ]

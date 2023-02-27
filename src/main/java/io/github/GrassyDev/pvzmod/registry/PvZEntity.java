@@ -122,8 +122,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.super
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperShieldEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperShieldEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -614,6 +614,22 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<NewspaperShieldEntity>create(SpawnGroup.MONSTER, NewspaperShieldEntity::new).setDimensions(EntityDimensions.fixed(0.85f, 1.8f)).build()
 	);
 
+	public static final EntityType<NewspaperEntity> SUNDAYEDITION = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "sundayedition"),
+			QuiltEntityTypeBuilder.<NewspaperEntity>create(SpawnGroup.MONSTER, NewspaperEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+	public static final EntityType<NewspaperEntity> SUNDAYEDITIONHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "sundayedition_hypno"),
+			QuiltEntityTypeBuilder.<NewspaperEntity>create(SpawnGroup.MONSTER, NewspaperEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+	public static final EntityType<NewspaperShieldEntity> SUNDAYEDITIONSHIELD = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "sundayeditionshield"),
+			QuiltEntityTypeBuilder.<NewspaperShieldEntity>create(SpawnGroup.MONSTER, NewspaperShieldEntity::new).setDimensions(EntityDimensions.fixed(0.85f, 1.8f)).build()
+	);
+
     public static final EntityType<FootballEntity> FOOTBALL = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "football"),
@@ -959,6 +975,14 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWSPAPERHYPNO, NewspaperEntity.createNewspaperAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWSPAPERSHIELD, NewspaperShieldEntity.createNewspaperShieldAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.NEWSPAPERSHIELD, NewspaperShieldEntityRenderer::new);
+
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUNDAYEDITION, NewspaperEntity.createNewspaperAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUNDAYEDITIONHYPNO, NewspaperEntity.createNewspaperAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUNDAYEDITIONSHIELD, NewspaperShieldEntity.createSundayEditionShieldAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPERSHIELD, NewspaperShieldEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SCREENDOORSHIELD, MetalShieldEntity.createScreendoorShieldAttributes().build());

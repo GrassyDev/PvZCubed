@@ -67,7 +67,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantua
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntityRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperShieldEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntityRenderer;
@@ -225,6 +225,10 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPERHYPNO, NewspaperEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPERSHIELD, NewspaperShieldEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.SUNDAYEDITION, NewspaperEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.SUNDAYEDITIONHYPNO, NewspaperEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.SUNDAYEDITIONSHIELD, NewspaperShieldEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SCREENDOORSHIELD, MetalShieldEntityRenderer::new);
 

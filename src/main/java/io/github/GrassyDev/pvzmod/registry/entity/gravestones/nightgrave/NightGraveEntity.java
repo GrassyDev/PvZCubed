@@ -277,6 +277,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				int i = NightGraveEntity.this.world.getTargets(SuperFanImpEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
 				int j = NightGraveEntity.this.world.getTargets(SuperFanImpEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
 				int k = NightGraveEntity.this.world.getTargets(GargantuarEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int l = NightGraveEntity.this.world.getTargets(NewspaperEntity.class, this.closeZombiePredicate, NightGraveEntity.this, NightGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 return NightGraveEntity.this.random.nextInt(8) + 1 > a &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > h &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > b &&
@@ -286,7 +287,8 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						NightGraveEntity.this.random.nextInt(8) + 1 > f &&
                         NightGraveEntity.this.random.nextInt(8) + 1 > i &&
 						NightGraveEntity.this.random.nextInt(8) + 1 > j &&
-						NightGraveEntity.this.random.nextInt(8) + 1 > k  ;
+						NightGraveEntity.this.random.nextInt(8) + 1 > k &&
+						NightGraveEntity.this.random.nextInt(8) + 1 > l ;
             }
         }
 
@@ -312,6 +314,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 			double probability7 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 			double probability8 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 			double probability9 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability10 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 
 
 
@@ -388,18 +391,6 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-			if (difficulty >= 2.09) {
-				if (probability5 <= 0.085) { // 8.5% x1 Berserker
-					for (int p = 0; p < 1; ++p) {
-						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
-						FootballEntity berserkerEntity = (FootballEntity) PvZEntity.BERSERKER.create(NightGraveEntity.this.world);
-						berserkerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						berserkerEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						berserkerEntity.setOwner(NightGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(berserkerEntity);
-					}
-				}
-			}
 			if (difficulty >= 1.509) {
 				if (probability6 <= 0.15) { // 15% x1 Dancing Zombie
 					for (int f = 0; f < 1; ++f) {
@@ -412,7 +403,39 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-			if (difficulty >= 1.509) {
+			if (difficulty >= 2.09) {
+				if (probability5 <= 0.085) { // 8.5% x1 Berserker
+					for (int p = 0; p < 1; ++p) {
+						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						FootballEntity berserkerEntity = (FootballEntity) PvZEntity.BERSERKER.create(NightGraveEntity.this.world);
+						berserkerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						berserkerEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						berserkerEntity.setOwner(NightGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(berserkerEntity);
+					}
+				}
+			}
+			if (difficulty >= 2.09) {
+				if (probability10 <= 0.3) { // 30% x1 Sunday Edition and x1 Newspaper
+					for (int l = 0; l < 1; ++l) {
+						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						NewspaperEntity newspaperEntity = (NewspaperEntity) PvZEntity.NEWSPAPER.create(NightGraveEntity.this.world);
+						newspaperEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						newspaperEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						newspaperEntity.setOwner(NightGraveEntity.this);
+						newspaperEntity.createShield();
+						serverWorld.spawnEntityAndPassengers(newspaperEntity);
+						BlockPos blockPos2 = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						NewspaperEntity newspaperEntity2 = (NewspaperEntity) PvZEntity.SUNDAYEDITION.create(NightGraveEntity.this.world);
+						newspaperEntity2.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+						newspaperEntity2.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						newspaperEntity2.setOwner(NightGraveEntity.this);
+						newspaperEntity2.createShield();
+						serverWorld.spawnEntityAndPassengers(newspaperEntity2);
+					}
+				}
+			}
+			if (difficulty >= 2.09) {
 				if (probability8 <= 0.1) { // 10% x2 New Years Imp
 					for (int j = 0; j < 2; ++j) {
 						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));

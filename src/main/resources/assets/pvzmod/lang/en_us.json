@@ -328,6 +328,11 @@
   "item.pvzmod.superfanimp_egg": "Super-Fan Imp",
   "entity.pvzmod.superfanimp_hypnotized": "Hypnotized Super-Fan Imp",
 
+  "entity.pvzmod.sundayedition": "Sunday Edition Zombie",
+  "item.pvzmod.sundayedition_egg": "Sunday Edition Zombie",
+  "entity.pvzmod.sundayeditionshield": "Sunday Edition Shield",
+  "entity.pvzmod.sundayedition_hypnotized": "Hypnotized Sunday Edition Zombie",
+
   "entity.pvzmod.newyearimp": "New Years Imp",
   "item.pvzmod.newyearimp_egg": "New Years Imp",
   "entity.pvzmod.newyearimp_hypnotized": "Hypnotized New Years Imp",

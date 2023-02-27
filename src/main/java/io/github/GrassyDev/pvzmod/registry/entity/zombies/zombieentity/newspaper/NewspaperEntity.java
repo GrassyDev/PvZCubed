@@ -3,17 +3,14 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspape
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.NewspaperVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -97,14 +94,15 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 	}
 
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
-		nbt.putInt("Variant", this.getTypeVariant());
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putInt("Variant", this.getTypeVariant());
 	}
 
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
-		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 	}
 
 	static {
@@ -142,13 +140,22 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		if (this.getType().equals(PvZEntity.NEWSPAPERHYPNO)){
-			setVariant(NewspaperVariants.DEFAULTHYPNO);
+		if (this.getType().equals(PvZEntity.SUNDAYEDITION)) {
+			createSundayShield();
+			this.setVariant(NewspaperVariants.SUNDAYEDITION);
+			this.initCustomGoals();
+		}
+		else if (this.getType().equals(PvZEntity.NEWSPAPERHYPNO)){
+			this.setVariant(NewspaperVariants.DEFAULTHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.SUNDAYEDITIONHYPNO)){
+			this.setVariant(NewspaperVariants.SUNDAYEDITIONHYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else {
 			createShield();
-			setVariant(NewspaperVariants.DEFAULT);
+			this.setVariant(NewspaperVariants.DEFAULT);
 			this.initCustomGoals();
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
@@ -168,6 +175,12 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	public void createShield(){
 		NewspaperShieldEntity newspaperShieldEntity = new NewspaperShieldEntity(PvZEntity.NEWSPAPERSHIELD, this.world);
+		newspaperShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		newspaperShieldEntity.startRiding(this);
+	}
+
+	public void createSundayShield(){
+		NewspaperShieldEntity newspaperShieldEntity = new NewspaperShieldEntity(PvZEntity.SUNDAYEDITIONSHIELD, this.world);
 		newspaperShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		newspaperShieldEntity.startRiding(this);
 	}
@@ -256,7 +269,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		if (this.getType().equals(PvZEntity.NEWSPAPERHYPNO)) {
+		if (this.getType().equals(PvZEntity.NEWSPAPERHYPNO) || this.getType().equals(PvZEntity.SUNDAYEDITIONHYPNO)) {
 			initHypnoGoals();
 		}
 		else {
@@ -455,8 +468,8 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	protected EntityType<?> hypnoType;
 	protected void checkHypno(){
-		if (this.getType().equals(PvZEntity.NEWSPAPER)){
-			hypnoType = PvZEntity.NEWSPAPERHYPNO;
+		if (this.getType().equals(PvZEntity.SUNDAYEDITION)){
+			hypnoType = PvZEntity.SUNDAYEDITIONHYPNO;
 		}
 		else {
 			hypnoType = PvZEntity.NEWSPAPERHYPNO;

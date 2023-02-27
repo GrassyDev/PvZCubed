@@ -134,7 +134,11 @@ public class SpitEntity extends ThrownItemEntity implements IAnimatable {
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+			float damage = 2F;
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+			if ("paper".equals(zombieMaterial)) {
+				damage = damage * 5;
+			}
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;
@@ -142,7 +146,6 @@ public class SpitEntity extends ThrownItemEntity implements IAnimatable {
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-			float damage = 2F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

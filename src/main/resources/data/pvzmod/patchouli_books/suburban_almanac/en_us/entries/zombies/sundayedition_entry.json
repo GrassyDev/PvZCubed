@@ -1,29 +1,29 @@
 {
-  "name": "Newspaper Zombie",
-  "icon": "pvzmod:newspaper_egg",
+  "name": "Sunday Edition Zombie",
+  "icon": "pvzmod:sundayedition_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 5,
+  "sortnum": 99,
   "pages": [
     {
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27",
-        "$(br)$(#bd951a)(Paper) Newspaper Health: $()$(#ff0000)15",
+        "$(br)$(#bd951a)(Paper) Newspaper Health: $()$(#ff0000)45",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4, 8 if angry",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal, Hungry if angry",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Becomes faster and stronger when the Newspaper is destroyed.",
-        "$(br2)$(#bd951a)Newspaper Zombie was *this* close to finishing his Sudoku puzzle. No wonder he's freaking out. "
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Newspaper.",
+        "$(br2)$(#bd951a)Sunday Edition Zombie REALLY loves the comics section, which is why his rage is so all-consuming when it is torn to tatters before he's finished reading it."
       ]
     },
     {
       "type": "image",
 
       "images": [
-        "pvzmod:textures/gui/entries/newspaper.png"
+        "pvzmod:textures/gui/entries/sundayedition.png"
       ],
       "title": "Night Zombie",
       "border": "true",
-      "text": "$(#25228d)Newspaper protects zombie, who is then enraged when it is destroyed."
+      "text": "$(#25228d)The newspaper protects zombie, who becomes enraged when it is destroyed."
     },
     {
       "type": "relations",
@@ -44,8 +44,7 @@
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Newspaper Zombie",
-        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Newspaper Zombie"
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Sunday Edition Zombie"
       ]
     }
   ]

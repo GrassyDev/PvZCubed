@@ -121,6 +121,9 @@ public class BubbleEntity extends ThrownItemEntity implements IAnimatable {
 			Entity entity2 = entityHitResult.getEntity();
 			float damage = 2F;
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+			if ("paper".equals(zombieMaterial)) {
+				damage = damage * 5;
+			}
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;

@@ -2,7 +2,7 @@
   "name": "Backup Dancer",
   "icon": "pvzmod:backupdancer_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 10,
+  "sortnum": 9,
   "pages": [
     {
       "type": "text",

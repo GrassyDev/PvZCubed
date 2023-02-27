@@ -145,6 +145,9 @@ public class ArmorBubbleEntity extends ThrownItemEntity implements IAnimatable {
 			};
 			entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 			float damage = 2F;
+			if ("paper".equals(zombieMaterial)) {
+				damage = damage * 5;
+			}
 			if (entity instanceof ZombiePropEntity && !(entity instanceof ZombieShieldEntity)){
 				entity.kill();
 			}

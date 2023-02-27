@@ -2,7 +2,7 @@
   "name": "Berserker",
   "icon": "pvzmod:berserker_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 8,
+  "sortnum": 32,
   "pages": [
     {
       "type": "text",
@@ -31,7 +31,8 @@
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",
         "pvzmod:plants/snowqueenpea_entry",
-        "pvzmod:plants/perfoomshroom_entry"
+        "pvzmod:plants/perfoomshroom_entry",
+        "pvzmod:plants/narcissus_entry"
       ]
     },
     {

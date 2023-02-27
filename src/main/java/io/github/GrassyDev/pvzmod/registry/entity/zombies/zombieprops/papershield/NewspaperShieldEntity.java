@@ -1,17 +1,26 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.PapershieldVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -40,12 +49,52 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
-	public NewspaperShieldEntity(World world) {
-		this(PvZEntity.NEWSPAPERSHIELD, world);
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+	}
+
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+		nbt.putInt("Variant", this.getTypeVariant());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
 	}
 
 	static {
+	}
 
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(NewspaperShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		if (this.getType().equals(PvZEntity.SUNDAYEDITIONSHIELD)){
+			setVariant(PapershieldVariants.SUNDAYEDITIONSHIELD);
+		}
+		else {
+			setVariant(PapershieldVariants.NEWSPAPERSHIELD);
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public PapershieldVariants getVariant() {
+		return PapershieldVariants.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(PapershieldVariants variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
 	/** /~*~//~*TICKING*~//~*~/ **/
@@ -93,6 +142,14 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 15D);
     }
+
+	public static DefaultAttributeContainer.Builder createSundayEditionShieldAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 45D);
+	}
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.SILENCEVENET;

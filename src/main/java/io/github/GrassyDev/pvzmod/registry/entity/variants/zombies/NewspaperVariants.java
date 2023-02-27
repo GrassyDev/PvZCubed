@@ -5,7 +5,9 @@ import java.util.Comparator;
 
 public enum NewspaperVariants {
 	DEFAULT(0),
-	DEFAULTHYPNO(1);
+	DEFAULTHYPNO(1),
+	SUNDAYEDITION(2),
+	SUNDAYEDITIONHYPNO(3);
 
 	private static final NewspaperVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(NewspaperVariants::getId)).toArray(NewspaperVariants[]::new);
