@@ -21,6 +21,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -91,6 +92,8 @@ public class NavyBeanSeeds extends Item implements FabricItem {
 						if (!world.isClient) {
 							List<Entity> list = world.getNonSpectatingEntities(Entity.class, PvZEntity.NAVYBEAN.getDimensions().getBoxAt(aquaticEntity.getPos()));
 							if (list.isEmpty()){
+								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
 								world.spawnEntity(aquaticEntity);
 								world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));

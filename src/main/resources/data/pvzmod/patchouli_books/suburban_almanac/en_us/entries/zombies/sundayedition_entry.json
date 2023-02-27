@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27",
-        "$(br)$(#bd951a)(Paper) Newspaper Health: $()$(#ff0000)45",
+        "$(br)$(#bd951a)(Paper) Newspaper Health: $()$(#ff0000)63",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4, 8 if angry",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal, Hungry if angry",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Newspaper.",
