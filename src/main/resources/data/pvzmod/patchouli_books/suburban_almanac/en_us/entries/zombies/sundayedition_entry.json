@@ -7,11 +7,11 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)27",
-        "$(br)$(#bd951a)(Paper) Newspaper Health: $()$(#ff0000)63",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)4, 8 if angry",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal, Hungry if angry",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Newspaper.",
+        "$(#bd951a)Health: $()$(#ff0000)50",
+        "$(br)$(#bd951a)(Paper) Newspaper Health: $()$(#ff0000)115",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4, 12 if angry",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Quick, Flighty if angry",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Newspaper Zombie.",
         "$(br2)$(#bd951a)Sunday Edition Zombie REALLY loves the comics section, which is why his rage is so all-consuming when it is torn to tatters before he's finished reading it."
       ]
     },
@@ -32,12 +32,9 @@
         "pvzmod:plants/jalapeno_entry",
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/squash_entry",
-        "pvzmod:plants/fumeshroom_entry",
         "pvzmod:plants/snowqueenpea_entry",
         "pvzmod:plants/firepea_entry",
-        "pvzmod:plants/cabbagepult_entry",
-        "pvzmod:plants/admiralnavybean_entry",
-        "pvzmod:plants/narcissus_entry"
+        "pvzmod:plants/admiralnavybean_entry"
       ]
     },
     {

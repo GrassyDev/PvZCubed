@@ -204,20 +204,14 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		if (this.isInsideWaterOrBubbleColumn()) {
 			if (this.speedUp) {
 				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky.angry"));
-				if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				}
-				else {
-					event.getController().setAnimationSpeed(1);
-				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("newspaper.ducky"));
-				if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				}
-				else {
-					event.getController().setAnimationSpeed(1);
-				}
+			}
+			if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
 			}
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
@@ -370,8 +364,15 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
 				assert maxStrengthAttribute != null;
 				maxStrengthAttribute.removeModifier(MAX_STRENGTH_UUID);
-				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.11D));
-				maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-4D));
+				if (this.getVariant().equals(NewspaperVariants.SUNDAYEDITION) ||
+						this.getVariant().equals(NewspaperVariants.SUNDAYEDITIONHYPNO) ) {
+					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.10D));
+					maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-8D));
+				}
+				else {
+					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.11D));
+					maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-4D));
+				}
 				this.speedSwitch = true;
 			}
 		}
@@ -439,6 +440,14 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
     }
+
+	public static DefaultAttributeContainer.Builder createSundayEditionAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.26D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
+	}
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
