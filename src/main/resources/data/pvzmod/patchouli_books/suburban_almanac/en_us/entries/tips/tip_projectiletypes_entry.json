@@ -16,8 +16,8 @@
     {
       "type": "text",
       "text": [
-        "$(br2)The second most common type of projectile is the Spear type: they shoot straight and go through Zombies.",
-        "$(br2)These projectiles go through shields and go over Snorkel Zombies."
+        "$(br2)The second most common type of projectile is the Pierce type: they shoot straight and go through Zombies.",
+        "$(br2)These projectiles go through shields and go over Snorkel Zombies. If they are a Spike projectile they can only pierce 3 zombies (Shield included)."
       ]
     },
     {
@@ -38,7 +38,7 @@
       "type": "text",
       "text": [
         "$(br2)Another type of projectile is the Elemental type: they complement a projectile by giving it special properties.",
-        "$(br2)Some Examples: Ice can slow down zombies on a direct hit; Fire is useless on humid environments; Paper shields are destroyed quickly by both Fire and Water; etc."
+        "$(br2)Some examples: Ice can slow down zombies on a direct hit; Fire is useless on humid environments; Paper shields are destroyed quickly by both Fire and Water; etc."
       ]
     },
     {
@@ -56,7 +56,7 @@
         "pvzmod:plants/cabbagepult_entry",
         "pvzmod:plants/firepea_entry",
         "pvzmod:plants/navybean_entry",
-        "pvzmod:plants/snowpea_entry"
+        "pvzmod:plants/snowqueenpea_entry"
       ]
     }
   ]

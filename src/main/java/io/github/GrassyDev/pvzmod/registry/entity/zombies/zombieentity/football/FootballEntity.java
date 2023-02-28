@@ -365,6 +365,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		System.out.println(this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());

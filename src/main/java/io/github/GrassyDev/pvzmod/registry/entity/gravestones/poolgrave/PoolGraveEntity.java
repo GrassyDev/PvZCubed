@@ -344,14 +344,16 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(snorkelEntity);
 				}
 			}
-			if (probability21 <= 0.2) { // 20% x1 SnorkelZombie
-				for(int p = 0; p < 1; ++p) {
-					BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-					SnorkelEntity snorkelEntity = (SnorkelEntity) PvZEntity.SNORKEL.create(PoolGraveEntity.this.world);
-					snorkelEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					snorkelEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-					snorkelEntity.setOwner(PoolGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(snorkelEntity);
+			if (difficulty >= 1.509) {
+				if (probability21 <= 0.2) { // 20% x4 SnorkelZombie
+					for(int p = 0; p < 4; ++p) {
+						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
+						SnorkelEntity snorkelEntity = (SnorkelEntity) PvZEntity.SNORKEL.create(PoolGraveEntity.this.world);
+						snorkelEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						snorkelEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						snorkelEntity.setOwner(PoolGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(snorkelEntity);
+					}
 				}
 			}
             /**if (probability3 <= 0.15) { // 15% x1 DolphinRiderZombie

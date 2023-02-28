@@ -321,7 +321,7 @@ public class FlamingpeaEntity extends PepperEntity implements IAnimatable, Range
 				double g = predictedPos.getZ() - this.flamingpeaEntity.getZ();
 				float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					if (probability <= 0.125) {
+					if (probability <= 0.33) {
 						ShootingPlasmaPeaEntity proj = new ShootingPlasmaPeaEntity(PvZEntity.PLASMAPEA, this.flamingpeaEntity.world);
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.flamingpeaEntity.getX(), this.flamingpeaEntity.getY() + 0.75D, this.flamingpeaEntity.getZ());

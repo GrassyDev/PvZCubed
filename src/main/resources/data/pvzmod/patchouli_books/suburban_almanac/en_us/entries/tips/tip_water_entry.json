@@ -3,7 +3,7 @@
   "icon": "minecraft:water_bucket",
   "category": "pvzmod:tutorial_category",
   "sortnum": 13,
-  "advancement": "pvzmod:make_tanglekelp",
+  "advancement": "pvzmod:make_navybean",
   "pages": [
     {
       "type": "text",
@@ -16,15 +16,14 @@
     {
       "type": "text",
       "text": [
-        "$(br2)When Zombies enter water, they will start riding a Ducky Tube. The Zombie's speed is the same as Ducky Tube's speed, ",
-        "unifying zombie speeds, making slow zombies faster and fast zombies slower.",
-        "$(br2)Freeze slows down the Ducky Tube, while a complete freeze kills the zombie if it's riding a Ducky Tube. Zombies on water are immune to fire damage, including fire splash."
+        "$(br2)When Zombies enter water, they will start swimming. When a zombie is swimming, they can't use movement-based abilities (like Tackle)",
+        "$(br2)Freeze slows down swimming zombies, while a complete freeze kills the zombie if it's swimming. Zombies on water are immune to fire damage and will prevent fire splash."
       ]
     },
     {
       "type": "text",
       "text": [
-        "$(br2)If the body of water is only one block deep (including the block of water itself), the zombies will go through it, entering the Ducky Tube, ",
+        "$(br2)If the body of water is only one block deep (including the block of water itself), the zombies will go through it, entering swimming mode, ",
         "but if it's deeper, the zombies will more likely go around it, keep this in mind when using water."
       ]
     },
@@ -33,6 +32,8 @@
       "entries": [
         "pvzmod:plants/lilypad_entry",
         "pvzmod:plants/tanglekelp_entry",
+        "pvzmod:plants/navybean_entry",
+        "pvzmod:plants/admiralnavybean_entry",
         "pvzmod:zombies/duckytube_entry",
         "pvzmod:zombies/snorkel_entry"
       ]

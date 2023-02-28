@@ -376,6 +376,27 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						flagzombieEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						flagzombieEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(flagzombieEntity);
+
+						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
+						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+						browncoatEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity);
+
+						BlockPos blockPos3 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
+						browncoatEntity2.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
+						browncoatEntity2.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity2.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity2);
+
+						BlockPos blockPos4 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						coneheadEntity.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
+						coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						coneheadEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(coneheadEntity);
 					}
 				}
 			}
@@ -398,6 +419,27 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						gargantuarEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						gargantuarEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(gargantuarEntity);
+
+						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+						browncoatEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity);
+
+						BlockPos blockPos3 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						browncoatEntity2.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
+						browncoatEntity2.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity2.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity2);
+
+						BlockPos blockPos4 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
+						coneheadEntity.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
+						coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						coneheadEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(coneheadEntity);
 					}
 				}
 			}

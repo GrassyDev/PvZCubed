@@ -11,7 +11,7 @@ public class Ice extends StatusEffect {
         super(
                 StatusEffectType.HARMFUL, // whether beneficial or harmful for entity
                 0x33FFFF); // color in RGB
-		addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+		addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.075, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 		addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", -0.25, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 

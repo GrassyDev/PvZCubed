@@ -116,7 +116,7 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		if (!this.world.isClient && this.age == 60) {
+		if (!this.world.isClient && this.age == 60 || this.damageCounter >= 3) {
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
@@ -137,6 +137,8 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 	public LivingEntity entityStore = null;
 	public LivingEntity entityStoreVehicle = null;
 
+	protected int damageCounter = 0;
+
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
@@ -144,6 +146,16 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 		for (Entity entity1 : entity.getPassengerList()) {
 			if (entity1 instanceof ZombiePropEntity zpe) {
 				zombiePropEntity = zpe;
+			}
+		}
+		if (!world.isClient && entity instanceof Monster monster &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+			if (entity != entityStore && entityStoreVehicle != entity){
+				++this.damageCounter;
+			}
+			else if (entity != entityStore && zombiePropEntity instanceof ZombieShieldEntity){
+				++this.damageCounter;
 			}
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
