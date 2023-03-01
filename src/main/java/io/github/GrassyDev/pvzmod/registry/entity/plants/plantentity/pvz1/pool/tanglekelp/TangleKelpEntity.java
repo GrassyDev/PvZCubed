@@ -240,7 +240,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 
 	//Smash
 	public boolean tryAttack(Entity target) {
-		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
+		if (!this.hasStatusEffect(PvZCubed.FROZEN) && target != null) {
 			if (this.firstAttack && this.animationTicksLeft <= 0 && (target.isInsideWaterOrBubbleColumn() && !this.dryLand)) {
 				this.animationTicksLeft = 65;
 				if (!attackLock){
