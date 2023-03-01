@@ -424,6 +424,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					plantEntity.originalVec3d = plantEntity.getPos();
 					world.spawnEntity(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);

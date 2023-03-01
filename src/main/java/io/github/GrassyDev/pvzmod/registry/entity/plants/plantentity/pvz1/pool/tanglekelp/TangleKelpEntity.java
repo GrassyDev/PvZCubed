@@ -34,6 +34,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -76,7 +77,6 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
 		amphibiousRaycastDelay = 1;
-
 		this.setNoGravity(true);
     }
 
@@ -279,6 +279,9 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		if (age <= 5){
+			this.originalVec3d = this.getPos();
+		}
 		if (statusSwitch) {
 			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
 			maxRangeAttribute.removeModifier(MAX_RANGE_UUID);
@@ -339,9 +342,10 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 					onWater = true;
 				}
 				if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
-				this.dropLoot(DamageSource.GENERIC, true);
+				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
+					this.dropItem(ModItems.TANGLEKELP_SEED_PACKET);
+				}
 				this.kill();
-					kill();
 				}
 			}
 		}

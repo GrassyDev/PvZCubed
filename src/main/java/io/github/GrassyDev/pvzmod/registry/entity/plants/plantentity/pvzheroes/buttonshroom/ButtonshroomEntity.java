@@ -131,7 +131,9 @@ public class ButtonshroomEntity extends AilmentEntity implements IAnimatable {
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)){
-					this.dropLoot(DamageSource.GENERIC, true);
+					if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
+					this.dropItem(ModItems.BUTTONSHROOM_SEED_PACKET);
+				}
 				}
 			}
 

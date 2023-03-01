@@ -31,6 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -63,12 +64,11 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 	public static final UUID MAX_RANGE_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 	private boolean stopAnimation;
 
-	public Vec3d originalVec3d;
+	public Vec3d originalVec3d = this.getPos();
 
 	public SquashEntity(EntityType<? extends SquashEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-		originalVec3d = this.getPos();
     }
 
 	static {
@@ -275,9 +275,10 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 				BlockPos blockPos2 = this.getBlockPos();
 				BlockState blockState = this.getLandingBlockState();
 				if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
-				this.dropLoot(DamageSource.GENERIC, true);
+					if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
+						this.dropItem(ModItems.SQUASH_SEED_PACKET);
+					}
 				this.kill();
-					this.kill();
 				}
 			}
 		}
@@ -287,6 +288,9 @@ public class SquashEntity extends EnforceEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		if (age <= 5){
+			this.originalVec3d = this.getPos();
+		}
 		if (statusSwitch) {
 			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
 			maxRangeAttribute.removeModifier(MAX_RANGE_UUID);

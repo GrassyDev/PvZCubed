@@ -157,7 +157,7 @@ public class SunflowerEntity extends EnlightenEntity implements IAnimatable {
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
-					this.dropItem(ModItems.SUNFLOWERSEED_SEED_PACKET);
+					this.dropItem(ModItems.SUNFLOWER_SEED_PACKET);
 				}
 				this.kill();
 			}
