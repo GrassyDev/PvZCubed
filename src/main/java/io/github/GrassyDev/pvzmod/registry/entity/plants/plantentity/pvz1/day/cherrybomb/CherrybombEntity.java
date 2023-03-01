@@ -365,9 +365,9 @@ public class CherrybombEntity extends BombardEntity implements IAnimatable {
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {
+				this.world.sendEntityStatus(this, (byte) 6);
 				this.currentFuseTime = this.fuseTime;
 				this.raycastExplode();
-				this.world.sendEntityStatus(this, (byte) 6);
 				this.playSound(PvZCubed.CHERRYBOMBEXPLOSIONEVENT, 1F, 1F);
 				this.spawnEffectsCloud();
 				this.dead = true;

@@ -6220,7 +6220,7 @@
 		},
 		"gargantuar.walk2": {
 			"loop": true,
-			"animation_length": 4.5,
+			"animation_length": 2.4167,
 			"bones": {
 				"head": {
 					"rotation": {

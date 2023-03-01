@@ -153,88 +153,88 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 	protected void initGoals() {
 		this.goalSelector.add(1, new TangleKelpEntity.AttackGoal());
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 11);
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 10);
 		}));
 		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
 		}));
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
 		}));
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
 		}));
 		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
 		}));
 		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
 		}));
 		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
 		}));
 		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
 		}));
 		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
 		}));
 		this.targetSelector.add(11, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
 		}));
 		this.targetSelector.add(12, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
 		}));
 		this.targetSelector.add(13, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+			return livingEntity instanceof Monster && livingEntity.isInsideWaterOrBubbleColumn() && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
     }
 
@@ -306,7 +306,6 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 		if (this.animationTicksLeft > 0 && this.animationTicksLeft > 25) {
 			Entity entity = this.getTarget();
 			if (entity == null) {
-				this.animationTicksLeft = 0;
 				this.firstAttack = true;
 				this.stopAnimation = true;
 			}
@@ -356,13 +355,14 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 		if (this.animationTicksLeft == 2) {
 			this.discard();
 		}
-		if (this.getTarget() != null) {
-			LivingEntity livingEntity = (LivingEntity) this.getTarget();
+		System.out.println(animationTicksLeft);
+		LivingEntity livingEntity = this.getTarget();
+		if (livingEntity != null && livingEntity.isInsideWaterOrBubbleColumn()) {
 			if (this.animationTicksLeft == 22){
 				world.sendEntityStatus(this, (byte) 7);
 				this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
 			}
-			if (this.animationTicksLeft == 6 && livingEntity.isInsideWaterOrBubbleColumn()) {
+			if (this.animationTicksLeft == 6) {
 				this.attackLock = true;
 				world.sendEntityStatus(this, (byte) 7);
 				this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
@@ -374,6 +374,9 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 				boolean bl2 = livingEntity.damage(DamageSource.mob(this), damage);
 				if (bl2) {
 					this.applyDamageEffects(this, livingEntity);
+				}
+				else {
+					this.discard();
 				}
 			}
 		}

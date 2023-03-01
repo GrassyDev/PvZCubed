@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
@@ -25,6 +26,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -245,6 +247,15 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 		protected abstract SoundEvent getSoundPrepare();
 
 		protected abstract GraveEntity.Spell getSpell();
+	}
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.BASICGRAVESPAWN.getDefaultStack();
 	}
 
 	class summonZombieGoal extends BasicGraveEntity.CastSpellGoal {
