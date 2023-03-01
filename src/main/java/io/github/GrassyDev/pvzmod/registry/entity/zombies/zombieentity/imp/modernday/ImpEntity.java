@@ -244,7 +244,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.targetSelector.add(2, new ImpEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
-		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+
 		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, false, true));
 		this.targetSelector.add(5, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -266,7 +266,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 	protected void initHypnoGoals(){
 		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(8, new LookAroundGoal(this));
-		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+
 		this.targetSelector.add(2, new ImpEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
 		////////// Hypnotized Zombie targets ///////

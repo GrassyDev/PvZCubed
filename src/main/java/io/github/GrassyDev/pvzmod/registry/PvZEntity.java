@@ -621,7 +621,7 @@ public class PvZEntity implements ModInitializer {
 	);
 	public static final EntityType<NewspaperEntity> SUNDAYEDITIONHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "sundayedition_hypno"),
+			new Identifier(ModID, "sundayedition_hypnotized"),
 			QuiltEntityTypeBuilder.<NewspaperEntity>create(SpawnGroup.MONSTER, NewspaperEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
 	);
 	public static final EntityType<NewspaperShieldEntity> SUNDAYEDITIONSHIELD = Registry.register(

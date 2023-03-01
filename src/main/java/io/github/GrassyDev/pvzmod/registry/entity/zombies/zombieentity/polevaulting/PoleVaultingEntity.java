@@ -285,7 +285,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.targetSelector.add(2, new PoleVaultingEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
-		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+
 		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, 0, false, false, (livingEntity) -> {
 			return !(livingEntity instanceof ReinforceEntity reinforceEntity);
 		}));
@@ -312,7 +312,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	protected void initHypnoGoals(){
 		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(8, new LookAroundGoal(this));
-		this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D));
+
 		this.targetSelector.add(2, new PoleVaultingEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
 		////////// Hypnotized Zombie targets ///////
