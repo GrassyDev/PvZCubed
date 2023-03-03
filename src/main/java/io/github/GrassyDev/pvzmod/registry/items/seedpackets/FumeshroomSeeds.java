@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.fumeshroom.FumeshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
@@ -77,62 +78,53 @@ public class FumeshroomSeeds extends Item implements FabricItem {
 	}
 
     public ActionResult useOnBlock(ItemUsageContext context) {
-        Direction direction = context.getSide();
-        if (direction == Direction.DOWN) {
-            return ActionResult.FAIL;
-        }
-        else if (direction == Direction.SOUTH) {
-            return ActionResult.FAIL;
-        }
-        else if (direction == Direction.EAST) {
-            return ActionResult.FAIL;
-        }
-        else if (direction == Direction.NORTH) {
-            return ActionResult.FAIL;
-        }
-        else if (direction == Direction.WEST) {
-            return ActionResult.FAIL;
-        }
-        else {
-            World world = context.getWorld();
-            ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
-            BlockPos blockPos = itemPlacementContext.getBlockPos();
-            ItemStack itemStack = context.getStack();
-            Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-            Box box = PvZEntity.FUMESHROOM.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
-                    FumeshroomEntity fumeshroomEntity = PvZEntity.FUMESHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (fumeshroomEntity == null) {
-                        return ActionResult.FAIL;
-                    }
-
-                    float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    fumeshroomEntity.refreshPositionAndAngles(fumeshroomEntity.getX(), fumeshroomEntity.getY(), fumeshroomEntity.getZ(), f, 0.0F);
+		Direction direction = context.getSide();
+		if (direction == Direction.DOWN) {
+			return ActionResult.FAIL;
+		} else if (direction == Direction.SOUTH) {
+			return ActionResult.FAIL;
+		} else if (direction == Direction.EAST) {
+			return ActionResult.FAIL;
+		} else if (direction == Direction.NORTH) {
+			return ActionResult.FAIL;
+		} else if (direction == Direction.WEST) {
+			return ActionResult.FAIL;
+		} else {
+			World world = context.getWorld();
+			ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
+			BlockPos blockPos = itemPlacementContext.getBlockPos();
+			ItemStack itemStack = context.getStack();
+			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
+			Box box = PvZEntity.FUMESHROOM.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
+				FumeshroomEntity fumeshroomEntity = PvZEntity.FUMESHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.FUMESHROOM.getDimensions().getBoxAt(fumeshroomEntity.getPos()));
+				if (list.isEmpty()) {
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					fumeshroomEntity.refreshPositionAndAngles(fumeshroomEntity.getX(), fumeshroomEntity.getY(), fumeshroomEntity.getZ(), f, 0.0F);
 					double random = Math.random();
 					if (random <= 0.125) {
 						fumeshroomEntity.setVariant(FumeshroomVariants.GAY);
-					}
-					else if (random <= 0.25) {
+					} else if (random <= 0.25) {
 						fumeshroomEntity.setVariant(FumeshroomVariants.TRANS);
-					}
-					else {
+					} else {
 						fumeshroomEntity.setVariant(FumeshroomVariants.DEFAULT);
 					}
-                    world.spawnEntity(fumeshroomEntity);
-                    world.playSound((PlayerEntity) null, fumeshroomEntity.getX(), fumeshroomEntity.getY(), fumeshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-                }
+					world.spawnEntity(fumeshroomEntity);
+					world.playSound((PlayerEntity) null, fumeshroomEntity.getX(), fumeshroomEntity.getY(), fumeshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
-				 PlayerEntity user = context.getPlayer();
-				 if (!user.getAbilities().creativeMode) {
-					 itemStack.decrement(1);
-					 user.getItemCooldownManager().set(this, cooldown);
-				 }
-                return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
-            }
-        }
-    }
+					PlayerEntity user = context.getPlayer();
+					if (!user.getAbilities().creativeMode) {
+						itemStack.decrement(1);
+						user.getItemCooldownManager().set(this, cooldown);
+					}
+					return ActionResult.success(world.isClient);
+				} else {
+					return ActionResult.FAIL;
+				}
+			} else {
+				return ActionResult.PASS;
+			}
+		}
+	}
 }

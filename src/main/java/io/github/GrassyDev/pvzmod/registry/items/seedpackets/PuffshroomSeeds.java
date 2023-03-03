@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.puffshroom.PuffshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -97,32 +98,31 @@ public class PuffshroomSeeds extends Item implements FabricItem {
             ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
             BlockPos blockPos = itemPlacementContext.getBlockPos();
             ItemStack itemStack = context.getStack();
-            Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-            Box box = PvZEntity.PUFFSHROOM.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
+			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
+			Box box = PvZEntity.PUFFSHROOM.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
                     PuffshroomEntity puffshroomEntity = (PuffshroomEntity) PvZEntity.PUFFSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (puffshroomEntity == null) {
-                        return ActionResult.FAIL;
-                    }
-
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PUFFSHROOM.getDimensions().getBoxAt(puffshroomEntity.getPos()));
+				if (list.isEmpty()) {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     puffshroomEntity.refreshPositionAndAngles(puffshroomEntity.getX(), puffshroomEntity.getY(), puffshroomEntity.getZ(), f, 0.0F);
                     world.spawnEntity(puffshroomEntity);
 					puffshroomEntity.setPuffshroomPermanency(PuffshroomEntity.PuffPermanency.PERMANENT);
                     world.playSound((PlayerEntity) null, puffshroomEntity.getX(), puffshroomEntity.getY(), puffshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-                }
 
-                PlayerEntity user = context.getPlayer();
-                if (!user.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, cooldown);
-                }
-                return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
-            }
-        }
-    }
+
+					PlayerEntity user = context.getPlayer();
+					if (!user.getAbilities().creativeMode) {
+						itemStack.decrement(1);
+						user.getItemCooldownManager().set(this, cooldown);
+					}
+					return ActionResult.success(world.isClient);
+				} else {
+					return ActionResult.FAIL;
+				}
+			} else {
+				return ActionResult.PASS;
+			}
+		}
+	}
 }

@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -91,32 +92,31 @@ public class ButtonshroomSeeds extends Item implements FabricItem {
             ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
             BlockPos blockPos = itemPlacementContext.getBlockPos();
             ItemStack itemStack = context.getStack();
-            Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-            Box box = PvZEntity.BUTTONSHROOM.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
-                    ButtonshroomEntity buttonshroomEntity = (ButtonshroomEntity) PvZEntity.BUTTONSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (buttonshroomEntity == null) {
-                        return ActionResult.FAIL;
-                    }
-
-                    float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    buttonshroomEntity.refreshPositionAndAngles(buttonshroomEntity.getX(), buttonshroomEntity.getY(), buttonshroomEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(buttonshroomEntity);
+			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
+			Box box = PvZEntity.BUTTONSHROOM.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
+				ButtonshroomEntity buttonshroomEntity = (ButtonshroomEntity) PvZEntity.BUTTONSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.BUTTONSHROOM.getDimensions().getBoxAt(buttonshroomEntity.getPos()));
+				if (list.isEmpty()) {
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					buttonshroomEntity.refreshPositionAndAngles(buttonshroomEntity.getX(), buttonshroomEntity.getY(), buttonshroomEntity.getZ(), f, 0.0F);
+					world.spawnEntity(buttonshroomEntity);
 					buttonshroomEntity.setPuffshroomPermanency(ButtonshroomEntity.PuffPermanency.PERMANENT);
-                    world.playSound((PlayerEntity) null, buttonshroomEntity.getX(), buttonshroomEntity.getY(), buttonshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-                }
+					world.playSound((PlayerEntity) null, buttonshroomEntity.getX(), buttonshroomEntity.getY(), buttonshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
-                PlayerEntity user = context.getPlayer();
-                if (!user.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, cooldown);
-                }
-                return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
-            }
+					PlayerEntity user = context.getPlayer();
+					if (!user.getAbilities().creativeMode) {
+						itemStack.decrement(1);
+						user.getItemCooldownManager().set(this, cooldown);
+					}
+					return ActionResult.success(world.isClient);
+				} else {
+					return ActionResult.FAIL;
+				}
+			}
+			else {
+				return ActionResult.PASS;
+			}
         }
     }
 }

@@ -45,10 +45,7 @@ public class BackupDancerEgg extends Item {
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
         Box box = PvZEntity.BACKUPDANCER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-            if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity)null, box).isEmpty() &&
-				world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
+		if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
                     BackupDancerEntity backupDancerEntity = (BackupDancerEntity) PvZEntity.BACKUPDANCER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (backupDancerEntity == null) {
                         return ActionResult.FAIL;
@@ -60,12 +57,13 @@ public class BackupDancerEgg extends Item {
 					backupDancerEntity.setPersistent();
                     ((ServerWorld) world).spawnEntityAndPassengers(backupDancerEntity);
                     world.playSound((PlayerEntity) null, backupDancerEntity.getX(), backupDancerEntity.getY(), backupDancerEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-                }
+
 
                 itemStack.decrement(1);
                 return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
             }
-    }
+			 else {
+				 return ActionResult.PASS;
+			 }
+	}
 }

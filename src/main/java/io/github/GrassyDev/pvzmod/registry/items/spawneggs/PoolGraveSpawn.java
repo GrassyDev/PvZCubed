@@ -45,9 +45,7 @@ public class PoolGraveSpawn extends Item {
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
         Box box = PvZEntity.POOLGRAVESTONE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
+             if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
                     PoolGraveEntity graveEntity = (PoolGraveEntity) PvZEntity.POOLGRAVESTONE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (graveEntity == null) {
                         return ActionResult.FAIL;
@@ -58,12 +56,13 @@ public class PoolGraveSpawn extends Item {
                     world.spawnEntity(graveEntity);
 					graveEntity.setPersistent();
                     world.playSound((PlayerEntity) null, graveEntity.getX(), graveEntity.getY(), graveEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-                }
+
 
                 itemStack.decrement(1);
                 return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
             }
-    }
+			 else {
+				 return ActionResult.PASS;
+			 }
+	}
 }

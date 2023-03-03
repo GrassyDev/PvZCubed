@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -94,32 +95,31 @@ public class BombSeedlingSeeds extends Item implements FabricItem {
             ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
             BlockPos blockPos = itemPlacementContext.getBlockPos();
             ItemStack itemStack = context.getStack();
-            Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-            Box box = PvZEntity.BOMBSEEDLING.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
-                    BombSeedlingEntity plantEntity = (BombSeedlingEntity) PvZEntity.BOMBSEEDLING.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (plantEntity == null) {
-                        return ActionResult.FAIL;
-                    }
-
+			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
+			Box box = PvZEntity.BOMBSEEDLING.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
+				BombSeedlingEntity plantEntity = (BombSeedlingEntity) PvZEntity.BOMBSEEDLING.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.BOMBSEEDLING.getDimensions().getBoxAt(plantEntity.getPos()));
+				if (list.isEmpty()) {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
                     world.spawnEntity(plantEntity);
 					plantEntity.setPuffshroomPermanency(BombSeedlingEntity.PuffPermanency.PERMANENT);
                     world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-                }
 
-                PlayerEntity user = context.getPlayer();
-                if (!user.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, cooldown);
-                }
-                return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
-            }
-        }
+					PlayerEntity user = context.getPlayer();
+					if (!user.getAbilities().creativeMode) {
+						itemStack.decrement(1);
+						user.getItemCooldownManager().set(this, cooldown);
+					}
+					return ActionResult.success(world.isClient);
+				} else {
+					return ActionResult.FAIL;
+				}
+			}
+			else {
+				return ActionResult.PASS;
+			}
+		}
     }
 }

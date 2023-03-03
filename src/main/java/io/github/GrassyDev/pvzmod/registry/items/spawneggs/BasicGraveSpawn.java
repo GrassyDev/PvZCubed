@@ -44,10 +44,8 @@ public class BasicGraveSpawn extends Item {
         BlockPos blockPos = itemPlacementContext.getBlockPos();
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-        Box box = PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
+		Box box = PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+		if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
                     BasicGraveEntity basicGraveEntity = (BasicGraveEntity) PvZEntity.BASICGRAVESTONE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (basicGraveEntity == null) {
                         return ActionResult.FAIL;
@@ -58,12 +56,12 @@ public class BasicGraveSpawn extends Item {
                     world.spawnEntity(basicGraveEntity);
 					basicGraveEntity.setPersistent();
                     world.playSound((PlayerEntity) null, basicGraveEntity.getX(), basicGraveEntity.getY(), basicGraveEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-                }
 
                 itemStack.decrement(1);
                 return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
             }
+		else {
+			return ActionResult.PASS;
+		}
     }
 }

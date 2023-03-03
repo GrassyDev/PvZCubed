@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVariants;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
@@ -100,14 +101,10 @@ public class SunflowerSeeds extends Item implements FabricItem {
             ItemStack itemStack = context.getStack();
             Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
             Box box = PvZEntity.SUNFLOWER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
+             if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
                     SunflowerEntity sunflowerEntity = (SunflowerEntity) PvZEntity.SUNFLOWER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (sunflowerEntity == null) {
-                        return ActionResult.FAIL;
-                    }
-
+				 List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SUNFLOWER.getDimensions().getBoxAt(sunflowerEntity.getPos()));
+				 if (list.isEmpty()) {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     sunflowerEntity.refreshPositionAndAngles(sunflowerEntity.getX(), sunflowerEntity.getY(), sunflowerEntity.getZ(), f, 0.0F);
 					double random = Math.random();
@@ -129,17 +126,20 @@ public class SunflowerSeeds extends Item implements FabricItem {
 					sunflowerEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
 					sunflowerEntity.dropItem(ModItems.SUN);
 					sunflowerEntity.dropItem(ModItems.SUN);
-				}
 
-                PlayerEntity user = context.getPlayer();
-                if (!user.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, cooldown);
-                }
-                return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
-            }
-        }
-    }
+
+					PlayerEntity user = context.getPlayer();
+					if (!user.getAbilities().creativeMode) {
+						itemStack.decrement(1);
+						user.getItemCooldownManager().set(this, cooldown);
+					}
+					return ActionResult.success(world.isClient);
+				} else {
+					return ActionResult.FAIL;
+				}
+			} else {
+				return ActionResult.PASS;
+			}
+		}
+	}
 }

@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
@@ -90,48 +91,43 @@ public class ChomperSeeds extends Item implements FabricItem {
             return ActionResult.FAIL;
         }
         else {
-            World world = context.getWorld();
-            ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
-            BlockPos blockPos = itemPlacementContext.getBlockPos();
-            ItemStack itemStack = context.getStack();
-            Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-            Box box = PvZEntity.CHOMPER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
-                    ChomperEntity chomperEntity = (ChomperEntity) PvZEntity.CHOMPER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (chomperEntity == null) {
-                        return ActionResult.FAIL;
-                    }
-
-                    float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    chomperEntity.refreshPositionAndAngles(chomperEntity.getX(), chomperEntity.getY(), chomperEntity.getZ(), f, 0.0F);
+			World world = context.getWorld();
+			ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
+			BlockPos blockPos = itemPlacementContext.getBlockPos();
+			ItemStack itemStack = context.getStack();
+			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
+			Box box = PvZEntity.CHOMPER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
+				ChomperEntity chomperEntity = (ChomperEntity) PvZEntity.CHOMPER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.CHOMPER.getDimensions().getBoxAt(chomperEntity.getPos()));
+				if (list.isEmpty()) {
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					chomperEntity.refreshPositionAndAngles(chomperEntity.getX(), chomperEntity.getY(), chomperEntity.getZ(), f, 0.0F);
 					double random = Math.random();
 					if (random <= 0.125) {
 						chomperEntity.setVariant(ChomperVariants.ENBY);
-					}
-					else if (random <= 0.25) {
+					} else if (random <= 0.25) {
 						chomperEntity.setVariant(ChomperVariants.DEMIGIRL);
-					}
-					else if (random <= 0.375) {
+					} else if (random <= 0.375) {
 						chomperEntity.setVariant(ChomperVariants.PIRANHAPLANT);
-					}
-					else {
+					} else {
 						chomperEntity.setVariant(ChomperVariants.DEFAULT);
 					}
-                    world.spawnEntity(chomperEntity);
-                    world.playSound((PlayerEntity) null, chomperEntity.getX(), chomperEntity.getY(), chomperEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-                }
+					world.spawnEntity(chomperEntity);
+					world.playSound((PlayerEntity) null, chomperEntity.getX(), chomperEntity.getY(), chomperEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
-                PlayerEntity user = context.getPlayer();
-                if (!user.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                    user.getItemCooldownManager().set(this, cooldown);
-                }
-                return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
-            }
-        }
-    }
+					PlayerEntity user = context.getPlayer();
+					if (!user.getAbilities().creativeMode) {
+						itemStack.decrement(1);
+						user.getItemCooldownManager().set(this, cooldown);
+					}
+					return ActionResult.success(world.isClient);
+				} else {
+					return ActionResult.FAIL;
+				}
+			} else {
+				return ActionResult.PASS;
+			}
+		}
+	}
 }

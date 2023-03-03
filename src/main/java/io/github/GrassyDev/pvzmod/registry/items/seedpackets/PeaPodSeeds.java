@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildwest.peapod.PeapodEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodVariants;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
@@ -51,55 +52,48 @@ public class PeaPodSeeds extends Item implements FabricItem {
 		Direction direction = context.getSide();
 		if (direction == Direction.DOWN) {
 			return ActionResult.FAIL;
-		}
-		else if (direction == Direction.SOUTH) {
+		} else if (direction == Direction.SOUTH) {
 			return ActionResult.FAIL;
-		}
-		else if (direction == Direction.EAST) {
+		} else if (direction == Direction.EAST) {
 			return ActionResult.FAIL;
-		}
-		else if (direction == Direction.NORTH) {
+		} else if (direction == Direction.NORTH) {
 			return ActionResult.FAIL;
-		}
-		else if (direction == Direction.WEST) {
+		} else if (direction == Direction.WEST) {
 			return ActionResult.FAIL;
-		}
-		else {
+		} else {
 			World world = context.getWorld();
 			ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
 			BlockPos blockPos = itemPlacementContext.getBlockPos();
 			ItemStack itemStack = context.getStack();
 			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
 			Box box = PvZEntity.PEAPOD.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-			if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-				if (world instanceof ServerWorld) {
-					ServerWorld serverWorld = (ServerWorld) world;
-					PeapodEntity peapodEntity = (PeapodEntity) PvZEntity.PEAPOD.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-					if (peapodEntity == null) {
-						return ActionResult.FAIL;
-					}
-
+			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
+				PeapodEntity peapodEntity = (PeapodEntity) PvZEntity.PEAPOD.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PEAPOD.getDimensions().getBoxAt(peapodEntity.getPos()));
+				if (list.isEmpty()) {
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					peapodEntity.refreshPositionAndAngles(peapodEntity.getX(), peapodEntity.getY(), peapodEntity.getZ(), f, 0.0F);
 					double random = Math.random();
 					if (random <= 0.25) {
 						peapodEntity.setVariant(PeapodVariants.PLURAL);
-					}
-					else {
+					} else {
 						peapodEntity.setVariant(PeapodVariants.DEFAULT);
 					}
 					world.spawnEntity(peapodEntity);
 					world.playSound((PlayerEntity) null, peapodEntity.getX(), peapodEntity.getY(), peapodEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-				}
 
-				PlayerEntity user = context.getPlayer();
-				if (!user.getAbilities().creativeMode) {
-					itemStack.decrement(1);
-					user.getItemCooldownManager().set(this, cooldown);
+
+					PlayerEntity user = context.getPlayer();
+					if (!user.getAbilities().creativeMode) {
+						itemStack.decrement(1);
+						user.getItemCooldownManager().set(this, cooldown);
+					}
+					return ActionResult.success(world.isClient);
+				} else {
+					return ActionResult.FAIL;
 				}
-				return ActionResult.success(world.isClient);
 			} else {
-				return ActionResult.FAIL;
+				return ActionResult.PASS;
 			}
 		}
 	}

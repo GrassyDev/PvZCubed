@@ -46,7 +46,7 @@ public class FlagzombieEgg extends Item {
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
         Box box = PvZEntity.FLAGZOMBIE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
+		if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
 				 double random = Math.random();
 				 EntityType<?> flagType;
 				 if (random <= 0.125){
@@ -58,8 +58,6 @@ public class FlagzombieEgg extends Item {
 				 else {
 					 flagType = PvZEntity.FLAGZOMBIE;
 				 }
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
                     FlagzombieEntity flagzombieEntity = (FlagzombieEntity) flagType.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (flagzombieEntity == null) {
                         return ActionResult.FAIL;
@@ -70,12 +68,13 @@ public class FlagzombieEgg extends Item {
                     world.spawnEntity(flagzombieEntity);
 					flagzombieEntity.setPersistent();
                     world.playSound((PlayerEntity) null, flagzombieEntity.getX(), flagzombieEntity.getY(), flagzombieEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-                }
+
 
                 itemStack.decrement(1);
                 return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
             }
-    }
+			 else {
+				 return ActionResult.PASS;
+			 }
+	}
 }

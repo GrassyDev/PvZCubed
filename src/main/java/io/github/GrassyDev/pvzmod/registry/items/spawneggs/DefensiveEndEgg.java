@@ -47,8 +47,7 @@ public class DefensiveEndEgg extends Item {
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
 		EntityType<?> defensiveVariant;
         Box box = PvZEntity.DEFENSIVEEND.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-             if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-                if (world instanceof ServerWorld) {
+		if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
 					double random = Math.random();
 					if (random <= 0.25){
 						defensiveVariant = PvZEntity.DEFENSIVEEND_NEWYEAR;
@@ -56,7 +55,6 @@ public class DefensiveEndEgg extends Item {
 					else {
 						defensiveVariant = PvZEntity.DEFENSIVEEND;
 					}
-                    ServerWorld serverWorld = (ServerWorld) world;
 					GargantuarEntity gargantuarEntity = (GargantuarEntity) defensiveVariant.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (gargantuarEntity == null) {
                         return ActionResult.FAIL;
@@ -67,12 +65,13 @@ public class DefensiveEndEgg extends Item {
                     ((ServerWorld) world).spawnEntityAndPassengers(gargantuarEntity);
 					gargantuarEntity.setPersistent();
                     world.playSound((PlayerEntity) null, gargantuarEntity.getX(), gargantuarEntity.getY(), gargantuarEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-                }
+
 
                 itemStack.decrement(1);
                 return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.FAIL;
             }
-    }
+			 else {
+				 return ActionResult.PASS;
+			 }
+	}
 }
