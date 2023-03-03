@@ -2,7 +2,7 @@
   "name": "Gatling Pea",
   "icon": "pvzmod:gatlingpea_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 19,
+  "sortnum": 33,
   "advancement": "pvzmod:make_repeater",
   "pages": [
     {

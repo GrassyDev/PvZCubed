@@ -8,11 +8,11 @@
       "item": "pvzmod:sun"
     },
     {
-      "item": "pvzmod:sun"
+      "item": "pvzmod:smallsun"
     }
   ],
   "result": {
-    "item": "pvzmod:squash_seed_packet",
+    "item": "pvzmod:spikeweed_seed_packet",
     "count": 1
   }
 }

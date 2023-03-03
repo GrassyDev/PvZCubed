@@ -33,6 +33,8 @@
   "item.pvzmod.seed_packet.interactive.tooltip": "Interactive",
   "item.pvzmod.seed_packet.nocturnal.tooltip": "Nocturnal",
   "item.pvzmod.seed_packet.amphibious.tooltip": "Amphibious",
+  "item.pvzmod.seed_packet.low.tooltip": "Low Profile",
+  "item.pvzmod.seed_packet.fly.tooltip": "Flying",
   "item.pvzmod.seed_packet.upgrade.tooltip": "Upgrade",
   "item.pvzmod.seed_packet.grave.tooltip": "Plantable on Graves",
   "item.pvzmod.seed_packet.graveonly.tooltip": "Only on Graves",
@@ -166,6 +168,11 @@
   "entity.pvzmod.twinsunflower": "Twin Sunflower",
   "item.pvzmod.twinsunflower_seed_packet": "☀ Twin Sunflower Seed Packet",
   "item.pvzmod.twinsunflower_seed_packet.flavour": "We're actually only fraternal twins.",
+
+  "entity.pvzmod.spikerock": "Spikerock",
+  "item.pvzmod.spikerock_seed_packet": "✂ Spikerock Seed Packet",
+  "item.pvzmod.spikerock_seed_packet.flavour": "Being the most metal plant, Spikerock has decided",
+  "item.pvzmod.spikerock_seed_packet.flavour2": "to hold his metal concert at Madison Rock Garden.",
 
   "entity.pvzmod.snowqueenpea": "Snow Queen Pea",
   "item.pvzmod.snowqueenpea_seed_packet": "❄ Snow Queen Pea Seed Packet",

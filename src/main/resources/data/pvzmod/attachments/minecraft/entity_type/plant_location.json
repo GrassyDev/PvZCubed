@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": {
-    "pvzmod:spikeweed": "ground"
+    "pvzmod:spikeweed": "ground",
+    "pvzmod:spikerock": "ground"
   }
 }

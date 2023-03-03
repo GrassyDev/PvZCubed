@@ -3,7 +3,7 @@
   "icon": "pvzmod:twinsunflower_seed_packet",
   "category": "pvzmod:plant_category",
   "advancement": "pvzmod:make_sunflower",
-  "sortnum": 20,
+  "sortnum": 34,
   "pages": [
     {
       "type": "text",

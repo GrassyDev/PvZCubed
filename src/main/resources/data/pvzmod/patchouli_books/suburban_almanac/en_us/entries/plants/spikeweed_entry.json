@@ -1,0 +1,40 @@
+{
+  "name": "Spikeweed",
+  "icon": "pvzmod:spikeweed_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 21,
+  "advancement": "pvzmod:make_sunflower",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1s",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)0.25 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile. Damages everyone nearby. Destroys a wheel then dies.",
+        "$(br)$(#bd951a)Hockey is his special interest. He's got box seat season tickets. He keeps close track of the players. And he always cleans up in the office hockey pool. Just one problem: he's terrified of pucks."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/spikeweed.png"
+      ],
+      "title": "✂ Spear Family",
+      "border": "true",
+      "text": "$(#25228d)Spikeweed pop tires and hurt any zombies that step on them."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/spear/spikeweed"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Spikeweed"
+      ]
+    }
+  ]
+}

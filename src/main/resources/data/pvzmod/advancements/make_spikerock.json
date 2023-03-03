@@ -1,16 +1,16 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:wallnut_seed_packet"
+      "item": "pvzmod:spikerock_seed_packet"
     },
-    "title": "The Defense",
-    "description": "Craft a Wall-nut",
-    "frame": "task",
+    "title": "Rock and no Roll",
+    "description": "Craft a Spikerock",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false
+    "hidden": true
   },
-  "parent": "pvzmod:make_sunflower",
+  "parent": "pvzmod:make_spikeweed",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:wallnut_seed_packet"
+              "pvzmod:spikerock_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -30,8 +30,6 @@
     }
   },
   "rewards": {
-    "recipes": [
-    ],
-    "experience": 25
+    "experience": 100
   }
 }

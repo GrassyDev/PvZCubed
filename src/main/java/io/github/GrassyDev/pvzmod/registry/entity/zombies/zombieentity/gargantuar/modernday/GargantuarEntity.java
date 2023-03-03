@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.GargantuarVariants;
@@ -434,10 +435,13 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 					this.animationTicksLeft = 90 * animationMultiplier;
 					this.firstAttack = false;
 				} else if (this.animationTicksLeft == 40 * animationMultiplier) {
-					if (this.hasStatusEffect(PvZCubed.ICE) && this.squaredDistanceTo(target) < 16D) {
-						target.damage(DamageSource.mob(this), 720f);
-					} else if (this.squaredDistanceTo(target) < 16D) {
-						target.damage(DamageSource.mob(this), 360f);
+					if (this.hasStatusEffect(PvZCubed.ICE) && target instanceof SpikerockEntity && this.squaredDistanceTo(target) < 16D) {
+						target.damage(DamageSource.mob(this), 180);
+					} else if (target instanceof SpikerockEntity && this.squaredDistanceTo(target) < 16D) {
+						target.damage(DamageSource.mob(this), 90);
+					}
+					else if (this.squaredDistanceTo(target) < 16D) {
+						target.kill();
 					}
 				}
 			}
@@ -521,8 +525,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-			this.animationMultiplier = 2;
+			if (this.animationTicksLeft <= 0){
+				this.animationMultiplier = 2;
+				this.world.sendEntityStatus(this, (byte) 71);
+			}
 		}
 		else {
 			this.world.sendEntityStatus(this, (byte) 72);

@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood"
+      "item": "minecraft:diamond"
     },
     {
-      "item": "pvzmod:spikeweed_seed_packet"
+      "item": "pvzmod:plantfood_tough"
     },
     {
       "item": "pvzmod:sun"
@@ -18,7 +18,7 @@
     }
   ],
   "result": {
-    "item": "pvzmod:chomper_seed_packet",
+    "item": "pvzmod:spikerock_seed_packet",
     "count": 1
   }
 }

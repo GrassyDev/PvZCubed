@@ -8,7 +8,8 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)360, 140(Metal Helmet)",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)360",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)Instant-kill, 90(Immune)",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)3 Blocks",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Gargantuar. Throws a Super-Fan Imp when the helmet is destroyed. Small chance to carry a New Years Imp",
         "$(br2)$(#bd951a)Somebody once told him the best defense is a good offence. He disagrees. Da fence he like best is da one he SMASH through."

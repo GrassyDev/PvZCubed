@@ -2,10 +2,13 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.SpearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.items.seedpackets.GatlingpeaSeeds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -14,8 +17,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameRules;
@@ -178,6 +186,40 @@ public class SpikeweedEntity extends SpearEntity implements IAnimatable {
 	@Override
 	public ItemStack getPickBlockStack() {
 		return ModItems.SPIKEWEED_SEED_PACKET.getDefaultStack();
+	}
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		Item item = itemStack.getItem();
+		if (itemStack.isOf(ModItems.SPIKEROCK_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
+			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
+			if ((this.world instanceof ServerWorld)) {
+				ServerWorld serverWorld = (ServerWorld) this.world;
+				SpikerockEntity upgradeEntity = (SpikerockEntity) PvZEntity.SPIKEROCK.create(world);
+				upgradeEntity.setTarget(this.getTarget());
+				upgradeEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				upgradeEntity.initialize(serverWorld, world.getLocalDifficulty(upgradeEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				upgradeEntity.setAiDisabled(this.isAiDisabled());
+				if (this.hasCustomName()) {
+					upgradeEntity.setCustomName(this.getCustomName());
+					upgradeEntity.setCustomNameVisible(this.isCustomNameVisible());
+				}
+				if (this.hasVehicle()){
+					upgradeEntity.startRiding(this.getVehicle(), true);
+				}
+
+				upgradeEntity.setPersistent();
+				serverWorld.spawnEntityAndPassengers(upgradeEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+				player.getItemCooldownManager().set(ModItems.SPIKEROCK_SEED_PACKET, GatlingpeaSeeds.cooldown);
+			}
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.CONSUME;
+		}
 	}
 
 

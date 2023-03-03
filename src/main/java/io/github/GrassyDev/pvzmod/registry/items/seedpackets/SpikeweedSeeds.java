@@ -67,6 +67,9 @@ public class SpikeweedSeeds extends Item implements FabricItem {
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.spear.family")
 				.formatted(Formatting.GRAY));
 
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.low.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
 		tooltip.add(Text.translatable("item.pvzmod.spikeweed_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));
 

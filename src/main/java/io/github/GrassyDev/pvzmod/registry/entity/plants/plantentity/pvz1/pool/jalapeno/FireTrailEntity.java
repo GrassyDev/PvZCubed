@@ -97,7 +97,7 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 				}
 				if (zombiePropEntity2 == null ||
 				zombiePropEntity2 instanceof ZombieShieldEntity) {
-					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), 2);
 					if (!livingEntity.isWet()) {
 						if (!(livingEntity instanceof ZombieShieldEntity)) {
 							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
@@ -148,7 +148,7 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
 		if (this.age <= 100){
-			if (--tickDamage >= 0){
+			if (--tickDamage <= 0){
 				this.damageEntity();
 				tickDamage = 5;
 			}

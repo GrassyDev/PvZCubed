@@ -86,13 +86,14 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.CABBAGEPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.GATLINGPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TWINSUNFLOWER_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.SPIKEROCK_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SNOW_QUEENPEA_SEED_PACKET));
-				stacks.add(new ItemStack(ModItems.PERFOOMSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.ICEBERGLETTUCE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.COCONUTCANNON_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.PERFOOMSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SMALLNUT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BUTTONSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BOMBSEEDLING_SEED_PACKET));
