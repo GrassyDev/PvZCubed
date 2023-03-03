@@ -27,6 +27,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import static io.github.GrassyDev.pvzmod.PvZCubed.TARGET_GROUND;
+
 public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -118,21 +121,26 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public PlantEntity CollidesWithPlant(){
 		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
-		if (!list.isEmpty()){
-			if (list.get(0) instanceof LilyPadEntity lilyPadEntity){
+		PlantEntity setPlant = null;
+		for (PlantEntity plantEntity : list) {
+			if (plantEntity instanceof LilyPadEntity lilyPadEntity) {
 				if (!(lilyPadEntity.hasPassengers())) {
-					return lilyPadEntity;
+					setPlant = lilyPadEntity;
 				} else {
-					return (PlantEntity) lilyPadEntity.getFirstPassenger();
+					setPlant = (PlantEntity) lilyPadEntity.getFirstPassenger();
 				}
 			}
+			else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && TARGET_GROUND.get(this.getType()).orElse(false).equals(true)){
+				setPlant = plantEntity;
+			}
+			else if (!(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("normal"))){
+				setPlant = null;
+			}
 			else {
-				return list.get(0);
+				setPlant = plantEntity;
 			}
 		}
-		else {
-			return null;
-		}
+		return setPlant;
 	}
 
 	public PlayerEntity CollidesWithPlayer(){
@@ -153,6 +161,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
 			this.remove(RemovalReason.KILLED);
+		}
+		if (this.getTarget() != null && this.getTarget().isDead()){
+			this.setTarget(null);
 		}
 
 		// thanks to Pluiedev for this hipster code
@@ -194,13 +205,21 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	public boolean tryAttack(Entity target) {
-		if (!this.hasStatusEffect(PvZCubed.FROZEN)){
-			float sound = 0.75f;
-			if (this.getHypno()){
-				sound = 0.33f;
+		if (this.getTarget() != null &&
+				((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
+				TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
+				PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("normal"))) {
+			if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
+				float sound = 0.75f;
+				if (this.getHypno()) {
+					sound = 0.33f;
+				}
+				target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
 			}
-			target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
+			return super.tryAttack(target);
 		}
-		return super.tryAttack(target);
+		else {
+			return false;
+		}
 	}
 }

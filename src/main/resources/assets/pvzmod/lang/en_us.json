@@ -148,6 +148,11 @@
   "item.pvzmod.jalapeno_seed_packet.flavour3": "\"Arriba!\"",
   "item.pvzmod.jalapeno_seed_packet.flavour4": "(Explosion)",
 
+  "entity.pvzmod.spikeweed": "Spikeweed",
+  "item.pvzmod.spikeweed_seed_packet": "✂ Spikeweed Seed Packet",
+  "item.pvzmod.spikeweed_seed_packet.flavour": "Quite similar to the region known",
+  "item.pvzmod.spikeweed_seed_packet.flavour2": "as Pokey Province.",
+
   "entity.pvzmod.cabbagepult": "Cabbage-ult",
   "item.pvzmod.cabbagepult_seed_packet": "\uD83C\uDFF9 Cabbage-pult Seed Packet",
   "item.pvzmod.cabbagepult_seed_packet.flavour": "\"Coleslaw from above!\"",

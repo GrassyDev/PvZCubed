@@ -355,7 +355,6 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 		if (this.animationTicksLeft == 2) {
 			this.discard();
 		}
-		System.out.println(animationTicksLeft);
 		LivingEntity livingEntity = this.getTarget();
 		if (livingEntity != null && livingEntity.isInsideWaterOrBubbleColumn()) {
 			if (this.animationTicksLeft == 22){
