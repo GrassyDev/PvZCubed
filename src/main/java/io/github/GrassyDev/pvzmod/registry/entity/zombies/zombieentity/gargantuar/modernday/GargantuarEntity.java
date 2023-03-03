@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.GargantuarVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
@@ -60,8 +61,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
-
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 
 public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	private String controllerName = "walkingcontroller";
@@ -387,7 +386,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlayerEntity plantEntity && (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("normal"));
+			return livingEntity instanceof PlantEntity plantEntity;
 		}));
 		this.targetSelector.add(5, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -431,13 +430,13 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public boolean tryAttack(Entity target) {
 		if (!this.getPassengerList().contains(target)) {
 			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.inLaunchAnimation) {
-				if (this.firstAttack && this.animationTicksLeft <= 0) {
+				if (this.firstAttack && this.animationTicksLeft <= 0 && this.squaredDistanceTo(target) < 16D) {
 					this.animationTicksLeft = 90 * animationMultiplier;
 					this.firstAttack = false;
 				} else if (this.animationTicksLeft == 40 * animationMultiplier) {
-					if (this.hasStatusEffect(PvZCubed.ICE) && this.squaredDistanceTo(target) < 32D) {
+					if (this.hasStatusEffect(PvZCubed.ICE) && this.squaredDistanceTo(target) < 16D) {
 						target.damage(DamageSource.mob(this), 720f);
-					} else if (this.squaredDistanceTo(target) < 32D) {
+					} else if (this.squaredDistanceTo(target) < 16D) {
 						target.damage(DamageSource.mob(this), 360f);
 					}
 				}

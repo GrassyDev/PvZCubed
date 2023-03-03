@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FootballVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
@@ -56,6 +57,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import static io.github.GrassyDev.pvzmod.PvZCubed.TARGET_GROUND;
 
 public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
@@ -273,7 +275,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlayerEntity plantEntity && (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("normal"));
+			return livingEntity instanceof PlantEntity plantEntity && (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("normal"));
 		}));
 		this.targetSelector.add(5, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -313,52 +315,60 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
-		if (!(this.getPassengerList().contains(target))) {
-			if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-				if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {
-					if (i <= 0) {
-						if (this.hasStatusEffect(PvZCubed.ICE)) {
+		if (this.getTarget() != null &&
+				((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
+						TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
+						PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("normal"))) {
+			if (!(this.getPassengerList().contains(target))) {
+				if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
+					if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {
+						if (i <= 0) {
+							if (this.hasStatusEffect(PvZCubed.ICE)) {
+								this.attackTicksLeft = 20;
+								float f = 360f;
+								boolean bl = target.damage(DamageSource.mob(this), f);
+								if (bl) {
+									this.applyDamageEffects(this, target);
+								}
+								this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+								this.setTackleStage(TackleStage.EATING);
+								return bl;
+							} else {
+								this.attackTicksLeft = 20;
+								float f = 180f;
+								boolean bl = target.damage(DamageSource.mob(this), f);
+								if (bl) {
+									this.applyDamageEffects(this, target);
+								}
+								this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+								this.setTackleStage(TackleStage.EATING);
+								return bl;
+							}
+						} else {
+							return false;
+						}
+					} else {
+						if (i <= 0) {
 							this.attackTicksLeft = 20;
-							float f = 360f;
+							float f = this.getAttackDamage();
 							boolean bl = target.damage(DamageSource.mob(this), f);
-							if (bl) {
+							if (bl && !this.hasStatusEffect(PvZCubed.FROZEN)) {
+								target.playSound(PvZCubed.ZOMBIEBITEEVENT, 0.75f, 1f);
 								this.applyDamageEffects(this, target);
 							}
-							this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-							this.setTackleStage(TackleStage.EATING);
 							return bl;
 						} else {
-							this.attackTicksLeft = 20;
-							float f = 180f;
-							boolean bl = target.damage(DamageSource.mob(this), f);
-							if (bl) {
-								this.applyDamageEffects(this, target);
-							}
-							this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-							this.setTackleStage(TackleStage.EATING);
-							return bl;
+							return false;
 						}
-					} else {
-						return false;
 					}
 				} else {
-					if (i <= 0) {
-						this.attackTicksLeft = 20;
-						float f = this.getAttackDamage();
-						boolean bl = target.damage(DamageSource.mob(this), f);
-						if (bl && !this.hasStatusEffect(PvZCubed.FROZEN)) {
-							target.playSound(PvZCubed.ZOMBIEBITEEVENT, 0.75f, 1f);
-							this.applyDamageEffects(this, target);
-						}
-						return bl;
-					} else {
-						return false;
-					}
+					return false;
 				}
 			} else {
 				return false;
 			}
-		} else {
+		}
+		else {
 			return false;
 		}
 	}

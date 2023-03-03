@@ -41,6 +41,9 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import static io.github.GrassyDev.pvzmod.PvZCubed.TARGET_GROUND;
+
 public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	public SuperFanImpEntity(EntityType<? extends ImpEntity> entityType, World world) {
 		super(entityType, world);
@@ -373,8 +376,12 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	}
 
 	public boolean tryAttack(Entity target) {
-		int i = this.attackTick;
-		if (i <= 0) {
+		if (this.getTarget() != null &&
+				((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
+						TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
+						PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("normal"))) {
+			int i = this.attackTick;
+			if (i <= 0) {
 				this.attackTick = 20;
 				boolean bl = target.damage(DamageSource.mob(this), this.getAttackDamage());
 				if (bl && !this.hasStatusEffect(PvZCubed.FROZEN)) {
@@ -383,6 +390,10 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 				}
 				return bl;
 			} else {
+				return false;
+			}
+		}
+		else {
 			return false;
 		}
 	}
