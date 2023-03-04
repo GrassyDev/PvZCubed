@@ -7,12 +7,17 @@
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 3,
-				"visible_bounds_height": 2.5,
-				"visible_bounds_offset": [0, 0.75, 0]
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
 			},
 			"bones": [
 				{
+					"name": "rotate",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "body",
+					"parent": "rotate",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [1, 0, -7], "size": [5, 1, 1], "uv": [41, 21]},
@@ -41,6 +46,7 @@
 				},
 				{
 					"name": "spikes",
+					"parent": "rotate",
 					"pivot": [-5.5, 1.9, 2],
 					"cubes": [
 						{"origin": [6.6327, 2.64836, 0], "size": [2, 2, 2], "pivot": [5.8327, 2.24836, 2], "rotation": [0, 0, 57.5], "uv": [0, 0]},

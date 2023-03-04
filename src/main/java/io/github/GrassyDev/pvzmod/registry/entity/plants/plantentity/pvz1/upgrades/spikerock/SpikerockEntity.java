@@ -10,6 +10,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieProp
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -130,7 +131,9 @@ public class SpikerockEntity extends SpearEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
+		this.goalSelector.add(1, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 2.5F));
 	}
+
 	protected boolean attacking = false;
 	protected List<LivingEntity> zombieList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox());
 	private void damageEntity() {

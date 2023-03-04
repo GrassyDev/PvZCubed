@@ -104,7 +104,7 @@ public class CoconutCannonSeeds extends Item implements FabricItem {
 			BlockPos blockPos = itemPlacementContext.getBlockPos();
 			ItemStack itemStack = context.getStack();
 			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-			Box box = PvZEntity.COCONUTCANNON.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			Box box = PvZEntity.COCONUTCANNON.getDimensions().getBoxAt(MathHelper.floor(vec3d.getX()), vec3d.getY(), MathHelper.floor(vec3d.getZ()));
 			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
 				CoconutCannonEntity plantEntity = (CoconutCannonEntity) PvZEntity.COCONUTCANNON.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
 				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.COCONUTCANNON.getDimensions().getBoxAt(plantEntity.getPos()));

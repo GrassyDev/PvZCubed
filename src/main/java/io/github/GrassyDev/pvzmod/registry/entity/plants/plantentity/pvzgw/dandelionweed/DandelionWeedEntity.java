@@ -75,6 +75,7 @@ public class DandelionWeedEntity extends EnlightenEntity implements IAnimatable,
 				this.world.addParticle(ParticleTypes.CRIT, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
 				this.world.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
 				this.world.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
+				this.world.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
 				this.world.addParticle(ParticleTypes.CRIT, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
 				this.world.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
 				this.world.addParticle(ParticleTypes.CRIT, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
@@ -183,7 +184,7 @@ public class DandelionWeedEntity extends EnlightenEntity implements IAnimatable,
 								default -> PvZCubed.PEAHITEVENT;
 							};
 							livingEntity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-							float damage = 6F;
+							float damage = 9F;
 							if (damage > livingEntity.getHealth() &&
 									!(livingEntity instanceof ZombieShieldEntity) &&
 									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {

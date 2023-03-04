@@ -16,6 +16,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildwest.peapod.PeapodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.peashooter.PeashooterEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.dandelionweed.DandelionWeedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.perfoomshroom.PerfoomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.puffshroom.PuffshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.repeater.RepeaterEntity;
@@ -524,28 +525,6 @@ public abstract class PlantEntity extends GolemEntity {
 				return ActionResult.SUCCESS;
 			}
 
-			/**PERFOOM-SHROOM**/
-			if (itemStack.isOf(ModItems.PERFOOMSHROOM_SEED_PACKET) && !itemCooldown) {
-				if (world instanceof ServerWorld) {
-					ServerWorld serverWorld = (ServerWorld) world;
-					PerfoomshroomEntity plantEntity = (PerfoomshroomEntity) PvZEntity.PERFOOMSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
-					if (plantEntity == null) {
-						return ActionResult.FAIL;
-					}
-
-					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
-					plantEntity.rideLilyPad(this);
-					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
-				}
-				if (!player.getAbilities().creativeMode) {
-					itemStack.decrement(1);
-					player.getItemCooldownManager().set(ModItems.PERFOOMSHROOM_SEED_PACKET, PerfoomshroomSeeds.cooldown);
-				}
-				return ActionResult.SUCCESS;
-			}
-
 			/**ICEBERG LETTUCE**/
 			if (itemStack.isOf(ModItems.ICEBERGLETTUCE_SEED_PACKET) && !itemCooldown) {
 				if (world instanceof ServerWorld) {
@@ -609,6 +588,50 @@ public abstract class PlantEntity extends GolemEntity {
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
 					player.getItemCooldownManager().set(ModItems.FIRE_PEA_SEED_PACKET, FirepeaSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**DANDELION WEED**/
+			if (itemStack.isOf(ModItems.DANDELIONWEED_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					DandelionWeedEntity plantEntity = (DandelionWeedEntity) PvZEntity.DANDELIONWEED.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					world.spawnEntity(plantEntity);
+					plantEntity.rideLilyPad(this);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.DANDELIONWEED_SEED_PACKET, DandelionWeedSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**PERFOOM-SHROOM**/
+			if (itemStack.isOf(ModItems.PERFOOMSHROOM_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					PerfoomshroomEntity plantEntity = (PerfoomshroomEntity) PvZEntity.PERFOOMSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					world.spawnEntity(plantEntity);
+					plantEntity.rideLilyPad(this);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.PERFOOMSHROOM_SEED_PACKET, PerfoomshroomSeeds.cooldown);
 				}
 				return ActionResult.SUCCESS;
 			}

@@ -70,6 +70,11 @@
 							"easing": "easeOutSine"
 						}
 					}
+				},
+				"rotate": {
+					"rotation": {
+						"vector": [0, 90, 0]
+					}
 				}
 			}
 		},
@@ -178,6 +183,11 @@
 							"vector": [1, 1, 1],
 							"easing": "easeOutBack"
 						}
+					}
+				},
+				"rotate": {
+					"rotation": {
+						"vector": [0, 90, 0]
 					}
 				}
 			}

@@ -12,7 +12,12 @@
 			},
 			"bones": [
 				{
+					"name": "rotate",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "body",
+					"parent": "rotate",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [-7, 0, 6], "size": [14, 1, 1], "uv": [34, 27]},
@@ -138,6 +143,7 @@
 				},
 				{
 					"name": "spikes",
+					"parent": "rotate",
 					"pivot": [-5.5, 1.9, 2],
 					"cubes": [
 						{"origin": [-5, 2, -2.1], "size": [2, 2, 2], "pivot": [-4, 3, -1.1], "rotation": [0, 0, -45], "uv": [58, 62]},
