@@ -116,7 +116,7 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		if (!this.world.isClient && this.age == 60 || this.damageCounter >= 3) {
+		if (!this.world.isClient && this.age >= 60 || this.damageCounter >= 3) {
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}

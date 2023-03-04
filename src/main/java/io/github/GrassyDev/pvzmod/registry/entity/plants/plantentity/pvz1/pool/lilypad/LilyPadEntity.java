@@ -3,8 +3,10 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.cattail.CattailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.LilypadHats;
+import io.github.GrassyDev.pvzmod.registry.items.seedpackets.CattailSeeds;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -20,10 +22,13 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -268,6 +273,33 @@ public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		Item item = itemStack.getItem();
+		if (itemStack.isOf(ModItems.CATTAIL_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item) && !this.dryLand) {
+			this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH);
+			if ((this.world instanceof ServerWorld)) {
+				ServerWorld serverWorld = (ServerWorld) this.world;
+				CattailEntity cattailEntity = (CattailEntity) PvZEntity.CATTAIL.create(world);
+				cattailEntity.setTarget(this.getTarget());
+				cattailEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				cattailEntity.initialize(serverWorld, world.getLocalDifficulty(cattailEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				cattailEntity.setAiDisabled(this.isAiDisabled());
+				cattailEntity.setPersistent();
+				if (this.hasCustomName()) {
+					cattailEntity.setCustomName(this.getCustomName());
+					cattailEntity.setCustomNameVisible(this.isCustomNameVisible());
+				}
+				if (this.hasVehicle()){
+					cattailEntity.startRiding(this.getVehicle(), true);
+				}
+				serverWorld.spawnEntityAndPassengers(cattailEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+				player.getItemCooldownManager().set(ModItems.CATTAIL_SEED_PACKET, CattailSeeds.cooldown);
+			}
+			return ActionResult.SUCCESS;
+		}
 		if (!this.getHat().equals(LilypadHats.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
 			this.setHat(LilypadHats.DEFAULT);
 			if (!player.getAbilities().creativeMode){

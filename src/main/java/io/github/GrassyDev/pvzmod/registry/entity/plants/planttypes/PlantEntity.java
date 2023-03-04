@@ -34,6 +34,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.b
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.*;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -133,6 +134,19 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					if (random <= 0.125) {
+						plantEntity.setVariant(SunflowerVariants.LESBIAN);
+					}
+					else if (random <= 0.25) {
+						plantEntity.setVariant(SunflowerVariants.WLW);
+					}
+					else if (random <= 0.375) {
+						plantEntity.setVariant(SunflowerVariants.MLM);
+					}
+					else {
+						plantEntity.setVariant(SunflowerVariants.DEFAULT);
+					}
 					world.spawnEntity(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -203,6 +217,14 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					if (random <= 0.125) {
+						plantEntity.setVariant(SnowPeaVariants.BISEXUAL);
+					} else if (random <= 0.25) {
+						plantEntity.setVariant(SnowPeaVariants.MLM);
+					} else {
+						plantEntity.setVariant(SnowPeaVariants.DEFAULT);
+					}
 					world.spawnEntity(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -225,6 +247,16 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					if (random <= 0.125) {
+						plantEntity.setVariant(ChomperVariants.ENBY);
+					} else if (random <= 0.25) {
+						plantEntity.setVariant(ChomperVariants.DEMIGIRL);
+					} else if (random <= 0.375) {
+						plantEntity.setVariant(ChomperVariants.PIRANHAPLANT);
+					} else {
+						plantEntity.setVariant(ChomperVariants.DEFAULT);
+					}
 					world.spawnEntity(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -315,6 +347,14 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					if (random <= 0.125) {
+						plantEntity.setVariant(FumeshroomVariants.GAY);
+					} else if (random <= 0.25) {
+						plantEntity.setVariant(FumeshroomVariants.TRANS);
+					} else {
+						plantEntity.setVariant(FumeshroomVariants.DEFAULT);
+					}
 					world.spawnEntity(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -359,6 +399,14 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					if (random <= 0.125) {
+						plantEntity.setVariant(ScaredyshroomVariants.DEMIBOY);
+					} else if (random <= 0.25) {
+						plantEntity.setVariant(ScaredyshroomVariants.LINK);
+					} else {
+						plantEntity.setVariant(ScaredyshroomVariants.DEFAULT);
+					}
 					world.spawnEntity(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -514,6 +562,14 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					if (random <= 0.125) {
+						plantEntity.setVariant(SnowQueenPeaVariants.BISEXUAL);
+					} else if (random <= 0.25) {
+						plantEntity.setVariant(SnowQueenPeaVariants.LESBIAN);
+					} else {
+						plantEntity.setVariant(SnowQueenPeaVariants.DEFAULT);
+					}
 					world.spawnEntity(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -559,6 +615,12 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					if (random <= 0.25) {
+						plantEntity.setVariant(PeapodVariants.PLURAL);
+					} else {
+						plantEntity.setVariant(PeapodVariants.DEFAULT);
+					}
 					world.spawnEntity(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);

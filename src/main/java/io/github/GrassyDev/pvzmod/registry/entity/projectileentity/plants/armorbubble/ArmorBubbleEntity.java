@@ -112,7 +112,7 @@ public class ArmorBubbleEntity extends ThrownItemEntity implements IAnimatable {
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!this.world.isClient && this.age == 20) {
+        if (!this.world.isClient && this.age >= 20) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }

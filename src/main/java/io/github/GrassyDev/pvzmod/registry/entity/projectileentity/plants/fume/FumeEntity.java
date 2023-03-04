@@ -121,7 +121,7 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		if (!this.world.isClient && this.age == 7) {
+		if (!this.world.isClient && this.age >= 7) {
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}

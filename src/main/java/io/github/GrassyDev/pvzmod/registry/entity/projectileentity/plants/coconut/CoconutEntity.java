@@ -96,7 +96,7 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 			this.onCollision(hitResult);
 		}
 
-        if (!this.world.isClient && this.age == 60) {
+        if (!this.world.isClient && this.age >= 60) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }

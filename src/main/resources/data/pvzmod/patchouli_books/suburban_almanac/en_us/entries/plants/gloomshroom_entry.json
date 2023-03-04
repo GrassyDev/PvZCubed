@@ -1,0 +1,41 @@
+{
+  "name": "Gloom-shroom",
+  "icon": "pvzmod:gloomshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 35,
+  "advancement": "pvzmod:make_fumeshroom",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)64",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)x5 6 DMG/2s (Area)",
+        "$(br)$(#bd951a)Damage Radius: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Poisons zombies.",
+        "$(br2)$(#bd951a)\"I've always enjoyed releasing heavy fumes. I know a lot of people aren't cool with that. They say it's rude or that it smells bad. But would you rather have your brain eaten by zombies?\""
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/gloomshroom.png"
+      ],
+      "title": "\uD83E\uDDEA Ailment Family",
+      "border": "true",
+      "text": "$(#25228d)Gloom-shrooms fire heavy fumes in an area around them."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/ailment/gloomshroom"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Gloom-shroom",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Fume-shroom"
+      ]
+    }
+  ]
+}

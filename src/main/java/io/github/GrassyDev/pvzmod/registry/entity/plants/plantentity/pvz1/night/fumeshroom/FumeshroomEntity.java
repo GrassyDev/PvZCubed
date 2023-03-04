@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.gloomshroom.GloomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
@@ -10,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.FumeVaria
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.items.seedpackets.GloomshroomSeeds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -27,9 +29,11 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -258,6 +262,42 @@ public class FumeshroomEntity extends AilmentEntity implements IAnimatable, Rang
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		Item item = itemStack.getItem();
+		if (itemStack.isOf(ModItems.GLOOMSHROOM_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
+			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
+			if ((this.world instanceof ServerWorld)) {
+				ServerWorld serverWorld = (ServerWorld) this.world;
+				GloomshroomEntity gloomshroomEntity = (GloomshroomEntity) PvZEntity.GLOOMSHROOM.create(world);
+				gloomshroomEntity.setTarget(this.getTarget());
+				gloomshroomEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				gloomshroomEntity.initialize(serverWorld, world.getLocalDifficulty(gloomshroomEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				gloomshroomEntity.setAiDisabled(this.isAiDisabled());
+				gloomshroomEntity.setPersistent();
+				if (this.hasCustomName()) {
+					gloomshroomEntity.setCustomName(this.getCustomName());
+					gloomshroomEntity.setCustomNameVisible(this.isCustomNameVisible());
+				}
+				if (this.hasVehicle()){
+					gloomshroomEntity.startRiding(this.getVehicle(), true);
+				}
+				if (this.getVariant().equals(FumeshroomVariants.TRANS)){
+					gloomshroomEntity.setVariant(FumeshroomVariants.TRANS);
+				}
+				else if (this.getVariant().equals(FumeshroomVariants.GAY)){
+					gloomshroomEntity.setVariant(FumeshroomVariants.GAY);
+				}
+				else {
+					gloomshroomEntity.setVariant(FumeshroomVariants.DEFAULT);
+				}
+				serverWorld.spawnEntityAndPassengers(gloomshroomEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+				player.getItemCooldownManager().set(ModItems.GLOOMSHROOM_SEED_PACKET, GloomshroomSeeds.cooldown);
+			}
+			return ActionResult.SUCCESS;
+		}
 		if (!this.getVariant().equals(FumeshroomVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
 			this.setVariant(FumeshroomVariants.DEFAULT);
 			if (!player.getAbilities().creativeMode){

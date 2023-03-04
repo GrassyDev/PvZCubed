@@ -169,6 +169,10 @@
   "item.pvzmod.twinsunflower_seed_packet": "☀ Twin Sunflower Seed Packet",
   "item.pvzmod.twinsunflower_seed_packet.flavour": "We're actually only fraternal twins.",
 
+  "entity.pvzmod.gloomshroom": "Gloom-shroom",
+  "item.pvzmod.gloomshroom_seed_packet": "\uD83E\uDDEA Gloom-shroom Seed Packet",
+  "item.pvzmod.gloomshroom_seed_packet.flavour": "Some see him as depressed, but he's got a lot of sides.",
+
   "entity.pvzmod.spikerock": "Spikerock",
   "item.pvzmod.spikerock_seed_packet": "✂ Spikerock Seed Packet",
   "item.pvzmod.spikerock_seed_packet.flavour": "Being the most metal plant, Spikerock has decided",

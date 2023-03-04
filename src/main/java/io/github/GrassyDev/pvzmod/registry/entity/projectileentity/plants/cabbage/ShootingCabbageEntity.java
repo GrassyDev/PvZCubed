@@ -115,7 +115,7 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!this.world.isClient && this.age == 120) {
+        if (!this.world.isClient && this.age >= 120) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
