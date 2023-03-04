@@ -420,7 +420,7 @@ public class CoconutCannonEntity extends BombardEntity implements IAnimatable, R
 				if (this.beamTicks >= 0 && this.coconutCannonEntity.rechargeTime <= 0) {
 					if (!this.coconutCannonEntity.isInsideWaterOrBubbleColumn()) {
 						CoconutEntity proj = new CoconutEntity(PvZEntity.COCONUTPROJ, this.coconutCannonEntity.world);
-						double time = (this.coconutCannonEntity.squaredDistanceTo(livingEntity) > 36) ? 25 : 1;
+						double time = (this.coconutCannonEntity.squaredDistanceTo(livingEntity) > 36) ? 75 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.coconutCannonEntity.squaredDistanceTo(predictedPos);
