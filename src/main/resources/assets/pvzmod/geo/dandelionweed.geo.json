@@ -1,0 +1,90 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "leaf",
+					"pivot": [0, 0.7, 0]
+				},
+				{
+					"name": "backleaf",
+					"parent": "leaf",
+					"pivot": [0, 0.7, 0],
+					"cubes": [
+						{"origin": [-3, -0.3, -5], "size": [6, 1, 5], "pivot": [0, 0.7, 0], "rotation": [-45, 180, 0], "uv": [25, 21]},
+						{"origin": [-3, 4.7, 0], "size": [6, 1, 5], "pivot": [0, 0.7, 0], "rotation": [-45, 0, 0], "uv": [25, 28]}
+					]
+				},
+				{
+					"name": "rightleaf",
+					"parent": "leaf",
+					"pivot": [0, 0.7, 0],
+					"cubes": [
+						{"origin": [-3, -0.3, -5], "size": [6, 1, 5], "pivot": [0, 0.7, 0], "rotation": [-45, 90, 0], "uv": [25, 21]},
+						{"origin": [-3, 4.7, 0], "size": [6, 1, 5], "pivot": [0, 0.7, 0], "rotation": [-45, -90, 0], "uv": [25, 28]}
+					]
+				},
+				{
+					"name": "leftleaf",
+					"parent": "leaf",
+					"pivot": [0, 0.7, 0],
+					"cubes": [
+						{"origin": [-3, -0.3, -5], "size": [6, 1, 5], "pivot": [0, 0.7, 0], "rotation": [-45, -90, 0], "uv": [25, 21]},
+						{"origin": [-3, 4.7, 0], "size": [6, 1, 5], "pivot": [0, 0.7, 0], "rotation": [-45, 90, 0], "uv": [25, 28]}
+					]
+				},
+				{
+					"name": "frontleaf",
+					"parent": "leaf",
+					"pivot": [0, 0.7, 0],
+					"cubes": [
+						{"origin": [-3, 4.7, 0], "size": [6, 1, 5], "pivot": [0, 0.7, 0], "rotation": [-45, 180, 0], "uv": [25, 28]},
+						{"origin": [-3, -0.3, -5], "size": [6, 1, 5], "pivot": [0, 0.7, 0], "rotation": [-45, 0, 0], "uv": [25, 21]}
+					]
+				},
+				{
+					"name": "stem",
+					"pivot": [0, 0.7, -0.5],
+					"rotation": [-2.5, 0, 0],
+					"cubes": [
+						{"origin": [-0.5, 0, -0.5], "size": [1, 9, 1], "pivot": [-0.8, 0, -0.6], "rotation": [9.5, 0, 0], "uv": [24, 43]}
+					]
+				},
+				{
+					"name": "stem2",
+					"parent": "stem",
+					"pivot": [0, 8.9, -1.9],
+					"cubes": [
+						{"origin": [-0.5, 9.04142, -2.2], "size": [1, 8, 1], "pivot": [-0.8, 7.7, -3.1], "rotation": [-10, 0, 0], "uv": [24, 43]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "stem2",
+					"pivot": [-2, 16, 1.8],
+					"cubes": [
+						{"origin": [-3, 16, -3.2], "size": [6, 6, 6], "uv": [0, 21]}
+					]
+				},
+				{
+					"name": "blow",
+					"parent": "head",
+					"pivot": [-2, 19, -0.2],
+					"cubes": [
+						{"origin": [-5, 14, -5.2], "size": [10, 10, 10], "uv": [0, 0]},
+						{"origin": [-4, 15, -4.2], "size": [8, 8, 8], "uv": [32, 48]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -2,13 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:plantfood_aquatic"
+      "item": "pvzmod:bellflower_seed_packet"
     },
     {
       "item": "pvzmod:plantfood_flower"
-    },
-    {
-      "item": "pvzmod:sun"
     },
     {
       "item": "pvzmod:sun"
@@ -18,7 +15,7 @@
     }
   ],
   "result": {
-    "item": "pvzmod:narcissus_seed_packet",
+    "item": "pvzmod:bellflower_seed_packet",
     "count": 1
   }
 }

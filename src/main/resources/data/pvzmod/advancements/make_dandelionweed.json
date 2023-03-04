@@ -1,16 +1,16 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:bellflower_seed_packet"
+      "item": "pvzmod:dandelionweed_seed_packet"
     },
-    "title": "The Flowers",
-    "description": "Craft a Bellflower",
+    "title": "Armaggandelion",
+    "description": "Craft a Dandelion Weed",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "pvzmod:make_sunflower",
+  "parent": "pvzmod:make_bellflower",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:bellflower_seed_packet"
+              "pvzmod:dandelionweed_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -31,8 +31,6 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/enforce/dandelionweed",
-      "pvzmod:plants/spear/narcissus"
     ],
     "experience": 25
   }

@@ -1,0 +1,40 @@
+{
+  "name": "Dandelion Weed",
+  "icon": "pvzmod:dandelionweed_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 149,
+  "advancement": "pvzmod:make_bellflower",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)14",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)6 DMG/1s (Area)",
+        "$(br)$(#bd951a)Damage Radius: $()$(#ff0000)2 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)7.5s",
+        "$(br2)$(#bd951a)After hearing that his favorite plants (Peashooter, Peashooter, and Peashootre) were going to Minecraft, he invited himself to the party and went through the mysterious portal, waking up all square afterwards. It's uncomfortable? Yeah. But it's worth it for the autograph."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/dandelionweed.png"
+      ],
+      "title": "\uD83D\uDDE1 Enforce Family",
+      "border": "true",
+      "text": "$(#25228d)Dandelions create small explosions around itself."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/enforce/dandelionweed"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies Online: $()$(#ff0000)Dandelion",
+        "$(br2)$(#bd951a)Plants vs. Zombies: Garden Warfare 2: $()$(#ff0000)Dandelion Weed"
+      ]
+    }
+  ]
+}

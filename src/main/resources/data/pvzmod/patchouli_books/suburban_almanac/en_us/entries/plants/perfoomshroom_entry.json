@@ -2,7 +2,7 @@
   "name": "Perfoom-shroom",
   "icon": "pvzmod:perfoomshroom_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 31,
+  "sortnum": 150,
   "advancement": "pvzmod:make_fumeshroom",
   "pages": [
     {

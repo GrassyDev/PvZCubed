@@ -58,6 +58,7 @@
     "pvzmod:plants/spear/bellflower",
     "pvzmod:tiles/tile_upgrade",
     "pvzmod:plants/spear/spikeweed",
-    "pvzmod:plants/spear/spikerock"
+    "pvzmod:plants/spear/spikerock",
+    "pvzmod:plants/enforce/dandelionweed"
   ]
 }
