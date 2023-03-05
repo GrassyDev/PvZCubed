@@ -3,7 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -51,7 +51,7 @@ import java.util.UUID;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
-public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
+public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 
     private String controllerName = "kelpcontroller";
 
@@ -336,6 +336,7 @@ public class TangleKelpEntity extends EnforceEntity implements IAnimatable {
 				if (!(fluidState.getFluid() == Fluids.WATER)) {
 					this.dryLand = true;
 					onWater = false;
+					this.kill();
 				} else {
 					this.dryLand = false;
 					onWater = true;

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class WallnutEntity extends ReinforceEntity implements IAnimatable {
+public class WallnutEntity extends PlantEntity implements IAnimatable {
     private String controllerName = "wallcontroller";
 
 
@@ -208,7 +208,7 @@ public class WallnutEntity extends ReinforceEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createWallnutAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 180D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 90D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
     }

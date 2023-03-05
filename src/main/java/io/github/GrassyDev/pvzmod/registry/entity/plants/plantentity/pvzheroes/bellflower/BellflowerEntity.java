@@ -3,7 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.SpearEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingle.JingleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
@@ -47,7 +47,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.List;
 
-public class BellflowerEntity extends SpearEntity implements IAnimatable, RangedAttackMob {
+public class BellflowerEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
     private String controllerName = "bellcontroller";
 

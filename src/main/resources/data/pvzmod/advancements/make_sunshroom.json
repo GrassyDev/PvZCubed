@@ -1,16 +1,17 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:potatomine_seed_packet"
+      "item": "pvzmod:sunshroom_seed_packet"
     },
-    "title": "The Explosives",
-    "description": "Craft a Potato Mine",
+    "title": "A Grower",
+    "description": "Craft a Sun-shroom",
+    "background": "pvzmod:textures/gui/advancement/background.png",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "pvzmod:start_pvz",
+  "parent": "pvzmod:make_sunflower",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -18,7 +19,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:potatomine_seed_packet"
+              "pvzmod:sunshroom_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -31,9 +32,6 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/bombard/cherrybomb",
-      "pvzmod:plants/enforce/squash",
-      "pvzmod:plants/pepper/jalapeno"
     ],
     "experience": 25
   }

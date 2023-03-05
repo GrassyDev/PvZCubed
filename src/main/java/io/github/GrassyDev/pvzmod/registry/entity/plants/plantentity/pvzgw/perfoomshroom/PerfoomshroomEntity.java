@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.perf
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -52,7 +52,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class PerfoomshroomEntity extends EnchantEntity implements IAnimatable {
+public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Integer> FUSE_SPEED;

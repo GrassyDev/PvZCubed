@@ -10,7 +10,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "pvzmod:make_sunflower",
+  "parent": "pvzmod:start_pvz",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -32,7 +32,8 @@
   "rewards": {
     "recipes": [
       "pvzmod:plants/enforce/tanglekelp",
-      "pvzmod:plants/enforce/admiralnavybean"
+      "pvzmod:plants/enforce/admiralnavybean",
+      "pvzmod:plants/spear/cattail"
       ],
     "experience": 25
   }

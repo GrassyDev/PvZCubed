@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnlightenEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -40,7 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class SunshroomEntity extends EnlightenEntity implements IAnimatable {
+public class SunshroomEntity extends PlantEntity implements IAnimatable {
 
 	private static final TrackedData<Integer> SUN_SPEED;
 

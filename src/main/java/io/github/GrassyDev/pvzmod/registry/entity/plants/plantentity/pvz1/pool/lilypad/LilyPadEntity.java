@@ -4,7 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.cattail.CattailEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.LilypadHats;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.CattailSeeds;
 import net.minecraft.block.BlockState;
@@ -50,7 +50,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 ;
 
-public class LilyPadEntity extends ReinforceEntity implements IAnimatable {
+public class LilyPadEntity extends PlantEntity implements IAnimatable {
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_HAT =
 			DataTracker.registerData(LilyPadEntity.class, TrackedDataHandlerRegistry.INTEGER);

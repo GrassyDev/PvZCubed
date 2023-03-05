@@ -1,6 +1,5 @@
 package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
-import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.tanglekelp.TangleKelpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
@@ -70,7 +69,10 @@ public class TangleKelpSeeds extends Item implements FabricItem {
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.enforce.family")
 				.formatted(Formatting.DARK_RED));
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.amphibious.tooltip")
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.aquatic.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.low.tooltip")
 				.formatted(Formatting.UNDERLINE));
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.instant.tooltip")
@@ -102,13 +104,13 @@ public class TangleKelpSeeds extends Item implements FabricItem {
 								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
 								aquaticEntity.originalVec3d = aquaticEntity.getPos();
-								world.spawnEntity(aquaticEntity);
-								world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));
 								if (fluidState.getFluid() == Fluids.WATER) {
+									world.spawnEntity(aquaticEntity);
+									world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 									world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, SoundCategory.BLOCKS, 0.25f, 0.8F);
 								} else {
-									world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+									return TypedActionResult.fail(itemStack);
 								}
 								if (!user.getAbilities().creativeMode) {
 									itemStack.decrement(1);

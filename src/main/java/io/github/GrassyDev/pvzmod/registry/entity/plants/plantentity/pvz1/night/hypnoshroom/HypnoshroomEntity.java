@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnchantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
@@ -50,7 +50,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.Optional;
 
-public class HypnoshroomEntity extends EnchantEntity implements IAnimatable, RangedAttackMob {
+public class HypnoshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "hypnocontroller";

@@ -2,6 +2,7 @@
   "replace": false,
   "values": {
     "pvzmod:spikeweed": "ground",
-    "pvzmod:spikerock": "ground"
+    "pvzmod:spikerock": "ground",
+    "pvzmod:tanglekelp": "ground"
   }
 }

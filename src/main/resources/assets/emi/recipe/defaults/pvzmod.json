@@ -60,6 +60,7 @@
     "pvzmod:tiles/tile_upgrade",
     "pvzmod:plants/spear/spikeweed",
     "pvzmod:plants/spear/spikerock",
-    "pvzmod:plants/enforce/dandelionweed"
+    "pvzmod:plants/enforce/dandelionweed",
+    "pvzmod:plants/spear/cattail"
   ]
 }

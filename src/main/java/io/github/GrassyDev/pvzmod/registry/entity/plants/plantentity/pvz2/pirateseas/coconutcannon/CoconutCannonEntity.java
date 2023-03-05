@@ -3,7 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.pirat
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.coconut.CoconutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
@@ -45,7 +45,7 @@ import java.util.EnumSet;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_STRENGTH;
 
-public class CoconutCannonEntity extends BombardEntity implements IAnimatable, RangedAttackMob {
+public class CoconutCannonEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
     private String controllerName = "cococontroller";
 
 	public boolean isFiring;

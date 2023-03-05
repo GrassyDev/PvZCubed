@@ -34,6 +34,8 @@ public class PvZCubed implements ModInitializer {
 			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "target_ground")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, String> PLANT_LOCATION =
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "plant_location")).build();
+	public static final RegistryEntryAttachment<EntityType<?>, String> PLANT_TYPE =
+			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "plant_type")).build();
 
 	public static final DamageSource HYPNO_DAMAGE = new HypnoDamage().setHypnoDamage();
 	public static final StatusEffect HYPNOTIZED = new Hypnotized();

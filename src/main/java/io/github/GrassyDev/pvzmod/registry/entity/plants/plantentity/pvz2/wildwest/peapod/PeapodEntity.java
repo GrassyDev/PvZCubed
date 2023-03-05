@@ -3,7 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildw
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AppeaseEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodCountVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodVariants;
@@ -62,7 +62,7 @@ import java.util.UUID;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
 
-public class PeapodEntity extends AppeaseEntity implements RangedAttackMob, IAnimatable {
+public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnimatable {
 	private String controllerName = "peacontroller";
 
 

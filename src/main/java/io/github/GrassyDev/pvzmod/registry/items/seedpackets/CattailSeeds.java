@@ -52,16 +52,16 @@ public class CattailSeeds extends Item implements FabricItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.ailment.family")
-				.formatted(Formatting.DARK_PURPLE));
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.spear.family")
+				.formatted(Formatting.GRAY));
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.upgrade.tooltip")
 				.formatted(Formatting.UNDERLINE));
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.nocturnal.tooltip")
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.aquatic.tooltip")
 				.formatted(Formatting.UNDERLINE));
 
-		tooltip.add(Text.translatable("item.pvzmod.gloomshroom_seed_packet.flavour")
+		tooltip.add(Text.translatable("item.pvzmod.cattail_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));
 	}
 }

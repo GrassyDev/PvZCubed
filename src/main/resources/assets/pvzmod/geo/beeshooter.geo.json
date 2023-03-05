@@ -1,0 +1,115 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.CubeEntity",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "leaf",
+					"pivot": [0, 0.7, 0]
+				},
+				{
+					"name": "backleaf",
+					"parent": "leaf",
+					"pivot": [0, 0.7, 0],
+					"cubes": [
+						{"origin": [-2, -0.3, -4], "size": [4, 1, 4], "pivot": [0, 0.7, 0], "rotation": [-45, 180, 0], "uv": [0, 0]},
+						{"origin": [-2, 3.7, 0], "size": [4, 1, 4], "pivot": [0, 0.7, 0], "rotation": [-45, 0, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "rightleaf",
+					"parent": "leaf",
+					"pivot": [0, 0.7, 0],
+					"cubes": [
+						{"origin": [-2, -0.3, -4], "size": [4, 1, 4], "pivot": [0, 0.7, 0], "rotation": [-45, 90, 0], "uv": [0, 0]},
+						{"origin": [-2, 3.7, 0], "size": [4, 1, 4], "pivot": [0, 0.7, 0], "rotation": [-45, -90, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "leftleaf",
+					"parent": "leaf",
+					"pivot": [0, 0.7, 0],
+					"cubes": [
+						{"origin": [-2, -0.3, -4], "size": [4, 1, 4], "pivot": [0, 0.7, 0], "rotation": [-45, -90, 0], "uv": [0, 0]},
+						{"origin": [-2, 3.7, 0], "size": [4, 1, 4], "pivot": [0, 0.7, 0], "rotation": [-45, 90, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "frontleaf",
+					"parent": "leaf",
+					"pivot": [0, 0.7, 0],
+					"cubes": [
+						{"origin": [-2, 3.7, 0], "size": [4, 1, 4], "pivot": [0, 0.7, 0], "rotation": [-45, 180, 0], "uv": [0, 0]},
+						{"origin": [-2, -0.3, -4], "size": [4, 1, 4], "pivot": [0, 0.7, 0], "rotation": [-45, 0, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "stem",
+					"pivot": [0, 0.3, 0],
+					"rotation": [0, -90, 0]
+				},
+				{
+					"name": "lowstem",
+					"parent": "stem",
+					"pivot": [0, 0.3, 0],
+					"cubes": [
+						{"origin": [-0.5, 0.3, -0.5], "size": [1, 4, 1], "pivot": [0, 0.3, 0], "rotation": [0, 0, 10], "uv": [0, 5]}
+					]
+				},
+				{
+					"name": "highstem",
+					"parent": "stem",
+					"pivot": [0.7, 4.3, 0],
+					"cubes": [
+						{"origin": [0.8, 4, -0.5], "size": [1, 4, 1], "pivot": [0, 0.3, 0], "rotation": [0, 0, -10], "uv": [4, 5]}
+					]
+				},
+				{
+					"name": "Pea",
+					"parent": "stem",
+					"pivot": [0, 0.3, 0],
+					"cubes": [
+						{"origin": [-1, 0.3, -1], "size": [2, 2, 2], "uv": [0, 5]}
+					]
+				},
+				{
+					"name": "head",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 8, -1], "size": [2, 1, 2], "uv": [8, 5]},
+						{"origin": [-4, 9, -5], "size": [8, 8, 8], "uv": [16, 0]},
+						{"origin": [-2, 11, -6], "size": [4, 4, 1], "uv": [48, 0]}
+					]
+				},
+				{
+					"name": "mouth",
+					"parent": "head",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-3, 10, -8], "size": [6, 6, 2], "uv": [48, 5]}
+					]
+				},
+				{
+					"name": "bone",
+					"parent": "head",
+					"pivot": [0, 14, 1.5],
+					"rotation": [5, 0, 0],
+					"cubes": [
+						{"origin": [-1, 13, 6.5], "size": [2, 2, 2], "uv": [12, 59]},
+						{"origin": [-0.5, 13.5, 8.5], "size": [1, 1, 3], "uv": [13, 60]},
+						{"origin": [-1.5, 12.5, 4.5], "size": [3, 3, 2], "uv": [12, 59]},
+						{"origin": [-2, 12, 2.5], "size": [4, 4, 2], "uv": [0, 58]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.p
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.BombardEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -56,7 +56,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class PotatomineEntity extends BombardEntity implements IAnimatable {
+public class PotatomineEntity extends PlantEntity implements IAnimatable {
 	private String controllerName = "potatocontroller";
     private static final TrackedData<Integer> FUSE_SPEED;
     private static final TrackedData<Boolean> CHARGED;

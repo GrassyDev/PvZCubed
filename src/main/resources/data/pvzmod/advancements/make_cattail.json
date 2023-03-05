@@ -1,16 +1,16 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:potatomine_seed_packet"
+      "item": "pvzmod:cattail_seed_packet"
     },
-    "title": "The Explosives",
-    "description": "Craft a Potato Mine",
-    "frame": "task",
+    "title": "Meow! That's right!",
+    "description": "Craft a Cattail",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false
+    "hidden": true
   },
-  "parent": "pvzmod:start_pvz",
+  "parent": "pvzmod:make_navybean",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:potatomine_seed_packet"
+              "pvzmod:cattail_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -30,11 +30,6 @@
     }
   },
   "rewards": {
-    "recipes": [
-      "pvzmod:plants/bombard/cherrybomb",
-      "pvzmod:plants/enforce/squash",
-      "pvzmod:plants/pepper/jalapeno"
-    ],
-    "experience": 25
+    "experience": 100
   }
 }

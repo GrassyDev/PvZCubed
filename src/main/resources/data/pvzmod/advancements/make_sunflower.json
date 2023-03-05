@@ -3,7 +3,7 @@
     "icon": {
       "item": "pvzmod:sunflower_seed_packet"
     },
-    "title": "Plants vs. Zombies",
+    "title": "The Sun Makers",
     "description": "Craft a Sunflower",
     "background": "pvzmod:textures/gui/advancement/background.png",
     "frame": "task",
@@ -11,6 +11,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
+  "parent": "pvzmod:start_pvz",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -31,23 +32,7 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/ailment/buttonshroom",
-      "pvzmod:plants/ailment/puffshroom",
-      "pvzmod:plants/ailment/scaredyshroom",
-      "pvzmod:plants/appease/peashooterpvz",
-      "pvzmod:plants/appease/weeniebeanie",
-      "pvzmod:plants/arma/cabbagepult",
-      "pvzmod:plants/bombard/bombseedling",
-      "pvzmod:plants/bombard/potatomine",
-      "pvzmod:plants/contain/gravebuster",
-      "pvzmod:plants/enlighten/sunflowerpvz",
-      "pvzmod:plants/enlighten/sunshroom",
-      "pvzmod:plants/enlighten/twinsunflower",
-      "pvzmod:plants/reinforce/lilypad",
-      "pvzmod:plants/reinforce/smallnut",
-      "pvzmod:plants/reinforce/wallnut",
-      "pvzmod:plants/spear/bellflower",
-      "pvzmod:my_book_recipe_shapeless"
+      "pvzmod:plants/enlighten/twinsunflower"
     ],
     "experience": 25
   }

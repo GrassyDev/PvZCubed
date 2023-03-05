@@ -3,17 +3,15 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaul
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.EnforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.ReinforceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.HypnoPvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
@@ -57,6 +55,8 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_TYPE;
 
 public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
@@ -287,10 +287,10 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, 0, false, false, (livingEntity) -> {
-			return !(livingEntity instanceof ReinforceEntity reinforceEntity);
+			return !(livingEntity instanceof PlantEntity plantEntity && PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("reinforce"));
 		}));
 		this.targetSelector.add(5, new TargetGoal<>(this, PlantEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof ReinforceEntity reinforceEntity && !(reinforceEntity instanceof LilyPadEntity));
+			return (livingEntity instanceof PlantEntity plantEntity && PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("reinforce") && !(plantEntity instanceof LilyPadEntity));
 		}));
 		this.targetSelector.add(6, new TargetGoal<>(this, PlayerEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -339,9 +339,12 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 			}
 			else if (this.CollidesWithPlant() != null) {
 				if (!this.isInsideWaterOrBubbleColumn()){
-					if (!((this.CollidesWithPlant() instanceof ReinforceEntity reinforceEntity && !(reinforceEntity instanceof LilyPadEntity)) ||
-							this.CollidesWithPlant() instanceof EnforceEntity)){
-						this.setTarget(CollidesWithPlant());
+					if (this.CollidesWithPlant() != null) {
+						PlantEntity plantEntity = this.CollidesWithPlant();
+						if (!((PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("reinforce") && !(plantEntity instanceof LilyPadEntity)) ||
+								PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("reinforce"))) {
+							this.setTarget(CollidesWithPlant());
+						}
 					}
 				}
 				else {

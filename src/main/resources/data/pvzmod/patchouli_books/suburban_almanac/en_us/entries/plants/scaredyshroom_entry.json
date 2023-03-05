@@ -3,7 +3,7 @@
   "icon": "pvzmod:scaredyshroom_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 13,
-  "advancement": "pvzmod:make_sunflower",
+  "advancement": "pvzmod:start_pvz",
   "pages": [
     {
       "type": "text",

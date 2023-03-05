@@ -286,6 +286,15 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 		}));
 	}
 
+	@Override
+	public boolean tryAttack(Entity target) {
+		if (this.age > 40){
+			return super.tryAttack(target);
+		}
+		else {
+			return false;
+		}
+	}
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 

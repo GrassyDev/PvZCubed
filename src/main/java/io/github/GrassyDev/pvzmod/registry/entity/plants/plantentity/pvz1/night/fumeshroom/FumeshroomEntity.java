@@ -4,7 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.gloomshroom.GloomshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.AilmentEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.FumeVariants;
@@ -55,7 +55,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.Optional;
 
-public class FumeshroomEntity extends AilmentEntity implements IAnimatable, RangedAttackMob {
+public class FumeshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 

@@ -1,0 +1,41 @@
+{
+  "name": "Cattail",
+  "icon": "pvzmod:cattail_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 306,
+  "advancement": "pvzmod:make_navybean",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)24",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)x2 2 DMG/1.5s (Spike)",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Aquatic. Prioritizes zombies weak to spikes and the strongest zombie without headwear",
+        "$(br)$(#bd951a)\"Woof!\" says Cattail. \"Woof woof woof! Does this confuse you? Do you expect me to say 'Meow' like a cat because I look like a cat? I refuse to be pigeonholed.\""
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/cattail.png"
+      ],
+      "title": "✂ Spear Family",
+      "border": "true",
+      "text": "$(#25228d)Cattails shut down special zombies and zombies without headwear."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/spear/cattail"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Cattail",
+        "$(br2)$(#bd951a)Plants vs. Zombies Online: $()$(#ff0000)Cattail"
+      ]
+    }
+  ]
+}

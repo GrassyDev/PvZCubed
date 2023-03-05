@@ -3,7 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.doomshroom.DoomshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.WinterEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -51,7 +51,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class IceshroomEntity extends WinterEntity implements IAnimatable {
+public class IceshroomEntity extends PlantEntity implements IAnimatable {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Integer> FUSE_SPEED;

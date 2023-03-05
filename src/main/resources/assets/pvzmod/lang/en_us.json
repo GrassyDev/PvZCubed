@@ -33,6 +33,7 @@
   "item.pvzmod.seed_packet.interactive.tooltip": "Interactive",
   "item.pvzmod.seed_packet.nocturnal.tooltip": "Nocturnal",
   "item.pvzmod.seed_packet.amphibious.tooltip": "Amphibious",
+  "item.pvzmod.seed_packet.aquatic.tooltip": "Aquatic",
   "item.pvzmod.seed_packet.low.tooltip": "Low Profile",
   "item.pvzmod.seed_packet.fly.tooltip": "Flying",
   "item.pvzmod.seed_packet.upgrade.tooltip": "Upgrade",
@@ -172,6 +173,10 @@
   "entity.pvzmod.gloomshroom": "Gloom-shroom",
   "item.pvzmod.gloomshroom_seed_packet": "\uD83E\uDDEA Gloom-shroom Seed Packet",
   "item.pvzmod.gloomshroom_seed_packet.flavour": "Some see him as depressed, but he's got a lot of sides.",
+
+  "entity.pvzmod.cattail": "Cattail",
+  "item.pvzmod.cattail_seed_packet": "✂ Cattail Seed Packet",
+  "item.pvzmod.cattail_seed_packet.flavour": "\"My secret weapon? It's my cute little hat!\"",
 
   "entity.pvzmod.spikerock": "Spikerock",
   "item.pvzmod.spikerock_seed_packet": "✂ Spikerock Seed Packet",

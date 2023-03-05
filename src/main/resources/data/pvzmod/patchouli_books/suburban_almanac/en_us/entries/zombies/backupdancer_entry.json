@@ -27,6 +27,7 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/spikeweed_entry",
         "pvzmod:plants/scaredyshroom_entry"
       ]
     },

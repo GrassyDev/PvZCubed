@@ -1,0 +1,53 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:plantfood"
+    },
+    "title": "Plants vs. Zombies",
+    "description": "Craft Plants to unlock Almanac entries!",
+    "background": "pvzmod:textures/gui/advancement/background.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:sunflower_seed_packet"
+            ],
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "pvzmod:plants/ailment/buttonshroom",
+      "pvzmod:plants/ailment/puffshroom",
+      "pvzmod:plants/ailment/scaredyshroom",
+      "pvzmod:plants/appease/peashooterpvz",
+      "pvzmod:plants/appease/weeniebeanie",
+      "pvzmod:plants/arma/cabbagepult",
+      "pvzmod:plants/bombard/bombseedling",
+      "pvzmod:plants/bombard/potatomine",
+      "pvzmod:plants/contain/gravebuster",
+      "pvzmod:plants/enlighten/sunflowerpvz",
+      "pvzmod:plants/enlighten/sunshroom",
+      "pvzmod:plants/reinforce/lilypad",
+      "pvzmod:plants/reinforce/smallnut",
+      "pvzmod:plants/reinforce/wallnut",
+      "pvzmod:plants/spear/bellflower",
+      "pvzmod:my_book_recipe_shapeless"
+    ],
+    "experience": 25
+  }
+}
