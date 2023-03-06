@@ -107,7 +107,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isFlying())) &&
 					!(livingEntity instanceof ZombiePropEntity) &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
 		}));
@@ -121,6 +121,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
 		}));
 	}
+
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
@@ -163,6 +164,9 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
 				this.setTarget(null);
 				snorkelGoal();
+			}
+			if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+				this.setTarget(null);
 			}
 		}
 	}

@@ -167,7 +167,8 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+					!(generalPvZombieEntity.isFlying());
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
@@ -179,6 +180,7 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
 		}));
 	}
+
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
@@ -224,7 +226,8 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 					if (livingEntity.getY() < (this.getY() + 1.5) && livingEntity.getY() > (this.getY() - 1.5)) {
 						if (!world.isClient &&
 								!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
-								!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+								!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+								!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying())) {
 							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 							SoundEvent sound;
 							sound = switch (zombieMaterial) {

@@ -104,7 +104,9 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 
 			if ((livingEntity instanceof Monster &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-							&& (generalPvZombieEntity.getHypno())))) {
+							&& (generalPvZombieEntity.getHypno())) &&
+					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 &&
+							generalPvZombieEntity1.isFlying()))) {
 				this.attacking = true;
 				ZombiePropEntity zombiePropEntity2 = null;
 				for (Entity entity1 : livingEntity.getPassengerList()) {

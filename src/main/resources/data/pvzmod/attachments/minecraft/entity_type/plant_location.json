@@ -3,6 +3,9 @@
   "values": {
     "pvzmod:spikeweed": "ground",
     "pvzmod:spikerock": "ground",
-    "pvzmod:tanglekelp": "ground"
+    "pvzmod:tanglekelp": "ground",
+    "pvzmod:sunflower": "maintarget",
+    "pvzmod:twinsunflower": "maintarget",
+    "pvzmod:sunshroom": "maintarget"
   }
 }

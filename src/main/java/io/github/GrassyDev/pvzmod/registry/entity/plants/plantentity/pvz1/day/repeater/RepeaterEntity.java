@@ -110,7 +110,8 @@ public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAni
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+					!(generalPvZombieEntity.isFlying());
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
@@ -122,6 +123,7 @@ public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAni
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
 		}));
 	}
+
 
 
 
@@ -166,6 +168,9 @@ public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAni
 			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
 				this.setTarget(null);
 				snorkelGoal();
+			}
+			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+				this.setTarget(null);
 			}
 		}
 	}

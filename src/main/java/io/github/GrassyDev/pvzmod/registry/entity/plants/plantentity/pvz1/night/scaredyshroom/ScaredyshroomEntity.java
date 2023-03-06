@@ -187,12 +187,14 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(livingEntity.hasStatusEffect(PvZCubed.PVZPOISON));
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+					!(generalPvZombieEntity.isFlying()) && !(livingEntity.hasStatusEffect(PvZCubed.PVZPOISON));
 		}));
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+					!(generalPvZombieEntity.isFlying());
 		}));
 		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity) && !(livingEntity.hasStatusEffect(PvZCubed.PVZPOISON));
@@ -207,6 +209,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
 		}));
 	}
+
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
@@ -271,6 +274,9 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
 				this.setTarget(null);
 				snorkelGoal();
+			}
+			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+				this.setTarget(null);
 			}
 		}
 	}
@@ -492,7 +498,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 							if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
 								this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
 								SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
-								double time = (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+								double time = (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) > 225) ? 50 : 5;
 								Vec3d targetPos = livingEntity.getPos();
 								Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 								double d = this.scaredyshroomEntity.squaredDistanceTo(predictedPos);

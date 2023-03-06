@@ -106,18 +106,19 @@ public class BubbleEntity extends ThrownItemEntity implements IAnimatable {
 	public LivingEntity entityStoreVehicle = null;
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
-        Entity entity = entityHitResult.getEntity();
+		super.onEntityHit(entityHitResult);
+		Entity entity = entityHitResult.getEntity();
 		ZombiePropEntity zombiePropEntity2 = null;
 		for (Entity entity1 : entity.getPassengerList()) {
 			if (entity1 instanceof ZombiePropEntity zpe) {
 				zombiePropEntity2 = zpe;
 			}
 		}
-        if (!world.isClient && entity instanceof Monster monster &&
+		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
-				  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			Entity entity2 = entityHitResult.getEntity();
 			float damage = 2F;
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
@@ -130,7 +131,7 @@ public class BubbleEntity extends ThrownItemEntity implements IAnimatable {
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			if (entity2 != entityStore && entityStoreVehicle != entity2) {
+			if (entity2 != entityStore) {
 				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
@@ -141,20 +142,25 @@ public class BubbleEntity extends ThrownItemEntity implements IAnimatable {
 				} else {
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 				}
-				if (((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM)){
-					((LivingEntity) entity).removeStatusEffect(PvZCubed.WARM);
-				}
-				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 5, 1)));
-				entity.extinguish();
+				entityStore = (LivingEntity) entityHitResult.getEntity();
+				entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
 			}
-			else {
-				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+			if (entity2.getVehicle() != null && entityStoreVehicle != entity2.getVehicle()) {
+				String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(entity2.getVehicle().getType()).orElse("flesh");
+				sound = switch (zombieMaterial2) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
+			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 5, 1)));
+			entity.extinguish();
 			entityStore = (LivingEntity) entityHitResult.getEntity();
 			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
-        }
-    }
+		}
+	}
 
     @Environment(EnvType.CLIENT)
     public void handleStatus(byte status) {

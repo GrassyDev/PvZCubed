@@ -13,6 +13,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModItems {
 
     public static final Item ALMANAC = new Item(new Item.Settings().maxCount(1));
@@ -111,6 +114,7 @@ public class ModItems {
 	public static final Item GARGANTUAREGG = new GargantuarEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
 	public static final Item IMPEGG = new ImpEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item BERSERKEREGG = new BerserkerEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
+	public static final Item JETPACKEGG = new JetpackEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
 	public static final Item SUNDAYEDITIONEGG = new SundayEditionEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
 	public static final Item SUPERFANIMPEGG = new SuperFanImpEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item NEWYEARIMPEGG = new NewYearImpEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
@@ -145,6 +149,7 @@ public class ModItems {
     //Tools
     public static ToolItem DAVES_SHOVEL = new PlantKillingShovel(PlantKillingMaterial.INSTANCE, 2, 0F, new Item.Settings().group(PvZCubed.PVZPLANTS).rarity(Rarity.EPIC));
 
+	public static List<Item> SEED_PACKET_LIST = new ArrayList<>();
 
     //addItem
     //addBlock
@@ -256,6 +261,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gargantuar_egg"), GARGANTUAREGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"imp_egg"), IMPEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"berserker_egg"), BERSERKEREGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"jetpack_egg"), JETPACKEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sundayedition_egg"), SUNDAYEDITIONEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"superfanimp_egg"), SUPERFANIMPEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"newyearimp_egg"), NEWYEARIMPEGG);
@@ -265,7 +271,53 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightgrave_spawn"), NIGHTGRAVESPAWN);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"poolgrave_spawn"), POOLGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"daves_shovel"), DAVES_SHOVEL);
-
     }
 
+	public static void setSeedPacketList(){
+		SEED_PACKET_LIST.add(ModItems.SUNFLOWER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PEASHOOTER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.CHERRYBOMB_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.WALLNUT_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.POTATOMINE_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SNOW_PEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.CHOMPER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.REPEATER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SUNSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PUFFSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.FUMESHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.GRAVEBUSTER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.HYPNOSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SCAREDYSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.ICESHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.DOOMSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.LILYPAD_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SQUASH_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.TANGLEKELP_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.JALAPENO_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SPIKEWEED_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.THREEPEATER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.CABBAGEPULT_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.GATLINGPEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.GLOOMSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.CATTAIL_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.TWINSUNFLOWER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SPIKEROCK_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BEESHOOTER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SNOW_QUEENPEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.DANDELIONWEED_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PERFOOMSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.ICEBERGLETTUCE_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.COCONUTCANNON_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PEAPOD_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.FIRE_PEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.NARCISSUS_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SMALLNUT_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BUTTONSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BOMBSEEDLING_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.WEENIEBEANIE_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.NAVYBEAN_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.ADMIRALNAVYBEAN_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SUNFLOWERSEED_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BELLFLOWER_SEED_PACKET);
+	}
 }

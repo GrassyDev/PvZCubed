@@ -251,6 +251,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 			if (bl) {
 				float damage = 4;
 				if (((livingEntity instanceof Monster &&
+						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {ZombiePropEntity zombiePropEntity2 = null;
 					for (Entity entity1 : livingEntity.getPassengerList()) {
@@ -342,6 +343,10 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		LivingEntity target = this.getTarget();
+		if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+			this.setTarget(null);
+		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}

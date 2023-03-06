@@ -156,24 +156,28 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 11);
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 10);
 		}));
 		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
 		}));
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
 		}));
@@ -181,6 +185,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
 		}));
@@ -188,6 +193,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
 		}));
@@ -195,6 +201,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
 		}));
@@ -202,6 +209,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
 		}));
@@ -209,6 +217,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
 		}));
@@ -216,6 +225,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
 		}));
@@ -223,6 +233,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
 		}));
@@ -230,6 +241,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
 					&& !(generalPvZombieEntity instanceof GargantuarEntity) && !(livingEntity instanceof ZombiePropEntity)
 					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
 		}));
@@ -237,6 +249,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			return livingEntity instanceof Monster && livingEntity.isInsideWaterOrBubbleColumn() && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
     }
+
 
 	//Smash
 	public boolean tryAttack(Entity target) {
@@ -279,6 +292,15 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		LivingEntity target = this.getTarget();
+		if (target != null){
+			if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+				this.setTarget(null);
+			}
+			else {
+				this.tryAttack(getTarget());
+			}
+		}
 		if (age <= 5){
 			this.originalVec3d = this.getPos();
 		}
@@ -309,9 +331,6 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 				this.firstAttack = true;
 				this.stopAnimation = true;
 			}
-		}
-		if (this.getTarget() != null){
-			this.tryAttack(getTarget());
 		}
 		BlockPos blockPos = this.getBlockPos();
 		if (!this.isAiDisabled() && this.isAlive()) {

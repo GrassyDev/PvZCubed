@@ -150,7 +150,8 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			if (entity != entityStore && entityStoreVehicle != entity){
 				++this.damageCounter;
 			}
@@ -161,7 +162,8 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			Entity entity2 = entityHitResult.getEntity();
 			float damage;
 			if (((LivingEntity) entity).hasStatusEffect(PvZCubed.ICE) || ((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
@@ -177,7 +179,7 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			if (entity2 != entityStore && entityStoreVehicle != entity2) {
+			if (entity2 != entityStore) {
 				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
@@ -191,9 +193,15 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 				entityStore = (LivingEntity) entityHitResult.getEntity();
 				entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
 			}
-			else {
-				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+			if (entity2.getVehicle() != null && entityStoreVehicle != entity2.getVehicle()){
+				String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(entity2.getVehicle().getType()).orElse("flesh");
+				sound = switch (zombieMaterial2) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
 			entityStore = (LivingEntity) entityHitResult.getEntity();
 			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();

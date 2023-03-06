@@ -42,7 +42,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
-import static io.github.GrassyDev.pvzmod.PvZCubed.TARGET_GROUND;
 
 public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	public SuperFanImpEntity(EntityType<? extends ImpEntity> entityType, World world) {
@@ -377,9 +376,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 
 	public boolean tryAttack(Entity target) {
 		if (this.getTarget() != null &&
-				((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
-						TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
-						PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("normal"))) {
+				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")))) {
 			int i = this.attackTick;
 			if (i <= 0) {
 				this.attackTick = 20;

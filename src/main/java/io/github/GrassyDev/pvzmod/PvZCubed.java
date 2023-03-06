@@ -34,6 +34,8 @@ public class PvZCubed implements ModInitializer {
 			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "target_ground")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, String> PLANT_LOCATION =
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "plant_location")).build();
+	public static final RegistryEntryAttachment<EntityType<?>, String> ZOMBIE_LOCATION =
+			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_location")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, String> PLANT_TYPE =
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "plant_type")).build();
 
@@ -147,6 +149,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.GARGANTUAREGG));
 				stacks.add(new ItemStack(ModItems.IMPEGG));
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
+				stacks.add(new ItemStack(ModItems.JETPACKEGG));
 				stacks.add(new ItemStack(ModItems.SUNDAYEDITIONEGG));
 				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
 				stacks.add(new ItemStack(ModItems.NEWYEARIMPEGG));
@@ -185,6 +188,13 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.UNDERWATER_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_UNDERWATER_TILE));
 			}).build();
+
+	public static final Identifier LOOTNUGGET = new Identifier("pvzmod:loot.nugget");
+	public static SoundEvent LOOTNUGGETEVENT = new SoundEvent(LOOTNUGGET);
+	public static final Identifier LOOTDIAMOND = new Identifier("pvzmod:loot.diamond");
+	public static SoundEvent LOOTDIAMONDEVENT = new SoundEvent(LOOTDIAMOND);
+	public static final Identifier LOOTGIFT = new Identifier("pvzmod:loot.gift");
+	public static SoundEvent LOOTGIFTDEVENT = new SoundEvent(LOOTGIFT);
 
 	public static final Identifier PEASHOOT = new Identifier("pvzmod:pea.shoot");
 	public static SoundEvent PEASHOOTEVENT = new SoundEvent(PEASHOOT);
@@ -286,6 +296,7 @@ public class PvZCubed implements ModInitializer {
 	public void onInitialize(ModContainer mod) {
 		LOGGER.info("{} says: Trans Rights are Human Rights!", mod.metadata().name());
 		ModItems.registerItems();
+		ModItems.setSeedPacketList();
 		ModBlocks.registerBlocks();
 		GeckoLib.initialize();
 		PvZEntitySpawn.addEntitySpawn();
@@ -295,6 +306,9 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "warm"), WARM);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "wet"), WET);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "pvzpoison"), PVZPOISON);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.LOOTNUGGET, LOOTNUGGETEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.LOOTDIAMOND, LOOTDIAMONDEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.LOOTGIFT, LOOTGIFTDEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEASHOOT, PEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.PEAHIT, PEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREPEAHIT, FIREPEAHITEVENT);

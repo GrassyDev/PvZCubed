@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 public abstract class PvZombieEntity extends GeneralPvZombieEntity implements Monster {
 
 	/** For Hypnotized Zombies **/
+	public boolean invulnerableZombie;
 	protected PvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 		this.getNavigation().setCanSwim(true);

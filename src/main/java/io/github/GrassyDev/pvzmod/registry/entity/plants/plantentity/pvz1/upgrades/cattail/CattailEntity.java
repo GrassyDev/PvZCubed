@@ -120,8 +120,8 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 		this.goalSelector.add(1, new CattailEntity.FireBeamGoal(this));
 		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getFirstPassenger() != null &&
-					generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity &&
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+					generalPvZombieEntity.isFlying() &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
 					&& !(generalPvZombieEntity.getHypno());
 		}));
@@ -215,6 +215,13 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 		}));
 	}
 
+	protected void flyingGoal() {
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.isFlying() && !(generalPvZombieEntity.getHypno());
+		}));
+	}
+
+
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 	}
@@ -261,6 +268,9 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
 				this.setTarget(null);
 				snorkelGoal();
+			}
+			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+				this.setTarget(null);
 			}
 		}
 		BlockPos blockPos = this.getBlockPos();
@@ -453,7 +463,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.cattailEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingSpikeEntity proj = new ShootingSpikeEntity(PvZEntity.SPIKEPROJ, this.cattailEntity.world);
-						double time = (this.cattailEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+						double time = (this.cattailEntity.squaredDistanceTo(livingEntity) > 225) ? 50 : 5;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.cattailEntity.squaredDistanceTo(predictedPos);

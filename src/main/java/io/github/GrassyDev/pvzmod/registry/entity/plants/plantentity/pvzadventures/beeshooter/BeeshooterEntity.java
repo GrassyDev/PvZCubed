@@ -106,8 +106,8 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getFirstPassenger() != null &&
-					generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity &&
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+					generalPvZombieEntity.isFlying() &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
 					&& !(generalPvZombieEntity.getHypno());
 		}));
@@ -215,6 +215,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 		}));
 	}
 
+
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 	}
@@ -256,6 +257,9 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
 				this.setTarget(null);
 				snorkelGoal();
+			}
+			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+				this.setTarget(null);
 			}
 		}
 	}
@@ -391,7 +395,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (!this.beeshooterEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingBeeSpikeEntity proj = new ShootingBeeSpikeEntity(PvZEntity.BEESPIKE, this.beeshooterEntity.world);
-						double time = (this.beeshooterEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+						double time = (this.beeshooterEntity.squaredDistanceTo(livingEntity) > 225) ? 50 : 5;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
 						double d = this.beeshooterEntity.squaredDistanceTo(predictedPos);

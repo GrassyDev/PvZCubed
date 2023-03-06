@@ -1,4 +1,19 @@
 {
+  "loot.nugget": {
+    "sounds": [
+      "pvzmod:loot_nugget"
+    ]
+  },
+  "loot.diamond": {
+    "sounds": [
+      "pvzmod:loot_diamond"
+    ]
+  },
+  "loot.gift": {
+    "sounds": [
+      "pvzmod:loot_gift"
+    ]
+  },
   "pea.hit": {
     "sounds": [
       "pvzmod:pea_hit"

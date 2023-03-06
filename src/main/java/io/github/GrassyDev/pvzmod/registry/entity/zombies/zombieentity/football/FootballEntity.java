@@ -57,7 +57,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
-import static io.github.GrassyDev.pvzmod.PvZCubed.TARGET_GROUND;
 
 public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
@@ -316,9 +315,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
 		if (this.getTarget() != null &&
-				((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
-						TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
-						PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("normal"))) {
+				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")))) {
 			if (!(this.getPassengerList().contains(target))) {
 				if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
 					if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {

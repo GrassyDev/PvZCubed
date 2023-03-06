@@ -62,13 +62,12 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	public boolean invisSnorkel;
 	boolean isFrozen;
 	boolean isIced;
 
     public SnorkelEntity(EntityType<? extends SnorkelEntity> entityType, World world) {
         super(entityType, world);
-		this.invisSnorkel = false;
+		this.invulnerableZombie = false;
 		setInvisibleSnorkel(false);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 6;
@@ -129,10 +128,10 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
 		if (status == 66) {
-			this.invisSnorkel = true;
+			this.invulnerableZombie = true;
 		}
 		else if (status == 65) {
-			this.invisSnorkel = false;
+			this.invulnerableZombie = false;
 		}
 		if (status == 70) {
 			this.isFrozen = true;
@@ -170,7 +169,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isInsideWaterOrBubbleColumn()) {
-			if (invisSnorkel){
+			if (invulnerableZombie){
 				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.ducky"));
 			}
 			else {

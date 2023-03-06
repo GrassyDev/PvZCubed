@@ -76,7 +76,6 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 	public PeapodEntity(EntityType<? extends PeapodEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
-
 	}
 
 	protected void initDataTracker() {
@@ -225,7 +224,8 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
+					&& (!generalPvZombieEntity.isFlying());
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
@@ -238,6 +238,11 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 		}));
 	}
 
+	protected void flyingGoal() {
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying() && !(generalPvZombieEntity.getHypno());
+		}));
+	}
 
 
 	@Override
@@ -273,6 +278,11 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 
 	public void tick() {
 		super.tick();
+		if (this.age == 2){
+			if (this.getCount().equals(PeapodCountVariants.FIVE)){
+				flyingGoal();
+			}
+		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
@@ -281,6 +291,9 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
 				this.setTarget(null);
 				snorkelGoal();
+			}
+			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying() && !(this.getCount().equals(PeapodCountVariants.FIVE))){
+				this.setTarget(null);
 			}
 		}
 	}
@@ -299,6 +312,9 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 		ItemStack itemStack = player.getStackInHand(hand);
 		Item item = itemStack.getItem();
 		if (itemStack.isOf(ModItems.PEAPOD_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item) && !this.getCount().equals(PeapodCountVariants.FIVE)) {
+			if (this.getCount().equals(PeapodCountVariants.FOUR)){
+				flyingGoal();
+			}
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
 			this.addCount();
 			EntityAttributeInstance maxHealthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
@@ -566,6 +582,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 							proj5.setVelocity(e5 * (double) h5, f5 * (double) h5, g5 * (double) h5, 0.33F, 0F);
 							proj5.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 1.25D, this.peapodEntity.getZ());
 							proj5.setOwner(this.peapodEntity);
+							proj5.canHitFlying = true;
 							if (livingEntity.isAlive()) {
 								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
 									proj5.setVariant(ShootingPeaVariants.CYAN);

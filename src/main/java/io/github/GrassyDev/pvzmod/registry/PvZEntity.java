@@ -150,6 +150,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.moder
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
@@ -840,6 +842,18 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<LocustSwarmEntity>create(SpawnGroup.MONSTER, LocustSwarmEntity::new).setDimensions(EntityDimensions.fixed(0.62f, 0.5f)).build()
 	);
 
+	public static final EntityType<JetpackEntity> JETPACK = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "jetpack"),
+			QuiltEntityTypeBuilder.<JetpackEntity>create(SpawnGroup.MONSTER, JetpackEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 2.4f)).build()
+	);
+
+	public static final EntityType<JetpackEntity> JETPACKHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "jetpack_hypnotized"),
+			QuiltEntityTypeBuilder.<JetpackEntity>create(SpawnGroup.MONSTER, JetpackEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 2.4f)).build()
+	);
+
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final EntityType<BasicGraveEntity> BASICGRAVESTONE = Registry.register(
@@ -1167,6 +1181,11 @@ public class PvZEntity implements ModInitializer {
 		EntityRendererRegistry.register(PvZEntity.NEWYEARIMP, SuperFanImpEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWYEARIMPHYPNO, SuperFanImpEntity.createImpAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.NEWYEARIMPHYPNO, SuperFanImpEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACK, JetpackEntity.createJetpackAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.JETPACK, JetpackEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACKHYPNO, JetpackEntity.createJetpackAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.JETPACKHYPNO, JetpackEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LOCUSTSWARM, LocustSwarmEntity.createLocustSwarmAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.LOCUSTSWARM, LocustswarmEntityRenderer::new);

@@ -154,7 +154,8 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+					!(generalPvZombieEntity.isFlying());
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
@@ -166,6 +167,7 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
 		}));
 	}
+
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
@@ -207,6 +209,9 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
 				this.setTarget(null);
 				snorkelGoal();
+			}
+			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+				this.setTarget(null);
 			}
 		}
 	}

@@ -136,7 +136,7 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 				!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			Entity entity2 = entityHitResult.getEntity();
-			float damage = damage = 2F;
+			float damage = 2F;
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
@@ -144,7 +144,7 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 				case "plastic" -> PvZCubed.CONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			if (entity2 != entityStore && entityStoreVehicle != entity2) {
+			if (entity2 != entityStore) {
 				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
@@ -158,9 +158,15 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 				entityStore = (LivingEntity) entityHitResult.getEntity();
 				entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
 			}
-			else {
-				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+			if (entity2.getVehicle() != null && entityStoreVehicle != entity2.getVehicle()){
+				String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(entity2.getVehicle().getType()).orElse("flesh");
+				sound = switch (zombieMaterial2) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
 			entityStore = (LivingEntity) entityHitResult.getEntity();
 			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();

@@ -130,56 +130,67 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 			(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 10);
 		}));
 		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
 		}));
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
 		}));
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
 		}));
 		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
 		}));
 		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
 		}));
 		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
 		}));
 		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
 		}));
 		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
 		}));
 		this.targetSelector.add(11, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
 		}));
 		this.targetSelector.add(12, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
+					!(generalPvZombieEntity.isFlying()) &&
 					!(generalPvZombieEntity.getHypno()) &&
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
 		}));
@@ -234,7 +245,9 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 				float damage = 180;
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity) &&
+						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+								generalPvZombieEntity.isFlying()))) {
 					if (damage > livingEntity.getHealth() &&
 							!(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {

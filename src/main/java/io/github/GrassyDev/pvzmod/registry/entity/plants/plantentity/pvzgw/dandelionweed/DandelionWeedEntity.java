@@ -131,6 +131,7 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 		}));
 	}
 
+
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 	}

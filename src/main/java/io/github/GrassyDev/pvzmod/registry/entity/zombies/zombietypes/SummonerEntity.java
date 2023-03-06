@@ -11,7 +11,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.mob.SpellcastingIllagerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -44,7 +43,7 @@ public abstract class SummonerEntity extends GeneralPvZombieEntity implements Mo
 	}
 
 	static {
-		SPELL = DataTracker.registerData(SpellcastingIllagerEntity.class, TrackedDataHandlerRegistry.BYTE);
+		SPELL = DataTracker.registerData(SummonerEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 	protected enum Spell {
 		NONE(0, 0.0, 0.0, 0.0),

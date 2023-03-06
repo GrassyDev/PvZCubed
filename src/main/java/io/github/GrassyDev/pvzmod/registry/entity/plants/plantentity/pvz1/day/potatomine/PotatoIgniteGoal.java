@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.potatomine;
 
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
@@ -13,7 +14,8 @@ public class PotatoIgniteGoal extends Goal {
 
     public boolean canStart() {
         LivingEntity livingEntity = this.potato.getTarget();
-        return this.potato.getFuseSpeed() > 0 || livingEntity != null && this.potato.squaredDistanceTo(livingEntity) <= 2D;
+        return this.potato.getFuseSpeed() > 0 || livingEntity != null && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+				generalPvZombieEntity.isFlying()) && this.potato.squaredDistanceTo(livingEntity) <= 2D;
     }
 
     public void start() {
