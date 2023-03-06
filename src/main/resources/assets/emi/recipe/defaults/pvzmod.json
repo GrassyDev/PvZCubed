@@ -61,6 +61,7 @@
     "pvzmod:plants/spear/spikeweed",
     "pvzmod:plants/spear/spikerock",
     "pvzmod:plants/enforce/dandelionweed",
-    "pvzmod:plants/spear/cattail"
+    "pvzmod:plants/spear/cattail",
+    "pvzmod:plants/ailment/beeshooter"
   ]
 }

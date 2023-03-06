@@ -33,7 +33,8 @@
     "recipes": [
       "pvzmod:plants/appease/gatlingpea",
       "pvzmod:plants/pepper/firepea",
-      "pvzmod:plants/winter/snowqueenpea"
+      "pvzmod:plants/winter/snowqueenpea",
+      "pvzmod:plants/ailment/beeshooter"
     ],
     "experience": 25
   }

@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spike;
+package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
@@ -35,7 +36,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable {
+public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -57,14 +58,14 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 		return PlayState.CONTINUE;
 	}
 
-    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "spikeproj");
+    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "beespike");
 
-    public ShootingSpikeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+    public ShootingBeeSpikeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
 		this.setNoGravity(true);
     }
 
-    public ShootingSpikeEntity(World world, LivingEntity owner) {
+    public ShootingBeeSpikeEntity(World world, LivingEntity owner) {
         super(EntityType.SNOWBALL, owner, world);
     }
 
@@ -154,6 +155,9 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
 				} else {
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				}
+				if (!(entity instanceof ZombieShieldEntity)) {
+					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.PVZPOISON, 60, 6)));
 				}
 				entityStore = (LivingEntity) entityHitResult.getEntity();
 				entityStoreVehicle = (LivingEntity) entityStore.getVehicle();

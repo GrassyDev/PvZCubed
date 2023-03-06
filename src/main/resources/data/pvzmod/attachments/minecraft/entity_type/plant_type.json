@@ -34,6 +34,7 @@
     "pvzmod:coconutcannon": "bombard",
     "pvzmod:peapod": "appease",
     "pvzmod:narcissus": "spear",
+    "pvzmod:beeshooter": "ailment",
     "pvzmod:snowqueenpea": "winter",
     "pvzmod:dandelionweed": "enforce",
     "pvzmod:perfoomshroom": "enchant",
@@ -44,6 +45,6 @@
     "pvzmod:navybean": "enforce",
     "pvzmod:smallnut": "reinforce",
     "pvzmod:sunflowerseed": "enlighten",
-    "pvzmod:weeniebeanie": "enforce"
+    "pvzmod:weeniebeanie": "enforce",
   }
 }
