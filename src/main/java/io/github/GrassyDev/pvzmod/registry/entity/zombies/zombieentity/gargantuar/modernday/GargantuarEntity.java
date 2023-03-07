@@ -7,7 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.su
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.planttypes.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.GargantuarVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
@@ -492,7 +492,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			else {
 				impEntity.setVelocity(random.range(-1, 1), 0, random.range(-1, 1), 2.25F, 0F);
 			}
-			impEntity.updatePosition(this.getX(), this.getY() + 3.95D, this.getZ());
+			impEntity.updatePosition(this.getX(), this.getY() + 3.75D, this.getZ());
 			impEntity.setOwner(this);
 			this.setImpStage(ImpStage.NOIMP);
 			this.playSound(PvZCubed.IMPLAUNCHEVENT, 1F, 1);
@@ -514,6 +514,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				this.setTarget(CollidesWithPlayer());
 			}
 			else if (this.CollidesWithPlant() != null){
+				this.setVelocity(0, -0.05, 0);
 				this.setTarget(CollidesWithPlant());
 			}
 		}

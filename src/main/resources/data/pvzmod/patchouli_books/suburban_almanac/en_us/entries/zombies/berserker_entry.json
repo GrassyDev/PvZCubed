@@ -8,9 +8,9 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27, 333(Metal Helmet)",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)180(tackle), 4(normal)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)Instant-kill(Tackle, Movement/Throw), 90 (Immune), 4(normal)",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Tackles the first plant it sees.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Football Zombie.",
         "$(br2)$(#bd951a)Berserker is dressed to kill and to rampage on the field. He also has no idea what a football is."
       ]
     },
@@ -27,11 +27,14 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
+        "pvzmod:plants/snowqueenpea_entry",
+        "pvzmod:plants/perfoomshroom_entry",
+        "pvzmod:plants/doomshroom_entry",
         "pvzmod:plants/chomper_entry",
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",
-        "pvzmod:plants/snowqueenpea_entry",
-        "pvzmod:plants/perfoomshroom_entry",
+        "pvzmod:plants/squash_entry",
+        "pvzmod:plants/tallnut_entry",
         "pvzmod:plants/narcissus_entry",
         "pvzmod:plants/spikerock_entry"
       ]

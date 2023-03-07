@@ -157,6 +157,12 @@
   "item.pvzmod.spikeweed_seed_packet.flavour": "Quite similar to the region known",
   "item.pvzmod.spikeweed_seed_packet.flavour2": "as Pokey Province.",
 
+  "entity.pvzmod.tallnut": "Tall-nut",
+  "item.pvzmod.tallnut_seed_packet": "⛨ Tall-nut Seed Packet",
+  "item.pvzmod.tallnut_seed_packet.flavour": "Tall-nut is opening a chain of stores",
+  "item.pvzmod.tallnut_seed_packet.flavour2": "for Tall and Taller gentlemen.",
+  "item.pvzmod.tallnut_seed_packet.flavour3": "\"I'll shell out the savings to you!\"",
+
   "entity.pvzmod.cabbagepult": "Cabbage-ult",
   "item.pvzmod.cabbagepult_seed_packet": "\uD83C\uDFF9 Cabbage-pult Seed Packet",
   "item.pvzmod.cabbagepult_seed_packet.flavour": "\"Coleslaw from above!\"",

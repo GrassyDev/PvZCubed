@@ -295,7 +295,9 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		super.tick();
 		LivingEntity target = this.getTarget();
 		if (target != null){
-			this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1);
+			if (target.squaredDistanceTo(this) > 4) {
+				this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1);
+			}
 			this.setNoGravity(true);
 			this.setFlying(true);
 			if (this.getY() > target.getY() + 0.25){
@@ -321,6 +323,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			else if (this.CollidesWithPlant() != null && (PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("maintarget") ||
 					PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("tall"))){
 				this.setTarget(CollidesWithPlant());
+				this.setVelocity(0, 0, 0);
 			}
 		}
 	}

@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27, 140(Metal Helmet)",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)180(tackle), 4(normal)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)Instant-kill(Tackle, Movement/Throw), 45 (if Immune), 4(normal)",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Tackles the first plant it sees.",
         "$(br2)$(#bd951a)Football Zombie gives 110 percent whenever he's on the field. He's a team player who delivers both offensively and defensively. He has no idea what a football is."
@@ -34,9 +34,8 @@
         "pvzmod:plants/chomper_entry",
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",
-        "pvzmod:plants/doomshroom_entry",
         "pvzmod:plants/squash_entry",
-        "pvzmod:plants/perfoomshroom_entry",
+        "pvzmod:plants/tallnut_entry",
         "pvzmod:plants/narcissus_entry",
         "pvzmod:plants/spikerock_entry"
       ]

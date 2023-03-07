@@ -2,7 +2,7 @@
   "name": "Jetpack Zombie",
   "icon": "pvzmod:jetpack_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 0,
+  "sortnum": 80,
   "pages": [
     {
       "type": "text",
