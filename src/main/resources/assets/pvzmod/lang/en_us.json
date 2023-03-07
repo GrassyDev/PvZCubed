@@ -395,6 +395,8 @@
   "block.pvzmod.dark_pirate_tile": "Dark Pirate Tile",
   "block.pvzmod.west_tile": "West Tile",
   "block.pvzmod.dark_west_tile": "Dark West Tile",
+  "block.pvzmod.future_tile": "Future Tile",
+  "block.pvzmod.dark_future_tile": "Dark Future Tile",
   "block.pvzmod.night_tile": "Night Tile",
   "block.pvzmod.dark_night_tile": "Dark Night Tile",
   "block.pvzmod.sand_tile": "Sand Tile",

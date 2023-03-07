@@ -6,6 +6,10 @@
     "pvzmod:tanglekelp": "ground",
     "pvzmod:sunflower": "maintarget",
     "pvzmod:twinsunflower": "maintarget",
-    "pvzmod:sunshroom": "maintarget"
+    "pvzmod:sunshroom": "maintarget",
+    "pvzmod:chomper": "tall",
+    "pvzmod:coconutcannon": "tall",
+    "pvzmod:gravebuster": "tall",
+    "pvzmod:peapod": "tall"
   }
 }

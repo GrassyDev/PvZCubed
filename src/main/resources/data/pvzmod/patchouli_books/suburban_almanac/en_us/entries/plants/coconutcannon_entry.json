@@ -14,7 +14,7 @@
         "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks",
         "$(br)$(#bd951a)Recharge Time: $()$(#ff0000)15s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)2x2. Interactive. Has to recharge between shots.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)2x2. Interactive. Tall. Has to recharge between shots.",
         "$(br)$(#bd951a)Sure, he's a hairy old man, but Coconut Cannon can still fire on all cylinders. The reason he's so hairy: he's in-between waxings."
       ]
     },

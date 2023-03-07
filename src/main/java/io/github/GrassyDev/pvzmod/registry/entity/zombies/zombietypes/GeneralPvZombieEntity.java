@@ -213,7 +213,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		super.tick();
 
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
-			this.remove(RemovalReason.KILLED);
+			this.kill();
 		}
 		if (this.getTarget() != null && this.getTarget().isDead()){
 			this.setTarget(null);

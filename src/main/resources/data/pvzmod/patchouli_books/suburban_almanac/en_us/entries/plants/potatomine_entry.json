@@ -14,7 +14,7 @@
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)2.5 Blocks",
         "$(br)$(#bd951a)Preparation Time: $()$(#ff0000)60s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Needs time to prepare. Can use a Small Sun to speed it up.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile Explosion. Needs time to prepare. Can use a Small Sun to speed it up.",
         "$(br2)$(#bd951a)They say he leaves everything to the last minute, but he says nothing. He's too busy thinking about his investment strategy."
         ]
     },

@@ -361,6 +361,16 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 		return false;
 	}
 
+	@Override
+	public boolean shouldSpawnSprintingParticles() {
+		return false;
+	}
+
+	@Override
+	protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
+		super.fall(heightDifference, onGround, landedState, landedPosition);
+	}
+
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.IMPMOANEVENT;
 	}

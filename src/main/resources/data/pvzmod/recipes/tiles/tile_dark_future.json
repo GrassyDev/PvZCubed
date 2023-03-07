@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pvzmod:egypt_tile"
+      "item": "pvzmod:future_tile"
     },
     {
       "item": "pvzmod:smallsun"
     }
   ],
   "result": {
-    "item": "pvzmod:dark_egypt_tile",
+    "item": "pvzmod:dark_future_tile",
     "count": 1
   }
 }

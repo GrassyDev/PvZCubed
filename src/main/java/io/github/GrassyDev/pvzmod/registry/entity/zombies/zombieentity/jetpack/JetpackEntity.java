@@ -286,16 +286,40 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		}));
 	}
 
-
 	/** /~*~//~*TICKING*~//~*~/ **/
+
+	public boolean hovering;
+	private int hoverTicks = 0;
 
 	public void tick() {
 		super.tick();
+		LivingEntity target = this.getTarget();
+		if (target != null){
+			this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1);
+			this.setNoGravity(true);
+			this.setFlying(true);
+			if (this.getY() > target.getY() + 0.25){
+				this.addVelocity(0, -0.004, 0);
+			}
+			else if (this.getY() <= target.getY() + 0.25){
+				this.addVelocity(0, 0.005, 0);
+				this.hovering = true;
+			}
+			else if (this.hovering) {
+				this.setVelocity(0, 0, 0);
+				this.hovering = false;
+			}
+		}
+		if (target == null){
+			this.setNoGravity(false);
+			this.setFlying(false);
+		}
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
-			else if (this.CollidesWithPlant() != null && PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("maintarget")){
+			else if (this.CollidesWithPlant() != null && (PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("maintarget") ||
+					PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("tall"))){
 				this.setTarget(CollidesWithPlant());
 			}
 		}
@@ -303,8 +327,35 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
+		/**
+		Block block = this.getLandingBlockState().getBlock();
+		if (this.isInsideWaterOrBubbleColumn() || this.onGround){
+			hovering = false;
+			this.setPosition(this.getPos().getX(), this.getPos().getY() + 0.5, this.getPos().getZ());
+			this.setNoGravity(true);
+			this.setVelocity(this.getVelocity().getX(), 0, this.getVelocity().getZ());
+			this.hoverTicks = 100;
+			this.hovering = true;
+		}
+		if (hovering){
+			if (block.equals(Blocks.AIR)){
+				this.hovering = false;
+				this.hoverTicks = 100;
+				this.setNoGravity(false);
+			}
+			if (--hoverTicks <= 0) {
+				this.hovering = false;
+				this.hoverTicks = 100;
+				this.setNoGravity(false);
+			}
+			else if (hoverTicks <= 80) {
+				System.out.println(hoverTicks);
+			}
+		}
+		 **/
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.world.sendEntityStatus(this, (byte) 70);
+			this.kill();
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){
 			this.world.sendEntityStatus(this, (byte) 71);
@@ -376,6 +427,16 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
     }
+
+	@Override
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+		return false;
+	}
+
+	@Override
+	protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
+		super.fall(0, false, landedState, landedPosition);
+	}
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;

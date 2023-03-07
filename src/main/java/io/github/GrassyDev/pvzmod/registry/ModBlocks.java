@@ -89,6 +89,22 @@ public class ModBlocks {
 			.sounds(BlockSoundGroup.STONE)
 			.strength(1.9f, 1200f));
 
+
+	public static final Block FUTURE_TILE = new Block(QuiltBlockSettings
+			.of(Material.AMETHYST)
+			.requiresTool()
+			.sounds(BlockSoundGroup.AMETHYST_BLOCK)
+			.strength(1.9f, 1200f)
+			.luminance(3));
+
+
+	public static final Block DARK_FUTURE_TILE = new Block(QuiltBlockSettings
+			.of(Material.AMETHYST)
+			.requiresTool()
+			.sounds(BlockSoundGroup.AMETHYST_BLOCK)
+			.strength(1.9f, 1200f)
+			.luminance(3));
+
 	public static final Block NIGHT_TILE = new Block(QuiltBlockSettings
 			.of(Material.STONE)
 			.requiresTool()
@@ -141,6 +157,8 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_pirate_tile"), DARK_PIRATE_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"west_tile"), WEST_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_west_tile"), DARK_WEST_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"future_tile"), FUTURE_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_future_tile"), DARK_FUTURE_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"night_tile"), NIGHT_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_night_tile"), DARK_NIGHT_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"sand_tile"), SAND_TILE);

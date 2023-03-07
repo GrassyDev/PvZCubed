@@ -29,6 +29,8 @@
     "pvzmod:tiles/tile_pirate",
     "pvzmod:tiles/tile_grass",
     "pvzmod:tiles/tile_egypt",
+    "pvzmod:tiles/tile_future",
+    "pvzmod:tiles/tile_dark_future",
     "pvzmod:plants/appease/peapod",
     "pvzmod:plants/enchant/hypnoshroom",
     "pvzmod:tiles/tile_dark_underwater",
