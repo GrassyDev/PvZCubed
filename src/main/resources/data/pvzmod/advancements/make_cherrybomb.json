@@ -31,7 +31,8 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/bombard/coconutcannon"
+      "pvzmod:plants/bombard/coconutcannon",
+      "pvzmod:plants/bombard/doomshroom"
     ],
     "experience": 25
   }

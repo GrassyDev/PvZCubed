@@ -297,7 +297,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 					}
 
 					if ((zombiePropEntity2 == null ||
-							zombiePropEntity2 instanceof ZombieShieldEntity) && !(livingEntity.hasStatusEffect(PvZCubed.WET))) {
+							zombiePropEntity2 instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						livingEntity.setOnFireFor(4);

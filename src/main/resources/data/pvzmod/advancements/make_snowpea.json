@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:snowpea_seed_packet"
+    },
+      "title": "Cryo more",
+    "description": "Craft a Snow Pea",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "pvzmod:make_peashooter",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:snowpea_seed_packet"
+            ],
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "pvzmod:plants/winter/snowqueenpea"
+    ],
+    "experience": 25
+  }
+}

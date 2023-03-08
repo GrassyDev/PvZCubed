@@ -18,6 +18,56 @@ import java.util.List;
 
 public class ModItems {
 
+	// REMEMBER TO REGISTER NEW PLANT SEEDS HERE TOO
+	public static void setSeedPacketList(){
+		SEED_PACKET_LIST.add(ModItems.SUNFLOWER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PEASHOOTER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.CHERRYBOMB_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.WALLNUT_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.POTATOMINE_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SNOW_PEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.CHOMPER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.REPEATER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SUNSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PUFFSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.FUMESHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.GRAVEBUSTER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.HYPNOSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SCAREDYSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.ICESHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.DOOMSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.LILYPAD_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SQUASH_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.TANGLEKELP_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.JALAPENO_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SPIKEWEED_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.THREEPEATER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.CABBAGEPULT_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.GATLINGPEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.GLOOMSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.CATTAIL_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.TWINSUNFLOWER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SPIKEROCK_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BEESHOOTER_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SNOW_QUEENPEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.DANDELIONWEED_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PERFOOMSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.ICEBERGLETTUCE_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.COCONUTCANNON_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PEAPOD_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.PEPPERPULT_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.FIRE_PEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.NARCISSUS_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SMALLNUT_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BUTTONSHROOM_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BOMBSEEDLING_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.WEENIEBEANIE_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.NAVYBEAN_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.ADMIRALNAVYBEAN_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SUNFLOWERSEED_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BELLFLOWER_SEED_PACKET);
+	}
+
     public static final Item ALMANAC = new Item(new Item.Settings().maxCount(1));
 
     //Items
@@ -39,6 +89,7 @@ public class ModItems {
 	public static final Item CABBAGE = new CabbageItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
 	public static final Item SNOWQUEENPEAPROJ = new SnowqueenpeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
 	public static final Item COCONUT = new CoconutItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.RARE));
+	public static final Item PEPPER = new PepperItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
 	public static final Item PLASMAPEA = new PlasmapeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
 	public static final Item SPIKE = new SpikeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
 	public static final Item ICESPIKE = new IcespikeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
@@ -89,6 +140,7 @@ public class ModItems {
 	public static final Item ICEBERGLETTUCE_SEED_PACKET = new IcebergLettuceSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item COCONUTCANNON_SEED_PACKET = new CoconutCannonSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.RARE));
 	public static final Item PEAPOD_SEED_PACKET = new PeaPodSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.UNCOMMON));
+	public static final Item PEPPERPULT_SEED_PACKET = new PepperpultSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item FIRE_PEA_SEED_PACKET = new FirepeaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(4).rarity(Rarity.EPIC));
 	public static final Item NARCISSUS_SEED_PACKET = new NarcissusSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item SMALLNUT_SEED_PACKET = new SmallnutSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
@@ -126,6 +178,7 @@ public class ModItems {
     public static final Item BASICGRAVESPAWN = new BasicGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.COMMON));
     public static final Item NIGHTGRAVESPAWN = new NightGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.UNCOMMON));
 	public static final Item POOLGRAVESPAWN = new PoolGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.RARE));
+	public static final Item FUTUREGRAVESPAWN = new FutureGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
 
     //Blocks
     public static final BlockItem GRASS_TILE = new BlockItem(ModBlocks.GRASS_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
@@ -148,6 +201,8 @@ public class ModItems {
 	public static final BlockItem DARK_SAND_TILE = new BlockItem(ModBlocks.DARK_SAND_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem UNDERWATER_TILE = new BlockItem(ModBlocks.UNDERWATER_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 	public static final BlockItem DARK_UNDERWATER_TILE = new BlockItem(ModBlocks.DARK_UNDERWATER_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
+	public static final BlockItem FROST_TILE = new BlockItem(ModBlocks.FROST_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
+	public static final BlockItem DARK_FROST_TILE = new BlockItem(ModBlocks.DARK_FROST_TILE, new Item.Settings().group(PvZCubed.PVZBLOCKS));
 
     //Tools
     public static ToolItem DAVES_SHOVEL = new PlantKillingShovel(PlantKillingMaterial.INSTANCE, 2, 0F, new Item.Settings().group(PvZCubed.PVZPLANTS).rarity(Rarity.EPIC));
@@ -175,6 +230,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cabbage"), CABBAGE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowqueenpeaproj"), SNOWQUEENPEAPROJ);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"coconut"), COCONUT);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pepper"), PEPPER);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plasmapea"), PLASMAPEA);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"beespike"), BEESPIKE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"spike"), SPIKE);
@@ -207,6 +263,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_sand_tile"), DARK_SAND_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"underwater_tile"), UNDERWATER_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_underwater_tile"), DARK_UNDERWATER_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"frost_tile"), FROST_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_frost_tile"), DARK_FROST_TILE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sunflower_seed_packet"), SUNFLOWER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peashooter_seed_packet"), PEASHOOTER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cherrybomb_seed_packet"), CHERRYBOMB_SEED_PACKET);
@@ -243,6 +301,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"iceberglettuce_seed_packet"), ICEBERGLETTUCE_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"coconutcannon_seed_packet"), COCONUTCANNON_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peapod_seed_packet"), PEAPOD_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pepperpult_seed_packet"), PEPPERPULT_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"firepea_seed_packet"), FIRE_PEA_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"narcissus_seed_packet"), NARCISSUS_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"smallnut_seed_packet"), SMALLNUT_SEED_PACKET);
@@ -276,54 +335,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"basicgrave_spawn"), BASICGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightgrave_spawn"), NIGHTGRAVESPAWN);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"poolgrave_spawn"), POOLGRAVESPAWN);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"futuregrave_spawn"), FUTUREGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"daves_shovel"), DAVES_SHOVEL);
     }
-
-	public static void setSeedPacketList(){
-		SEED_PACKET_LIST.add(ModItems.SUNFLOWER_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.PEASHOOTER_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.CHERRYBOMB_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.WALLNUT_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.POTATOMINE_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SNOW_PEA_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.CHOMPER_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.REPEATER_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SUNSHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.PUFFSHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.FUMESHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.GRAVEBUSTER_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.HYPNOSHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SCAREDYSHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.ICESHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.DOOMSHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.LILYPAD_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SQUASH_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.TANGLEKELP_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.JALAPENO_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SPIKEWEED_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.THREEPEATER_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.CABBAGEPULT_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.GATLINGPEA_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.GLOOMSHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.CATTAIL_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.TWINSUNFLOWER_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SPIKEROCK_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.BEESHOOTER_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SNOW_QUEENPEA_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.DANDELIONWEED_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.PERFOOMSHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.ICEBERGLETTUCE_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.COCONUTCANNON_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.PEAPOD_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.FIRE_PEA_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.NARCISSUS_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SMALLNUT_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.BUTTONSHROOM_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.BOMBSEEDLING_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.WEENIEBEANIE_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.NAVYBEAN_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.ADMIRALNAVYBEAN_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.SUNFLOWERSEED_SEED_PACKET);
-		SEED_PACKET_LIST.add(ModItems.BELLFLOWER_SEED_PACKET);
-	}
 }

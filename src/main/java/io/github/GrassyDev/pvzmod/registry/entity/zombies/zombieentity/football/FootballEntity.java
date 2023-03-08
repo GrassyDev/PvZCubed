@@ -323,34 +323,23 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 				if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
 					if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {
 						if (i <= 0) {
-							if (this.hasStatusEffect(PvZCubed.ICE)) {
-								this.attackTicksLeft = 20;
-								float f = 360f;
-								boolean bl = target.damage(DamageSource.mob(this), f);
-								if (bl) {
-									this.applyDamageEffects(this, target);
+							this.attackTicksLeft = 20;
+							float f = 9999f;
+							if (target instanceof TallnutEntity || target instanceof GargantuarEntity) {
+								f = 45;
+								if (this.getType().equals(PvZEntity.BERSERKER)) {
+									f = 90;
 								}
-								this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-								this.setTackleStage(TackleStage.EATING);
-								return bl;
-							} else {
-								this.attackTicksLeft = 20;
-								float f = 9999f;
-								if (target instanceof TallnutEntity || target instanceof GargantuarEntity){
-									f = 45;
-									if (this.getType().equals(PvZEntity.BERSERKER)){
-										f = 90;
-									}
-								}
-								boolean bl = target.damage(DamageSource.mob(this), f);
-								if (bl) {
-									this.applyDamageEffects(this, target);
-								}
-								this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
-								this.setTackleStage(TackleStage.EATING);
-								return bl;
 							}
-						} else {
+							boolean bl = target.damage(DamageSource.mob(this), f);
+							if (bl) {
+								this.applyDamageEffects(this, target);
+							}
+							this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+							this.setTackleStage(TackleStage.EATING);
+							return bl;
+						}
+						else {
 							return false;
 						}
 					} else {

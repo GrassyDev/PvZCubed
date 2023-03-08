@@ -32,7 +32,6 @@
   "rewards": {
     "recipes": [
       "pvzmod:plants/appease/repeaterpvz",
-      "pvzmod:plants/appease/threepeater",
       "pvzmod:plants/appease/peapod",
       "pvzmod:plants/winter/snowpeapvz"
     ],

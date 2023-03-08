@@ -30,6 +30,9 @@
     }
   },
   "rewards": {
+    "recipes": [
+      "pvzmod:plants/pepper/pepperpult"
+    ],
     "experience": 25
   }
 }

@@ -3,7 +3,7 @@
   "icon": "pvzmod:snowqueenpea_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 40,
-  "advancement": "pvzmod:make_repeater",
+  "advancement": "pvzmod:make_snowpea",
   "pages": [
     {
       "type": "text",

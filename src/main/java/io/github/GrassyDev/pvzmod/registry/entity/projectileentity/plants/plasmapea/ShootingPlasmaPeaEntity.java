@@ -150,13 +150,16 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				zombiePropEntity2 = zpe;
 			}
 		}
-		if (!world.isClient && entity instanceof Monster monster && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) &&
+		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
-			Entity entity2 = entityHitResult.getEntity();
+			LivingEntity entity2 = (LivingEntity) entityHitResult.getEntity();
 			float damage = 12F;
+			if (entity2.hasStatusEffect(PvZCubed.WET) || entity2.isWet()){
+				damage = 6F;
+			}
 			if (entity2 != entityStore) {
 				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&

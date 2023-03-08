@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pvzmod:sun",
+          "name": "pvzmod:smallsun",
           "functions": [
             {
               "function": "minecraft:set_count",

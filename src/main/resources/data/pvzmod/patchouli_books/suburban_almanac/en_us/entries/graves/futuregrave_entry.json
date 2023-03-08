@@ -1,0 +1,38 @@
+{
+  "name": "Futuristic Gravestone",
+  "icon": "pvzmod:futuregrave_spawn",
+  "category": "pvzmod:grave_category",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)240",
+        "$(br)$(#bd951a)Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Spawn Condition: $()$(#ff0000)Common. Unlocked at 1.6 Local Difficulty.",
+        "$(br2)$(#bd951a)This grave is futuristic! It even contains a mini fridge for the dead! Future!"
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/futuregrave.png"
+      ],
+      "title": "Future Zombie",
+      "border": "true",
+      "text": "$(#25228d)Spawns Future Zombies."
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/flagzombie_entry",
+        "pvzmod:zombies/conehead_entry",
+        "pvzmod:zombies/buckethead_entry",
+        "pvzmod:zombies/jetpack_entry"
+      ],
+      "title": "Spawnable Zombies"
+    }
+  ]
+}

@@ -541,7 +541,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
         }
 
         protected int startTimeDelay() {
-            return 340;
+            return 0;
         }
 
         protected void castSpell() {
@@ -569,7 +569,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				}
 				serverWorld.spawnEntityAndPassengers(screendoorEntity);
             }
-            for(int p = 0; p < 1; ++p) { // 1 Conehead
+            for(int p = 0; p < 3; ++p) { // 3 Conehead
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
 				BrowncoatEntity coneheadEntity = (BrowncoatEntity) cone.create(FlagzombieEntity.this.world);
                 coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -580,7 +580,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				}
                 serverWorld.spawnEntityAndPassengers(coneheadEntity);
             }
-            for(int d = 0; d < 1; ++d) { // 1 Buckethead
+            for(int d = 0; d < 2; ++d) { // 2 Buckethead
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
 				BrowncoatEntity bucketheadEntity = (BrowncoatEntity) bucket.create(FlagzombieEntity.this.world);
                 bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -591,7 +591,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				}
                 serverWorld.spawnEntityAndPassengers(bucketheadEntity);
             }
-            for(int t = 0; t < 1; ++t) { // 1 Browncoat
+            for(int t = 0; t < 6; ++t) { // 6 Browncoat
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
                 BrowncoatEntity browncoatEntity = (BrowncoatEntity) coat.create(FlagzombieEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);

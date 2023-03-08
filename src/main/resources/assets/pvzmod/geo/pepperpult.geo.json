@@ -1,0 +1,139 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.CubeEntity",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "leaf",
+					"pivot": [0, 0.7, 0]
+				},
+				{
+					"name": "backleaf2",
+					"parent": "leaf",
+					"pivot": [0, 0.7, -4.8],
+					"cubes": [
+						{"origin": [-4, -0.3, -9.7], "size": [8, 1, 5], "pivot": [0, 0.7, -4.7], "rotation": [135, -45, -180], "uv": [23, 33]}
+					]
+				},
+				{
+					"name": "backbackleaf",
+					"parent": "backleaf2",
+					"pivot": [0, 3.5, 3.5],
+					"cubes": [
+						{"origin": [-4, 4.7, -4.7], "size": [8, 1, 5], "pivot": [0, 0.7, -4.7], "rotation": [-45, 45, 0], "uv": [0, 31]}
+					]
+				},
+				{
+					"name": "rightleaf2",
+					"parent": "leaf",
+					"pivot": [0, 0.7, -4.8],
+					"cubes": [
+						{"origin": [-4, -0.3, -9.7], "size": [8, 1, 5], "pivot": [0, 0.7, -4.7], "rotation": [135, 45, 180], "uv": [23, 33]},
+						{"origin": [-4, 4.7, -4.7], "size": [8, 1, 5], "pivot": [0, 0.7, -4.7], "rotation": [-45, -45, 0], "uv": [0, 31]}
+					]
+				},
+				{
+					"name": "leftleaf2",
+					"parent": "leaf",
+					"pivot": [0, 0.7, -4.8],
+					"cubes": [
+						{"origin": [-4, -0.3, -9.7], "size": [8, 1, 5], "pivot": [0, 0.7, -4.7], "rotation": [-45, -45, 0], "uv": [23, 33]},
+						{"origin": [-4, 4.7, -4.7], "size": [8, 1, 5], "pivot": [0, 0.7, -4.7], "rotation": [135, 45, 180], "uv": [0, 31]}
+					]
+				},
+				{
+					"name": "frontleaf2",
+					"parent": "leaf",
+					"pivot": [0, 0.7, -4.8],
+					"cubes": [
+						{"origin": [-4, -0.3, -9.7], "size": [8, 1, 5], "pivot": [0, 0.7, -4.7], "rotation": [-45, 45, 0], "uv": [23, 33]}
+					]
+				},
+				{
+					"name": "frontfrontleaf",
+					"parent": "frontleaf2",
+					"pivot": [0, 3.7, -3.5],
+					"cubes": [
+						{"origin": [-4, 4.7, -4.7], "size": [8, 1, 5], "pivot": [0, 0.7, -4.7], "rotation": [135, -45, -180], "uv": [0, 31]}
+					]
+				},
+				{
+					"name": "head",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "headSep",
+					"parent": "head",
+					"pivot": [0, 0, -4.7],
+					"cubes": [
+						{"origin": [-4.5, 7, -4.2], "size": [4, 3, 4], "uv": [30, 58]},
+						{"origin": [0.5, 7, -4.2], "size": [4, 3, 4], "uv": [55, 26]},
+						{"origin": [0.5, 7, -9.2], "size": [4, 3, 4], "uv": [0, 57]},
+						{"origin": [-4.5, 7, -9.2], "size": [4, 3, 4], "uv": [13, 61]},
+						{"origin": [-4.5, 2, -9.2], "size": [4, 3, 4], "uv": [50, 3]},
+						{"origin": [-4.5, 2, -4.2], "size": [4, 3, 4], "uv": [34, 50]},
+						{"origin": [0.5, 2, -9.2], "size": [4, 3, 4], "uv": [51, 50]},
+						{"origin": [-0.5, 2, -9.2], "size": [1, 2, 4], "uv": [16, 61]},
+						{"origin": [0.5, 2, -4.2], "size": [4, 3, 4], "uv": [55, 15]},
+						{"origin": [-3, 8.7, -7.7], "size": [6, 1, 6], "uv": [43, 42]},
+						{"origin": [-4, 4, -8.7], "size": [8, 5, 8], "uv": [0, 17]},
+						{"origin": [-0.01034, 7.03317, -9.73081], "size": [0, 3, 5], "pivot": [0.3, 7, -9.8], "rotation": [7.6189, 87.71782, 2.60929], "uv": [62, 6]},
+						{"origin": [-0.59456, 7.05042, -14.83074], "size": [0, 3, 5], "pivot": [-0.3, 7, -9.8], "rotation": [150.81071, 89.76718, 154.58101], "uv": [61, 59]}
+					]
+				},
+				{
+					"name": "pultstem",
+					"parent": "head",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "stem1",
+					"parent": "pultstem",
+					"pivot": [0, 10, -4.5],
+					"cubes": [
+						{"origin": [-0.5, 9.4, -5.5], "size": [1, 7, 1], "pivot": [-0.5, 9.4, -5.5], "rotation": [-30, 0, 0], "uv": [5, 65]}
+					]
+				},
+				{
+					"name": "stem2",
+					"parent": "stem1",
+					"pivot": [0, 15.3, -1.5],
+					"cubes": [
+						{"origin": [-0.5, 16.1, -1.1], "size": [1, 7, 1], "pivot": [-0.5, 16.1, -1.1], "rotation": [-122.5, 0, 0], "uv": [0, 65]},
+						{"origin": [-1, 11.3, 3.8], "size": [2, 2, 1], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "pultspoon",
+					"parent": "stem2",
+					"pivot": [0, 15.5, 3.5],
+					"cubes": [
+						{"origin": [-4, 10.1, 4.5], "size": [8, 4, 1], "uv": [62, 42]},
+						{"origin": [-4, 10.1, 12.5], "size": [8, 4, 1], "uv": [47, 58]},
+						{"origin": [-5, 10.1, 5.5], "size": [1, 4, 7], "uv": [17, 47]},
+						{"origin": [4, 10.1, 5.5], "size": [1, 4, 7], "uv": [0, 45]},
+						{"origin": [-4, 9.1, 5.5], "size": [8, 1, 7], "uv": [26, 10]}
+					]
+				},
+				{
+					"name": "ammo",
+					"parent": "pultspoon",
+					"pivot": [0, 15.6, 9],
+					"rotation": [45, 0, 0],
+					"cubes": [
+						{"origin": [-4, 11.6, 5], "size": [8, 8, 8], "uv": [0, 0]},
+						{"origin": [-1, 15.6, 8], "size": [2, 8, 2], "uv": [45, 64]}
+					]
+				}
+			]
+		}
+	]
+}

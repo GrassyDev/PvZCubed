@@ -3,7 +3,7 @@
     "icon": {
       "item": "pvzmod:scaredyshroom_seed_packet"
     },
-    "title": "The Mushrooms",
+    "title": "The Dusk",
     "description": "Craft a Scaredy-shroom",
     "frame": "task",
     "show_toast": true,
@@ -31,8 +31,7 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/ailment/fumeshroom",
-      "pvzmod:plants/enchant/hypnoshroom"
+      "pvzmod:plants/ailment/fumeshroom"
     ],
     "experience": 25
   }

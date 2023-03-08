@@ -3,7 +3,7 @@
   "icon": "pvzmod:doomshroom_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 15,
-  "advancement": "pvzmod:make_fumeshroom",
+  "advancement": "pvzmod:make_cherrybomb",
   "pages": [
     {
       "type": "text",

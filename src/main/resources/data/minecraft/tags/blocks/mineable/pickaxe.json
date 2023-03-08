@@ -12,6 +12,8 @@
     "pvzmod:future_tile",
     "pvzmod:dark_future_tile",
     "pvzmod:night_tile",
-    "pvzmod:dark_night_tile"
+    "pvzmod:dark_night_tile",
+    "pvzmod:frost_tile",
+    "pvzmod:dark_frost_tile"
   ]
 }

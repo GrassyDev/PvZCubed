@@ -8844,6 +8844,7 @@
 			}
 		},
 		"gargantuar.smash": {
+			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"head": {
@@ -11119,6 +11120,7 @@
 			}
 		},
 		"gargantuar.smash.gearless": {
+			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"head": {
@@ -13399,6 +13401,7 @@
 			}
 		},
 		"gargantuar.smash2": {
+			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"head": {
@@ -15290,6 +15293,7 @@
 			}
 		},
 		"gargantuar.smash2.gearless": {
+			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"head": {
@@ -24127,6 +24131,7 @@
 			}
 		},
 		"gargantuar.ducky.smash": {
+			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"head": {
@@ -26402,6 +26407,7 @@
 			}
 		},
 		"gargantuar.ducky.smash.gearless": {
+			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"head": {
@@ -28633,6 +28639,7 @@
 			}
 		},
 		"gargantuar.ducky.smash2": {
+			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"head": {
@@ -30524,6 +30531,7 @@
 			}
 		},
 		"gargantuar.ducky.smash2.gearless": {
+			"loop": true,
 			"animation_length": 4.5,
 			"bones": {
 				"head": {

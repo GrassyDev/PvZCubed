@@ -226,6 +226,12 @@
   "item.pvzmod.peapod_seed_packet.flavour": "Sometimes they squabble, but they usually",
   "item.pvzmod.peapod_seed_packet.flavour2": "get along like five peas in a pod.",
 
+  "entity.pvzmod.pepperpult": "Pepper-pult",
+  "item.pvzmod.pepperpult_seed_packet": "\uD83D\uDD25 Pepper-pult Seed Packet",
+  "item.pvzmod.pepperpult_seed_packet.flavour": "\"Despite being a pepper on fire,",
+  "item.pvzmod.pepperpult_seed_packet.flavour2": "I'm not really spicy.\"",
+  "item.pvzmod.pepper": "Flaming Pepper",
+
   "entity.pvzmod.flamingpea": "Fire Peashooter",
   "item.pvzmod.firepea_seed_packet": "\uD83D\uDD25 Fire Peashooter Seed Packet",
   "item.pvzmod.firepea_seed_packet.flavour": "\"Is it getting hot in here or is it just me?\"",
@@ -387,6 +393,9 @@
   "entity.pvzmod.poolgrave": "Pool Gravestone",
   "item.pvzmod.poolgrave_spawn": "Pool Gravestone",
 
+  "entity.pvzmod.futuregrave": "Futuristic Gravestone",
+  "item.pvzmod.futuregrave_spawn": "Futuristic Gravestone",
+
   "itemGroup.pvzmod.blocks": "PvZ Blocks",
 
   "block.pvzmod.grass_tile": "Grass Tile",
@@ -408,5 +417,7 @@
   "block.pvzmod.sand_tile": "Sand Tile",
   "block.pvzmod.dark_sand_tile": "Dark Sand Tile",
   "block.pvzmod.underwater_tile": "Underwater Tile",
-  "block.pvzmod.dark_underwater_tile": "Dark Underwater Tile"
+  "block.pvzmod.dark_underwater_tile": "Dark Underwater Tile",
+  "block.pvzmod.frost_tile": "Frost Tile",
+  "block.pvzmod.dark_frost_tile": "Dark Frost Tile"
 }

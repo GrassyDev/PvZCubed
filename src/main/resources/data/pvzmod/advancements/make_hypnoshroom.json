@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:hypnoshroom_seed_packet"
+    },
+    "title": "\"When I snap my fingers...\"",
+    "description": "Craft an Hypno-shroom",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "pvzmod:make_gravebuster",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:hypnoshroom_seed_packet"
+            ],
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "pvzmod:plants/enchant/perfoomshroom"
+    ],
+    "experience": 25
+  }
+}

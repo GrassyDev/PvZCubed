@@ -142,6 +142,20 @@ public class ModBlocks {
 			.strength(1.9f, 1200f));
 
 
+	public static final Block FROST_TILE = new Block(QuiltBlockSettings
+			.of(Material.DENSE_ICE)
+			.requiresTool()
+			.sounds(BlockSoundGroup.GLASS)
+			.strength(1.9f, 1200f));
+
+
+	public static final Block DARK_FROST_TILE = new Block(QuiltBlockSettings
+			.of(Material.DENSE_ICE)
+			.requiresTool()
+			.sounds(BlockSoundGroup.GLASS)
+			.strength(1.9f, 1200f));
+
+
 
 	public static void registerBlocks(){
 
@@ -165,6 +179,8 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_sand_tile"), DARK_SAND_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"underwater_tile"), UNDERWATER_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_underwater_tile"), DARK_UNDERWATER_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"frost_tile"), FROST_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_frost_tile"), DARK_FROST_TILE);
 
     }
 

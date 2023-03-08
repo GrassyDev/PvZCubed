@@ -10,7 +10,7 @@
     "announce_to_chat": true,
     "hidden": true
   },
-  "parent": "pvzmod:make_fumeshroom",
+  "parent": "pvzmod:make_hypnoshroom",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

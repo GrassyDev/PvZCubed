@@ -272,7 +272,7 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 							checkList.add(livingEntity);
 						}
 					}
-					if (zombiePropEntity2 == null && !(livingEntity.hasStatusEffect(PvZCubed.WET))){
+					if (zombiePropEntity2 == null && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						livingEntity.setOnFireFor(4);

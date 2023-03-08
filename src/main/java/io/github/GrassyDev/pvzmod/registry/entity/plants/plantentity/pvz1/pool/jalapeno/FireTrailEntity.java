@@ -88,7 +88,7 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 
 			if (((livingEntity instanceof Monster &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-							&& (generalPvZombieEntity.getHypno()))) && !livingEntity.isWet() &&
+							&& (generalPvZombieEntity.getHypno()))) && (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET)) &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
 							generalPvZombieEntity.isFlying()))) {
 				ZombiePropEntity zombiePropEntity2 = null;
@@ -100,8 +100,8 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 				if (zombiePropEntity2 == null ||
 				zombiePropEntity2 instanceof ZombieShieldEntity) {
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 2);
-					if (!livingEntity.isWet()) {
-						if (!(livingEntity instanceof ZombieShieldEntity) && !(livingEntity.hasStatusEffect(PvZCubed.WET))) {
+					if (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
+						if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
 							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 							livingEntity.removeStatusEffect(PvZCubed.ICE);
 							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));

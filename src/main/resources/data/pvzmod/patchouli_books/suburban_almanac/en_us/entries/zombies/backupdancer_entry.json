@@ -26,9 +26,9 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/repeater_entry",
         "pvzmod:plants/spikeweed_entry",
-        "pvzmod:plants/scaredyshroom_entry"
+        "pvzmod:plants/pepperpult_entry"
       ]
     },
     {

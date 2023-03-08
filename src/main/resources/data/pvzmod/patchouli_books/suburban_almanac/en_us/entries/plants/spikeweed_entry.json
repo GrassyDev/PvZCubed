@@ -3,7 +3,7 @@
   "icon": "pvzmod:spikeweed_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 21,
-  "advancement": "pvzmod:start_pvz",
+  "advancement": "pvzmod:make_squash",
   "pages": [
     {
       "type": "text",

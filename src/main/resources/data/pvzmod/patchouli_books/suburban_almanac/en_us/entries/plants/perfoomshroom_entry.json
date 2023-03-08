@@ -3,7 +3,7 @@
   "icon": "pvzmod:perfoomshroom_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 150,
-  "advancement": "pvzmod:make_fumeshroom",
+  "advancement": "pvzmod:make_hypnoshroom",
   "pages": [
     {
       "type": "text",

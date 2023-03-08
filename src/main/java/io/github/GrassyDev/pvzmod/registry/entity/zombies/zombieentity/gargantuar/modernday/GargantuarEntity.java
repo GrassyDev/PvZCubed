@@ -261,24 +261,21 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		if (this.isFrozen) {
+			event.getController().setAnimationSpeed(0);
+		} else if (this.isIced) {
+			event.getController().setAnimationSpeed(0.5);
+		} else {
+			event.getController().setAnimationSpeed(1);
+		}
 		if (this.isInsideWaterOrBubbleColumn()) {
 			if (inLaunchAnimation) {
 				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.throw"));
-				if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				} else {
-					event.getController().setAnimationSpeed(1);
-				}
 			} else if (this.getImpStage()) {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.ducky.smash"));
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky"));
-				}
-				if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				} else {
-					event.getController().setAnimationSpeed(1);
 				}
 			} else {
 				if (inAnimation) {
@@ -286,79 +283,25 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.ducky2"));
 				}
-				if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				} else {
-					event.getController().setAnimationSpeed(1);
-				}
 			}
 		} else {
 			if (inLaunchAnimation) {
 				event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.throw"));
-				if (this.isFrozen) {
-					event.getController().setAnimationSpeed(0);
-				} else if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
-				} else {
-					event.getController().setAnimationSpeed(1);
-				}
 			} else if (this.getImpStage()) {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					} else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
 				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					} else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					} else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
 				}
 			} else {
 				if (inAnimation) {
 					event.getController().setAnimation(new AnimationBuilder().playOnce("gargantuar.smash2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					} else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
 				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.walk2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					} else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("gargantuar.idle2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					} else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					} else {
-						event.getController().setAnimationSpeed(1);
-					}
 				}
 			}
 		}
@@ -431,18 +374,23 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public boolean tryAttack(Entity target) {
 		if (!this.getPassengerList().contains(target)) {
 			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.inLaunchAnimation) {
+				boolean bl = false;
 				if (this.firstAttack && this.animationTicksLeft <= 0 && this.squaredDistanceTo(target) < 16D) {
 					this.animationTicksLeft = 90 * animationMultiplier;
 					this.firstAttack = false;
 				} else if (this.animationTicksLeft == 40 * animationMultiplier) {
-					if (this.hasStatusEffect(PvZCubed.ICE) && target instanceof SpikerockEntity && this.squaredDistanceTo(target) < 16D) {
-						target.damage(DamageSource.mob(this), 180);
-					} else if (target instanceof SpikerockEntity && this.squaredDistanceTo(target) < 16D) {
-						target.damage(DamageSource.mob(this), 90);
+					if (target instanceof SpikerockEntity && this.squaredDistanceTo(target) < 16D) {
+						bl = true;
 					}
 					else if (this.squaredDistanceTo(target) < 16D) {
 						target.kill();
+						return true;
 					}
+				}
+				if (bl) {
+					target.damage(DamageSource.mob(this), 90);
+					this.applyDamageEffects(this, target);
+					return true;
 				}
 			}
 		}
@@ -528,10 +476,12 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		else if (this.hasStatusEffect(PvZCubed.ICE)){
 			if (this.animationTicksLeft <= 0){
 				this.animationMultiplier = 2;
+				this.isIced = true;
 				this.world.sendEntityStatus(this, (byte) 71);
 			}
 		}
 		else {
+			this.isIced = false;
 			this.world.sendEntityStatus(this, (byte) 72);
 			this.animationMultiplier = 1;
 		}
@@ -570,7 +520,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			}
 			if (getTarget() != null) {
 				this.firstAttack = true;
-				tryAttack(getTarget());}
+				if (!this.isIced){
+					tryAttack(getTarget());
+				}
+			}
 		}
 		else if (getTarget() == null){
 			this.firstAttack = true;
@@ -580,7 +533,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			--this.animationTicksLeft;
 			this.world.sendEntityStatus(this, (byte) 13);
 		}
-		else{
+		if (this.animationTicksLeft <= 0) {
 			this.world.sendEntityStatus(this, (byte) 12);
 		}
 	}
@@ -650,7 +603,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public static DefaultAttributeContainer.Builder createGargantuarAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 10.0D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 90.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 360D);
     }

@@ -121,14 +121,14 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
         }
 		if (!this.world.isClient && this.age > 50 && target != null) {
 			if (target.getHealth() > 0) {
-				this.setVelocity(0, -0.05, 0);
+				this.setVelocity(0,this.getVelocity().getY(), 0);
 				this.setPosition(target.getPos().getX(), this.getY() - 0.0005, target.getZ());
 			}
 		}
 		if (target != null){
 			if ((target.getHealth() > 0 && (this.getPos().getX() <= target.getPos().getX() + 0.2 && this.getPos().getX() >= target.getPos().getX() - 0.2) &&
 					this.getPos().getZ() <= target.getPos().getZ() + 0.2 && this.getPos().getZ() >= target.getPos().getZ() - 0.2)){
-				this.setVelocity(0, -0.05, 0);
+				this.setVelocity(0,this.getVelocity().getY(), 0);
 				this.setPosition(target.getPos().getX(), this.getY() - 0.0005, target.getZ());
 			}
 		}

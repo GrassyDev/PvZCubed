@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:gravebuster_seed_packet"
+    },
+    "title": "The Tricky",
+    "description": "Craft a Grave Buster",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "pvzmod:start_pvz",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:gravebuster_seed_packet"
+            ],
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "pvzmod:plants/enchant/hypnoshroom",
+      "pvzmod:plants/winter/iceshroom"
+    ],
+    "experience": 25
+  }
+}

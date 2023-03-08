@@ -9,6 +9,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)200",
         "$(br)$(#bd951a)Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Spawn Condition: $()$(#ff0000)Uncommon.",
         "$(br2)$(#bd951a)This puddle may look shallow but it's surprisingly deep."
       ]
     },
@@ -26,18 +27,12 @@
       "type": "relations",
       "entries": [
         "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/flagzombie_entry",
         "pvzmod:zombies/conehead_entry",
         "pvzmod:zombies/buckethead_entry",
         "pvzmod:zombies/snorkel_entry"
       ],
       "title": "Spawnable Zombies"
-    },
-    {
-      "type": "text",
-      "title": "References",
-      "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Grave"
-      ]
     }
   ]
 }

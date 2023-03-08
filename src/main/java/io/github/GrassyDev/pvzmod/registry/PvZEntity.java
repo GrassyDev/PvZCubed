@@ -2,6 +2,8 @@ package io.github.GrassyDev.pvzmod.registry;
 
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.futuregrave.FutureGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.futuregrave.FutureGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveEntity;
@@ -68,6 +70,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.pirateseas.coconutcannon.CoconutCannonEntity;
@@ -120,6 +124,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingle
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingle.JingleEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pepper.ShootingPepperEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pepper.ShootingPepperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmapeaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntity;
@@ -402,6 +408,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<PeapodEntity>create(SpawnGroup.CREATURE, PeapodEntity::new).setDimensions(EntityDimensions.fixed(1f,1.8f)).build()
 	);
 
+	public static final EntityType<PepperpultEntity> PEPPERPULT = Registry.register((
+					Registry.ENTITY_TYPE),
+			new Identifier(ModID, "pepperpult"),
+			QuiltEntityTypeBuilder.<PepperpultEntity>create(SpawnGroup.CREATURE, PepperpultEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
     public static final EntityType<FlamingpeaEntity> FLAMINGPEA = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "flamingpea"),
@@ -541,6 +553,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "cabbage"),
 			QuiltEntityTypeBuilder.<ShootingCabbageEntity>create(SpawnGroup.MISC, ShootingCabbageEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<ShootingPepperEntity> PEPPERPROJ = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "pepperproj"),
+			QuiltEntityTypeBuilder.<ShootingPepperEntity>create(SpawnGroup.MISC, ShootingPepperEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<BubbleEntity> BUBBLE = Registry.register(
@@ -881,6 +899,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<PoolGraveEntity>create(SpawnGroup.MONSTER, PoolGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
 	);
 
+	public static final EntityType<FutureGraveEntity> FUTUREGRAVE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "futuregrave"),
+			QuiltEntityTypeBuilder.<FutureGraveEntity>create(SpawnGroup.MONSTER, FutureGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
+	);
+
 	@Override
 	public void onInitialize(ModContainer mod) {
 
@@ -909,6 +933,7 @@ public class PvZEntity implements ModInitializer {
 		EntityRendererRegistry.register(PvZEntity.CABBAGE, ShootingCabbageEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.COCONUTPROJ, CoconutEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.PEPPERPROJ, ShootingPepperEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.BUBBLE, BubbleEntityRenderer::new);
 
@@ -1024,6 +1049,9 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEAPOD, PeapodEntity.createPeapodAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.PEAPOD, PeapodEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEPPERPULT, PepperpultEntity.createPepperPultAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.PEPPERPULT, PepperpultEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FLAMINGPEA, FlamingpeaEntity.createFlamingpeaAttributes().build());
         EntityRendererRegistry.register(PvZEntity.FLAMINGPEA, FlamingpeaEntityRenderer::new);
@@ -1211,6 +1239,9 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.POOLGRAVESTONE, PoolGraveEntity.createPoolGraveAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.POOLGRAVESTONE, PoolGraveRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUTUREGRAVE, FutureGraveEntity.createFutureGraveAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.FUTUREGRAVE, FutureGraveRenderer::new);
 
 
     }
