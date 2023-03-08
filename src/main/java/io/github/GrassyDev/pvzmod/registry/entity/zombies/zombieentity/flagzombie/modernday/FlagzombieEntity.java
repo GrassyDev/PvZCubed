@@ -536,13 +536,13 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
             }
         }
 
-        protected int getSpellTicks() {
-            return 100;
-        }
+		protected int getSpellTicks() {
+			return 100;
+		}
 
-        protected int startTimeDelay() {
-            return 0;
-        }
+		protected int startTimeDelay() {
+			return 160;
+		}
 
         protected void castSpell() {
 

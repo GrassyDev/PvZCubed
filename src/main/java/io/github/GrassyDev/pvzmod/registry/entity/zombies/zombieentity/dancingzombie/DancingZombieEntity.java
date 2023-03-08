@@ -489,7 +489,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		protected abstract void castSpell();
 
 		protected int getInitialCooldown() {
-			return 0;
+			return 20;
 		}
 
 		protected abstract int getSpellTicks();

@@ -314,7 +314,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		}
 		if (target == null){
 			this.setNoGravity(false);
-			this.setFlying(false);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
@@ -402,7 +401,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			itemStack = ModItems.SCREENDOOREGG.getDefaultStack();
 		}
 		else{
-			itemStack = ModItems.BROWNCOATEGG.getDefaultStack();
+			itemStack = ModItems.JETPACKEGG.getDefaultStack();
 		}
 		return itemStack;
 	}

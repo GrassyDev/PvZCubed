@@ -39,6 +39,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 	}
 
 	protected boolean attacking = false;
-	protected List<LivingEntity> zombieList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox());
+	protected List<LivingEntity> zombieList = new ArrayList<>();
 	private void damageEntity() {
 		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(1));
 		Iterator var9 = list.iterator();
@@ -107,7 +108,6 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 							&& (generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 &&
 							generalPvZombieEntity1.isFlying()))) {
-				this.attacking = true;
 				ZombiePropEntity zombiePropEntity2 = null;
 				for (Entity entity1 : livingEntity.getPassengerList()) {
 					if (entity1 instanceof ZombiePropEntity zpe) {
@@ -126,6 +126,7 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 					livingEntity.playSound(sound, 0.1F, (float) (0.5F + Math.random()));
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
 					this.zombieList.add(livingEntity);
+					this.attacking = true;
 				}
 			}
 			else {

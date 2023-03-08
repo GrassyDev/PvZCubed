@@ -137,7 +137,7 @@
 							"vector": [0, 0, 0],
 							"easing": "easeOutElastic"
 						},
-						"4.5": {
+						"3.8333": {
 							"vector": [-5, 0, 0],
 							"easing": "easeInElastic"
 						},
@@ -158,7 +158,7 @@
 							"vector": [0, -2, 0],
 							"easing": "linear"
 						},
-						"4.5": {
+						"3.8333": {
 							"vector": [0, -2.25, 0],
 							"easing": "linear"
 						},
@@ -187,7 +187,7 @@
 						},
 						"6.0": {
 							"vector": [0, 0, 0],
-							"easing": "easeInBack"
+							"easing": "easeOutElastic"
 						}
 					}
 				}

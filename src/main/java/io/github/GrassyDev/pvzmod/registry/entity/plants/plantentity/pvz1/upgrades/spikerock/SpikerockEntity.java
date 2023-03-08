@@ -37,10 +37,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class SpikerockEntity extends PlantEntity implements IAnimatable {
@@ -135,7 +132,7 @@ public class SpikerockEntity extends PlantEntity implements IAnimatable {
 	}
 
 	protected boolean attacking = false;
-	protected List<LivingEntity> zombieList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox());
+	protected List<LivingEntity> zombieList = new ArrayList<>();
 	private void damageEntity() {
 		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(1));
 		Iterator var9 = list.iterator();
@@ -156,7 +153,6 @@ public class SpikerockEntity extends PlantEntity implements IAnimatable {
 							&& (generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 &&
 							generalPvZombieEntity1.isFlying()))) {
-				this.attacking = true;
 				ZombiePropEntity zombiePropEntity2 = null;
 				for (Entity entity1 : livingEntity.getPassengerList()) {
 					if (entity1 instanceof ZombiePropEntity zpe) {
@@ -181,6 +177,7 @@ public class SpikerockEntity extends PlantEntity implements IAnimatable {
 						damage = 4;
 					}
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+					this.attacking = true;
 					this.zombieList.add(livingEntity);
 				}
 			}
