@@ -279,7 +279,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground"));
 		}));
-		this.targetSelector.add(5, new TargetGoal<>(this, PlayerEntity.class, false, true));
+
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
@@ -517,6 +517,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 				}
 
 				hypnotizedZombie.setPersistent();
+
 				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
 				this.remove(RemovalReason.DISCARDED);
 			}

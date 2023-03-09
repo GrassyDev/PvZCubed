@@ -154,13 +154,13 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			if (random <= 0.05 * multiplierFinal) {
 				dropItem(item);
 				playSound(LOOTGIFTDEVENT);
-			} else if (random <= 0.15 * multiplierFinal) {
+			} else if (random <= 0.10 * multiplierFinal) {
 				dropItem(Items.DIAMOND);
 				playSound(LOOTDIAMONDEVENT);
-			} else if (random <= 0.35 * multiplierFinal) {
+			} else if (random <= 0.30 * multiplierFinal) {
 				dropItem(Items.GOLD_NUGGET);
 				playSound(LOOTNUGGETEVENT);
-			} else if (random <= 0.85 * multiplierFinal) {
+			} else if (random <= 0.70 * multiplierFinal) {
 				dropItem(Items.IRON_NUGGET);
 				playSound(LOOTNUGGETEVENT);
 			}
@@ -213,6 +213,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			if (target.squaredDistanceTo(this) < 6.25) {
 				this.setVelocity(0, -0.05, 0);
 			}
+		}
+		else {
+			this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
 			this.kill();

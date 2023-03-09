@@ -250,7 +250,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(2, new JetpackEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
-		this.targetSelector.add(5, new TargetGoal<>(this, PlayerEntity.class, false, true));
+
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
@@ -504,6 +504,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 				}
 
                 hypnotizedZombie.setPersistent();
+
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }
