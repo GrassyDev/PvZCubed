@@ -9,4 +9,12 @@ public abstract class ZombieObstacleEntity extends ZombieShieldEntity{
 		super(entityType, world);
 		this.noClip = false;
 	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (!this.hasVehicle() && this.getHypno()){
+			this.setHypno(IsHypno.FALSE);
+		}
+	}
 }

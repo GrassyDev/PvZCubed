@@ -10,13 +10,11 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -226,13 +224,6 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("bully.idle"));
-				if (this.isFrozen) {
-					event.getController().setAnimationSpeed(0);
-				} else if (this.isIced) {
-					event.getController().setAnimationSpeed(1);
-				} else {
-					event.getController().setAnimationSpeed(2);
-				}
 			}
 		}
 		return PlayState.CONTINUE;
@@ -254,12 +245,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 	}
 
 	public boolean tryAttack(Entity target) {
-		var zombieObstacleEntity = this.getPassengerList()
-				.stream()
-				.filter(e -> e instanceof ZombieObstacleEntity)
-				.map(e -> (ZombieObstacleEntity) e)
-				.findFirst();
-		if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.inLaunchAnimation && zombieObstacleEntity.isEmpty() && this.getTarget() != null) {
+		if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.inLaunchAnimation && this.getTarget() != null) {
 			return super.tryAttack(this.getTarget());
 		}
 		else {
@@ -268,11 +254,15 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 	}
 
 	//Launch Basket
-	public void tryLaunch(Entity target){
+	public void tryLaunch(Entity target) {
 		ShootingBasketballEntity basketballEntity = new ShootingBasketballEntity(PvZEntity.BASKETBALLPROJ, this.world);
-		if (launchAnimation == 29 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN)){
-			Vec3d targetPos = target.getPos();
+		if (launchAnimation == 29 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN)) {
+			if (this.getTarget() instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.hasVehicle()){
+				target = zombiePropEntity.getVehicle();
+			}
 			if (this.getTarget() != null) {
+				assert target != null;
+				Vec3d targetPos = target.getPos();
 				double d = this.squaredDistanceTo(targetPos);
 				float df = (float) d;
 				float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
@@ -281,14 +271,15 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 				basketballEntity.setVelocity(vel.getX(), -3.9200000762939453 + 28 / (h * 2.2), vel.getZ(), 1F, 0F);
 				basketballEntity.updatePosition(projPos.getX(), projPos.getY(), projPos.getZ());
 				basketballEntity.setOwner(this);
-				basketballEntity.getTarget(this.getTarget());
+				basketballEntity.getTarget((LivingEntity) target);
 			}
 			else {
 				basketballEntity.setVelocity(random.range(-1, 1), 0, random.range(-1, 1), 1F, 0F);
 			}
-			if (this.getHypno()){
+			if (this.getHypno()) {
 				basketballEntity.isHypno = true;
 			}
+
 			basketballEntity.setOwner(this);
 			this.playSound(PvZCubed.PEASHOOTEVENT, 1F, 1);
 			this.world.spawnEntity(basketballEntity);
@@ -310,6 +301,9 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 				.map(e -> (ZombieObstacleEntity) e)
 				.findFirst();
 		double random = Math.random();
+		if (zombieObstacleEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.BASKETBALLBIN) && !this.CollidesWithObstacle().hasVehicle()){
+			this.CollidesWithObstacle().startRiding(this, true);
+		}
 		if (random <= 0.0075 && zombieObstacleEntity.isPresent() && getTarget() != null && this.squaredDistanceTo(this.getTarget()) <= 225 && !this.inLaunchAnimation) {
 			this.launchAnimation = 80 * animationMultiplier;
 			this.inLaunchAnimation = true;

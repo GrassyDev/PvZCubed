@@ -204,6 +204,19 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 	}
 
+	public ZombieObstacleEntity CollidesWithObstacle(){
+		List<ZombieObstacleEntity> list = world.getNonSpectatingEntities(ZombieObstacleEntity.class, entityBox.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
+		ZombieObstacleEntity obstacleEntity = null;
+		if (!list.isEmpty()) {
+			for (ZombieObstacleEntity zombieObstacleEntity : list) {
+				if (!zombieObstacleEntity.hasVehicle() && !zombieObstacleEntity.isDead()) {
+					obstacleEntity = zombieObstacleEntity;
+				}
+			}
+		}
+		return obstacleEntity;
+	}
+
 	boolean pop = true;
 
 	public void tick() {
@@ -253,6 +266,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			this.setTarget(null);
 		}
 		if (this.getTarget() instanceof FireTrailEntity){
+			this.setTarget(null);
+		}
+		if (this.getTarget() instanceof ZombieObstacleEntity zombieObstacleEntity && !zombieObstacleEntity.getHypno() && !this.getHypno()){
 			this.setTarget(null);
 		}
 

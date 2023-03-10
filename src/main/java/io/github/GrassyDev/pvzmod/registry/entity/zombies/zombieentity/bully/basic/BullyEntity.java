@@ -200,17 +200,17 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 				else {
 					event.getController().setAnimation(new AnimationBuilder().loop("bully.walk"));
 				}
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				}
+				else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.625);
+				}
+				else {
+					event.getController().setAnimationSpeed(1.25);
+				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("bully.idle"));
-			}
-			if (this.isFrozen) {
-				event.getController().setAnimationSpeed(0);
-			}
-			else if (this.isIced) {
-				event.getController().setAnimationSpeed(0.625);
-			}
-			else {
-				event.getController().setAnimationSpeed(1.25);
 			}
 		}
 		return PlayState.CONTINUE;
@@ -336,7 +336,7 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 	@Override
 	public void updatePassengerPosition(Entity passenger) {
 		if (this.getVariant().equals(BullyVariants.BASKET) ||
-				this.getVariant().equals(BullyVariants.BASKET)) {
+				this.getVariant().equals(BullyVariants.BASKETHYPNO)) {
 			if (this.hasPassenger(passenger)) {
 				float g = (float) ((this.isRemoved() ? 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
 				float f = 0.9F;
@@ -502,7 +502,7 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*GOALS*~//~*~/ **/
 
-	class TrackOwnerTargetGoal extends TrackTargetGoal {
+	protected class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
         public TrackOwnerTargetGoal(PathAwareEntity mob) {
