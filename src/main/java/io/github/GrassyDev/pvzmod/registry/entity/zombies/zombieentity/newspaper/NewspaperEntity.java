@@ -289,7 +289,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()) &&
-					!(livingEntity instanceof ZombiePropEntity);
+					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
 		////////// Must-Protect Plants ///////
 		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
@@ -309,7 +309,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					!(livingEntity instanceof ZombiePropEntity);
+					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);

@@ -79,7 +79,7 @@ public class PeaPodSeeds extends Item implements FabricItem {
 					} else {
 						peapodEntity.setVariant(PeapodVariants.DEFAULT);
 					}
-					world.spawnEntity(peapodEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(peapodEntity);
 					world.playSound((PlayerEntity) null, peapodEntity.getX(), peapodEntity.getY(), peapodEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 

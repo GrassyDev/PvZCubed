@@ -106,7 +106,7 @@ public class TangleKelpSeeds extends Item implements FabricItem {
 								aquaticEntity.originalVec3d = aquaticEntity.getPos();
 								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));
 								if (fluidState.getFluid() == Fluids.WATER) {
-									world.spawnEntity(aquaticEntity);
+									((ServerWorld) world).spawnEntityAndPassengers(aquaticEntity);
 									world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 									world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, SoundCategory.BLOCKS, 0.25f, 0.8F);
 								} else {

@@ -53,7 +53,7 @@ public class SuperFanImpEgg extends Item {
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					impEntity.refreshPositionAndAngles(impEntity.getX(), impEntity.getY(), impEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(impEntity);
+                    ((ServerWorld) world).spawnEntityAndPassengers(impEntity);
 					impEntity.setPersistent();
                     world.playSound((PlayerEntity) null, impEntity.getX(), impEntity.getY(), impEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 

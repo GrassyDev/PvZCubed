@@ -114,7 +114,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -149,7 +149,7 @@ public abstract class PlantEntity extends GolemEntity {
 					else {
 						plantEntity.setVariant(SunflowerVariants.DEFAULT);
 					}
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 					plantEntity.sunProducingTime = 600;
@@ -175,7 +175,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -197,7 +197,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -227,7 +227,7 @@ public abstract class PlantEntity extends GolemEntity {
 					} else {
 						plantEntity.setVariant(SnowPeaVariants.DEFAULT);
 					}
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -259,7 +259,7 @@ public abstract class PlantEntity extends GolemEntity {
 					} else {
 						plantEntity.setVariant(ChomperVariants.DEFAULT);
 					}
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -281,7 +281,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -303,7 +303,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					plantEntity.setPuffshroomPermanency(PuffshroomEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -326,7 +326,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 					plantEntity.sunProducingTime = 100;
@@ -357,7 +357,7 @@ public abstract class PlantEntity extends GolemEntity {
 					} else {
 						plantEntity.setVariant(FumeshroomVariants.DEFAULT);
 					}
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -379,7 +379,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -409,7 +409,7 @@ public abstract class PlantEntity extends GolemEntity {
 					} else {
 						plantEntity.setVariant(ScaredyshroomVariants.DEFAULT);
 					}
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -431,7 +431,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -453,7 +453,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -476,7 +476,7 @@ public abstract class PlantEntity extends GolemEntity {
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
 					plantEntity.originalVec3d = plantEntity.getPos();
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -498,7 +498,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -520,7 +520,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -542,7 +542,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -564,7 +564,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -586,7 +586,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -616,7 +616,7 @@ public abstract class PlantEntity extends GolemEntity {
 					} else {
 						plantEntity.setVariant(SnowQueenPeaVariants.DEFAULT);
 					}
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -638,7 +638,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					plantEntity.setPuffshroomPermanency(IcebergLettuceEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -667,7 +667,7 @@ public abstract class PlantEntity extends GolemEntity {
 					} else {
 						plantEntity.setVariant(PeapodVariants.DEFAULT);
 					}
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -689,7 +689,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -711,7 +711,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -733,7 +733,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}
@@ -755,7 +755,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					plantEntity.setPuffshroomPermanency(SmallNutEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -778,7 +778,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					plantEntity.setPuffshroomPermanency(ButtonshroomEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -801,7 +801,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					plantEntity.setPuffshroomPermanency(BombSeedlingEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -824,7 +824,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					plantEntity.setPuffshroomPermanency(WeenieBeanieEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -847,7 +847,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					plantEntity.setPuffshroomPermanency(SunflowerSeedEntity.PuffPermanency.PERMANENT);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
@@ -870,7 +870,7 @@ public abstract class PlantEntity extends GolemEntity {
 
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
-					world.spawnEntity(plantEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 				}

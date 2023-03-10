@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cocon
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -171,7 +172,7 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 
 				if (bl) {
 					if (livingEntity instanceof Monster &&
-							!(livingEntity instanceof ZombieShieldEntity) &&
+							!(livingEntity instanceof ZombieShieldEntity ) &&
 							!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 									&& (generalPvZombieEntity.getHypno()))) {
 						ZombiePropEntity zombiePropEntity3 = null;
@@ -185,7 +186,7 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 						}
 						else if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
 							if (damage > livingEntity.getHealth() &&
-									!(livingEntity instanceof ZombieShieldEntity) &&
+									!(livingEntity instanceof ZombieShieldEntity ) &&
 									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
 								float damage2 = damage - livingEntity.getHealth();
 								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);

@@ -53,7 +53,7 @@ public class GargantuarEgg extends Item {
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					gargantuarEntity.refreshPositionAndAngles(gargantuarEntity.getX(), gargantuarEntity.getY(), gargantuarEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(gargantuarEntity);
+                    ((ServerWorld) world).spawnEntityAndPassengers(gargantuarEntity);
 					gargantuarEntity.setPersistent();
                     world.playSound((PlayerEntity) null, gargantuarEntity.getX(), gargantuarEntity.getY(), gargantuarEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 

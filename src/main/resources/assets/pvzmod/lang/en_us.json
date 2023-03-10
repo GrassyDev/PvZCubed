@@ -376,6 +376,15 @@
   "entity.pvzmod.defensiveend_newyear": "Defensive End",
   "entity.pvzmod.defensiveend_newyear_hypnotized": "Hypnotized Defensive End",
 
+  "entity.pvzmod.bully": "Bully Zombie",
+  "item.pvzmod.bully_egg": "Bully Zombie",
+  "entity.pvzmod.bully_hypnotized": "Hypnotized Bully Zombie",
+
+  "entity.pvzmod.basketballcarrier": "Basketball Carrier Zombie",
+  "item.pvzmod.basketballcarrier_egg": "Basketball Carrier Zombie",
+  "entity.pvzmod.basketballcarrier_hypnotized": "Hypnotized Basketball Carrier Zombie",
+  "entity.pvzmod.basketballbin": "Basketball Bin",
+
   "entity.pvzmod.locustswarm": "Locust Swarm",
   "item.pvzmod.locustswarm_egg": "Locust Swarm",
 

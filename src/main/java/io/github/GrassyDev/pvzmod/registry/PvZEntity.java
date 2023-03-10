@@ -138,12 +138,18 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit.S
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit.SpitEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.zombies.ShootingBasketballEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.zombies.ShootingBasketballEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm.LocustSwarmEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm.LocustswarmEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basic.BullyEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basic.BullyEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basketballcarrier.BasketballCarrierEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basketballcarrier.BasketballCarrierEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
@@ -168,6 +174,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.S
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntity;
@@ -879,6 +887,43 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<JetpackEntity>create(SpawnGroup.MONSTER, JetpackEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 2.4f)).build()
 	);
 
+	public static final EntityType<BullyEntity> BULLY = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "bully"),
+			QuiltEntityTypeBuilder.<BullyEntity>create(SpawnGroup.MONSTER, BullyEntity::new).setDimensions(EntityDimensions.fixed(0.825f, 2.2f)).build()
+	);
+
+	public static final EntityType<BullyEntity> BULLYHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "bully_hypnotozed"),
+			QuiltEntityTypeBuilder.<BullyEntity>create(SpawnGroup.MONSTER, BullyEntity::new).setDimensions(EntityDimensions.fixed(0.825f, 2.2f)).build()
+	);
+
+	public static final EntityType<BasketballCarrierEntity> BASKETBALLCARRIER = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "basketballcarrier"),
+			QuiltEntityTypeBuilder.<BasketballCarrierEntity>create(SpawnGroup.MONSTER, BasketballCarrierEntity::new).setDimensions(EntityDimensions.fixed(0.825f, 2.2f)).build()
+	);
+
+	public static final EntityType<BasketballCarrierEntity> BASKETBALLCARRIERHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "basketballcarrier_hypnotized"),
+			QuiltEntityTypeBuilder.<BasketballCarrierEntity>create(SpawnGroup.MONSTER, BasketballCarrierEntity::new).setDimensions(EntityDimensions.fixed(0.825f, 2.2f)).build()
+	);
+
+	public static final EntityType<MetalObstacleEntity> BASKETBALLBIN = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "basketballbin"),
+			QuiltEntityTypeBuilder.<MetalObstacleEntity>create(SpawnGroup.MONSTER, MetalObstacleEntity::new).setDimensions(EntityDimensions.fixed(1f, 2f)).build()
+	);
+
+	public static final EntityType<ShootingBasketballEntity> BASKETBALLPROJ = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "basketballproj"),
+			QuiltEntityTypeBuilder.<ShootingBasketballEntity>create(SpawnGroup.MONSTER, ShootingBasketballEntity::new).setDimensions(EntityDimensions.fixed(1f, 2f)).build()
+	);
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final EntityType<BasicGraveEntity> BASICGRAVESTONE = Registry.register(
@@ -1224,6 +1269,21 @@ public class PvZEntity implements ModInitializer {
 		EntityRendererRegistry.register(PvZEntity.JETPACK, JetpackEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACKHYPNO, JetpackEntity.createJetpackAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.JETPACKHYPNO, JetpackEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BULLY, BullyEntity.createBullyAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BULLY, BullyEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BULLYHYPNO, BullyEntity.createBullyAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BULLYHYPNO, BullyEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BASKETBALLCARRIER, BasketballCarrierEntity.createBasketballCarrierAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BASKETBALLCARRIER, BasketballCarrierEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BASKETBALLCARRIERHYPNO, BasketballCarrierEntity.createBasketballCarrierAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BASKETBALLCARRIERHYPNO, BasketballCarrierEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BASKETBALLBIN, MetalObstacleEntity.createBasketBallBinObstacleAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BASKETBALLBIN, MetalObstacleEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.BASKETBALLPROJ, ShootingBasketballEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LOCUSTSWARM, LocustSwarmEntity.createLocustSwarmAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.LOCUSTSWARM, LocustswarmEntityRenderer::new);

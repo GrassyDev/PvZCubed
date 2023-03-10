@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -223,7 +224,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 							}
 							if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
 								if (damage > livingEntity.getHealth() &&
-										!(livingEntity instanceof ZombieShieldEntity) &&
+										!(livingEntity instanceof ZombieShieldEntity ) &&
 										livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
 									float damage2 = damage - livingEntity.getHealth();
 									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
@@ -240,7 +241,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 								else {
 									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 								}
-								if (!(livingEntity instanceof ZombieShieldEntity)) {
+								if (!(livingEntity instanceof ZombieShieldEntity )) {
 									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
 								}
 								if (!livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {

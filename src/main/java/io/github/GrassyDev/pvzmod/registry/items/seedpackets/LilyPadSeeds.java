@@ -101,7 +101,7 @@ public class LilyPadSeeds extends Item implements FabricItem {
 							if (list.isEmpty()){
 								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
-								world.spawnEntity(aquaticEntity);
+								((ServerWorld) world).spawnEntityAndPassengers(aquaticEntity);
 								aquaticEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
 								world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));

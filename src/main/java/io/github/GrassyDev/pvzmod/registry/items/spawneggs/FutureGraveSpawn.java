@@ -53,7 +53,7 @@ public class FutureGraveSpawn extends Item {
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     basicGraveEntity.refreshPositionAndAngles(basicGraveEntity.getX(), basicGraveEntity.getY(), basicGraveEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(basicGraveEntity);
+                    ((ServerWorld) world).spawnEntityAndPassengers(basicGraveEntity);
 					basicGraveEntity.setPersistent();
                     world.playSound((PlayerEntity) null, basicGraveEntity.getX(), basicGraveEntity.getY(), basicGraveEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 

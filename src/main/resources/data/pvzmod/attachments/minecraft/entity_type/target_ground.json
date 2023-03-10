@@ -2,6 +2,7 @@
   "replace": false,
   "values": {
     "pvzmod:defensiveend": true,
-    "pvzmod:gargantuar": true
+    "pvzmod:gargantuar": true,
+    "pvzmod:basketballbin": true
   }
 }

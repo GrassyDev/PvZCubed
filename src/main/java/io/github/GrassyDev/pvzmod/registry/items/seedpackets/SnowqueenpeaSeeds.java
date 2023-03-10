@@ -107,7 +107,7 @@ public class SnowqueenpeaSeeds extends Item implements FabricItem {
 					} else {
 						snowpeaEntity.setVariant(SnowQueenPeaVariants.DEFAULT);
 					}
-					world.spawnEntity(snowpeaEntity);
+					((ServerWorld) world).spawnEntityAndPassengers(snowpeaEntity);
 					world.playSound((PlayerEntity) null, snowpeaEntity.getX(), snowpeaEntity.getY(), snowpeaEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 

@@ -207,7 +207,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 						}
 						if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
 							if (damage > livingEntity.getHealth() &&
-									!(livingEntity instanceof ZombieShieldEntity) &&
+									!(livingEntity instanceof ZombieShieldEntity ) &&
 									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
 								float damage2 = damage - livingEntity.getHealth();
 								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
@@ -217,7 +217,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 							}
 							if (!livingEntity.hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
-								if (!(livingEntity instanceof ZombieShieldEntity)) {
+								if (!(livingEntity instanceof ZombieShieldEntity )) {
 									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 								}
 							}

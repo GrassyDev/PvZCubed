@@ -88,7 +88,7 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 			vehicle.setOnFire(false);
 		}
 		if (this.getHealth() <= 0 && this.isOnFire() && vehicle != null && !(this instanceof ZombieShieldEntity)){
-			vehicle.setOnFireFor(this.getFireTicks());
+			vehicle.setOnFireFor(this.getFireTicks() / 20);
 		}
 	}
 

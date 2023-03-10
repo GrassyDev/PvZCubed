@@ -114,22 +114,11 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 	protected int damageCounter = 0;
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
-		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
 		ZombiePropEntity zombiePropEntity = null;
 		for (Entity entity1 : entity.getPassengerList()) {
 			if (entity1 instanceof ZombiePropEntity zpe) {
 				zombiePropEntity = zpe;
-			}
-		}
-		if (!world.isClient && entity instanceof Monster monster &&
-				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			if (entity != entityStore && entityStoreVehicle != entity){
-				++this.damageCounter;
-			}
-			else if (entity != entityStore && zombiePropEntity instanceof ZombieShieldEntity){
-				++this.damageCounter;
 			}
 		}
 		if (!world.isClient && entity instanceof Monster monster &&

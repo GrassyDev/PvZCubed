@@ -9,6 +9,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantua
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -172,8 +173,8 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 		this.goalSelector.add(2, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 15.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					!(livingEntity instanceof ZombiePropEntity) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
@@ -207,7 +208,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				passenger = zpe;
 			}
 		}
-		if (passenger instanceof ZombieShieldEntity zombieShieldEntity) {
+		if (passenger instanceof ZombieShieldEntity zombieShieldEntity && !(zombieShieldEntity instanceof ZombieObstacleEntity)) {
 			if (i <= 0) {
 				this.attackTicksLeft = 200;
 				this.world.sendEntityStatus(this, (byte) 5);
@@ -231,7 +232,8 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 		}
 		if (target instanceof GraveEntity ||
 				target instanceof ImpEntity ||
-		        target instanceof GargantuarEntity) {
+		        target instanceof GargantuarEntity ||
+				target instanceof ZombieObstacleEntity) {
 			Entity damaged = target;
 			if (passenger != null){
 				damaged = passenger;

@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"basketballbin.idle": {
+			"loop": true,
+			"bones": {
+				"bin": {
+					"scale": {
+						"vector": [0.75, 0.75, 0.75]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

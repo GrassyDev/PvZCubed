@@ -34,8 +34,6 @@ public class PvZCubed implements ModInitializer {
 			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "target_ground")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, String> PLANT_LOCATION =
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "plant_location")).build();
-	public static final RegistryEntryAttachment<EntityType<?>, String> ZOMBIE_LOCATION =
-			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_location")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, String> PLANT_TYPE =
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "plant_type")).build();
 
@@ -157,6 +155,8 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
 				stacks.add(new ItemStack(ModItems.NEWYEARIMPEGG));
 				stacks.add(new ItemStack(ModItems.DEFENSIVEENDEGG));
+				stacks.add(new ItemStack(ModItems.BULLYEGG));
+				stacks.add(new ItemStack(ModItems.BASKETBALLCARRIEREGG));
 			}).build();
 
 	public static final ItemGroup PVZGRAVES = FabricItemGroupBuilder.create(

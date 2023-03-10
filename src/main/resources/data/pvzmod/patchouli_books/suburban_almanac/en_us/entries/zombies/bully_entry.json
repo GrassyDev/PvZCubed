@@ -1,0 +1,51 @@
+{
+  "name": "Bully Zombie",
+  "icon": "pvzmod:bully_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 666,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)110",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Slow",
+        "$(br2)$(#bd951a)Everyone calls him Bully Zombie just because of his looks, but in reality he has never bullied anyone! He rescues kittens stuck in trees, he properly sorts and takes out the trash, and he helps out at the Bullied Nerds Rehabilitation Center. He's genuinely just a nice guy."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/bully.png"
+      ],
+      "title": "Basic Zombie",
+      "border": "true",
+      "text": "$(#25228d)A tough zombie that doesn't depend on armor."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/potatomine_entry",
+        "pvzmod:plants/tallnut_entry",
+        "pvzmod:plants/squash_entry",
+        "pvzmod:plants/pepperpult_entry",
+        "pvzmod:plants/spikeweed_entry",
+        "pvzmod:plants/admiralnavybean_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Jurassic Bully"
+      ]
+    }
+  ]
+}
