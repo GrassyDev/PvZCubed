@@ -224,6 +224,13 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("bully.idle"));
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				} else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				} else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}
 		return PlayState.CONTINUE;
@@ -301,7 +308,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 				.map(e -> (ZombieObstacleEntity) e)
 				.findFirst();
 		double random = Math.random();
-		if (zombieObstacleEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.BASKETBALLBIN) && !this.CollidesWithObstacle().hasVehicle()){
+		if (zombieObstacleEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.BASKETBALLBIN) && !this.CollidesWithObstacle().hasVehicle() && !this.CollidesWithObstacle().beingEaten){
 			this.CollidesWithObstacle().startRiding(this, true);
 		}
 		if (random <= 0.0075 && zombieObstacleEntity.isPresent() && getTarget() != null && this.squaredDistanceTo(this.getTarget()) <= 225 && !this.inLaunchAnimation) {

@@ -43,6 +43,11 @@
 							"easing": "easeInSine"
 						}
 					}
+				},
+				"bin": {
+					"scale": {
+						"vector": [0.75, 0.75, 0.75]
+					}
 				}
 			}
 		},
@@ -95,6 +100,16 @@
 					},
 					"position": {
 						"vector": [0, -3, 0]
+					}
+				}
+			}
+		},
+		"obstacle.eating": {
+			"loop": true,
+			"bones": {
+				"gravebuster": {
+					"scale": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}

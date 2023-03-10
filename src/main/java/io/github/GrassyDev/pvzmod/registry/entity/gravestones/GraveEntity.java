@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -28,6 +29,8 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	/** For Zombies that can summon other zombies**/
 
 	protected int spellTicks;
+
+	public boolean beingEaten = false;
 
 	private static final TrackedData<Byte> SPELL;
 	private GraveEntity.Spell spell;
@@ -56,11 +59,21 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		SPELL = DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
+	public EntityType<? extends GraveEntity> entityBox = PvZEntity.BASICGRAVESTONE;
+
 	public void tick() {
 		super.tick();
+		List<GravebusterEntity> list = world.getNonSpectatingEntities(GravebusterEntity.class, entityBox.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
+		this.beingEaten = !list.isEmpty();
 		if (this.hasStatusEffect(PvZCubed.HYPNOTIZED)){
 			this.removeStatusEffect(PvZCubed.HYPNOTIZED);
 		}
+	}
+
+	@Override
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		super.discard();
 	}
 
 	protected enum Spell {

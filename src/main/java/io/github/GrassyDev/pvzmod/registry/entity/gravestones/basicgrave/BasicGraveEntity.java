@@ -85,7 +85,10 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (tiltchance <= 0.5) {
+		if (beingEaten){
+			event.getController().setAnimation(new AnimationBuilder().loop("obstacle.eating"));
+		}
+        else if (tiltchance <= 0.5) {
             event.getController().setAnimation(new AnimationBuilder().loop("gravestone.idle"));
         }
         else {

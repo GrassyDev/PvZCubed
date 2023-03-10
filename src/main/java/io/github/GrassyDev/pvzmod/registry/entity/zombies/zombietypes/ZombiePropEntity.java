@@ -43,6 +43,12 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 	}
 
 	@Override
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		super.discard();
+	}
+
+	@Override
 	protected SoundEvent getDeathSound() {
 		return PvZCubed.SILENCEVENET;
 	}

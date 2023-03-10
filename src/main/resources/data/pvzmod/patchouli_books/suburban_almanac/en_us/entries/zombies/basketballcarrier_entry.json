@@ -30,14 +30,14 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/pepperpult_entry",
         "pvzmod:plants/snowqueenpea_entry",
+        "pvzmod:plants/firepea_entry",
         "pvzmod:plants/cattail_entry",
-        "pvzmod:plants/chomper_entry",
         "pvzmod:plants/squash_entry",
         "pvzmod:plants/jalapeno_entry",
         "pvzmod:plants/pepperpult_entry",
-        "pvzmod:plants/spikerock_entry"
+        "pvzmod:plants/spikerock_entry",
+        "pvzmod:plants/gravebuster_entry"
       ]
     },
     {

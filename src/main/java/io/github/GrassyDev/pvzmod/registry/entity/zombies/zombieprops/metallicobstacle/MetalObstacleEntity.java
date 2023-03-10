@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallico
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.spikeweed.SpikeweedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
@@ -67,7 +68,7 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 				this.CollidesWithPlant().kill();
 				this.remove(RemovalReason.KILLED);
 			}
-			else {
+			else if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof GravebusterEntity)) {
 				this.CollidesWithPlant().kill();
 			}
 		}
@@ -89,7 +90,12 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(new AnimationBuilder().loop("basketballbin.idle"));
+		if (beingEaten){
+			event.getController().setAnimation(new AnimationBuilder().loop("obstacle.eating"));
+		}
+		else {
+			event.getController().setAnimation(new AnimationBuilder().loop("gravestone.idle"));
+		}
         return PlayState.CONTINUE;
     }
 

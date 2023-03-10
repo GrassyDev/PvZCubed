@@ -303,7 +303,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 			}
 			else if (this.CollidesWithPlant() != null){
 				if (this.isOnGround() || this.isInsideWaterOrBubbleColumn()){
-					this.setVelocity(0, -0.05, 0);
+					this.setVelocity(0, -0.3, 0);
 				}
 				else {
 					this.setVelocity(0, -1, 0);

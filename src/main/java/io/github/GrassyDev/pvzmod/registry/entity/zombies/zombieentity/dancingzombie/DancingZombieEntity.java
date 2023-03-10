@@ -279,7 +279,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 				this.setTarget(CollidesWithPlayer());
 			}
 			else if (this.CollidesWithPlant() != null){
-				this.setVelocity(0, -0.05, 0);
+				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant());
 			}
 		}

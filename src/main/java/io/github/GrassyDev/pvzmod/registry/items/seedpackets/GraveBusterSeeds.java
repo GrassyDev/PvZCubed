@@ -4,9 +4,11 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,6 +26,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GraveBusterSeeds extends Item implements FabricItem {
@@ -97,8 +100,10 @@ public class GraveBusterSeeds extends Item implements FabricItem {
             ItemStack itemStack = context.getStack();
             Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
             Box box = PvZEntity.GRAVEBUSTER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-			List<GraveEntity> list = world.getNonSpectatingEntities(GraveEntity.class, box.expand(30));
-                if (world instanceof ServerWorld && !list.isEmpty()) {
+			List<LivingEntity> list = new ArrayList<>();
+			list.addAll(world.getNonSpectatingEntities(GraveEntity.class, box.expand(0)));
+			list.addAll(world.getNonSpectatingEntities(ZombieObstacleEntity.class, box.expand(0)));
+			if (world instanceof ServerWorld && !list.isEmpty()) {
                     ServerWorld serverWorld = (ServerWorld) world;
                     GravebusterEntity gravebusterEntity = (GravebusterEntity) PvZEntity.GRAVEBUSTER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (gravebusterEntity == null) {

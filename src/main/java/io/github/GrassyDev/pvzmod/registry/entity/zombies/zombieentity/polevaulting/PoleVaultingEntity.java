@@ -39,6 +39,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -53,6 +54,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_TYPE;
 
 public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
@@ -333,7 +335,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
-			else if (this.CollidesWithPlant() != null) {
+			/**else if (this.CollidesWithPlant() != null) {
 				if (!this.isInsideWaterOrBubbleColumn()){
 					if (this.CollidesWithPlant() != null) {
 						PlantEntity plantEntity = this.CollidesWithPlant();
@@ -346,6 +348,20 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 				else {
 					this.setTarget(CollidesWithPlant());
 				}
+			}**/
+			if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof LilyPadEntity) && this.getPoleStage() && this.onGround && !this.isInsideWaterOrBubbleColumn()){
+				Vec3d vec3d = new Vec3d(0.4, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+				this.setPoleStage(PoleStage.NOPOLE);
+				this.playSound(PvZCubed.POLEVAULTEVENT, 0.75f, 1);
+			}
+			else if (this.CollidesWithPlant() != null && PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("tall") && !this.onGround && !this.isInsideWaterOrBubbleColumn()){
+				Vec3d vec3d = new Vec3d(-0.175, -0.3, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			}
+			else if (this.CollidesWithPlant() != null && ((this.onGround && !this.getPoleStage()) || this.isInsideWaterOrBubbleColumn())){
+				this.setVelocity(0, -0.3, 0);
+				this.setTarget(CollidesWithPlant());
 			}
 		}
 	}

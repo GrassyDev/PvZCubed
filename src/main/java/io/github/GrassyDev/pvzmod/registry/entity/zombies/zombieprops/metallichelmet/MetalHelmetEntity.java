@@ -115,13 +115,8 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		if (this.getVehicle() != null){
-			if (this.dead){
-				this.discard();
-			}
-		}
-		else {
-			this.discard();
+		if (this.getVehicle() == null){
+			this.kill();
 		}
 	}
 

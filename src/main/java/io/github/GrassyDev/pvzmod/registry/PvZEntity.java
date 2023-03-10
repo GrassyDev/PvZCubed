@@ -914,7 +914,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<MetalObstacleEntity> BASKETBALLBIN = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "basketballbin"),
-			QuiltEntityTypeBuilder.<MetalObstacleEntity>create(SpawnGroup.MONSTER, MetalObstacleEntity::new).setDimensions(EntityDimensions.fixed(1f, 2f)).build()
+			QuiltEntityTypeBuilder.<MetalObstacleEntity>create(SpawnGroup.MONSTER, MetalObstacleEntity::new).setDimensions(EntityDimensions.fixed(0.825f, 2f)).build()
 	);
 
 	public static final EntityType<ShootingBasketballEntity> BASKETBALLPROJ = Registry.register(

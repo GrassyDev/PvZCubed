@@ -12,26 +12,15 @@
 			},
 			"bones": [
 				{
-					"name": "bb_main",
+					"name": "gravebuster",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [-7, -0.9, -7], "size": [14, 1, 10], "uv": [0, 42]}
 					]
 				},
 				{
-					"name": "grass",
-					"pivot": [-2.5, 3, -2]
-				},
-				{
-					"name": "flower1",
-					"pivot": [3.5, 3, -4]
-				},
-				{
-					"name": "flower2",
-					"pivot": [-2.25, 3, -5]
-				},
-				{
 					"name": "grave",
+					"parent": "gravebuster",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [-3, 15, 3], "size": [6, 1, 4], "uv": [33, 19]},
@@ -39,6 +28,21 @@
 						{"origin": [-6, 12, 3], "size": [12, 2, 4], "uv": [29, 32]},
 						{"origin": [-5, 14, 3], "size": [10, 1, 4], "uv": [33, 13]}
 					]
+				},
+				{
+					"name": "grass",
+					"parent": "gravebuster",
+					"pivot": [-2.5, 3, -2]
+				},
+				{
+					"name": "flower1",
+					"parent": "gravebuster",
+					"pivot": [3.5, 3, -4]
+				},
+				{
+					"name": "flower2",
+					"parent": "gravebuster",
+					"pivot": [-2.25, 3, -5]
 				}
 			]
 		}

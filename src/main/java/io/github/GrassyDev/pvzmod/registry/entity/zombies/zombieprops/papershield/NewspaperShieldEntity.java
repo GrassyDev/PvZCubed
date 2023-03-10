@@ -101,13 +101,8 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 
 	public void tick() {
 		super.tick();
-		if (this.getVehicle() != null){
-			if (this.dead){
-				this.discard();
-			}
-		}
-		else {
-			this.discard();
+		if (this.getVehicle() == null){
+			this.kill();
 		}
 		if (this.isOnFire()){
 			this.kill();

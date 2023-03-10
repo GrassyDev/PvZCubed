@@ -37,6 +37,6 @@ public class MetalObstacleEntityModel extends AnimatedGeoModel<MetalObstacleEnti
     @Override
     public Identifier getAnimationResource(MetalObstacleEntity object)
     {
-        return new Identifier ("pvzmod", "animations/basketballbin.json");
+        return new Identifier ("pvzmod", "animations/gravestone.json");
     }
 }
