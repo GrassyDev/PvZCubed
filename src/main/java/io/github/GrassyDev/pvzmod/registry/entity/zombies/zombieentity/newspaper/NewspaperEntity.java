@@ -227,14 +227,25 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.25);
+					if (this.getType().equals(PvZEntity.SUNDAYEDITION) || this.getType().equals(PvZEntity.SUNDAYEDITIONHYPNO)){
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						}
+						else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.375);
+						}
+						else {
+							event.getController().setAnimationSpeed(0.75);
+						}
 					}
 					else {
-						event.getController().setAnimationSpeed(0.5);
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						} else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.25);
+						} else {
+							event.getController().setAnimationSpeed(0.5);
+						}
 					}
 				}
 			} else {
@@ -372,7 +383,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 					maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-8D));
 				}
 				else {
-					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.11D));
+					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.09D));
 					maxStrengthAttribute.addPersistentModifier(createStrengthModifier(-4D));
 				}
 				this.speedSwitch = true;
@@ -437,7 +448,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createNewspaperAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.21D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);

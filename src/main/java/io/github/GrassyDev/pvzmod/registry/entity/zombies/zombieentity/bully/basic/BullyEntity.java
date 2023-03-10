@@ -78,6 +78,7 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
 		this.getNavigation().setCanSwim(true);
+		this.speedSwitch = false;
 		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
@@ -317,7 +318,6 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 
 		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 		if (zombieObstacleEntity.isEmpty()) {
-			this.world.sendEntityStatus(this, (byte) 30);
 			if (this.speedSwitch) {
 				assert maxSpeedAttribute != null;
 				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
@@ -325,11 +325,10 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 			}
 		}
 		else {
-			this.world.sendEntityStatus(this, (byte) 31);
 			if (!this.speedSwitch){
 				assert maxSpeedAttribute != null;
 				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
-				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.05D));
+				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.055D));
 				this.speedSwitch = true;
 			}
 		}

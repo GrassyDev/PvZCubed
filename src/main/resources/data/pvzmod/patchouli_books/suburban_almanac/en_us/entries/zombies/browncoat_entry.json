@@ -9,7 +9,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic",
         "$(br2)$(#bd951a)This zombie loves brains. Can't get enough. Brains, brains, brains, day in and night out. Old and stinky brains? Rotten brains? Brains clearly past their prime? Doesn't matter. Regular zombie wants 'em."
       ]
     },

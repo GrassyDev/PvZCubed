@@ -21,6 +21,8 @@ import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -56,6 +58,10 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 
 public class FootballEntity extends PvZombieEntity implements IAnimatable {
@@ -68,11 +74,16 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	boolean isFrozen;
 	boolean isIced;
 
+	public boolean speedSwitch;
+
+	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
+
     public FootballEntity(EntityType<? extends FootballEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 12;
 		this.getNavigation().setCanSwim(true);
+		this.speedSwitch = false;
 		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
@@ -224,7 +235,10 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		ZombiePropEntity zombiePropEntity = (ZombiePropEntity) this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
 			event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
-			if (this.isIced) {
+			if (this.isFrozen) {
+				event.getController().setAnimationSpeed(0);
+			}
+			else if (this.isIced) {
 				event.getController().setAnimationSpeed(0.5);
 			}
 			else {
@@ -234,20 +248,51 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				if (!this.getTackleStage()) {
 					event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
+					if (this.getType().equals(PvZEntity.BERSERKER) || this.getType().equals(PvZEntity.BERSERKERHYPNO)){
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						}
+						else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.25);
+						}
+						else {
+							event.getController().setAnimationSpeed(0.5);
+						}
+					}
+					else {
+						if (this.isFrozen) {
+							event.getController().setAnimationSpeed(0);
+						}
+						else if (this.isIced) {
+							event.getController().setAnimationSpeed(0.5);
+						}
+						else {
+							event.getController().setAnimationSpeed(1);
+						}
+					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
-			}
-			if (this.isFrozen) {
-				event.getController().setAnimationSpeed(0);
-			}
-			else if (this.isIced) {
-				event.getController().setAnimationSpeed(0.5);
-			}
-			else {
-				event.getController().setAnimationSpeed(1);
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				}
+				else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				}
+				else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}
         return PlayState.CONTINUE;
@@ -390,6 +435,15 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
+		var zombiePropEntity = this.getPassengerList()
+				.stream()
+				.filter(e -> e instanceof ZombiePropEntity)
+				.map(e -> (ZombiePropEntity) e)
+				.findFirst();
+		if (zombiePropEntity.isEmpty()){
+			this.setTackleStage(TackleStage.EATING);
+		}
+
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
@@ -398,6 +452,26 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		}
 		else {
 			this.world.sendEntityStatus(this, (byte) 72);
+		}
+
+		if (this.getVariant().equals(FootballVariants.BERSERKER) ||
+				this.getVariant().equals(FootballVariants.BERSERKERHYPNO) ) {
+			EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+			if (this.getTackleStage()) {
+				if (this.speedSwitch) {
+					assert maxSpeedAttribute != null;
+					maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+					this.speedSwitch = false;
+				}
+			}
+			else {
+				if (!this.speedSwitch){
+					assert maxSpeedAttribute != null;
+					maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.09D));
+					this.speedSwitch = true;
+				}
+			}
 		}
 	}
 
@@ -426,9 +500,18 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		return true;
 	}
 
+	public static EntityAttributeModifier createSpeedModifier(double amount) {
+		return new EntityAttributeModifier(
+				MAX_SPEED_UUID,
+				MOD_ID,
+				amount,
+				EntityAttributeModifier.Operation.ADDITION
+		);
+	}
+
 	public static DefaultAttributeContainer.Builder createFootballAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.21D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
@@ -436,7 +519,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createBerserkerAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.21D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.21D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);

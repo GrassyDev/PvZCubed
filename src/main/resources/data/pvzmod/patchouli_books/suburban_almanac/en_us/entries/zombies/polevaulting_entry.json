@@ -9,8 +9,8 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)50",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Ignores defensive plants.",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Hungry (Pole)",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Vaults over the first plant is touches, then loses its pole. Tall plants block its vault.",
         "$(br2)$(#bd951a)Some zombies take it further, aspire more, push themselves beyond the normal into greatness. That's Pole Vaulting Zombie right there. That is so him."
       ]
     },
@@ -21,15 +21,17 @@
       ],
       "title": "Basic Zombie",
       "border": "true",
-      "text": "$(#25228d)Pole Vaulting Zombie ignores your defenses."
+      "text": "$(#25228d)Pole Vaulting Zombie vaults over your defenses."
     },
     {
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/chomper_entry",
         "pvzmod:plants/repeater_entry",
-        "pvzmod:plants/squash_entry"
+        "pvzmod:plants/tallnut_entry",
+        "pvzmod:plants/peapod_entry"
       ]
     },
     {

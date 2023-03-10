@@ -19,6 +19,8 @@ import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -54,14 +56,19 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_TYPE;
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	private MobEntity owner;
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	public boolean firstAttack;
+
+	public boolean speedSwitch;
+	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 	private String controllerName = "runningcontroller";
 	boolean isFrozen;
 	boolean isIced;
@@ -72,6 +79,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		this.ignoreCameraFrustum = true;
 		this.experiencePoints = 3;
 		this.firstAttack = true;
+		this.speedSwitch = false;
 		this.getNavigation().setCanSwim(true);
 		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
@@ -336,6 +344,22 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 		else {
 			this.world.sendEntityStatus(this, (byte) 72);
 		}
+		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+		if (this.getPoleStage()){
+			if (this.speedSwitch) {
+				assert maxSpeedAttribute != null;
+				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				this.speedSwitch = false;
+			}
+		}
+		else {
+			if (!this.speedSwitch){
+				assert maxSpeedAttribute != null;
+				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.08D));
+				this.speedSwitch = true;
+			}
+		}
 	}
 
 
@@ -361,6 +385,15 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	protected boolean shouldSwimInFluids() {
 		return true;
+	}
+
+	public static EntityAttributeModifier createSpeedModifier(double amount) {
+		return new EntityAttributeModifier(
+				MAX_SPEED_UUID,
+				MOD_ID,
+				amount,
+				EntityAttributeModifier.Operation.ADDITION
+		);
 	}
 
 	public static DefaultAttributeContainer.Builder createPoleVaultingAttributes() {

@@ -11,7 +11,7 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4 (15%/second)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks (Lobbed)",
         "$(br)$(#bd951a)Melee Damage: $()$(#ff0000)8",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry, Stiff (Pushing)",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Decent, Stiff (Pushing)",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Pushes a Basket around. Throws balls at target plants if pushing a Basket. The Basket can stay around if this is defeated. Can take Baskets.",
         "$(br)$(#bd951a)\"Imp boys can't jump\" is all he heard in his past life. But thanks to Zomboss and science, he CAN jump now!"
       ]

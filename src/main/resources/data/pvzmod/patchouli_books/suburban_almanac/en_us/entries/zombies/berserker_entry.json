@@ -8,9 +8,9 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27, 333(Metal Helmet)",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)Instant-kill(Tackle, Movement/Throw), 90 (Immune), 4(normal)",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Football Zombie.",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)Instant-kill(Tackle, Movement/Throw), 90 (if Immune), 4(normal)",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Speedy(Tackling)",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Football Zombie. Slower when not tackling.",
         "$(br2)$(#bd951a)Berserker is dressed to kill and to rampage on the field. He also has no idea what a football is."
       ]
     },
@@ -21,7 +21,7 @@
       ],
       "title": "Night Zombie",
       "border": "true",
-      "text": "$(#25228d)A Football Zombie, but double the health"
+      "text": "$(#25228d)A Football Zombie, but double the health and blindingly fast."
     },
     {
       "type": "relations",

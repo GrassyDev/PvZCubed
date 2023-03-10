@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)360",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)Instant-kill, 90(Immune)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)3 Blocks",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Normal",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Smashes all types of plants. Throws an Imp at half health",
         "$(br2)$(#bd951a)Gargantuar is the embodiment of power, made real. He is a juggernaut of hunger, from which there is no escape. He is fear unleashed. Well, he's fear slightly leashed."
       ]

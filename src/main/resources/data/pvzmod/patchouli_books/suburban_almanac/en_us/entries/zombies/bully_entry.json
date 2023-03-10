@@ -9,7 +9,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)110",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)8",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Slow",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Stiff",
         "$(br2)$(#bd951a)Everyone calls him Bully Zombie just because of his looks, but in reality he has never bullied anyone! He rescues kittens stuck in trees, he properly sorts and takes out the trash, and he helps out at the Bullied Nerds Rehabilitation Center. He's genuinely just a nice guy."
       ]
     },

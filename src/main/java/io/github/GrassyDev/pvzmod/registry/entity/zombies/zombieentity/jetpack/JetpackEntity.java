@@ -293,14 +293,14 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		LivingEntity target = this.getTarget();
 		if (target != null){
 			if (target.squaredDistanceTo(this) > 4) {
-				this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1);
+				this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1.6);
 			}
 			this.setNoGravity(true);
 			this.setFlying(true);
-			if (this.getY() > target.getY() + 0.25){
+			if (this.getY() > target.getY() + 0.125){
 				this.addVelocity(0, -0.004, 0);
 			}
-			else if (this.getY() <= target.getY() + 0.25){
+			else if (this.getY() <= target.getY()){
 				this.addVelocity(0, 0.005, 0);
 				this.hovering = true;
 			}

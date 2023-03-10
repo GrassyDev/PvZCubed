@@ -9,7 +9,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)50",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Fast",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Decent",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Flight.",
         "$(br2)$(#bd951a)The Jetpack Zombie was an early adopter during the brain acquisition tech explosion of 2113. Little did he know he would be stuck with version 1.0 of the simple jetpack."
       ]

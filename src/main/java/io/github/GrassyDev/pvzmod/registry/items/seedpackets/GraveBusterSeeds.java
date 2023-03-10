@@ -72,6 +72,9 @@ public class GraveBusterSeeds extends Item implements FabricItem {
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.instant.tooltip")
 				.formatted(Formatting.UNDERLINE));
 
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.obstacleonly.tooltip")
+				.formatted(Formatting.UNDERLINE));
+
 		tooltip.add(Text.translatable("item.pvzmod.gravebuster_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));
 	}
