@@ -211,51 +211,24 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 			if (this.getPoleStage()) {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
 				}
 			} else {
 				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.running2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle2"));
-					if (this.isFrozen) {
-						event.getController().setAnimationSpeed(0);
-					}
-					else if (this.isIced) {
-						event.getController().setAnimationSpeed(0.5);
-					}
-					else {
-						event.getController().setAnimationSpeed(1);
-					}
 				}
+			}
+			if (this.isFrozen) {
+				event.getController().setAnimationSpeed(0);
+			}
+			else if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
 			}
 		}
 		return PlayState.CONTINUE;
@@ -335,20 +308,6 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
 			}
-			/**else if (this.CollidesWithPlant() != null) {
-				if (!this.isInsideWaterOrBubbleColumn()){
-					if (this.CollidesWithPlant() != null) {
-						PlantEntity plantEntity = this.CollidesWithPlant();
-						if (!((PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("reinforce") && !(plantEntity instanceof LilyPadEntity)) ||
-								PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("reinforce"))) {
-							this.setTarget(CollidesWithPlant());
-						}
-					}
-				}
-				else {
-					this.setTarget(CollidesWithPlant());
-				}
-			}**/
 			if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof LilyPadEntity) && this.getPoleStage() && this.onGround && !this.isInsideWaterOrBubbleColumn()){
 				Vec3d vec3d = new Vec3d(0.4, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
@@ -512,194 +471,6 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 		return bl;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-/**
-	private static class PoleVaultingMoveControl extends MoveControl {
-		private float targetYaw;
-		private int ticksUntilJump;
-		private final PoleVaultingEntity poleVaulting;
-		private boolean jumpOften;
-
-		public PoleVaultingMoveControl(PoleVaultingEntity poleVaulting) {
-			super(poleVaulting);
-			this.poleVaulting = poleVaulting;
-			this.targetYaw = 180.0F * poleVaulting.getYaw() / 3.1415927F;
-		}
-
-		public void look(float targetYaw, boolean jumpOften) {
-			this.targetYaw = targetYaw;
-			this.jumpOften = jumpOften;
-		}
-
-		public void move(double speed) {
-			this.speed = speed;
-			this.state = State.MOVE_TO;
-		}
-
-		public void tick() {
-			this.entity.setYaw(this.wrapDegrees(this.entity.getYaw(), this.targetYaw, 90.0F));
-			this.entity.headYaw = this.entity.getYaw();
-			this.entity.bodyYaw = this.entity.getYaw();
-			LivingEntity livingEntity = this.poleVaulting.getTarget();
-			if (livingEntity != null) {
-				if (this.poleVaulting.squaredDistanceTo(this.poleVaulting.getTarget()) <= 1) {
-					this.state = State.WAIT;
-				}
-			}
-			if (this.state == State.WAIT){
-				this.entity.setMovementSpeed(0);
-				this.poleVaulting.upwardSpeed = 0f;
-			}
-			else if (this.state != State.MOVE_TO) {
-				this.entity.setForwardSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)));
-			} else {
-				if (this.entity.isOnGround() && this.poleVaulting.getPoleStage()) {
-					if (this.poleVaulting.getTarget() != null) {
-						if (this.poleVaulting.squaredDistanceTo(this.poleVaulting.getTarget()) < 49) {
-							this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)));
-								this.poleVaulting.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 4.5));
-								this.poleVaulting.upwardSpeed = 0.35f;
-								this.poleVaulting.getJumpControl().setActive();
-								this.poleVaulting.playSound(this.poleVaulting.getJumpSound(), this.poleVaulting.getSoundVolume(), this.poleVaulting.getJumpSoundPitch());
-								this.poleVaulting.setPoleStage(PoleStage.NOPOLE);
-						} else {
-							this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)));
-						}
-					}
-				}
-				else if (this.poleVaulting.isOnGround()) {
-					this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 1.4));
-				}
-			}
-		}
-	}
-
-	static class RandomLookGoal extends Goal {
-		private final PoleVaultingEntity poleVaultingEntity;
-		private float targetYaw;
-		private int timer;
-
-		public RandomLookGoal(PoleVaultingEntity poleVaultingEntity) {
-			this.poleVaultingEntity = poleVaultingEntity;
-			this.setControls(EnumSet.of(Control.LOOK));
-		}
-
-		public boolean canStart() {
-			return this.poleVaultingEntity.getTarget() == null && (this.poleVaultingEntity.onGround || this.poleVaultingEntity.isTouchingWater() || this.poleVaultingEntity.isInLava() || this.poleVaultingEntity.hasStatusEffect(StatusEffects.LEVITATION)) && this.poleVaultingEntity.getMoveControl() instanceof PoleVaultingEntity.PoleVaultingMoveControl;
-		}
-
-		public void tick() {
-			if (this.poleVaultingEntity.getTarget() == null) {
-				if (--this.timer <= 0) {
-					this.timer = this.getTickCount(40 + this.poleVaultingEntity.getRandom().nextInt(60));
-					this.targetYaw = (float) this.poleVaultingEntity.getRandom().nextInt(360);
-				}
-
-				if (this.poleVaultingEntity.getMoveControl() instanceof PoleVaultingMoveControl) {
-					((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaultingEntity.getMoveControl()).look(this.targetYaw, false);
-				}
-			}
-		}
-	}
-
-	static class SwimmingGoal extends Goal {
-		private final PoleVaultingEntity poleVaultingEntity;
-
-		public SwimmingGoal(PoleVaultingEntity poleVaultingEntity) {
-			this.poleVaultingEntity = poleVaultingEntity;
-			this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
-			poleVaultingEntity.getNavigation().setCanSwim(true);
-		}
-
-		public boolean canStart() {
-			return (this.poleVaultingEntity.isTouchingWater() || this.poleVaultingEntity.isInLava()) && this.poleVaultingEntity.getMoveControl() instanceof PoleVaultingEntity.PoleVaultingMoveControl;
-		}
-
-		public boolean requiresUpdateEveryTick() {
-			return true;
-		}
-
-		public void tick() {
-			if (this.poleVaultingEntity.getRandom().nextFloat() < 0.8F) {
-				this.poleVaultingEntity.getJumpControl().setActive();
-			}
-
-			if (this.poleVaultingEntity.getMoveControl() instanceof PoleVaultingMoveControl) {
-				((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaultingEntity.getMoveControl()).move(2);
-			}
-		}
-	}
-
-	static class FaceTowardTargetGoal extends Goal {
-		private final PoleVaultingEntity poleVaulting;
-
-		public FaceTowardTargetGoal(PoleVaultingEntity poleVaulting) {
-			this.poleVaulting = poleVaulting;
-			this.setControls(EnumSet.of(Control.LOOK));
-		}
-
-		public boolean canStart() {
-			LivingEntity livingEntity = this.poleVaulting.getTarget();
-			if (livingEntity == null) {
-				return false;
-			} else {
-				return this.poleVaulting.canTarget(livingEntity) && this.poleVaulting.getMoveControl() instanceof PoleVaultingMoveControl;
-			}
-		}
-
-		public void start() {
-			super.start();
-		}
-
-		public boolean shouldContinue() {
-			LivingEntity livingEntity = this.poleVaulting.getTarget();
-			if (livingEntity == null) {
-				return false;
-			} else if (!this.poleVaulting.canTarget(livingEntity)) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-
-		public boolean requiresUpdateEveryTick() {
-			return true;
-		}
-
-		public void tick() {
-			LivingEntity livingEntity = this.poleVaulting.getTarget();
-			if (livingEntity != null) {
-				this.poleVaulting.lookAtEntity(livingEntity, 360.0F, 360.0F);
-			}
-
-			if (this.poleVaulting.getMoveControl() instanceof PoleVaultingMoveControl){
-				((PoleVaultingEntity.PoleVaultingMoveControl)this.poleVaulting.getMoveControl()).look(this.poleVaulting.getYaw(), true);
-			}
-		}
-	}
-
-	static class MoveGoal extends Goal {
-		private final PoleVaultingEntity poleVaulting;
-
-		public MoveGoal(PoleVaultingEntity poleVaulting) {
-			this.poleVaulting = poleVaulting;
-			this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
-		}
-
-		public boolean canStart() {
-			return !this.poleVaulting.hasVehicle();
-		}
-
-		public void tick() {
-
-			if (this.poleVaulting.getMoveControl() instanceof PoleVaultingMoveControl) {
-				((PoleVaultingEntity.PoleVaultingMoveControl) this.poleVaulting.getMoveControl()).move(1.0);
-			}
-		}
-	}
- **/
 
 	class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
