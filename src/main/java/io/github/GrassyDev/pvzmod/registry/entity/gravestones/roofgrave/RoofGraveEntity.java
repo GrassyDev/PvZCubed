@@ -179,6 +179,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 	public static boolean canRoofGraveSpawn(EntityType<? extends RoofGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
 		return world.getDifficulty() != Difficulty.PEACEFUL &&
+				world.toServerWorld().getTime() > 24000 &&
 				world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.8 &&
 				canMobSpawn(type, world, spawnReason, pos, random) &&
 				pos.getY() >= 50 &&

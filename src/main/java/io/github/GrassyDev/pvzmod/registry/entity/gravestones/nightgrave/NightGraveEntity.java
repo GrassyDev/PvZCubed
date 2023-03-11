@@ -178,8 +178,9 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 
 	public static boolean canNightGraveSpawn(EntityType<? extends NightGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getDifficulty() != Difficulty.PEACEFUL && (
-				world.getAmbientDarkness() >= 2 ||
+		return world.getDifficulty() != Difficulty.PEACEFUL &&
+				world.toServerWorld().getTime() > 12000 &&
+				(world.getAmbientDarkness() >= 2 ||
 				world.getLightLevel(LightType.SKY, pos) < 2 ) &&
 				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type)  &&
 				!checkVillager(Vec3d.ofCenter(pos), world) &&

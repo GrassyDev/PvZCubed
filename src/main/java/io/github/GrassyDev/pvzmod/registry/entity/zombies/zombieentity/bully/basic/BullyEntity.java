@@ -285,12 +285,12 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 		super.tick();
 
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
-			}
-			else if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof GravebusterEntity)){
+			if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof GravebusterEntity)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant());
+			}
+			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
+				this.setTarget(CollidesWithPlayer());
 			}
 		}
 	}

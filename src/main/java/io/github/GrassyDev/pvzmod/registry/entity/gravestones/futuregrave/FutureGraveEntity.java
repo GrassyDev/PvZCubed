@@ -178,6 +178,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 	public static boolean canFutureGraveSpawn(EntityType<? extends FutureGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
 		return world.getDifficulty() != Difficulty.PEACEFUL &&
+				world.toServerWorld().getTime() > 28800 &&
 				world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.6 &&
 				canMobSpawn(type, world, spawnReason, pos, random) &&
 				pos.getY() >= 50 &&

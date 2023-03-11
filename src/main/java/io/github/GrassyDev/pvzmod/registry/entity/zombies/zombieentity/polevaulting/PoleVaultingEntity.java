@@ -311,9 +311,6 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
-			}
 			if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof LilyPadEntity) && this.getPoleStage() && this.onGround && !this.isInsideWaterOrBubbleColumn()){
 				Vec3d vec3d = new Vec3d(0.4, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
@@ -327,6 +324,9 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 			else if (this.CollidesWithPlant() != null && ((this.onGround && !this.getPoleStage()) || this.isInsideWaterOrBubbleColumn())){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant());
+			}
+			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
+				this.setTarget(CollidesWithPlayer());
 			}
 		}
 	}

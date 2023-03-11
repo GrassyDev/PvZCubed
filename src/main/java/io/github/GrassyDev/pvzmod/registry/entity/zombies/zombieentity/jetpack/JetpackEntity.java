@@ -311,13 +311,13 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			this.setNoGravity(false);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
-			}
-			else if (this.CollidesWithPlant() != null && (PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("maintarget") ||
+			if (this.CollidesWithPlant() != null && (PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("maintarget") ||
 					PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("tall"))){
 				this.setTarget(CollidesWithPlant());
 				this.setVelocity(0, 0, 0);
+			}
+			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
+				this.setTarget(CollidesWithPlayer());
 			}
 		}
 	}

@@ -296,10 +296,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
-			}
-			else if (this.CollidesWithPlant() != null){
+			if (this.CollidesWithPlant() != null){
 				if (this.isOnGround() || this.isInsideWaterOrBubbleColumn()){
 					this.setVelocity(0, -0.3, 0);
 				}
@@ -307,6 +304,9 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 					this.setVelocity(0, -1, 0);
 				}
 				this.setTarget(CollidesWithPlant());
+			}
+			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
+				this.setTarget(CollidesWithPlayer());
 			}
 		}
 	}

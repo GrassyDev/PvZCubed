@@ -331,12 +331,12 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
-			}
-			else if (this.CollidesWithPlant() != null){
+			if (this.CollidesWithPlant() != null){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant());
+			}
+			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
+				this.setTarget(CollidesWithPlayer());
 			}
 		}
 	}

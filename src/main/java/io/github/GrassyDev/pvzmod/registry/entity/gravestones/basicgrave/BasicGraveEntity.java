@@ -177,6 +177,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 	public static boolean canBasicGraveSpawn(EntityType<? extends BasicGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
 		return world.getDifficulty() != Difficulty.PEACEFUL &&
+				world.toServerWorld().getTime() > 6000 &&
 				canMobSpawn(type, world, spawnReason, pos, random) &&
 				pos.getY() >= 50 &&
 				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type) &&
@@ -313,7 +314,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 			double probability7 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 
-            for(int b = 0; b < 2; ++b) { // 100% x1 Browncoat
+            for(int b = 0; b < 2; ++b) { // 100% x2 Browncoat
                 BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
                 BrowncoatEntity browncoatEntity = (BrowncoatEntity)PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -331,14 +332,16 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
-			if (probability11 <= 0.3) { // 30% x1 Conehead
-				for(int c = 0; c < 1; ++c) {
-					BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
-					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-					coneheadEntity.setOwner(BasicGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(coneheadEntity);
+			if (difficulty >= 1.509) {
+				if (probability11 <= 0.3) { // 30% x1 Conehead
+					for (int c = 0; c < 1; ++c) {
+						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						coneheadEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(coneheadEntity);
+					}
 				}
 			}
             if (probability2 <= 0.15) { // 15% x1 Buckethead
@@ -351,14 +354,16 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(bucketheadEntity);
                 }
             }
-			if (probability21 <= 0.15) { // 15% x1 Buckethead
-				for(int u = 0; u < 1; ++u) {
-					BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-					BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
-					bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					bucketheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-					bucketheadEntity.setOwner(BasicGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(bucketheadEntity);
+			if (difficulty >= 1.509) {
+				if (probability21 <= 0.15) { // 15% x1 Buckethead
+					for (int u = 0; u < 1; ++u) {
+						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
+						bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						bucketheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						bucketheadEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(bucketheadEntity);
+					}
 				}
 			}
             if (probability3 <= 0.15) { // 15% x1 Pole Vaulting Zombie
@@ -425,7 +430,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
                 }
             }
-			if (difficulty >= 1.309) {
+			if (difficulty >= 1.609) {
 				if (probability6 <= 0.3) { // 30% x1 Bully Zombie
 					for (int g = 0; g < 1; ++g) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
@@ -458,7 +463,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-			if (difficulty >= 1.409) {
+			if (difficulty >= 1.509) {
 				if (probability7 <= 0.15) { // 15% x1 Bully Zombie
 					for (int h = 0; h < 1; ++h) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
