@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)50",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Hides underwater, dodging straight projectiles.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile on water, unless they are eating.",
         "$(br2)$(#bd951a)Zombies don't breathe. They don't need air. So why does Snorkel Zombie need a snorkel to swim underwater? Answer: peer pressure."
       ]
     },

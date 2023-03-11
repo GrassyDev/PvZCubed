@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.narcissus;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.generic.narcissus;
 
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

@@ -1,0 +1,37 @@
+{
+  "name": "Loquat",
+  "icon": "pvzmod:loquat_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 99,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)24",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)2.5s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Flying. Spawns uncommonly during the day. Drops Windy Plant Food",
+        "$(br2)$(#bd951a)Loquat dreams of becoming a ballet dancer, and she has one trick: she can do many turns in place. \"I believe I can be the world's greatest ballet dancer, but no one wants to hire me, I don't understand why.\""
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/loquat.png"
+      ],
+      "title": "⛨ Reinforce Family",
+      "border": "true",
+      "text": "$(#25228d)Their Windy Plant Food makes plants that interact with flying Zombies."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/reinforce/loquat"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Loquat"
+      ]
+    }
+  ]
+}

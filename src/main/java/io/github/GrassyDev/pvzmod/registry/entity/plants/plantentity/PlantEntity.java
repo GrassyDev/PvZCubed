@@ -64,6 +64,8 @@ import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+
 public abstract class PlantEntity extends GolemEntity {
 
 	public boolean onWater;
@@ -87,13 +89,15 @@ public abstract class PlantEntity extends GolemEntity {
 
 	@Override
 	public void onDeath(DamageSource source) {
-		RandomGenerator randomGenerator = this.getRandom();
-		BlockState blockState = this.getLandingBlockState();
-		for(int i = 0; i < 4; ++i) {
-			double d = this.getX() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
-			double e = this.getY() + 0.3;
-			double f = this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
-			this.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
+		if (!PLANT_LOCATION.get(this.getType()).orElse("normal").equals("flying")){
+			RandomGenerator randomGenerator = this.getRandom();
+			BlockState blockState = this.getLandingBlockState();
+			for (int i = 0; i < 4; ++i) {
+				double d = this.getX() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
+				double e = this.getY() + 0.3;
+				double f = this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
+				this.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
+			}
 		}
 		super.onDeath(source);
 		super.discard();

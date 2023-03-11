@@ -379,7 +379,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 
 	public boolean tryAttack(Entity target) {
 		if (this.getTarget() != null &&
-				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")))) {
+				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying")))) {
 			int i = this.attackTick;
 			if (i <= 0) {
 				this.attackTick = 20;

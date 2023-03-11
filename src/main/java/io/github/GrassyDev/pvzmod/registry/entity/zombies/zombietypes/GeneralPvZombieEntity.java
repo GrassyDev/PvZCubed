@@ -188,6 +188,12 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")){
 				setPlant = null;
 			}
+			else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying") && TARGET_FLY.get(this.getType()).orElse(false).equals(true)){
+				setPlant = plantEntity;
+			}
+			else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")){
+				setPlant = null;
+			}
 			else {
 				setPlant = plantEntity;
 			}
@@ -292,7 +298,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public boolean tryAttack(Entity target) {
 		if (this.getTarget() != null &&
 				((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
-				TARGET_GROUND.get(this.getType()).orElse(false).equals(true)))) {
+				TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
+						(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying") &&
+						TARGET_FLY.get(this.getType()).orElse(false).equals(true)))) {
 			if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
 				float sound = 0.75f;
 				if (this.getHypno()) {
@@ -303,7 +311,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			return super.tryAttack(target);
 		}
 		else if (this.getTarget() != null &&
-				!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")))){
+				!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground"))) &&
+				!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying")))){
 			if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
 				float sound = 0.75f;
 				if (this.getHypno()) {

@@ -1,0 +1,61 @@
+{
+  "name": "Tip: Height types",
+  "icon": "pvzmod:tallnut_seed_packet",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 15,
+  "advancement": "pvzmod:make_tallnut",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "Plants, Zombies, and projectiles have different properties called \"height.\"",
+        "$(br2)An entity's height influence how they interact with others.",
+        "$(br2)The most common height is \"medium\"."
+        ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)\"Low Profile\" and \"Small\" Zombies and Plants.",
+        "$(br2)Small entities avoid damage that is too high up there, e.g. Imps dodging the highest pea of a Pea Pod.",
+        "$(br2)Low Profile entities avoid most damage unless it targets the ground, e.g. Spikeweeds and Snorkel Zombies."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)\"Tall\", \"Big\", and \"Flying\" Zombies and Plants.",
+        "$(br2)Tall entities can interact with Flying ones, but they are still affected by other entities, e.g. Tallnuts blocking Flying Zombies and normal Zombies.",
+        "$(br2)Big Zombies are oversized Zombies. They do not necessarily interact with Flying plants, but Gargantuars do. They are immune to most instant-kills. E.g. Gargantuars."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br)Flying entities interact with tall and above entities, e.g. Jetpack Zombie flying over most plants, or Loquat only being eaten by tall or flying zombies like Bully and Jetpack.",
+        "$(br2)In addition, plants like Cherry Bomb can interact with Flying Zombies, while small plants like Potato Mine and Iceberg Lettuce, even though they work similarly, can't"
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br)Some plants specially target a specific type of entity, e.g. Gargantuars target Low Profile, Dandelion Weeds, Cattails, etc target Flying Zombies, and lobbing plants target Low Profile Zombies.",
+        "$(br2)This mod has a diverse amount of interactions between Plants and Zombies, experiment to find out the intricacies of the systems!"
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/snorkel_entry",
+        "pvzmod:plants/dandelionweed_entry",
+        "pvzmod:plants/tallnut_entry",
+        "pvzmod:zombies/gargantuar_entry",
+        "pvzmod:zombies/bully_entry",
+        "pvzmod:plants/loquat_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/cabbagepult_entry",
+        "pvzmod:zombies/jetpack_entry"
+      ]
+    }
+  ]
+}

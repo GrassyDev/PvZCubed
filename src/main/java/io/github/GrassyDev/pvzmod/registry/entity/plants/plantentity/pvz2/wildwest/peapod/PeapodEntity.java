@@ -520,7 +520,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 							double g3 = predictedPos.getZ() - this.plantEntity.getZ();
 							float h3 = MathHelper.sqrt(MathHelper.sqrt(df3)) * 0.5F;
 							proj3.setVelocity(e3 * (double) h3, f3 * (double) h3, g3 * (double) h3, 0.33F, 0F);
-							proj3.updatePosition(this.plantEntity.getX() + vec3d3.x * 0.75, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d3.z * 0.75);
+							proj3.updatePosition(this.plantEntity.getX() + vec3d3.x * 0.9, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d3.z * 0.9);
 							proj3.setOwner(this.plantEntity);
 							if (livingEntity.isAlive()) {
 								if (this.plantEntity.getVariant().equals(PeapodVariants.PLURAL)){
@@ -542,7 +542,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 							double g2 = predictedPos.getZ() - this.plantEntity.getZ();
 							float h2 = MathHelper.sqrt(MathHelper.sqrt(df2)) * 0.5F;
 							proj2.setVelocity(e2 * (double) h2, f2 * (double) h2, g2 * (double) h2, 0.33F, 0);
-							proj2.updatePosition(this.plantEntity.getX() + vec3d2.x * 0.75, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d2.z * 0.75);
+							proj2.updatePosition(this.plantEntity.getX() + vec3d2.x * 0.9, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d2.z * 0.9);
 							proj2.setOwner(this.plantEntity);
 							if (livingEntity.isAlive()) {
 								if (this.plantEntity.getVariant().equals(PeapodVariants.PLURAL)){

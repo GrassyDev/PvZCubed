@@ -32,6 +32,8 @@ public class PvZCubed implements ModInitializer {
 			RegistryEntryAttachment.intBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_strength")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, Boolean> TARGET_GROUND =
 			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "target_ground")).build();
+	public static final RegistryEntryAttachment<EntityType<?>, Boolean> TARGET_FLY =
+			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "target_fly")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, String> PLANT_LOCATION =
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "plant_location")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, String> PLANT_TYPE =
@@ -100,6 +102,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEPPERPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.LOQUAT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.DANDELIONWEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PERFOOMSHROOM_SEED_PACKET));
@@ -196,6 +199,8 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.DARK_UNDERWATER_TILE));
 				stacks.add(new ItemStack(ModItems.FROST_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_FROST_TILE));
+				stacks.add(new ItemStack(ModItems.SKYCITY_TILE));
+				stacks.add(new ItemStack(ModItems.DARK_SKYCITY_TILE));
 			}).build();
 
 	public static final Identifier LOOTNUGGET = new Identifier("pvzmod:loot.nugget");

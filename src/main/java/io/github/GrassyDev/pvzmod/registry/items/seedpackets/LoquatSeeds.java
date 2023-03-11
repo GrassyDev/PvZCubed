@@ -2,8 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.generic.narcissus.NarcissusEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.skycity.loquat.LoquatEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -34,9 +34,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class NarcissusSeeds extends Item implements FabricItem {
-	public static int cooldown = 150;
-    public NarcissusSeeds(Settings settings) {
+public class LoquatSeeds extends Item implements FabricItem {
+	public static int cooldown;
+    public LoquatSeeds(Settings settings) {
         super(settings);
     }
 
@@ -71,16 +71,13 @@ public class NarcissusSeeds extends Item implements FabricItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.spear.family")
-				.formatted(Formatting.GRAY));
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.reinforce.family")
+				.formatted(Formatting.DARK_BLUE));
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.amphibious.tooltip")
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.fly.tooltip")
 				.formatted(Formatting.UNDERLINE));
 
-		tooltip.add(Text.translatable("item.pvzmod.narcissus_seed_packet.flavour")
-				.formatted(Formatting.DARK_GRAY));
-
-		tooltip.add(Text.translatable("item.pvzmod.narcissus_seed_packet.flavour2")
+		tooltip.add(Text.translatable("item.pvzmod.loquat_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));
 	}
 
@@ -92,13 +89,13 @@ public class NarcissusSeeds extends Item implements FabricItem {
 		} else {
 			if (hitResult.getType() == HitResult.Type.BLOCK) {
 				if (world instanceof ServerWorld) {
-					NarcissusEntity aquaticEntity = this.createEntity(world, hitResult);
+					LoquatEntity aquaticEntity = this.createEntity(world, hitResult);
 					aquaticEntity.setYaw(user.getYaw());
 					if (!world.isSpaceEmpty(aquaticEntity, aquaticEntity.getBoundingBox())) {
 						return TypedActionResult.fail(itemStack);
 					} else {
 						if (!world.isClient) {
-							List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.NARCISSUS.getDimensions().getBoxAt(aquaticEntity.getPos()));
+							List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.LOQUAT.getDimensions().getBoxAt(aquaticEntity.getPos()));
 							if (list.isEmpty()){
 								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
@@ -111,6 +108,7 @@ public class NarcissusSeeds extends Item implements FabricItem {
 									double fg = aquaticEntity.getZ() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
 									aquaticEntity.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), dg, eg, fg, 0.0, 0.0, 0.0);
 								}
+								aquaticEntity.setPuffshroomPermanency(LoquatEntity.PuffPermanency.PERMANENT);
 								world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));
 								if (fluidState.getFluid() == Fluids.WATER) {
@@ -139,8 +137,8 @@ public class NarcissusSeeds extends Item implements FabricItem {
 		return TypedActionResult.pass(itemStack);
 	}
 
-	private NarcissusEntity createEntity(World world, HitResult hitResult) {
-		return (NarcissusEntity)(new NarcissusEntity(world, hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z));
+	private LoquatEntity createEntity(World world, HitResult hitResult) {
+		return (LoquatEntity)(new LoquatEntity(world, hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z));
 	}
 
 }

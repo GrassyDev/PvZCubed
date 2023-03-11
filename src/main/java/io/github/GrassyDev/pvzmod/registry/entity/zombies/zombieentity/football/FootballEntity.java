@@ -322,7 +322,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground"));
+			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
 		}));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -361,7 +361,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
 		if (this.getTarget() != null &&
-				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground"))) && !((LivingEntity) target).hasStatusEffect(StatusEffects.RESISTANCE)) {
+				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying"))) && !((LivingEntity) target).hasStatusEffect(StatusEffects.RESISTANCE)) {
 			if (!(this.getPassengerList().contains(target))) {
 				if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
 					if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {

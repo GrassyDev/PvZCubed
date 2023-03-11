@@ -239,6 +239,10 @@
   "item.pvzmod.firepea": "Fire Pea",
   "item.pvzmod.plasmapea": "Plasma Pea",
 
+  "entity.pvzmod.loquat": "Loquat",
+  "item.pvzmod.loquat_seed_packet": "⛨ Loquat Seed Packet",
+  "item.pvzmod.loquat_seed_packet.flavour": "\"The floor is Lava Guava!\"",
+
   "entity.pvzmod.narcissus": "Narcissus",
   "item.pvzmod.narcissus_seed_packet": "✂ Narcissus Seed Packet",
   "item.pvzmod.narcissus_seed_packet.flavour": "\"Magic mirror on the puddle,",
@@ -432,5 +436,7 @@
   "block.pvzmod.underwater_tile": "Underwater Tile",
   "block.pvzmod.dark_underwater_tile": "Dark Underwater Tile",
   "block.pvzmod.frost_tile": "Frost Tile",
-  "block.pvzmod.dark_frost_tile": "Dark Frost Tile"
+  "block.pvzmod.dark_frost_tile": "Dark Frost Tile",
+  "block.pvzmod.skycity_tile": "Sky City Tile",
+  "block.pvzmod.dark_skycity_tile": "Dark Sky City Tile"
 }

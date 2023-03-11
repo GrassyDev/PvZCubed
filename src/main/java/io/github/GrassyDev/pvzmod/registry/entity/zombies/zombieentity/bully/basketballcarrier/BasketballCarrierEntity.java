@@ -95,10 +95,10 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 			this.isIced = false;
 			this.isFrozen = false;
 		}
-		if (status == 1044) {
+		if (status == 104) {
 			this.inLaunchAnimation = true;
 		}
-		else if (status == 1043) {
+		else if (status == 103) {
 			this.inLaunchAnimation = false;
 		}
 	}
@@ -317,18 +317,18 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 		if (random <= 0.0075 && zombieObstacleEntity.isPresent() && getTarget() != null && this.squaredDistanceTo(this.getTarget()) <= 225 && !this.inLaunchAnimation) {
 			this.launchAnimation = 80 * animationMultiplier;
 			this.inLaunchAnimation = true;
-			this.world.sendEntityStatus(this, (byte) 44);
+			this.world.sendEntityStatus(this, (byte) 104);
 		}
 		if (this.launchAnimation > 0) {
 			this.getNavigation().stop();
 			--launchAnimation;
 			tryLaunch(getTarget());
 			this.inLaunchAnimation = true;
-			this.world.sendEntityStatus(this, (byte) 44);
+			this.world.sendEntityStatus(this, (byte) 104);
 		}
 		else {
 			this.inLaunchAnimation = false;
-			this.world.sendEntityStatus(this, (byte) 43);
+			this.world.sendEntityStatus(this, (byte) 103);
 		}
 	}
 

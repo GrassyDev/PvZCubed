@@ -157,10 +157,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		else if (status == 112) {
 			this.inAnimation = false;
 		}
-		if (status == 1044) {
+		if (status == 104) {
 			this.inLaunchAnimation = true;
 		}
-		else if (status == 1043) {
+		else if (status == 103) {
 			this.inLaunchAnimation = false;
 		}
 	}
@@ -494,18 +494,18 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			if (this.getHealth() <= this.healthImp && (zombiePropEntity == null) && getTarget() != null && this.getImpStage().equals(Boolean.TRUE) && !this.inLaunchAnimation) {
 				this.launchAnimation = 50 * animationMultiplier;
 				this.inLaunchAnimation = true;
-				this.world.sendEntityStatus(this, (byte) 44);
+				this.world.sendEntityStatus(this, (byte) 104);
 			}
 			if (this.launchAnimation > 0) {
 				this.getNavigation().stop();
 				--launchAnimation;
 				tryLaunch(getTarget());
 				this.inLaunchAnimation = true;
-				this.world.sendEntityStatus(this, (byte) 44);
+				this.world.sendEntityStatus(this, (byte) 104);
 			}
 			else {
 				this.inLaunchAnimation = false;
-				this.world.sendEntityStatus(this, (byte) 43);
+				this.world.sendEntityStatus(this, (byte) 103);
 			}
 		}
 		if (this.animationTicksLeft == 40 * animationMultiplier && !inLaunchAnimation) {

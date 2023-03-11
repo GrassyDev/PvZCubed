@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:plantfood_air"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:loquat_seed_packet",
+    "count": 1
+  }
+}

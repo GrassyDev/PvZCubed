@@ -17,7 +17,8 @@
         "pvzmod:plants/wallnut_entry",
         "pvzmod:plants/lilypad_entry",
         "pvzmod:plants/smallnut_entry",
-        "pvzmod:plants/tallnut_entry"
+        "pvzmod:plants/tallnut_entry",
+        "pvzmod:plants/loquat_entry"
       ],
       "title": "⛨ Reinforce Plants:"
     }
