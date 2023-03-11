@@ -8,6 +8,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGr
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave.RoofGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave.RoofGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.cherrybomb.CherrybombEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.cherrybomb.CherrybombEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntity;
@@ -944,6 +946,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<PoolGraveEntity>create(SpawnGroup.MONSTER, PoolGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
 	);
 
+	public static final EntityType<RoofGraveEntity> ROOFGRAVESTONE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "roofgrave"),
+			QuiltEntityTypeBuilder.<RoofGraveEntity>create(SpawnGroup.MONSTER, RoofGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
+	);
+
 	public static final EntityType<FutureGraveEntity> FUTUREGRAVE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "futuregrave"),
@@ -1299,6 +1307,9 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.POOLGRAVESTONE, PoolGraveEntity.createPoolGraveAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.POOLGRAVESTONE, PoolGraveRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ROOFGRAVESTONE, RoofGraveEntity.createRoofGraveAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.ROOFGRAVESTONE, RoofGraveRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUTUREGRAVE, FutureGraveEntity.createFutureGraveAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.FUTUREGRAVE, FutureGraveRenderer::new);

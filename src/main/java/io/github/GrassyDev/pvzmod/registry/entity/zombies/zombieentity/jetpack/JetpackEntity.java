@@ -241,7 +241,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
     }
 
     protected void initCustomGoals() {
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+
 		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.targetSelector.add(2, new JetpackEntity.TrackOwnerTargetGoal(this));
@@ -265,10 +265,8 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
     }
 
 	protected void initHypnoGoals(){
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.add(8, new LookAroundGoal(this));
 
-		this.targetSelector.add(2, new JetpackEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
 		////////// Hypnotized Zombie targets ///////
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
@@ -326,32 +324,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
-		/**
-		Block block = this.getLandingBlockState().getBlock();
-		if (this.isInsideWaterOrBubbleColumn() || this.onGround){
-			hovering = false;
-			this.setPosition(this.getPos().getX(), this.getPos().getY() + 0.5, this.getPos().getZ());
-			this.setNoGravity(true);
-			this.setVelocity(this.getVelocity().getX(), 0, this.getVelocity().getZ());
-			this.hoverTicks = 100;
-			this.hovering = true;
-		}
-		if (hovering){
-			if (block.equals(Blocks.AIR)){
-				this.hovering = false;
-				this.hoverTicks = 100;
-				this.setNoGravity(false);
-			}
-			if (--hoverTicks <= 0) {
-				this.hovering = false;
-				this.hoverTicks = 100;
-				this.setNoGravity(false);
-			}
-			else if (hoverTicks <= 80) {
-				System.out.println(hoverTicks);
-			}
-		}
-		 **/
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 			this.kill();

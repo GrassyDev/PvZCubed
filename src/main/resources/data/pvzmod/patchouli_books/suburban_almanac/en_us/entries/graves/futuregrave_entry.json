@@ -2,7 +2,7 @@
   "name": "Futuristic Gravestone",
   "icon": "pvzmod:futuregrave_spawn",
   "category": "pvzmod:grave_category",
-  "sortnum": 1,
+  "sortnum": 10,
   "pages": [
     {
       "type": "text",

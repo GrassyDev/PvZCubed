@@ -180,6 +180,7 @@ public class ModItems {
     public static final Item BASICGRAVESPAWN = new BasicGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.COMMON));
     public static final Item NIGHTGRAVESPAWN = new NightGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.UNCOMMON));
 	public static final Item POOLGRAVESPAWN = new PoolGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.RARE));
+	public static final Item ROOFGRAVESPAWN = new RoofGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
 	public static final Item FUTUREGRAVESPAWN = new FutureGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
 
     //Blocks
@@ -339,6 +340,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"basicgrave_spawn"), BASICGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightgrave_spawn"), NIGHTGRAVESPAWN);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"poolgrave_spawn"), POOLGRAVESPAWN);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"roofgrave_spawn"), ROOFGRAVESPAWN);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"futuregrave_spawn"), FUTUREGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"daves_shovel"), DAVES_SHOVEL);
     }

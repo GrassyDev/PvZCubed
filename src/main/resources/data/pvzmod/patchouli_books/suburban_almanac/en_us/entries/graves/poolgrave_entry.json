@@ -2,7 +2,7 @@
   "name": "Pool Gravestone",
   "icon": "pvzmod:poolgrave_spawn",
   "category": "pvzmod:grave_category",
-  "sortnum": 1,
+  "sortnum": 2,
   "pages": [
     {
       "type": "text",

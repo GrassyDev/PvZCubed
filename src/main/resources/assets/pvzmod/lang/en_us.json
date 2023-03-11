@@ -403,6 +403,9 @@
   "entity.pvzmod.poolgrave": "Pool Gravestone",
   "item.pvzmod.poolgrave_spawn": "Pool Gravestone",
 
+  "entity.pvzmod.roofgrave": "Roof Gravestone",
+  "item.pvzmod.roofgrave_spawn": "Roof Gravestone",
+
   "entity.pvzmod.futuregrave": "Futuristic Gravestone",
   "item.pvzmod.futuregrave_spawn": "Futuristic Gravestone",
 

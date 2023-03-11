@@ -202,7 +202,8 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
 		}));
 		this.targetSelector.add(15, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity;
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
+					&& !(generalPvZombieEntity.getHypno());
 		}));
 		this.targetSelector.add(16, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);

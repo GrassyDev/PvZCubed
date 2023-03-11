@@ -1,0 +1,40 @@
+{
+  "name": "Roof Gravestone",
+  "icon": "pvzmod:roofgrave_spawn",
+  "category": "pvzmod:grave_category",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)230",
+        "$(br)$(#bd951a)Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Spawn Condition: $()$(#ff0000)Uncommon. Unlocked at 1.8 Local Difficulty.",
+        "$(br2)$(#bd951a)Graze the roof! It's still a mystery how Zombies emerge from this grave if it's on a roof..."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/roofgrave.png"
+      ],
+      "title": "Roof Zombie",
+      "border": "true",
+      "text": "$(#25228d)Spawns Roof Zombies."
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/flagzombie_entry",
+        "pvzmod:zombies/conehead_entry",
+        "pvzmod:zombies/buckethead_entry",
+        "pvzmod:zombies/basketballcarrier_entry",
+        "pvzmod:zombies/gargantuar_entry",
+        "pvzmod:zombies/imp_entry"
+      ],
+      "title": "Spawnable Zombies"
+    }
+  ]
+}

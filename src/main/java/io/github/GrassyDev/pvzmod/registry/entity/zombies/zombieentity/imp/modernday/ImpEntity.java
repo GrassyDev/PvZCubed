@@ -238,7 +238,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected void initCustomGoals() {
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+
 		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.targetSelector.add(2, new ImpEntity.TrackOwnerTargetGoal(this));
@@ -265,10 +265,8 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected void initHypnoGoals(){
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.add(8, new LookAroundGoal(this));
 
-		this.targetSelector.add(2, new ImpEntity.TrackOwnerTargetGoal(this));
+		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
 		////////// Hypnotized Zombie targets ///////
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {

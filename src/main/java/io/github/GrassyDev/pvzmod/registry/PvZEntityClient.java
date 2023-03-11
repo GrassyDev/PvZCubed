@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGr
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.futuregrave.FutureGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave.RoofGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.peashooter.PeashooterEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.potatomine.PotatomineEntityRenderer;
@@ -320,6 +321,8 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.POOLGRAVESTONE, PoolGraveRenderer::new);
 
+		EntityRendererRegistry.register(PvZEntity.ROOFGRAVESTONE, RoofGraveRenderer::new);
+		
 		EntityRendererRegistry.register(PvZEntity.FUTUREGRAVE, FutureGraveRenderer::new);
 
 	}

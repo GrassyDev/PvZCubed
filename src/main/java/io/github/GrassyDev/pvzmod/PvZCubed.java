@@ -167,6 +167,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.NIGHTGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.POOLGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.FUTUREGRAVESPAWN));
+				stacks.add(new ItemStack(ModItems.ROOFGRAVESPAWN));
 			}).build();
 
 	public static final ItemGroup PVZBLOCKS = FabricItemGroupBuilder.create(

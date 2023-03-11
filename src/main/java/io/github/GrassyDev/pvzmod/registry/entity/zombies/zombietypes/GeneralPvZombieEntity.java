@@ -3,9 +3,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import net.minecraft.entity.*;
@@ -14,6 +14,8 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.passive.GolemEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -219,15 +221,24 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	boolean pop = true;
 
+	@Override
+	protected void mobTick() {
+		super.mobTick();
+	}
+
 	public void tick() {
 		super.tick();
 		LivingEntity target = this.getTarget();
+		if (this.getHypno() && (target instanceof PlayerEntity || target instanceof PassiveEntity || target instanceof GolemEntity)){
+			this.setTarget(null);
+		}
+		LivingEntity target2 = this.getTarget();
 		if (target != null) {
 			if (target.squaredDistanceTo(this) < 6.25) {
 				this.setVelocity(0, -0.3, 0);
 			}
 		}
-		else {
+		else if (!this.getHypno()) {
 			this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
