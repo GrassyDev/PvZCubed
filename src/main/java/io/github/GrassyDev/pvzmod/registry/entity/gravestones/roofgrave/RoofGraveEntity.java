@@ -265,11 +265,11 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 	class summonZombieGoal extends RoofGraveEntity.CastSpellGoal {
         private final TargetPredicate closeZombiePredicate;
 
-		private final RoofGraveEntity futureGraveEntity;
+		private final RoofGraveEntity roofGraveEntity;
 
-		private summonZombieGoal(RoofGraveEntity futureGraveEntity) {
+		private summonZombieGoal(RoofGraveEntity roofGraveEntity) {
             super();
-			this.futureGraveEntity = futureGraveEntity;
+			this.roofGraveEntity = roofGraveEntity;
 			this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
 		}
 
@@ -306,7 +306,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 
         protected void castSpell() {
             ServerWorld serverWorld = (ServerWorld) RoofGraveEntity.this.world;
-			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.futureGraveEntity.getBlockPos());
+			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.roofGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
             double probability = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
 			double probability11 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
@@ -451,7 +451,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(impEntity2);
 				}
 			}
-			if (difficulty >= 1.79) {
+			if (difficulty >= 1.89) {
 				if (probability4 <= 0.20) { // 20% x2 Basketball Carrier Zombie
 					for (int p = 0; p < 2; ++p) {
 						BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
@@ -501,24 +501,24 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 
-			++this.futureGraveEntity.spawnCounter;
-			WorldChunk chunk1 = this.futureGraveEntity.world.getWorldChunk(this.futureGraveEntity.getBlockPos());
+			++this.roofGraveEntity.spawnCounter;
+			WorldChunk chunk1 = this.roofGraveEntity.world.getWorldChunk(this.roofGraveEntity.getBlockPos());
 			long time1 = chunk1.getInhabitedTime();
 			chunk1.setInhabitedTime(time1 + 3600);
 
-			WorldChunk chunk2 = this.futureGraveEntity.world.getWorldChunk(this.futureGraveEntity.getBlockPos().south(16));
+			WorldChunk chunk2 = this.roofGraveEntity.world.getWorldChunk(this.roofGraveEntity.getBlockPos().south(16));
 			long time2 = chunk2.getInhabitedTime();
 			chunk2.setInhabitedTime(time2 + 3600);
 
-			WorldChunk chunk3 = this.futureGraveEntity.world.getWorldChunk(this.futureGraveEntity.getBlockPos().north(16));
+			WorldChunk chunk3 = this.roofGraveEntity.world.getWorldChunk(this.roofGraveEntity.getBlockPos().north(16));
 			long time3 = chunk3.getInhabitedTime();
 			chunk3.setInhabitedTime(time3 + 3600);
 
-			WorldChunk chunk4 = this.futureGraveEntity.world.getWorldChunk(this.futureGraveEntity.getBlockPos().west(16));
+			WorldChunk chunk4 = this.roofGraveEntity.world.getWorldChunk(this.roofGraveEntity.getBlockPos().west(16));
 			long time4 = chunk4.getInhabitedTime();
 			chunk4.setInhabitedTime(time4 + 3600);
 
-			WorldChunk chunk5 = this.futureGraveEntity.world.getWorldChunk(this.futureGraveEntity.getBlockPos().east(16));
+			WorldChunk chunk5 = this.roofGraveEntity.world.getWorldChunk(this.roofGraveEntity.getBlockPos().east(16));
 			long time5 = chunk5.getInhabitedTime();
 			chunk5.setInhabitedTime(time5 + 3600);
         }

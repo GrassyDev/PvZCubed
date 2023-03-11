@@ -7,7 +7,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basic.BullyEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -430,11 +429,11 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 				if (probability6 <= 0.3) { // 30% x1 Bully Zombie
 					for (int g = 0; g < 1; ++g) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						GargantuarEntity gargantuarEntity = (GargantuarEntity) PvZEntity.GARGANTUAR.create(BasicGraveEntity.this.world);
-						gargantuarEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						gargantuarEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						gargantuarEntity.setOwner(BasicGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(gargantuarEntity);
+						BullyEntity bullyEntity = (BullyEntity) PvZEntity.BULLY.create(BasicGraveEntity.this.world);
+						bullyEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						bullyEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						bullyEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(bullyEntity);
 
 						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
@@ -463,11 +462,11 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 				if (probability7 <= 0.15) { // 15% x1 Bully Zombie
 					for (int h = 0; h < 1; ++h) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						GargantuarEntity gargantuarEntity = (GargantuarEntity) PvZEntity.GARGANTUAR.create(BasicGraveEntity.this.world);
-						gargantuarEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						gargantuarEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						gargantuarEntity.setOwner(BasicGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(gargantuarEntity);
+						BullyEntity bullyEntity = (BullyEntity) PvZEntity.BULLY.create(BasicGraveEntity.this.world);
+						bullyEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						bullyEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						bullyEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(bullyEntity);
 
 						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
