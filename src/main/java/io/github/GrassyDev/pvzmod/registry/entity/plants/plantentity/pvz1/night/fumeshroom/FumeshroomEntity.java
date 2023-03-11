@@ -92,15 +92,18 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 13) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 113) {
 			this.isTired = true;
 			this.isFiring = false;
-		} else if (status == 12) {
+		} else if (status == 112) {
 			this.isTired = false;
 		}
-		if (status == 11) {
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -246,7 +249,7 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 			this.initGoals();
 			sleepSwitch = false;
 			awakeSwitch = true;
@@ -255,7 +258,7 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 			this.clearGoalsAndTasks();
 			sleepSwitch = true;
 			awakeSwitch = false;
@@ -417,74 +420,73 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final FumeshroomEntity fumeshroomEntity;
+		private final FumeshroomEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(FumeshroomEntity fumeshroomEntity) {
-			this.fumeshroomEntity = fumeshroomEntity;
+		public FireBeamGoal(FumeshroomEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
 		public boolean shouldContinue() {
-			return super.shouldContinue() && !this.fumeshroomEntity.isTired;
+			return super.shouldContinue() && !this.plantEntity.isTired;
 		}
 
 		public void start() {
 			this.beamTicks = -8;
 			this.animationTicks = -21;
-			this.fumeshroomEntity.getNavigation().stop();
-			this.fumeshroomEntity.getLookControl().lookAt(this.fumeshroomEntity.getTarget(), 90.0F, 90.0F);
-			this.fumeshroomEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
-			this.fumeshroomEntity.setTarget((LivingEntity) null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
-			this.fumeshroomEntity.getNavigation().stop();
-			this.fumeshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.fumeshroomEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.fumeshroomEntity.isTired){
-				this.fumeshroomEntity.setTarget((LivingEntity) null);
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.plantEntity.isTired){
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 11);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -4) {
 					double time = 1;
 					Vec3d targetPos = livingEntity.getPos();
 					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-					double d = this.fumeshroomEntity.squaredDistanceTo(predictedPos);
+					double d = this.plantEntity.squaredDistanceTo(predictedPos);
 					float df = (float)d;
-					double e = predictedPos.getX() - this.fumeshroomEntity.getX();
-					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.fumeshroomEntity.getY();
-					double g = predictedPos.getZ() - this.fumeshroomEntity.getZ();
+					double e = predictedPos.getX() - this.plantEntity.getX();
+					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.plantEntity.getY();
+					double g = predictedPos.getZ() - this.plantEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-					FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.fumeshroomEntity.world);
+					FumeEntity proj = new FumeEntity(PvZEntity.FUME, this.plantEntity.world);
 					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
-					proj.updatePosition(this.fumeshroomEntity.getX(), this.fumeshroomEntity.getY() + 0.5D, this.fumeshroomEntity.getZ());
-					proj.setOwner(this.fumeshroomEntity);
-					if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.GAY)) {
+					proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.5D, this.plantEntity.getZ());
+					proj.setOwner(this.plantEntity);
+					if (this.plantEntity.getVariant().equals(FumeshroomVariants.GAY)) {
 						proj.setVariant(FumeVariants.GAY);
-					} else if (this.fumeshroomEntity.getVariant().equals(FumeshroomVariants.TRANS)) {
+					} else if (this.plantEntity.getVariant().equals(FumeshroomVariants.TRANS)) {
 						proj.setVariant(FumeVariants.TRANS);
 					}
 					if (livingEntity.isAlive()) {
 						this.beamTicks = -2;
-						this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
-						this.fumeshroomEntity.world.spawnEntity(proj);
+						this.plantEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+						this.plantEntity.world.spawnEntity(proj);
 					}
 				}
 				if (this.animationTicks >= 0) {
-					this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -8;
 					this.animationTicks = -21;
 				}

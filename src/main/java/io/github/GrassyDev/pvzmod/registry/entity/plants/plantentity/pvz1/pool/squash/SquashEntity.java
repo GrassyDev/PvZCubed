@@ -76,13 +76,16 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		RandomGenerator randomGenerator = this.getRandom();
-		if (status == 13) {
+		if (status == 113) {
 			this.inAnimation = true;
-		} else if (status == 12) {
+		} else if (status == 112) {
 			this.inAnimation = false;
 		}
-		if (status == 7) {
+		if (status == 107) {
 			for(int i = 0; i < 128; ++i) {
 				double e = (double) MathHelper.nextBetween(randomGenerator, 5F, 20F);
 				this.world.addParticle(ParticleTypes.WATER_SPLASH, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
@@ -352,7 +355,7 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 			this.splashDamage();
 		}
 		else if (this.animationTicksLeft == 9 && this.isInsideWaterOrBubbleColumn()) {
-			world.sendEntityStatus(this, (byte) 7);
+			world.sendEntityStatus(this, (byte) 107);
 			this.attackLock = true;
 			this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
 			if (getTarget() != null) {
@@ -368,11 +371,11 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 			this.stopAnimation = false;
 			this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 			--this.animationTicksLeft;
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 		}
 		else{
 			this.removeStatusEffect(StatusEffects.RESISTANCE);
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 		}
 		if (this.age == 3) {
 			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);

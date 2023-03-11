@@ -91,18 +91,21 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 13) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 113) {
 			this.isTired = true;
 			this.isFiring = false;
-		} else if (status == 12) {
+		} else if (status == 112) {
 			this.isTired = false;
 		}
-		if (status == 11) {
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
-		if (status == 6) {
+		if (status == 106) {
 			for(int i = 0; i < 8; ++i) {
 				if (this.getVariant().equals(FumeshroomVariants.GAY)){
 					for(int j = 0; j < 32; ++j) {
@@ -355,7 +358,7 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 			this.initGoals();
 			sleepSwitch = false;
 			awakeSwitch = true;
@@ -364,7 +367,7 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 			this.clearGoalsAndTasks();
 			sleepSwitch = true;
 			awakeSwitch = false;
@@ -490,58 +493,58 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final GloomshroomEntity fumeshroomEntity;
+		private final GloomshroomEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(GloomshroomEntity fumeshroomEntity) {
-			this.fumeshroomEntity = fumeshroomEntity;
+		public FireBeamGoal(GloomshroomEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
 		public boolean shouldContinue() {
-			return super.shouldContinue() && !this.fumeshroomEntity.isTired;
+			return super.shouldContinue() && !this.plantEntity.isTired;
 		}
 
 		public void start() {
 			this.beamTicks = -8;
 			this.animationTicks = -21;
-			this.fumeshroomEntity.getNavigation().stop();
-			this.fumeshroomEntity.getLookControl().lookAt(this.fumeshroomEntity.getTarget(), 90.0F, 90.0F);
-			this.fumeshroomEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
-			this.fumeshroomEntity.setTarget((LivingEntity) null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity) null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.fumeshroomEntity.getTarget();
-			this.fumeshroomEntity.getNavigation().stop();
-			this.fumeshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.fumeshroomEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.fumeshroomEntity.isTired){
-				this.fumeshroomEntity.setTarget((LivingEntity) null);
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.plantEntity.isTired){
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 11);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -4) {
-					if (!this.fumeshroomEntity.isInsideWaterOrBubbleColumn()) {
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						this.beamTicks = -2;
-						this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 11);
-						this.fumeshroomEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
-						this.fumeshroomEntity.splashDamage();
-						this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 6);
+						this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+						this.plantEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+						this.plantEntity.splashDamage();
+						this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 106);
 					}
 				}
 				if (this.animationTicks >= 0) {
-					this.fumeshroomEntity.world.sendEntityStatus(this.fumeshroomEntity, (byte) 10);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -8;
 					this.animationTicks = -21;
 				}

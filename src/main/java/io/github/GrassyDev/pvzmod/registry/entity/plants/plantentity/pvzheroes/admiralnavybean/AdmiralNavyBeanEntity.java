@@ -79,14 +79,19 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 6) {
-			this.attackTicksLeft = 20;
-		} else {
+		if (status != 2){
 			super.handleStatus(status);
 		}
-		if (status == 11) {
+		if (status == 106) {
+			this.attackTicksLeft = 20;
+		} else {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -179,7 +184,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 		}
 		if (i <= 0) {
 			this.attackTicksLeft = 20;
-			this.world.sendEntityStatus(this, (byte) 6);
+			this.world.sendEntityStatus(this, (byte) 106);
 			boolean bl = damaged.damage(DamageSource.mob(this), this.getAttackDamage());
 			if (bl) {
 				this.applyDamageEffects(this, target);
@@ -412,7 +417,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 		}
 
 		public void stop() {
-			this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 10);
+			this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 110);
 			if (admiralNavyBeanEntity.getTarget() != null){
 				this.admiralNavyBeanEntity.attack(admiralNavyBeanEntity.getTarget(), 0);
 			}
@@ -426,7 +431,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 					this.animationTicks >= 0) {
 				this.admiralNavyBeanEntity.setTarget((LivingEntity) null);
 			} else {
-				this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 11);
+				this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
@@ -447,13 +452,13 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 						proj.setYaw(this.admiralNavyBeanEntity.getYaw());
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
-							this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 11);
+							this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 111);
 							this.admiralNavyBeanEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.admiralNavyBeanEntity.world.spawnEntity(proj);
 						}
 					}
 				} else if (this.animationTicks >= 0) {
-					this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 10);
+					this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

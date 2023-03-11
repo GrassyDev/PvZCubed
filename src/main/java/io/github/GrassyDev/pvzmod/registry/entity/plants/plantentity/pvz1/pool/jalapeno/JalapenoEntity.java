@@ -8,6 +8,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -104,6 +106,13 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 		FUSE_SPEED = DataTracker.registerData(JalapenoEntity.class, TrackedDataHandlerRegistry.INTEGER);
 		CHARGED = DataTracker.registerData(JalapenoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 		IGNITED = DataTracker.registerData(JalapenoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 	}
 
 
@@ -382,7 +391,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 						this.raycastExplode();
 					}
 				}
-				this.world.sendEntityStatus(this, (byte) 6);
+				this.world.sendEntityStatus(this, (byte) 106);
 				this.dead = true;
 				this.remove(RemovalReason.DISCARDED);
 			}

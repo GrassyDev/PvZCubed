@@ -93,9 +93,12 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -344,17 +347,17 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final SnowpeaEntity snowpeaEntity;
+		private final SnowpeaEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(SnowpeaEntity snowpeaEntity) {
-			this.snowpeaEntity = snowpeaEntity;
+		public FireBeamGoal(SnowpeaEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.snowpeaEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -365,51 +368,51 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.snowpeaEntity.getNavigation().stop();
-			this.snowpeaEntity.getLookControl().lookAt(this.snowpeaEntity.getTarget(), 90.0F, 90.0F);
-			this.snowpeaEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 10);
-			this.snowpeaEntity.setTarget((LivingEntity) null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity) null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.snowpeaEntity.getTarget();
-			this.snowpeaEntity.getNavigation().stop();
-			this.snowpeaEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if (!this.snowpeaEntity.canSee(livingEntity)) {
-				this.snowpeaEntity.setTarget((LivingEntity) null);
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if (!this.plantEntity.canSee(livingEntity)) {
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 11);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					if (!this.snowpeaEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(PvZEntity.SNOWPEAPROJ, this.snowpeaEntity.world);
-						double time = (this.snowpeaEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+						ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(PvZEntity.SNOWPEAPROJ, this.plantEntity.world);
+						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.snowpeaEntity.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.snowpeaEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.snowpeaEntity.getY();
-						double g = predictedPos.getZ() - this.snowpeaEntity.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePosition(this.snowpeaEntity.getX(), this.snowpeaEntity.getY() + 0.75D, this.snowpeaEntity.getZ());
-						proj.setOwner(this.snowpeaEntity);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 11);
-							this.snowpeaEntity.playSound(PvZCubed.SNOWPEASHOOTEVENT, 1F, 1);
-							this.snowpeaEntity.world.spawnEntity(proj);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(PvZCubed.SNOWPEASHOOTEVENT, 1F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
 				if (this.animationTicks >= 0) {
-					this.snowpeaEntity.world.sendEntityStatus(this.snowpeaEntity, (byte) 10);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

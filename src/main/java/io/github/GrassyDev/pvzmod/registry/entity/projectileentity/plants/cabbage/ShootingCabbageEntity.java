@@ -184,6 +184,9 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
 
     @Environment(EnvType.CLIENT)
     public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
         if (status == 3) {
             ParticleEffect particleEffect = this.getParticleParameters();
 

@@ -89,25 +89,30 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 4) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 104) {
 			this.attackTicksLeft = 200;
 			this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
 			this.eatingShield = false;
 			this.notEating = false;
 		}
-		if (status == 5) {
+		if (status == 105) {
 			this.attackTicksLeft = 200;
 			this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
 			this.eatingShield = true;
 			this.notEating = false;
 		}
-		else if (status == 6) {
+		else if (status == 106) {
 			this.attackTicksLeft = 30;
 			this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
 			this.eatingShield = false;
 			this.notEating = true;
 		}else {
+		if (status != 2){
 			super.handleStatus(status);
+		}
 		}
 	}
 
@@ -211,7 +216,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 		if (passenger instanceof ZombieShieldEntity zombieShieldEntity && !(zombieShieldEntity instanceof ZombieObstacleEntity)) {
 			if (i <= 0) {
 				this.attackTicksLeft = 200;
-				this.world.sendEntityStatus(this, (byte) 5);
+				this.world.sendEntityStatus(this, (byte) 105);
 				boolean bl = zombieShieldEntity.damage(DamageSource.mob(this), 999);
 				if (bl) {
 					this.applyDamageEffects(this, target);
@@ -240,7 +245,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 			}
 			if (i <= 0) {
 				this.attackTicksLeft = 30;
-				this.world.sendEntityStatus(this, (byte) 6);
+				this.world.sendEntityStatus(this, (byte) 106);
 				boolean bl = damaged.damage(DamageSource.mob(this), 32);
 				if (bl) {
 					this.applyDamageEffects(this, target);
@@ -262,7 +267,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 		else {
 			if (i <= 0) {
 				this.attackTicksLeft = 200;
-				this.world.sendEntityStatus(this, (byte) 4);
+				this.world.sendEntityStatus(this, (byte) 104);
 				boolean bl = target.damage(DamageSource.mob(this), 999);
 				if (bl) {
 					this.applyDamageEffects(this, target);

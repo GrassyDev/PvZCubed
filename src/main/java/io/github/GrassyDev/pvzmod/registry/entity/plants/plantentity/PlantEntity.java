@@ -38,14 +38,18 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.s
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.*;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -56,6 +60,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
@@ -78,6 +83,20 @@ public abstract class PlantEntity extends GolemEntity {
 		if (vehicle instanceof LilyPadEntity){
 			vehicle.setBodyYaw(this.bodyYaw);
 		}
+	}
+
+	@Override
+	public void onDeath(DamageSource source) {
+		RandomGenerator randomGenerator = this.getRandom();
+		BlockState blockState = this.getLandingBlockState();
+		for(int i = 0; i < 4; ++i) {
+			double d = this.getX() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
+			double e = this.getY() + 0.3;
+			double f = this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
+			this.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
+		}
+		super.onDeath(source);
+		super.discard();
 	}
 
 	public HitResult amphibiousRaycast(double maxDistance) {

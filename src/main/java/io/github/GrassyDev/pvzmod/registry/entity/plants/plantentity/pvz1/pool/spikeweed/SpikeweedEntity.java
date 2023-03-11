@@ -9,6 +9,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZ
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.GatlingpeaSeeds;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -54,6 +56,13 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
     }
 
 	static {
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 	}
 
 

@@ -4,7 +4,6 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -280,6 +279,9 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 
 	@Environment(EnvType.CLIENT)
     public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		if (status == 3) {
 			ParticleEffect particleEffect = this.getParticleParameters();
 

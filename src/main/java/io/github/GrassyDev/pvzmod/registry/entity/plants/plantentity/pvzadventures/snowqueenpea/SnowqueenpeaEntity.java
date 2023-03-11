@@ -94,9 +94,12 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -371,7 +374,7 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 		}
 
 		public void stop() {
-			this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 10);
+			this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 110);
 			this.snowqueenpeaentity.setTarget((LivingEntity) null);
 		}
 
@@ -383,7 +386,7 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 					this.animationTicks >= 0) {
 				this.snowqueenpeaentity.setTarget((LivingEntity) null);
 			} else {
-				this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 11);
+				this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7 && this.animationTicks > -9) {
@@ -403,7 +406,7 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 						proj.setOwner(this.snowqueenpeaentity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
-							this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 11);
+							this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 111);
 							this.snowqueenpeaentity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.snowqueenpeaentity.world.spawnEntity(proj);
 						}
@@ -427,14 +430,14 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 						proj.setYaw(this.snowqueenpeaentity.getYaw());
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
-							this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 11);
+							this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 111);
 							this.snowqueenpeaentity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.snowqueenpeaentity.world.spawnEntity(proj);
 						}
 					}
 				}
 				else if (this.animationTicks >= 0) {
-					this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 10);
+					this.snowqueenpeaentity.world.sendEntityStatus(this.snowqueenpeaentity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

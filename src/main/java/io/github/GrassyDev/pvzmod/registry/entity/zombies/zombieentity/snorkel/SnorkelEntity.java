@@ -124,10 +124,13 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 66) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 106) {
 			this.invulnerableZombie = true;
 		}
-		else if (status == 65) {
+		else if (status == 105) {
 			this.invulnerableZombie = false;
 		}
 		if (status == 70) {
@@ -310,21 +313,21 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		if (this.isInsideWaterOrBubbleColumn()){
 			if (target != null){
 				if (this.squaredDistanceTo(target) > 4){
-					this.world.sendEntityStatus(this, (byte) 66);
+					this.world.sendEntityStatus(this, (byte) 106);
 					setInvisibleSnorkel(true);
 				}
 				else {
-					this.world.sendEntityStatus(this, (byte) 65);
+					this.world.sendEntityStatus(this, (byte) 105);
 					setInvisibleSnorkel(false);
 				}
 			}
 			else {
-				this.world.sendEntityStatus(this, (byte) 65);
+				this.world.sendEntityStatus(this, (byte) 1065);
 				setInvisibleSnorkel(false);
 			}
 		}
 		else {
-			this.world.sendEntityStatus(this, (byte) 65);
+			this.world.sendEntityStatus(this, (byte) 1065);
 			setInvisibleSnorkel(false);
 		}
 		super.tick();

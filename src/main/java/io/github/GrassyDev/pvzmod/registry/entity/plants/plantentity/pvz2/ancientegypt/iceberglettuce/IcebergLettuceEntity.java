@@ -110,7 +110,10 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 6) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 106) {
 			for(int i = 0; i < 16; ++i) {
 				double d = this.random.nextDouble() / 6 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 6 * (this.random.range(0, 1) * 2);
@@ -370,7 +373,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 			if (this.currentFuseTime >= this.fuseTime) {
 				this.currentFuseTime = this.fuseTime;
 				this.raycastExplode();
-				this.world.sendEntityStatus(this, (byte) 6);
+				this.world.sendEntityStatus(this, (byte) 106);
 				this.playSound(PvZCubed.ICEBERGEXPLOSIONEVENT, 1F, 1F);
 				this.spawnEffectsCloud();
 				this.dead = true;
@@ -471,7 +474,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 		else {
 			this.raycastExplode();
 			this.removeStatusEffect(StatusEffects.RESISTANCE);
-			this.world.sendEntityStatus(this, (byte) 6);
+			this.world.sendEntityStatus(this, (byte) 106);
 			this.playSound(PvZCubed.ICEBERGEXPLOSIONEVENT, 1F, 1F);
 			this.spawnEffectsCloud();
 			this.dead = true;

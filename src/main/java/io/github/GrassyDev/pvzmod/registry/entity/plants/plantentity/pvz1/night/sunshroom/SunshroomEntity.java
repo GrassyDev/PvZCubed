@@ -86,10 +86,13 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 13) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 113) {
 			this.isTired = true;
 		}
-		else if (status == 12) {
+		else if (status == 112) {
 			this.isTired = false;
 		}
 	}
@@ -220,7 +223,7 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 			this.initGoals();
 			this.isAsleep = false;
 			sleepSwitch = false;
@@ -230,7 +233,7 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 			this.clearGoalsAndTasks();
 			this.isAsleep = true;
 			sleepSwitch = true;

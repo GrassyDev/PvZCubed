@@ -68,9 +68,12 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -303,7 +306,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 		}
 
 		public void stop() {
-			this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 10);
+			this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 110);
 			this.peashooterEntity.setTarget((LivingEntity)null);
 		}
 
@@ -315,7 +318,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 					this.animationTicks >= 0) {
 				this.peashooterEntity.setTarget((LivingEntity) null);
 			} else {
-				this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
+				this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
@@ -336,7 +339,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 						proj.setOwner(this.peashooterEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 11);
+							this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 111);
 							this.peashooterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.peashooterEntity.world.spawnEntity(proj);
 						}
@@ -344,7 +347,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 10);
+					this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

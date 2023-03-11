@@ -80,9 +80,12 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -331,7 +334,7 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 		}
 
 		public void stop() {
-			this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 10);
+			this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 110);
 			this.narcissus.setTarget((LivingEntity) null);
 		}
 
@@ -342,7 +345,7 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 			if ((!this.narcissus.canSee(livingEntity) && this.animationTicks >= 0)){
 				this.narcissus.setTarget((LivingEntity) null);
 			} else {
-				this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 11);
+				this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -4) {
@@ -387,7 +390,7 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 					}
 				}
 				if (this.animationTicks >= 0) {
-					this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 10);
+					this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 110);
 					this.beamTicks = -8;
 					this.animationTicks = -21;
 				}

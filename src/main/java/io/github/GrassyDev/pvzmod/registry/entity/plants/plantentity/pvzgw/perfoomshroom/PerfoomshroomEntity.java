@@ -116,14 +116,17 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		RandomGenerator randomGenerator = this.getRandom();
-		if (status == 13) {
+		if (status == 113) {
 			this.isTired = true;
 		}
-		else if (status == 12) {
+		else if (status == 112) {
 			this.isTired = false;
 		}
-		if (status == 6) {
+		if (status == 106) {
 			for(int i = 0; i < 256; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
@@ -407,7 +410,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 			if (this.currentFuseTime >= this.fuseTime && !this.isAsleep) {
 				this.currentFuseTime = this.fuseTime;
 				this.raycastExplode();
-				this.world.sendEntityStatus(this, (byte) 6);
+				this.world.sendEntityStatus(this, (byte) 106);
 				this.playSound(PvZCubed.DOOMSHROOMEXPLOSIONEVENT, 0.8F, 1F);
 				this.spawnEffectsCloud();
 				this.dead = true;
@@ -432,7 +435,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 			this.initGoals();
 			this.isAsleep = false;
 			sleepSwitch = false;
@@ -442,7 +445,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 			this.clearGoalsAndTasks();
 			this.removeStatusEffect(StatusEffects.RESISTANCE);
 			this.isAsleep = true;

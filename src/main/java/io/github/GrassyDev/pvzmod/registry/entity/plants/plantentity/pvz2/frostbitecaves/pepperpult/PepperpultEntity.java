@@ -63,9 +63,12 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -279,7 +282,7 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 		}
 
 		public void stop() {
-			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 10);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 			this.plantEntity.setTarget((LivingEntity)null);
 		}
 
@@ -291,7 +294,7 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 					this.animationTicks >= 0) {
 				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 11);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -16) {
@@ -315,7 +318,7 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 						}
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 11);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.plantEntity.world.spawnEntity(proj);
 						}
@@ -323,7 +326,7 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 10);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -16;
 					this.animationTicks = -32;
 				}

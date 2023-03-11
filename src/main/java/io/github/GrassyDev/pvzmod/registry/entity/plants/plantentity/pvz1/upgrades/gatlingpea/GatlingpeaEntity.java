@@ -64,9 +64,12 @@ public class GatlingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -290,7 +293,7 @@ public class GatlingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 		}
 
 		public void stop() {
-			this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 10);
+			this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 110);
 			this.gatlingpeaEntity.setTarget((LivingEntity)null);
 		}
 
@@ -302,7 +305,7 @@ public class GatlingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 					this.animationTicks >= 0) {
 				this.gatlingpeaEntity.setTarget((LivingEntity) null);
 			} else {
-				this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 11);
+				this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -6) {
@@ -322,7 +325,7 @@ public class GatlingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 						proj.setOwner(this.gatlingpeaEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
-							this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 11);
+							this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 111);
 							this.gatlingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.gatlingpeaEntity.world.spawnEntity(proj);
 						}
@@ -343,13 +346,13 @@ public class GatlingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 					proj.updatePosition(this.gatlingpeaEntity.getX(), this.gatlingpeaEntity.getY() + 0.75D, this.gatlingpeaEntity.getZ());
 					proj.setOwner(this.gatlingpeaEntity);
 					if (livingEntity.isAlive()) {
-						this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 11);
+						this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 111);
 						this.gatlingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 						this.gatlingpeaEntity.world.spawnEntity(proj);
 					}
 				}
 				else if (this.animationTicks >= 0) {
-					this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 10);
+					this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 110);
 					this.beamTicks = -6;
 					this.animationTicks = -16;
 				}

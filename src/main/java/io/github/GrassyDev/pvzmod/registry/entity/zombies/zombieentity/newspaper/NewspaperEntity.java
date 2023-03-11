@@ -110,6 +110,9 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		if (status == 70) {
 			this.isFrozen = true;
 			this.isIced = false;
@@ -122,10 +125,10 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 			this.isIced = false;
 			this.isFrozen = false;
 		}
-		if (status == 30) {
+		if (status == 120) {
 			this.speedUp = true;
 		}
-		else if (status == 31) {
+		else if (status == 122) {
 			this.speedUp = false;
 		}
 	}
@@ -358,7 +361,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 		EntityAttributeInstance maxStrengthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 		if (this.getFirstPassenger() == null){
-			this.world.sendEntityStatus(this, (byte) 30);
+			this.world.sendEntityStatus(this, (byte) 120);
 			if (this.speedSwitch) {
 				this.playSound(NEWSPAPERANGRYEVENT, 1, 1);
 				assert maxSpeedAttribute != null;
@@ -369,7 +372,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 			}
 		}
 		else if (this.getFirstPassenger() instanceof ZombieShieldEntity) {
-			this.world.sendEntityStatus(this, (byte) 31);
+			this.world.sendEntityStatus(this, (byte) 122);
 			if (!this.speedSwitch){
 				assert maxSpeedAttribute != null;
 				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);

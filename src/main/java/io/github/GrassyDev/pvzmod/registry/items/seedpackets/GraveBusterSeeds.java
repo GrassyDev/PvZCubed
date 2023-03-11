@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -16,6 +17,8 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -23,6 +26,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -108,15 +112,23 @@ public class GraveBusterSeeds extends Item implements FabricItem {
 			list.addAll(world.getNonSpectatingEntities(ZombieObstacleEntity.class, box.expand(0)));
 			if (world instanceof ServerWorld && !list.isEmpty()) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    GravebusterEntity gravebusterEntity = (GravebusterEntity) PvZEntity.GRAVEBUSTER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (gravebusterEntity == null) {
+                    GravebusterEntity plantEntity = (GravebusterEntity) PvZEntity.GRAVEBUSTER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    if (plantEntity == null) {
                         return ActionResult.FAIL;
                     }
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    gravebusterEntity.refreshPositionAndAngles(gravebusterEntity.getX(), gravebusterEntity.getY(), gravebusterEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(gravebusterEntity);
-                    world.playSound((PlayerEntity) null, gravebusterEntity.getX(), gravebusterEntity.getY(), gravebusterEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+                    plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+                    world.spawnEntity(plantEntity);
+				RandomGenerator randomGenerator = plantEntity.getRandom();
+				BlockState blockState = plantEntity.getLandingBlockState();
+				for(int i = 0; i < 4; ++i) {
+					double dg = plantEntity.getX() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
+					double eg = plantEntity.getY() + 0.3;
+					double fg = plantEntity.getZ() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
+					plantEntity.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), dg, eg, fg, 0.0, 0.0, 0.0);
+				}
+                    world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
                 }
 				else {
 					return ActionResult.PASS;

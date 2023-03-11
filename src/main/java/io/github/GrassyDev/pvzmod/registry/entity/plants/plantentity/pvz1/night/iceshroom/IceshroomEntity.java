@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.doomshroom.DoomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -107,21 +106,24 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 	}
 
 	static {
-		FUSE_SPEED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
-		CHARGED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-		IGNITED = DataTracker.registerData(DoomshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		FUSE_SPEED = DataTracker.registerData(IceshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
+		CHARGED = DataTracker.registerData(IceshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		IGNITED = DataTracker.registerData(IceshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	}
 
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 13) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 113) {
 			this.isTired = true;
 		}
-		else if (status == 12) {
+		else if (status == 112) {
 			this.isTired = false;
 		}
-		if (status == 6) {
+		if (status == 106) {
 			for(int i = 0; i < 1000; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
@@ -352,7 +354,7 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 			if (this.currentFuseTime >= this.fuseTime) {
 				this.currentFuseTime = this.fuseTime;
 				this.raycastExplode();
-				this.world.sendEntityStatus(this, (byte) 6);
+				this.world.sendEntityStatus(this, (byte) 106);
 				this.playSound(PvZCubed.SNOWPEAHITEVENT, 0.2F, 1F);
 				this.spawnEffectsCloud();
 				this.dead = true;
@@ -378,7 +380,7 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
 			this.isAsleep = false;
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 			this.awakeGoals();
 			sleepSwitch = false;
 			awakeSwitch = true;
@@ -387,7 +389,7 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 			this.isAsleep = true;
 			this.clearGoalsAndTasks();
 			this.removeStatusEffect(StatusEffects.RESISTANCE);

@@ -7,6 +7,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -69,6 +71,13 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 	static {
 	}
 
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -118,22 +127,22 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 		this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 		LocalDifficulty localDifficulty = world.getLocalDifficulty(this.getBlockPos());
 		double difficulty = localDifficulty.getLocalDifficulty();
-		if (this.spawnCounter == 1 && difficulty <= 1.509){
+		if (this.spawnCounter == 2 && difficulty <= 1.509){
 			this.kill();
 		}
-		else if (this.spawnCounter == 2 && difficulty <= 1.609){
+		else if (this.spawnCounter == 3 && difficulty <= 1.609){
 			this.kill();
 		}
-		else if (this.spawnCounter == 3 && difficulty <= 1.809){
+		else if (this.spawnCounter == 4 && difficulty <= 1.809){
 			this.kill();
 		}
-		else if (this.spawnCounter == 4 && difficulty <= 2.309){
+		else if (this.spawnCounter == 5 && difficulty <= 2.309){
 			this.kill();
 		}
-		else if (this.spawnCounter == 5 && difficulty >= 2.909){
+		else if (this.spawnCounter == 6 && difficulty >= 2.909){
 			this.kill();
 		}
-		else if (this.spawnCounter > 5){
+		else if (this.spawnCounter > 7){
 			this.kill();
 		}
 		if (this.world.isClient && this.isSpellcasting()) {
@@ -317,7 +326,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
                 browncoatEntity.setOwner(PoolGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
-			if (difficulty >= 1.509) {
+			if (difficulty >= 1.519) {
 				if (probability <= 0.5) { // 50% x2 Conehead
 					for (int c = 0; c < 2; ++c) {
 						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -339,7 +348,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
-			if (difficulty >= 1.509) {
+			if (difficulty >= 1.519) {
 				if (probability2 <= 0.15) { // 15% x1 Buckethead
 					for (int u = 0; u < 1; ++u) {
 						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -361,7 +370,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(snorkelEntity);
 				}
 			}
-			if (difficulty >= 1.509) {
+			if (difficulty >= 1.519) {
 				if (probability21 <= 0.2) { // 20% x4 SnorkelZombie
 					for(int p = 0; p < 4; ++p) {
 						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -383,7 +392,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
                 }
             }**/
-			if (difficulty >= 1.509) {
+			if (difficulty >= 1.519) {
 				if (probability5 <= 0.2) { // 20% x1 Flag Zombie
 					for (int g = 0; g < 1; ++g) {
 						double random = Math.random();

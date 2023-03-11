@@ -72,14 +72,19 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 6) {
-			this.attackTicksLeft = 20;
-		} else {
+		if (status != 2){
 			super.handleStatus(status);
 		}
-		if (status == 11) {
+		if (status == 106) {
+			this.attackTicksLeft = 20;
+		} else {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -443,7 +448,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 		}
 
 		public void stop() {
-			this.cattailEntity.world.sendEntityStatus(this.cattailEntity, (byte) 10);
+			this.cattailEntity.world.sendEntityStatus(this.cattailEntity, (byte) 110);
 			if (cattailEntity.getTarget() != null){
 				this.cattailEntity.attack(cattailEntity.getTarget(), 0);
 			}
@@ -457,7 +462,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 					this.animationTicks >= 0) {
 				this.cattailEntity.setTarget((LivingEntity) null);
 			} else {
-				this.cattailEntity.world.sendEntityStatus(this.cattailEntity, (byte) 11);
+				this.cattailEntity.world.sendEntityStatus(this.cattailEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
@@ -478,13 +483,13 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 						proj.setYaw(this.cattailEntity.getYaw());
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
-							this.cattailEntity.world.sendEntityStatus(this.cattailEntity, (byte) 11);
+							this.cattailEntity.world.sendEntityStatus(this.cattailEntity, (byte) 111);
 							this.cattailEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.cattailEntity.world.spawnEntity(proj);
 						}
 					}
 				} else if (this.animationTicks >= 0) {
-					this.cattailEntity.world.sendEntityStatus(this.cattailEntity, (byte) 10);
+					this.cattailEntity.world.sendEntityStatus(this.cattailEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

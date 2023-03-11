@@ -50,8 +50,11 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		RandomGenerator randomGenerator = this.getRandom();
-		if (status == 6) {
+		if (status == 106) {
 			for(int i = 0; i < 192; ++i) {
 				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1));
 				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -3F, 2F),
@@ -161,7 +164,7 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
 		}
 		if (this.isAlive()) {
 			this.raycastExplode();
-			this.world.sendEntityStatus(this, (byte) 6);
+			this.world.sendEntityStatus(this, (byte) 106);
 			this.playSound(SoundEvents.ENTITY_SILVERFISH_AMBIENT, 1F, 1F);
 			this.spawnEffectsCloud();
 			this.remove(RemovalReason.DISCARDED);

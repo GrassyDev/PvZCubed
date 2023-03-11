@@ -9,6 +9,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.bas
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -71,6 +73,13 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 	static {
 	}
 
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -120,22 +129,22 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 		this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 		LocalDifficulty localDifficulty = world.getLocalDifficulty(this.getBlockPos());
 		double difficulty = localDifficulty.getLocalDifficulty();
-		if (this.spawnCounter == 1 && difficulty <= 1.509){
+		if (this.spawnCounter == 2 && difficulty <= 1.509){
 			this.kill();
 		}
-		else if (this.spawnCounter == 2 && difficulty <= 1.609){
+		else if (this.spawnCounter == 3 && difficulty <= 1.609){
 			this.kill();
 		}
-		else if (this.spawnCounter == 3 && difficulty <= 1.809){
+		else if (this.spawnCounter == 4 && difficulty <= 1.809){
 			this.kill();
 		}
-		else if (this.spawnCounter == 4 && difficulty <= 2.309){
+		else if (this.spawnCounter == 5 && difficulty <= 2.309){
 			this.kill();
 		}
-		else if (this.spawnCounter == 5 && difficulty >= 2.909){
+		else if (this.spawnCounter == 6 && difficulty >= 2.909){
 			this.kill();
 		}
-		else if (this.spawnCounter > 5){
+		else if (this.spawnCounter > 7){
 			this.kill();
 		}
 		if (this.world.isClient && this.isSpellcasting()) {

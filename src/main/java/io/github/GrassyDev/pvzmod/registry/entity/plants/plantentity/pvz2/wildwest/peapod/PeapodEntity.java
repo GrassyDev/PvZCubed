@@ -13,8 +13,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZ
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.PeaPodSeeds;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -101,11 +99,14 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 	static {
 	}
 
-	@Environment(EnvType.CLIENT)
+	@Override
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -445,17 +446,17 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final PeapodEntity peapodEntity;
+		private final PeapodEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(PeapodEntity peapodEntity) {
-			this.peapodEntity = peapodEntity;
+		public FireBeamGoal(PeapodEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.peapodEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -466,136 +467,136 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.peapodEntity.getNavigation().stop();
-			this.peapodEntity.getLookControl().lookAt(this.peapodEntity.getTarget(), 90.0F, 90.0F);
-			this.peapodEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.peapodEntity.world.sendEntityStatus(this.peapodEntity, (byte) 10);
-			this.peapodEntity.setTarget((LivingEntity) null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity) null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.peapodEntity.getTarget();
-			this.peapodEntity.getNavigation().stop();
-			this.peapodEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.peapodEntity.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.peapodEntity.setTarget((LivingEntity) null);
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.peapodEntity.world.sendEntityStatus(this.peapodEntity, (byte) 11);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -9) {
-					double time = (this.peapodEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+					double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 					Vec3d targetPos = livingEntity.getPos();
 					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-					if (!this.peapodEntity.isInsideWaterOrBubbleColumn()) {
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						// Bottom Pea
-						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
-						double d = this.peapodEntity.squaredDistanceTo(predictedPos);
+						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.peapodEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.peapodEntity.getY();
-						double g = predictedPos.getZ() - this.peapodEntity.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 0.33D, this.peapodEntity.getZ());
-						proj.setOwner(this.peapodEntity);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.33D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -16;
-							this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-							this.peapodEntity.world.spawnEntity(proj);
+							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
-						if (peapodEntity.getCount().getId() >= 1) {
+						if (plantEntity.getCount().getId() >= 1) {
 							// Right Pea
-							ShootingPeaEntity proj3 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
-							Vec3d vec3d3 = this.peapodEntity.getRotationVec(1.0F).rotateY(-90);
-							double d3 = this.peapodEntity.squaredDistanceTo(predictedPos);
+							ShootingPeaEntity proj3 = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+							Vec3d vec3d3 = this.plantEntity.getRotationVec(1.0F).rotateY(-90);
+							double d3 = this.plantEntity.squaredDistanceTo(predictedPos);
 							float df3 = (float) d3;
-							double e3 = predictedPos.getX() - this.peapodEntity.getX();
-							double f3 = livingEntity.getY() - this.peapodEntity.getY();
-							double g3 = predictedPos.getZ() - this.peapodEntity.getZ();
+							double e3 = predictedPos.getX() - this.plantEntity.getX();
+							double f3 = livingEntity.getY() - this.plantEntity.getY();
+							double g3 = predictedPos.getZ() - this.plantEntity.getZ();
 							float h3 = MathHelper.sqrt(MathHelper.sqrt(df3)) * 0.5F;
 							proj3.setVelocity(e3 * (double) h3, f3 * (double) h3, g3 * (double) h3, 0.33F, 0F);
-							proj3.updatePosition(this.peapodEntity.getX() + vec3d3.x * 0.75, this.peapodEntity.getY() + 0.3, this.peapodEntity.getZ() + vec3d3.z * 0.75);
-							proj3.setOwner(this.peapodEntity);
+							proj3.updatePosition(this.plantEntity.getX() + vec3d3.x * 0.75, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d3.z * 0.75);
+							proj3.setOwner(this.plantEntity);
 							if (livingEntity.isAlive()) {
-								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
+								if (this.plantEntity.getVariant().equals(PeapodVariants.PLURAL)){
 									proj3.setVariant(ShootingPeaVariants.BLACK);
 								}
-								this.peapodEntity.world.sendEntityStatus(this.peapodEntity, (byte) 11);
-								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-								this.peapodEntity.world.spawnEntity(proj3);
+								this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+								this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+								this.plantEntity.world.spawnEntity(proj3);
 							}
 						}
-						if (peapodEntity.getCount().getId() >= 2) {
+						if (plantEntity.getCount().getId() >= 2) {
 							// Left Pea
-							ShootingPeaEntity proj2 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
-							Vec3d vec3d2 = this.peapodEntity.getRotationVec(1.0F).rotateY(90);
-							double d2 = this.peapodEntity.squaredDistanceTo(predictedPos);
+							ShootingPeaEntity proj2 = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+							Vec3d vec3d2 = this.plantEntity.getRotationVec(1.0F).rotateY(90);
+							double d2 = this.plantEntity.squaredDistanceTo(predictedPos);
 							float df2 = (float) d2;
-							double e2 = predictedPos.getX() - this.peapodEntity.getX();
-							double f2 = livingEntity.getY() - this.peapodEntity.getY();
-							double g2 = predictedPos.getZ() - this.peapodEntity.getZ();
+							double e2 = predictedPos.getX() - this.plantEntity.getX();
+							double f2 = livingEntity.getY() - this.plantEntity.getY();
+							double g2 = predictedPos.getZ() - this.plantEntity.getZ();
 							float h2 = MathHelper.sqrt(MathHelper.sqrt(df2)) * 0.5F;
 							proj2.setVelocity(e2 * (double) h2, f2 * (double) h2, g2 * (double) h2, 0.33F, 0);
-							proj2.updatePosition(this.peapodEntity.getX() + vec3d2.x * 0.75, this.peapodEntity.getY() + 0.3, this.peapodEntity.getZ() + vec3d2.z * 0.75);
-							proj2.setOwner(this.peapodEntity);
+							proj2.updatePosition(this.plantEntity.getX() + vec3d2.x * 0.75, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d2.z * 0.75);
+							proj2.setOwner(this.plantEntity);
 							if (livingEntity.isAlive()) {
-								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
+								if (this.plantEntity.getVariant().equals(PeapodVariants.PLURAL)){
 									proj2.setVariant(ShootingPeaVariants.PURPLE);
 								}
-								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-								this.peapodEntity.world.spawnEntity(proj2);
+								this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+								this.plantEntity.world.spawnEntity(proj2);
 							}
 						}
-						if (peapodEntity.getCount().getId() >= 3) {
+						if (plantEntity.getCount().getId() >= 3) {
 							// Middle Pea
-							ShootingPeaEntity proj4 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
-							double d4 = this.peapodEntity.squaredDistanceTo(predictedPos);
+							ShootingPeaEntity proj4 = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+							double d4 = this.plantEntity.squaredDistanceTo(predictedPos);
 							float df4 = (float) d4;
-							double e4 = predictedPos.getX() - this.peapodEntity.getX();
-							double f4 = livingEntity.getY() - this.peapodEntity.getY();
-							double g4 = predictedPos.getZ() - this.peapodEntity.getZ();
+							double e4 = predictedPos.getX() - this.plantEntity.getX();
+							double f4 = livingEntity.getY() - this.plantEntity.getY();
+							double g4 = predictedPos.getZ() - this.plantEntity.getZ();
 							float h4 = MathHelper.sqrt(MathHelper.sqrt(df4)) * 0.5F;
 							proj4.setVelocity(e4 * (double) h4, f4 * (double) h4, g4 * (double) h4, 0.33F, 0F);
-							proj4.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 0.75D, this.peapodEntity.getZ());
-							proj4.setOwner(this.peapodEntity);
+							proj4.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+							proj4.setOwner(this.plantEntity);
 							if (livingEntity.isAlive()) {
-								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
+								if (this.plantEntity.getVariant().equals(PeapodVariants.PLURAL)){
 									proj4.setVariant(ShootingPeaVariants.BLUE);
 								}
-								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-								this.peapodEntity.world.spawnEntity(proj4);
+								this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+								this.plantEntity.world.spawnEntity(proj4);
 							}
 						}
-						if (peapodEntity.getCount().getId() >= 4) {
+						if (plantEntity.getCount().getId() >= 4) {
 							// Top Pea
-							ShootingPeaEntity proj5 = new ShootingPeaEntity(PvZEntity.PEA, this.peapodEntity.world);
-							double d5 = this.peapodEntity.squaredDistanceTo(predictedPos);
+							ShootingPeaEntity proj5 = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+							double d5 = this.plantEntity.squaredDistanceTo(predictedPos);
 							float df5 = (float) d5;
-							double e5 = predictedPos.getX() - this.peapodEntity.getX();
-							double f5 = livingEntity.getY() - this.peapodEntity.getY();
-							double g5 = predictedPos.getZ() - this.peapodEntity.getZ();
+							double e5 = predictedPos.getX() - this.plantEntity.getX();
+							double f5 = livingEntity.getY() - this.plantEntity.getY();
+							double g5 = predictedPos.getZ() - this.plantEntity.getZ();
 							float h5 = MathHelper.sqrt(MathHelper.sqrt(df5)) * 0.5F;
 							proj5.setVelocity(e5 * (double) h5, f5 * (double) h5, g5 * (double) h5, 0.33F, 0F);
-							proj5.updatePosition(this.peapodEntity.getX(), this.peapodEntity.getY() + 1.25D, this.peapodEntity.getZ());
-							proj5.setOwner(this.peapodEntity);
+							proj5.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 1.25D, this.plantEntity.getZ());
+							proj5.setOwner(this.plantEntity);
 							proj5.canHitFlying = true;
 							if (livingEntity.isAlive()) {
-								if (this.peapodEntity.getVariant().equals(PeapodVariants.PLURAL)){
+								if (this.plantEntity.getVariant().equals(PeapodVariants.PLURAL)){
 									proj5.setVariant(ShootingPeaVariants.CYAN);
 								}
-								this.peapodEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-								this.peapodEntity.world.spawnEntity(proj5);
+								this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+								this.plantEntity.world.spawnEntity(proj5);
 							}
 						}
 					}
 				}
 				else if (this.animationTicks >= 0) {
-					this.peapodEntity.world.sendEntityStatus(this.peapodEntity, (byte) 10);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

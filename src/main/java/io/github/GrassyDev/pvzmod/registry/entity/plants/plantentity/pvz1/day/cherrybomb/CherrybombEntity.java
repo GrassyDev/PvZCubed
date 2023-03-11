@@ -109,8 +109,11 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		RandomGenerator randomGenerator = this.getRandom();
-		if (status == 6) {
+		if (status == 106) {
 			for(int i = 0; i < 170; ++i) {
 				double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
 				double e = this.random.nextDouble() / 2 * this.random.range(0, 1);
@@ -366,7 +369,7 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {
-				this.world.sendEntityStatus(this, (byte) 6);
+				this.world.sendEntityStatus(this, (byte) 106);
 				this.currentFuseTime = this.fuseTime;
 				this.raycastExplode();
 				this.playSound(PvZCubed.CHERRYBOMBEXPLOSIONEVENT, 1F, 1F);

@@ -61,9 +61,12 @@ public class FlamingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -275,17 +278,17 @@ public class FlamingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final FlamingpeaEntity flamingpeaEntity;
+		private final FlamingpeaEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(FlamingpeaEntity flamingpeaEntity) {
-			this.flamingpeaEntity = flamingpeaEntity;
+		public FireBeamGoal(FlamingpeaEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.flamingpeaEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -296,67 +299,67 @@ public class FlamingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.flamingpeaEntity.getNavigation().stop();
-			this.flamingpeaEntity.getLookControl().lookAt(this.flamingpeaEntity.getTarget(), 90.0F, 90.0F);
-			this.flamingpeaEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 10);
-			this.flamingpeaEntity.setTarget((LivingEntity) null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity) null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.flamingpeaEntity.getTarget();
-			this.flamingpeaEntity.getNavigation().stop();
-			this.flamingpeaEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if (!this.flamingpeaEntity.canSee(livingEntity)) {
-				this.flamingpeaEntity.setTarget((LivingEntity) null);
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if (!this.plantEntity.canSee(livingEntity)) {
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 11);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
-				double probability = flamingpeaEntity.random.nextDouble();
-				double time = (this.flamingpeaEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+				double probability = plantEntity.random.nextDouble();
+				double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 				Vec3d targetPos = livingEntity.getPos();
 				Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-				double d = this.flamingpeaEntity.squaredDistanceTo(predictedPos);
+				double d = this.plantEntity.squaredDistanceTo(predictedPos);
 				float df = (float)d;
-				double e = predictedPos.getX() - this.flamingpeaEntity.getX();
-				double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.flamingpeaEntity.getY();
-				double g = predictedPos.getZ() - this.flamingpeaEntity.getZ();
+				double e = predictedPos.getX() - this.plantEntity.getX();
+				double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.plantEntity.getY();
+				double g = predictedPos.getZ() - this.plantEntity.getZ();
 				float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					if (probability <= 0.33) {
-						ShootingPlasmaPeaEntity proj = new ShootingPlasmaPeaEntity(PvZEntity.PLASMAPEA, this.flamingpeaEntity.world);
+						ShootingPlasmaPeaEntity proj = new ShootingPlasmaPeaEntity(PvZEntity.PLASMAPEA, this.plantEntity.world);
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePosition(this.flamingpeaEntity.getX(), this.flamingpeaEntity.getY() + 0.75D, this.flamingpeaEntity.getZ());
-						proj.setOwner(this.flamingpeaEntity);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 11);
-							this.flamingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 1F, 1);
-							this.flamingpeaEntity.world.spawnEntity(proj);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 1F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
-					else if (!this.flamingpeaEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingFlamingPeaEntity proj = new ShootingFlamingPeaEntity(PvZEntity.FIREPEA, this.flamingpeaEntity.world);
+					else if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+						ShootingFlamingPeaEntity proj = new ShootingFlamingPeaEntity(PvZEntity.FIREPEA, this.plantEntity.world);
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePosition(this.flamingpeaEntity.getX(), this.flamingpeaEntity.getY() + 0.75D, this.flamingpeaEntity.getZ());
-						proj.setOwner(this.flamingpeaEntity);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 11);
-							this.flamingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 1F, 1);
-							if (this.flamingpeaEntity.isWet()){
-								this.flamingpeaEntity.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH, 1F, 1);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 1F, 1);
+							if (this.plantEntity.isWet()){
+								this.plantEntity.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH, 1F, 1);
 							}
-							this.flamingpeaEntity.world.spawnEntity(proj);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
 				if (this.animationTicks >= 0) {
-					this.flamingpeaEntity.world.sendEntityStatus(this.flamingpeaEntity, (byte) 10);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

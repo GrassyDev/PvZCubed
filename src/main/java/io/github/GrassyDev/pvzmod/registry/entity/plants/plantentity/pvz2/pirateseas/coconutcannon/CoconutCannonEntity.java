@@ -66,9 +66,12 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 		if (status == 88){
@@ -414,7 +417,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 		}
 
 		public void stop() {
-			this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 10);
+			this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 110);
 			this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 87);
 			if (this.coconutCannonEntity.rechargeTime <= 0 && this.coconutCannonEntity.attacked) {
 				this.coconutCannonEntity.attacked = false;
@@ -434,7 +437,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 					this.animationTicks >= 0)) {
 				this.coconutCannonEntity.setTarget((LivingEntity) null);
 			} else if (this.coconutCannonEntity.startShooting) {
-				this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 11);
+				this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 111);
 				if (this.coconutCannonEntity.rechargeTime <= 0){
 					++this.beamTicks;
 					++this.animationTicks;
@@ -457,7 +460,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -30;
 							this.coconutCannonEntity.attacked = true;
-							this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 11);
+							this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 111);
 							this.coconutCannonEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.coconutCannonEntity.world.spawnEntity(proj);
 						}
@@ -468,7 +471,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 					this.coconutCannonEntity.rechargeTime = 300;
 				}
 				else if (this.coconutCannonEntity.rechargeTime > 0) {
-					this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 10);
+					this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 110);
 					this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 87);
 					this.beamTicks = -9;
 					this.animationTicks = -26;

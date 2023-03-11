@@ -118,6 +118,9 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		if (status == 70) {
 			this.isFrozen = true;
 			this.isIced = false;

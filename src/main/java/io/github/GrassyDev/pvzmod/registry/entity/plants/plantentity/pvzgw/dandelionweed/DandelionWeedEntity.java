@@ -66,12 +66,15 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
-		if (status == 6) {
+		if (status == 106) {
 			for(int i = 0; i < 16; ++i) {
 				this.world.addParticle(ParticleTypes.CRIT, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
 				this.world.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 3)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
@@ -360,7 +363,7 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 		}
 
 		public void stop() {
-			this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 10);
+			this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 110);
 			this.dandelionWeedEntity.setTarget((LivingEntity)null);
 		}
 
@@ -372,21 +375,21 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 					this.animationTicks >= 0) {
 				this.dandelionWeedEntity.setTarget((LivingEntity) null);
 			} else {
-				this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 11);
+				this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -5) {
 					if (!this.dandelionWeedEntity.isInsideWaterOrBubbleColumn()) {
 						this.beamTicks = -6;
-						this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 11);
+						this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 111);
 						this.dandelionWeedEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 						this.dandelionWeedEntity.splashDamage();
-						this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 6);
+						this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 106);
 					}
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 10);
+					this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 110);
 					this.beamTicks = -6;
 					this.animationTicks = -11;
 				}

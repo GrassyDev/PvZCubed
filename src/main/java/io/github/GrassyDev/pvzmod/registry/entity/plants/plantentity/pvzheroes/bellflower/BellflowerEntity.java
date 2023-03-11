@@ -69,9 +69,12 @@ public class BellflowerEntity extends PlantEntity implements IAnimatable, Ranged
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -305,7 +308,7 @@ public class BellflowerEntity extends PlantEntity implements IAnimatable, Ranged
 		}
 
 		public void stop() {
-			this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 10);
+			this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 110);
 			this.bellflower.setTarget((LivingEntity)null);
 		}
 
@@ -317,7 +320,7 @@ public class BellflowerEntity extends PlantEntity implements IAnimatable, Ranged
 					this.animationTicks >= 0) {
 				this.bellflower.setTarget((LivingEntity) null);
 			} else {
-				this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 11);
+				this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
@@ -338,7 +341,7 @@ public class BellflowerEntity extends PlantEntity implements IAnimatable, Ranged
 						proj.setOwner(this.bellflower);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 11);
+							this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 111);
 							this.bellflower.playSound(SoundEvents.BLOCK_BELL_USE, 0.3F, (float) (1.5 + Math.random() * (3 - 1.5)));
 							this.bellflower.world.spawnEntity(proj);
 						}
@@ -346,7 +349,7 @@ public class BellflowerEntity extends PlantEntity implements IAnimatable, Ranged
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 10);
+					this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

@@ -127,6 +127,9 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		RandomGenerator randomGenerator = this.getRandom();
 		ItemStack itemStack = Items.POTATO.getDefaultStack();
 		if (status == 80) {
@@ -155,7 +158,7 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 			}
 		}
 		BlockState blockState = this.getLandingBlockState();
-		if (status == 8) {
+		if (status == 108) {
 			for(int i = 0; i < 4; ++i) {
 				double d = this.getX() + (double)MathHelper.nextBetween(randomGenerator, -0.7F, 0.7F);
 				double e = this.getY();
@@ -163,10 +166,10 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 				this.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
 			}
 		}
-		if (status == 9) {
+		if (status == 109) {
 			canAnimate = true;
 		}
-		if (status == 7) {
+		if (status == 107) {
 			canAnimate = false;
 		}
 	}
@@ -216,7 +219,6 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (canAnimate) {
-			world.sendEntityStatus(this, (byte) 30);
 			event.getController().setAnimation(new AnimationBuilder().playOnce("potatomine.ready"));
 		}
 		else if (this.getPotatoStage()) {
@@ -398,8 +400,8 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 		}
 		if (this.isAlive() && this.potatoPreparingTime <= 0 && this.potatoAnimationTime > 0 && !this.getPotatoStage()) {
 			--this.potatoAnimationTime;
-			this.world.sendEntityStatus(this, (byte) 9);
-			this.world.sendEntityStatus(this, (byte) 8);
+			this.world.sendEntityStatus(this, (byte) 109);
+			this.world.sendEntityStatus(this, (byte) 108);
 		}
 		if (this.isAlive() && this.potatoPreparingTime <= 0 && this.potatoAnimationTime > 0 && !this.getPotatoStage() && this.playSoundRise) {
 			this.playSound(PvZCubed.ENTITYRISINGEVENT, 1.0F, 1.0F);
@@ -407,7 +409,7 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 		}
 		if (this.isAlive() && this.potatoAnimationTime <= 0) {
 			this.setPotatoStage(PotatoStage.PREPARED);
-			this.world.sendEntityStatus(this, (byte) 7);
+			this.world.sendEntityStatus(this, (byte) 107);
 		}
 		if (this.isAlive() && this.getPotatoStage()) {
 			if (this.getIgnited()) {

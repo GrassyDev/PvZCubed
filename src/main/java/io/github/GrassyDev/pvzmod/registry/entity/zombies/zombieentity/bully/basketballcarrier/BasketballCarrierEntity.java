@@ -80,6 +80,9 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		if (status == 70) {
 			this.isFrozen = true;
 			this.isIced = false;
@@ -92,10 +95,10 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 			this.isIced = false;
 			this.isFrozen = false;
 		}
-		if (status == 44) {
+		if (status == 1044) {
 			this.inLaunchAnimation = true;
 		}
-		else if (status == 43) {
+		else if (status == 1043) {
 			this.inLaunchAnimation = false;
 		}
 	}

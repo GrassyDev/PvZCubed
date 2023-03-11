@@ -81,10 +81,15 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 6) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 106) {
 			this.attackTicksLeft = 20;
 		} else {
+		if (status != 2){
 			super.handleStatus(status);
+		}
 		}
 	}
 
@@ -185,7 +190,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 		}
 		if (i <= 0) {
 			this.attackTicksLeft = 20;
-			this.world.sendEntityStatus(this, (byte) 6);
+			this.world.sendEntityStatus(this, (byte) 106);
 			boolean bl = damaged.damage(DamageSource.mob(this), this.getAttackDamage());
 			if (bl) {
 				this.applyDamageEffects(this, target);

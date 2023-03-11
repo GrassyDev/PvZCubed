@@ -227,6 +227,9 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 
     @Environment(EnvType.CLIENT)
     public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
         if (status == 3) {
 			double d = (double) (180 & 255) / 255.0;
 			double e = (double) (30 & 255) / 255.0;

@@ -109,7 +109,10 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 6) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 106) {
 			for(int i = 0; i < 32; ++i) {
 				double d = this.random.nextDouble() / 4 * this.random.range(-1, 1);
 				double e = this.random.nextDouble() / 4 * this.random.range(0, 1);
@@ -357,7 +360,7 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 				this.currentFuseTime = this.fuseTime;
 				this.raycastExplode();
 				this.removeStatusEffect(StatusEffects.RESISTANCE);
-				this.world.sendEntityStatus(this, (byte) 6);
+				this.world.sendEntityStatus(this, (byte) 106);
 				this.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 0.7F, 1F);
 				this.spawnEffectsCloud();
 				this.dead = true;

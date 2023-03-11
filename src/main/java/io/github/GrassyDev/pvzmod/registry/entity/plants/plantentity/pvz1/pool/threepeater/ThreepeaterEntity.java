@@ -63,9 +63,12 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -267,8 +270,8 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(ThreepeaterEntity threepeaterEntity) {
-			this.threepeaterentity = threepeaterEntity;
+		public FireBeamGoal(ThreepeaterEntity plantEntity) {
+			this.threepeaterentity = plantEntity;
 			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
@@ -290,7 +293,7 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 		}
 
 		public void stop() {
-			this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 10);
+			this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 110);
 			this.threepeaterentity.setTarget((LivingEntity) null);
 		}
 
@@ -302,7 +305,7 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 					this.animationTicks >= 0) {
 				this.threepeaterentity.setTarget((LivingEntity) null);
 			} else {
-				this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 11);
+				this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -9) {
@@ -339,7 +342,7 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 						proj3.updatePosition(this.threepeaterentity.getX() + vec3d3.x * 0.55, this.threepeaterentity.getY() + 0.5, this.threepeaterentity.getZ() + vec3d3.z * 0.55);
 						proj3.setOwner(this.threepeaterentity);
 						if (livingEntity.isAlive()) {
-							this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 11);
+							this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 111);
 							this.threepeaterentity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.threepeaterentity.world.spawnEntity(proj3);
 						}
@@ -361,7 +364,7 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 						}
 					}
 				} else if (this.animationTicks >= 0) {
-					this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 10);
+					this.threepeaterentity.world.sendEntityStatus(this.threepeaterentity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ScaredyshroomVariants;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -15,6 +16,8 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -22,6 +25,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -95,21 +99,21 @@ public class ScaredyshroomSeeds extends Item implements FabricItem {
 			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
 			Box box = PvZEntity.SCAREDYSHROOM.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
-				ScaredyshroomEntity scaredyshroomEntity = (ScaredyshroomEntity) PvZEntity.SCAREDYSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SCAREDYSHROOM.getDimensions().getBoxAt(scaredyshroomEntity.getPos()));
+				ScaredyshroomEntity plantEntity = (ScaredyshroomEntity) PvZEntity.SCAREDYSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SCAREDYSHROOM.getDimensions().getBoxAt(plantEntity.getPos()));
 				if (list.isEmpty()) {
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-					scaredyshroomEntity.refreshPositionAndAngles(scaredyshroomEntity.getX(), scaredyshroomEntity.getY(), scaredyshroomEntity.getZ(), f, 0.0F);
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					double random = Math.random();
 					if (random <= 0.125) {
-						scaredyshroomEntity.setVariant(ScaredyshroomVariants.DEMIBOY);
+						plantEntity.setVariant(ScaredyshroomVariants.DEMIBOY);
 					} else if (random <= 0.25) {
-						scaredyshroomEntity.setVariant(ScaredyshroomVariants.LINK);
+						plantEntity.setVariant(ScaredyshroomVariants.LINK);
 					} else {
-						scaredyshroomEntity.setVariant(ScaredyshroomVariants.DEFAULT);
+						plantEntity.setVariant(ScaredyshroomVariants.DEFAULT);
 					}
-					world.spawnEntity(scaredyshroomEntity);
-					world.playSound((PlayerEntity) null, scaredyshroomEntity.getX(), scaredyshroomEntity.getY(), scaredyshroomEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+					world.spawnEntity(plantEntity);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 
 					PlayerEntity user = context.getPlayer();

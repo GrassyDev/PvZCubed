@@ -123,6 +123,9 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		if (status == 70) {
 			this.isFrozen = true;
 			this.isIced = false;
@@ -136,7 +139,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			this.isFrozen = false;
 		}
 		RandomGenerator randomGenerator = this.getRandom();
-		if (status == 7) {
+		if (status == 107) {
 			Entity target = this.getTarget();
 			if (target != null) {
 				for (int i = 0; i < 128; ++i) {
@@ -148,16 +151,16 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				}
 			}
 		}
-		if (status == 13) {
+		if (status == 113) {
 			this.inAnimation = true;
 		}
-		else if (status == 12) {
+		else if (status == 112) {
 			this.inAnimation = false;
 		}
-		if (status == 44) {
+		if (status == 1044) {
 			this.inLaunchAnimation = true;
 		}
-		else if (status == 43) {
+		else if (status == 1043) {
 			this.inLaunchAnimation = false;
 		}
 	}
@@ -510,7 +513,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
 			}
 			else if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-				world.sendEntityStatus(this, (byte) 7);
+				world.sendEntityStatus(this, (byte) 107);
 				this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
 			}
 			if (getTarget() != null) {
@@ -526,10 +529,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		if (this.animationTicksLeft > 0) {
 			this.getNavigation().stop();
 			--this.animationTicksLeft;
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 		}
 		if (this.animationTicksLeft <= 0) {
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 		}
 	}
 

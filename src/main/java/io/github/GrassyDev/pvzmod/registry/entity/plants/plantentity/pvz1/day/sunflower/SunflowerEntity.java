@@ -9,6 +9,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVaria
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.TwinSunflowerVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.TwinSunflowerSeeds;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -91,6 +93,13 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 
 	static {
 		SUN_SPEED = DataTracker.registerData(SunflowerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 	}
 
 

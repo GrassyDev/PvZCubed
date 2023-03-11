@@ -87,15 +87,18 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 13) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 113) {
 			this.isTired = true;
 			this.isFiring = false;
-		} else if (status == 12) {
+		} else if (status == 112) {
 			this.isTired = false;
 		}
-		if (status == 11) {
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -249,7 +252,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 			this.initGoals();
 			sleepSwitch = false;
 			awakeSwitch = true;
@@ -258,7 +261,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 			this.clearGoalsAndTasks();
 			sleepSwitch = true;
 			awakeSwitch = false;
@@ -364,17 +367,17 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final PuffshroomEntity puffshroomEntity;
+		private final PuffshroomEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(PuffshroomEntity puffshroomEntity) {
-			this.puffshroomEntity = puffshroomEntity;
+		public FireBeamGoal(PuffshroomEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.puffshroomEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -385,54 +388,54 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.puffshroomEntity.getNavigation().stop();
-			this.puffshroomEntity.getLookControl().lookAt(this.puffshroomEntity.getTarget(), 90.0F, 90.0F);
-			this.puffshroomEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 10);
-			this.puffshroomEntity.setTarget((LivingEntity)null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.puffshroomEntity.getTarget();
-			this.puffshroomEntity.getNavigation().stop();
-			this.puffshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.puffshroomEntity.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.puffshroomEntity.setTarget((LivingEntity) null);
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 11);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					if (!this.puffshroomEntity.isInsideWaterOrBubbleColumn()) {
-						SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.puffshroomEntity.world);
-						double time = (this.puffshroomEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+						SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.plantEntity.world);
+						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.puffshroomEntity.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.puffshroomEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.puffshroomEntity.getY();
-						double g = predictedPos.getZ() - this.puffshroomEntity.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.sporeAge = 20;
 						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
-						proj.updatePosition(this.puffshroomEntity.getX(), this.puffshroomEntity.getY() + 0.25D, this.puffshroomEntity.getZ());
-						proj.setOwner(this.puffshroomEntity);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.25D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 11);
-							this.puffshroomEntity.playSound(PvZCubed.MUSHROOMSHOOTEVENT, 0.3F, 1);
-							this.puffshroomEntity.world.spawnEntity(proj);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(PvZCubed.MUSHROOMSHOOTEVENT, 0.3F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.puffshroomEntity.world.sendEntityStatus(this.puffshroomEntity, (byte) 10);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

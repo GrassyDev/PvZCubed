@@ -88,12 +88,15 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
-		if (status == 6) {
+		if (status == 106) {
 			for(int i = 0; i < 16; ++i) {
 				this.world.addParticle(ParticleTypes.CRIT, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 1)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
 				this.world.addParticle(ParticleTypes.END_ROD, this.getX() + (this.random.range(-2, 2)) * 0.85F, this.getY() + (this.random.range(-1, 1)) * 0.5F, this.getZ() + (this.random.range(-2, 2)) * 0.85F, 0, 0, 0);
@@ -438,7 +441,7 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 
 		public void stop() {
 			this.sunflowerSeedEntity.produceSun = false;
-			this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 10);
+			this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 110);
 			this.sunflowerSeedEntity.setTarget((LivingEntity)null);
 		}
 
@@ -450,23 +453,23 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 					this.animationTicks >= 0) {
 				this.sunflowerSeedEntity.setTarget((LivingEntity) null);
 			} else {
-				this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 11);
+				this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -5) {
 					if (!this.sunflowerSeedEntity.isInsideWaterOrBubbleColumn()) {
 						this.beamTicks = -6;
-						this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 11);
+						this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 111);
 						this.sunflowerSeedEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 						this.sunflowerSeedEntity.splashDamage();
-						this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 6);
+						this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 106);
 						this.sunflowerSeedEntity.produceSun = true;
 					}
 				}
 				else if (this.animationTicks >= 0)
 				{
 					this.sunflowerSeedEntity.produceSun = false;
-					this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 10);
+					this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 110);
 					this.beamTicks = -6;
 					this.animationTicks = -11;
 				}

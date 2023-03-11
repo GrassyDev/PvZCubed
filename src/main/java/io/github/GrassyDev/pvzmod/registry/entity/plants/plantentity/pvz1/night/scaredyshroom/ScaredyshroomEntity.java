@@ -96,23 +96,26 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
 		if (status == 14) {
 			this.isAfraid = false;
 			this.animationScare = 30;
 		}
-		if (status == 4) {
+		if (status == 104) {
 			this.isAfraid = true;
 			this.isFiring = false;
 		}
-		if (status == 11) {
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
-		if (status == 13) {
+		if (status == 113) {
 			this.isTired = true;
 		}
-		else if (status == 12) {
+		else if (status == 112) {
 			this.isTired = false;
 		}
 	}
@@ -301,7 +304,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
 				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
 				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 			this.initGoals();
 			sleepSwitch = false;
 			awakeSwitch = true;
@@ -310,7 +313,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
 				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
 				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 			this.clearGoalsAndTasks();
 			sleepSwitch = true;
 			awakeSwitch = false;
@@ -440,18 +443,18 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final ScaredyshroomEntity scaredyshroomEntity;
+		private final ScaredyshroomEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(ScaredyshroomEntity scaredyshroomEntity) {
-			this.scaredyshroomEntity = scaredyshroomEntity;
+		public FireBeamGoal(ScaredyshroomEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.scaredyshroomEntity.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && !this.scaredyshroomEntity.isTired;
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			return livingEntity != null && livingEntity.isAlive() && !this.plantEntity.isTired;
 		}
 
 		public boolean shouldContinue() {
@@ -461,68 +464,68 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.scaredyshroomEntity.getNavigation().stop();
-			this.scaredyshroomEntity.getLookControl().lookAt(this.scaredyshroomEntity.getTarget(), 90.0F, 90.0F);
-			this.scaredyshroomEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 10);
-			this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
-			this.scaredyshroomEntity.setTarget((LivingEntity)null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 14);
+			this.plantEntity.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.scaredyshroomEntity.getTarget();
-			this.scaredyshroomEntity.getNavigation().stop();
-			this.scaredyshroomEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.scaredyshroomEntity.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
-				this.scaredyshroomEntity.setTarget((LivingEntity) null);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 14);
+				this.plantEntity.setTarget((LivingEntity) null);
 			}
 			else {
-				if (!this.scaredyshroomEntity.isTired && !this.scaredyshroomEntity.isAfraid) {
-					this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
+				if (!this.plantEntity.isTired && !this.plantEntity.isAfraid) {
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 					++this.animationTicks;
 					++this.beamTicks;
 					if (this.beamTicks >= 0 && this.animationTicks >= -7){
-						if (!(this.scaredyshroomEntity.checkForZombies().isEmpty())){
-							this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 4);
+						if (!(this.plantEntity.checkForZombies().isEmpty())){
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 104);
 						}
 						else {
-							this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 14);
 						}
 					}
-					if (this.scaredyshroomEntity.checkForZombies().isEmpty())  {
+					if (this.plantEntity.checkForZombies().isEmpty())  {
 						if (this.beamTicks >= 0 && this.animationTicks >= -7) {
-							if (!this.scaredyshroomEntity.isInsideWaterOrBubbleColumn()) {
-								this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 14);
-								SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.scaredyshroomEntity.world);
-								double time = (this.scaredyshroomEntity.squaredDistanceTo(livingEntity) > 225) ? 50 : 5;
+							if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+								this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 14);
+								SporeEntity proj = new SporeEntity(PvZEntity.SPORE, this.plantEntity.world);
+								double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 225) ? 50 : 5;
 								Vec3d targetPos = livingEntity.getPos();
 								Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-								double d = this.scaredyshroomEntity.squaredDistanceTo(predictedPos);
+								double d = this.plantEntity.squaredDistanceTo(predictedPos);
 								float df = (float)d;
-								double e = predictedPos.getX() - this.scaredyshroomEntity.getX();
-								double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.scaredyshroomEntity.getY();
-								double g = predictedPos.getZ() - this.scaredyshroomEntity.getZ();
+								double e = predictedPos.getX() - this.plantEntity.getX();
+								double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.plantEntity.getY();
+								double g = predictedPos.getZ() - this.plantEntity.getZ();
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 								proj.sporeAge = 41;
 								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.9F, 0F);
-								proj.updatePosition(this.scaredyshroomEntity.getX(), this.scaredyshroomEntity.getY() + 0.75D, this.scaredyshroomEntity.getZ());
-								proj.setOwner(this.scaredyshroomEntity);
+								proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+								proj.setOwner(this.plantEntity);
 								if (livingEntity.isAlive()) {
 									this.beamTicks = -13;
-									this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 11);
-									this.scaredyshroomEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-									this.scaredyshroomEntity.world.spawnEntity(proj);
+									this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+									this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+									this.plantEntity.world.spawnEntity(proj);
 								}
 							}
 						}
 						else if (this.animationTicks >= 0)
 						{
-							this.scaredyshroomEntity.world.sendEntityStatus(this.scaredyshroomEntity, (byte) 10);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 							this.beamTicks = -7;
 							this.animationTicks = -16;
 						}

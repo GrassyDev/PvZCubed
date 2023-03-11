@@ -79,14 +79,19 @@ public class NavyBeanEntity extends PlantEntity implements IAnimatable, RangedAt
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 6) {
-			this.attackTicksLeft = 20;
-		} else {
+		if (status != 2){
 			super.handleStatus(status);
 		}
-		if (status == 11) {
+		if (status == 106) {
+			this.attackTicksLeft = 20;
+		} else {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -177,7 +182,7 @@ public class NavyBeanEntity extends PlantEntity implements IAnimatable, RangedAt
 		}
 		if (i <= 0) {
 			this.attackTicksLeft = 20;
-			this.world.sendEntityStatus(this, (byte) 6);
+			this.world.sendEntityStatus(this, (byte) 106);
 			boolean bl = damaged.damage(DamageSource.mob(this), this.getAttackDamage());
 			if (bl) {
 				this.applyDamageEffects(this, target);
@@ -413,8 +418,8 @@ public class NavyBeanEntity extends PlantEntity implements IAnimatable, RangedAt
 		}
 
 		public void stop() {
-			this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 10);
-			this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 10);
+			this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 110);
+			this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 110);
 			if (navyBeanEntity.getTarget() != null){
 				this.navyBeanEntity.attack(navyBeanEntity.getTarget(), 0);
 			}
@@ -428,7 +433,7 @@ public class NavyBeanEntity extends PlantEntity implements IAnimatable, RangedAt
 					this.animationTicks >= 0) {
 				this.navyBeanEntity.setTarget((LivingEntity) null);
 			} else {
-				this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 11);
+				this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
@@ -449,13 +454,13 @@ public class NavyBeanEntity extends PlantEntity implements IAnimatable, RangedAt
 						proj.setYaw(this.navyBeanEntity.getYaw());
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 11);
+							this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 111);
 							this.navyBeanEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.navyBeanEntity.world.spawnEntity(proj);
 						}
 					}
 				} else if (this.animationTicks >= 0) {
-					this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 10);
+					this.navyBeanEntity.world.sendEntityStatus(this.navyBeanEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

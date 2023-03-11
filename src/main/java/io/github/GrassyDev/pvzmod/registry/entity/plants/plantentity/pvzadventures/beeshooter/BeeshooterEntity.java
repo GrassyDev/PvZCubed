@@ -66,9 +66,12 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 11) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 111) {
 			this.isFiring = true;
-		} else if (status == 10) {
+		} else if (status == 110) {
 			this.isFiring = false;
 		}
 	}
@@ -378,7 +381,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 		}
 
 		public void stop() {
-			this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 10);
+			this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 110);
 			this.beeshooterEntity.setTarget((LivingEntity)null);
 		}
 
@@ -390,7 +393,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 					this.animationTicks >= 0) {
 				this.beeshooterEntity.setTarget((LivingEntity) null);
 			} else {
-				this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 11);
+				this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
@@ -410,7 +413,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 						proj.setOwner(this.beeshooterEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 11);
+							this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 111);
 							this.beeshooterEntity.playSound(SoundEvents.ENTITY_BEE_HURT, 0.2F, 1);
 							this.beeshooterEntity.world.spawnEntity(proj);
 						}
@@ -418,7 +421,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 10);
+					this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

@@ -103,10 +103,13 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status == 13) {
+		if (status != 2){
+			super.handleStatus(status);
+		}
+		if (status == 113) {
 			this.dancing = true;
 		}
-		else if (status == 12) {
+		else if (status == 112) {
 			this.dancing = false;
 		}
 		if (status == 70) {
@@ -285,10 +288,10 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 	protected void mobTick() {
 		if (this.isAggro) {
-			this.world.sendEntityStatus(this, (byte) 13);
+			this.world.sendEntityStatus(this, (byte) 113);
 		}
 		else {
-			this.world.sendEntityStatus(this, (byte) 12);
+			this.world.sendEntityStatus(this, (byte) 112);
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.world.sendEntityStatus(this, (byte) 70);
