@@ -9,9 +9,9 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27, 225(Metal Trash Can)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Creeper (Pushing)",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Creeper (Carrying)",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Carries a Trash Can around. The Trash Can stays around if this is defeated. This and Browncoat can take Trash Cans.",
-        "$(br)$(#bd951a)Sadly the Trash Can Zombie isn't here to pick up litter, or offer helpful tips on how to recycle your vegetable peelings or glass. He just uses the trash can to protect himself, not tidy up. What a shame."
+        "$(br)$(#bd951a)Sadly he isn't here to pick up litter, or offer helpful tips on how to recycle your vegetable peelings or glass. What a shame."
       ]
     },
     {
