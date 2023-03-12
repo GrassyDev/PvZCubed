@@ -311,7 +311,10 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 				.map(e -> (ZombieObstacleEntity) e)
 				.findFirst();
 		double random = Math.random();
-		if (zombieObstacleEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.BASKETBALLBIN) && !this.CollidesWithObstacle().hasVehicle() && !this.CollidesWithObstacle().beingEaten){
+		if (this.isInsideWaterOrBubbleColumn() && zombieObstacleEntity.isPresent()){
+			zombieObstacleEntity.get().stopRiding();
+		}
+		if (zombieObstacleEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.BASKETBALLBIN) && !this.CollidesWithObstacle().hasVehicle() && !this.CollidesWithObstacle().beingEaten && !this.isInsideWaterOrBubbleColumn()){
 			this.CollidesWithObstacle().startRiding(this, true);
 		}
 		if (random <= 0.0075 && zombieObstacleEntity.isPresent() && getTarget() != null && this.squaredDistanceTo(this.getTarget()) <= 225 && !this.inLaunchAnimation) {

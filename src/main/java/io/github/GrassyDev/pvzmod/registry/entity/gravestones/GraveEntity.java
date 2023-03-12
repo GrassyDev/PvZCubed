@@ -15,9 +15,11 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -68,6 +70,14 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		if (this.hasStatusEffect(PvZCubed.HYPNOTIZED)){
 			this.removeStatusEffect(PvZCubed.HYPNOTIZED);
 		}
+	}
+
+	public boolean canWalkOnFluid(FluidState state) {
+		return state.isIn(FluidTags.WATER);
+	}
+
+	protected boolean shouldSwimInFluids() {
+		return true;
 	}
 
 	@Override
