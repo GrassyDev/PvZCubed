@@ -32,7 +32,8 @@
   "rewards": {
     "recipes": [
       "pvzmod:plants/enforce/dandelionweed",
-      "pvzmod:plants/spear/narcissus"
+      "pvzmod:plants/spear/narcissus",
+      "pvzmod:plants/appease/shamrock"
     ],
     "experience": 25
   }

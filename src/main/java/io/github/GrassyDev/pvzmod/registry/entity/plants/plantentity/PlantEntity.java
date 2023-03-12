@@ -39,10 +39,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.w
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.*;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -69,6 +66,8 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 public abstract class PlantEntity extends GolemEntity {
 
 	public boolean onWater;
+
+	public boolean naturalSpawn;
 
 	protected PlantEntity(EntityType<? extends GolemEntity> entityType, World world) {
 		super(entityType, world);
@@ -908,6 +907,14 @@ public abstract class PlantEntity extends GolemEntity {
 		}
 		else {
 			return ActionResult.FAIL;
+		}
+	}
+
+	public static class PlantData implements EntityData {
+		public final boolean tryLilyPad;
+
+		public PlantData(boolean tryLilyPad) {
+			this.tryLilyPad = tryLilyPad;
 		}
 	}
 }

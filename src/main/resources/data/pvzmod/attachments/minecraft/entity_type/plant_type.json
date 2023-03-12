@@ -29,13 +29,15 @@
     "pvzmod:gloomshroom": "ailment",
     "pvzmod:spikerock": "spear",
     "pvzmod:twinsunflower": "enlighten",
+    "pvzmod:shamrock": "appease",
+    "pvzmod:beeshooter": "ailment",
+    "pvzmod:snowqueenpea": "winter",
     "pvzmod:iceberglettuce": "winter",
     "pvzmod:flamingpea": "pepper",
     "pvzmod:coconutcannon": "bombard",
     "pvzmod:peapod": "appease",
+    "pvzmod:loquat": "reinforce",
     "pvzmod:narcissus": "spear",
-    "pvzmod:beeshooter": "ailment",
-    "pvzmod:snowqueenpea": "winter",
     "pvzmod:dandelionweed": "enforce",
     "pvzmod:perfoomshroom": "enchant",
     "pvzmod:admiralnavybean": "enforce",
@@ -45,6 +47,6 @@
     "pvzmod:navybean": "enforce",
     "pvzmod:smallnut": "reinforce",
     "pvzmod:sunflowerseed": "enlighten",
-    "pvzmod:weeniebeanie": "enforce",
+    "pvzmod:weeniebeanie": "enforce"
   }
 }

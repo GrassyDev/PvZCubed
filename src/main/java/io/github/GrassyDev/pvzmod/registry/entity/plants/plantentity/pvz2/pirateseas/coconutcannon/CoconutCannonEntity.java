@@ -253,7 +253,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 					!blockState4.hasSolidTopSurface(world, blockPos4, this) ||
 					!blockState6.hasSolidTopSurface(world, blockPos4, this) ||
 					!blockState5.hasSolidTopSurface(world, blockPos5, this)) && !this.hasVehicle()) {
-				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
+				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
 					this.dropItem(ModItems.COCONUTCANNON_SEED_PACKET);
 				}
 				this.kill();

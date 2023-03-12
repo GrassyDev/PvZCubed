@@ -48,6 +48,7 @@ public class ModItems {
 		SEED_PACKET_LIST.add(ModItems.CATTAIL_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.TWINSUNFLOWER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.SPIKEROCK_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SHAMROCK_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.BEESHOOTER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.SNOW_QUEENPEA_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.DANDELIONWEED_SEED_PACKET);
@@ -94,6 +95,7 @@ public class ModItems {
 	public static final Item PLASMAPEA = new PlasmapeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
 	public static final Item SPIKE = new SpikeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
 	public static final Item ICESPIKE = new IcespikeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
+	public static final Item RAINBOWBULLET = new RainbowBulletItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
 	public static final Item BEESPIKE = new BeeSpikeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
 	public static final Item BUBBLES = new BubblesItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item ARMORBUBBLE = new ArmorBubbleItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
@@ -134,6 +136,7 @@ public class ModItems {
 	public static final Item GLOOMSHROOM_SEED_PACKET = new GloomshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item CATTAIL_SEED_PACKET = new CattailSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item SPIKEROCK_SEED_PACKET = new SpikerockSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
+	public static final Item SHAMROCK_SEED_PACKET = new ShamrockSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item BEESHOOTER_SEED_PACKET = new BeeshooterSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.EPIC));
 	public static final Item SNOW_QUEENPEA_SEED_PACKET = new SnowqueenpeaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.EPIC));
 	public static final Item DANDELIONWEED_SEED_PACKET = new DandelionWeedSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
@@ -239,6 +242,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"coconut"), COCONUT);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pepper"), PEPPER);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"plasmapea"), PLASMAPEA);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"rainbowbullet"), RAINBOWBULLET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"beespike"), BEESPIKE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"spike"), SPIKE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"icespike"), ICESPIKE);
@@ -303,6 +307,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cattail_seed_packet"), CATTAIL_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"twinsunflower_seed_packet"), TWINSUNFLOWER_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"spikerock_seed_packet"), SPIKEROCK_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"shamrock_seed_packet"), SHAMROCK_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"beeshooter_seed_packet"), BEESHOOTER_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowqueenpea_seed_packet"), SNOW_QUEENPEA_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dandelionweed_seed_packet"), DANDELIONWEED_SEED_PACKET);

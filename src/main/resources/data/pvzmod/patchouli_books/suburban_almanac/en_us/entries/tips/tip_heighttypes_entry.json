@@ -39,7 +39,7 @@
     {
       "type": "text",
       "text": [
-        "$(br)Some plants specially target a specific type of entity, e.g. Gargantuars target Low Profile, Dandelion Weeds, Cattails, etc target Flying Zombies, and lobbing plants target Low Profile Zombies.",
+        "$(br)Some plants specially target a specific type of entity, e.g. Gargantuars target Low Profiles; Dandelion Weeds, Cattails, etc target Flying Zombies; and lobbing plants target Low Profile Zombies.",
         "$(br2)This mod has a diverse amount of interactions between Plants and Zombies, experiment to find out the intricacies of the systems!"
       ]
     },

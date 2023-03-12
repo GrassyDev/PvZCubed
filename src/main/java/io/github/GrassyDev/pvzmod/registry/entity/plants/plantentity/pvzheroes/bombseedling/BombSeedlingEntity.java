@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -27,6 +28,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -123,6 +125,28 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+		entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+		if (entityData == null) {
+			entityData = new PlantData(true);
+		}
+		if (entityData instanceof BombSeedlingEntity.PlantData plantData && !spawnReason.equals(SpawnReason.SPAWN_EGG)) {
+			this.naturalSpawn = true;
+			if (plantData.tryLilyPad) {
+				List<LilyPadEntity> list = world.getEntitiesByClass(
+						LilyPadEntity.class, this.getBoundingBox().expand(12.5), EntityPredicates.NOT_MOUNTED
+				);
+				if (!list.isEmpty()) {
+					LilyPadEntity lilyPadEntity = (LilyPadEntity) list.get(0);
+					this.startRiding(lilyPadEntity);
+				}
+			}
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
 
 	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
 			DataTracker.registerData(BombSeedlingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -318,7 +342,7 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 			BlockPos blockPos2 = this.getBlockPos();
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
-				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
+				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
 					this.dropItem(ModItems.BOMBSEEDLING_SEED_PACKET);
 				}
 				this.kill();
@@ -371,7 +395,7 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 			this.discard();
 		}
 		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
-		if (this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
+		if (this.age > 4 && this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
 			this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
 		}
 	}

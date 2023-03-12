@@ -261,18 +261,18 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 					onWater = true;
 				}
 				if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
-				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
+				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
 					this.dropItem(ModItems.LILYPAD_SEED_PACKET);
 				}
 				this.kill();
 				}
 			}
 		}
-		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 600 && !this.getPuffshroomPermanency() && !this.hasPassengers()) {
 			this.discard();
 		}
 		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
-		if (this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
+		if (this.age > 4 && this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
 			this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
 		}
     }

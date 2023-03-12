@@ -192,6 +192,11 @@
   "item.pvzmod.spikerock_seed_packet.flavour": "Being the most metal plant, Spikerock has decided",
   "item.pvzmod.spikerock_seed_packet.flavour2": "to hold his metal concert at Madison Rock Garden.",
 
+  "entity.pvzmod.shamrock": "Shamrock",
+  "item.pvzmod.shamrock_seed_packet": "⭘ Shamrock Seed Packet",
+  "item.pvzmod.shamrock_seed_packet.flavour": "\"Keep absolutely still. Its vision's based on movement.\"",
+  "item.pvzmod.rainbowbullet": "Rainbow Bullet",
+
   "entity.pvzmod.beeshooter": "Beeshooter",
   "item.pvzmod.beeshooter_seed_packet": "\uD83E\uDDEA Beeshooter Seed Packet",
   "item.pvzmod.beeshooter_seed_packet.flavour": "\"BUZZZZ!\"",

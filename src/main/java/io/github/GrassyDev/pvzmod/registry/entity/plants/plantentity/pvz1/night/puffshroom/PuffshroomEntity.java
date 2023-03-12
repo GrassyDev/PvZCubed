@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
@@ -30,15 +31,13 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.LightType;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -51,6 +50,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
 
 public class PuffshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
@@ -104,6 +104,28 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+		entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+		if (entityData == null) {
+			entityData = new PlantData(true);
+		}
+		if (entityData instanceof PuffshroomEntity.PlantData plantData && !spawnReason.equals(SpawnReason.SPAWN_EGG)) {
+			this.naturalSpawn = true;
+			if (plantData.tryLilyPad) {
+				List<LilyPadEntity> list = world.getEntitiesByClass(
+						LilyPadEntity.class, this.getBoundingBox().expand(12.5), EntityPredicates.NOT_MOUNTED
+				);
+				if (!list.isEmpty()) {
+					LilyPadEntity lilyPadEntity = (LilyPadEntity) list.get(0);
+					this.startRiding(lilyPadEntity);
+				}
+			}
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
 
 	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
 			DataTracker.registerData(PuffshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -201,7 +223,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 			BlockPos blockPos2 = this.getBlockPos();
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
-				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && this.age <= 10 && !this.dead){
+				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
 					this.dropItem(ModItems.PUFFSHROOM_SEED_PACKET);
 				}
 				this.kill();
@@ -232,7 +254,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 			this.discard();
 		}
 		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
-		if (this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
+		if (this.age > 4 && this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
 			this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
 		}
 	}

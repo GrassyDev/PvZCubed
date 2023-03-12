@@ -24,7 +24,8 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/lilypad_entry",
+        "pvzmod:plants/tanglekelp_entry",
         "pvzmod:plants/iceshroom_entry"
       ]
     },
