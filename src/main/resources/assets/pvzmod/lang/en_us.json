@@ -356,6 +356,11 @@
   "item.pvzmod.imp_egg": "Imp",
   "entity.pvzmod.imp_hypnotized": "Hypnotized Imp",
 
+  "entity.pvzmod.trashcan": "Trash Can Zombie",
+  "item.pvzmod.trashcan_egg": "Trash Can Zombie",
+  "entity.pvzmod.trashcanbin": "Trash Can",
+  "entity.pvzmod.trashcan_hypnotized": "Hypnotized Trash Can Zombie",
+
   "entity.pvzmod.berserker": "Berserker",
   "item.pvzmod.berserker_egg": "Berserker",
   "entity.pvzmod.berserkergear": "Berserker Helmet",

@@ -2,7 +2,7 @@
   "name": "Spikerock",
   "icon": "pvzmod:spikerock_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 38,
+  "sortnum": 39,
   "advancement": "pvzmod:make_spikeweed",
   "pages": [
     {

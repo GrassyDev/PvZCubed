@@ -37,6 +37,10 @@ public class BrowncoatEntityRenderer extends GeoEntityRenderer<BrowncoatEntity> 
 						new Identifier("pvzmod", "geo/screendoor.geo.json"));
 				map.put(BrowncoatVariants.SCREENDOORHYPNO,
 						new Identifier("pvzmod", "geo/screendoor.geo.json"));
+				map.put(BrowncoatVariants.TRASHCAN,
+						new Identifier("pvzmod", "geo/trashcan.geo.json"));
+				map.put(BrowncoatVariants.TRASHCANHYPNO,
+						new Identifier("pvzmod", "geo/trashcan.geo.json"));
 			});
 
 	public Identifier getModelResource(BrowncoatEntity object) {

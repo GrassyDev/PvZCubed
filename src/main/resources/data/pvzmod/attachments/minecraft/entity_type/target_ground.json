@@ -3,6 +3,7 @@
   "values": {
     "pvzmod:defensiveend": true,
     "pvzmod:gargantuar": true,
-    "pvzmod:basketballbin": true
+    "pvzmod:basketballbin": true,
+    "pvzmod:trashcanbin": true
   }
 }

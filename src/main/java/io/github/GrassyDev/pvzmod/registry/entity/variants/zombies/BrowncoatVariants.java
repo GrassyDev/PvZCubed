@@ -11,7 +11,9 @@ public enum BrowncoatVariants {
 	BUCKETHEAD(4),
 	BUCKETHEADHYPNO(5),
 	SCREENDOOR(6),
-	SCREENDOORHYPNO(7);
+	SCREENDOORHYPNO(7),
+	TRASHCAN(8),
+	TRASHCANHYPNO(9);
 
 	private static final BrowncoatVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(BrowncoatVariants::getId)).toArray(BrowncoatVariants[]::new);

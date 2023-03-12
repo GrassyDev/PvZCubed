@@ -790,6 +790,22 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<FootballEntity>create(SpawnGroup.MONSTER, FootballEntity::new).setDimensions(EntityDimensions.fixed(0.6f, 1.85f)).build()
 	);
 
+	public static final EntityType<BrowncoatEntity> TRASHCAN = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "trashcan"),
+			QuiltEntityTypeBuilder.<BrowncoatEntity>create(SpawnGroup.MONSTER, BrowncoatEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+	public static final EntityType<BrowncoatEntity> TRASHCANHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "trashcan_hypnotized"),
+			QuiltEntityTypeBuilder.<BrowncoatEntity>create(SpawnGroup.MONSTER, BrowncoatEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+	public static final EntityType<MetalObstacleEntity> TRASHCANBIN = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "trashcanbin"),
+			QuiltEntityTypeBuilder.<MetalObstacleEntity>create(SpawnGroup.MONSTER, MetalObstacleEntity::new).setDimensions(EntityDimensions.fixed(0.825f, 1.8f)).build()
+	);
+
     public static final EntityType<DancingZombieEntity> DANCINGZOMBIE = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "dancing_zombie"),
@@ -1261,6 +1277,14 @@ public class PvZEntity implements ModInitializer {
 		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BERSERKERHYPNO, FootballEntity.createBerserkerAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.FOOTBALL, FootballEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TRASHCAN, BrowncoatEntity.createBrowncoatAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.TRASHCAN, BrowncoatEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TRASHCANHYPNO, BrowncoatEntity.createBrowncoatAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.TRASHCANHYPNO, BrowncoatEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TRASHCANBIN, MetalObstacleEntity.createTrashCanBinObstacleAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.TRASHCANBIN, MetalObstacleEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DANCINGZOMBIE, DancingZombieEntity.createDancingZombieAttributes().build());
         EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer::new);

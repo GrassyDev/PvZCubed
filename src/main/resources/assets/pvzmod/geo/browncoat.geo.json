@@ -4,8 +4,8 @@
 		{
 			"description": {
 				"identifier": "geometry.unknown",
-				"texture_width": 128,
-				"texture_height": 128,
+				"texture_width": 256,
+				"texture_height": 256,
 				"visible_bounds_width": 3,
 				"visible_bounds_height": 4,
 				"visible_bounds_offset": [0, 1, 0]
@@ -29,14 +29,6 @@
 					"pivot": [0, 24, 3],
 					"cubes": [
 						{"origin": [-7.56844, 23.79421, -0.75], "size": [7.75, 1, 7.5], "pivot": [-4, 24, -1], "rotation": [0, 90, 0], "uv": [25, 17]}
-					]
-				},
-				{
-					"name": "tongue",
-					"parent": "jaw",
-					"pivot": [1, 25, -5],
-					"cubes": [
-						{"origin": [3.75, 23.25, -0.5], "size": [0.5, 2, 1.5], "pivot": [0, 23, -1], "rotation": [0, 90, 0], "uv": [1, 1]}
 					]
 				},
 				{
@@ -68,6 +60,18 @@
 					"pivot": [5, 14, 0],
 					"cubes": [
 						{"origin": [-0.5, 10.03105, 3.96627], "size": [3, 4, 3], "pivot": [0.5, 8.03105, 0.46627], "rotation": [0, 90, 0], "uv": [54, 17]}
+					]
+				},
+				{
+					"name": "trash",
+					"parent": "leftarm",
+					"pivot": [-0.5, 15, -8],
+					"cubes": [
+						{"origin": [-5, 5, -14], "size": [10, 14, 10], "uv": [0, 130]},
+						{"origin": [-6, 18, -15], "size": [12, 2, 12], "uv": [0, 156]},
+						{"origin": [-5, 20, -14], "size": [10, 2, 10], "uv": [0, 177]},
+						{"origin": [-4, 22, -13], "size": [3, 1, 4], "uv": [0, 189]},
+						{"origin": [1, 22, -9], "size": [4, 1, 4], "uv": [18, 189]}
 					]
 				},
 				{

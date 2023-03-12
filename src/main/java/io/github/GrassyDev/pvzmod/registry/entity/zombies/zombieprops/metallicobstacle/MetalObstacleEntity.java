@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.spikeweed.SpikeweedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -68,17 +69,37 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 
 
 	public void tick() {
+		if (this.hasVehicle() && this.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHealth() <= 0 || generalPvZombieEntity.isDead())){
+			this.dismountVehicle();
+		}
 		if (this.CollidesWithPlant() != null){
 			if (this.CollidesWithPlant() instanceof SpikerockEntity) {
-				this.CollidesWithPlant().damage(DamageSource.thrownProjectile(this, this), 90);
-				this.remove(RemovalReason.KILLED);
+				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()) {
+					this.CollidesWithPlant().damage(DamageSource.thrownProjectile(this, this), 90);
+					this.remove(RemovalReason.KILLED);
+				}
+				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
+					this.CollidesWithPlant().damage(DamageSource.thrownProjectile(this, this), 90);
+					this.remove(RemovalReason.KILLED);
+				}
 			}
 			else if (this.CollidesWithPlant() instanceof SpikeweedEntity) {
-				this.CollidesWithPlant().kill();
-				this.remove(RemovalReason.KILLED);
+				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()) {
+					this.CollidesWithPlant().kill();
+					this.remove(RemovalReason.KILLED);
+				}
+				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
+					this.CollidesWithPlant().kill();
+					this.remove(RemovalReason.KILLED);
+				}
 			}
 			else if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof GravebusterEntity)) {
-				this.CollidesWithPlant().kill();
+				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()){
+					this.CollidesWithPlant().kill();
+				}
+				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
+					this.CollidesWithPlant().kill();
+				}
 			}
 		}
 		super.tick();
@@ -99,7 +120,7 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (beingEaten){
+		if (beingEaten || (this.getType().equals(PvZEntity.TRASHCANBIN) && (this.hasVehicle() || (this.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHealth() <= 0)))){
 			event.getController().setAnimation(new AnimationBuilder().loop("obstacle.eating"));
 		}
 		else {
@@ -118,6 +139,14 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 120D);
     }
+
+	public static DefaultAttributeContainer.Builder createTrashCanBinObstacleAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 225D);
+	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
@@ -139,6 +168,16 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.SCREENDOOREGG.getDefaultStack();
+		ItemStack itemStack;
+		if (this.getType().equals(PvZEntity.BASKETBALLBIN)){
+			itemStack = ModItems.BASKETBALLCARRIEREGG.getDefaultStack();
+		}
+		else if (this.getType().equals(PvZEntity.TRASHCANBIN)){
+			itemStack = ModItems.TRASHCANEGG.getDefaultStack();
+		}
+		else{
+			itemStack = ModItems.BASKETBALLCARRIEREGG.getDefaultStack();
+		}
+		return itemStack;
 	}
 }

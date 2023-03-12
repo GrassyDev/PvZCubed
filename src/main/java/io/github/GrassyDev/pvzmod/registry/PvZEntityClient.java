@@ -284,6 +284,11 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.FOOTBALLHYPNO, FootballEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BERSERKERHYPNO, FootballEntityRenderer::new);
 
+		EntityRendererRegistry.register(PvZEntity.TRASHCAN, BrowncoatEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.TRASHCANHYPNO, BrowncoatEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.TRASHCANBIN, MetalObstacleEntityRenderer::new);
+
 		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIE, DancingZombieEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.DANCINGZOMBIEHYPNO, DancingZombieEntityRenderer::new);
 

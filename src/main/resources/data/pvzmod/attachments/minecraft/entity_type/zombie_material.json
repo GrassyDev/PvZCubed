@@ -4,11 +4,14 @@
     "pvzmod:backup_dancer": "flesh",
     "pvzmod:backup_dancer_hypnotized": "flesh",
     "pvzmod:medalliongear": "metallic",
+    "pvzmod:basketballcarrier": "flesh",
+    "pvzmod:basketballbin": "metallic",
     "pvzmod:berserker": "flesh",
     "pvzmod:berserker_hypnotized": "flesh",
     "pvzmod:berserkergear": "metallic",
     "pvzmod:browncoat": "flesh",
     "pvzmod:browncoat_hypnotized": "flesh",
+    "pvzmod:bully": "flesh",
     "pvzmod:conehead": "flesh",
     "pvzmod:conehead_hypnotized": "flesh",
     "pvzmod:coneheadgear": "plastic",
@@ -52,8 +55,8 @@
     "pvzmod:superfanimp_hypnotized": "flesh",
     "pvzmod:newyearimp": "flesh",
     "pvzmod:newyearimp_hypnotized": "flesh",
-    "pvzmod:bully": "flesh",
-    "pvzmod:basketballcarrier": "flesh",
-    "pvzmod:basketballbin": "metallic"
+    "pvzmod:trashcan": "flesh",
+    "pvzmod:trashcan_hypnotized": "flesh",
+    "pvzmod:trashcanbin": "metallic"
   }
 }

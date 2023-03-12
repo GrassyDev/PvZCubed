@@ -3,14 +3,15 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoa
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
@@ -18,9 +19,14 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
+import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -56,6 +62,10 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 
 public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
@@ -64,6 +74,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
     private String controllerName = "walkingcontroller";
 	boolean isFrozen;
 	boolean isIced;
+	public boolean speedSwitch;
+	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
 	public BrowncoatEntity(EntityType<? extends BrowncoatEntity> entityType, World world) {
         super(entityType, world);
@@ -142,6 +154,11 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			setVariant(BrowncoatVariants.SCREENDOOR);
 			this.initCustomGoals();
 		}
+		else if (this.getType().equals(PvZEntity.TRASHCAN)){
+			createObstacle();
+			setVariant(BrowncoatVariants.TRASHCAN);
+			this.initCustomGoals();
+		}
 		else if (this.getType().equals(PvZEntity.BROWNCOATHYPNO)){
 			setVariant(BrowncoatVariants.BROWNCOATHYPNO);
 			this.setHypno(IsHypno.TRUE);
@@ -156,6 +173,10 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 		else if (this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
 			setVariant(BrowncoatVariants.SCREENDOORHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.TRASHCANHYPNO)){
+			setVariant(BrowncoatVariants.TRASHCANHYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else {
@@ -194,6 +215,12 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		metalShieldEntity.startRiding(this);
 	}
 
+	public void createObstacle(){
+		MetalObstacleEntity metalObstacleEntity = new MetalObstacleEntity(PvZEntity.TRASHCANBIN, this.world);
+		metalObstacleEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		metalObstacleEntity.startRiding(this);
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -215,7 +242,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			if (this.hasPassenger(entity) && entity instanceof ZombieShieldEntity){
 				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky"));
 			}
-			else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR)) {
+			else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) || this.getVariant().equals(BrowncoatVariants.SCREENDOORHYPNO) ||
+					this.getVariant().equals(BrowncoatVariants.TRASHCAN) || this.getVariant().equals(BrowncoatVariants.TRASHCANHYPNO) ) {
 				event.getController().setAnimation(new AnimationBuilder().loop("screendoor.ducky2"));
 			}
 			else {
@@ -263,7 +291,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getType().equals(PvZEntity.BROWNCOATHYPNO) ||
 				this.getType().equals(PvZEntity.CONEHEADHYPNO) ||
 				this.getType().equals(PvZEntity.BUCKETHEADHYPNO) ||
-				this.getType().equals(PvZEntity.SCREENDOORHYPNO)) {
+				this.getType().equals(PvZEntity.SCREENDOORHYPNO) ||
+				this.getType().equals(PvZEntity.TRASHCANHYPNO)) {
 			initHypnoGoals();
 		}
 		else {
@@ -341,6 +370,45 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		else {
 			this.world.sendEntityStatus(this, (byte) 72);
 		}
+
+		var zombieObstacleEntity = this.getPassengerList()
+				.stream()
+				.filter(e -> e instanceof ZombieObstacleEntity)
+				.map(e -> (ZombieObstacleEntity) e)
+				.findFirst();
+
+		var zombieShieldEntity = this.getPassengerList()
+				.stream()
+				.filter(e -> e instanceof ZombieShieldEntity)
+				.map(e -> (ZombieShieldEntity) e)
+				.findFirst();
+		if (this.isInsideWaterOrBubbleColumn() && zombieObstacleEntity.isPresent()){
+			zombieObstacleEntity.get().stopRiding();
+		}
+		if (zombieObstacleEntity.isEmpty() && zombieShieldEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.TRASHCANBIN) && !this.CollidesWithObstacle().hasVehicle() && !this.CollidesWithObstacle().beingEaten && !this.isInsideWaterOrBubbleColumn()
+		&& (this.getVariant().equals(BrowncoatVariants.TRASHCAN) ||
+				this.getVariant().equals(BrowncoatVariants.TRASHCANHYPNO) ||
+				this.getVariant().equals(BrowncoatVariants.BROWNCOAT) ||
+				this.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO))){
+			this.CollidesWithObstacle().startRiding(this, true);
+		}
+
+		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+		if (zombieObstacleEntity.isEmpty()) {
+			if (this.speedSwitch) {
+				assert maxSpeedAttribute != null;
+				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				this.speedSwitch = false;
+			}
+		}
+		else {
+			if (!this.speedSwitch){
+				assert maxSpeedAttribute != null;
+				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.035));
+				this.speedSwitch = true;
+			}
+		}
 	}
 
 	@Override
@@ -350,6 +418,19 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			if (this.hasPassenger(passenger)) {
 				float g = (float) ((this.isRemoved() ? 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
 				float f = 0.4F;
+
+				Vec3d vec3d = new Vec3d((double) f, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double) g, this.getZ() + vec3d.z);
+				passenger.setBodyYaw(this.bodyYaw);
+			}
+		}
+		else if (this.getVariant().equals(BrowncoatVariants.TRASHCAN) ||
+				this.getVariant().equals(BrowncoatVariants.TRASHCANHYPNO) ||
+				this.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO) ||
+				this.getVariant().equals(BrowncoatVariants.BROWNCOAT)) {
+			if (this.hasPassenger(passenger)) {
+				float g = (float) ((this.isRemoved() ? 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
+				float f = 0.9F;
 
 				Vec3d vec3d = new Vec3d((double) f, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double) g, this.getZ() + vec3d.z);
@@ -376,6 +457,9 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) || this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
 			itemStack = ModItems.SCREENDOOREGG.getDefaultStack();
 		}
+		else if (this.getVariant().equals(BrowncoatVariants.TRASHCAN) || this.getType().equals(PvZEntity.TRASHCANHYPNO)){
+			itemStack = ModItems.TRASHCANEGG.getDefaultStack();
+		}
 		else{
 			itemStack = ModItems.BROWNCOATEGG.getDefaultStack();
 		}
@@ -384,6 +468,15 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	public static EntityAttributeModifier createSpeedModifier(double amount) {
+		return new EntityAttributeModifier(
+				MAX_SPEED_UUID,
+				MOD_ID,
+				amount,
+				EntityAttributeModifier.Operation.ADDITION
+		);
+	}
 
 	@Override
 	public double getMountedHeightOffset() {
@@ -442,6 +535,9 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 		else if (this.getType().equals(PvZEntity.SCREENDOOR)){
 			hypnoType = PvZEntity.SCREENDOORHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.TRASHCAN)){
+			hypnoType = PvZEntity.TRASHCANHYPNO;
 		}
 		else {
 			hypnoType = PvZEntity.BROWNCOATHYPNO;

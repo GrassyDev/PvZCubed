@@ -291,13 +291,15 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                 int f = BasicGraveEntity.this.world.getTargets(FlagzombieEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
 				int g = BasicGraveEntity.this.world.getTargets(BullyEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
 				int h = BasicGraveEntity.this.world.getTargets(BullyEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int i = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 return BasicGraveEntity.this.random.nextInt(8) + 1 > b &&
                         BasicGraveEntity.this.random.nextInt(8) + 1 > c &&
                         BasicGraveEntity.this.random.nextInt(8) + 1 > u &&
                         BasicGraveEntity.this.random.nextInt(8) + 1 > p &&
                         BasicGraveEntity.this.random.nextInt(8) + 1 > f &&
 						BasicGraveEntity.this.random.nextInt(8) + 1 > g &&
-						BasicGraveEntity.this.random.nextInt(8) + 1 > h;
+						BasicGraveEntity.this.random.nextInt(8) + 1 > h &&
+						BasicGraveEntity.this.random.nextInt(8) + 1 > i;
             }
         }
 
@@ -502,6 +504,73 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						coneheadEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(coneheadEntity);
+					}
+				}
+			}
+			if (difficulty >= 1.609) {
+				if (probability6 <= 0.3) { // 30% x1 Trash Can Zombie
+					for (int g = 0; g < 1; ++g) {
+						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity trashCan = (BrowncoatEntity) PvZEntity.TRASHCAN.create(BasicGraveEntity.this.world);
+						trashCan.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						trashCan.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						trashCan.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(trashCan);
+
+						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+						browncoatEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity);
+
+						BlockPos blockPos3 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						browncoatEntity2.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
+						browncoatEntity2.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity2.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity2);
+
+						BlockPos blockPos4 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity3 = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						browncoatEntity3.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
+						browncoatEntity3.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity3.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity3);
+					}
+				}
+			}
+			if (difficulty >= 1.709) {
+				if (probability6 <= 0.15) { // 15% x3 Trash Can Zombie
+					for (int g = 0; g < 3; ++g) {
+						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity trashCan = (BrowncoatEntity) PvZEntity.TRASHCAN.create(BasicGraveEntity.this.world);
+						trashCan.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						trashCan.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						trashCan.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(trashCan);
+					}
+					for (int g1 = 0; g1 < 2; ++g1) {
+						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+						browncoatEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity);
+
+						BlockPos blockPos3 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						browncoatEntity2.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
+						browncoatEntity2.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity2.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity2);
+
+						BlockPos blockPos4 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity3 = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						browncoatEntity3.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
+						browncoatEntity3.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity3.setOwner(BasicGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity3);
 					}
 				}
 			}
