@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.l
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -284,7 +285,7 @@ public class ButtonshroomEntity extends PlantEntity implements IAnimatable {
 
 	public static boolean canButtonshroomSpawn(EntityType<? extends ButtonshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getAmbientDarkness() < 4 &&
+		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() < 4 &&
 				world.getLightLevel(LightType.SKY, pos) > 10;
 	}
 }

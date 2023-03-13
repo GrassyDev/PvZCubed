@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShie
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
@@ -209,9 +210,6 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
 	}
 
@@ -500,7 +498,7 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 
 	public static boolean canBombSeedlingSpawn(EntityType<? extends BombSeedlingEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getAmbientDarkness() < 4 &&
+		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() < 4 &&
 				world.getLightLevel(LightType.SKY, pos) > 10;
 	}
 }

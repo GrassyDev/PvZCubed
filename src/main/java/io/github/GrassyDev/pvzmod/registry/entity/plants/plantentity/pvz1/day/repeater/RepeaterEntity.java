@@ -196,21 +196,21 @@ public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAni
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
 			if ((this.world instanceof ServerWorld)) {
 				ServerWorld serverWorld = (ServerWorld) this.world;
-				GatlingpeaEntity gatlingpeaEntity = (GatlingpeaEntity) PvZEntity.GATLINGPEA.create(world);
-				gatlingpeaEntity.setTarget(this.getTarget());
-				gatlingpeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				gatlingpeaEntity.initialize(serverWorld, world.getLocalDifficulty(gatlingpeaEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
-				gatlingpeaEntity.setAiDisabled(this.isAiDisabled());
+				GatlingpeaEntity plantEntity = (GatlingpeaEntity) PvZEntity.GATLINGPEA.create(world);
+				plantEntity.setTarget(this.getTarget());
+				plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				plantEntity.initialize(serverWorld, world.getLocalDifficulty(plantEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				plantEntity.setAiDisabled(this.isAiDisabled());
 				if (this.hasCustomName()) {
-					gatlingpeaEntity.setCustomName(this.getCustomName());
-					gatlingpeaEntity.setCustomNameVisible(this.isCustomNameVisible());
+					plantEntity.setCustomName(this.getCustomName());
+					plantEntity.setCustomNameVisible(this.isCustomNameVisible());
 				}
 				if (this.hasVehicle()){
-					gatlingpeaEntity.startRiding(this.getVehicle(), true);
+					plantEntity.startRiding(this.getVehicle(), true);
 				}
 
-				gatlingpeaEntity.setPersistent();
-				serverWorld.spawnEntityAndPassengers(gatlingpeaEntity);
+				plantEntity.setPersistent();
+				serverWorld.spawnEntityAndPassengers(plantEntity);
 				this.remove(RemovalReason.DISCARDED);
 			}
 			if (!player.getAbilities().creativeMode){
@@ -358,7 +358,7 @@ public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAni
 						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.plantEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.plantEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
 						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);

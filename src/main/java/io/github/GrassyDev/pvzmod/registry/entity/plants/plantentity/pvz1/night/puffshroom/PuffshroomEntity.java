@@ -13,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieProp
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
@@ -27,7 +28,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -190,9 +190,6 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 					!(generalPvZombieEntity.isFlying());
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
 		snorkelGoal();
 	}
@@ -380,7 +377,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 
 	public static boolean canPuffshroomSpawn(EntityType<? extends PuffshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getAmbientDarkness() >= 2 ||
+		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() >= 2 ||
 				world.getLightLevel(LightType.SKY, pos) < 2 ||
 				world.getBiome(blockPos).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS));
 	}
@@ -440,7 +437,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.plantEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.plantEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
 						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.sporeAge = 20;

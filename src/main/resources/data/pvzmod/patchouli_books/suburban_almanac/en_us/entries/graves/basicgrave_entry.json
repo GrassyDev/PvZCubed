@@ -21,7 +21,7 @@
       ],
       "title": "Basic Zombie",
       "border": "true",
-      "text": "$(#25228d)Spawns Basic Zombies and Gargantuars"
+      "text": "$(#25228d)Spawns Basic Zombies"
     },
     {
       "type": "relations",

@@ -287,20 +287,20 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 			this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH);
 			if ((this.world instanceof ServerWorld)) {
 				ServerWorld serverWorld = (ServerWorld) this.world;
-				CattailEntity cattailEntity = (CattailEntity) PvZEntity.CATTAIL.create(world);
-				cattailEntity.setTarget(this.getTarget());
-				cattailEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				cattailEntity.initialize(serverWorld, world.getLocalDifficulty(cattailEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
-				cattailEntity.setAiDisabled(this.isAiDisabled());
-				cattailEntity.setPersistent();
+				CattailEntity plantEntity = (CattailEntity) PvZEntity.CATTAIL.create(world);
+				plantEntity.setTarget(this.getTarget());
+				plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				plantEntity.initialize(serverWorld, world.getLocalDifficulty(plantEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				plantEntity.setAiDisabled(this.isAiDisabled());
+				plantEntity.setPersistent();
 				if (this.hasCustomName()) {
-					cattailEntity.setCustomName(this.getCustomName());
-					cattailEntity.setCustomNameVisible(this.isCustomNameVisible());
+					plantEntity.setCustomName(this.getCustomName());
+					plantEntity.setCustomNameVisible(this.isCustomNameVisible());
 				}
 				if (this.hasVehicle()){
-					cattailEntity.startRiding(this.getVehicle(), true);
+					plantEntity.startRiding(this.getVehicle(), true);
 				}
-				serverWorld.spawnEntityAndPassengers(cattailEntity);
+				serverWorld.spawnEntityAndPassengers(plantEntity);
 				this.remove(RemovalReason.DISCARDED);
 			}
 			if (!player.getAbilities().creativeMode){

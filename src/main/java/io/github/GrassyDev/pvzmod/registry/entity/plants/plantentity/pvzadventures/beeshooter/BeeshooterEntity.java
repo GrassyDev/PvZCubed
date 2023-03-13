@@ -354,17 +354,17 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final BeeshooterEntity beeshooterEntity;
+		private final BeeshooterEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(BeeshooterEntity beeshooterEntity) {
-			this.beeshooterEntity = beeshooterEntity;
+		public FireBeamGoal(BeeshooterEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.beeshooterEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -375,53 +375,56 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.beeshooterEntity.getNavigation().stop();
-			this.beeshooterEntity.getLookControl().lookAt(this.beeshooterEntity.getTarget(), 90.0F, 90.0F);
-			this.beeshooterEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 110);
-			this.beeshooterEntity.setTarget((LivingEntity)null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.beeshooterEntity.getTarget();
-			this.beeshooterEntity.getNavigation().stop();
-			this.beeshooterEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.beeshooterEntity.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.beeshooterEntity.setTarget((LivingEntity) null);
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 111);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					if (!this.beeshooterEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingBeeSpikeEntity proj = new ShootingBeeSpikeEntity(PvZEntity.BEESPIKE, this.beeshooterEntity.world);
-						double time = (this.beeshooterEntity.squaredDistanceTo(livingEntity) > 225) ? 50 : 5;
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+						ShootingBeeSpikeEntity proj = new ShootingBeeSpikeEntity(PvZEntity.BEESPIKE, this.plantEntity.world);
+						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 225) ? 50 : 5;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.beeshooterEntity.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.beeshooterEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.beeshooterEntity.getY();
-						double g = predictedPos.getZ() - this.beeshooterEntity.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+							f = f + 0.5594666671753;
+						}
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.9F, 0F);
-						proj.updatePosition(this.beeshooterEntity.getX(), this.beeshooterEntity.getY() + 0.75D, this.beeshooterEntity.getZ());
-						proj.setOwner(this.beeshooterEntity);
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.9F, 0F);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 111);
-							this.beeshooterEntity.playSound(SoundEvents.ENTITY_BEE_HURT, 0.2F, 1);
-							this.beeshooterEntity.world.spawnEntity(proj);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(SoundEvents.ENTITY_BEE_HURT, 0.2F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.beeshooterEntity.world.sendEntityStatus(this.beeshooterEntity, (byte) 110);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

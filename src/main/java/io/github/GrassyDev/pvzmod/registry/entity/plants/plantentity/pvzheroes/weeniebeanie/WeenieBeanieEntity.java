@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieProp
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
@@ -24,7 +25,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -178,9 +178,6 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 					!generalPvZombieEntity.isFlying();
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
 		snorkelGoal();
 	}
@@ -395,7 +392,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 
 	public static boolean canWeenieBeanieSpawn(EntityType<? extends WeenieBeanieEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getAmbientDarkness() < 4 &&
+		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() < 4 &&
 				world.getLightLevel(LightType.SKY, pos) > 10;
 	}
 }

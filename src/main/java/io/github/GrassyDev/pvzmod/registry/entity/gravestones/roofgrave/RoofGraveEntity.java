@@ -129,7 +129,10 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 		this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 		LocalDifficulty localDifficulty = world.getLocalDifficulty(this.getBlockPos());
 		double difficulty = localDifficulty.getLocalDifficulty();
-		if (this.spawnCounter == 2 && difficulty <= 1.509){
+		if (this.spawnCounter == 1 && world.getTime() < 24000) {
+			this.kill();
+		}
+		else if (this.spawnCounter == 2 && difficulty <= 1.509){
 			this.kill();
 		}
 		else if (this.spawnCounter == 3 && difficulty <= 1.609){
@@ -318,14 +321,15 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld) RoofGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.roofGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-            double probability = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
-			double probability11 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
-            double probability2 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
-			double probability21 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
-            double probability3 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
-            double probability4 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
-            double probability5 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
-			double probability6 = random.nextDouble() / Math.pow(difficulty, difficulty / 3);
+			double probability = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability11 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability2 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability21 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability3 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability4 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability5 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability6 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability7 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
 
 			for(int b = 0; b < 3; ++b) { // 100% x3 Browncoat
 				BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
@@ -375,8 +379,8 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 				}
 			}
-			if (probability <= 0.3) { // 30% x4 Imps
-				for(int h = 0; h < 4; ++h) {
+			if (probability <= 0.2) { // 20% x2 Imps
+				for(int h = 0; h < 2; ++h) {
 					BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 					ImpEntity impEntity = (ImpEntity) PvZEntity.IMP.create(RoofGraveEntity.this.world);
 					impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -385,7 +389,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(impEntity);
 				}
 			}
-			if (probability <= 0.3) { // 30% x3 Imps
+			if (probability <= 0.2) { // 20% x3 Imps
 				for(int i = 0; i < 3; ++i) {
 					BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 					ImpEntity impEntity = (ImpEntity) PvZEntity.IMP.create(RoofGraveEntity.this.world);
@@ -395,7 +399,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(impEntity);
 				}
 			}
-			if (difficulty >= 1.859) {
+			if (difficulty >= 1.859 + difficultymodifier) {
 				if (probability3 <= 0.30) { // 30% x1 Basketball Carrier Zombie
 					for (int p = 0; p < 1; ++p) {
 						BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
@@ -461,8 +465,8 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(impEntity2);
 				}
 			}
-			if (difficulty >= 1.89) {
-				if (probability4 <= 0.20) { // 20% x2 Basketball Carrier Zombie
+			if (difficulty >= 1.89 + difficultymodifier) {
+				if (probability4 <= 0.40) { // 40% x2 Basketball Carrier Zombie
 					for (int p = 0; p < 2; ++p) {
 						BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 						BasketballCarrierEntity basketballCarrierEntity = (BasketballCarrierEntity) PvZEntity.BASKETBALLCARRIER.create(RoofGraveEntity.this.world);
@@ -473,10 +477,10 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-			if (difficulty >= 2.09) {
-				if (probability6 <= 0.085) { // 8.5% x1/x2 Gargantuar
+			if (difficulty >= 1.89 + difficultymodifier) {
+				if (probability6 <= 0.20) { // 20% x1/x2 Gargantuar
 					int xx = 1;
-					if (difficulty >= 2.39) {
+					if (difficulty >= 2.09) {
 						xx = 2;
 					}
 					for (int g = 0; g < xx; ++g) {

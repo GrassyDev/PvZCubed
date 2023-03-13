@@ -266,17 +266,17 @@ public class GatlingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final GatlingpeaEntity gatlingpeaEntity;
+		private final GatlingpeaEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(GatlingpeaEntity gatlingpeaEntity) {
-			this.gatlingpeaEntity = gatlingpeaEntity;
+		public FireBeamGoal(GatlingpeaEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.gatlingpeaEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -287,72 +287,72 @@ public class GatlingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 		public void start() {
 			this.beamTicks = -6;
 			this.animationTicks = -16;
-			this.gatlingpeaEntity.getNavigation().stop();
-			this.gatlingpeaEntity.getLookControl().lookAt(this.gatlingpeaEntity.getTarget(), 90.0F, 90.0F);
-			this.gatlingpeaEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 110);
-			this.gatlingpeaEntity.setTarget((LivingEntity)null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.gatlingpeaEntity.getTarget();
-			this.gatlingpeaEntity.getNavigation().stop();
-			this.gatlingpeaEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.gatlingpeaEntity.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.gatlingpeaEntity.setTarget((LivingEntity) null);
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 111);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -6) {
-					if (!this.gatlingpeaEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.gatlingpeaEntity.world);
-						double time = (this.gatlingpeaEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.gatlingpeaEntity.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.gatlingpeaEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.gatlingpeaEntity.getY();
-						double g = predictedPos.getZ() - this.gatlingpeaEntity.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePosition(this.gatlingpeaEntity.getX(), this.gatlingpeaEntity.getY() + 0.75D, this.gatlingpeaEntity.getZ());
-						proj.setOwner(this.gatlingpeaEntity);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
-							this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 111);
-							this.gatlingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-							this.gatlingpeaEntity.world.spawnEntity(proj);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
 				else if (this.animationTicks == -3) {
-					ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.gatlingpeaEntity.world);
-					double time = (this.gatlingpeaEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+					ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+					double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 					Vec3d targetPos = livingEntity.getPos();
 					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-					double d = this.gatlingpeaEntity.squaredDistanceTo(predictedPos);
+					double d = this.plantEntity.squaredDistanceTo(predictedPos);
 					float df = (float)d;
-					double e = predictedPos.getX() - this.gatlingpeaEntity.getX();
-					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.gatlingpeaEntity.getY();
-					double g = predictedPos.getZ() - this.gatlingpeaEntity.getZ();
+					double e = predictedPos.getX() - this.plantEntity.getX();
+					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+					double g = predictedPos.getZ() - this.plantEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-					proj.updatePosition(this.gatlingpeaEntity.getX(), this.gatlingpeaEntity.getY() + 0.75D, this.gatlingpeaEntity.getZ());
-					proj.setOwner(this.gatlingpeaEntity);
+					proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+					proj.setOwner(this.plantEntity);
 					if (livingEntity.isAlive()) {
-						this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 111);
-						this.gatlingpeaEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-						this.gatlingpeaEntity.world.spawnEntity(proj);
+						this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+						this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+						this.plantEntity.world.spawnEntity(proj);
 					}
 				}
 				else if (this.animationTicks >= 0) {
-					this.gatlingpeaEntity.world.sendEntityStatus(this.gatlingpeaEntity, (byte) 110);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -6;
 					this.animationTicks = -16;
 				}

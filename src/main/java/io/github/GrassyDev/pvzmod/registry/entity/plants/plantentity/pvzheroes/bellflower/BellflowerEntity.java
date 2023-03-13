@@ -281,17 +281,17 @@ public class BellflowerEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final BellflowerEntity bellflower;
+		private final BellflowerEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(BellflowerEntity bellflower) {
-			this.bellflower = bellflower;
+		public FireBeamGoal(BellflowerEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.bellflower.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -302,54 +302,54 @@ public class BellflowerEntity extends PlantEntity implements IAnimatable, Ranged
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.bellflower.getNavigation().stop();
-			this.bellflower.getLookControl().lookAt(this.bellflower.getTarget(), 90.0F, 90.0F);
-			this.bellflower.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 110);
-			this.bellflower.setTarget((LivingEntity)null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.bellflower.getTarget();
-			this.bellflower.getNavigation().stop();
-			this.bellflower.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.bellflower.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.bellflower.setTarget((LivingEntity) null);
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 111);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
-					if (!this.bellflower.isInsideWaterOrBubbleColumn()) {
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						double time = 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.bellflower.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.bellflower.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.bellflower.getY();
-						double g = predictedPos.getZ() - this.bellflower.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						JingleEntity proj = new JingleEntity(PvZEntity.JINGLE, this.bellflower.world);
+						JingleEntity proj = new JingleEntity(PvZEntity.JINGLE, this.plantEntity.world);
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
-						proj.updatePosition(this.bellflower.getX(), this.bellflower.getY() + 0.5D, this.bellflower.getZ());
-						proj.setOwner(this.bellflower);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.5D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 111);
-							this.bellflower.playSound(SoundEvents.BLOCK_BELL_USE, 0.3F, (float) (1.5 + Math.random() * (3 - 1.5)));
-							this.bellflower.world.spawnEntity(proj);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(SoundEvents.BLOCK_BELL_USE, 0.3F, (float) (1.5 + Math.random() * (3 - 1.5)));
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.bellflower.world.sendEntityStatus(this.bellflower, (byte) 110);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

@@ -12,6 +12,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShie
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
@@ -197,9 +198,6 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
 					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 					!(generalPvZombieEntity.isFlying());
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
 		snorkelGoal();
 	}
@@ -429,7 +427,7 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 
 	public static boolean canSunflowerSeedSpawn(EntityType<? extends SunflowerSeedEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getAmbientDarkness() < 4 &&
+		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() < 4 &&
 				world.getLightLevel(LightType.SKY, pos) > 10;
 	}
 

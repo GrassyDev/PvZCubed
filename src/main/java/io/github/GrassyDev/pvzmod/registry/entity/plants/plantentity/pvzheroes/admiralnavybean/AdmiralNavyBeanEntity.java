@@ -390,18 +390,18 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final AdmiralNavyBeanEntity admiralNavyBeanEntity;
+		private final AdmiralNavyBeanEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(AdmiralNavyBeanEntity admiralNavyBeanEntity) {
-			this.admiralNavyBeanEntity = admiralNavyBeanEntity;
+		public FireBeamGoal(AdmiralNavyBeanEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.admiralNavyBeanEntity.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && livingEntity.squaredDistanceTo(admiralNavyBeanEntity) > 25 && !admiralNavyBeanEntity.dryLand;
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			return livingEntity != null && livingEntity.isAlive() && livingEntity.squaredDistanceTo(plantEntity) > 25 && !plantEntity.dryLand;
 		}
 
 		public boolean shouldContinue() {
@@ -411,54 +411,54 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.admiralNavyBeanEntity.getNavigation().stop();
-			this.admiralNavyBeanEntity.getLookControl().lookAt(this.admiralNavyBeanEntity.getTarget(), 90.0F, 90.0F);
-			this.admiralNavyBeanEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 110);
-			if (admiralNavyBeanEntity.getTarget() != null){
-				this.admiralNavyBeanEntity.attack(admiralNavyBeanEntity.getTarget(), 0);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			if (plantEntity.getTarget() != null){
+				this.plantEntity.attack(plantEntity.getTarget(), 0);
 			}
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.admiralNavyBeanEntity.getTarget();
-			this.admiralNavyBeanEntity.getNavigation().stop();
-			this.admiralNavyBeanEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.admiralNavyBeanEntity.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.admiralNavyBeanEntity.setTarget((LivingEntity) null);
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 111);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					if (!this.admiralNavyBeanEntity.isInsideWaterOrBubbleColumn()) {
-						SpitEntity proj = new SpitEntity(PvZEntity.SPIT, this.admiralNavyBeanEntity.world);
-						double time = (this.admiralNavyBeanEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+						SpitEntity proj = new SpitEntity(PvZEntity.SPIT, this.plantEntity.world);
+						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.admiralNavyBeanEntity.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.admiralNavyBeanEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.admiralNavyBeanEntity.getY();
-						double g = predictedPos.getZ() - this.admiralNavyBeanEntity.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePosition(this.admiralNavyBeanEntity.getX(), this.admiralNavyBeanEntity.getY() + 0.75D, this.admiralNavyBeanEntity.getZ());
-						proj.setOwner(this.admiralNavyBeanEntity);
-						proj.setYaw(this.admiralNavyBeanEntity.getYaw());
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
+						proj.setYaw(this.plantEntity.getYaw());
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
-							this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 111);
-							this.admiralNavyBeanEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-							this.admiralNavyBeanEntity.world.spawnEntity(proj);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				} else if (this.animationTicks >= 0) {
-					this.admiralNavyBeanEntity.world.sendEntityStatus(this.admiralNavyBeanEntity, (byte) 110);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

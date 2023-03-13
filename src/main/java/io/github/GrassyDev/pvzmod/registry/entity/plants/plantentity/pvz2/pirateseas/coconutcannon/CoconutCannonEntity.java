@@ -388,17 +388,17 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final CoconutCannonEntity coconutCannonEntity;
+		private final CoconutCannonEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(CoconutCannonEntity coconutCannonEntity) {
-			this.coconutCannonEntity = coconutCannonEntity;
+		public FireBeamGoal(CoconutCannonEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.coconutCannonEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -409,73 +409,73 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 		public void start() {
 			this.beamTicks = -9;
 			this.animationTicks = -26;
-			this.coconutCannonEntity.getNavigation().stop();
-			if (this.coconutCannonEntity.startShooting) {
-				this.coconutCannonEntity.getLookControl().lookAt(this.coconutCannonEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.getNavigation().stop();
+			if (this.plantEntity.startShooting) {
+				this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
 			}
-			this.coconutCannonEntity.velocityDirty = true;
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 110);
-			this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 87);
-			if (this.coconutCannonEntity.rechargeTime <= 0 && this.coconutCannonEntity.attacked) {
-				this.coconutCannonEntity.attacked = false;
-				this.coconutCannonEntity.rechargeTime = 300;
-				this.coconutCannonEntity.startShooting = false;
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 87);
+			if (this.plantEntity.rechargeTime <= 0 && this.plantEntity.attacked) {
+				this.plantEntity.attacked = false;
+				this.plantEntity.rechargeTime = 300;
+				this.plantEntity.startShooting = false;
 			}
-			this.coconutCannonEntity.setTarget((LivingEntity)null);
+			this.plantEntity.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.coconutCannonEntity.getTarget();
-			this.coconutCannonEntity.getNavigation().stop();
-			if (this.coconutCannonEntity.startShooting) {
-				this.coconutCannonEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			if (this.plantEntity.startShooting) {
+				this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
 			}
-			if (((!this.coconutCannonEntity.canSee(livingEntity)) &&
+			if (((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0)) {
-				this.coconutCannonEntity.setTarget((LivingEntity) null);
-			} else if (this.coconutCannonEntity.startShooting) {
-				this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 111);
-				if (this.coconutCannonEntity.rechargeTime <= 0){
+				this.plantEntity.setTarget((LivingEntity) null);
+			} else if (this.plantEntity.startShooting) {
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+				if (this.plantEntity.rechargeTime <= 0){
 					++this.beamTicks;
 					++this.animationTicks;
 				}
-				if (this.beamTicks >= 0 && this.coconutCannonEntity.rechargeTime <= 0) {
-					if (!this.coconutCannonEntity.isInsideWaterOrBubbleColumn()) {
-						CoconutEntity proj = new CoconutEntity(PvZEntity.COCONUTPROJ, this.coconutCannonEntity.world);
-						double time = (this.coconutCannonEntity.squaredDistanceTo(livingEntity) > 36) ? 75 : 1;
+				if (this.beamTicks >= 0 && this.plantEntity.rechargeTime <= 0) {
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+						CoconutEntity proj = new CoconutEntity(PvZEntity.COCONUTPROJ, this.plantEntity.world);
+						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 75 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.coconutCannonEntity.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float) d;
-						double e = predictedPos.getX() - this.coconutCannonEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.coconutCannonEntity.getY();
-						double g = predictedPos.getZ() - this.coconutCannonEntity.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.66F, 0F);
-						proj.updatePosition(this.coconutCannonEntity.getX(), this.coconutCannonEntity.getY() + 0.75D, this.coconutCannonEntity.getZ());
-						proj.setOwner(this.coconutCannonEntity);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -30;
-							this.coconutCannonEntity.attacked = true;
-							this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 111);
-							this.coconutCannonEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-							this.coconutCannonEntity.world.spawnEntity(proj);
+							this.plantEntity.attacked = true;
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
-				else if (this.animationTicks >= 0 && this.coconutCannonEntity.rechargeTime <= 0){
-					this.coconutCannonEntity.attacked = false;
-					this.coconutCannonEntity.rechargeTime = 300;
+				else if (this.animationTicks >= 0 && this.plantEntity.rechargeTime <= 0){
+					this.plantEntity.attacked = false;
+					this.plantEntity.rechargeTime = 300;
 				}
-				else if (this.coconutCannonEntity.rechargeTime > 0) {
-					this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 110);
-					this.coconutCannonEntity.world.sendEntityStatus(this.coconutCannonEntity, (byte) 87);
+				else if (this.plantEntity.rechargeTime > 0) {
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 87);
 					this.beamTicks = -9;
 					this.animationTicks = -26;
-					this.coconutCannonEntity.startShooting = false;
+					this.plantEntity.startShooting = false;
 				}
 				super.tick();
 			}

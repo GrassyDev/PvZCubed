@@ -307,17 +307,17 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final NarcissusEntity narcissus;
+		private final NarcissusEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(NarcissusEntity narcissus) {
-			this.narcissus = narcissus;
+		public FireBeamGoal(NarcissusEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.narcissus.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -328,69 +328,69 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 		public void start() {
 			this.beamTicks = -8;
 			this.animationTicks = -21;
-			this.narcissus.getNavigation().stop();
-			this.narcissus.getLookControl().lookAt(this.narcissus.getTarget(), 90.0F, 90.0F);
-			this.narcissus.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 110);
-			this.narcissus.setTarget((LivingEntity) null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity) null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.narcissus.getTarget();
-			this.narcissus.getNavigation().stop();
-			this.narcissus.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.narcissus.canSee(livingEntity) && this.animationTicks >= 0)){
-				this.narcissus.setTarget((LivingEntity) null);
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity) && this.animationTicks >= 0)){
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 111);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -4) {
-					double probability = narcissus.random.nextDouble();
-					if (probability <= 0.25 && !this.narcissus.dryLand) {
+					double probability = plantEntity.random.nextDouble();
+					if (probability <= 0.25 && !this.plantEntity.dryLand) {
 						double time = 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.narcissus.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.narcissus.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.narcissus.getY();
-						double g = predictedPos.getZ() - this.narcissus.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						ArmorBubbleEntity proj = new ArmorBubbleEntity(PvZEntity.ARMORBUBBLE, this.narcissus.world);
+						ArmorBubbleEntity proj = new ArmorBubbleEntity(PvZEntity.ARMORBUBBLE, this.plantEntity.world);
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
-						proj.updatePosition(this.narcissus.getX(), this.narcissus.getY() + 0.5D, this.narcissus.getZ());
-						proj.setOwner(this.narcissus);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.5D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
-							this.narcissus.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.25F, 1.5F);
-							this.narcissus.world.spawnEntity(proj);
+							this.plantEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.25F, 1.5F);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 					double time = 1;
 					Vec3d targetPos = livingEntity.getPos();
 					Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-					double d = this.narcissus.squaredDistanceTo(predictedPos);
+					double d = this.plantEntity.squaredDistanceTo(predictedPos);
 					float df = (float)d;
-					double e = predictedPos.getX() - this.narcissus.getX();
-					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.narcissus.getY();
-					double g = predictedPos.getZ() - this.narcissus.getZ();
+					double e = predictedPos.getX() - this.plantEntity.getX();
+					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+					double g = predictedPos.getZ() - this.plantEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-					BubbleEntity proj = new BubbleEntity(PvZEntity.BUBBLE, this.narcissus.world);
+					BubbleEntity proj = new BubbleEntity(PvZEntity.BUBBLE, this.plantEntity.world);
 					proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.85F, 0F);
-					proj.updatePosition(this.narcissus.getX(), this.narcissus.getY() + 0.5D, this.narcissus.getZ());
-					proj.setOwner(this.narcissus);
+					proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.5D, this.plantEntity.getZ());
+					proj.setOwner(this.plantEntity);
 					if (livingEntity.isAlive()) {
 						this.beamTicks = -2;
-						this.narcissus.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.25F, 1.5F);
-						this.narcissus.world.spawnEntity(proj);
+						this.plantEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.25F, 1.5F);
+						this.plantEntity.world.spawnEntity(proj);
 					}
 				}
 				if (this.animationTicks >= 0) {
-					this.narcissus.world.sendEntityStatus(this.narcissus, (byte) 110);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -8;
 					this.animationTicks = -21;
 				}

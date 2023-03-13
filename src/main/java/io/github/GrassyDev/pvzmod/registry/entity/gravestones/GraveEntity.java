@@ -21,6 +21,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
@@ -29,6 +30,8 @@ import java.util.List;
 public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	/** For Zombies that can summon other zombies**/
+
+	protected float difficultymodifier = 0;
 
 	protected int spellTicks;
 
@@ -65,6 +68,9 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	public void tick() {
 		super.tick();
+		if (this.getWorld().getDifficulty().equals(Difficulty.HARD)){
+			difficultymodifier = 0.75f;
+		}
 		List<GravebusterEntity> list = world.getNonSpectatingEntities(GravebusterEntity.class, entityBox.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
 		this.beingEaten = !list.isEmpty();
 		if (this.hasStatusEffect(PvZCubed.HYPNOTIZED)){

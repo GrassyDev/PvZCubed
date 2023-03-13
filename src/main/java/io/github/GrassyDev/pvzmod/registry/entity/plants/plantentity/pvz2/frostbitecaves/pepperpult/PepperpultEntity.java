@@ -306,7 +306,7 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 						float dist = (this.plantEntity.squaredDistanceTo(predictedPos) >= 729) ? 1.1f : 1f;
 						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : predictedPos.getY() - this.plantEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : predictedPos.getY() - this.plantEntity.getY();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						Vec3d projPos = new Vec3d(this.plantEntity.getX(), this.plantEntity.getY() + 1.75D, this.plantEntity.getZ());
 						Vec3d vel = this.plantEntity.solve_ballistic_arc_lateral(projPos, 1F, predictedPos, 5);

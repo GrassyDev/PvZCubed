@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -205,8 +206,8 @@ public class LoquatEntity extends PlantEntity implements IAnimatable {
 				onWater = fluidState.getFluid() == Fluids.WATER;
 				if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 					if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
-					this.dropItem(ModItems.LOQUAT_SEED_PACKET);
-				}
+						this.dropItem(ModItems.SMALLNUT_SEED_PACKET);
+					}
 					this.kill();
 				}
 			}
@@ -324,7 +325,8 @@ public class LoquatEntity extends PlantEntity implements IAnimatable {
 
 	public static boolean canLoquatSpawn(EntityType<? extends LoquatEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getAmbientDarkness() < 4 &&
+		return !world.getBlockState(blockPos).isOf(Blocks.AIR) &&
+				world.getAmbientDarkness() < 4 &&
 				world.getLightLevel(LightType.SKY, pos) > 10;
 	}
 }

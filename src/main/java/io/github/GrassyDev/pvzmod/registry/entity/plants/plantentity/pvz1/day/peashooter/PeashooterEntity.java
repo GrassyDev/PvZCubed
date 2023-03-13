@@ -279,17 +279,17 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final PeashooterEntity peashooterEntity;
+		private final PeashooterEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
 
-		public FireBeamGoal(PeashooterEntity peashooterEntity) {
-			this.peashooterEntity = peashooterEntity;
+		public FireBeamGoal(PeashooterEntity plantEntity) {
+			this.plantEntity = plantEntity;
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
 		}
 
 		public boolean canStart() {
-			LivingEntity livingEntity = this.peashooterEntity.getTarget();
+			LivingEntity livingEntity = this.plantEntity.getTarget();
 			return livingEntity != null && livingEntity.isAlive();
 		}
 
@@ -300,54 +300,54 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 		public void start() {
 			this.beamTicks = -7;
 			this.animationTicks = -16;
-			this.peashooterEntity.getNavigation().stop();
-			this.peashooterEntity.getLookControl().lookAt(this.peashooterEntity.getTarget(), 90.0F, 90.0F);
-			this.peashooterEntity.velocityDirty = true;
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
+			this.plantEntity.velocityDirty = true;
 		}
 
 		public void stop() {
-			this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 110);
-			this.peashooterEntity.setTarget((LivingEntity)null);
+			this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
+			this.plantEntity.setTarget((LivingEntity)null);
 		}
 
 		public void tick() {
-			LivingEntity livingEntity = this.peashooterEntity.getTarget();
-			this.peashooterEntity.getNavigation().stop();
-			this.peashooterEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.peashooterEntity.canSee(livingEntity)) &&
+			LivingEntity livingEntity = this.plantEntity.getTarget();
+			this.plantEntity.getNavigation().stop();
+			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+			if ((!this.plantEntity.canSee(livingEntity)) &&
 					this.animationTicks >= 0) {
-				this.peashooterEntity.setTarget((LivingEntity) null);
+				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
-				this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 111);
+				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
 					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
-					if (!this.peashooterEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.peashooterEntity.world);
-						double time = (this.peashooterEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
+					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
+						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
-						double d = this.peashooterEntity.squaredDistanceTo(predictedPos);
+						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
-						double e = predictedPos.getX() - this.peashooterEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? -0.07500000111758709 : livingEntity.getY() - this.peashooterEntity.getY();
-						double g = predictedPos.getZ() - this.peashooterEntity.getZ();
+						double e = predictedPos.getX() - this.plantEntity.getX();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
-						proj.updatePosition(this.peashooterEntity.getX(), this.peashooterEntity.getY() + 0.75D, this.peashooterEntity.getZ());
-						proj.setOwner(this.peashooterEntity);
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
+						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
-							this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 111);
-							this.peashooterEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
-							this.peashooterEntity.world.spawnEntity(proj);
+							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
+							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.peashooterEntity.world.sendEntityStatus(this.peashooterEntity, (byte) 110);
+					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.beamTicks = -7;
 					this.animationTicks = -16;
 				}

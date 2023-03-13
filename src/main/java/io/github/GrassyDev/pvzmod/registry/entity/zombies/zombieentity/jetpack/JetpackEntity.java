@@ -287,17 +287,29 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public boolean hovering;
-	private int hoverTicks = 0;
+	private int hoverTicks = 20;
+
+	private Vec3d firstPos;
 
 	public void tick() {
 		super.tick();
 		LivingEntity target = this.getTarget();
 		if (target != null){
+			Vec3d lastPos = this.getPos();
 			if (target.squaredDistanceTo(this) > 4) {
 				this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1.6);
+
 			}
 			this.setNoGravity(true);
 			this.setFlying(true);
+			if (lastPos == firstPos && !this.isAttacking()){
+				this.setVelocity(0, 0, 0);
+				this.addVelocity(0, 0.3, 0);
+			}
+			if (--hoverTicks <= 0){
+				this.hoverTicks = 20;
+				this.firstPos = this.getPos();
+			}
 			if (this.getY() > target.getY() + 0.125){
 				this.addVelocity(0, -0.004, 0);
 			}
