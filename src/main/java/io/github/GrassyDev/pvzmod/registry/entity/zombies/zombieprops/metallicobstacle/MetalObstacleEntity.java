@@ -40,14 +40,6 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
 		this.colliderOffset = 0;
-		this.getNavigation().setCanSwim(true);
-		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
 	public MetalObstacleEntity(World world) {
@@ -60,7 +52,7 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 	}

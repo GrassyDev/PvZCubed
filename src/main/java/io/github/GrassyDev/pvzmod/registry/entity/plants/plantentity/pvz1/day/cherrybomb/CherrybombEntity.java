@@ -20,7 +20,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
@@ -109,7 +108,7 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		RandomGenerator randomGenerator = this.getRandom();
@@ -334,8 +333,16 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity) {
+			super.applyDamage(source, amount);
+		}
+	}
+
 
 	/** /~*~//~*TICKING*~//~*~/ **/
+
 
 
 	public void tick() {
@@ -354,7 +361,6 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 			int i = this.getFuseSpeed();
 			if (i > 0 && this.currentFuseTime == 0) {
 				RandomGenerator randomGenerator = this.getRandom();
-				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 				this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
 				for(int j = 0; j < 4; ++j) {
 					double e = (double)MathHelper.nextBetween(randomGenerator, 0.025F, 0.075F);
@@ -365,7 +371,6 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
-				removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {

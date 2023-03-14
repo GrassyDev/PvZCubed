@@ -9,6 +9,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.l
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -36,6 +37,16 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 		this.setFlying(false);
+		this.setPathfindingPenalty(PathNodeType.RAIL, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.UNPASSABLE_RAIL, 0.0F);
+		this.getNavigation().setCanSwim(true);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
 	public float colliderOffset = 0.4F;

@@ -80,7 +80,7 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		if (status == 111) {

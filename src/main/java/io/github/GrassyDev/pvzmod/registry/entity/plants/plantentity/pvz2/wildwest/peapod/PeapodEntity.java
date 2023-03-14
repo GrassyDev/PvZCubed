@@ -101,7 +101,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 
 	@Override
 	public void handleStatus(byte status) {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		if (status == 111) {

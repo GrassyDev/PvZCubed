@@ -65,6 +65,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 
     public ChomperEntity(EntityType<? extends ChomperEntity> entityType, World world) {
         super(entityType, world);
+		this.attackTicksLeft = 0;
         this.ignoreCameraFrustum = true;
     }
 
@@ -89,7 +90,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		if (status == 104) {
@@ -110,7 +111,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 			this.eatingShield = false;
 			this.notEating = true;
 		}else {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		}
@@ -192,7 +193,12 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 		}));
 	}
 
-
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity || (this.getTarget() != null && this.squaredDistanceTo(this.getTarget()) > 4) || this.attackTicksLeft > 0) {
+			super.applyDamage(source, amount);
+		}
+	}
 
 	private class AttackGoal extends MeleeAttackGoal {
 		public AttackGoal() {

@@ -68,14 +68,6 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		setInvisibleSnorkel(false);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 6;
-		this.getNavigation().setCanSwim(true);
-		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
 	@Override
@@ -124,7 +116,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		if (status == 106) {

@@ -13,14 +13,6 @@ public abstract class PvZombieEntity extends GeneralPvZombieEntity implements Mo
 	public boolean invulnerableZombie;
 	protected PvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
-		this.getNavigation().setCanSwim(true);
-		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
 	public EntityGroup getGroup() {

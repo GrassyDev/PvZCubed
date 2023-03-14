@@ -23,7 +23,6 @@ import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -81,14 +80,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
-		this.getNavigation().setCanSwim(true);
-		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
 	protected void initDataTracker() {
@@ -108,7 +99,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		if (status == 70) {

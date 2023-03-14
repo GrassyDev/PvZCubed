@@ -72,13 +72,13 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		if (status == 106) {
 			this.attackTicksLeft = 20;
 		} else {
-		if (status != 2){
+		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
 		}
