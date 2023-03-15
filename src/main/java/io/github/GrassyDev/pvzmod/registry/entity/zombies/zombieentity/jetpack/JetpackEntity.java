@@ -17,8 +17,10 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
+import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -294,7 +296,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			}
 			this.setNoGravity(true);
 			this.setFlying(true);
-			if (lastPos == firstPos && !this.isAttacking()){
+			if (lastPos == firstPos && this.CollidesWithPlant() == null && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30){
 				this.setVelocity(0, 0, 0);
 				this.addVelocity(0, 0.3, 0);
 			}

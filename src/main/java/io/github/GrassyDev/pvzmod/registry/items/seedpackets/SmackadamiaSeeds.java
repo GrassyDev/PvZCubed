@@ -3,7 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.skycity.loquat.LoquatEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smackadamia.SmackadamiaEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -34,9 +34,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class LoquatSeeds extends Item implements FabricItem {
-	public static int cooldown = 50;
-    public LoquatSeeds(Settings settings) {
+public class SmackadamiaSeeds extends Item implements FabricItem {
+	public static int cooldown = 1000;
+    public SmackadamiaSeeds(Settings settings) {
         super(settings);
     }
 
@@ -77,7 +77,10 @@ public class LoquatSeeds extends Item implements FabricItem {
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.fly.tooltip")
 				.formatted(Formatting.UNDERLINE));
 
-		tooltip.add(Text.translatable("item.pvzmod.loquat_seed_packet.flavour")
+		tooltip.add(Text.translatable("item.pvzmod.smackadamia_seed_packet.flavour")
+				.formatted(Formatting.DARK_GRAY));
+
+		tooltip.add(Text.translatable("item.pvzmod.smackadamia_seed_packet.flavour2")
 				.formatted(Formatting.DARK_GRAY));
 	}
 
@@ -89,13 +92,13 @@ public class LoquatSeeds extends Item implements FabricItem {
 		} else {
 			if (hitResult.getType() == HitResult.Type.BLOCK) {
 				if (world instanceof ServerWorld) {
-					LoquatEntity aquaticEntity = this.createEntity(world, hitResult);
+					SmackadamiaEntity aquaticEntity = this.createEntity(world, hitResult);
 					aquaticEntity.setYaw(user.getYaw());
 					if (!world.isSpaceEmpty(aquaticEntity, aquaticEntity.getBoundingBox())) {
 						return TypedActionResult.fail(itemStack);
 					} else {
 						if (!world.isClient) {
-							List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.LOQUAT.getDimensions().getBoxAt(aquaticEntity.getPos()));
+							List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SMACKADAMIA.getDimensions().getBoxAt(aquaticEntity.getPos()));
 							if (list.isEmpty()){
 								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
@@ -108,7 +111,6 @@ public class LoquatSeeds extends Item implements FabricItem {
 									double fg = aquaticEntity.getZ() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
 									aquaticEntity.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), dg, eg, fg, 0.0, 0.0, 0.0);
 								}
-								aquaticEntity.setPuffshroomPermanency(LoquatEntity.PuffPermanency.PERMANENT);
 								world.emitGameEvent(user, GameEvent.ENTITY_PLACE, hitResult.getPos());
 								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));
 								if (fluidState.getFluid() == Fluids.WATER) {
@@ -137,8 +139,8 @@ public class LoquatSeeds extends Item implements FabricItem {
 		return TypedActionResult.pass(itemStack);
 	}
 
-	private LoquatEntity createEntity(World world, HitResult hitResult) {
-		return (LoquatEntity)(new LoquatEntity(world, hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z));
+	private SmackadamiaEntity createEntity(World world, HitResult hitResult) {
+		return (SmackadamiaEntity)(new SmackadamiaEntity(world, hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z));
 	}
 
 }

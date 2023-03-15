@@ -189,7 +189,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 			if (bl) {
 				this.applyDamageEffects(this, target);
 			}
-			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(target.getType()).orElse("flesh");
+			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(damaged.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;

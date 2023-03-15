@@ -215,7 +215,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 			if (bl) {
 				this.applyDamageEffects(this, target);
 			}
-			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(target.getType()).orElse("flesh");
+			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(damaged.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;

@@ -110,10 +110,6 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 			this.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
 			this.eatingShield = false;
 			this.notEating = true;
-		}else {
-		if (status != 2 && status != 60){
-			super.handleStatus(status);
-		}
 		}
 	}
 
@@ -171,7 +167,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-	/** /~*~//~**~//~*~// **/
+	/** /~*~//~*AI*~//~*~// **/
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new ChomperEntity.AttackGoal());
@@ -256,7 +252,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				if (bl) {
 					this.applyDamageEffects(this, target);
 				}
-				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(target.getType()).orElse("flesh");
+				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(damaged.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
 					case "metallic" -> PvZCubed.BUCKETHITEVENT;

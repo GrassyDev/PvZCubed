@@ -33,7 +33,8 @@
       "type": "text",
       "text": [
         "$(br)Flying entities interact with tall and above entities, e.g. Jetpack Zombie flying over most plants, or Loquat only being eaten by tall or flying zombies like Bully and Jetpack.",
-        "$(br2)In addition, plants like Cherry Bomb can interact with Flying Zombies, while small plants like Potato Mine and Iceberg Lettuce, even though they work similarly, can't"
+        "$(br2)In addition, plants like Cherry Bomb can interact with Flying Zombies, while small plants like Potato Mine and Iceberg Lettuce, even though they work similarly, can't.",
+        "$(br2)Flying Zombies instantly die when stunned."
       ]
     },
     {

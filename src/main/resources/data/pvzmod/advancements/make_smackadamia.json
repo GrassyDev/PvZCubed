@@ -1,16 +1,16 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:wallnut_seed_packet"
+      "item": "pvzmod:smackadamia_seed_packet"
     },
-    "title": "The Defense",
-    "description": "Craft a Wall-nut",
+    "title": "Smack, SMASH!",
+    "description": "Craft a Smackadamia",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "pvzmod:start_pvz",
+  "parent": "pvzmod:make_wallnut",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:wallnut_seed_packet"
+              "pvzmod:smackadamia_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -30,10 +30,6 @@
     }
   },
   "rewards": {
-    "recipes": [
-      "pvzmod:plants/reinforce/tallnut",
-      "pvzmod:plants/reinforce/smackadamia"
-    ],
     "experience": 25
   }
 }

@@ -259,6 +259,11 @@
   "item.pvzmod.smallnut_seed_packet": "⛨ Small-nut Seed Packet",
   "item.pvzmod.smallnut_seed_packet.flavour": "\"I'm nuts.\"",
 
+  "entity.pvzmod.smackadamia": "Smackadamia",
+  "item.pvzmod.smackadamia_seed_packet": "⛨ Smackadamia Seed Packet",
+  "item.pvzmod.smackadamia_seed_packet.flavour": "He may not be able to spit fire,",
+  "item.pvzmod.smackadamia_seed_packet.flavour2": "but he can drop these nuts.",
+
   "entity.pvzmod.buttonshroom": "Button-shroom",
   "item.pvzmod.buttonshroom_seed_packet": "\uD83E\uDDEA Button-shroom Seed Packet",
   "item.pvzmod.buttonshroom_seed_packet.flavour": "Cute as a button.",

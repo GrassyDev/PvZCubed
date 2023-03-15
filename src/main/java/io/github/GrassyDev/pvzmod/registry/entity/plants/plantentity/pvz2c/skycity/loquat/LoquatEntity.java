@@ -206,7 +206,7 @@ public class LoquatEntity extends PlantEntity implements IAnimatable {
 				onWater = fluidState.getFluid() == Fluids.WATER;
 				if (!blockPos2.equals(blockPos) || (!(fluidState.getFluid() == Fluids.WATER) && !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 					if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
-						this.dropItem(ModItems.SMALLNUT_SEED_PACKET);
+						this.dropItem(ModItems.LOQUAT_SEED_PACKET);
 					}
 					this.kill();
 				}

@@ -2,7 +2,7 @@
   "name": "Button-shroom",
   "icon": "pvzmod:buttonshroom_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 301,
+  "sortnum": 303,
   "pages": [
     {
       "type": "text",

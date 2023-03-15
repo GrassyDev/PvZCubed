@@ -104,6 +104,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.b
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.buttonshroom.ButtonshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.navybean.NavyBeanEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.navybean.NavyBeanEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smackadamia.SmackadamiaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smackadamia.SmackadamiaEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallnutEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntity;
@@ -445,7 +447,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<LoquatEntity> LOQUAT = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "loquat"),
-			QuiltEntityTypeBuilder.<LoquatEntity>create(SpawnGroup.CREATURE, LoquatEntity::new).setDimensions(EntityDimensions.fixed(1f, 2.2f)).build()
+			QuiltEntityTypeBuilder.<LoquatEntity>create(SpawnGroup.CREATURE, LoquatEntity::new).setDimensions(EntityDimensions.fixed(1f, 2.65f)).build()
 	);
 
 	public static final EntityType<NarcissusEntity> NARCISSUS = Registry.register(
@@ -458,6 +460,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "smallnut"),
 			QuiltEntityTypeBuilder.<SmallNutEntity>create(SpawnGroup.CREATURE, SmallNutEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
+	public static final EntityType<SmackadamiaEntity> SMACKADAMIA = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "smackadamia"),
+			QuiltEntityTypeBuilder.<SmackadamiaEntity>create(SpawnGroup.CREATURE, SmackadamiaEntity::new).setDimensions(EntityDimensions.fixed(1f, 2.65f)).build()
 	);
 
 	public static final EntityType<ButtonshroomEntity> BUTTONSHROOM = Registry.register(
@@ -1162,6 +1170,9 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SMALLNUT, SmallNutEntity.createSmallnutAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.SMALLNUT, SmallnutEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SMACKADAMIA, SmackadamiaEntity.createSmackadamiaAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.SMACKADAMIA, SmackadamiaEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BUTTONSHROOM, ButtonshroomEntity.createButtonshroomAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.BUTTONSHROOM, ButtonshroomEntityRenderer::new);

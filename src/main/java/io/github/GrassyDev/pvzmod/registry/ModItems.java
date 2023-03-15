@@ -61,6 +61,7 @@ public class ModItems {
 		SEED_PACKET_LIST.add(ModItems.LOQUAT_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.NARCISSUS_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.SMALLNUT_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.SMACKADAMIA_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.BUTTONSHROOM_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.BOMBSEEDLING_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.WEENIEBEANIE_SEED_PACKET);
@@ -149,6 +150,7 @@ public class ModItems {
 	public static final Item LOQUAT_SEED_PACKET = new LoquatSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item NARCISSUS_SEED_PACKET = new NarcissusSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item SMALLNUT_SEED_PACKET = new SmallnutSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
+	public static final Item SMACKADAMIA_SEED_PACKET = new SmackadamiaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item BUTTONSHROOM_SEED_PACKET = new ButtonshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item BOMBSEEDLING_SEED_PACKET = new BombSeedlingSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item WEENIEBEANIE_SEED_PACKET = new WeenieBeanieSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
@@ -321,6 +323,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"loquat_seed_packet"), LOQUAT_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"narcissus_seed_packet"), NARCISSUS_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"smallnut_seed_packet"), SMALLNUT_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"smackadamia_seed_packet"), SMACKADAMIA_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"buttonshroom_seed_packet"), BUTTONSHROOM_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"bombseedling_seed_packet"), BOMBSEEDLING_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"weeniebeanie_seed_packet"), WEENIEBEANIE_SEED_PACKET);

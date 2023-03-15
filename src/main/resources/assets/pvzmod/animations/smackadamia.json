@@ -1,0 +1,190 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"smackadamia.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"body": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, -1, 0],
+							"easing": "easeOutElastic"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1, 1.05, 1],
+							"easing": "easeOutElastic"
+						},
+						"1.0": {
+							"vector": [1, 1, 1],
+							"easing": "linear"
+						}
+					}
+				},
+				"fan": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, -360, 0]
+						},
+						"0.5": {
+							"vector": [0, -720, 0]
+						},
+						"0.75": {
+							"vector": [0, -1080, 0]
+						},
+						"1.0": {
+							"vector": [0, -1440, 0]
+						}
+					}
+				}
+			}
+		},
+		"smackadamia.smack": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"body": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.3333": {
+							"vector": [0, -12, 0],
+							"easing": "easeInBack"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInElastic"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.3333": {
+							"vector": [1, 1.75, 1],
+							"easing": "easeInBack"
+						},
+						"0.5833": {
+							"vector": [1, 0.7, 1],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [1, 1, 1],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"fan": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, -360, 0]
+						},
+						"0.5": {
+							"vector": [0, -720, 0]
+						},
+						"0.75": {
+							"vector": [0, -1080, 0]
+						},
+						"1.0": {
+							"vector": [0, -1440, 0]
+						}
+					}
+				}
+			}
+		},
+		"smackadamia.smack2": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.3333": {
+							"vector": [-57.5, 0, 0],
+							"easing": "easeInBack"
+						},
+						"0.5833": {
+							"vector": [25, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInElastic"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.3333": {
+							"vector": [0, -3, -23],
+							"easing": "easeInBack"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInElastic"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.3333": {
+							"vector": [1, 1.75, 1],
+							"easing": "easeInBack"
+						},
+						"0.5833": {
+							"vector": [1, 0.6, 1],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [1, 1, 1],
+							"easing": "easeInElastic"
+						}
+					}
+				},
+				"fan": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, -360, 0]
+						},
+						"0.5": {
+							"vector": [0, -720, 0]
+						},
+						"0.75": {
+							"vector": [0, -1080, 0]
+						},
+						"1.0": {
+							"vector": [0, -1440, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

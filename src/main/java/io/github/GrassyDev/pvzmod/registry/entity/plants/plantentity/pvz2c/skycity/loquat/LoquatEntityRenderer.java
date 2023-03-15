@@ -10,7 +10,7 @@ public class LoquatEntityRenderer extends GeoEntityRenderer<LoquatEntity> {
 
     public LoquatEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx, new LoquatEntityModel());
-        this.shadowRadius = 0.5F; //change 0.7 to the desired shadow size.
+        this.shadowRadius = 0.4F; //change 0.7 to the desired shadow size.
     }
 
 }
