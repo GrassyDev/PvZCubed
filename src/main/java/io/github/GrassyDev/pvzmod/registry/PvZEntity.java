@@ -164,6 +164,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dolphinrider.DolphinRiderEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dolphinrider.DolphinRiderEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
@@ -847,6 +849,17 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<SnorkelEntity>create(SpawnGroup.MONSTER, SnorkelEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
 	);
 
+	public static final EntityType<DolphinRiderEntity> DOLPHINRIDER = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "dolphinrider"),
+			QuiltEntityTypeBuilder.<DolphinRiderEntity>create(SpawnGroup.MONSTER, DolphinRiderEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+	public static final EntityType<DolphinRiderEntity> DOLPHINRIDERHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "dolphinrider_hypnotized"),
+			QuiltEntityTypeBuilder.<DolphinRiderEntity>create(SpawnGroup.MONSTER, DolphinRiderEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.95f)).build()
+	);
+
 	public static final EntityType<GargantuarEntity> GARGANTUAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "gargantuar"),
@@ -1313,6 +1326,11 @@ public class PvZEntity implements ModInitializer {
 		EntityRendererRegistry.register(PvZEntity.SNORKEL, SnorkelEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SNORKELHYPNO, SnorkelEntity.createSnorkelAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.SNORKELHYPNO, SnorkelEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DOLPHINRIDER, DolphinRiderEntity.createDolphinRiderAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DOLPHINRIDER, DolphinRiderEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DOLPHINRIDERHYPNO, DolphinRiderEntity.createDolphinRiderAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.DOLPHINRIDERHYPNO, DolphinRiderEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GARGANTUAR, GargantuarEntity.createGargantuarAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);

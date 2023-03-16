@@ -353,6 +353,10 @@
   "item.pvzmod.snorkel_egg": "Snorkel Zombie",
   "entity.pvzmod.snorkel_hypnotized": "Hypnotized Snorkel Zombie",
 
+  "entity.pvzmod.dolphinrider": "Dolphin Rider Zombie",
+  "item.pvzmod.dolphinrider_egg": "Dolphin Rider Zombie",
+  "entity.pvzmod.dolphinrider_hypnotized": "Hypnotized Dolphin Rider Zombie",
+
   "entity.pvzmod.gargantuar": "Gargantuar",
   "item.pvzmod.gargantuar_egg": "Gargantuar",
   "entity.pvzmod.gargantuar_hypnotized": "Hypnotized Gargantuar",

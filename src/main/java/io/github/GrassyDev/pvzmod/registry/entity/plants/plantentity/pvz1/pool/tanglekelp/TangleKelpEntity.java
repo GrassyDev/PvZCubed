@@ -381,6 +381,9 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 		}
 		LivingEntity livingEntity = this.getTarget();
 		if (livingEntity != null && livingEntity.isInsideWaterOrBubbleColumn()) {
+			if (this.animationTicksLeft <= 43){
+				livingEntity.setVelocity(Vec3d.ZERO);
+			}
 			if (this.animationTicksLeft == 22){
 				world.sendEntityStatus(this, (byte) 107);
 				this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);

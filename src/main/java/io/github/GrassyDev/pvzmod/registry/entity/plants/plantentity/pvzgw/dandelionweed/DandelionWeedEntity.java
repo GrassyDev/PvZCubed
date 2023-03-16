@@ -142,7 +142,8 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 
 	protected void splashDamage() {
 		Vec3d vec3d = this.getPos();
-		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(2));
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(2).expand(0, 2, 0).offset(0, 1, 0));
+		System.out.println(this.getBoundingBox().expand(2).expand(0, 2, 0).offset(0, 2, 0).getCenter());
 		Iterator var9 = list.iterator();
 		while (true) {
 			LivingEntity livingEntity;
@@ -177,28 +178,26 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 							zombiePropEntity2 = zpe;
 						}
 					}
-					if (livingEntity.getY() < (this.getY() + 1.5) && livingEntity.getY() > (this.getY() - 1.5)) {
-						if (!world.isClient &&
+					if (!world.isClient &&
 								!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 								!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
-							SoundEvent sound;
-							sound = switch (zombieMaterial) {
-								case "metallic" -> PvZCubed.BUCKETHITEVENT;
-								case "plastic" -> PvZCubed.CONEHITEVENT;
-								default -> PvZCubed.PEAHITEVENT;
-							};
-							livingEntity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-							float damage = 9F;
-							if (damage > livingEntity.getHealth() &&
-									!(livingEntity instanceof ZombieShieldEntity) &&
-									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-								float damage2 = damage - ((LivingEntity) livingEntity).getHealth();
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-								generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
-							} else {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							}
+						String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
+						SoundEvent sound;
+						sound = switch (zombieMaterial) {
+							case "metallic" -> PvZCubed.BUCKETHITEVENT;
+							case "plastic" -> PvZCubed.CONEHITEVENT;
+							default -> PvZCubed.PEAHITEVENT;
+						};
+						livingEntity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+						float damage = 9F;
+						if (damage > livingEntity.getHealth() &&
+								!(livingEntity instanceof ZombieShieldEntity) &&
+								livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+							float damage2 = damage - ((LivingEntity) livingEntity).getHealth();
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
+						} else {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						}
 					}
 				}

@@ -1,0 +1,47 @@
+{
+  "name": "Dolphin Rider Zombie",
+  "icon": "pvzmod:dolphinrider_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 13,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)50",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Flighty (Dolphin)",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Rides a Dolphin when in water. The Dolphin jumps over the first plant it touches(3 block jump distance), then disappears. Tall plants block its jump.",
+        "$(br2)$(#bd951a)The dolphin is also a zombie."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/dolphinrider.png"
+      ],
+      "title": "Pool Zombie",
+      "border": "true",
+      "text": "$(#25228d)Dolphin Rider Zombies use dolphins to exploit weaknesses in your aquatic defense."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/tanglekelp_entry",
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/lilypad_entry",
+        "pvzmod:plants/tallnut_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/dandelionweed_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Dolphin Rider Zombie"
+      ]
+    }
+  ]
+}

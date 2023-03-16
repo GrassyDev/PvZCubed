@@ -81,6 +81,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.bas
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basketballcarrier.BasketballCarrierEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dolphinrider.DolphinRiderEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
@@ -300,6 +301,9 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.SNORKEL, SnorkelEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.SNORKELHYPNO, SnorkelEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.DOLPHINRIDER, DolphinRiderEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.DOLPHINRIDERHYPNO, DolphinRiderEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.GARGANTUAR, GargantuarEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.GARGANTUARHYPNO, GargantuarEntityRenderer::new);

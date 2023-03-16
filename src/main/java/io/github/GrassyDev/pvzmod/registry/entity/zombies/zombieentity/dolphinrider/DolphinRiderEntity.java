@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dolphinrider;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
@@ -6,6 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.tanglekelp.TangleKelpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
@@ -20,6 +22,8 @@ import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -40,6 +44,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -54,78 +59,57 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
-public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
-	private static final TrackedData<Byte> SNORKEL_FLAGS;
-    private MobEntity owner;
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    private String controllerName = "walkingcontroller";
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+
+public class DolphinRiderEntity extends PvZombieEntity implements IAnimatable {
+
+	private MobEntity owner;
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	public boolean firstAttack;
+
+	public boolean speedSwitch;
+	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
+	private String controllerName = "runningcontroller";
 	boolean isFrozen;
 	boolean isIced;
 
-    public SnorkelEntity(EntityType<? extends SnorkelEntity> entityType, World world) {
-        super(entityType, world);
-		this.invulnerableZombie = false;
-		setInvisibleSnorkel(false);
-        this.ignoreCameraFrustum = true;
-        this.experiencePoints = 6;
-	}
-
-	@Override
-	public boolean canBreatheInWater() {
-		return true;
+	public DolphinRiderEntity(EntityType<? extends DolphinRiderEntity> entityType, World world) {
+		super(entityType, world);
+		this.ignoreCameraFrustum = true;
+		this.experiencePoints = 3;
+		this.firstAttack = true;
+		this.speedSwitch = false;
 	}
 
 	protected void initDataTracker() {
 		super.initDataTracker();
-		this.dataTracker.startTracking(SNORKEL_FLAGS, (byte)16);
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, true);
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 	}
 
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
-		nbt.putBoolean("InvisSnorkel", this.isInvisibleSnorkel());
-		nbt.putInt("Variant", this.getTypeVariant());
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("Dolphin", this.getDolphinStage());
+		tag.putInt("Variant", this.getTypeVariant());
 	}
 
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
-		if (nbt.contains("InvisSnorkel")) {
-			this.setInvisibleSnorkel(nbt.getBoolean("InvisSnorkel"));
-			this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
-		}
-
-	}
-
-	public boolean isInvisibleSnorkel() {
-		return ((Byte)this.dataTracker.get(SNORKEL_FLAGS) & 16) != 0;
-	}
-
-	public void setInvisibleSnorkel(boolean isInvisibleSnorkel) {
-		byte b = (Byte)this.dataTracker.get(SNORKEL_FLAGS);
-		if (isInvisibleSnorkel) {
-			this.dataTracker.set(SNORKEL_FLAGS, (byte)(b | 16));
-		} else {
-			this.dataTracker.set(SNORKEL_FLAGS, (byte)(b & -17));
-		}
-
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, tag.getBoolean("Dolphin"));
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 	}
 
 	static {
-		SNORKEL_FLAGS = DataTracker.registerData(SnorkelEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
-		}
-		if (status == 106) {
-			this.invulnerableZombie = true;
-		}
-		else if (status == 105) {
-			this.invulnerableZombie = false;
 		}
 		if (status == 70) {
 			this.isFrozen = true;
@@ -147,72 +131,42 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 
-	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
-
-	@Override
-	public void registerControllers(AnimationData data) {
-		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
-
-		data.addAnimationController(controller);
-	}
-
-	@Override
-	public AnimationFactory getFactory() {
-		return this.factory;
-	}
-
-	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.isInsideWaterOrBubbleColumn()) {
-			if (invulnerableZombie){
-				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.ducky"));
-			}
-			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.duckyattack"));
-			}
-			if (this.isIced) {
-				event.getController().setAnimationSpeed(0.5);
-			}
-			else {
-				event.getController().setAnimationSpeed(1);
-			}
-		}else {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.walking"));
-			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.idle"));
-			}
-			if (this.isFrozen) {
-				event.getController().setAnimationSpeed(0);
-			}
-			else if (this.isIced) {
-				event.getController().setAnimationSpeed(0.5);
-			}
-			else {
-				event.getController().setAnimationSpeed(1);
-			}
-		}
-		return PlayState.CONTINUE;
-	}
-
-	public SnorkelEntity(World world) {
-        this(PvZEntity.SNORKEL, world);
-    }
-
-	@Override
-	public void onDeath(DamageSource source) {
-		super.onDeath(source);
-	}
-
-
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
+	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(DolphinRiderEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum DolphinStage {
+		DOLPHIN(true),
+		NODOLPHIN(false);
+
+		DolphinStage(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	private Boolean getDolphinStage() {
+		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
+	}
+
+	private void setDolphinStage(DolphinRiderEntity.DolphinStage dolphinStage) {
+		this.dataTracker.set(DATA_ID_TYPE_COUNT, dolphinStage.getId());
+	}
+
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
-			DataTracker.registerData(SnorkelEntity.class, TrackedDataHandlerRegistry.INTEGER);
+			DataTracker.registerData(DolphinRiderEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		if (this.getType().equals(PvZEntity.SNORKELHYPNO)){
+		if (this.getType().equals(PvZEntity.DOLPHINRIDERHYPNO)){
 			setVariant(DefaultAndHypnoVariants.HYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
@@ -235,10 +189,71 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 
+	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
+
+	@Override
+	public void registerControllers(AnimationData data) {
+		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
+		data.addAnimationController(controller);
+	}
+
+	@Override
+	public AnimationFactory getFactory() {
+		return this.factory;
+	}
+
+	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		if (this.isInsideWaterOrBubbleColumn() || this.removeDolphin) {
+			if (this.getDolphinStage()) {
+				event.getController().setAnimation(new AnimationBuilder().loop("dolphinrider.ducky"));
+			}
+			else {
+				event.getController().setAnimation(new AnimationBuilder().loop("dolphinrider.ducky2"));
+			}
+			if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
+			}
+		}else {
+			if (this.getDolphinStage()) {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("dolphinrider.walking"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("dolphinrider.idle"));
+				}
+			} else {
+				if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("dolphinrider.walking2"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("dolphinrider.idle2"));
+				}
+			}
+			if (this.isFrozen) {
+				event.getController().setAnimationSpeed(0);
+			}
+			else if (this.isIced) {
+				event.getController().setAnimationSpeed(0.5);
+			}
+			else {
+				event.getController().setAnimationSpeed(1);
+			}
+		}
+		return PlayState.CONTINUE;
+	}
+
+
+	/** /~*~//~*AI*~//~*~/ **/
+
+
+
+
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		if (this.getType().equals(PvZEntity.SNORKELHYPNO)) {
+		if (this.getType().equals(PvZEntity.DOLPHINRIDERHYPNO)) {
 			initHypnoGoals();
 		}
 		else {
@@ -250,13 +265,15 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 
 		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
-		this.targetSelector.add(2, new SnorkelEntity.TrackOwnerTargetGoal(this));
+		this.targetSelector.add(2, new DolphinRiderEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")));
+		this.targetSelector.add(4, new TargetGoal<>(this, PlantEntity.class, 0, false, false, (livingEntity) -> {
+			return !(livingEntity instanceof PlantEntity plantEntity && PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("reinforce"));
 		}));
-
+		this.targetSelector.add(5, new TargetGoal<>(this, PlantEntity.class, 0, false, false, (livingEntity) -> {
+			return (livingEntity instanceof PlantEntity plantEntity && PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("reinforce") && !(plantEntity instanceof LilyPadEntity));
+		}));
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 		////////// Hypnotized Zombie targets ///////
@@ -290,12 +307,27 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		}));
 	}
 
+	private boolean removeDolphin;
+	private int waitDolphinTick;
+
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
-		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant() != null){
+		super.tick();
+		if (this.getAttacking() == null && !(this.getHypno()) && this.isAlive()){
+			if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof TangleKelpEntity) && this.getDolphinStage() && this.isInsideWaterOrBubbleColumn() && !removeDolphin){
+				Vec3d vec3d = new Vec3d(0.5, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+				this.removeDolphin = true;
+				this.waitDolphinTick = 5;
+				this.playSound(DOLPHINJUMPEVENT, 0.75f, 1);
+			}
+			else if (this.CollidesWithPlant() != null && (PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("flying")) && !this.onGround && !this.isInsideWaterOrBubbleColumn()){
+				Vec3d vec3d = new Vec3d(-0.175, -0.3, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			}
+			else if (this.CollidesWithPlant() != null && ((this.isInsideWaterOrBubbleColumn() && !this.getDolphinStage()) || this.onGround)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant());
 			}
@@ -303,32 +335,23 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 				this.setTarget(CollidesWithPlayer());
 			}
 		}
-		LivingEntity target = this.getTarget();
-		if (this.isInsideWaterOrBubbleColumn()){
-			if (target != null){
-				if (this.squaredDistanceTo(target) > 4){
-					this.world.sendEntityStatus(this, (byte) 106);
-					setInvisibleSnorkel(true);
-				}
-				else {
-					this.world.sendEntityStatus(this, (byte) 105);
-					setInvisibleSnorkel(false);
-				}
-			}
-			else {
-				this.world.sendEntityStatus(this, (byte) 1065);
-				setInvisibleSnorkel(false);
-			}
+		if (--waitDolphinTick <= 0 && removeDolphin && (this.isInsideWaterOrBubbleColumn() || this.onGround)){
+			this.setDolphinStage(DolphinStage.NODOLPHIN);
+			removeDolphin = false;
 		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 1065);
-			setInvisibleSnorkel(false);
-		}
-		super.tick();
 	}
+
+	private boolean waterSwitch = false;
 
 	protected void mobTick() {
 		super.mobTick();
+		if (this.isInsideWaterOrBubbleColumn() && !waterSwitch && this.getDolphinStage()){
+			this.waterSwitch = true;
+			this.playSound(DOLPHINWATEREVENT, 0.5f, 1);
+		}
+		else if (!this.isInsideWaterOrBubbleColumn()){
+			this.waterSwitch = false;
+		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
@@ -338,6 +361,22 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		else {
 			this.world.sendEntityStatus(this, (byte) 72);
 		}
+		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+		if (this.getDolphinStage() && this.isInsideWaterOrBubbleColumn()){
+			if (this.speedSwitch) {
+				assert maxSpeedAttribute != null;
+				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				this.speedSwitch = false;
+			}
+		}
+		else {
+			if (!this.speedSwitch){
+				assert maxSpeedAttribute != null;
+				maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
+				maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.14D));
+				this.speedSwitch = true;
+			}
+		}
 	}
 
 
@@ -346,7 +385,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.SNORKELEGG.getDefaultStack();
+		return ModItems.DOLPHINRIDEREGG.getDefaultStack();
 	}
 
 
@@ -365,13 +404,22 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		return true;
 	}
 
-	public static DefaultAttributeContainer.Builder createSnorkelAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
-    }
+	public static EntityAttributeModifier createSpeedModifier(double amount) {
+		return new EntityAttributeModifier(
+				MAX_SPEED_UUID,
+				MOD_ID,
+				amount,
+				EntityAttributeModifier.Operation.ADDITION
+		);
+	}
+
+	public static DefaultAttributeContainer.Builder createDolphinRiderAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.26D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
+	}
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.ZOMBIEMOANEVENT;
@@ -402,11 +450,11 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 
 	protected EntityType<?> hypnoType;
 	protected void checkHypno(){
-		if (this.getType().equals(PvZEntity.SNORKEL)){
-			hypnoType = PvZEntity.SNORKELHYPNO;
+		if (this.getType().equals(PvZEntity.DOLPHINRIDER)){
+			hypnoType = PvZEntity.DOLPHINRIDERHYPNO;
 		}
 		else {
-			hypnoType = PvZEntity.SNORKELHYPNO;
+			hypnoType = PvZEntity.DOLPHINRIDERHYPNO;
 		}
 	}
 
@@ -425,7 +473,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
 				checkHypno();
 				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-				SnorkelEntity hypnotizedZombie = (SnorkelEntity) hypnoType.create(world);
+				DolphinRiderEntity hypnotizedZombie = (DolphinRiderEntity) hypnoType.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
 				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
@@ -474,23 +522,20 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		return bl;
 	}
 
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
 	class TrackOwnerTargetGoal extends TrackTargetGoal {
 		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
 
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
+		public TrackOwnerTargetGoal(PathAwareEntity mob) {
+			super(mob, false);
+		}
 
-        public boolean canStart() {
-            return SnorkelEntity.this.owner != null && SnorkelEntity.this.owner.getTarget() != null && this.canTrack(SnorkelEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
+		public boolean canStart() {
+			return DolphinRiderEntity.this.owner != null && DolphinRiderEntity.this.owner.getTarget() != null && this.canTrack(DolphinRiderEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
+		}
 
-        public void start() {
-            SnorkelEntity.this.setTarget(SnorkelEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
+		public void start() {
+			DolphinRiderEntity.this.setTarget(DolphinRiderEntity.this.owner.getTarget());
+			super.start();
+		}
+	}
 }

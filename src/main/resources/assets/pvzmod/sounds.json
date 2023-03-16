@@ -144,6 +144,11 @@
       "pvzmod:polevaulting_vault"
     ]
   },
+  "dolphin.jump": {
+    "sounds": [
+      "pvzmod:dolphin_jump"
+    ]
+  },
   "gargantuar.smash": {
     "sounds": [
       "pvzmod:gargantuar_smash"
@@ -157,6 +162,11 @@
   "zombie.moan": {
     "sounds": [
       "pvzmod:zombie_moan"
+    ]
+  },
+  "dolphin.water": {
+    "sounds": [
+      "pvzmod:dolphin_water"
     ]
   },
   "gargantuar.moan": {

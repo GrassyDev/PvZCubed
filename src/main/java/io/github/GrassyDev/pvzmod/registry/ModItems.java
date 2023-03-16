@@ -170,7 +170,8 @@ public class ModItems {
     public static final Item FOOTBALLEGG = new FootballEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
     public static final Item DANCINGZOMBIEEGG = new DancingZombieEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
     public static final Item BACKUPDANCEREGG = new BackupDancerEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
-	public static final Item SNORKELEGG = new SnorkelEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
+	public static final Item SNORKELEGG = new SnorkelEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+	public static final Item DOLPHINRIDEREGG = new DolphinRiderEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item GARGANTUAREGG = new GargantuarEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
 	public static final Item IMPEGG = new ImpEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item TRASHCANEGG = new TrashcanEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
@@ -342,6 +343,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dancingzombie_egg"), DANCINGZOMBIEEGG);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"backupdancer_egg"), BACKUPDANCEREGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snorkel_egg"), SNORKELEGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dolphinrider_egg"), DOLPHINRIDEREGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gargantuar_egg"), GARGANTUAREGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"imp_egg"), IMPEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"trashcan_egg"), TRASHCANEGG);

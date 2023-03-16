@@ -153,6 +153,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.DANCINGZOMBIEEGG));
 				stacks.add(new ItemStack(ModItems.BACKUPDANCEREGG));
 				stacks.add(new ItemStack(ModItems.SNORKELEGG));
+				stacks.add(new ItemStack(ModItems.DOLPHINRIDEREGG));
 				stacks.add(new ItemStack(ModItems.GARGANTUAREGG));
 				stacks.add(new ItemStack(ModItems.IMPEGG));
 				stacks.add(new ItemStack(ModItems.TRASHCANEGG));
@@ -286,6 +287,9 @@ public class PvZCubed implements ModInitializer {
 	public static final Identifier POLEVAULT = new Identifier("pvzmod:polevaulting.vault");
 	public static SoundEvent POLEVAULTEVENT = new SoundEvent(POLEVAULT);
 
+	public static final Identifier DOLPHINJUMP = new Identifier("pvzmod:dolphin.jump");
+	public static SoundEvent DOLPHINJUMPEVENT = new SoundEvent(DOLPHINJUMP);
+
 	public static final Identifier GARGANTUARSMASH = new Identifier("pvzmod:gargantuar.smash");
 	public static SoundEvent GARGANTUARSMASHEVENT = new SoundEvent(GARGANTUARSMASH);
 
@@ -294,6 +298,9 @@ public class PvZCubed implements ModInitializer {
 
 	public static final Identifier ZOMBIEMOAN = new Identifier("pvzmod:zombie.moan");
 	public static SoundEvent ZOMBIEMOANEVENT = new SoundEvent(ZOMBIEMOAN);
+
+	public static final Identifier DOLPHINWATER = new Identifier("pvzmod:dolphin.water");
+	public static SoundEvent DOLPHINWATEREVENT = new SoundEvent(DOLPHINWATER);
 
 	public static final Identifier GARGANTUARMOAN = new Identifier("pvzmod:gargantuar.moan");
 	public static SoundEvent GARGANTUARMOANEVENT = new SoundEvent(GARGANTUARMOAN);
@@ -353,9 +360,11 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.POPLIMB, POPLIMBEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.POPHEAD, POPHEADEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.POLEVAULT, POLEVAULTEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.DOLPHINJUMP, DOLPHINJUMPEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARSMASH, GARGANTUARSMASHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPLAUNCH, IMPLAUNCHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEMOAN, ZOMBIEMOANEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.DOLPHINWATER, DOLPHINWATEREVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARMOAN, GARGANTUARMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEDANCING, ZOMBIEDANCINGEVENT);
