@@ -17,7 +17,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -504,18 +503,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
         public boolean canStart() {
             if (DancingZombieEntity.this.isAggro) {
-                if (!super.canStart()) {
-                    return false;
-                } else {
-                    int b = DancingZombieEntity.this.world.getTargets(BackupDancerEntity.class, this.closeZombiePredicate, DancingZombieEntity.this, DancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int p = DancingZombieEntity.this.world.getTargets(BackupDancerEntity.class, this.closeZombiePredicate, DancingZombieEntity.this, DancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int d = DancingZombieEntity.this.world.getTargets(BackupDancerEntity.class, this.closeZombiePredicate, DancingZombieEntity.this, DancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int t = DancingZombieEntity.this.world.getTargets(BackupDancerEntity.class, this.closeZombiePredicate, DancingZombieEntity.this, DancingZombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    return DancingZombieEntity.this.random.nextInt(8) + 1 > b &&
-                            DancingZombieEntity.this.random.nextInt(8) + 1 > p &&
-                            DancingZombieEntity.this.random.nextInt(8) + 1 > d &&
-                            DancingZombieEntity.this.random.nextInt(8) + 1 > t ;
-                }
+				return super.canStart();
             } else {
                 return false;
             }
@@ -526,7 +514,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
         }
 
         protected int startTimeDelay() {
-            return 160;
+            return 200;
         }
 
         protected void castSpell() {

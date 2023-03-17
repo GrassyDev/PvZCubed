@@ -17,7 +17,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -526,18 +525,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
         public boolean canStart() {
             if (FlagzombieEntity.this.isAggro) {
-                if (!super.canStart()) {
-                    return false;
-                } else {
-                    int b = FlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int p = FlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int d = FlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    int t = FlagzombieEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FlagzombieEntity.this, FlagzombieEntity.this.getBoundingBox().expand(16.0D)).size();
-                    return FlagzombieEntity.this.random.nextInt(8) + 1 > b &&
-                            FlagzombieEntity.this.random.nextInt(8) + 1 > p &&
-                            FlagzombieEntity.this.random.nextInt(8) + 1 > d &&
-                            FlagzombieEntity.this.random.nextInt(8) + 1 > t ;
-                }
+				return super.canStart();
             } else {
                 return false;
             }
@@ -548,7 +536,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 		}
 
 		protected int startTimeDelay() {
-			return 160;
+			return 320;
 		}
 
         protected void castSpell() {

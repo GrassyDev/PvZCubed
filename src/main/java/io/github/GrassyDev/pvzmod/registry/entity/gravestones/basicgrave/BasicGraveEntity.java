@@ -283,56 +283,35 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 			this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
 		}
 
-        public boolean canStart() {
-            if (!super.canStart()) {
-                return false;
-            } else {
-                int b = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int c = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int u = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int p = BasicGraveEntity.this.world.getTargets(PoleVaultingEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int f = BasicGraveEntity.this.world.getTargets(FlagzombieEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-				int g = BasicGraveEntity.this.world.getTargets(BullyEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-				int h = BasicGraveEntity.this.world.getTargets(BullyEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-				int i = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-				int j = BasicGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, BasicGraveEntity.this, BasicGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                return BasicGraveEntity.this.random.nextInt(8) + 1 > b &&
-                        BasicGraveEntity.this.random.nextInt(8) + 1 > c &&
-                        BasicGraveEntity.this.random.nextInt(8) + 1 > u &&
-                        BasicGraveEntity.this.random.nextInt(8) + 1 > p &&
-                        BasicGraveEntity.this.random.nextInt(8) + 1 > f &&
-						BasicGraveEntity.this.random.nextInt(8) + 1 > g &&
-						BasicGraveEntity.this.random.nextInt(8) + 1 > h &&
-						BasicGraveEntity.this.random.nextInt(8) + 1 > i &&
-						BasicGraveEntity.this.random.nextInt(8) + 1 > j;
-            }
-        }
+		public boolean canStart() {
+			return super.canStart();
+		}
 
         protected int getSpellTicks() {
             return 100;
         }
 
         protected int startTimeDelay() {
-            return 340;
+            return 300;
         }
 
         protected void castSpell() {
             ServerWorld serverWorld = (ServerWorld)BasicGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.basicGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-            double probability = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability11 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-            double probability2 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability21 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-            double probability3 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-            double probability4 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-            double probability5 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability6 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability7 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability8 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability9 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability10 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability12 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+            double probability = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability11 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+            double probability2 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability21 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+            double probability3 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+            double probability4 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+            double probability5 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability6 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability7 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability8 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability9 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability10 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability12 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
 
             for(int b = 0; b < 2; ++b) { // 100% x2 Browncoat
                 BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));

@@ -6,7 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -286,22 +285,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 		}
 
         public boolean canStart() {
-            if (!super.canStart()) {
-                return false;
-            } else {
-                int b = FutureGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FutureGraveEntity.this, FutureGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int c = FutureGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FutureGraveEntity.this, FutureGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int u = FutureGraveEntity.this.world.getTargets(BrowncoatEntity.class, this.closeZombiePredicate, FutureGraveEntity.this, FutureGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int p = FutureGraveEntity.this.world.getTargets(JetpackEntity.class, this.closeZombiePredicate, FutureGraveEntity.this, FutureGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                int f = FutureGraveEntity.this.world.getTargets(FlagzombieEntity.class, this.closeZombiePredicate, FutureGraveEntity.this, FutureGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-				int g = FutureGraveEntity.this.world.getTargets(GargantuarEntity.class, this.closeZombiePredicate, FutureGraveEntity.this, FutureGraveEntity.this.getBoundingBox().expand(16.0D)).size();
-                return FutureGraveEntity.this.random.nextInt(8) + 1 > b &&
-                        FutureGraveEntity.this.random.nextInt(8) + 1 > c &&
-                        FutureGraveEntity.this.random.nextInt(8) + 1 > u &&
-                        FutureGraveEntity.this.random.nextInt(8) + 1 > p &&
-                        FutureGraveEntity.this.random.nextInt(8) + 1 > f &&
-						FutureGraveEntity.this.random.nextInt(8) + 1 > g;
-            }
+			return super.canStart();
         }
 
         protected int getSpellTicks() {
@@ -309,22 +293,22 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
         }
 
         protected int startTimeDelay() {
-            return 340;
+            return 500;
         }
 
         protected void castSpell() {
             ServerWorld serverWorld = (ServerWorld) FutureGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.futureGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-			double probability = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability11 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability2 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability21 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability3 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability4 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability5 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability6 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
-			double probability7 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 2;
+			double probability = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability11 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability2 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability21 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability3 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability4 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability5 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability6 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability7 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
 
             for(int b = 0; b < 2; ++b) { // 100% x2 Browncoat
                 BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
@@ -334,7 +318,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
                 browncoatEntity.setOwner(FutureGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
-            if (probability <= 0.25) { // 25% x1 Conehead
+            if (probability <= 0.4) { // 40% x1 Conehead
                 for(int c = 0; c < 1; ++c) {
                     BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(FutureGraveEntity.this.world);
@@ -344,8 +328,8 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
-			if (probability11 <= 0.2) { // 2% x1 Conehead
-				for(int c = 0; c < 1; ++c) {
+			if (probability11 <= 0.4) { // 40% x1 Conehead
+				for(int d = 0; d < 1; ++d) {
 					BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(FutureGraveEntity.this.world);
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -354,8 +338,8 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
-            if (probability2 <= 0.15) { // 15% x1 Buckethead
-                for(int u = 0; u < 1; ++u) {
+            if (probability2 <= 0.35) { // 35% x1 Buckethead
+                for(int h = 0; h < 1; ++h) {
                     BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
                     BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(FutureGraveEntity.this.world);
                     bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -364,7 +348,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(bucketheadEntity);
                 }
             }
-			if (probability21 <= 0.10) { // 10% x1 Buckethead
+			if (probability21 <= 0.3) { // 30% x1 Buckethead
 				for(int u = 0; u < 1; ++u) {
 					BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(FutureGraveEntity.this.world);
@@ -374,7 +358,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 				}
 			}
-			if (probability3 <= 0.35) { // 35% x2 Jetpack Zombie
+			if (probability3 <= 0.75) { // 75% x2 Jetpack Zombie
 				for(int p = 0; p < 2; ++p) {
 					BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
 					JetpackEntity jetpackEntity = (JetpackEntity) PvZEntity.JETPACK.create(FutureGraveEntity.this.world);
@@ -385,7 +369,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.529 + difficultymodifier) {
-				if (probability5 <= 0.30) { // 30% x2 Flag Zombie
+				if (probability5 <= 0.40) { // 40% x2 Flag Zombie
 					for (int f = 0; f < 2; ++f) {
 						double random = Math.random();
 						EntityType<?> flagType;
@@ -428,16 +412,19 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-            /**if (probability4 <= 0.15) { // 20% x1 Pole Vaulting Zombie
-                for(int p = 0; p < 1; ++p) {
-                    BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
-                    PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(FutureGraveEntity.this.world);
-                    poleVaultingEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-                    poleVaultingEntity.initialize(serverWorld, FutureGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-                    poleVaultingEntity.setOwner(FutureGraveEntity.this);
-                    serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
-                }
-            }
+			if (difficulty >= 1.529 + difficultymodifier) {
+				if (probability4 <= 0.50) { // 50% x1 Blastronaut Zombie
+					for (int p = 0; p < 1; ++p) {
+						BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
+						JetpackEntity blastronautEntity = (JetpackEntity) PvZEntity.BLASTRONAUT.create(FutureGraveEntity.this.world);
+						blastronautEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						blastronautEntity.initialize(serverWorld, FutureGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						blastronautEntity.setOwner(FutureGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(blastronautEntity);
+					}
+				}
+			}
+			/**
 			if (difficulty >= 1.89 + difficultymodifier) {
 				if (probability6 <= 0.085) { // 8.5% x1 Gargantuar
 					for (int g = 0; g < 1; ++g) {

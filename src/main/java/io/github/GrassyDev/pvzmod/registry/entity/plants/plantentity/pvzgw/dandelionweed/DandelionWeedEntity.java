@@ -143,7 +143,6 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 	protected void splashDamage() {
 		Vec3d vec3d = this.getPos();
 		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(2).expand(0, 2, 0).offset(0, 1, 0));
-		System.out.println(this.getBoundingBox().expand(2).expand(0, 2, 0).offset(0, 2, 0).getCenter());
 		Iterator var9 = list.iterator();
 		while (true) {
 			LivingEntity livingEntity;

@@ -275,6 +275,7 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, MetalHelmetEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.FOOTBALLGEAR, MetalHelmetEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BLASTRONAUTGEAR, MetalHelmetEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.BRICKGEAR, StoneHelmetEntityRenderer::new);
 
@@ -318,6 +319,8 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.JETPACK, JetpackEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.JETPACKHYPNO, JetpackEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BLASTRONAUT, JetpackEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BLASTRONAUTHYPNO, JetpackEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMP, SuperFanImpEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMPHYPNO, SuperFanImpEntityRenderer::new);

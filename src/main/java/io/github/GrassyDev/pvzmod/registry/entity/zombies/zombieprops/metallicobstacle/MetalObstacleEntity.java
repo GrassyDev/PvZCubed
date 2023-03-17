@@ -12,7 +12,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -61,6 +60,7 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 
 
 	public void tick() {
+		super.tick();
 		if (this.hasVehicle() && this.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHealth() <= 0 || generalPvZombieEntity.isDead())){
 			this.dismountVehicle();
 		}
@@ -94,7 +94,6 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 				}
 			}
 		}
-		super.tick();
 	}
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/

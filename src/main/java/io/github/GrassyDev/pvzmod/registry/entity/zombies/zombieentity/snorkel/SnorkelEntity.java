@@ -294,6 +294,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
+		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlant() != null){
 				this.setVelocity(0, -0.3, 0);
@@ -324,7 +325,6 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 			this.world.sendEntityStatus(this, (byte) 1065);
 			setInvisibleSnorkel(false);
 		}
-		super.tick();
 	}
 
 	protected void mobTick() {

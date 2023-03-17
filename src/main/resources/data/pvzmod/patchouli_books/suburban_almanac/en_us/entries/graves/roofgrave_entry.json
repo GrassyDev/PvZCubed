@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)230",
-        "$(br)$(#bd951a)Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)30s",
         "$(br)$(#bd951a)Spawn Condition: $()$(#ff0000)Uncommon. Unlocked at 1.8 Local Difficulty.",
         "$(br2)$(#bd951a)Graze the roof! It's still a mystery how Zombies emerge from this grave if it's on a roof..."
       ]

@@ -1,7 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack;
 
 import com.google.common.collect.Maps;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.JetpackVariants;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -19,12 +19,16 @@ public class JetpackEntityRenderer extends GeoEntityRenderer<JetpackEntity> {
         this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
     }
 
-	public static final Map<BrowncoatVariants, Identifier> LOCATION_MODEL_BY_VARIANT =
-			Util.make(Maps.newEnumMap(BrowncoatVariants.class), (map) -> {
-				map.put(BrowncoatVariants.BROWNCOAT,
+	public static final Map<JetpackVariants, Identifier> LOCATION_MODEL_BY_VARIANT =
+			Util.make(Maps.newEnumMap(JetpackVariants.class), (map) -> {
+				map.put(JetpackVariants.JETPACK,
 				        new Identifier("pvzmod", "geo/jetpack.geo.json"));
-				map.put(BrowncoatVariants.BROWNCOATHYPNO,
+				map.put(JetpackVariants.JETPACKHYPNO,
 						new Identifier("pvzmod", "geo/jetpack.geo.json"));
+				map.put(JetpackVariants.BLASTRONAUT,
+						new Identifier("pvzmod", "geo/blastronaut.geo.json"));
+				map.put(JetpackVariants.BLASTRONAUTHYPNO,
+						new Identifier("pvzmod", "geo/blastronaut.geo.json"));
 			});
 
 	public Identifier getModelResource(JetpackEntity object) {

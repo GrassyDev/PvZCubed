@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)150",
-        "$(br)$(#bd951a)Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)15s",
         "$(br)$(#bd951a)Spawn Condition: $()$(#ff0000)Common.",
         "$(br2)$(#bd951a)This grave may not be the fanciest grave out there, but it gets the job done. Really, what more could you need?"
       ]

@@ -379,6 +379,11 @@
   "item.pvzmod.jetpack_egg": "Jetpack Zombie",
   "entity.pvzmod.jetpack_hypnotized": "Hypnotized Jetpack Zombie",
 
+  "entity.pvzmod.blastronaut": "Blastronaut Zombie",
+  "item.pvzmod.blastronaut_egg": "Blastronaut Zombie",
+  "entity.pvzmod.blastronaut_hypnotized": "Hypnotized Blastronaut Zombie",
+  "entity.pvzmod.blastronautgear": "Futuristic Helmet",
+
   "entity.pvzmod.brickhead": "Brickhead Zombie",
   "item.pvzmod.brickhead_egg": "Brickhead Zombie",
   "entity.pvzmod.brickgear": "Brick",

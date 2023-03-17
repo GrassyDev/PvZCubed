@@ -224,7 +224,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	}
 
 	public ZombieObstacleEntity CollidesWithObstacle(){
-		List<ZombieObstacleEntity> list = world.getNonSpectatingEntities(ZombieObstacleEntity.class, entityBox.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
+		Vec3d vec3d = new Vec3d((double)colliderOffset + 0.66, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+		List<ZombieObstacleEntity> list = world.getNonSpectatingEntities(ZombieObstacleEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
 		ZombieObstacleEntity obstacleEntity = null;
 		if (!list.isEmpty()) {
 			for (ZombieObstacleEntity zombieObstacleEntity : list) {

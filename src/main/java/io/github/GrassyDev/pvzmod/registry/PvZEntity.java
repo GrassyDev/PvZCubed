@@ -719,6 +719,11 @@ public class PvZEntity implements ModInitializer {
 			new Identifier(ModID, "screendoorshield"),
 			QuiltEntityTypeBuilder.<MetalShieldEntity>create(SpawnGroup.MONSTER, MetalShieldEntity::new).setDimensions(EntityDimensions.fixed(0.85f, 1.8f)).build()
 	);
+	public static final EntityType<MetalHelmetEntity> BLASTRONAUTGEAR = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "blastronautgear"),
+			QuiltEntityTypeBuilder.<MetalHelmetEntity>create(SpawnGroup.MONSTER, MetalHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.9f, 2.55f)).build()
+	);
 
     public static final EntityType<FlagzombieEntity> FLAGZOMBIE = Registry.register(
             Registry.ENTITY_TYPE,
@@ -964,6 +969,18 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<JetpackEntity> JETPACKHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "jetpack_hypnotized"),
+			QuiltEntityTypeBuilder.<JetpackEntity>create(SpawnGroup.MONSTER, JetpackEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 2.4f)).build()
+	);
+
+	public static final EntityType<JetpackEntity> BLASTRONAUT = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "blastronaut"),
+			QuiltEntityTypeBuilder.<JetpackEntity>create(SpawnGroup.MONSTER, JetpackEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 2.4f)).build()
+	);
+
+	public static final EntityType<JetpackEntity> BLASTRONAUTHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "blastronaut_hypnotized"),
 			QuiltEntityTypeBuilder.<JetpackEntity>create(SpawnGroup.MONSTER, JetpackEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 2.4f)).build()
 	);
 
@@ -1297,6 +1314,9 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntity.createDefensiveEndGearAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntityRenderer::new);
 
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BLASTRONAUTGEAR, MetalHelmetEntity.createBlastronautGearAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BLASTRONAUTGEAR, MetalHelmetEntityRenderer::new);
+
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BRICKGEAR, StoneHelmetEntity.createBrickGearAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.BRICKGEAR, StoneHelmetEntityRenderer::new);
 
@@ -1388,6 +1408,10 @@ public class PvZEntity implements ModInitializer {
 		EntityRendererRegistry.register(PvZEntity.JETPACK, JetpackEntityRenderer::new);
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACKHYPNO, JetpackEntity.createJetpackAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.JETPACKHYPNO, JetpackEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BLASTRONAUT, JetpackEntity.createBlastronautAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BLASTRONAUT, JetpackEntityRenderer::new);
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BLASTRONAUTHYPNO, JetpackEntity.createBlastronautAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BLASTRONAUTHYPNO, JetpackEntityRenderer::new);
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BULLY, BullyEntity.createBullyAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.BULLY, BullyEntityRenderer::new);

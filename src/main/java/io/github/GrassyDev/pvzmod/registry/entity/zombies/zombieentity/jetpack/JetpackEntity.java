@@ -6,11 +6,9 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.JetpackVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.modernday.ConeheadGearEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -120,45 +118,21 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		/**if (this.getType().equals(PvZEntity.BLASTRONAUT)){
-			setVariant(BrowncoatVariants.BLASTRONAUT);
+		if (this.getType().equals(PvZEntity.BLASTRONAUT)){
+			setVariant(JetpackVariants.BLASTRONAUT);
 			createBlastronautProp();
 			this.initCustomGoals();
 		}
-		else if (this.getType().equals(PvZEntity.DISCOJETPACK)){
-		 setVariant(BrowncoatVariants.DISCO);
-		 this.initCustomGoals();
-		}
-		else if (this.getType().equals(PvZEntity.SPACERANGER)){
-		 setVariant(BrowncoatVariants.SPACERANGER);
-		 createSpaceRangerProp();
-		 this.initCustomGoals();
-		}
-		else if (this.getType().equals(PvZEntity.DEFAULTHYPNO)){
-			setVariant(BrowncoatVariants.BROWNCOATHYPNO);
-			this.setHypno(IsHypno.TRUE);
-		}
 		else if (this.getType().equals(PvZEntity.BLASTRONAUTHYPNO)){
-			setVariant(BrowncoatVariants.BLASTRONAUTHYPNO);
+			setVariant(JetpackVariants.BLASTRONAUTHYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
-		else if (this.getType().equals(PvZEntity.DISCOJETPACKHYPNO)){
-			setVariant(BrowncoatVariants.DISCOHYPNO);
-			this.setHypno(IsHypno.TRUE);
-		}
-		else if (this.getType().equals(PvZEntity.SPACERANGERHYPNO)){
-			setVariant(BrowncoatVariants.SPACERANGERHYPNO);
+		else if (this.getType().equals(PvZEntity.JETPACKHYPNO)){
+			setVariant(JetpackVariants.JETPACKHYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else {
-			setVariant(BrowncoatVariants.JETPACK);
-		}**/
-		if (this.getType().equals(PvZEntity.JETPACKHYPNO)){
-			setVariant(BrowncoatVariants.BROWNCOATHYPNO);
-			this.setHypno(IsHypno.TRUE);
-		}
-		else {
-			setVariant(BrowncoatVariants.BROWNCOAT);
+			setVariant(JetpackVariants.JETPACK);
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
@@ -167,30 +141,18 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
 	}
 
-	public BrowncoatVariants getVariant() {
-		return BrowncoatVariants.byId(this.getTypeVariant() & 255);
+	public JetpackVariants getVariant() {
+		return JetpackVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	public void setVariant(BrowncoatVariants variant) {
+	public void setVariant(JetpackVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
-	public void createConeheadProp(){
-		ConeheadGearEntity propentity = new ConeheadGearEntity(PvZEntity.CONEHEADGEAR, this.world);
+	public void createBlastronautProp(){
+		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BLASTRONAUTGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
-	}
-
-	public void createBucketProp(){
-		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BUCKETGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
-	}
-
-	public void createShield(){
-		MetalShieldEntity metalShieldEntity = new MetalShieldEntity(PvZEntity.SCREENDOORSHIELD, this.world);
-		metalShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		metalShieldEntity.startRiding(this);
 	}
 
 
@@ -209,7 +171,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		Entity entity = this.getFirstPassenger();
 		if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 			event.getController().setAnimation(new AnimationBuilder().loop("jetpack.flying"));
 		} else {
@@ -229,7 +190,8 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		if (this.getType().equals(PvZEntity.JETPACKHYPNO)) {
+		if (this.getType().equals(PvZEntity.JETPACKHYPNO) ||
+				this.getType().equals(PvZEntity.BLASTRONAUTHYPNO) ) {
 			initHypnoGoals();
 		}
 		else {
@@ -291,8 +253,13 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		if (target != null){
 			Vec3d lastPos = this.getPos();
 			if (target.squaredDistanceTo(this) > 4) {
-				this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1.6);
-
+				if (this.getVariant().equals(JetpackVariants.BLASTRONAUT) ||
+						this.getVariant().equals(JetpackVariants.BLASTRONAUTHYPNO)){
+					this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1.8);
+				}
+				else {
+					this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1.6);
+				}
 			}
 			this.setNoGravity(true);
 			this.setFlying(true);
@@ -345,23 +312,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
-	@Override
-	public void updatePassengerPosition(Entity passenger) {
-		if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) ||
-				this.getVariant().equals(BrowncoatVariants.SCREENDOORHYPNO)) {
-			if (this.hasPassenger(passenger)) {
-				float g = (float) ((this.isRemoved() ? 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
-				float f = 0.4F;
-
-				Vec3d vec3d = new Vec3d((double) f, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-				passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double) g, this.getZ() + vec3d.z);
-				passenger.setBodyYaw(this.bodyYaw);
-			}
-		}
-		else {
-			super.updatePassengerPosition(passenger);
-		}
-	}
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
 
@@ -369,14 +319,8 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	@Override
 	public ItemStack getPickBlockStack() {
 		ItemStack itemStack;
-		if (this.getVariant().equals(BrowncoatVariants.CONEHEAD) || this.getType().equals(PvZEntity.CONEHEADHYPNO)){
-			itemStack = ModItems.CONEHEADEGG.getDefaultStack();
-		}
-		else if (this.getVariant().equals(BrowncoatVariants.BUCKETHEAD) || this.getType().equals(PvZEntity.BUCKETHEADHYPNO)){
-			itemStack = ModItems.BUCKETHEADEGG.getDefaultStack();
-		}
-		else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) || this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
-			itemStack = ModItems.SCREENDOOREGG.getDefaultStack();
+		if (this.getVariant().equals(JetpackVariants.BLASTRONAUT) || this.getType().equals(PvZEntity.BLASTRONAUTHYPNO)){
+			itemStack = ModItems.BLASTRONAUTEGG.getDefaultStack();
 		}
 		else{
 			itemStack = ModItems.JETPACKEGG.getDefaultStack();
@@ -407,6 +351,14 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
     }
+
+	public static DefaultAttributeContainer.Builder createBlastronautAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
+	}
 
 	@Override
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
@@ -446,6 +398,12 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	protected EntityType<?> hypnoType;
 	protected void checkHypno(){
 		if (this.getType().equals(PvZEntity.JETPACK)){
+			hypnoType = PvZEntity.JETPACKHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.BLASTRONAUT)){
+			hypnoType = PvZEntity.BLASTRONAUTHYPNO;
+		}
+		else {
 			hypnoType = PvZEntity.JETPACKHYPNO;
 		}
 	}
