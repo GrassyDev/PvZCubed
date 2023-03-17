@@ -7,7 +7,7 @@ public class NarcissusEntityRenderer extends GeoEntityRenderer<NarcissusEntity> 
 
     public NarcissusEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx, new NarcissusEntityModel());
-        this.shadowRadius = 0F; //change 0.7 to the desired shadow size.
+        this.shadowRadius = 0.5F; //change 0.7 to the desired shadow size.
     }
 
 }

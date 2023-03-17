@@ -10,7 +10,7 @@
     "announce_to_chat": true,
     "hidden": true
   },
-  "parent": "pvzmod:make_repeater",
+  "parent": "pvzmod:make_snowpea",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

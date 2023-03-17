@@ -10,7 +10,7 @@
     "announce_to_chat": true,
     "hidden": true
   },
-  "parent": "pvzmod:make_squash",
+  "parent": "pvzmod:make_spikeweed",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

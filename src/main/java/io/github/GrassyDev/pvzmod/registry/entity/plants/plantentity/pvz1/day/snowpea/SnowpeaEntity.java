@@ -4,12 +4,15 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventures.snowqueenpea.SnowqueenpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowQueenPeaVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.items.seedpackets.TwinSunflowerSeeds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -28,9 +31,11 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -234,6 +239,51 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		Item item = itemStack.getItem();
+		if (itemStack.isOf(ModItems.SNOW_QUEENPEA_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
+			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
+			if ((this.world instanceof ServerWorld)) {
+				ServerWorld serverWorld = (ServerWorld) this.world;
+				SnowqueenpeaEntity snowqueenpeaEntity = (SnowqueenpeaEntity) PvZEntity.SNOWQUEENPEA.create(world);
+				snowqueenpeaEntity.setTarget(this.getTarget());
+				snowqueenpeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				snowqueenpeaEntity.initialize(serverWorld, world.getLocalDifficulty(snowqueenpeaEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+				snowqueenpeaEntity.setAiDisabled(this.isAiDisabled());
+				snowqueenpeaEntity.setPersistent();
+				if (this.hasCustomName()) {
+					snowqueenpeaEntity.setCustomName(this.getCustomName());
+					snowqueenpeaEntity.setCustomNameVisible(this.isCustomNameVisible());
+				}
+				if (this.hasVehicle()){
+					snowqueenpeaEntity.startRiding(this.getVehicle(), true);
+				}
+				if (this.getVariant().equals(SnowPeaVariants.BISEXUAL)){
+					snowqueenpeaEntity.setVariant(SnowQueenPeaVariants.BISEXUAL);
+				}
+				else if (this.getVariant().equals(SnowPeaVariants.MLM)){
+					snowqueenpeaEntity.setVariant(SnowQueenPeaVariants.DEFAULT);
+				}
+				else if (this.getVariant().equals(SnowPeaVariants.DEFAULT)){
+					double random = Math.random();
+					if (random <= 0.25) {
+						snowqueenpeaEntity.setVariant(SnowQueenPeaVariants.LESBIAN);
+					}
+					else {
+						snowqueenpeaEntity.setVariant(SnowQueenPeaVariants.DEFAULT);
+					}
+				}
+				else {
+					snowqueenpeaEntity.setVariant(SnowQueenPeaVariants.DEFAULT);
+				}
+				serverWorld.spawnEntityAndPassengers(snowqueenpeaEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+				player.getItemCooldownManager().set(ModItems.TWINSUNFLOWER_SEED_PACKET, TwinSunflowerSeeds.cooldown);
+			}
+			return ActionResult.SUCCESS;
+		}
 		if (!this.getVariant().equals(SnowPeaVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
 			this.setVariant(SnowPeaVariants.DEFAULT);
 			if (!player.getAbilities().creativeMode){

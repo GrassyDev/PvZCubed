@@ -26,10 +26,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -206,7 +203,14 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 			if (this.currentFuseTime >= this.sunProducingTime) {
 				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()) {
 					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
-					this.dropItem(ModItems.SUN);
+					if (this.world.getAmbientDarkness() >= 2 ||
+							this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2){
+						this.dropItem(ModItems.SMALLSUN);
+					}
+					else if (this.world.getAmbientDarkness() < 2 &&
+							this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2) {
+						this.dropItem(ModItems.SUN);
+					}
 					this.sunProducingTime = 2400;
 					secondSunTick = 20;
 					zombieSunCheck = false;
@@ -215,7 +219,14 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 				if (secondSunStart) {
 					if (--secondSunTick < 0) {
 						this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
-						this.dropItem(ModItems.SUN);
+						if (this.world.getAmbientDarkness() >= 2 ||
+								this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2){
+							this.dropItem(ModItems.SMALLSUN);
+						}
+						else if (this.world.getAmbientDarkness() < 2 &&
+								this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2) {
+							this.dropItem(ModItems.SUN);
+						}
 						secondSunStart = false;
 						this.currentFuseTime = this.sunProducingTime;
 					}
@@ -234,7 +245,14 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 		}
 		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
 			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
-			this.dropItem(ModItems.SUN);
+			if (this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2){
+				this.dropItem(ModItems.SMALLSUN);
+			}
+			else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2) {
+				this.dropItem(ModItems.SUN);
+			}
 			this.sunProducingTime = 2400;
 			secondSunTick = 6;
 			zombieSunCheck = false;
@@ -243,7 +261,14 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 		if (secondSunStart) {
 			if (--secondSunTick < 0) {
 				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
-				this.dropItem(ModItems.SUN);
+				if (this.world.getAmbientDarkness() >= 2 ||
+						this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2){
+					this.dropItem(ModItems.SMALLSUN);
+				}
+				else if (this.world.getAmbientDarkness() < 2 &&
+						this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2) {
+					this.dropItem(ModItems.SUN);
+				}
 				secondSunStart = false;
 			}
 		}

@@ -31,7 +31,7 @@ public class FumeshroomEntityRenderer extends GeoEntityRenderer<FumeshroomEntity
 
     public FumeshroomEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx, new FumeshroomEntityModel());
-        this.shadowRadius = 0F; //change 0.7 to the desired shadow size.
+        this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
     }
 
 }

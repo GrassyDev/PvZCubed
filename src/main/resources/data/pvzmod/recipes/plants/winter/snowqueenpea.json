@@ -5,16 +5,19 @@
       "item": "minecraft:diamond"
     },
     {
+      "item": "pvzmod:plantfood_cold"
+    },
+    {
       "item": "pvzmod:repeater_seed_packet"
     },
     {
-      "item": "pvzmod:snowpea_seed_packet"
-    },
-    {
       "item": "pvzmod:sun"
     },
     {
       "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:smallsun"
     }
   ],
   "result": {

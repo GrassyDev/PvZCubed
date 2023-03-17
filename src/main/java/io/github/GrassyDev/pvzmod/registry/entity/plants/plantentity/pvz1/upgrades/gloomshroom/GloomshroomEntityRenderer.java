@@ -31,7 +31,7 @@ public class GloomshroomEntityRenderer extends GeoEntityRenderer<GloomshroomEnti
 
     public GloomshroomEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx, new GloomshroomEntityModel());
-        this.shadowRadius = 0F; //change 0.7 to the desired shadow size.
+        this.shadowRadius = 0.85F; //change 0.7 to the desired shadow size.
     }
 
 }
