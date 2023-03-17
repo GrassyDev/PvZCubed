@@ -348,8 +348,8 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 		areaEffectCloudEntity.setParticleType(ParticleTypes.SMOKE);
 		areaEffectCloudEntity.setRadius(8F);
 		areaEffectCloudEntity.setRadiusOnUse(-0.5F);
-		areaEffectCloudEntity.setWaitTime(10);
-		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration());
+		areaEffectCloudEntity.setWaitTime(4);
+		areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 3);
 		areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float)areaEffectCloudEntity.getDuration());
 		this.world.spawnEntity(areaEffectCloudEntity);
 		AreaEffectCloudEntity areaEffectCloudEntity2 = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());

@@ -220,6 +220,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;
 				case "plastic" -> PvZCubed.CONEHITEVENT;
+				case "stone" -> PvZCubed.STONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));

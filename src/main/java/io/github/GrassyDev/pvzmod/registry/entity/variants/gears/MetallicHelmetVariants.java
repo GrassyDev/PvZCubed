@@ -5,9 +5,10 @@ import java.util.Comparator;
 
 public enum MetallicHelmetVariants {
 	BUCKET(0),
-	MEDALLION(0),
-	FOOTBALL(1),
-	BERSERKER(2);
+	MEDALLION(1),
+	FOOTBALL(2),
+	DEFENSIVEEND(3),
+	BERSERKER(4);
 
 	private static final MetallicHelmetVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(MetallicHelmetVariants::getId)).toArray(MetallicHelmetVariants[]::new);

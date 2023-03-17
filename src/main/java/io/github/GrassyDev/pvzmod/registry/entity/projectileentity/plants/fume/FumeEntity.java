@@ -191,6 +191,7 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;
 				case "plastic" -> PvZCubed.CONEHITEVENT;
+				case "stone" -> PvZCubed.STONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			if (entity2 != entityStore) {
@@ -212,6 +213,7 @@ public class FumeEntity extends ThrownItemEntity implements IAnimatable {
 				sound = switch (zombieMaterial2) {
 					case "metallic" -> PvZCubed.BUCKETHITEVENT;
 					case "plastic" -> PvZCubed.CONEHITEVENT;
+					case "stone" -> PvZCubed.STONEHITEVENT;
 					default -> PvZCubed.PEAHITEVENT;
 				};
 				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));

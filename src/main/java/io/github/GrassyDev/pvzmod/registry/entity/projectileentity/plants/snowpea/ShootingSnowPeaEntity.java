@@ -160,6 +160,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;
 				case "plastic" -> PvZCubed.CONEHITEVENT;
+				case "stone" -> PvZCubed.STONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			if (entity instanceof ZombieShieldEntity){

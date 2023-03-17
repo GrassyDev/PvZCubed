@@ -379,6 +379,11 @@
   "item.pvzmod.jetpack_egg": "Jetpack Zombie",
   "entity.pvzmod.jetpack_hypnotized": "Hypnotized Jetpack Zombie",
 
+  "entity.pvzmod.brickhead": "Brickhead Zombie",
+  "item.pvzmod.brickhead_egg": "Brickhead Zombie",
+  "entity.pvzmod.brickgear": "Brick",
+  "entity.pvzmod.brickhead_hypnotized": "Hypnotized Brickhead",
+
   "entity.pvzmod.superfanimp": "Super-Fan Imp",
   "item.pvzmod.superfanimp_egg": "Super-Fan Imp",
   "entity.pvzmod.superfanimp_hypnotized": "Hypnotized Super-Fan Imp",

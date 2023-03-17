@@ -1,9 +1,8 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.gears.MetallicHelmetVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.gears.StoneHelmetVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -32,11 +31,11 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
+public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "shieldcontroller";
 
-    public MetalHelmetEntity(EntityType<? extends MetalHelmetEntity> entityType, World world) {
+    public StoneHelmetEntity(EntityType<? extends StoneHelmetEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
@@ -71,29 +70,12 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
-			DataTracker.registerData(MetalHelmetEntity.class, TrackedDataHandlerRegistry.INTEGER);
+			DataTracker.registerData(StoneHelmetEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		if (this.getType().equals(PvZEntity.BUCKETGEAR)){
-			setVariant(MetallicHelmetVariants.BUCKET);
-		}
-		else if (this.getType().equals(PvZEntity.MEDALLIONGEAR)){
-			setVariant(MetallicHelmetVariants.MEDALLION);
-		}
-		else if (this.getType().equals(PvZEntity.FOOTBALLGEAR)){
-			setVariant(MetallicHelmetVariants.FOOTBALL);
-		}
-		else if (this.getType().equals(PvZEntity.BERSERKERGEAR)){
-			setVariant(MetallicHelmetVariants.BERSERKER);
-		}
-		else if (this.getType().equals(PvZEntity.DEFENSIVEENDGEAR)){
-			setVariant(MetallicHelmetVariants.DEFENSIVEEND);
-		}
-		else {
-			setVariant(MetallicHelmetVariants.BUCKET);
-		}
+		setVariant(StoneHelmetVariants.BRICK);
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -101,11 +83,11 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
 	}
 
-	public MetallicHelmetVariants getVariant() {
-		return MetallicHelmetVariants.byId(this.getTypeVariant() & 255);
+	public StoneHelmetVariants getVariant() {
+		return StoneHelmetVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	public void setVariant(MetallicHelmetVariants variant) {
+	public void setVariant(StoneHelmetVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
@@ -141,45 +123,13 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createBucketGearAttributes() {
+	public static DefaultAttributeContainer.Builder createBrickGearAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 110D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 212D);
     }
-
-	public static DefaultAttributeContainer.Builder createMedallionGearAttributes() {
-		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 37D);
-	}
-
-	public static DefaultAttributeContainer.Builder createFootballGearAttributes() {
-		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 140D);
-	}
-
-	public static DefaultAttributeContainer.Builder createBerserkerGearAttributes() {
-		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 333D);
-	}
-
-	public static DefaultAttributeContainer.Builder createDefensiveEndGearAttributes() {
-		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 140D);
-	}
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.SILENCEVENET;
@@ -196,26 +146,7 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		ItemStack itemStack;
-		if (this.getType().equals(PvZEntity.BUCKETGEAR)){
-			itemStack = ModItems.BUCKETHEADEGG.getDefaultStack();
-		}
-		else if (this.getType().equals(PvZEntity.MEDALLIONGEAR)){
-			itemStack = ModItems.BACKUPDANCEREGG.getDefaultStack();
-		}
-		else if (this.getType().equals(PvZEntity.FOOTBALLGEAR)){
-			itemStack = ModItems.FOOTBALLEGG.getDefaultStack();
-		}
-		else if (this.getType().equals(PvZEntity.BERSERKERGEAR)){
-			itemStack = ModItems.BERSERKEREGG.getDefaultStack();
-		}
-		else if (this.getType().equals(PvZEntity.DEFENSIVEENDGEAR)){
-			itemStack = ModItems.DEFENSIVEENDEGG.getDefaultStack();
-		}
-		else{
-			itemStack = ModItems.BUCKETHEADEGG.getDefaultStack();
-		}
-		return itemStack;
+		return ModItems.BRICKHEADEGG.getDefaultStack();
 	}
 
 }

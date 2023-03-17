@@ -13,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.conehead.
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -140,6 +141,11 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			createBucketProp();
 			this.initCustomGoals();
 		}
+		else if (this.getType().equals(PvZEntity.BRICKHEAD)){
+			setVariant(BrowncoatVariants.BRICKHEAD);
+			createBrickProp();
+			this.initCustomGoals();
+		}
 		else if (this.getType().equals(PvZEntity.SCREENDOOR)){
 			createShield();
 			setVariant(BrowncoatVariants.SCREENDOOR);
@@ -160,6 +166,10 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 		else if (this.getType().equals(PvZEntity.BUCKETHEADHYPNO)){
 			setVariant(BrowncoatVariants.BUCKETHEADHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.BRICKHEADHYPNO)){
+			setVariant(BrowncoatVariants.BRICKHEADHYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else if (this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
@@ -196,6 +206,12 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	public void createBucketProp(){
 		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BUCKETGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
+	public void createBrickProp(){
+		StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.BRICKGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
 	}
@@ -282,6 +298,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getType().equals(PvZEntity.BROWNCOATHYPNO) ||
 				this.getType().equals(PvZEntity.CONEHEADHYPNO) ||
 				this.getType().equals(PvZEntity.BUCKETHEADHYPNO) ||
+				this.getType().equals(PvZEntity.BRICKHEADHYPNO) ||
 				this.getType().equals(PvZEntity.SCREENDOORHYPNO) ||
 				this.getType().equals(PvZEntity.TRASHCANHYPNO)) {
 			initHypnoGoals();
@@ -445,6 +462,9 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		else if (this.getVariant().equals(BrowncoatVariants.BUCKETHEAD) || this.getType().equals(PvZEntity.BUCKETHEADHYPNO)){
 			itemStack = ModItems.BUCKETHEADEGG.getDefaultStack();
 		}
+		else if (this.getVariant().equals(BrowncoatVariants.BRICKHEAD) || this.getType().equals(PvZEntity.BRICKHEADHYPNO)){
+			itemStack = ModItems.BRICKHEADEGG.getDefaultStack();
+		}
 		else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) || this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
 			itemStack = ModItems.SCREENDOOREGG.getDefaultStack();
 		}
@@ -523,6 +543,9 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 		else if (this.getType().equals(PvZEntity.BUCKETHEAD)){
 			hypnoType = PvZEntity.BUCKETHEADHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.BRICKHEAD)){
+			hypnoType = PvZEntity.BRICKHEADHYPNO;
 		}
 		else if (this.getType().equals(PvZEntity.SCREENDOOR)){
 			hypnoType = PvZEntity.SCREENDOORHYPNO;

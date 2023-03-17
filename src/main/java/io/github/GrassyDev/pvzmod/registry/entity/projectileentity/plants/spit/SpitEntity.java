@@ -141,10 +141,14 @@ public class SpitEntity extends ThrownItemEntity implements IAnimatable {
 			if ("paper".equals(zombieMaterial)) {
 				damage = damage * 5;
 			}
+			else if ("stone".equals(zombieMaterial)) {
+				damage = damage * 2;
+			}
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZCubed.BUCKETHITEVENT;
 				case "plastic" -> PvZCubed.CONEHITEVENT;
+				case "stone" -> PvZCubed.STONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));

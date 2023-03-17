@@ -54,6 +54,11 @@
       "pvzmod:cone_hit"
     ]
   },
+  "stone.hit": {
+    "sounds": [
+      "pvzmod:stone_hit"
+    ]
+  },
   "mushroom.shoot": {
     "sounds": [
       "pvzmod:mushroom_shoot"

@@ -95,6 +95,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metalliche
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntityRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -252,6 +253,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.CONEHEADHYPNO, BrowncoatEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BUCKETHEAD, BrowncoatEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BUCKETHEADHYPNO, BrowncoatEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BRICKHEAD, BrowncoatEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.BRICKHEADHYPNO, BrowncoatEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.SCREENDOOR, BrowncoatEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.SCREENDOORHYPNO, BrowncoatEntityRenderer::new);
 
@@ -272,6 +275,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.BERSERKERGEAR, MetalHelmetEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.FOOTBALLGEAR, MetalHelmetEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.BRICKGEAR, StoneHelmetEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPERHYPNO, NewspaperEntityRenderer::new);

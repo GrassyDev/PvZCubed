@@ -192,6 +192,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicsh
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntityRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -665,6 +667,16 @@ public class PvZEntity implements ModInitializer {
 			new Identifier(ModID, "screendoor_hypnotized"),
 			QuiltEntityTypeBuilder.<BrowncoatEntity>create(SpawnGroup.MONSTER, BrowncoatEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
 	);
+	public static final EntityType<BrowncoatEntity> BRICKHEAD = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "brickhead"),
+			QuiltEntityTypeBuilder.<BrowncoatEntity>create(SpawnGroup.MONSTER, BrowncoatEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+	public static final EntityType<BrowncoatEntity> BRICKHEADHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "brickhead_hypnotized"),
+			QuiltEntityTypeBuilder.<BrowncoatEntity>create(SpawnGroup.MONSTER, BrowncoatEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
 
 	public static final EntityType<ConeheadGearEntity> CONEHEADGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -675,6 +687,11 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "bucketheadgear"),
 			QuiltEntityTypeBuilder.<MetalHelmetEntity>create(SpawnGroup.MONSTER, MetalHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
+	);
+	public static final EntityType<StoneHelmetEntity> BRICKGEAR = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "brickgear"),
+			QuiltEntityTypeBuilder.<StoneHelmetEntity>create(SpawnGroup.MONSTER, StoneHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
 	);
 	public static final EntityType<MetalHelmetEntity> MEDALLIONGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -1229,6 +1246,12 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BUCKETHEADHYPNO, BrowncoatEntity.createBrowncoatAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.BROWNCOATHYPNO, BrowncoatEntityRenderer::new);
 
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BRICKHEAD, BrowncoatEntity.createBrowncoatAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.CONEHEAD, BrowncoatEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BRICKHEADHYPNO, BrowncoatEntity.createBrowncoatAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BROWNCOATHYPNO, BrowncoatEntityRenderer::new);
+
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SCREENDOOR, BrowncoatEntity.createBrowncoatAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.SCREENDOOR, BrowncoatEntityRenderer::new);
 
@@ -1273,6 +1296,9 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntity.createDefensiveEndGearAttributes().build());
 		EntityRendererRegistry.register(PvZEntity.DEFENSIVEENDGEAR, MetalHelmetEntityRenderer::new);
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BRICKGEAR, StoneHelmetEntity.createBrickGearAttributes().build());
+		EntityRendererRegistry.register(PvZEntity.BRICKGEAR, StoneHelmetEntityRenderer::new);
 
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWSPAPER, NewspaperEntity.createNewspaperAttributes().build());

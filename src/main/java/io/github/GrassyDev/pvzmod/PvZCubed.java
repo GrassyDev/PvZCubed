@@ -159,6 +159,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.TRASHCANEGG));
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
 				stacks.add(new ItemStack(ModItems.JETPACKEGG));
+				stacks.add(new ItemStack(ModItems.BRICKHEADEGG));
 				stacks.add(new ItemStack(ModItems.SUNDAYEDITIONEGG));
 				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
 				stacks.add(new ItemStack(ModItems.NEWYEARIMPEGG));
@@ -228,6 +229,9 @@ public class PvZCubed implements ModInitializer {
 
 	public static final Identifier BUCKETHIT = new Identifier("pvzmod:bucket.hit");
 	public static SoundEvent BUCKETHITEVENT = new SoundEvent(BUCKETHIT);
+
+	public static final Identifier STONEHIT = new Identifier("pvzmod:stone.hit");
+	public static SoundEvent STONEHITEVENT = new SoundEvent(STONEHIT);
 
 	public static final Identifier SNOWPEASHOOT = new Identifier("pvzmod:snowpea.shoot");
 	public static SoundEvent SNOWPEASHOOTEVENT = new SoundEvent(SNOWPEASHOOT);
@@ -339,6 +343,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FIREPEAHIT, FIREPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.CONEHIT, CONEHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.BUCKETHIT, BUCKETHITEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.STONEHIT, STONEHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SNOWPEASHOOT, SNOWPEASHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SNOWPEAHIT, SNOWPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.MUSHROOMSHOOT, MUSHROOMSHOOTEVENT);

@@ -41,6 +41,10 @@ public class BrowncoatEntityRenderer extends GeoEntityRenderer<BrowncoatEntity> 
 						new Identifier("pvzmod", "geo/trashcan.geo.json"));
 				map.put(BrowncoatVariants.TRASHCANHYPNO,
 						new Identifier("pvzmod", "geo/trashcan.geo.json"));
+				map.put(BrowncoatVariants.BRICKHEAD,
+						new Identifier("pvzmod", "geo/brickhead.geo.json"));
+				map.put(BrowncoatVariants.BRICKHEADHYPNO,
+						new Identifier("pvzmod", "geo/brickhead.geo.json"));
 			});
 
 	public Identifier getModelResource(BrowncoatEntity object) {

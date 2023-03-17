@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dolphinrider.DolphinRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import net.fabricmc.api.EnvType;
@@ -293,12 +294,16 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
                 int p = PoolGraveEntity.this.world.getTargets(SnorkelEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 int f = PoolGraveEntity.this.world.getTargets(SnorkelEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
 				int g = PoolGraveEntity.this.world.getTargets(FlagzombieEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int h = PoolGraveEntity.this.world.getTargets(DolphinRiderEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
+				int j = PoolGraveEntity.this.world.getTargets(DolphinRiderEntity.class, this.closeZombiePredicate, PoolGraveEntity.this, PoolGraveEntity.this.getBoundingBox().expand(16.0D)).size();
                 return PoolGraveEntity.this.random.nextInt(8) + 1 > b &&
                         PoolGraveEntity.this.random.nextInt(8) + 1 > c &&
                         PoolGraveEntity.this.random.nextInt(8) + 1 > u &&
                         PoolGraveEntity.this.random.nextInt(8) + 1 > p &&
                         PoolGraveEntity.this.random.nextInt(8) + 1 > f &&
-						PoolGraveEntity.this.random.nextInt(8) + 1 > g;
+						PoolGraveEntity.this.random.nextInt(8) + 1 > g &&
+						PoolGraveEntity.this.random.nextInt(8) + 1 > h &&
+						PoolGraveEntity.this.random.nextInt(8) + 1 > j;
             }
         }
 
@@ -388,16 +393,30 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-            /**if (probability3 <= 0.15) { // 15% x1 DolphinRiderZombie
-                for(int f = 0; f < 2; ++f) {
-                    BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
-                    PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(PoolGraveEntity.this.world);
-                    poleVaultingEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-                    poleVaultingEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-                    poleVaultingEntity.setOwner(PoolGraveEntity.this);
-                    serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
-                }
-            }**/
+			if (difficulty >= 1.529 + difficultymodifier) {
+				if (probability3 <= 0.5) { // 50% x1 Dolphin Rider Zombie
+					for (int h = 0; h < 1; ++h) {
+						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
+						DolphinRiderEntity dolphinRiderEntity = (DolphinRiderEntity) PvZEntity.DOLPHINRIDER.create(PoolGraveEntity.this.world);
+						dolphinRiderEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						dolphinRiderEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						dolphinRiderEntity.setOwner(PoolGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(dolphinRiderEntity);
+					}
+				}
+			}
+			if (difficulty >= 1.609 + difficultymodifier) {
+				if (probability6 <= 0.4) { // 40% x3 Dolphin Rider Zombie
+					for (int j = 0; j < 3; ++j) {
+						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
+						DolphinRiderEntity dolphinRiderEntity = (DolphinRiderEntity) PvZEntity.DOLPHINRIDER.create(PoolGraveEntity.this.world);
+						dolphinRiderEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						dolphinRiderEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						dolphinRiderEntity.setOwner(PoolGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(dolphinRiderEntity);
+					}
+				}
+			}
 			if (difficulty >= 1.519 + difficultymodifier) {
 				if (probability5 <= 0.15) { // 15% x1 Flag Zombie
 					for (int g = 0; g < 1; ++g) {
