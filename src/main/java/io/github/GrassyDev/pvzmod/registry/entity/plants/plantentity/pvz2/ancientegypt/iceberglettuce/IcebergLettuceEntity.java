@@ -546,7 +546,13 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 
 	public static boolean canIcebergLettuceSpawn(EntityType<? extends IcebergLettuceEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() < 4 &&
-				world.getLightLevel(LightType.SKY, pos) > 10;
+		float nightchance = random.nextFloat();
+		if (nightchance <= 0.5){
+			return !world.getBlockState(blockPos).isOf(Blocks.AIR);
+		}
+		else {
+			return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() < 4 &&
+					world.getLightLevel(LightType.SKY, pos) > 10;
+		}
 	}
 }

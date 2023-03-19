@@ -9,7 +9,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)24",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)2.5s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Flying. Spawns uncommonly during the day. Drops Windy Plant Food",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Flying. Spawns uncommonly. Drops Windy Plant Food",
         "$(br2)$(#bd951a)Loquat dreams of becoming a ballet dancer, and she has one trick: she can do many turns in place. \"I believe I can be the world's greatest ballet dancer, but no one wants to hire me, I don't understand why.\""
       ]
     },

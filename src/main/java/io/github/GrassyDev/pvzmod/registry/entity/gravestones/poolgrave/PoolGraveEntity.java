@@ -300,15 +300,15 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld) PoolGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.poolGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-			double probability = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
-			double probability11 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
-			double probability2 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
-			double probability21 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
-			double probability3 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
-			double probability4 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
-			double probability5 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
-			double probability6 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
-			double probability7 = random.nextDouble() * Math.pow(difficulty, difficulty / 3) / 1.5;
+			double probability = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability11 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability2 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability21 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability3 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability4 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability5 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability6 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability7 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
 
             for(int b = 0; b < 2; ++b) { // 100% x2 Browncoat
                 BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -319,7 +319,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
 			if (difficulty >= 1.519 + difficultymodifier) {
-				if (probability <= 0.5) { // 50% x2 Conehead
+				if (probability <= 0.3) { // 30% x2 Conehead
 					for (int c = 0; c < 2; ++c) {
 						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
 						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(PoolGraveEntity.this.world);
@@ -330,7 +330,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-			if (probability11 <= 0.25) { // 25% x3 Conehead
+			if (probability11 <= 0.15) { // 15% x3 Conehead
 				for(int c = 0; c < 3; ++c) {
 					BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(PoolGraveEntity.this.world);
@@ -352,7 +352,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-			if (probability4 <= 0.3) { // 30% x1 SnorkelZombie
+			if (probability3 <= 0.3) { // 30% x1 SnorkelZombie
 				for(int p = 0; p < 1; ++p) {
 					BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
 					SnorkelEntity snorkelEntity = (SnorkelEntity) PvZEntity.SNORKEL.create(PoolGraveEntity.this.world);
@@ -375,7 +375,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.529 + difficultymodifier) {
-				if (probability3 <= 0.5) { // 50% x1 Dolphin Rider Zombie
+				if (probability4 <= 0.4) { // 50% x1 Dolphin Rider Zombie
 					for (int h = 0; h < 1; ++h) {
 						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
 						DolphinRiderEntity dolphinRiderEntity = (DolphinRiderEntity) PvZEntity.DOLPHINRIDER.create(PoolGraveEntity.this.world);
@@ -387,7 +387,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.609 + difficultymodifier) {
-				if (probability6 <= 0.4) { // 40% x3 Dolphin Rider Zombie
+				if (probability5 <= 0.4) { // 40% x3 Dolphin Rider Zombie
 					for (int j = 0; j < 3; ++j) {
 						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
 						DolphinRiderEntity dolphinRiderEntity = (DolphinRiderEntity) PvZEntity.DOLPHINRIDER.create(PoolGraveEntity.this.world);
@@ -399,7 +399,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.519 + difficultymodifier) {
-				if (probability5 <= 0.15) { // 15% x1 Flag Zombie
+				if (probability6 <= 0.15) { // 15% x1 Flag Zombie
 					for (int g = 0; g < 1; ++g) {
 						double random = Math.random();
 						EntityType<?> flagType;
@@ -450,7 +450,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			/**if (difficulty >= 1.89 + difficultymodifier) {
-				if (probability6 <= 0.085) { // 8.5% x1 Zomboni
+				if (probability7 <= 0.085) { // 8.5% x1 Zomboni
 					for (int h = 0; h < 1; ++h) {
 						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
 						GargantuarEntity gargantuarEntity = (GargantuarEntity) PvZEntity.GARGANTUAR.create(PoolGraveEntity.this.world);

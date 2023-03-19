@@ -16,7 +16,7 @@
     {
       "type": "text",
       "text": [
-        "$(br2)The range is according to the \"Zombie Sun Radius\", and they need to be on the same height level as the Plant, ",
+        "$(br2)The range is according to the \"Zombie Sun Radius\", and the Zombies need to be at most 4 blocks below or above the plant, ",
         "if there are no Zombies, it will withhold the Sun, if there's at least one, it will continue the Sun production.",
         "$(br)These Zombies then have to die, as those Plants won't make sun if the same Zombies are still there."
       ]

@@ -8,6 +8,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.j
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.PowderSnowBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.damage.DamageSource;
@@ -22,6 +24,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -242,6 +246,45 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	@Override
 	protected void mobTick() {
 		super.mobTick();
+	}
+
+	@Override
+	public Vec3d handleFrictionAndCalculateMovement(Vec3d movementInput, float slipperiness) {
+		BlockPos blockPos = this.getVelocityAffectingPos();
+		float p = this.world.getBlockState(blockPos).getBlock().getSlipperiness();
+		if (p > 0.6f){
+			this.updateVelocity(this.getMovementSpeed(0.6f * p), movementInput);
+		}
+		else {
+			this.updateVelocity(this.getMovementSpeed(0.6f), movementInput);
+		}
+		this.setVelocity(this.applyClimbingSpeed(this.getVelocity()));
+		this.move(MovementType.SELF, this.getVelocity());
+		Vec3d vec3d = this.getVelocity();
+		if ((this.horizontalCollision || this.jumping)
+				&& (this.isClimbing() || this.getBlockStateAtPos().isOf(Blocks.POWDER_SNOW) && PowderSnowBlock.canWalkOnPowderSnow(this))) {
+			vec3d = new Vec3d(vec3d.x, 0.2, vec3d.z);
+		}
+
+		return vec3d;
+	}
+
+	private Vec3d applyClimbingSpeed(Vec3d motion) {
+		if (this.isClimbing()) {
+			this.onLanding();
+			float f = 0.15F;
+			double d = MathHelper.clamp(motion.x, -0.15F, 0.15F);
+			double e = MathHelper.clamp(motion.z, -0.15F, 0.15F);
+			double g = Math.max(motion.y, -0.15F);
+
+			motion = new Vec3d(d, g, e);
+		}
+
+		return motion;
+	}
+
+	private float getMovementSpeed(float slipperiness) {
+		return this.onGround ? this.getMovementSpeed() * (0.21600002F / (slipperiness * slipperiness * slipperiness)) : this.flyingSpeed;
 	}
 
 	public void tick() {
