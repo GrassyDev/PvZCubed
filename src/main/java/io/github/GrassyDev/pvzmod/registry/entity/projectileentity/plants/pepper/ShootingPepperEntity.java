@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -119,12 +120,16 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 		}
 
         if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
-            this.world.sendEntityStatus(this, (byte) 3);
+			if (!this.isWet()){
+				this.world.sendEntityStatus(this, (byte)3);
+			}
             this.remove(RemovalReason.DISCARDED);
         }
 
         if (!this.world.isClient && this.age >= 120) {
-            this.world.sendEntityStatus(this, (byte) 3);
+			if (!this.isWet()){
+				this.world.sendEntityStatus(this, (byte)3);
+			}
             this.remove(RemovalReason.DISCARDED);
         }
 		if (!this.world.isClient && this.age > 50 && target != null) {
@@ -171,7 +176,20 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 instanceof ZombiePropEntity && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, 1F);
+			if (entity.isWet()){
+				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+				SoundEvent sound;
+				sound = switch (zombieMaterial) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					case "stone" -> PvZCubed.STONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+			}
+			else {
+				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, 1F);
+			}
 			float damage = 3F;
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
@@ -255,7 +273,9 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 									livingEntity.removeStatusEffect(PvZCubed.ICE);
 									livingEntity.setOnFireFor(4);
 								}
-								this.world.sendEntityStatus(this, (byte) 3);
+								if (!entity.isWet()){
+									this.world.sendEntityStatus(this, (byte)3);
+								}
 								this.remove(RemovalReason.DISCARDED);
 							}
 						}
@@ -263,7 +283,9 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 				}
 			}
 			else {
-				this.world.sendEntityStatus(this, (byte) 3);
+				if (!entity.isWet()){
+					this.world.sendEntityStatus(this, (byte)3);
+				}
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}
@@ -305,7 +327,9 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
         if (!this.world.isClient) {
-            this.world.sendEntityStatus(this, (byte)3);
+			if (!this.isWet()){
+				this.world.sendEntityStatus(this, (byte)3);
+			}
 			this.remove(RemovalReason.DISCARDED);
         }
     }

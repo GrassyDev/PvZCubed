@@ -24,10 +24,11 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.t
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.threepeater.ThreepeaterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.cabbagepult.CabbagepultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildwest.peapod.PeapodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventures.beeshooter.BeeshooterEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventures.snowqueenpea.SnowqueenpeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventures.shamrock.ShamrockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.dandelionweed.DandelionWeedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.perfoomshroom.PerfoomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bellflower.BellflowerEntity;
@@ -619,11 +620,11 @@ public abstract class PlantEntity extends GolemEntity {
 				return ActionResult.SUCCESS;
 			}
 
-			/**SNOW QUEEN PEA**/
-			if (itemStack.isOf(ModItems.SNOW_QUEENPEA_SEED_PACKET) && !itemCooldown) {
+			/**SHAMROCK**/
+			if (itemStack.isOf(ModItems.SHAMROCK_SEED_PACKET) && !itemCooldown) {
 				if (world instanceof ServerWorld) {
 					ServerWorld serverWorld = (ServerWorld) world;
-					SnowqueenpeaEntity plantEntity = (SnowqueenpeaEntity) PvZEntity.SNOWQUEENPEA.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					ShamrockEntity plantEntity = (ShamrockEntity) PvZEntity.SHAMROCK.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
 					if (plantEntity == null) {
 						return ActionResult.FAIL;
 					}
@@ -631,12 +632,10 @@ public abstract class PlantEntity extends GolemEntity {
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
 					double random = Math.random();
-					if (random <= 0.125) {
-						plantEntity.setVariant(SnowQueenPeaVariants.BISEXUAL);
-					} else if (random <= 0.25) {
-						plantEntity.setVariant(SnowQueenPeaVariants.LESBIAN);
+					if (random <= 0.25) {
+						plantEntity.setVariant(ShamrockVariants.PRIDE);
 					} else {
-						plantEntity.setVariant(SnowQueenPeaVariants.DEFAULT);
+						plantEntity.setVariant(ShamrockVariants.DEFAULT);
 					}
 					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 					plantEntity.rideLilyPad(this);
@@ -644,7 +643,7 @@ public abstract class PlantEntity extends GolemEntity {
 				}
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
-					player.getItemCooldownManager().set(ModItems.SNOW_QUEENPEA_SEED_PACKET, SnowqueenpeaSeeds.cooldown);
+					player.getItemCooldownManager().set(ModItems.SHAMROCK_SEED_PACKET, ShamrockSeeds.cooldown);
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -696,6 +695,29 @@ public abstract class PlantEntity extends GolemEntity {
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
 					player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, PeaPodSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**PEPPER-PULT**/
+			if (itemStack.isOf(ModItems.PEPPERPULT_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					PepperpultEntity plantEntity = (PepperpultEntity) PvZEntity.PEPPERPULT.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
+					plantEntity.rideLilyPad(this);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.PEPPERPULT_SEED_PACKET, PepperpultSeeds.cooldown);
 				}
 				return ActionResult.SUCCESS;
 			}
