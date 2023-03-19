@@ -1,0 +1,15 @@
+{
+  "name": "Sunflower Donators",
+  "icon": "minecraft:sunflower",
+  "category": "pvzmod:donate_donators",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)5$/month",
+        "$(br)$()$(#ff0000)Whip"
+      ]
+    }
+  ]
+}
