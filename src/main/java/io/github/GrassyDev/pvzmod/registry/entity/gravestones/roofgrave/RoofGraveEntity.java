@@ -419,18 +419,18 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(browncoatEntity);
 
 					BlockPos blockPos3 = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
-					BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(RoofGraveEntity.this.world);
-					browncoatEntity2.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
-					browncoatEntity2.initialize(serverWorld, RoofGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-					browncoatEntity2.setOwner(RoofGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(browncoatEntity2);
-
-					BlockPos blockPos4 = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(RoofGraveEntity.this.world);
-					coneheadEntity.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
-					coneheadEntity.initialize(serverWorld, RoofGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+					coneheadEntity.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
+					coneheadEntity.initialize(serverWorld, RoofGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 					coneheadEntity.setOwner(RoofGraveEntity.this);
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
+
+					BlockPos blockPos4 = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
+					BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(RoofGraveEntity.this.world);
+					bucketheadEntity.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
+					bucketheadEntity.initialize(serverWorld, RoofGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+					bucketheadEntity.setOwner(RoofGraveEntity.this);
+					serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 
 					BlockPos blockPos5 = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 					ImpEntity impEntity = (ImpEntity) PvZEntity.IMP.create(RoofGraveEntity.this.world);

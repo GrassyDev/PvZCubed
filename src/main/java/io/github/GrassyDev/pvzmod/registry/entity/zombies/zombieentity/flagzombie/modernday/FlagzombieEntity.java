@@ -40,6 +40,9 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -459,7 +462,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean canStart() {
 			LivingEntity livingEntity = FlagzombieEntity.this.getTarget();
-			if (livingEntity != null && livingEntity.isAlive()) {
+			if (livingEntity != null && livingEntity.isAlive() && !FlagzombieEntity.this.hasStatusEffect(PvZCubed.FROZEN)) {
 				if (FlagzombieEntity.this.isSpellcasting()) {
 					return false;
 				} else {
@@ -472,7 +475,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean shouldContinue() {
 			LivingEntity livingEntity = FlagzombieEntity.this.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0;
+			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !FlagzombieEntity.this.hasStatusEffect(PvZCubed.FROZEN);
 		}
 
 		public void start() {
@@ -554,7 +557,10 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
             ServerWorld serverWorld = (ServerWorld) FlagzombieEntity.this.world;
             for(int b = 0; b < 1; ++b) { // 1 Screendoor
-                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
+				RandomGenerator randomGenerator = FlagzombieEntity.this.getRandom();
+				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
+				Vec3d vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
 				BrowncoatEntity screendoorEntity = (BrowncoatEntity) screen.create(FlagzombieEntity.this.world);
 				screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				screendoorEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
@@ -565,7 +571,10 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				serverWorld.spawnEntityAndPassengers(screendoorEntity);
             }
             for(int p = 0; p < 3; ++p) { // 3 Conehead
-                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
+				RandomGenerator randomGenerator = FlagzombieEntity.this.getRandom();
+				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
+				Vec3d vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
 				BrowncoatEntity coneheadEntity = (BrowncoatEntity) cone.create(FlagzombieEntity.this.world);
                 coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 coneheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -576,7 +585,10 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(coneheadEntity);
             }
             for(int d = 0; d < 2; ++d) { // 2 Buckethead
-                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
+				RandomGenerator randomGenerator = FlagzombieEntity.this.getRandom();
+				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
+				Vec3d vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
 				BrowncoatEntity bucketheadEntity = (BrowncoatEntity) bucket.create(FlagzombieEntity.this.world);
                 bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 bucketheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -587,7 +599,10 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(bucketheadEntity);
             }
             for(int t = 0; t < 6; ++t) { // 6 Browncoat
-                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(-2 + FlagzombieEntity.this.random.nextInt(10), 1, -2 + FlagzombieEntity.this.random.nextInt(10));
+				RandomGenerator randomGenerator = FlagzombieEntity.this.getRandom();
+				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
+				Vec3d vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
                 BrowncoatEntity browncoatEntity = (BrowncoatEntity) coat.create(FlagzombieEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 browncoatEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);

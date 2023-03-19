@@ -9,11 +9,10 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)12",
-        "$(#bd951a)Damage: $()$(#ff0000)180",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)180",
         "$(br)$(#bd951a)Activation Range: $()$(#ff0000)5 Blocks",
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)10 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)2s",
-        "$(br)$(#bd951a)Cloud Time: $()$(#ff0000)30s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal.",
         "$(br2)$(#bd951a)\"You're lucky I'm on your side,\" says Doom-shroom. \"I could destroy everything you hold dear. It wouldn't be hard.\""

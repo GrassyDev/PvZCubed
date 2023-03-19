@@ -56,7 +56,7 @@
       "type": "crafting",
       "recipe": "pvzmod:plants/reinforce/wallnut",
       "text": [
-        "Wall-nuts are handy walls that slows zombies down. Plant them in the way between the zombies and your sun-producers. ",
+        "Wall-nuts are handy walls that slow zombies down. Plant them in the way between the zombies and your sun-producers. ",
         "Zombies will try to attack your sun-producers, but they will stop to eat any plants in their way."
       ]
     },
@@ -64,7 +64,7 @@
       "type": "crafting",
       "recipe": "pvzmod:plants/arma/cabbagepult",
       "text": [
-        "Cabbage-pults are really useful long range plants that while weaker than a peashooter can ignore shields and shoot through weird terrain."
+        "Cabbage-pults are really useful long range plants that while weaker than a peashooter can ignore shields and shoot over weird terrain."
       ]
     },
     {

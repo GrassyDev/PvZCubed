@@ -9,14 +9,14 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)12",
-        "$(#bd951a)Damage: $()$(#ff0000)4",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Activation Range: $()$(#ff0000)5 Blocks",
         "$(br)$(#bd951a)Explosion Range: $()$(#ff0000)10 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
         "$(br)$(#bd951a)Freeze Time: $()$(#ff0000)10s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Completely freezes all zombies in range.",
-        "$(br2)$(#bd951a)Ice-shroom frowns, not because he's unhappy or because he disapproves, but because of a childhood injury that left his facial nerves paralyzed."
+        "$(br)$(#bd951a)Ice-shroom frowns, not because he's unhappy or because he disapproves, but because of a childhood injury that left his facial nerves paralyzed."
       ]
     },
     {

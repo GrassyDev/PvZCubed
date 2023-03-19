@@ -31,6 +31,7 @@
         "pvzmod:zombies/conehead_entry",
         "pvzmod:zombies/buckethead_entry",
         "pvzmod:zombies/polevaulting_entry",
+        "pvzmod:zombies/brickhead_entry",
         "pvzmod:zombies/bully_entry"
       ],
       "title": "Spawnable Zombies"

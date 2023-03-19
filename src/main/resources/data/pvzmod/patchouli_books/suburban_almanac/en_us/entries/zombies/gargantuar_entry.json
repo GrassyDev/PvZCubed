@@ -29,6 +29,7 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/hypnoshroom_entry",
+        "pvzmod:plants/coconutcannon_entry",
         "pvzmod:plants/iceshroom_entry",
         "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/doomshroom_entry",

@@ -11,7 +11,7 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
         "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Summons x2 Bucketheads, x1 Screendoor, x3 Coneheads, and x6 Browncoats around them.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Summons x2 Bucketheads, x1 Screendoor, x3 Coneheads, and x6 Browncoats behind them.",
         "$(br2)$(#bd951a)Make no mistake, Flag Zombie loves brains but somewhere down the line he also picked up a fascination with flags."
       ]
     },

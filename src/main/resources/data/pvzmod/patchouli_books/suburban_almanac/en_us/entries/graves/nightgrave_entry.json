@@ -27,6 +27,7 @@
       "type": "relations",
       "entries": [
         "pvzmod:zombies/browncoat_entry",
+        "pvzmod:zombies/flagzombie_entry",
         "pvzmod:zombies/conehead_entry",
         "pvzmod:zombies/buckethead_entry",
         "pvzmod:zombies/newspaper_entry",
@@ -36,7 +37,13 @@
         "pvzmod:zombies/backupdancer_entry",
         "pvzmod:zombies/berserker_entry",
         "pvzmod:zombies/sundayedition_entry",
-        "pvzmod:zombies/superfanimp_entry",
+        "pvzmod:zombies/superfanimp_entry"
+      ],
+      "title": "Spawnable Zombies"
+    },
+    {
+      "type": "relations",
+      "entries": [
         "pvzmod:zombies/newyearimp_entry",
         "pvzmod:zombies/defensiveend_entry"
       ],

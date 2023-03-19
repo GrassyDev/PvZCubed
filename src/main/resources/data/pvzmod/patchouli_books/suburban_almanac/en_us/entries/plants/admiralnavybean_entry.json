@@ -2,7 +2,7 @@
   "name": "Admiral Navy Bean",
   "icon": "pvzmod:admiralnavybean_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 306,
+  "sortnum": 304,
   "advancement": "pvzmod:make_navybean",
   "pages": [
     {

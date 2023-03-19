@@ -8,9 +8,9 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)50",
-        "$(br)$(#bd951a)(Paper) Newspaper Health: $()$(#ff0000)115",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)4, 12 if angry",
-        "$(br)$(#bd951a)Speed: $()$(#ff0000)Decent, Flighty if angry",
+        "$(br)$(#bd951a)(Paper) Sunday Edition Health: $()$(#ff0000)115",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4, 12 (Angry)",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Decent, Flighty (Angry)",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Newspaper Zombie.",
         "$(br2)$(#bd951a)Sunday Edition Zombie REALLY loves the comics section, which is why his rage is so all-consuming when it is torn to tatters before he's finished reading it."
       ]

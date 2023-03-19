@@ -2,7 +2,7 @@
   "name": "Sunflower Seed",
   "icon": "pvzmod:sunflowerseed_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 305,
+  "sortnum": 309,
   "pages": [
     {
       "type": "text",

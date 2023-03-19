@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)27, 333(Metal Helmet)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)Instant-kill(Tackle, Movement/Throw), 90 (if Immune), 4(normal)",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Speedy(Tackling)",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Football Zombie. Slower when not tackling.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Football Zombie.",
         "$(br2)$(#bd951a)Berserker is dressed to kill and to rampage on the field. He also has no idea what a football is."
       ]
     },
@@ -30,6 +30,7 @@
         "pvzmod:plants/snowqueenpea_entry",
         "pvzmod:plants/perfoomshroom_entry",
         "pvzmod:plants/doomshroom_entry",
+        "pvzmod:plants/coconutcannon_entry",
         "pvzmod:plants/chomper_entry",
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",

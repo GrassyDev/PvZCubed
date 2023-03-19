@@ -44,7 +44,7 @@
       "text": [
         "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Balloon Zombie",
         "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Jetpack Zombie",
-        "$(br2)$(#bd951a)Plants vs. Zombies 3 (Old Version, Discontinued): Jetpack Zombie"
+        "$(br2)$(#bd951a)Plants vs. Zombies 3 (Old Version, Discontinued): $()$(#ff0000)Jetpack Zombie"
       ]
     }
   ]

@@ -246,6 +246,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void tick() {
 		super.tick();
+		if (this.isInsideWall()){
+			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
+		}
 		LivingEntity target = this.getTarget();
 		if (this.getHypno() && (target instanceof PlayerEntity || target instanceof PassiveEntity || target instanceof GolemEntity)){
 			this.setTarget(null);

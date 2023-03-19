@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
@@ -344,6 +345,50 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 					coneheadEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 					coneheadEntity.setOwner(NightGraveEntity.this);
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
+				}
+			}
+			if (difficulty >= 1.519 + difficultymodifier) {
+				if (probability5 <= 0.35) { // 35% x1 Flag Zombie
+					for (int f = 0; f < 1; ++f) {
+						double random = Math.random();
+						EntityType<?> flagType;
+						if (random <= 0.125){
+							flagType = PvZEntity.FLAGZOMBIE_G;
+						}
+						else if (random <= 0.25){
+							flagType = PvZEntity.FLAGZOMBIE_T;
+						}
+						else {
+							flagType = PvZEntity.FLAGZOMBIE;
+						}
+						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						FlagzombieEntity flagzombieEntity = (FlagzombieEntity) flagType.create(NightGraveEntity.this.world);
+						flagzombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						flagzombieEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						flagzombieEntity.setOwner(NightGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(flagzombieEntity);
+
+						BlockPos blockPos2 = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(NightGraveEntity.this.world);
+						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+						browncoatEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						browncoatEntity.setOwner(NightGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(browncoatEntity);
+
+						BlockPos blockPos3 = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(NightGraveEntity.this.world);
+						coneheadEntity.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
+						coneheadEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
+						coneheadEntity.setOwner(NightGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(coneheadEntity);
+
+						BlockPos blockPos4 = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity screendoorEntity = (BrowncoatEntity) PvZEntity.SCREENDOOR.create(NightGraveEntity.this.world);
+						screendoorEntity.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
+						screendoorEntity.initialize(serverWorld, NightGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						screendoorEntity.setOwner(NightGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(screendoorEntity);
+					}
 				}
 			}
             if (probability2 <= 0.3) {  // 30% x1 Newspaper

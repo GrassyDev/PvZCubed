@@ -12,8 +12,8 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)+4 DMG/1s(for each Spike)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)0.75 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile. Spikeweed. Starts with 3 Spikes, spend a Large Sun to heal each. Immune to Instant-kills.",
-        "$(br2)$(#bd951a)Spikerock just got back from a trip to Europe. He never knew they made museums so big. That was a big surprise for him."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile. Spikeweed, but takes 90 damage from objects. Starts with 3 Spikes, spend a Large Sun to heal each. Immune to Instant-kills.",
+        "$(br)$(#bd951a)Spikerock just got back from a trip to Europe. He never knew they made museums so big. That was a big surprise for him."
       ]
     },
     {
@@ -23,7 +23,7 @@
       ],
       "title": "✂ Spear Family",
       "border": "true",
-      "text": "$(#25228d)Spikerocks pop multiple tires and hurt any zombies that step on them."
+      "text": "$(#25228d)Spikerocks destroy multiple objects and hurt any zombies that step on them."
     },
     {
       "type": "crafting",

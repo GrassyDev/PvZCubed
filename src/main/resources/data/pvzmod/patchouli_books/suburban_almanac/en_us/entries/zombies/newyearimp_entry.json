@@ -13,7 +13,7 @@
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)5 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Flighty",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Super-Fan Imp.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Small. Super-Fan Imp.",
         "$(br2)$(#bd951a)New Years Imp is so excited for the Year of the Tiger that he is popping fireworks already... in the Year of the Rabbit."
       ]
     },
@@ -30,7 +30,7 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/repeater_entry",
         "pvzmod:plants/snowpea_entry",
         "pvzmod:plants/chomper_entry",
         "pvzmod:plants/narcissus_entry",
