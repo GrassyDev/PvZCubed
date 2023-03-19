@@ -160,6 +160,10 @@
   "item.pvzmod.spikeweed_seed_packet.flavour": "Quite similar to the region known",
   "item.pvzmod.spikeweed_seed_packet.flavour2": "as Pokey Province.",
 
+  "entity.pvzmod.torchwood": "Torchwood",
+  "item.pvzmod.torchwood_seed_packet": "⛨ Torchwood Seed Packet",
+  "item.pvzmod.torchwood_seed_packet.flavour": "\"Feel the burn, I COMMAND YOU!\"",
+
   "entity.pvzmod.tallnut": "Tall-nut",
   "item.pvzmod.tallnut_seed_packet": "⛨ Tall-nut Seed Packet",
   "item.pvzmod.tallnut_seed_packet.flavour": "Tall-nut is opening a chain of stores",

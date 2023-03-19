@@ -444,7 +444,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.plantEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);

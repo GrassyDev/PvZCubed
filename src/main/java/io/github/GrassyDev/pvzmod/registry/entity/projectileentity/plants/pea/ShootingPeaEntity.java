@@ -2,6 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamingpea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -35,6 +37,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -45,6 +48,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
@@ -87,7 +91,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
-
+	public LivingEntity torchwoodMemory;
 
 
 	@Override
@@ -158,12 +162,35 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
+		if (!this.world.isClient && checkTorchwood(this.getPos()) != null) {
+			if (checkTorchwood(this.getPos()) != torchwoodMemory && !checkTorchwood(this.getPos()).isWet()) {
+				ShootingFlamingPeaEntity shootingFlamingPeaEntity = (ShootingFlamingPeaEntity) PvZEntity.FIREPEA.create(world);
+				shootingFlamingPeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				shootingFlamingPeaEntity.setVelocity(this.getVelocity());
+				shootingFlamingPeaEntity.age = this.age;
+				shootingFlamingPeaEntity.setOwner(this.getOwner());
+				shootingFlamingPeaEntity.canHitFlying = this.canHitFlying;
+				world.spawnEntity(shootingFlamingPeaEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
+		}
     }
+
 
     @Override
     protected Item getDefaultItem() {
         return null;
     }
+
+	public TorchwoodEntity checkTorchwood(Vec3d pos) {
+		List<TorchwoodEntity> list = world.getNonSpectatingEntities(TorchwoodEntity.class, PvZEntity.PEA.getDimensions().getBoxAt(pos));
+		if (!list.isEmpty()){
+			return list.get(0);
+		}
+		else {
+			return null;
+		}
+	}
 
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);

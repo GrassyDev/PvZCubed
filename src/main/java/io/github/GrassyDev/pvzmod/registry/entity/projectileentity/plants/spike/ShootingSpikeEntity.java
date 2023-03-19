@@ -40,6 +40,8 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
+	public int maxAge = 41;
+
 	@Override
 	public void registerControllers(AnimationData animationData) {
 		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
@@ -97,7 +99,7 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		if (!this.world.isClient && this.age >= 41 || this.damageCounter >= 3) {
+		if (!this.world.isClient && this.age >= maxAge || this.damageCounter >= 3) {
 			this.remove(RemovalReason.DISCARDED);
 		}
 	}
@@ -110,7 +112,7 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 	public LivingEntity entityStore = null;
 	public LivingEntity entityStoreVehicle = null;
 
-	protected int damageCounter = 0;
+	public int damageCounter = 0;
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);

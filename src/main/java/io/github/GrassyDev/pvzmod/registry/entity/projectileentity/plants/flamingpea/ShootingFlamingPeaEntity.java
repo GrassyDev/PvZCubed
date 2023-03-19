@@ -5,7 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -54,6 +53,10 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
+	public boolean canHitFlying;
+
+	public boolean lowProfile;
 
 	@Override
 	public void registerControllers(AnimationData animationData) {
@@ -139,9 +142,10 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			ShootingPeaEntity shootingPeaEntity = (ShootingPeaEntity) PvZEntity.PEA.create(world);
 			shootingPeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 			shootingPeaEntity.setVelocity(this.getVelocity());
-			shootingPeaEntity.age = this.age;
 			shootingPeaEntity.setOwner(this.getOwner());
+			shootingPeaEntity.canHitFlying = this.canHitFlying;
 			world.spawnEntity(shootingPeaEntity);
+			shootingPeaEntity.age = this.age;
 			this.remove(RemovalReason.DISCARDED);
 		}
     }
@@ -164,7 +168,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 instanceof ZombiePropEntity && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
+				(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) || this.canHitFlying)) {
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, 1F);
 			float damage = 4F;
 			if (damage > ((LivingEntity) entity).getHealth() &&

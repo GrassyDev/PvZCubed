@@ -68,6 +68,7 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 
     public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "icespikeproj");
 
+
     public ShootingIcespikeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
 		this.setNoGravity(true);

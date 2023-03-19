@@ -357,7 +357,7 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.plantEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						ArmorBubbleEntity proj = new ArmorBubbleEntity(PvZEntity.ARMORBUBBLE, this.plantEntity.world);
@@ -376,7 +376,7 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 					double d = this.plantEntity.squaredDistanceTo(predictedPos);
 					float df = (float)d;
 					double e = predictedPos.getX() - this.plantEntity.getX();
-					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+					double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 					double g = predictedPos.getZ() - this.plantEntity.getZ();
 					float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 					BubbleEntity proj = new BubbleEntity(PvZEntity.BUBBLE, this.plantEntity.world);

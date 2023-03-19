@@ -2,6 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowp
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -32,6 +34,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -43,6 +46,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatable {
@@ -128,6 +132,19 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 		for (int j = 0; j < 2; ++j) {
 			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
 		}
+
+		if (checkTorchwood(this.getPos()) != null) {
+			if (!checkTorchwood(this.getPos()).isWet()) {
+				ShootingPeaEntity shootingPeaEntity = (ShootingPeaEntity) PvZEntity.PEA.create(world);
+				shootingPeaEntity.torchwoodMemory = checkTorchwood(this.getPos());
+				shootingPeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				shootingPeaEntity.setVelocity(this.getVelocity());
+				shootingPeaEntity.setOwner(this.getOwner());
+				world.spawnEntity(shootingPeaEntity);
+				shootingPeaEntity.age = this.age;
+				this.remove(RemovalReason.DISCARDED);
+			}
+		}
 	}
 
     @Override
@@ -135,8 +152,18 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
         return null;
     }
 
+	public TorchwoodEntity checkTorchwood(Vec3d pos) {
+		List<TorchwoodEntity> list = world.getNonSpectatingEntities(TorchwoodEntity.class, PvZEntity.PEA.getDimensions().getBoxAt(pos));
+		if (!list.isEmpty()){
+			return list.get(0);
+		}
+		else {
+			return null;
+		}
+	}
 
-    protected void onEntityHit(EntityHitResult entityHitResult) {
+
+	protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
 		ZombiePropEntity zombiePropEntity2 = null;

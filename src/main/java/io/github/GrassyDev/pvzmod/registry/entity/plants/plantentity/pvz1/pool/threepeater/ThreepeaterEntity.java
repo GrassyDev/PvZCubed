@@ -318,7 +318,7 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 						double d = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df = (float)d;
 						double e = predictedPos.getX() - this.plantEntity.getX();
-						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
@@ -335,7 +335,7 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 						double d3 = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df3 = (float) d3;
 						double e3 = predictedPos.getX() - this.plantEntity.getX();
-						double f3 = livingEntity.getY() - this.plantEntity.getY();
+						double f3 = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 						double g3 = predictedPos.getZ() - this.plantEntity.getZ();
 						float h3 = MathHelper.sqrt(MathHelper.sqrt(df3)) * 0.5F;
 						proj3.setVelocity(e3 + vec3d3.x * 1.125, f3 * (double) h3, g3 + vec3d3.z * 1.125, 0.33F, 0F);
@@ -352,7 +352,7 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 						double d2 = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df2 = (float) d2;
 						double e2 = predictedPos.getX() - this.plantEntity.getX();
-						double f2 = livingEntity.getY() - this.plantEntity.getY();
+						double f2 = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 						double g2 = predictedPos.getZ() - this.plantEntity.getZ();
 						float h2 = MathHelper.sqrt(MathHelper.sqrt(df2)) * 0.5F;
 						proj2.setVelocity(e2 + vec3d2.x * 1.125, f2 * (double) h2, g2 + vec3d2.z * 1.125, 0.33F, 0);

@@ -2,6 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowq
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -128,12 +130,35 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 			double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
 			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
 		}
+
+		if (checkTorchwood(this.getPos()) != null) {
+			if (!checkTorchwood(this.getPos()).isWet()) {
+				ShootingPeaEntity shootingPeaEntity = (ShootingPeaEntity) PvZEntity.PEA.create(world);
+				shootingPeaEntity.torchwoodMemory = checkTorchwood(this.getPos());
+				shootingPeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				shootingPeaEntity.setVelocity(this.getVelocity());
+				shootingPeaEntity.setOwner(this.getOwner());
+				world.spawnEntity(shootingPeaEntity);
+				shootingPeaEntity.age = this.age;
+				this.remove(RemovalReason.DISCARDED);
+			}
+		}
 	}
 
-    @Override
-    protected Item getDefaultItem() {
-        return null;
-    }
+	@Override
+	protected Item getDefaultItem() {
+		return null;
+	}
+
+	public TorchwoodEntity checkTorchwood(Vec3d pos) {
+		List<TorchwoodEntity> list = world.getNonSpectatingEntities(TorchwoodEntity.class, PvZEntity.PEA.getDimensions().getBoxAt(pos));
+		if (!list.isEmpty()){
+			return list.get(0);
+		}
+		else {
+			return null;
+		}
+	}
 
 
     protected void onEntityHit(EntityHitResult entityHitResult) {

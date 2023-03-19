@@ -22,6 +22,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.l
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.squash.SquashEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.tallnut.TallnutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.threepeater.ThreepeaterEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.cabbagepult.CabbagepultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
@@ -550,6 +551,28 @@ public abstract class PlantEntity extends GolemEntity {
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
 					player.getItemCooldownManager().set(ModItems.JALAPENO_SEED_PACKET, JalapenoSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**TORCHWOOD**/
+			if (itemStack.isOf(ModItems.TORCHWOOD_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					TorchwoodEntity plantEntity = (TorchwoodEntity) PvZEntity.TORCHWOOD.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
+					plantEntity.rideLilyPad(this);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.TORCHWOOD_SEED_PACKET, TorchwoodSeeds.cooldown);
 				}
 				return ActionResult.SUCCESS;
 			}

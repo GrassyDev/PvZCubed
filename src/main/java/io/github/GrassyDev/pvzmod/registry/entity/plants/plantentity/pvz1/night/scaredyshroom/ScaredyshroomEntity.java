@@ -508,7 +508,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 								double d = this.plantEntity.squaredDistanceTo(predictedPos);
 								float df = (float)d;
 								double e = predictedPos.getX() - this.plantEntity.getX();
-								double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3594666671753 : livingEntity.getY() - this.plantEntity.getY();
+								double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 								double g = predictedPos.getZ() - this.plantEntity.getZ();
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 								proj.sporeAge = 41;

@@ -1,23 +1,28 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -32,26 +37,31 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.List;
 
-public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
+public class TorchwoodEntity extends PlantEntity implements IAnimatable {
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	private String controllerName = "torchcontroller";
 
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-	private String controllerName = "firetrailcontroller";
-
-    public FireTrailEntity(EntityType<? extends FireTrailEntity> entityType, World world) {
+	public TorchwoodEntity(EntityType<? extends TorchwoodEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-		this.setInvulnerable(true);
     }
 
 	static {
 	}
 
+	@Environment(EnvType.CLIENT)
+	public void handleStatus(byte status) {
+		if (status != 2 && status != 60){
+			super.handleStatus(status);
+		}
+	}
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
 	@Override
 	public void registerControllers(AnimationData data) {
 		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
+
 		data.addAnimationController(controller);
 	}
 
@@ -61,14 +71,14 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(new AnimationBuilder().loop("firetrail.idle"));
-		event.getController().setAnimationSpeed(1.25);
-        return PlayState.CONTINUE;
-    }
+		event.getController().setAnimation(new AnimationBuilder().loop("torchwood.idle"));
+		return PlayState.CONTINUE;
+	}
 
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
+		this.goalSelector.add(1, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 15F));
 	}
 
 	private void damageEntity() {
@@ -84,13 +94,11 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 
 					livingEntity = (LivingEntity) var9.next();
 				} while (livingEntity == this);
-			} while (this.squaredDistanceTo(livingEntity) > 9);
+			} while (this.squaredDistanceTo(livingEntity) > 1.5625);
 
 			if (((livingEntity instanceof Monster &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-							&& (generalPvZombieEntity.getHypno()))) && (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET)) &&
-					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
-							generalPvZombieEntity.isFlying()))) {
+							&& (generalPvZombieEntity.getHypno()))) && (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET)))) {
 				ZombiePropEntity zombiePropEntity2 = null;
 				for (Entity entity1 : livingEntity.getPassengerList()) {
 					if (entity1 instanceof ZombiePropEntity zpe) {
@@ -98,8 +106,8 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 					}
 				}
 				if (zombiePropEntity2 == null ||
-				zombiePropEntity2 instanceof ZombieShieldEntity) {
-					livingEntity.damage(DamageSource.thrownProjectile(this, this), 2);
+						zombiePropEntity2 instanceof ZombieShieldEntity) {
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
 					if (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
 						if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
 							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
@@ -117,71 +125,68 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 	/** /~*~//~*POSITION*~//~*~/ **/
 
 	public void setPosition(double x, double y, double z) {
+		BlockPos blockPos = this.getBlockPos();
 		if (this.hasVehicle()) {
 			super.setPosition(x, y, z);
 		} else {
 			super.setPosition((double)MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
 		}
+
+		if (this.age != 0) {
+			BlockPos blockPos2 = this.getBlockPos();
+			BlockState blockState = this.getLandingBlockState();
+			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
+				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
+					this.dropItem(ModItems.TORCHWOOD_SEED_PACKET);
+				}
+				this.kill();
+			}
+
+		}
 	}
 
 
 	/** /~*~//~*TICKING*~//~*~/ **/
-	private int tickDamage = 5;
+	private int tickDamage = 10;
 
 	public void tick() {
 		super.tick();
-		RandomGenerator randomGenerator = this.getRandom();
-		for(int i = 0; i < 3; ++i) {
-			double e = this.random.nextDouble() / 4 * ((this.random.range(0, 1)) + 0.1f);
-			this.world.addParticle(ParticleTypes.FLAME, this.getX()  + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
-					this.getY(), this.getZ() + (double)MathHelper.nextBetween(randomGenerator,
-							-0.5F, 0.5F), 0, e, 0);
-		}
-		if (this.isInsideWall()){
-			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
-		}
-		if (!this.onGround){
-			this.setPosition(this.getX(), this.getY() - 1, this.getZ());
-		}
-		if (this.getTarget() != null){
-			this.getLookControl().lookAt(this.getTarget(), 90.0F, 90.0F);
-		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.age <= 100){
+		if (!this.isWet()){
 			if (--tickDamage <= 0){
 				this.damageEntity();
-				tickDamage = 5;
+				tickDamage = 10;
 			}
 		}
-		else {
-			this.discard();
-		}
-		if (this.isWet()){
-			playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH);
-			this.discard();
+	}
+
+	public void tickMovement() {
+		super.tickMovement();
+		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
+			this.kill();
 		}
 	}
 
 
-	public void tickMovement() {
-        super.tickMovement();
-		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.clearStatusEffects();
-            this.kill();
-        }
-    }
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+	@Nullable
+	@Override
+	public ItemStack getPickBlockStack() {
+		return ModItems.TORCHWOOD_SEED_PACKET.getDefaultStack();
+	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createFireTrailAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 2D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
-    }
+	public static DefaultAttributeContainer.Builder createTorchwoodAttributes() {
+		return MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 65.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
+	}
 
 	protected boolean canClimb() {
 		return false;
@@ -197,15 +202,20 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return null	;
+		return PvZCubed.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.BLOCK_FIRE_EXTINGUISH;
+		return PvZCubed.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
+		return false;
+	}
+
+
+	public boolean isOnFire() {
 		return false;
 	}
 
@@ -226,18 +236,24 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 		this.bodyYaw = 0.0F;
 	}
 
+
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
 
 	public boolean handleAttack(Entity attacker) {
 		if (attacker instanceof PlayerEntity) {
-			this.clearStatusEffects();
-			playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH);
-			this.discard();
+			PlayerEntity playerEntity = (PlayerEntity) attacker;
+			return this.damage(DamageSource.player(playerEntity), 9999.0F);
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
-		return false;
+		if (fallDistance > 0F) {
+			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.kill();
+		}
+		this.playBlockFallSound();
+		return true;
 	}
 }

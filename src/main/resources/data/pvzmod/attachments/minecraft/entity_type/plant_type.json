@@ -9,6 +9,7 @@
     "pvzmod:snowpea": "winter",
     "pvzmod:sunflower": "enlighten",
     "pvzmod:wallnut": "reinforce",
+    "pvzmod:tallnut": "reinforce",
     "pvzmod:doomshroom": "bombard",
     "pvzmod:fumeshroom": "ailment",
     "pvzmod:gravebuster": "contain",
@@ -45,6 +46,7 @@
     "pvzmod:bombseedling": "bombard",
     "pvzmod:buttonshroom": "ailment",
     "pvzmod:navybean": "enforce",
+    "pvzmod:smackadamia": "reinforce",
     "pvzmod:smallnut": "reinforce",
     "pvzmod:sunflowerseed": "enlighten",
     "pvzmod:weeniebeanie": "enforce"

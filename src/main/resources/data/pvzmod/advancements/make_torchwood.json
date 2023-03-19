@@ -1,16 +1,16 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:wallnut_seed_packet"
+      "item": "pvzmod:torchwood_seed_packet"
     },
-    "title": "The Defense",
-    "description": "Craft a Wall-nut",
+    "title": "All fired up!",
+    "description": "Craft a Torchwood",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "pvzmod:start_pvz",
+  "parent": "pvzmod:make_wallnut",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:wallnut_seed_packet"
+              "pvzmod:torchwood_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -31,9 +31,6 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/reinforce/tallnut",
-      "pvzmod:plants/reinforce/smackadamia",
-      "pvzmod:plants/reinforce/torchwood"
     ],
     "experience": 25
   }

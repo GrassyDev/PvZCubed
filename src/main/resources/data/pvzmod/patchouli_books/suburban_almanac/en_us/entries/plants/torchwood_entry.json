@@ -1,0 +1,41 @@
+{
+  "name": "Torchwood",
+  "icon": "pvzmod:torchwood_seed_packet",
+  "category": "pvzmod:plant_category",
+  "advancement": "pvzmod:make_wallnut",
+  "sortnum": 22,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)65",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)37.5s",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/0.5s",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)0.25 Blocks",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Burns or thaws peas that hit it. Deals damage to all zombies close to it. Burning peas do double the damage and have splash damage.",
+        "$(br2)$(#bd951a)Torchwood and Snapdragon have become friends. They hang out at either the Tiki Lounge or the Renaissance Faire."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/torchwood.png"
+      ],
+      "title": "⛨ Reinforce Family",
+      "border": "true",
+      "text": "$(#25228d)Torchwoods turn peas that pass through them into fireballs."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/reinforce/torchwood"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Torchwood-nut",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Torchwood-nut"
+      ]
+    }
+  ]
+}
