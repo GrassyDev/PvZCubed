@@ -68,21 +68,21 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 			if (this.CollidesWithPlant() instanceof SpikerockEntity) {
 				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()) {
 					this.CollidesWithPlant().damage(DamageSource.thrownProjectile(this, this), 90);
-					this.remove(RemovalReason.KILLED);
+					this.kill();
 				}
 				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
 					this.CollidesWithPlant().damage(DamageSource.thrownProjectile(this, this), 90);
-					this.remove(RemovalReason.KILLED);
+					this.kill();
 				}
 			}
 			else if (this.CollidesWithPlant() instanceof SpikeweedEntity) {
 				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()) {
 					this.CollidesWithPlant().kill();
-					this.remove(RemovalReason.KILLED);
+					this.kill();
 				}
 				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
 					this.CollidesWithPlant().kill();
-					this.remove(RemovalReason.KILLED);
+					this.kill();
 				}
 			}
 			else if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof GravebusterEntity)) {
