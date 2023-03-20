@@ -80,6 +80,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
     public ShootingFlamingPeaEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
 		this.setNoGravity(true);
+		this.canHitFlying = false;
     }
 
     public ShootingFlamingPeaEntity(World world, LivingEntity owner) {

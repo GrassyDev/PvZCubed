@@ -114,6 +114,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
     public ShootingPeaEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
 		this.setNoGravity(true);
+		this.canHitFlying = false;
     }
 
     public ShootingPeaEntity(World world, LivingEntity owner) {
