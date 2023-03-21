@@ -370,6 +370,8 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARSMASH, GARGANTUARSMASHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPLAUNCH, IMPLAUNCHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEMOAN, ZOMBIEMOANEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPMOAN, IMPMOANEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.NEWSPAPERANGRY, NEWSPAPERANGRYEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.DOLPHINWATER, DOLPHINWATEREVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARMOAN, GARGANTUARMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SILENCE, SILENCEVENET);
