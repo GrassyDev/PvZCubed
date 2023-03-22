@@ -1,0 +1,15 @@
+{
+  "name": "Sprout Donators",
+  "icon": "minecraft:birch_sapling",
+  "category": "pvzmod:donate_donators",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)1$/month",
+        "$(br)$()$(#ff0000)Pvzmine1up ."
+      ]
+    }
+  ]
+}
