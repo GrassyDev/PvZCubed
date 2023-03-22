@@ -170,6 +170,12 @@
   "item.pvzmod.tallnut_seed_packet.flavour2": "for Tall and Taller gentlemen.",
   "item.pvzmod.tallnut_seed_packet.flavour3": "\"I'll shell out the savings to you!\"",
 
+  "entity.pvzmod.seashroom": "Sea-shroom",
+  "item.pvzmod.seashroom_seed_packet": "\uD83E\uDDEA Sea-shroom Seed Packet",
+  "item.pvzmod.seashroom_seed_packet.flavour": "Teaches swimming lessons to",
+  "item.pvzmod.seashroom_seed_packet.flavour2": " disadvantaged Plants in his spare time.",
+  "item.pvzmod.acidspore": "Acid Spore",
+
   "entity.pvzmod.cabbagepult": "Cabbage-ult",
   "item.pvzmod.cabbagepult_seed_packet": "\uD83C\uDFF9 Cabbage-pult Seed Packet",
   "item.pvzmod.cabbagepult_seed_packet.flavour": "\"Coleslaw from above!\"",
@@ -389,6 +395,28 @@
   "item.pvzmod.blastronaut_egg": "Blastronaut Zombie",
   "entity.pvzmod.blastronaut_hypnotized": "Hypnotized Blastronaut Zombie",
   "entity.pvzmod.blastronautgear": "Futuristic Helmet",
+
+  "entity.pvzmod.peasant": "Peasant Zombie",
+  "item.pvzmod.peasant_egg": "Peasant Zombie",
+  "entity.pvzmod.peasant_hypnotized": "Hypnotized Peasant Zombie",
+
+  "entity.pvzmod.flagpeasant": "Flag Peasant Zombie",
+  "item.pvzmod.flagpeasant_egg": "Flag Peasant Zombie",
+  "entity.pvzmod.flagpeasant_hypnotized": "Hypnotized Flag Peasant Zombie",
+
+  "entity.pvzmod.peasantcone": "Conehead Peasant Zombie",
+  "item.pvzmod.peasantcone_egg": "Conehead Peasant Zombie",
+  "entity.pvzmod.towergear": "Tower Cone",
+  "entity.pvzmod.peasantcone_hypnotized": "Hypnotized Conehead Peasant Zombie",
+
+  "entity.pvzmod.peasantbucket": "Buckethead Peasant Zombie",
+  "item.pvzmod.peasantbucket_egg": "Buckethead Peasant Zombie",
+  "entity.pvzmod.peasantbucket_hypnotized": "Hypnotized Buckethead Peasant Zombie",
+
+  "entity.pvzmod.peasantknight": "Peasant Knight Zombie",
+  "item.pvzmod.peasantknight_egg": "Peasant Knight Zombie",
+  "entity.pvzmod.knightgear": "Knight Helmet",
+  "entity.pvzmod.peasantknight_hypnotized": "Hypnotized Peasant Knight Zombie",
 
   "entity.pvzmod.brickhead": "Brickhead Zombie",
   "item.pvzmod.brickhead_egg": "Brickhead Zombie",

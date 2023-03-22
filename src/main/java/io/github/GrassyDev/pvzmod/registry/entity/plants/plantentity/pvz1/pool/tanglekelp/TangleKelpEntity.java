@@ -19,8 +19,6 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
@@ -411,17 +409,22 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 		}
 		if (this.animationTicksLeft > 0) {
 			this.stopAnimation = false;
-			this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 			--this.animationTicksLeft;
 			this.world.sendEntityStatus(this, (byte) 113);
 		}
 		else{
-			this.removeStatusEffect(StatusEffects.RESISTANCE);
 			this.world.sendEntityStatus(this, (byte) 112);
 		}
 		if (this.age == 3) {
 			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
 			maxRangeAttribute.addPersistentModifier(createRangeAttribute(3.0D));
+		}
+	}
+
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity) {
+			super.applyDamage(source, amount);
 		}
 	}
 

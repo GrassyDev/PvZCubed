@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelm
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.gears.StoneHelmetVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
@@ -75,7 +76,12 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		setVariant(StoneHelmetVariants.BRICK);
+		if (this.getType().equals(PvZEntity.TOWERGEAR)){
+			setVariant(StoneHelmetVariants.TOWER);
+		}
+		else {
+			setVariant(StoneHelmetVariants.BRICK);
+		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -130,6 +136,14 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 212D);
     }
+
+	public static DefaultAttributeContainer.Builder createTowerGearAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 53D);
+	}
 
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.SILENCEVENET;

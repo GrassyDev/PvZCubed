@@ -94,6 +94,9 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 		else if (this.getType().equals(PvZEntity.BLASTRONAUTGEAR)){
 			setVariant(MetallicHelmetVariants.BLASTRONAUT);
 		}
+		if (this.getType().equals(PvZEntity.KNIGHTGEAR)){
+			setVariant(MetallicHelmetVariants.KNIGHT);
+		}
 		else {
 			setVariant(MetallicHelmetVariants.BUCKET);
 		}
@@ -192,6 +195,14 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 37D);
 	}
 
+	public static DefaultAttributeContainer.Builder createKnightGearAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 152D);
+	}
+
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.SILENCEVENET;
 	}
@@ -225,6 +236,9 @@ public class MetalHelmetEntity extends ZombiePropEntity implements IAnimatable {
 		}
 		else if (this.getType().equals(PvZEntity.BLASTRONAUTGEAR)){
 			itemStack = ModItems.BLASTRONAUTEGG.getDefaultStack();
+		}
+		else if (this.getType().equals(PvZEntity.KNIGHTGEAR)){
+			itemStack = ModItems.PEASANTKNIGHTEGG.getDefaultStack();
 		}
 		else{
 			itemStack = ModItems.BUCKETHEADEGG.getDefaultStack();

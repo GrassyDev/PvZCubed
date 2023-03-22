@@ -9,7 +9,8 @@ public enum MetallicHelmetVariants {
 	FOOTBALL(2),
 	DEFENSIVEEND(3),
 	BERSERKER(4),
-	BLASTRONAUT(5);
+	BLASTRONAUT(5),
+	KNIGHT(6);
 
 	private static final MetallicHelmetVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(MetallicHelmetVariants::getId)).toArray(MetallicHelmetVariants[]::new);

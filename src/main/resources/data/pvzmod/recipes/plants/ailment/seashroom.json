@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:puffshroom_seed_packet"
+    },
+    {
+      "item": "pvzmod:plantfood_aquatic"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:seashroom_seed_packet",
+    "count": 1
+  }
+}

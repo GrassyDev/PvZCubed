@@ -1,0 +1,50 @@
+{
+  "name": "Buckethead Peasant Zombie",
+  "icon": "pvzmod:peasantbucket_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 85,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)27, 110(Metal Bucket)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Poison",
+        "$(br2)$(#bd951a)None of the other zombies seem to understand just how versatile Buckethead Peasant's choice of headwear is. Sure, his bucket makes for a great battle helmet. But just last night, he cooked a truly divine brain stew in it."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/peasantbucket.png"
+      ],
+      "title": "Dark Ages Zombie",
+      "border": "true",
+      "text": "$(#25228d)His forged bucket provides great protection from damage."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/potatomine_entry",
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/wallnut_entry",
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/squash_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/pepperpult_entry",
+        "pvzmod:plants/narcissus_entry",
+        "pvzmod:plants/spikeweed_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Buckethead Peasant Zombie"
+      ]
+    }
+  ]
+}

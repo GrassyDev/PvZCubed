@@ -21,7 +21,7 @@
       "images": [
         "pvzmod:textures/gui/entries/flagzombie.png"
       ],
-      "title": "BLOOM & DOOM SEED CO.",
+      "title": "Basic Zombie",
       "border": "true",
       "text": "$(#25228d)Flag Zombie marks the arrival of a huge pile or \"wave\" of zombies."
     },

@@ -1,0 +1,50 @@
+{
+  "name": "Peasant Flag Zombie",
+  "icon": "pvzmod:flagpeasant_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 87,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)27",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Poison. Summons x2 Buckethead Peasants, x1 Peasant Knight, x3 Conehead Peasants, and x6 Peasants behind them.",
+        "$(br2)$(#bd951a)They keep telling Peasant Zombie that there is no greater reward than being granted the banner to carry into battle. But when he sees other Peasant Zombies being granted cones, buckets, and even helms, he thinks maybe they're making that up so they don't hurt his feelings."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/peasantflag.png"
+      ],
+      "title": "Dark Ages Zombie",
+      "border": "true",
+      "text": "$(#25228d)Marks the arrival of a huge dark \"wave\" of zombies."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/hypnoshroom_entry",
+        "pvzmod:plants/iceshroom_entry",
+        "pvzmod:plants/threepeater_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/firepea_entry",
+        "pvzmod:plants/cattail_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Flag Peasant Zombie"
+      ]
+    }
+  ]
+}

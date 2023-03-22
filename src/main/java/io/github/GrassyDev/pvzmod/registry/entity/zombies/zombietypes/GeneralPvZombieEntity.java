@@ -289,6 +289,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void tick() {
 		super.tick();
+		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("metallic")) && this.hasStatusEffect(ACID)){
+			this.removeStatusEffect(ACID);
+		}
 		if (this.isInsideWall()){
 			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
 		}

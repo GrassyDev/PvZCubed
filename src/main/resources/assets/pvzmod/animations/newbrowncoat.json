@@ -2921,6 +2921,14 @@
 					"scale": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"door": {
+					"rotation": {
+						"vector": [98, 0, 0]
+					},
+					"position": {
+						"vector": [0, -2.5, 4.8]
+					}
 				}
 			}
 		},

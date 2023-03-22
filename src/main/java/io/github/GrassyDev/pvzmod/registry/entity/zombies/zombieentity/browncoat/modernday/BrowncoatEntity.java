@@ -136,9 +136,19 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			createConeheadProp();
 			this.initCustomGoals();
 		}
-		else if (this.getType().equals(PvZEntity.BUCKETHEAD)){
+		else if (this.getType().equals(PvZEntity.PEASANTCONE)){
+			setVariant(BrowncoatVariants.CONEHEAD);
+			createTowerProp();
+			this.initCustomGoals();
+		}
+		else if (this.getType().equals(PvZEntity.BUCKETHEAD) || this.getType().equals(PvZEntity.PEASANTBUCKET)){
 			setVariant(BrowncoatVariants.BUCKETHEAD);
 			createBucketProp();
+			this.initCustomGoals();
+		}
+		else if (this.getType().equals(PvZEntity.PEASANTKNIGHT)){
+			setVariant(BrowncoatVariants.PEASANTKNIGHT);
+			createKnightProp();
 			this.initCustomGoals();
 		}
 		else if (this.getType().equals(PvZEntity.BRICKHEAD)){
@@ -156,16 +166,20 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			setVariant(BrowncoatVariants.TRASHCAN);
 			this.initCustomGoals();
 		}
-		else if (this.getType().equals(PvZEntity.BROWNCOATHYPNO)){
+		else if (this.getType().equals(PvZEntity.BROWNCOATHYPNO) || this.getType().equals(PvZEntity.PEASANTHYPNO)){
 			setVariant(BrowncoatVariants.BROWNCOATHYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
-		else if (this.getType().equals(PvZEntity.CONEHEADHYPNO)){
+		else if (this.getType().equals(PvZEntity.CONEHEADHYPNO) || this.getType().equals(PvZEntity.PEASANTCONEHYPNO)){
 			setVariant(BrowncoatVariants.CONEHEADHYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
-		else if (this.getType().equals(PvZEntity.BUCKETHEADHYPNO)){
+		else if (this.getType().equals(PvZEntity.BUCKETHEADHYPNO) || this.getType().equals(PvZEntity.PEASANTBUCKETHYPNO)){
 			setVariant(BrowncoatVariants.BUCKETHEADHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.PEASANTKNIGHTHYPNO)){
+			setVariant(BrowncoatVariants.PEASANTKNIGHTHYPNO);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else if (this.getType().equals(PvZEntity.BRICKHEADHYPNO)){
@@ -210,8 +224,20 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		propentity.startRiding(this);
 	}
 
+	public void createKnightProp(){
+		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.KNIGHTGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
 	public void createBrickProp(){
 		StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.BRICKGEAR, this.world);
+		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+		propentity.startRiding(this);
+	}
+
+	public void createTowerProp(){
+		StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.TOWERGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
 	}
@@ -300,7 +326,11 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 				this.getType().equals(PvZEntity.BUCKETHEADHYPNO) ||
 				this.getType().equals(PvZEntity.BRICKHEADHYPNO) ||
 				this.getType().equals(PvZEntity.SCREENDOORHYPNO) ||
-				this.getType().equals(PvZEntity.TRASHCANHYPNO)) {
+				this.getType().equals(PvZEntity.TRASHCANHYPNO) ||
+				this.getType().equals(PvZEntity.PEASANTHYPNO) ||
+				this.getType().equals(PvZEntity.PEASANTCONEHYPNO) ||
+				this.getType().equals(PvZEntity.PEASANTBUCKETHYPNO) ||
+				this.getType().equals(PvZEntity.PEASANTKNIGHTHYPNO)) {
 			initHypnoGoals();
 		}
 		else {
@@ -396,8 +426,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		if (zombieObstacleEntity.isEmpty() && zombieShieldEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.TRASHCANBIN) && !this.CollidesWithObstacle().hasVehicle() && !this.CollidesWithObstacle().beingEaten && !this.isInsideWaterOrBubbleColumn()
 		&& (this.getVariant().equals(BrowncoatVariants.TRASHCAN) ||
 				this.getVariant().equals(BrowncoatVariants.TRASHCANHYPNO) ||
-				this.getVariant().equals(BrowncoatVariants.BROWNCOAT) ||
-				this.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO))){
+				this.getType().equals(PvZEntity.BROWNCOAT) ||
+				this.getType().equals(PvZEntity.BROWNCOATHYPNO))){
 			this.CollidesWithObstacle().startRiding(this, true);
 		}
 
@@ -456,19 +486,19 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	@Override
 	public ItemStack getPickBlockStack() {
 		ItemStack itemStack;
-		if (this.getVariant().equals(BrowncoatVariants.CONEHEAD) || this.getType().equals(PvZEntity.CONEHEADHYPNO)){
+		if (this.getVariant().equals(BrowncoatVariants.CONEHEAD) || this.getVariant().equals(BrowncoatVariants.CONEHEADHYPNO)){
 			itemStack = ModItems.CONEHEADEGG.getDefaultStack();
 		}
-		else if (this.getVariant().equals(BrowncoatVariants.BUCKETHEAD) || this.getType().equals(PvZEntity.BUCKETHEADHYPNO)){
+		else if (this.getVariant().equals(BrowncoatVariants.BUCKETHEAD) || this.getVariant().equals(BrowncoatVariants.BUCKETHEADHYPNO)){
 			itemStack = ModItems.BUCKETHEADEGG.getDefaultStack();
 		}
-		else if (this.getVariant().equals(BrowncoatVariants.BRICKHEAD) || this.getType().equals(PvZEntity.BRICKHEADHYPNO)){
+		else if (this.getVariant().equals(BrowncoatVariants.BRICKHEAD) || this.getVariant().equals(BrowncoatVariants.BRICKHEADHYPNO)){
 			itemStack = ModItems.BRICKHEADEGG.getDefaultStack();
 		}
-		else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) || this.getType().equals(PvZEntity.SCREENDOORHYPNO)){
+		else if (this.getVariant().equals(BrowncoatVariants.SCREENDOOR) || this.getVariant().equals(BrowncoatVariants.SCREENDOORHYPNO)){
 			itemStack = ModItems.SCREENDOOREGG.getDefaultStack();
 		}
-		else if (this.getVariant().equals(BrowncoatVariants.TRASHCAN) || this.getType().equals(PvZEntity.TRASHCANHYPNO)){
+		else if (this.getVariant().equals(BrowncoatVariants.TRASHCAN) || this.getVariant().equals(BrowncoatVariants.TRASHCANHYPNO)){
 			itemStack = ModItems.TRASHCANEGG.getDefaultStack();
 		}
 		else{
@@ -552,6 +582,9 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 		else if (this.getType().equals(PvZEntity.TRASHCAN)){
 			hypnoType = PvZEntity.TRASHCANHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.PEASANTKNIGHT)){
+			hypnoType = PvZEntity.PEASANTKNIGHTHYPNO;
 		}
 		else {
 			hypnoType = PvZEntity.BROWNCOATHYPNO;

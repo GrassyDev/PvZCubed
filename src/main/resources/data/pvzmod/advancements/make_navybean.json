@@ -33,7 +33,8 @@
     "recipes": [
       "pvzmod:plants/enforce/tanglekelp",
       "pvzmod:plants/enforce/admiralnavybean",
-      "pvzmod:plants/spear/cattail"
+      "pvzmod:plants/spear/cattail",
+      "pvzmod:plants/ailment/seashroom"
       ],
     "experience": 25
   }

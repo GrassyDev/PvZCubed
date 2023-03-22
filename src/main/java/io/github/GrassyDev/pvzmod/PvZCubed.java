@@ -47,6 +47,7 @@ public class PvZCubed implements ModInitializer {
 	public static final StatusEffect WARM = new Warm();
 	public static final StatusEffect WET = new Wet();
 	public static final StatusEffect PVZPOISON = new PvZPoison();
+	public static final StatusEffect ACID = new Acid();
 
 	public static final String MOD_ID = "pvzmod";
 
@@ -90,6 +91,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.SPIKEWEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TORCHWOOD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TALLNUT_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.SEASHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.CABBAGEPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.GATLINGPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.TWINSUNFLOWER_SEED_PACKET));
@@ -119,10 +121,11 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.BELLFLOWER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
+				stacks.add(new ItemStack(ModItems.SPORE));
 				stacks.add(new ItemStack(ModItems.FUME));
 				stacks.add(new ItemStack(ModItems.HYPNO));
-				stacks.add(new ItemStack(ModItems.SPORE));
 				stacks.add(new ItemStack(ModItems.FIREPEA));
+				stacks.add(new ItemStack(ModItems.ACIDSPORE));
 				stacks.add(new ItemStack(ModItems.SPIKE));
 				stacks.add(new ItemStack(ModItems.CABBAGE));
 				stacks.add(new ItemStack(ModItems.RAINBOWBULLET));
@@ -161,6 +164,11 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
 				stacks.add(new ItemStack(ModItems.JETPACKEGG));
 				stacks.add(new ItemStack(ModItems.BLASTRONAUTEGG));
+				stacks.add(new ItemStack(ModItems.PEASANTEGG));
+				stacks.add(new ItemStack(ModItems.FLAGPEASANTEGG));
+				stacks.add(new ItemStack(ModItems.PEASANTCONEEGG));
+				stacks.add(new ItemStack(ModItems.PEASANTBUCKETEGG));
+				stacks.add(new ItemStack(ModItems.PEASANTKNIGHTEGG));
 				stacks.add(new ItemStack(ModItems.BRICKHEADEGG));
 				stacks.add(new ItemStack(ModItems.SUNDAYEDITIONEGG));
 				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
@@ -337,6 +345,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "warm"), WARM);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "wet"), WET);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "pvzpoison"), PVZPOISON);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "acid"), ACID);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.LOOTNUGGET, LOOTNUGGETEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.LOOTDIAMOND, LOOTDIAMONDEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.LOOTGIFT, LOOTGIFTDEVENT);
