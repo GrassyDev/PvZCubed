@@ -91,6 +91,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombi
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntityRenderer;
@@ -348,6 +349,9 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.PEASANTBUCKETHYPNO, PeasantEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.PEASANTKNIGHT, PeasantEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.PEASANTKNIGHTHYPNO, PeasantEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.ANNOUNCERIMP, AnnouncerImpEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.ANNOUNCERIMPHYPNO, AnnouncerImpEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMP, SuperFanImpEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.SUPERFANIMPHYPNO, SuperFanImpEntityRenderer::new);

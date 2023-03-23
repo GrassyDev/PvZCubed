@@ -91,6 +91,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombi
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntity;
@@ -673,7 +674,7 @@ public class PvZEntity implements ModInitializer {
 	);
 	public static final EntityType<StoneHelmetEntity> TOWERGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "stowergear"),
+			new Identifier(ModID, "towergear"),
 			QuiltEntityTypeBuilder.<StoneHelmetEntity>create(SpawnGroup.MONSTER, StoneHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
 	);
 	public static final EntityType<StoneHelmetEntity> BRICKGEAR = Registry.register(
@@ -940,6 +941,19 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "newyearimp_hypnotized"),
 			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
+	);
+
+
+	public static final EntityType<AnnouncerImpEntity> ANNOUNCERIMP = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "announcerimp"),
+			QuiltEntityTypeBuilder.<AnnouncerImpEntity>create(SpawnGroup.MONSTER, AnnouncerImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
+	);
+
+	public static final EntityType<AnnouncerImpEntity> ANNOUNCERIMPHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "announcerimp_hypnotized"),
+			QuiltEntityTypeBuilder.<AnnouncerImpEntity>create(SpawnGroup.CREATURE, AnnouncerImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
 
 	public static final EntityType<LocustSwarmEntity> LOCUSTSWARM = Registry.register(
@@ -1252,6 +1266,9 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUPERFANIMPHYPNO, SuperFanImpEntity.createImpAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWYEARIMP, SuperFanImpEntity.createImpAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWYEARIMPHYPNO, SuperFanImpEntity.createImpAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ANNOUNCERIMP, AnnouncerImpEntity.createAnnouncerImpAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ANNOUNCERIMPHYPNO, AnnouncerImpEntity.createAnnouncerImpAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACK, JetpackEntity.createJetpackAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACKHYPNO, JetpackEntity.createJetpackAttributes().build());

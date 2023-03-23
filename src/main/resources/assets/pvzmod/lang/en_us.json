@@ -418,6 +418,10 @@
   "entity.pvzmod.knightgear": "Knight Helmet",
   "entity.pvzmod.peasantknight_hypnotized": "Hypnotized Peasant Knight Zombie",
 
+  "entity.pvzmod.announcerimp": "Announcer Imp",
+  "item.pvzmod.announcerimp_egg": "Announcer Imp",
+  "entity.pvzmod.announcerimp_hypnotized": "Hypnotized Announcer Imp",
+
   "entity.pvzmod.brickhead": "Brickhead Zombie",
   "item.pvzmod.brickhead_egg": "Brickhead Zombie",
   "entity.pvzmod.brickgear": "Brick",

@@ -187,6 +187,7 @@ public class ModItems {
 	public static final Item PEASANTCONEEGG = new PeasantConeEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
 	public static final Item PEASANTBUCKETEGG = new PeasantBucketEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
 	public static final Item PEASANTKNIGHTEGG = new PeasantKnightEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
+	public static final Item ANNOUNCERIMPEGG = new AnnouncerImpEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
 	public static final Item JETPACKEGG = new JetpackEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
 	public static final Item BLASTRONAUTEGG = new BlastronautEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item BRICKHEADEGG = new BrickheadEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
@@ -369,6 +370,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peasantcone_egg"), PEASANTCONEEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peasantbucket_egg"), PEASANTBUCKETEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peasantknight_egg"), PEASANTKNIGHTEGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"announcerimp_egg"), ANNOUNCERIMPEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"jetpack_egg"), JETPACKEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"blastronaut_egg"), BLASTRONAUTEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"brickhead_egg"), BRICKHEADEGG);

@@ -169,6 +169,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PEASANTCONEEGG));
 				stacks.add(new ItemStack(ModItems.PEASANTBUCKETEGG));
 				stacks.add(new ItemStack(ModItems.PEASANTKNIGHTEGG));
+				stacks.add(new ItemStack(ModItems.ANNOUNCERIMPEGG));
 				stacks.add(new ItemStack(ModItems.BRICKHEADEGG));
 				stacks.add(new ItemStack(ModItems.SUNDAYEDITIONEGG));
 				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
@@ -310,6 +311,9 @@ public class PvZCubed implements ModInitializer {
 	public static final Identifier IMPLAUNCH = new Identifier("pvzmod:imp.launch");
 	public static SoundEvent IMPLAUNCHEVENT = new SoundEvent(IMPLAUNCH);
 
+	public static final Identifier IMPANNOUNCER = new Identifier("pvzmod:imp.announcer");
+	public static SoundEvent IMPANNOUNCEREVENT = new SoundEvent(IMPANNOUNCER);
+
 	public static final Identifier ZOMBIEMOAN = new Identifier("pvzmod:zombie.moan");
 	public static SoundEvent ZOMBIEMOANEVENT = new SoundEvent(ZOMBIEMOAN);
 
@@ -379,6 +383,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.DOLPHINJUMP, DOLPHINJUMPEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARSMASH, GARGANTUARSMASHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPLAUNCH, IMPLAUNCHEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPANNOUNCER, IMPANNOUNCEREVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEMOAN, ZOMBIEMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPMOAN, IMPMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.NEWSPAPERANGRY, NEWSPAPERANGRYEVENT);

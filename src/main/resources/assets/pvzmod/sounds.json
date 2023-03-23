@@ -164,6 +164,11 @@
       "pvzmod:imp_launch"
     ]
   },
+  "imp.announcer": {
+    "sounds": [
+      "pvzmod:imp_announcer"
+    ]
+  },
   "zombie.moan": {
     "sounds": [
       "pvzmod:zombie_moan"
