@@ -398,7 +398,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-			if (difficulty >= 1.519 + difficultymodifier) {
+			if (difficulty >= 1.529 + difficultymodifier) {
 				if (probability6 <= 0.15) { // 15% x1 Flag Zombie
 					for (int g = 0; g < 1; ++g) {
 						double random = Math.random();

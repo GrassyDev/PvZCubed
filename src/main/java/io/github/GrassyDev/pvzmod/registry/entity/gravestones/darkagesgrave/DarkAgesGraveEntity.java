@@ -343,7 +343,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
-			if (difficulty >= 1.519 + difficultymodifier) {
+			if (difficulty >= 1.529 + difficultymodifier) {
 				if (probability5 <= 0.25) { // 35% x1 Flag Zombie
 					for (int f = 0; f < 1; ++f) {
 						double random = Math.random();

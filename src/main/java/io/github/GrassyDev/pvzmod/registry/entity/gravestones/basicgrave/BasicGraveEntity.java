@@ -375,7 +375,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
                 }
             }
-			if (difficulty >= 1.519 + difficultymodifier) {
+			if (difficulty >= 1.529 + difficultymodifier) {
 				if (probability4 <= 0.25) { // 25% x1 Flag Zombie
 					for (int f = 0; f < 1; ++f) {
 						double random = Math.random();
