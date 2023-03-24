@@ -333,52 +333,8 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
-			if (probability11 <= 0.15) { // 15% x1 Conehead
-				for (int h = 0; h < 2; ++h) {
-					BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANTCONE.create(DarkAgesGraveEntity.this.world);
-					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-					coneheadEntity.setOwner(DarkAgesGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(coneheadEntity);
-				}
-			}
-			if (difficulty >= 1.529 + difficultymodifier) {
-				if (probability5 <= 0.25) { // 25% x1 Flag Zombie
-					for (int f = 0; f < 1; ++f) {
-						double random = Math.random();
-						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-						FlagPeasantEntity flagzombieEntity = (FlagPeasantEntity) PvZEntity.FLAGPEASANT.create(DarkAgesGraveEntity.this.world);
-						flagzombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						flagzombieEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						flagzombieEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(flagzombieEntity);
-
-						BlockPos blockPos2 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.PEASANT.create(DarkAgesGraveEntity.this.world);
-						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
-						browncoatEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-						browncoatEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(browncoatEntity);
-
-						BlockPos blockPos3 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANTCONE.create(DarkAgesGraveEntity.this.world);
-						coneheadEntity.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
-						coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
-						coneheadEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(coneheadEntity);
-
-						BlockPos blockPos4 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity screendoorEntity = (BrowncoatEntity) PvZEntity.PEASANTKNIGHT.create(DarkAgesGraveEntity.this.world);
-						screendoorEntity.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
-						screendoorEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						screendoorEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(screendoorEntity);
-					}
-				}
-			}
-            if (probability3 <= 0.15) { // 15% x1 Buckethead Peasant
-                for(int c = 0; c < 1; ++c) {
+			if (probability3 <= 0.10) { // 10% x1 Buckethead Peasant
+				for (int c = 0; c < 1; ++c) {
 					BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity peasantBucket = (BrowncoatEntity) PvZEntity.PEASANTBUCKET.create(DarkAgesGraveEntity.this.world);
 					peasantBucket.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -392,34 +348,80 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 					coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 					coneheadEntity.setOwner(DarkAgesGraveEntity.this);
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
-                }
-            }
-			if (probability2 <= 0.10) { // 10% x1 Peasant Knight
-				for(int c = 0; c < 1; ++c) {
-					BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-					BrowncoatEntity peasantKnight = (BrowncoatEntity) PvZEntity.PEASANTKNIGHT.create(DarkAgesGraveEntity.this.world);
-					peasantKnight.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					peasantKnight.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-					peasantKnight.setOwner(DarkAgesGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(peasantKnight);
-
-					BlockPos blockPos2 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANT.create(DarkAgesGraveEntity.this.world);
-					coneheadEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
-					coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-					coneheadEntity.setOwner(DarkAgesGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
-			if (difficulty >= 1.519 + difficultymodifier) {
-				if (probability6 <= 0.2) { // 20% x1 Announcer Imp
-					for (int f = 0; f < 1; ++f) {
+			if (serverWorld.toServerWorld().getTime() > 24000) {
+				if (difficulty >= 1.529 + difficultymodifier) {
+					if (probability5 <= 0.25) { // 25% x1 Flag Zombie
+						for (int f = 0; f < 1; ++f) {
+							double random = Math.random();
+							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+							FlagPeasantEntity flagzombieEntity = (FlagPeasantEntity) PvZEntity.FLAGPEASANT.create(DarkAgesGraveEntity.this.world);
+							flagzombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							flagzombieEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							flagzombieEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(flagzombieEntity);
+
+							BlockPos blockPos2 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+							BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.PEASANT.create(DarkAgesGraveEntity.this.world);
+							browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+							browncoatEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							browncoatEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(browncoatEntity);
+
+							BlockPos blockPos3 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+							BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANTCONE.create(DarkAgesGraveEntity.this.world);
+							coneheadEntity.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
+							coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							coneheadEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(coneheadEntity);
+
+							BlockPos blockPos4 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+							BrowncoatEntity screendoorEntity = (BrowncoatEntity) PvZEntity.PEASANTKNIGHT.create(DarkAgesGraveEntity.this.world);
+							screendoorEntity.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
+							screendoorEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							screendoorEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(screendoorEntity);
+						}
+					}
+				}
+				if (probability11 <= 0.15) { // 15% x1 Conehead
+					for (int h = 0; h < 2; ++h) {
 						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-						AnnouncerImpEntity announcerImpEntity = (AnnouncerImpEntity) PvZEntity.ANNOUNCERIMP.create(DarkAgesGraveEntity.this.world);
-						announcerImpEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						announcerImpEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						announcerImpEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(announcerImpEntity);
+						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANTCONE.create(DarkAgesGraveEntity.this.world);
+						coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						coneheadEntity.setOwner(DarkAgesGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(coneheadEntity);
+					}
+				}
+				if (probability2 <= 0.10) { // 10% x1 Peasant Knight
+					for (int c = 0; c < 1; ++c) {
+						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity peasantKnight = (BrowncoatEntity) PvZEntity.PEASANTKNIGHT.create(DarkAgesGraveEntity.this.world);
+						peasantKnight.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						peasantKnight.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						peasantKnight.setOwner(DarkAgesGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(peasantKnight);
+
+						BlockPos blockPos2 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANT.create(DarkAgesGraveEntity.this.world);
+						coneheadEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+						coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						coneheadEntity.setOwner(DarkAgesGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(coneheadEntity);
+					}
+				}
+				if (difficulty >= 1.519 + difficultymodifier) {
+					if (probability6 <= 0.2) { // 20% x1 Announcer Imp
+						for (int f = 0; f < 1; ++f) {
+							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+							AnnouncerImpEntity announcerImpEntity = (AnnouncerImpEntity) PvZEntity.ANNOUNCERIMP.create(DarkAgesGraveEntity.this.world);
+							announcerImpEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							announcerImpEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							announcerImpEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(announcerImpEntity);
+						}
 					}
 				}
 			}
