@@ -237,20 +237,20 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 			}
 			knightEntity.refreshPositionAndAngles(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), livingEntity.getYaw(), livingEntity.getPitch());
 			knightEntity.initialize(serverWorld, this.world.getLocalDifficulty(knightEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-			knightEntity.setOwner(this);
+
 			if (knightEntity.getHypno() && this.getHypno()){
 				knightEntity.createKnightProp().setHypno(IsHypno.TRUE);
+				for (Entity entity1 : livingEntity.getPassengerList()) {
+					if (entity1 instanceof ZombiePropEntity zpe) {
+						zpe.setHypno(IsHypno.TRUE);
+						zpe.startRiding(knightEntity);
+					}
+				}
 			}
 			knightEntity.setHealth(livingEntity.getHealth());
 			if (livingEntity.hasCustomName()) {
 				knightEntity.setCustomName(livingEntity.getCustomName());
 				knightEntity.setCustomNameVisible(livingEntity.isCustomNameVisible());
-			}
-			for (Entity entity1 : livingEntity.getPassengerList()) {
-				if (entity1 instanceof ZombiePropEntity zpe) {
-					zpe.setHypno(IsHypno.TRUE);
-					zpe.startRiding(knightEntity);
-				}
 			}
 
 			knightEntity.setPersistent();
@@ -284,7 +284,6 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 			this.convertTicks = 0;
 		}
 		if (!this.world.isClient) {
-			System.out.println(this.getTarget());
 			if (this.age > 2400 && this.getTarget() == null) {
 				this.discard();
 			}

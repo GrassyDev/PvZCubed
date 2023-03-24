@@ -10,7 +10,7 @@
 							"vector": [0, 33, 0]
 						},
 						"0.5": {
-							"vector": [0, -2, 0],
+							"vector": [0, 0, 0],
 							"easing": "easeInElastic"
 						}
 					},

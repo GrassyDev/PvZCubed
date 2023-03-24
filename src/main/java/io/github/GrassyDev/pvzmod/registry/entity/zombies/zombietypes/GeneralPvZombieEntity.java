@@ -19,6 +19,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -293,15 +294,16 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("metallic")) && this.hasStatusEffect(ACID)){
 			this.removeStatusEffect(ACID);
 		}
-		super.tick();
-		if (this.isInsideWall()){
-			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
-		}
 		LivingEntity target = this.getTarget();
+		if (!this.getHypno() && !(this instanceof ZombieKingEntity) && target instanceof Monster){
+			setTarget(null);
+		}
 		if (this.getHypno() && (target instanceof PlayerEntity || target instanceof PassiveEntity || target instanceof GolemEntity)){
 			this.setTarget(null);
 		}
-		LivingEntity target2 = this.getTarget();
+		if (this.isInsideWall()){
+			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
+		}
 		if (target != null) {
 			if (target.squaredDistanceTo(this) < 6.25) {
 				this.setVelocity(0, -0.3, 0);
@@ -356,6 +358,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.submergedInWater){
 			this.jump();
 		}
+		super.tick();
 	}
 
 	@Override
