@@ -327,7 +327,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                 browncoatEntity.setOwner(NightGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
-            if (probability <= 0.4) { // 40% x1 Conehead
+            if (probability <= 0.35) { // 35% x1 Conehead
                 for (int h = 0; h < 1; ++h) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(NightGraveEntity.this.world);
@@ -337,7 +337,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
-			if (probability11 <= 0.2) { // 20% x1 Conehead
+			if (probability11 <= 0.15) { // 15% x1 Conehead
 				for (int h = 0; h < 2; ++h) {
 					BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(NightGraveEntity.this.world);
@@ -348,7 +348,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.529 + difficultymodifier) {
-				if (probability5 <= 0.25) { // 35% x1 Flag Zombie
+				if (probability5 <= 0.25) { // 25% x1 Flag Zombie
 					for (int f = 0; f < 1; ++f) {
 						double random = Math.random();
 						EntityType<?> flagType;
@@ -391,7 +391,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-            if (probability2 <= 0.2) {  // 30% x1 Newspaper
+            if (probability2 <= 0.15) {  // 15% x1 Newspaper
                 for (int b = 0; b < 1; ++b) {
                     BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
                     NewspaperEntity newspaperEntity = (NewspaperEntity) PvZEntity.NEWSPAPER.create(NightGraveEntity.this.world);
@@ -402,7 +402,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(newspaperEntity);
                 }
             }
-            if (probability3 <= 0.15) { // 25% x1 Screendoor
+            if (probability3 <= 0.10) { // 10% x1 Screendoor
                 for(int c = 0; c < 1; ++c) {
 					BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity screendoorEntity = (BrowncoatEntity) PvZEntity.SCREENDOOR.create(NightGraveEntity.this.world);
@@ -465,7 +465,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.519 + difficultymodifier) {
-				if (probability6 <= 0.2) { // 30% x1 Dancing Zombie
+				if (probability6 <= 0.2) { // 20% x1 Dancing Zombie
 					for (int f = 0; f < 1; ++f) {
 						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
 						DancingZombieEntity dancingZombieEntity = (DancingZombieEntity) PvZEntity.DANCINGZOMBIE.create(NightGraveEntity.this.world);
@@ -510,7 +510,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.89 + difficultymodifier) {
-				if (probability10 <= 0.3) { // 40% x1 Sunday Edition and x1 Newspaper
+				if (probability10 <= 0.3) { // 30% x1 Sunday Edition and x1 Newspaper
 					for (int l = 0; l < 1; ++l) {
 						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
 						NewspaperEntity newspaperEntity = (NewspaperEntity) PvZEntity.NEWSPAPER.create(NightGraveEntity.this.world);
@@ -530,7 +530,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.89 + difficultymodifier) {
-				if (probability8 <= 0.2) { // 30% x2 New Years Imp
+				if (probability8 <= 0.3) { // 30% x2 New Years Imp
 					for (int j = 0; j < 2; ++j) {
 						BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
 						SuperFanImpEntity superFanImpEntity = (SuperFanImpEntity) PvZEntity.NEWYEARIMP.create(NightGraveEntity.this.world);

@@ -321,7 +321,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                 browncoatEntity.setOwner(BasicGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
-            if (probability <= 0.3) { // 30% x1 Conehead
+            if (probability <= 0.25) { // 25% x1 Conehead
                 for(int c = 0; c < 1; ++c) {
                     BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
@@ -332,7 +332,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                 }
             }
 			if (difficulty >= 1.509 + difficultymodifier) {
-				if (probability11 <= 0.2) { // 20% x2 Conehead
+				if (probability11 <= 0.15) { // 15% x2 Conehead
 					for (int c = 0; c < 2; ++c) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
@@ -343,7 +343,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-            if (probability2 <= 0.15) { // 15% x1 Buckethead
+            if (probability2 <= 0.10) { // 10% x1 Buckethead
                 for(int u = 0; u < 1; ++u) {
                     BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
                     BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
@@ -354,7 +354,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                 }
             }
 			if (difficulty >= 1.509 + difficultymodifier) {
-				if (probability21 <= 0.15) { // 15% x2 Buckethead
+				if (probability21 <= 0.10) { // 10% x2 Buckethead
 					for (int u = 0; u < 2; ++u) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
@@ -365,7 +365,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-            if (probability3 <= 0.25) { // 25% x1 Pole Vaulting Zombie
+            if (probability3 <= 0.20) { // 20% x1 Pole Vaulting Zombie
                 for(int p = 0; p < 1; ++p) {
                     BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
                     PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(BasicGraveEntity.this.world);
@@ -419,7 +419,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-            if (probability5 <= 0.1) { // 10% x2 Pole Vaulting Zombie
+            if (probability5 <= 0.05) { // 5% x2 Pole Vaulting Zombie
                 for(int p = 0; p < 2; ++p) {
                     BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
                     PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(BasicGraveEntity.this.world);
@@ -430,7 +430,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
                 }
             }
 			if (difficulty >= 1.609 + difficultymodifier) {
-				if (probability6 <= 0.4) { // 50% x2 Bully Zombie
+				if (probability6 <= 0.4) { // 40% x2 Bully Zombie
 					for (int g = 0; g < 2; ++g) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BullyEntity bullyEntity = (BullyEntity) PvZEntity.BULLY.create(BasicGraveEntity.this.world);
@@ -463,8 +463,8 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.519 + difficultymodifier) {
-				if (probability7 <= 0.2) { // 30% x3 Bully Zombie
-					for (int h = 0; h < 3; ++h) {
+				if (probability7 <= 0.15) { // 15% x2 Bully Zombie
+					for (int h = 0; h < 2; ++h) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BullyEntity bullyEntity = (BullyEntity) PvZEntity.BULLY.create(BasicGraveEntity.this.world);
 						bullyEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -473,21 +473,21 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(bullyEntity);
 
 						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
 						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
 						browncoatEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 						browncoatEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(browncoatEntity);
 
 						BlockPos blockPos3 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
 						browncoatEntity2.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
 						browncoatEntity2.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 						browncoatEntity2.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(browncoatEntity2);
 
 						BlockPos blockPos4 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(BasicGraveEntity.this.world);
+						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
 						coneheadEntity.refreshPositionAndAngles(blockPos4, 0.0F, 0.0F);
 						coneheadEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						coneheadEntity.setOwner(BasicGraveEntity.this);
@@ -496,7 +496,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.609 + difficultymodifier) {
-				if (probability8 <= 0.5) { // 60% x1 Trash Can Zombie
+				if (probability8 <= 0.5) { // 50% x1 Trash Can Zombie
 					for (int g = 0; g < 1; ++g) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BrowncoatEntity trashCan = (BrowncoatEntity) PvZEntity.TRASHCAN.create(BasicGraveEntity.this.world);
@@ -506,14 +506,14 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(trashCan);
 
 						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
 						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
 						browncoatEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 						browncoatEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(browncoatEntity);
 
 						BlockPos blockPos3 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
 						browncoatEntity2.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
 						browncoatEntity2.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 						browncoatEntity2.setOwner(BasicGraveEntity.this);
@@ -529,7 +529,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.709 + difficultymodifier) {
-				if (probability9 <= 0.4) { // 50% x3 Trash Can Zombie
+				if (probability9 <= 0.4) { // 40% x3 Trash Can Zombie
 					for (int g = 0; g < 3; ++g) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BrowncoatEntity trashCan = (BrowncoatEntity) PvZEntity.TRASHCAN.create(BasicGraveEntity.this.world);
@@ -540,14 +540,14 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					}
 					for (int g1 = 0; g1 < 2; ++g1) {
 						BlockPos blockPos2 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						BrowncoatEntity browncoatEntity = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
 						browncoatEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
 						browncoatEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 						browncoatEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(browncoatEntity);
 
 						BlockPos blockPos3 = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
-						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.CONEHEAD.create(BasicGraveEntity.this.world);
+						BrowncoatEntity browncoatEntity2 = (BrowncoatEntity) PvZEntity.BROWNCOAT.create(BasicGraveEntity.this.world);
 						browncoatEntity2.refreshPositionAndAngles(blockPos3, 0.0F, 0.0F);
 						browncoatEntity2.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos3), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
 						browncoatEntity2.setOwner(BasicGraveEntity.this);
@@ -563,7 +563,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.609 + difficultymodifier) {
-				if (probability10 <= 0.4) { // 50% x1 Brickhead Zombie
+				if (probability10 <= 0.4) { // 40% x1 Brickhead Zombie
 					if (difficulty >= 1.709) {
 						BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 						BrowncoatEntity brickhead = (BrowncoatEntity) PvZEntity.BRICKHEAD.create(BasicGraveEntity.this.world);

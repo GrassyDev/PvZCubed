@@ -331,7 +331,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
-			if (probability11 <= 0.6) { // 70% x2 Conehead
+			if (probability11 <= 0.6) { // 60% x2 Conehead
 				for(int c = 0; c < 2; ++c) {
 					BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(RoofGraveEntity.this.world);
@@ -341,7 +341,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
-			if (probability2 <= 0.4) { // 50% x2 Buckethead
+			if (probability2 <= 0.4) { // 40% x2 Buckethead
 				for(int u = 0; u < 2; ++u) {
 					BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(RoofGraveEntity.this.world);
@@ -361,7 +361,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 				}
 			}
-			if (probability3 <= 0.5) { // 75% x2 Imps
+			if (probability3 <= 0.5) { // 50% x2 Imps
 				for(int h = 0; h < 2; ++h) {
 					BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 					ImpEntity impEntity = (ImpEntity) PvZEntity.IMP.create(RoofGraveEntity.this.world);
@@ -371,7 +371,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(impEntity);
 				}
 			}
-			if (probability8 <= 0.5) { // 65% x3 Imps
+			if (probability8 <= 0.5) { // 50% x3 Imps
 				for(int i = 0; i < 3; ++i) {
 					BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));
 					ImpEntity impEntity = (ImpEntity) PvZEntity.IMP.create(RoofGraveEntity.this.world);

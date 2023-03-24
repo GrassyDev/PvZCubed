@@ -323,7 +323,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
                 browncoatEntity.setOwner(DarkAgesGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
-            if (probability <= 0.4) { // 40% x1 Conehead
+            if (probability <= 0.35) { // 35% x1 Conehead
                 for (int h = 0; h < 1; ++h) {
                     BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANTCONE.create(DarkAgesGraveEntity.this.world);
@@ -333,7 +333,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
-			if (probability11 <= 0.2) { // 20% x1 Conehead
+			if (probability11 <= 0.15) { // 15% x1 Conehead
 				for (int h = 0; h < 2; ++h) {
 					BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANTCONE.create(DarkAgesGraveEntity.this.world);
@@ -344,7 +344,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (difficulty >= 1.529 + difficultymodifier) {
-				if (probability5 <= 0.25) { // 35% x1 Flag Zombie
+				if (probability5 <= 0.25) { // 25% x1 Flag Zombie
 					for (int f = 0; f < 1; ++f) {
 						double random = Math.random();
 						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
@@ -377,14 +377,14 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 			}
-            if (probability3 <= 0.15) { // 25% x1 Peasant Knight
+            if (probability3 <= 0.15) { // 15% x1 Buckethead Peasant
                 for(int c = 0; c < 1; ++c) {
 					BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
-					BrowncoatEntity peasantKnight = (BrowncoatEntity) PvZEntity.PEASANTKNIGHT.create(DarkAgesGraveEntity.this.world);
-					peasantKnight.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-					peasantKnight.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-					peasantKnight.setOwner(DarkAgesGraveEntity.this);
-					serverWorld.spawnEntityAndPassengers(peasantKnight);
+					BrowncoatEntity peasantBucket = (BrowncoatEntity) PvZEntity.PEASANTBUCKET.create(DarkAgesGraveEntity.this.world);
+					peasantBucket.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+					peasantBucket.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+					peasantBucket.setOwner(DarkAgesGraveEntity.this);
+					serverWorld.spawnEntityAndPassengers(peasantBucket);
 
 					BlockPos blockPos2 = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANT.create(DarkAgesGraveEntity.this.world);
@@ -394,7 +394,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
-			if (probability2 <= 0.15) { // 25% x1 Peasant Knight
+			if (probability2 <= 0.10) { // 10% x1 Peasant Knight
 				for(int c = 0; c < 1; ++c) {
 					BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
 					BrowncoatEntity peasantKnight = (BrowncoatEntity) PvZEntity.PEASANTKNIGHT.create(DarkAgesGraveEntity.this.world);
