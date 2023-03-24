@@ -15,9 +15,17 @@ public class FlagPeasantEntityModel extends AnimatedGeoModel<FlagPeasantEntity> 
 	public Identifier getTextureResource(FlagPeasantEntity object)
 	{
 		Identifier identifier;
-		identifier = new Identifier("pvzmod", "textures/entity/browncoat/peasant/peasant.png");
-		if (object.armless){
-			identifier = new Identifier("pvzmod", "textures/entity/browncoat/peasant/peasant_dmg1.png");
+		if (object.getHypno()) {
+			identifier = new Identifier("pvzmod", "textures/entity/browncoat/peasant/peasant_hypnotized.png");
+			if (object.armless) {
+				identifier = new Identifier("pvzmod", "textures/entity/browncoat/peasant/peasant_dmg1_hypnotized.png");
+			}
+		}
+		else {
+			identifier = new Identifier("pvzmod", "textures/entity/browncoat/peasant/peasant.png");
+			if (object.armless) {
+				identifier = new Identifier("pvzmod", "textures/entity/browncoat/peasant/peasant_dmg1.png");
+			}
 		}
 		return identifier;
 	}

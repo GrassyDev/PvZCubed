@@ -1,0 +1,42 @@
+{
+  "name": "Acid Goop-shroom",
+  "icon": "pvzmod:acidshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 148,
+  "advancement": "pvzmod:make_seashroom",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)28",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)x5 2.5 DMG/2s (Pierce)",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Wets Zombies and Corrodes Metal.",
+        "$(br2)$(#bd951a)Acid Goop-shroom's job is to suck the toxins from the water and recycle it by shooting it at zombies. They are serious about environmental activism."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/acidshroom.png"
+      ],
+      "title": "\uD83E\uDDEA Ailment Family",
+      "border": "true",
+      "text": "$(#25228d)Acid Goop-shrooms shoot goop that can pass through zombies and destroy metal."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/ailment/acidshroom"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Fume-shroom",
+        "$(br)$(#bd951a)Plants vs. Zombies: Garden Warfare: $()$(#ff0000)Goop-shroom",
+        "$(br)$(#bd951a)Plants vs. Zombies: Garden Warfare 2: $()$(#ff0000)Goop-shroom"
+      ]
+    }
+  ]
+}

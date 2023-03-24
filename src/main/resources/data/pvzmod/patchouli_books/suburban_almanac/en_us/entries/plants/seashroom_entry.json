@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)16",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1.5s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
-        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)10s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Corrodes Metal.",
         "$(br2)$(#bd951a)Sea-shroom has never seen the sea. It's in his name, he's heard loads about it, but he's just never found the time. One day, though, it'll go down."
       ]

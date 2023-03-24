@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SeashroomSeeds extends Item implements FabricItem {
-	public static int cooldown = 300;
+	public static int cooldown = 200;
     public SeashroomSeeds(Settings settings) {
         super(settings);
     }

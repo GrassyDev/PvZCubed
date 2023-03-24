@@ -1,0 +1,96 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 0.5, 0]
+			},
+			"bones": [
+				{
+					"name": "boi",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "body",
+					"parent": "boi",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4, 0, -6], "size": [8, 8, 12], "uv": [45, 31]},
+						{"origin": [-5, 0, -5], "size": [1, 8, 10], "uv": [64, 67]},
+						{"origin": [4, 0, -5], "size": [1, 8, 10], "uv": [61, 0]},
+						{"origin": [5, 0, -4], "size": [1, 8, 8], "uv": [31, 69]},
+						{"origin": [-6, 0, -4], "size": [1, 8, 8], "uv": [74, 19]}
+					]
+				},
+				{
+					"name": "eyelid",
+					"parent": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [3, 2.75, -4.25], "size": [1.25, 2.25, 2], "uv": [0, 87]},
+						{"origin": [-4.25, 2.75, -4.25], "size": [1.25, 2.25, 2], "uv": [0, 87]}
+					]
+				},
+				{
+					"name": "balloon",
+					"parent": "body",
+					"pivot": [0, 8.5, 1],
+					"rotation": [5, 0, 0]
+				},
+				{
+					"name": "inflatable",
+					"parent": "balloon",
+					"pivot": [0, 7.53425, 0.2156],
+					"cubes": [
+						{"origin": [-8, 8.53425, -6.7844], "size": [1, 10, 14], "uv": [43, 52]},
+						{"origin": [-7, 8.53425, -7.7844], "size": [14, 10, 16], "uv": [0, 0]},
+						{"origin": [-7, 18.53425, -6.7844], "size": [14, 1, 14], "uv": [0, 43]},
+						{"origin": [-7, 7.53425, -6.7844], "size": [14, 1, 14], "uv": [0, 27]},
+						{"origin": [7, 8.53425, -6.7844], "size": [1, 10, 14], "uv": [0, 59]}
+					]
+				},
+				{
+					"name": "mouth",
+					"parent": "balloon",
+					"pivot": [0, 14.53425, -7.7844],
+					"cubes": [
+						{"origin": [-1, 12.53425, -9.7844], "size": [3, 3, 1], "pivot": [0, -0.46575, 0.2156], "rotation": [-5, 0, 0], "uv": [0, 8]},
+						{"origin": [-2, 11.53425, -11.7844], "size": [5, 5, 2], "pivot": [0, -0.46575, 0.2156], "rotation": [-5, 0, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "balloon2",
+					"parent": "body",
+					"pivot": [0, -10.5, 0.4],
+					"rotation": [175, 0, 180]
+				},
+				{
+					"name": "inflatable2",
+					"parent": "balloon2",
+					"pivot": [0, -11.46575, -0.3844],
+					"cubes": [
+						{"origin": [-8, -8.46575, -7.3844], "size": [1, 8, 14], "uv": [43, 52]},
+						{"origin": [-7, -8.46575, -8.3844], "size": [14, 8, 16], "uv": [0, 0]},
+						{"origin": [-7, -0.46575, -7.3844], "size": [14, 1, 14], "uv": [0, 43]},
+						{"origin": [-7, -9.46575, -7.3844], "size": [14, 1, 14], "uv": [0, 27]},
+						{"origin": [7, -8.46575, -7.3844], "size": [1, 8, 14], "uv": [0, 59]}
+					]
+				},
+				{
+					"name": "mouth2",
+					"parent": "balloon2",
+					"pivot": [0, -4.46575, -8.3844],
+					"cubes": [
+						{"origin": [-1, -6.46575, -10.3844], "size": [3, 3, 1], "pivot": [0, -19.46575, -0.3844], "rotation": [-5, 0, 0], "uv": [0, 8]},
+						{"origin": [-2, -7.46575, -12.3844], "size": [5, 5, 2], "pivot": [0, -19.46575, -0.3844], "rotation": [-5, 0, 0], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

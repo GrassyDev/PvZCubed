@@ -12,7 +12,7 @@
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
         "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Poison. Summons x2 Buckethead Peasants, x1 Peasant Knight, x3 Conehead Peasants, and x6 Peasants behind them.",
-        "$(br2)$(#bd951a)They keep telling Peasant Zombie that there is no greater reward than being granted the banner to carry into battle. But when he sees other Peasant Zombies being granted cones, buckets, and even helms, he thinks maybe they're making that up so they don't hurt his feelings."
+        "$(br)$(#bd951a)The King tells him that there is no greater reward than carrying the banner into battle. He thinks that maybe the King is making that up."
       ]
     },
     {
@@ -32,6 +32,7 @@
         "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/fumeshroom_entry",
         "pvzmod:plants/hypnoshroom_entry",
+        "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/iceshroom_entry",
         "pvzmod:plants/threepeater_entry",
         "pvzmod:plants/peapod_entry",

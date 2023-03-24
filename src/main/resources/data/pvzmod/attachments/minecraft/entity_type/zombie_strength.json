@@ -2,9 +2,11 @@
   "replace": false,
   "values": {
     "pvzmod:berserker": 10,
+    "pvzmod:zombieking": 10,
     "pvzmod:defensiveend": 9,
     "pvzmod:gargantuar": 8,
     "pvzmod:football": 7,
+    "pvzmod:announcerimp": 7,
     "pvzmod:sundayedition": 7,
     "pvzmod:newyearimp": 7,
     "pvzmod:flagzombie": 6,

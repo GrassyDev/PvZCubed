@@ -220,6 +220,12 @@
   "item.pvzmod.snowqueenpeaproj": "Snow Queen Pea",
   "item.pvzmod.icespike": "Ice Spike",
 
+  "entity.pvzmod.acidshroom": "Acid Goop-shroom",
+  "item.pvzmod.acidshroom_seed_packet": "\uD83E\uDDEA Acid Goop-shroom Seed Packet",
+  "item.pvzmod.acidshroom_seed_packet.flavour": "\"Aaaa- Aaaaa- AAAAAA-\"",
+  "item.pvzmod.acidshroom_seed_packet.flavour2": "\"tchoo.\"",
+  "item.pvzmod.acidfume": "Acid Goop",
+
   "entity.pvzmod.dandelionweed": "Dandelion Weed",
   "item.pvzmod.dandelionweed_seed_packet": "\uD83D\uDDE1 Dandelion Weed Seed Packet",
   "item.pvzmod.dandelionweed_seed_packet.flavour": "\"OH MY GOSH! A PEASHOOTER! OH MY GOSH! OH MY GOSH!\"",
@@ -422,6 +428,10 @@
   "item.pvzmod.announcerimp_egg": "Announcer Imp",
   "entity.pvzmod.announcerimp_hypnotized": "Hypnotized Announcer Imp",
 
+  "entity.pvzmod.zombieking": "Zombie King",
+  "item.pvzmod.zombieking_egg": "Zombie King",
+  "entity.pvzmod.zombieking_hypnotized": "Hypnotized Zombie King",
+
   "entity.pvzmod.brickhead": "Brickhead Zombie",
   "item.pvzmod.brickhead_egg": "Brickhead Zombie",
   "entity.pvzmod.brickgear": "Brick",
@@ -479,6 +489,9 @@
 
   "entity.pvzmod.futuregrave": "Futuristic Gravestone",
   "item.pvzmod.futuregrave_spawn": "Futuristic Gravestone",
+
+  "entity.pvzmod.darkagesgrave": "Dark Ages Gravestone",
+  "item.pvzmod.darkagesgrave_spawn": "Dark Ages Gravestone",
 
   "itemGroup.pvzmod.blocks": "PvZ Blocks",
 

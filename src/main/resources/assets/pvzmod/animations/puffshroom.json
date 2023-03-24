@@ -486,7 +486,7 @@
 						},
 						"1.0": {
 							"vector": [0, 0, 0],
-							"easing": "easeInElastic"
+							"easing": "easeOutSine"
 						}
 					},
 					"position": {
@@ -507,7 +507,7 @@
 						},
 						"1.0": {
 							"vector": [0, -5, 0],
-							"easing": "easeInElastic"
+							"easing": "easeOutSine"
 						},
 						"1.5": {
 							"vector": [0, -3, 0],
@@ -617,7 +617,7 @@
 							"easing": "easeOutElastic"
 						},
 						"0.7083": {
-							"vector": [1, 1.2, 1],
+							"vector": [0.8, 1.2, 1],
 							"easing": "easeInElastic"
 						},
 						"1.0833": {

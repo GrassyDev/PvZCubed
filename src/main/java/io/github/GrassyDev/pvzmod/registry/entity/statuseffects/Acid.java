@@ -23,6 +23,6 @@ public class Acid extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-		entity.damage(DamageSource.GENERIC, 4F);
+		entity.damage(DamageSource.GENERIC, 8F);
     }
 }

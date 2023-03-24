@@ -7,7 +7,9 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PowderSnowBlock;
 import net.minecraft.entity.*;
@@ -288,10 +290,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	}
 
 	public void tick() {
-		super.tick();
 		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("metallic")) && this.hasStatusEffect(ACID)){
 			this.removeStatusEffect(ACID);
 		}
+		super.tick();
 		if (this.isInsideWall()){
 			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
 		}
@@ -305,7 +307,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 				this.setVelocity(0, -0.3, 0);
 			}
 		}
-		else if (!this.getHypno()) {
+		else if (!this.getHypno() && !(this instanceof ZombieKingEntity)) {
 			this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
@@ -334,7 +336,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.armless = this.getHealth() < this.getMaxHealth() / 2;
 		Entity entity = this;
 		if (this.getHealth() < this.getMaxHealth() / 2 && !(entity instanceof ZombiePropEntity) &&
-				!(entity instanceof GargantuarEntity) && !(entity instanceof ImpEntity)){
+				!(entity instanceof GargantuarEntity) && !(entity instanceof ImpEntity) && !(entity instanceof AnnouncerImpEntity) &&
+				!(entity instanceof ZombieKingEntity)){
 			if (this.pop && !this.dead){
 				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
 				pop = false;

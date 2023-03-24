@@ -9,7 +9,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -518,23 +518,22 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 
         protected void castSpell() {
 
-			EntityType<?> king = PvZEntity.DEFENSIVEEND;
+			EntityType<?> king = PvZEntity.ZOMBIEKING;
 			if (this.announcerImpEntity.getHypno()){
-				king = PvZEntity.DEFENSIVEENDHYPNO;
+				king = PvZEntity.ZOMBIEKINGHYPNO;
 			}
 
             ServerWorld serverWorld = (ServerWorld) AnnouncerImpEntity.this.world;
-            for(int b = 0; b < 1; ++b) { // 1 Screendoor
-                BlockPos blockPos = AnnouncerImpEntity.this.getBlockPos().add(0, 1, 0);
-				GargantuarEntity screendoorEntity = (GargantuarEntity) king.create(AnnouncerImpEntity.this.world);
-				screendoorEntity.initialize(serverWorld, AnnouncerImpEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-				screendoorEntity.refreshPositionAndAngles(blockPos, AnnouncerImpEntity.this.getYaw(), 0.0F);
-				screendoorEntity.setOwner(AnnouncerImpEntity.this);
-				if (this.announcerImpEntity.getHypno()){
-					screendoorEntity.createProp();
-				}
-				serverWorld.spawnEntityAndPassengers(screendoorEntity);
-				screendoorEntity.copyPositionAndRotation(screendoorEntity.getOwner());
+            for(int b = 0; b < 1; ++b) { // 1 ZombieKing
+                BlockPos blockPos = AnnouncerImpEntity.this.getBlockPos();
+				ZombieKingEntity zombieKingEntity = (ZombieKingEntity) king.create(AnnouncerImpEntity.this.world);
+				zombieKingEntity.initialize(serverWorld, AnnouncerImpEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+				zombieKingEntity.refreshPositionAndAngles(blockPos, AnnouncerImpEntity.this.getYaw(), 0.0F);
+				zombieKingEntity.setOwner(AnnouncerImpEntity.this);
+				serverWorld.spawnEntityAndPassengers(zombieKingEntity);
+				zombieKingEntity.copyPositionAndRotation(AnnouncerImpEntity.this);
+				zombieKingEntity.impYawn = AnnouncerImpEntity.this.getYaw() - 1;
+				zombieKingEntity.spawningTicks = 15;
 				AnnouncerImpEntity.this.discard();
             }
         }

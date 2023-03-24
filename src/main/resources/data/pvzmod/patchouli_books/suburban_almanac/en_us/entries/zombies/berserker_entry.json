@@ -28,7 +28,6 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/snowqueenpea_entry",
-        "pvzmod:plants/perfoomshroom_entry",
         "pvzmod:plants/doomshroom_entry",
         "pvzmod:plants/coconutcannon_entry",
         "pvzmod:plants/chomper_entry",
@@ -36,9 +35,18 @@
         "pvzmod:plants/iceshroom_entry",
         "pvzmod:plants/squash_entry",
         "pvzmod:plants/tallnut_entry",
-        "pvzmod:plants/narcissus_entry",
+        "pvzmod:plants/gatlingpea_entry",
+        "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/spikerock_entry",
         "pvzmod:plants/beeshooter_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/perfoomshroom_entry",
+        "pvzmod:plants/narcissus_entry"
       ]
     },
     {

@@ -108,6 +108,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.LOQUAT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.ACIDSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.DANDELIONWEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PERFOOMSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SMALLNUT_SEED_PACKET));
@@ -137,6 +138,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.ICESPIKE));
 				stacks.add(new ItemStack(ModItems.BUBBLES));
 				stacks.add(new ItemStack(ModItems.ARMORBUBBLE));
+				stacks.add(new ItemStack(ModItems.ACIDFUME));
 				stacks.add(new ItemStack(ModItems.SPIT));
 				stacks.add(new ItemStack(ModItems.JINGLE));
 			}).build();
@@ -170,6 +172,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PEASANTBUCKETEGG));
 				stacks.add(new ItemStack(ModItems.PEASANTKNIGHTEGG));
 				stacks.add(new ItemStack(ModItems.ANNOUNCERIMPEGG));
+				stacks.add(new ItemStack(ModItems.ZOMBIEKINGEGG));
 				stacks.add(new ItemStack(ModItems.BRICKHEADEGG));
 				stacks.add(new ItemStack(ModItems.SUNDAYEDITIONEGG));
 				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
@@ -188,6 +191,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.POOLGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.FUTUREGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.ROOFGRAVESPAWN));
+				stacks.add(new ItemStack(ModItems.DARKAGESGRAVESPAWN));
 			}).build();
 
 	public static final ItemGroup PVZBLOCKS = FabricItemGroupBuilder.create(
@@ -314,6 +318,9 @@ public class PvZCubed implements ModInitializer {
 	public static final Identifier IMPANNOUNCER = new Identifier("pvzmod:imp.announcer");
 	public static SoundEvent IMPANNOUNCEREVENT = new SoundEvent(IMPANNOUNCER);
 
+	public static final Identifier KNIGHTTRANSFORM = new Identifier("pvzmod:knight.transform");
+	public static SoundEvent KNIGHTTRANSFORMEVENT = new SoundEvent(KNIGHTTRANSFORM);
+
 	public static final Identifier ZOMBIEMOAN = new Identifier("pvzmod:zombie.moan");
 	public static SoundEvent ZOMBIEMOANEVENT = new SoundEvent(ZOMBIEMOAN);
 
@@ -384,6 +391,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARSMASH, GARGANTUARSMASHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPLAUNCH, IMPLAUNCHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPANNOUNCER, IMPANNOUNCEREVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.KNIGHTTRANSFORM, KNIGHTTRANSFORMEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEMOAN, ZOMBIEMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPMOAN, IMPMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.NEWSPAPERANGRY, NEWSPAPERANGRYEVENT);

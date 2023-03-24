@@ -30,6 +30,9 @@
     }
   },
   "rewards": {
+    "recipes": [
+      "pvzmod:plants/ailment/acidshroom"
+    ],
     "experience": 25
   }
 }

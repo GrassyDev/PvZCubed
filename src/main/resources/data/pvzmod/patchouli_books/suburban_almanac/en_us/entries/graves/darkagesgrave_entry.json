@@ -1,0 +1,40 @@
+{
+  "name": "Dark Ages Gravestone",
+  "icon": "pvzmod:darkagesgrave_spawn",
+  "category": "pvzmod:grave_category",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)170",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)20s",
+        "$(br)$(#bd951a)Spawn Condition: $()$(#ff0000)Common. Nocturnal.",
+        "$(br2)$(#bd951a)This grave is full of sickness and monarchy... that was redundant."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/darkagesgrave.png"
+      ],
+      "title": "Night Zombie",
+      "border": "true",
+      "text": "$(#25228d)Spawns Dark Ages Zombies."
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/peasant_entry",
+        "pvzmod:zombies/flagpeasant_entry",
+        "pvzmod:zombies/peasantcone_entry",
+        "pvzmod:zombies/peasantbucket_entry",
+        "pvzmod:zombies/peasantknight_entry",
+        "pvzmod:zombies/announcerimp_entry",
+        "pvzmod:zombies/zombieking_entry"
+      ],
+      "title": "Spawnable Zombies"
+    }
+  ]
+}

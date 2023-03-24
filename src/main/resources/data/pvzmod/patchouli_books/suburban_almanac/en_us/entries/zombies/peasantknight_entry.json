@@ -19,7 +19,7 @@
       "images": [
         "pvzmod:textures/gui/entries/peasantknight.png"
       ],
-      "title": "Basic Zombie",
+      "title": "Dark Ages Zombie",
       "border": "true",
       "text": "$(#25228d)His king appointed helm proves amazing protection from damage."
     },
@@ -34,6 +34,7 @@
         "pvzmod:plants/jalapeno_entry",
         "pvzmod:plants/chomper_entry",
         "pvzmod:plants/tallnut_entry",
+        "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/gatlingpea_entry",
         "pvzmod:plants/tanglekelp_entry",
         "pvzmod:plants/spikerock_entry",

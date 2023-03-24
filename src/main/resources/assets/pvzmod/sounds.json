@@ -169,6 +169,11 @@
       "pvzmod:imp_announcer"
     ]
   },
+  "knight.transform": {
+    "sounds": [
+      "pvzmod:knight_transform"
+    ]
+  },
   "zombie.moan": {
     "sounds": [
       "pvzmod:zombie_moan"

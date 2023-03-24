@@ -224,10 +224,11 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		propentity.startRiding(this);
 	}
 
-	public void createKnightProp(){
+	public ZombiePropEntity createKnightProp(){
 		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.KNIGHTGEAR, this.world);
 		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
 		propentity.startRiding(this);
+		return propentity;
 	}
 
 	public void createBrickProp(){
@@ -365,7 +366,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
     }
 
-	protected void initHypnoGoals(){
+	public void initHypnoGoals(){
 		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
 		////////// Hypnotized Zombie targets ///////
@@ -582,6 +583,15 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		}
 		else if (this.getType().equals(PvZEntity.TRASHCAN)){
 			hypnoType = PvZEntity.TRASHCANHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.PEASANT)){
+			hypnoType = PvZEntity.PEASANTHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.PEASANTCONE)){
+			hypnoType = PvZEntity.PEASANTCONEHYPNO;
+		}
+		else if (this.getType().equals(PvZEntity.PEASANTBUCKET)){
+			hypnoType = PvZEntity.PEASANTBUCKETHYPNO;
 		}
 		else if (this.getType().equals(PvZEntity.PEASANTKNIGHT)){
 			hypnoType = PvZEntity.PEASANTKNIGHTHYPNO;
