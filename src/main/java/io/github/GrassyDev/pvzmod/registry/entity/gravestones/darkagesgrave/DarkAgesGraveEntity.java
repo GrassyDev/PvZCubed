@@ -131,16 +131,16 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 		else if (this.spawnCounter == 2 && difficulty <= 1.509 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 3 && difficulty <= 1.609 + difficultymodifier){
+		else if (this.spawnCounter == 3 && difficulty <= 1.709 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 4 && difficulty <= 1.809 + difficultymodifier){
+		else if (this.spawnCounter == 4 && difficulty <= 1.909 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 5 && difficulty <= 2.309 + difficultymodifier){
+		else if (this.spawnCounter == 5 && difficulty <= 2.109 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 6 && difficulty >= 2.909 + difficultymodifier){
+		else if (this.spawnCounter == 6 && difficulty >= 2.309 + difficultymodifier){
 			this.kill();
 		}
 		else if (this.spawnCounter > 7){
@@ -352,7 +352,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 			}
 			if (serverWorld.toServerWorld().getTime() > 24000) {
 				if (difficulty >= 1.529 + difficultymodifier) {
-					if (probability5 <= 0.25) { // 25% x1 Flag Zombie
+					if (probability5 <= 0.15) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							double random = Math.random();
 							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));

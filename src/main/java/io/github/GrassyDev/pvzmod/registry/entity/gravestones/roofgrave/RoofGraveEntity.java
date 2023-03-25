@@ -135,16 +135,16 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 		else if (this.spawnCounter == 2 && difficulty <= 1.509 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 3 && difficulty <= 1.609 + difficultymodifier){
+		else if (this.spawnCounter == 3 && difficulty <= 1.709 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 4 && difficulty <= 1.809 + difficultymodifier){
+		else if (this.spawnCounter == 4 && difficulty <= 1.909 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 5 && difficulty <= 2.309 + difficultymodifier){
+		else if (this.spawnCounter == 5 && difficulty <= 2.109 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 6 && difficulty >= 2.909 + difficultymodifier){
+		else if (this.spawnCounter == 6 && difficulty >= 2.309 + difficultymodifier){
 			this.kill();
 		}
 		else if (this.spawnCounter > 7){
@@ -395,7 +395,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.529 + difficultymodifier) {
-					if (probability5 <= 0.4) { // 40% x1 Flag Zombie
+					if (probability5 <= 0.15) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							double random = Math.random();
 							EntityType<?> flagType;
