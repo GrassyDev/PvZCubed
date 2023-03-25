@@ -495,7 +495,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.609 + difficultymodifier) {
-					if (probability8 <= 0.5) { // 50% x1 Trash Can Zombie
+					if (probability8 <= 0.4) { // 50% x1 Trash Can Zombie
 						for (int g = 0; g < 1; ++g) {
 							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
 							BrowncoatEntity trashCan = (BrowncoatEntity) PvZEntity.TRASHCAN.create(BasicGraveEntity.this.world);

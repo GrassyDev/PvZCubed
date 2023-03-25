@@ -412,7 +412,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.529 + difficultymodifier) {
-					if (probability4 <= 0.50) { // 50% x1 Blastronaut Zombie
+					if (probability4 <= 0.40) { // 50% x1 Blastronaut Zombie
 						for (int p = 0; p < 1; ++p) {
 							BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
 							JetpackEntity blastronautEntity = (JetpackEntity) PvZEntity.BLASTRONAUT.create(FutureGraveEntity.this.world);
