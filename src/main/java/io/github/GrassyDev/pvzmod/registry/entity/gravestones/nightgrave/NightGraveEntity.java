@@ -132,19 +132,19 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 		if (this.spawnCounter == 1 && world.getTime() < 24000) {
 			this.kill();
 		}
-		else if (this.spawnCounter == 2 && difficulty <= 1.509){
+		else if (this.spawnCounter == 2 && difficulty <= 1.509 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 3 && difficulty <= 1.609){
+		else if (this.spawnCounter == 3 && difficulty <= 1.609 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 4 && difficulty <= 1.809){
+		else if (this.spawnCounter == 4 && difficulty <= 1.809 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 5 && difficulty <= 2.309){
+		else if (this.spawnCounter == 5 && difficulty <= 2.309 + difficultymodifier){
 			this.kill();
 		}
-		else if (this.spawnCounter == 6 && difficulty >= 2.909){
+		else if (this.spawnCounter == 6 && difficulty >= 2.909 + difficultymodifier){
 			this.kill();
 		}
 		else if (this.spawnCounter > 7){
