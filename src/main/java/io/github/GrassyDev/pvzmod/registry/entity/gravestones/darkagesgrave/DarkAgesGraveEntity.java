@@ -301,17 +301,17 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld) DarkAgesGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.darkAgesGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-			double probability = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability11 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability2 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability10 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability3 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability4 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability5 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability6 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability7 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability9 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability8 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability11 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability2 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability10 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability3 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability4 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability5 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability6 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability7 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability9 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability8 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
 
 
 

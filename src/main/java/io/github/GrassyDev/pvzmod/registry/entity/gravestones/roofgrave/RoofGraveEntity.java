@@ -191,7 +191,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 	public static boolean canRoofGraveSpawn(EntityType<? extends RoofGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
 		return world.getDifficulty() != Difficulty.PEACEFUL &&
-				world.toServerWorld().getTime() > 24000 &&
+				world.toServerWorld().getTime() > 42000 &&
 				world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.8 &&
 				canMobSpawn(type, world, spawnReason, pos, random) &&
 				pos.getY() >= 50 &&
@@ -302,16 +302,16 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld) RoofGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.roofGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-			double probability = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability11 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability2 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability21 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability3 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability4 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability5 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability6 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability7 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability8 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability11 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability2 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability21 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability3 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability4 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability5 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability6 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability7 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability8 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
 
 			for(int b = 0; b < 3; ++b) { // 100% x3 Browncoat
 				BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(-2 + RoofGraveEntity.this.random.nextInt(5), 0.1, -2 + RoofGraveEntity.this.random.nextInt(5));

@@ -300,15 +300,15 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
             ServerWorld serverWorld = (ServerWorld) PoolGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.poolGraveEntity.getBlockPos());
 			double difficulty = localDifficulty.getLocalDifficulty();
-			double probability = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability11 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability2 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability21 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability3 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability4 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability5 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability6 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
-			double probability7 = random.nextDouble() * Math.pow(difficulty, -1 * difficulty);
+			double probability = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability11 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability2 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability21 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability3 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability4 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability5 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability6 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability7 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
 
             for(int b = 0; b < 2; ++b) { // 100% x2 Browncoat
                 BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
