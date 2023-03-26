@@ -1,0 +1,94 @@
+{
+  "name": "Tip: Effects",
+  "icon": "pvzmod:firepea",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "Plants have multiple different properties, one of them is the damage Effect.",
+        "$(br2)Effects are diverse, doing continuous damage, slowing down Zombies, dealing more damage to specific types, etc.",
+        "$(br2)Here's a list of all of the different effects:"
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Chill",
+        "$(br2)Chill slows down Zombies, giving plants more time to finish them off.",
+        "$(br2)Damage done by zombies is halved.",
+        "$(br2)Moves based on animation like Gargantuar's smash are slowed down by half.",
+        "$(br2)Machine can't be Chilled."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Frozen",
+        "$(br2)Frozen completely stops Zombies in their tracks.",
+        "$(br2)Frozen Zombies can't attack.",
+        "$(br2)Frozen Zombies can't do their abilities.",
+        "$(br2)Frozen instantly kills zombies that swim and flying Zombies.",
+        "$(br2)Machine can't be Frozen."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Fire",
+        "$(br)Sets Zombies on fire, unless they are wet. Wet Zombies prevent Fire Splash, halving direct damage as well.",
+        "$(br)Zombies on fire take 1 DMG/sec if they are not being attacked.",
+        "$(br2)Zombies get Warm, which prevents Chill from being applied.",
+        "$(br)Thaws Chilled or Frozen Zombies.",
+        "$(br2)Instantly destroys Paper."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Water",
+        "$(br2)Wet Zombies, extinguishing and preventing Fire for a short time.",
+        "$(br2)Deals x5 damage against Paper, and twice the damage against Stone."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Poison",
+        "$(br2)Deals continuous direct damage to the zombie, ignoring armor.",
+        "$(br2)Deals 1.5 DMG/0.5sec.",
+        "$(br2)Can only be applied to Zombies with Flesh (default type)."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Acid",
+        "$(br2)Deals continuous damage to Metallic Zombies.",
+        "$(br2)Deals 8 DMG/0.5sec.",
+        "$(br2)Can only be applied to Metal."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Hypno",
+        "$(br2)Transforms the Zombie into a Hypnotized version of itself.",
+        "$(br2)Most of the time they have their abilities, save a few exceptions."
+      ]
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:plants/peashooter_entry",
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/navybean_entry",
+        "pvzmod:plants/torchwood_entry",
+        "pvzmod:plants/scaredyshroom_entry",
+        "pvzmod:plants/seashroom_entry",
+        "pvzmod:plants/hypnoshroom_entry"
+      ]
+    }
+  ]
+}

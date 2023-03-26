@@ -51,6 +51,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.Objects;
+
 public class NightGraveEntity extends GraveEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";
@@ -197,7 +199,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 				world.getLightLevel(LightType.SKY, pos) < 2 ) &&
 				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type)  &&
 				!checkVillager(Vec3d.ofCenter(pos), world) &&
-				!checkPlant(Vec3d.ofCenter(pos), world);
+				!checkPlant(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_GRAVE_SPAWN);
 	}
 
 	/** /~*~//~*GOALS*~//~*~/ **/

@@ -263,9 +263,14 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			}
 			this.setNoGravity(true);
 			this.setFlying(true);
-			if (lastPos == firstPos && this.CollidesWithPlant() == null && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30){
-				this.setVelocity(0, 0, 0);
+			if (this.isInsideWaterOrBubbleColumn()) {
 				this.addVelocity(0, 0.3, 0);
+			}
+			if (firstPos != null) {
+				if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant() == null && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30) {
+					this.setVelocity(0, 0, 0);
+					this.addVelocity(0, 0.3, 0);
+				}
 			}
 			if (--hoverTicks <= 0){
 				this.hoverTicks = 20;
@@ -371,7 +376,12 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		return PvZCubed.ZOMBIEMOANEVENT;
+		if (!this.getHypno()) {
+			return PvZCubed.ZOMBIEMOANEVENT;
+		}
+		else {
+			return PvZCubed.SILENCEVENET;
+		}
 	}
 
 	public EntityGroup getGroup() {

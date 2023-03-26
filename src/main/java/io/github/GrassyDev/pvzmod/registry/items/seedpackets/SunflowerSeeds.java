@@ -137,10 +137,11 @@ public class SunflowerSeeds extends Item implements FabricItem {
 					 }
 					plantEntity.sunProducingTime = (int) (CONFIG.nestedSun.sunflowerSecInitial() * 20);
                     world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-					plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
-					plantEntity.dropItem(ModItems.SUN);
-					plantEntity.dropItem(ModItems.SUN);
-
+					if (CONFIG.nestedSun.sunflowerDropSun()){
+						plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+						plantEntity.dropItem(ModItems.SUN);
+						plantEntity.dropItem(ModItems.SUN);
+					}
 
 					PlayerEntity user = context.getPlayer();
 					if (!user.getAbilities().creativeMode) {

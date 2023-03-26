@@ -7,6 +7,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
 import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.*;
 import io.github.GrassyDev.pvzmod.registry.world.gen.entity.PvZEntitySpawn;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
@@ -15,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.GameRules;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.registry.attachment.api.RegistryEntryAttachment;
@@ -51,6 +54,11 @@ public class PvZCubed implements ModInitializer {
 	public static final StatusEffect WET = new Wet();
 	public static final StatusEffect PVZPOISON = new PvZPoison();
 	public static final StatusEffect ACID = new Acid();
+
+	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_PLANT_SPAWN =
+			GameRuleRegistry.register("doPlantSpawn", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(true));
+	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_GRAVE_SPAWN =
+			GameRuleRegistry.register("doGraveSpawn", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(true));
 
 	public static final String MOD_ID = "pvzmod";
 

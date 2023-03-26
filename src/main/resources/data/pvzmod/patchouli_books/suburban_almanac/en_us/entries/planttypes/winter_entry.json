@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Winter family is composed of cold plants",
-        "$(br2)$()$(#bd951a)Freezes zombies, slowing them down and halving their eating damage (zombies with telegraphed moves like Gargantuar have those slowed down by half). Some also freeze them completely. Doesn't freeze the zombie if it only hits their shield or they are warm."
+        "$(br2)$()$(#bd951a)Inflicts either Chill or Freeze."
         ]
     },
     {

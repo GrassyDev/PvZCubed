@@ -71,6 +71,11 @@ public abstract class PlantEntity extends GolemEntity {
 
 	public boolean naturalSpawn;
 
+	@Override
+	public boolean canBeLeashedBy(PlayerEntity player) {
+		return false;
+	}
+
 	protected PlantEntity(EntityType<? extends GolemEntity> entityType, World world) {
 		super(entityType, world);
 	}

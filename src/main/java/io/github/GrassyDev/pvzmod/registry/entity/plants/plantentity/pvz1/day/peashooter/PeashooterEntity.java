@@ -46,6 +46,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 public class PeashooterEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
@@ -262,7 +263,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 
 	public static boolean canPeashooterSpawn(EntityType<? extends PeashooterEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return checkVillager(Vec3d.ofCenter(pos), world) && !checkPeashooter(Vec3d.ofCenter(pos), world);
+		return checkVillager(Vec3d.ofCenter(pos), world) && !checkPeashooter(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
 	}
 
 	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {

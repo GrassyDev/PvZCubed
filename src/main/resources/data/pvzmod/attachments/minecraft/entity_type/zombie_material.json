@@ -15,6 +15,12 @@
     "pvzmod:screendoorshield": "metallic",
     "pvzmod:trashcanbin": "metallic",
     "pvzmod:knightgear": "metallic",
-    "pvzmod:towergear": "stone"
+    "pvzmod:towergear": "stone",
+    "pvzmod:basicgrave": "stone",
+    "pvzmod:nightgrave": "stone",
+    "pvzmod:poolgrave": "stone",
+    "pvzmod:roofgrave": "stone",
+    "pvzmod:futuregrave": "stone",
+    "pvzmod:darkagesgrave": "stone"
   }
 }

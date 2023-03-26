@@ -349,7 +349,12 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
     }
 
 	protected SoundEvent getAmbientSound() {
-		return PvZCubed.ZOMBIEMOANEVENT;
+		if (!this.getHypno()) {
+			return PvZCubed.ZOMBIEMOANEVENT;
+		}
+		else {
+			return PvZCubed.SILENCEVENET;
+		}
 	}
 
 	public EntityGroup getGroup() {

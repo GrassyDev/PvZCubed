@@ -50,6 +50,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.Objects;
+
 public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";
@@ -195,7 +197,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 				pos.getY() >= 50 &&
 				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type) &&
 				!checkVillager(Vec3d.ofCenter(pos), world) &&
-				!checkPlant(Vec3d.ofCenter(pos), world);
+				!checkPlant(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_GRAVE_SPAWN);
 	}
 
 

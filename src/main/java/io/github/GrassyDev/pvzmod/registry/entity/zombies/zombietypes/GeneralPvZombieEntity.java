@@ -358,6 +358,13 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.submergedInWater){
 			this.jump();
 		}
+		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("flesh")) && this.hasStatusEffect(PVZPOISON) && !(this instanceof ZombiePropEntity)){
+			this.removeStatusEffect(PVZPOISON);
+		}
+		if (this.hasStatusEffect(WARM) || this.isOnFire()){
+			this.removeStatusEffect(FROZEN);
+			this.removeStatusEffect(ICE);
+		}
 		super.tick();
 	}
 

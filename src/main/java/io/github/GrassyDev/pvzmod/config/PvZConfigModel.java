@@ -14,6 +14,7 @@ public class PvZConfigModel {
 	public static class PvZSunNest {
 		public float sunflowerSec = 120f;
 		public float sunflowerSecInitial = 120f;
+		public boolean sunflowerDropSun = true;
 		public float twinSunflowerSec = 120f;
 		public float sunshroomSec = 120f;
 		public float sunshroomSecInitial = 5f;

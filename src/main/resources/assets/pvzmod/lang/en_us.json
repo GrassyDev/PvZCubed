@@ -1,10 +1,14 @@
 {
+  "gamerule.doPlantSpawn": "[PVZ] Plants Spawn (Turn off for Superflat)",
+  "gamerule.doGraveSpawn": "[PVZ] Graves Spawn (Turn off for Superflat)",
+
   "text.config.pvz-config.title": "Plants vs. Zombies: Cubed",
 
   "text.config.pvz-config.section.sunProduction": "Sun Production Settings",
   "text.config.pvz-config.category.nestedSun": "Sun Production Settings",
   "text.config.pvz-config.option.nestedSun.sunflowerSec": "Sunflower Production in Seconds",
   "text.config.pvz-config.option.nestedSun.sunflowerSecInitial": "Sunflower Production Initial in Seconds",
+  "text.config.pvz-config.option.nestedSun.sunflowerDropSun": "Sunflower Drops Sun when Planted?",
   "text.config.pvz-config.option.nestedSun.twinSunflowerSec": "Twin Sunflower Production in Seconds",
   "text.config.pvz-config.option.nestedSun.sunshroomSec": "Sun-shroom Production in Seconds",
   "text.config.pvz-config.option.nestedSun.sunshroomSecInitial": "Sun-shroom Production Initial in Seconds",

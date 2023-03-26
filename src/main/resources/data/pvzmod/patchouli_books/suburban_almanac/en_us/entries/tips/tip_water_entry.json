@@ -17,7 +17,7 @@
       "type": "text",
       "text": [
         "$(br2)When Zombies enter water, they will start swimming. When a zombie is swimming, they can't use movement-based abilities (like Tackle)",
-        "$(br2)Freeze slows down swimming zombies, while a complete freeze kills the zombie if it's swimming. Zombies on water are immune to fire damage and will prevent fire splash."
+        "$(br2)Chill slows down swimming zombies, while a Freeze kills the zombie if it's swimming. Zombies on water are immune to fire damage and will prevent fire splash."
       ]
     },
     {

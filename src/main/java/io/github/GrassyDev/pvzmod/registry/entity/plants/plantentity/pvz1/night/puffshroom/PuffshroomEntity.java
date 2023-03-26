@@ -51,6 +51,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class PuffshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
@@ -379,7 +380,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 		BlockPos blockPos = pos.down();
 		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() >= 2 ||
 				world.getLightLevel(LightType.SKY, pos) < 2 ||
-				world.getBiome(blockPos).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS));
+				world.getBiome(blockPos).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
 	}
 
 

@@ -27,6 +27,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZPOISON;
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_MATERIAL;
+
 public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	/** For Zombies that can summon other zombies**/
@@ -67,6 +70,9 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	public EntityType<? extends GraveEntity> entityBox = PvZEntity.BASICGRAVESTONE;
 
 	public void tick() {
+		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("flesh")) && this.hasStatusEffect(PVZPOISON)){
+			this.removeStatusEffect(PVZPOISON);
+		}
 		super.tick();
 		if (this.getWorld().getDifficulty().equals(Difficulty.HARD)){
 			difficultymodifier = 0.75f;

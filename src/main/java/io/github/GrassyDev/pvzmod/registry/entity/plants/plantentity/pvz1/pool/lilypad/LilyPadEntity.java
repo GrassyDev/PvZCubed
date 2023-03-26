@@ -3,8 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.cattail.CattailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.cattail.CattailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.LilypadHats;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.CattailSeeds;
 import net.fabricmc.api.EnvType;
@@ -50,7 +50,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-;
+;import java.util.Objects;
 
 public class LilyPadEntity extends PlantEntity implements IAnimatable {
 
@@ -421,6 +421,6 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 	}
 
 	public static boolean canLilyPadSpawn(EntityType<? extends LilyPadEntity> entityType, WorldAccess worldAccess, SpawnReason reason, BlockPos pos, RandomGenerator random) {
-		return worldAccess.isSkyVisibleAllowingSea(pos) && worldAccess.getBlockState(pos.down()).isOf(Blocks.WATER);
+		return worldAccess.isSkyVisibleAllowingSea(pos) && worldAccess.getBlockState(pos.down()).isOf(Blocks.WATER) && Objects.requireNonNull(worldAccess.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
 	}
 }
