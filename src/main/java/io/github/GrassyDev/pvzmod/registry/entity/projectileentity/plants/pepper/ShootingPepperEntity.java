@@ -48,6 +48,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
@@ -190,7 +192,7 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 			else {
 				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, 1F);
 			}
-			float damage = 3F;
+			float damage = CONFIG.nestedProjDMG.pepperDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

@@ -44,6 +44,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
@@ -166,12 +168,9 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			Entity entity2 = entityHitResult.getEntity();
-			float damage;
+			float damage = CONFIG.nestedProjDMG.iceSpikeDMG();
 			if (((LivingEntity) entity).hasStatusEffect(PvZCubed.ICE) || ((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
-				damage = 4F;
-			}
-			else {
-				damage = 2F;
+				damage = damage * CONFIG.nestedProjDMG.iceSpikeMultiplier();
 			}
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;

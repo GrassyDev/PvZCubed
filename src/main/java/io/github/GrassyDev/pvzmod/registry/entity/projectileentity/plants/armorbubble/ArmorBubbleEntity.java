@@ -42,6 +42,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class ArmorBubbleEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
@@ -146,7 +148,7 @@ public class ArmorBubbleEntity extends ThrownItemEntity implements IAnimatable {
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-			float damage = 2F;
+			float damage = CONFIG.nestedProjDMG.armorBubbleDMG();
 			if ("paper".equals(zombieMaterial)) {
 				damage = damage * 5;
 			}

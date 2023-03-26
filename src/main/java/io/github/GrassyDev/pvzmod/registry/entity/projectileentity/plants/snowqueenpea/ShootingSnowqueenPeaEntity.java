@@ -49,6 +49,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
@@ -181,7 +183,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 				}
 			}
 			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.2F, 1F);
-			float damage = 4F;
+			float damage = CONFIG.nestedProjDMG.snowQueenPeaDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

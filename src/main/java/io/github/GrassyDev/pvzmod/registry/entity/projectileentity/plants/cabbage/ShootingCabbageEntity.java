@@ -40,6 +40,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
@@ -160,7 +162,7 @@ public class ShootingCabbageEntity extends ThrownItemEntity implements IAnimatab
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-			float damage = 4F;
+			float damage = CONFIG.nestedProjDMG.cabbageDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

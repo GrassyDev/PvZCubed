@@ -40,6 +40,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
@@ -204,7 +206,7 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()) {
 					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 					this.dropItem(ModItems.SUN);
-					this.sunProducingTime = 2400;
+					this.sunProducingTime = (int) (CONFIG.nestedSun.twinSunflowerSec() * 20);
 					secondSunTick = 20;
 					zombieSunCheck = false;
 					secondSunStart = true;
@@ -232,7 +234,7 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
 			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 			this.dropItem(ModItems.SUN);
-			this.sunProducingTime = 2400;
+			this.sunProducingTime = (int) (CONFIG.nestedSun.twinSunflowerSec() * 20);
 			secondSunTick = 6;
 			zombieSunCheck = false;
 			secondSunStart = true;

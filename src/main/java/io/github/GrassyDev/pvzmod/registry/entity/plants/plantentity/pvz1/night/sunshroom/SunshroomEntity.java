@@ -40,6 +40,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class SunshroomEntity extends PlantEntity implements IAnimatable {
 
 	private static final TrackedData<Integer> SUN_SPEED;
@@ -185,14 +187,14 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
 					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 					double probability = this.random.nextDouble();
-					if (probability <= 0.45) { // 45%
+					if (probability <= CONFIG.nestedSun.sunshroomSunChance()) { // 45%
 						this.dropItem(ModItems.SMALLSUN);
-					} else if (probability <= 0.75) { // 0.70 - 0.40 = 30%
+					} else if (probability <= CONFIG.nestedSun.sunshroomSun2ndChance()) { // 0.70 - 0.40 = 30%
 						this.dropItem(ModItems.SUN);
 					} else { // 25%
 						this.dropItem(ModItems.LARGESUN);
 					}
-					this.sunProducingTime = 2400;
+					this.sunProducingTime = (int) (CONFIG.nestedSun.sunshroomSec() * 20);
 					this.zombieSunCheck = false;
 					this.currentFuseTime = this.sunProducingTime;
 				}

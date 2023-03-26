@@ -14,6 +14,7 @@ repositories {
 		name = "TerraformersMC"
 		url = "https://maven.terraformersmc.com/"
 	}
+	maven { url 'https://maven.wispforest.io' }
 }
 dependencies {
 	minecraft libs.minecraft
@@ -31,6 +32,9 @@ dependencies {
 	modImplementation "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
 	modCompileOnly "dev.emi:emi:0.6.3+1.19.2:api"
 	modLocalRuntime "dev.emi:emi:0.6.3+1.19.2"
+	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+	include "io.wispforest:owo-sentinel:${project.owo_version}"
+	annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_version}")
 }
 
 processResources {

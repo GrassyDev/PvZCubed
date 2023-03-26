@@ -32,6 +32,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class JingleEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
@@ -105,7 +107,7 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		float damage = 8F;
+		float damage = CONFIG.nestedProjDMG.jingleDMG();
 		ZombiePropEntity zombiePropEntity = null;
 		for (Entity entity1 : entity.getPassengerList()) {
 			if (entity1 instanceof ZombiePropEntity zpe) {

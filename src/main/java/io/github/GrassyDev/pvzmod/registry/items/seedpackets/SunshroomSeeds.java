@@ -2,10 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -15,8 +14,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -24,11 +21,12 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
-import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
 
 public class SunshroomSeeds extends Item implements FabricItem {
 	public static int cooldown = 100;
@@ -106,7 +104,7 @@ public class SunshroomSeeds extends Item implements FabricItem {
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					world.spawnEntity(plantEntity);
-					plantEntity.sunProducingTime = 100;
+					plantEntity.sunProducingTime = (int) (CONFIG.nestedSun.sunshroomSecInitial() * 20);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 					PlayerEntity user = context.getPlayer();

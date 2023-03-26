@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cocon
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -44,6 +43,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Iterator;
 import java.util.List;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
 
 public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -131,7 +132,7 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			entity.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 0.8F, 1F);
-			float damage = 90F;
+			float damage = CONFIG.nestedProjDMG.coconutDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

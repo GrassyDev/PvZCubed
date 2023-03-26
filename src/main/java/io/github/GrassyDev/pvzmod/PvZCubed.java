@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod;
 
+import io.github.GrassyDev.pvzmod.config.PvZConfig;
 import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
@@ -22,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
 
 public class PvZCubed implements ModInitializer {
+
+	public static final PvZConfig CONFIG = PvZConfig.createAndLoad();
 	// This logger is used to write text to the console and the log file.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Plants vs. Zombies Cubed");
 

@@ -46,6 +46,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+
 public class SunflowerEntity extends PlantEntity implements IAnimatable {
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
@@ -57,7 +59,7 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
     public int sunProducingTime;
 
 
-	int raycastDelay = 2400;
+	int raycastDelay = (int) (CONFIG.nestedSun.sunflowerSec() * 20);
 
 	Entity prevZombie;
 
@@ -214,7 +216,7 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 							this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2) {
 						this.dropItem(ModItems.SUN);
 					}
-					this.sunProducingTime = 2400;
+					this.sunProducingTime = (int) (CONFIG.nestedSun.sunflowerSec() * 20);
 					this.zombieSunCheck = false;
 					this.currentFuseTime = this.sunProducingTime;
 				}
