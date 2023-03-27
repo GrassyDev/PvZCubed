@@ -49,7 +49,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.List;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -198,7 +198,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 			else {
 				entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.2F, 1F);
 			}
-			float damage = CONFIG.nestedProjDMG.snowPeaDMG();
+			float damage = PVZCONFIG.nestedProjDMG.snowPeaDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

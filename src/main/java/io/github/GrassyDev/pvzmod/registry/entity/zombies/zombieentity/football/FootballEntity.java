@@ -61,8 +61,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
@@ -515,7 +514,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.footballH());
 	}
 
 	public static DefaultAttributeContainer.Builder createBerserkerAttributes() {
@@ -523,7 +522,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.21D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 27D);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.berserkerH());
 	}
 
 	protected SoundEvent getAmbientSound() {

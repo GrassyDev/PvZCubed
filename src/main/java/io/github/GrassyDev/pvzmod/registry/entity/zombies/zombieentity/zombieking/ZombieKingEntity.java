@@ -51,8 +51,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.FROZEN;
-import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
@@ -345,7 +344,7 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 100D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.zombiekingH());
     }
 
 	protected SoundEvent getAmbientSound() {

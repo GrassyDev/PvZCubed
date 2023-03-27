@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class SunflowerSeeds extends Item implements FabricItem {
 	public static int cooldown = 50;
@@ -135,9 +135,9 @@ public class SunflowerSeeds extends Item implements FabricItem {
 						 double fg = plantEntity.getZ() + (double) MathHelper.nextBetween(randomGenerator, -0.4F, 0.4F);
 						 plantEntity.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), dg, eg, fg, 0.0, 0.0, 0.0);
 					 }
-					plantEntity.sunProducingTime = (int) (CONFIG.nestedSun.sunflowerSecInitial() * 20);
+					plantEntity.sunProducingTime = (int) (PVZCONFIG.nestedSun.sunflowerSecInitial() * 20);
                     world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-					if (CONFIG.nestedSun.sunflowerDropSun()){
+					if (PVZCONFIG.nestedSun.sunflowerDropSun()){
 						plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
 						plantEntity.dropItem(ModItems.SUN);
 						plantEntity.dropItem(ModItems.SUN);

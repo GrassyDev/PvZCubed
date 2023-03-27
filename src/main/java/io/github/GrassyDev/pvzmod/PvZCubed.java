@@ -27,7 +27,7 @@ import software.bernie.geckolib3.GeckoLib;
 
 public class PvZCubed implements ModInitializer {
 
-	public static final PvZConfig CONFIG = PvZConfig.createAndLoad();
+	public static final PvZConfig PVZCONFIG = PvZConfig.createAndLoad();
 	// This logger is used to write text to the console and the log file.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Plants vs. Zombies Cubed");
 

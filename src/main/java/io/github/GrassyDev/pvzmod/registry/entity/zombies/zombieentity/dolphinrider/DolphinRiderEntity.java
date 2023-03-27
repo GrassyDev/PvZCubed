@@ -418,7 +418,7 @@ public class DolphinRiderEntity extends PvZombieEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.26D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 50D);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.dolphinH());
 	}
 
 	protected SoundEvent getAmbientSound() {

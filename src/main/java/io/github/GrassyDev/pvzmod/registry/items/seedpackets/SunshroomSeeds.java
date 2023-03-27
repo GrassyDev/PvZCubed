@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class SunshroomSeeds extends Item implements FabricItem {
 	public static int cooldown = 100;
@@ -104,7 +104,7 @@ public class SunshroomSeeds extends Item implements FabricItem {
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
 					world.spawnEntity(plantEntity);
-					plantEntity.sunProducingTime = (int) (CONFIG.nestedSun.sunshroomSecInitial() * 20);
+					plantEntity.sunProducingTime = (int) (PVZCONFIG.nestedSun.sunshroomSecInitial() * 20);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 					PlayerEntity user = context.getPlayer();

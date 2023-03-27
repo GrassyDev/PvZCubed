@@ -32,6 +32,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "shieldcontroller";
@@ -134,7 +136,7 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 212D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.brickH());
     }
 
 	public static DefaultAttributeContainer.Builder createTowerGearAttributes() {
@@ -142,7 +144,7 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 53D);
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.coneTowerH());
 	}
 
 	protected SoundEvent getAmbientSound() {

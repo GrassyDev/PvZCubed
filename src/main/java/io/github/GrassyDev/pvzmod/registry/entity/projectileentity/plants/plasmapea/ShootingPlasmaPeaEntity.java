@@ -44,7 +44,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -158,7 +158,7 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			LivingEntity entity2 = (LivingEntity) entityHitResult.getEntity();
-			float damage = CONFIG.nestedProjDMG.plasmaPeaDMG();
+			float damage = PVZCONFIG.nestedProjDMG.plasmaPeaDMG();
 			if (entity2 != entityStore) {
 				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&

@@ -33,7 +33,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class AcidFumeEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -121,7 +121,7 @@ public class AcidFumeEntity extends ThrownItemEntity implements IAnimatable {
 				  !(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			Entity entity2 = entityHitResult.getEntity();
-			float damage = CONFIG.nestedProjDMG.acidFumeDMG();
+			float damage = PVZCONFIG.nestedProjDMG.acidFumeDMG();
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			if ("paper".equals(zombieMaterial)) {
 				damage = damage * 5;

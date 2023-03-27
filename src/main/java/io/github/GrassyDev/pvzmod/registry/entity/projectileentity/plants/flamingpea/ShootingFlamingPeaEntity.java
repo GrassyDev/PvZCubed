@@ -49,7 +49,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -173,7 +173,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) || this.canHitFlying)) {
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, 1F);
-			float damage = CONFIG.nestedProjDMG.flamingPeaDMG();
+			float damage = PVZCONFIG.nestedProjDMG.flamingPeaDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

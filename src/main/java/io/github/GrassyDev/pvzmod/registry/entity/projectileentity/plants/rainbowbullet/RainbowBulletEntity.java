@@ -40,7 +40,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class RainbowBulletEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -160,7 +160,7 @@ public class RainbowBulletEntity extends ThrownItemEntity implements IAnimatable
 				default -> PvZCubed.PEAHITEVENT;
 			};
 			entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-			float damage = CONFIG.nestedProjDMG.rainbowBulletDMG();
+			float damage = PVZCONFIG.nestedProjDMG.rainbowBulletDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

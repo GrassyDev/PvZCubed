@@ -44,7 +44,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.List;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -132,7 +132,7 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			entity.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 0.8F, 1F);
-			float damage = CONFIG.nestedProjDMG.coconutDMG();
+			float damage = PVZCONFIG.nestedProjDMG.coconutDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

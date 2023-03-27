@@ -35,7 +35,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.CONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -140,7 +140,7 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 				!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			Entity entity2 = entityHitResult.getEntity();
-			float damage = CONFIG.nestedProjDMG.spikeDMG();
+			float damage = PVZCONFIG.nestedProjDMG.spikeDMG();
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {

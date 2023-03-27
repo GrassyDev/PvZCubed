@@ -10,15 +10,19 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -42,6 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	public SuperFanImpEntity(EntityType<? extends ImpEntity> entityType, World world) {
@@ -471,5 +476,29 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 			itemStack = ModItems.SUPERFANIMPEGG.getDefaultStack();
 		}
 		return itemStack;
+	}
+
+
+	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	@Override
+	public double getMountedHeightOffset() {
+		return 0;
+	}
+
+	public boolean canWalkOnFluid(FluidState state) {
+		return state.isIn(FluidTags.WATER);
+	}
+
+	protected boolean shouldSwimInFluids() {
+		return true;
+	}
+
+	public static DefaultAttributeContainer.Builder createSuperFanImpAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.26D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.superFanH());
 	}
 }

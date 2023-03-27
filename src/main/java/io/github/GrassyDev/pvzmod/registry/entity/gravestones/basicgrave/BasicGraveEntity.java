@@ -52,6 +52,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Objects;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";
@@ -166,7 +168,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 140D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.basicGraveH());
     }
 
 	protected SoundEvent getDeathSound() {
