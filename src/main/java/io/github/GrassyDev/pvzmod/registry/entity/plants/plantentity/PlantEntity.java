@@ -110,6 +110,13 @@ public abstract class PlantEntity extends GolemEntity {
 		super.discard();
 	}
 
+	@Override
+	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
+		if (this.world.getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_DROP)){
+			super.dropLoot(source, causedByPlayer);
+		}
+	}
+
 	public HitResult amphibiousRaycast(double maxDistance) {
 		Vec3d vec3d1 = this.getPos();
 		Vec3d vec3d2 = new Vec3d(vec3d1.x, vec3d1.y - maxDistance, vec3d1.z);

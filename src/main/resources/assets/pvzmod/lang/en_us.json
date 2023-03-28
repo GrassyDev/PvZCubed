@@ -1,6 +1,8 @@
 {
   "gamerule.doPlantSpawn": "[PVZ] Plants Spawn (Turn off for Superflat)",
   "gamerule.doGraveSpawn": "[PVZ] Graves Spawn (Turn off for Superflat)",
+  "gamerule.doPlantdrop": "[PVZ] Plants Drop Loot",
+  "gamerule.doZombieDrop": "[PVZ] Zombies Drop Loot",
 
   "text.config.pvz-config.title": "Plants vs. Zombies: Cubed",
 

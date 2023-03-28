@@ -62,6 +62,12 @@ public class PvZCubed implements ModInitializer {
 	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_GRAVE_SPAWN =
 			GameRuleRegistry.register("doGraveSpawn", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(true));
 
+	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_PLANT_DROP =
+			GameRuleRegistry.register("doPlantDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
+
+	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_ZOMBIE_DROP =
+			GameRuleRegistry.register("doZombieDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
+
 	public static final String MOD_ID = "pvzmod";
 
 	public static final ItemGroup PVZPLANTS = FabricItemGroupBuilder.create(

@@ -63,6 +63,13 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		return true;
 	}
 
+	@Override
+	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
+		if (this.world.getGameRules().getBoolean(PvZCubed.SHOULD_ZOMBIE_DROP)){
+			super.dropLoot(source, causedByPlayer);
+		}
+	}
+
 	static {
 		SPELL = DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}

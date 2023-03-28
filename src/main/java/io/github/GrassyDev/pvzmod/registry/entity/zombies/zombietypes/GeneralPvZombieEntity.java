@@ -163,29 +163,40 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	public void onDeath(DamageSource source) {
-		if (!(this instanceof ZombiePropEntity)) {
-			double random = Math.random();
-			float multiplier = ZOMBIE_STRENGTH.get(this.getType()).orElse(1);
-			if (multiplier > 9){
-				multiplier = 10;
-			}
-			double multiplierFinal = Math.pow(multiplier / 5, 2);
-			Item item = ModItems.SEED_PACKET_LIST.get(getRandom().nextInt(ModItems.SEED_PACKET_LIST.size()));
-			if (random <= 0.05 * multiplierFinal) {
-				dropItem(item);
-				playSound(LOOTGIFTDEVENT);
-			} else if (random <= 0.10 * multiplierFinal) {
-				dropItem(Items.DIAMOND);
-				playSound(LOOTDIAMONDEVENT);
-			} else if (random <= 0.30 * multiplierFinal) {
-				dropItem(Items.GOLD_NUGGET);
-				playSound(LOOTNUGGETEVENT);
-			} else if (random <= 0.70 * multiplierFinal) {
-				dropItem(Items.IRON_NUGGET);
-				playSound(LOOTNUGGETEVENT);
+		if (this.world.getGameRules().getBoolean(PvZCubed.SHOULD_ZOMBIE_DROP)) {
+			if (!(this instanceof ZombiePropEntity)) {
+				double random = Math.random();
+				float multiplier = ZOMBIE_STRENGTH.get(this.getType()).orElse(1);
+				if (multiplier > 9) {
+					multiplier = 10;
+				}
+				double multiplierFinal = Math.pow(multiplier / 5, 2);
+				Item item = ModItems.SEED_PACKET_LIST.get(getRandom().nextInt(ModItems.SEED_PACKET_LIST.size()));
+				if (random <= 0.05 * multiplierFinal) {
+					dropItem(item);
+					playSound(LOOTGIFTDEVENT);
+				} else if (random <= 0.10 * multiplierFinal) {
+					dropItem(Items.DIAMOND);
+					playSound(LOOTDIAMONDEVENT);
+				} else if (random <= 0.30 * multiplierFinal) {
+					dropItem(Items.GOLD_NUGGET);
+					playSound(LOOTNUGGETEVENT);
+				} else if (random <= 0.70 * multiplierFinal) {
+					dropItem(Items.IRON_NUGGET);
+					playSound(LOOTNUGGETEVENT);
+				}
 			}
 		}
 		super.onDeath(source);
+	}
+
+
+
+	@Override
+	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
+		if (this.world.getGameRules().getBoolean(PvZCubed.SHOULD_ZOMBIE_DROP)){
+			super.dropLoot(source, causedByPlayer);
+		}
 	}
 
 	public PlantEntity CollidesWithPlant(){
@@ -290,6 +301,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		return this.onGround ? this.getMovementSpeed() * (0.21600002F / (slipperiness * slipperiness * slipperiness)) : this.flyingSpeed;
 	}
 
+	public int playerGetTick;
+
 	public void tick() {
 		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("metallic")) && this.hasStatusEffect(ACID)){
 			this.removeStatusEffect(ACID);
@@ -308,9 +321,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			if (target.squaredDistanceTo(this) < 6.25) {
 				this.setVelocity(0, -0.3, 0);
 			}
-		}
-		else if (!this.getHypno() && !(this instanceof ZombieKingEntity)) {
-			this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
 			this.kill();
@@ -364,6 +374,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.hasStatusEffect(WARM) || this.isOnFire()){
 			this.removeStatusEffect(FROZEN);
 			this.removeStatusEffect(ICE);
+		}
+		if (!this.getHypno() && !(this instanceof ZombieKingEntity) && this.getTarget() == null && --this.playerGetTick == 0) {
+			this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
+			this.playerGetTick = 300;
 		}
 		super.tick();
 	}
