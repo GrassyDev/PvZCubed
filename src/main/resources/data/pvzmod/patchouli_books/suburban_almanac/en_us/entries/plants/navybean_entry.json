@@ -2,7 +2,7 @@
   "name": "Navy Bean",
   "icon": "pvzmod:navybean_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 306,
+  "sortnum": 310,
   "advancement": "pvzmod:start_pvz",
   "pages": [
     {

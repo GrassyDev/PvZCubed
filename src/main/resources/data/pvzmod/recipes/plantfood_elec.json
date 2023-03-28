@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:zapricot_seed_packet"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:plantfood_elec",
+    "count": 1
+  }
+}

@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
@@ -240,6 +241,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 		}
 		if (target instanceof GraveEntity ||
 				target instanceof ImpEntity ||
+				target instanceof AnnouncerImpEntity ||
 		        target instanceof GargantuarEntity ||
 				target instanceof ZombieObstacleEntity) {
 			Entity damaged = target;

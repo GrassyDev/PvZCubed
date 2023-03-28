@@ -18,6 +18,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.b
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.zapricot.ZapricotEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.world.Heightmap;
@@ -79,6 +80,9 @@ public class PvZEntitySpawn {
 
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.ICEBERGLETTUCE, 11, 1, 3);
 		SpawnRestriction.register(PvZEntity.ICEBERGLETTUCE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, IcebergLettuceEntity::canIcebergLettuceSpawn);
+
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.ZAPRICOT, 11, 1, 3);
+		SpawnRestriction.register(PvZEntity.ZAPRICOT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ZapricotEntity::canZapricotSpawn);
 
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.BUTTONSHROOM, 7, 1, 3);
 		SpawnRestriction.register(PvZEntity.BUTTONSHROOM, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ButtonshroomEntity::canButtonshroomSpawn);

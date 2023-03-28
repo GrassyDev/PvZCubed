@@ -42,6 +42,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancien
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.pirateseas.coconutcannon.CoconutCannonEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildwest.lightningreed.LightningReedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildwest.peapod.PeapodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.generic.narcissus.NarcissusEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.skycity.loquat.LoquatEntity;
@@ -60,6 +61,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.s
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.zapricot.ZapricotEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidfume.AcidFumeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidspore.AcidSporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.armorbubble.ArmorBubbleEntity;
@@ -87,7 +89,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basic.BullyEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basketballcarrier.BasketballCarrierEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.plastichelmet.PlasticHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dolphinrider.DolphinRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.darkages.FlagPeasantEntity;
@@ -106,6 +107,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metalliche
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.plastichelmet.PlasticHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -360,6 +362,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<CoconutCannonEntity>create(SpawnGroup.CREATURE, CoconutCannonEntity::new).setDimensions(EntityDimensions.fixed(2f, 1.8f)).build()
 	);
 
+	public static final EntityType<LightningReedEntity> LIGHTNINGREED = Registry.register((
+					Registry.ENTITY_TYPE),
+			new Identifier(ModID, "lightningreed"),
+			QuiltEntityTypeBuilder.<LightningReedEntity>create(SpawnGroup.CREATURE, LightningReedEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
 	public static final EntityType<PeapodEntity> PEAPOD = Registry.register((
 					Registry.ENTITY_TYPE),
 			new Identifier(ModID, "peapod"),
@@ -412,6 +420,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "bombseedling"),
 			QuiltEntityTypeBuilder.<BombSeedlingEntity>create(SpawnGroup.CREATURE, BombSeedlingEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
+	public static final EntityType<ZapricotEntity> ZAPRICOT = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "zapricot"),
+			QuiltEntityTypeBuilder.<ZapricotEntity>create(SpawnGroup.CREATURE, ZapricotEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
 	public static final EntityType<WeenieBeanieEntity> WEENIEBEANIE = Registry.register(
@@ -1171,6 +1185,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ICEBERGLETTUCE, IcebergLettuceEntity.createIcebergLettuceAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.COCONUTCANNON, CoconutCannonEntity.createCoconutCannonAttributes().build());
 
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LIGHTNINGREED, LightningReedEntity.createLightningReedAttributes().build());
+
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEAPOD, PeapodEntity.createPeapodAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEPPERPULT, PepperpultEntity.createPepperPultAttributes().build());
@@ -1188,6 +1204,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BUTTONSHROOM, ButtonshroomEntity.createButtonshroomAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BOMBSEEDLING, BombSeedlingEntity.createBombSeedlingAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ZAPRICOT, ZapricotEntity.createZapricotAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.WEENIEBEANIE, WeenieBeanieEntity.createWeenieBeanieAttributes().build());
 

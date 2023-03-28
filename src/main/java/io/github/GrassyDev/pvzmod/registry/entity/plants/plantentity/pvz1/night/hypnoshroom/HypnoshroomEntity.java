@@ -3,16 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -49,6 +40,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.Optional;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_STRENGTH;
 
 public class HypnoshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
@@ -129,34 +122,54 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new HypnoshroomEntity.FireBeamGoal(this));
-		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof ImpEntity; }));
-		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof BrowncoatEntity; }));
-		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof BrowncoatEntity; }));
-		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof PoleVaultingEntity; }));
-		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof BackupDancerEntity; }));
-		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof NewspaperEntity; }));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof BrowncoatEntity; }));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof BrowncoatEntity; }));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof SnorkelEntity; }));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof DancingZombieEntity; }));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof FlagzombieEntity; }));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof FootballEntity; }));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof FootballEntity; }));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) ->
-		{ return livingEntity instanceof GargantuarEntity; }));
+		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 11);
+		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 10);
+		}));
+		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
+		}));
+		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
+		}));
+		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
+		}));
+		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
+		}));
+		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
+		}));
+		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
+		}));
+		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
+		}));
+		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
+		}));
+		this.targetSelector.add(11, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
+		}));
+		this.targetSelector.add(12, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
+					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
+		}));
 	}
 
 	@Override

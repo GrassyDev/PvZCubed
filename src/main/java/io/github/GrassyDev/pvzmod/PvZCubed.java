@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.config.PvZConfig;
 import io.github.GrassyDev.pvzmod.registry.ModBlocks;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.damage.HypnoDamage;
+import io.github.GrassyDev.pvzmod.registry.entity.damage.LightningDamage;
 import io.github.GrassyDev.pvzmod.registry.entity.statuseffects.*;
 import io.github.GrassyDev.pvzmod.registry.world.gen.entity.PvZEntitySpawn;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -46,6 +47,7 @@ public class PvZCubed implements ModInitializer {
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "plant_type")).build();
 
 	public static final DamageSource HYPNO_DAMAGE = new HypnoDamage().setHypnoDamage();
+	public static final DamageSource LIGHTNING_DAMAGE = new LightningDamage().setLightningDamage();
 	public static final StatusEffect HYPNOTIZED = new Hypnotized();
 
 	public static final StatusEffect ICE = new Ice();
@@ -70,6 +72,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_AIR));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_AQUATIC));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_COLD));
+				stacks.add(new ItemStack(ModItems.PLANTFOOD_ELEC));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_FIRE));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_FLOWER));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_MUSHROOM));
@@ -114,6 +117,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.SNOW_QUEENPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.ICEBERGLETTUCE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.COCONUTCANNON_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.LIGHTNINGREED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEPPERPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
@@ -126,6 +130,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.SMACKADAMIA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BUTTONSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BOMBSEEDLING_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.ZAPRICOT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.ADMIRALNAVYBEAN_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.WEENIEBEANIE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NAVYBEAN_SEED_PACKET));
@@ -270,6 +275,9 @@ public class PvZCubed implements ModInitializer {
 	public static final Identifier FUMESHROOMSHOOT = new Identifier("pvzmod:fumeshroom.shoot");
 	public static SoundEvent FUMESHROOMSHOOTEVENT = new SoundEvent(FUMESHROOMSHOOT);
 
+	public static final Identifier LIGHTNINGSHOOT = new Identifier("pvzmod:lightning.shoot");
+	public static SoundEvent LIGHTNINGSHOOTEVENT = new SoundEvent(LIGHTNINGSHOOT);
+
 	public static final Identifier CHERRYBOMBEXPLOSION = new Identifier("pvzmod:cherrybomb.explosion");
 	public static SoundEvent CHERRYBOMBEXPLOSIONEVENT = new SoundEvent(CHERRYBOMBEXPLOSION);
 	public static final Identifier JALAPENOEXPLOSION = new Identifier("pvzmod:jalapeno.explosion");
@@ -381,6 +389,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SNOWPEAHIT, SNOWPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.MUSHROOMSHOOT, MUSHROOMSHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.FUMESHROOMSHOOT, FUMESHROOMSHOOTEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.LIGHTNINGSHOOT, LIGHTNINGSHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.CHERRYBOMBEXPLOSION, CHERRYBOMBEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.JALAPENOEXPLOSION, JALAPENOEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.POTATOMINEEXPLOSION, POTATOMINEEXPLOSIONEVENT);

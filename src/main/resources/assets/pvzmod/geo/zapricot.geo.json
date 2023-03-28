@@ -1,0 +1,62 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-5, 0, -5], "size": [10, 10, 10], "uv": [0, 0]},
+						{"origin": [0.5, 3.3, -2.7], "size": [5, 7, 8], "uv": [0, 46]},
+						{"origin": [-5.5, 3.3, -2.7], "size": [5, 7, 8], "uv": [0, 31]}
+					]
+				},
+				{
+					"name": "reed",
+					"parent": "body",
+					"pivot": [0, 10, 4.5],
+					"rotation": [-30, 0, 0]
+				},
+				{
+					"name": "reedadjust",
+					"parent": "reed",
+					"pivot": [0, 4.04181, 3.0233],
+					"cubes": [
+						{"origin": [-1, 9.13973, 2.9174], "size": [2, 5, 2], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "reed2",
+					"parent": "reedadjust",
+					"pivot": [0, 14.13973, 3.1174],
+					"rotation": [-25, 0, 0],
+					"cubes": [
+						{"origin": [-1.01, 12.13973, 1.1174], "size": [2.02, 4, 2], "uv": [16, 20]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "reed2",
+					"pivot": [0, 14.13973, 3.1174],
+					"cubes": [
+						{"origin": [-2, 16.13973, 0.1174], "size": [4, 6, 4], "uv": [0, 20]}
+					]
+				},
+				{
+					"name": "faceshrink",
+					"parent": "head",
+					"pivot": [0, 27.13973, -0.7826]
+				}
+			]
+		}
+	]
+}

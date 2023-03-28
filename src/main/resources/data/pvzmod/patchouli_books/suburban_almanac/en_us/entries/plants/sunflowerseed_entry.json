@@ -2,7 +2,7 @@
   "name": "Sunflower Seed",
   "icon": "pvzmod:sunflowerseed_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 309,
+  "sortnum": 312,
   "pages": [
     {
       "type": "text",
@@ -34,7 +34,7 @@
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Sunflower Seed"
+        "$(br)$(#bd951a)Plants vs. Zombies: Heroes: $()$(#ff0000)Sunflower Seed"
       ]
     }
   ]

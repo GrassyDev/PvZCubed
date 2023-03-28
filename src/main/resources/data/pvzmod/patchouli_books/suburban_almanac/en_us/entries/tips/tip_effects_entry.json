@@ -55,6 +55,15 @@
     {
       "type": "text",
       "text": [
+        "$(br2)Electricity",
+        "$(br)Chains damage between Zombies based on initial damage unless specified otherwise. Chain's range is by the Electric Radius, that is based on the location of the hit Zombie.",
+        "$(br)Electricity chains by the number of Electric Chains. Metallic/Machine don't count torwards the number. Plastic/Rubber cost 2 Electric Chains when hit.",
+        "$(br)Electric damage doubles if the target is Wet."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
         "$(br2)Poison",
         "$(br2)Deals continuous direct damage to the zombie, ignoring armor.",
         "$(br2)Deals 1.5 DMG/0.5sec.",
@@ -87,6 +96,7 @@
         "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/scaredyshroom_entry",
         "pvzmod:plants/seashroom_entry",
+        "pvzmod:plants/zapricot_entry",
         "pvzmod:plants/hypnoshroom_entry"
       ]
     }

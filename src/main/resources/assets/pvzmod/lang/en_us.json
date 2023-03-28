@@ -96,6 +96,7 @@
   "item.pvzmod.plantfood_air": "Windy Plant Food",
   "item.pvzmod.plantfood_aquatic": "Aquatic Plant Food",
   "item.pvzmod.plantfood_cold": "Cold Plant Food",
+  "item.pvzmod.plantfood_elec": "Electric Plant Food",
   "item.pvzmod.plantfood_fire": "Blazing Plant Food",
   "item.pvzmod.plantfood_flower": "Petal Plant Food",
   "item.pvzmod.plantfood_tough": "Tough Plant Food",
@@ -340,6 +341,10 @@
   "item.pvzmod.peapod_seed_packet.flavour": "Sometimes they squabble, but they usually",
   "item.pvzmod.peapod_seed_packet.flavour2": "get along like five peas in a pod.",
 
+  "entity.pvzmod.lightningreed": "Lightning Reed",
+  "item.pvzmod.lightningreed_seed_packet": "⚡ Lightning Reed Packet",
+  "item.pvzmod.lightningreed_seed_packet.flavour": "\"I do it for the shock value.\"",
+
   "entity.pvzmod.pepperpult": "Pepper-pult",
   "item.pvzmod.pepperpult_seed_packet": "\uD83D\uDD25 Pepper-pult Seed Packet",
   "item.pvzmod.pepperpult_seed_packet.flavour": "\"Despite being a pepper on fire,",
@@ -379,6 +384,11 @@
   "entity.pvzmod.bombseedling": "Bomb Seedling",
   "item.pvzmod.bombseedling_seed_packet": "☄ Bomb Seedling Seed Packet",
   "item.pvzmod.bombseedling_seed_packet.flavour": "Mind blown.",
+
+  "entity.pvzmod.zapricot": "Zapricot",
+  "item.pvzmod.zapricot_seed_packet": "⚡ Zapricot Packet",
+  "item.pvzmod.zapricot_seed_packet.flavour": "\"Some say that Zombies aren't easily shocked.",
+  "item.pvzmod.zapricot_seed_packet.flavour2": "I beg to differ.\"",
 
   "entity.pvzmod.weeniebeanie": "Weenie Beanie",
   "item.pvzmod.weeniebeanie_seed_packet": "⭘ Weenie Beanie Seed Packet",

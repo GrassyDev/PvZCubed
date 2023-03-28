@@ -2,7 +2,7 @@
   "name": "Pepper-pult",
   "icon": "pvzmod:pepperpult_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 53,
+  "sortnum": 54,
   "advancement": "pvzmod:make_cabbagepult",
   "pages": [
     {

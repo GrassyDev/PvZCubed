@@ -2,7 +2,7 @@
   "name": "Fire Peashooter",
   "icon": "pvzmod:firepea_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 54,
+  "sortnum": 55,
   "advancement": "pvzmod:make_repeater",
   "pages": [
     {

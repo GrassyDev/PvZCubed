@@ -2,7 +2,7 @@
   "name": "Weenie Beanie",
   "icon": "pvzmod:weeniebeanie_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 305,
+  "sortnum": 309,
   "pages": [
     {
       "type": "text",
@@ -26,13 +26,13 @@
     },
     {
       "type": "crafting",
-      "recipe": "pvzmod:plants/appease/weeniebeanie"
+      "recipe": "pvzmod:plants/enforce/weeniebeanie"
     },
     {
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Weenie Beanie"
+        "$(br)$(#bd951a)Plants vs. Zombies: Heroes: $()$(#ff0000)Weenie Beanie"
       ]
     }
   ]

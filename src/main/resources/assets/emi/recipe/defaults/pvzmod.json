@@ -24,7 +24,7 @@
     "pvzmod:tiles/tile_west",
     "pvzmod:plants/enlighten/twinsunflower",
     "pvzmod:plants/bombard/bombseedling",
-    "pvzmod:plants/appease/weeniebeanie",
+    "pvzmod:plants/enforce/weeniebeanie",
     "pvzmod:tiles/tile_roof",
     "pvzmod:plants/bombard/potatomine",
     "pvzmod:plants/ailment/fumeshroompvz",
@@ -77,6 +77,8 @@
     "pvzmod:plants/spear/spikerock",
     "pvzmod:plants/enforce/dandelionweed",
     "pvzmod:plants/spear/cattail",
-    "pvzmod:plants/ailment/beeshooter"
+    "pvzmod:plants/ailment/beeshooter",
+    "pvzmod:plants/filament/lightningreed",
+    "pvzmod:plants/filament/zapricot"
   ]
 }

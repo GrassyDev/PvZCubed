@@ -1,0 +1,42 @@
+{
+  "name": "Lightning Reed",
+  "icon": "pvzmod:lightningreed_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 52,
+  "advancement": "pvzmod:start_pvz",
+  "pages": [
+    {
+      "type": "text",
+      "text":[
+        "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)2 DMG/1.5s",
+        "$(br)$(#bd951a)Electric Radius: $()$(#ff0000)10 Blocks",
+        "$(br)$(#bd951a)Electric Chains: $()$(#ff0000)3 Chains",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)10 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Electrocutes Zombies. Can target any zombie.",
+        "$(br2)$(#bd951a)This may come as a shock, but Lightning Reed has a serious passion for ham radio. His call sign is El3ctric H1ccup."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/lightningreed.png"
+      ],
+      "title": "⚡ Filament Family",
+      "border": "true",
+      "text": "$(#25228d)Lightning Reeds shoot lightning at a zombie. The bolt will then arc and hit other zombies."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/filament/lightningreed"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Lightning Reed"
+      ]
+    }
+  ]
+}

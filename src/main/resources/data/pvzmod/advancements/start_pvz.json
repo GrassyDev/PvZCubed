@@ -35,7 +35,7 @@
       "pvzmod:plants/ailment/puffshroom",
       "pvzmod:plants/ailment/scaredyshroom",
       "pvzmod:plants/appease/peashooterpvz",
-      "pvzmod:plants/appease/weeniebeanie",
+      "pvzmod:plants/enforce/weeniebeanie",
       "pvzmod:plants/arma/cabbagepult",
       "pvzmod:plants/bombard/bombseedling",
       "pvzmod:plants/bombard/potatomine",
@@ -46,6 +46,8 @@
       "pvzmod:plants/reinforce/smallnut",
       "pvzmod:plants/reinforce/wallnut",
       "pvzmod:plants/spear/bellflower",
+      "pvzmod:plants/filament/lightningreed",
+      "pvzmod:plants/filament/zapricot",
       "pvzmod:my_book_recipe_shapeless"
     ],
     "experience": 25

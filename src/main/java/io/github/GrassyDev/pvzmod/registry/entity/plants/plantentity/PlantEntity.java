@@ -38,6 +38,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.b
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.sunflowerseed.SunflowerSeedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.weeniebeanie.WeenieBeanieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.zapricot.ZapricotEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.*;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
 import net.minecraft.block.BlockState;
@@ -881,6 +882,30 @@ public abstract class PlantEntity extends GolemEntity {
 				if (!player.getAbilities().creativeMode) {
 					itemStack.decrement(1);
 					player.getItemCooldownManager().set(ModItems.BOMBSEEDLING_SEED_PACKET, BombSeedlingSeeds.cooldown);
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**ZAPRICOT**/
+			if (itemStack.isOf(ModItems.ZAPRICOT_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					ZapricotEntity plantEntity = (ZapricotEntity) PvZEntity.ZAPRICOT.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					double random = Math.random();
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
+					plantEntity.rideLilyPad(this);
+					plantEntity.setPuffshroomPermanency(ZapricotEntity.PuffPermanency.PERMANENT);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					itemStack.decrement(1);
+					player.getItemCooldownManager().set(ModItems.ZAPRICOT_SEED_PACKET, ZapricotSeeds.cooldown);
 				}
 				return ActionResult.SUCCESS;
 			}

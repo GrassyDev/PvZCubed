@@ -267,7 +267,6 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getTarget() instanceof PeasantEntity peasantEntity && (peasantEntity.getVariant().equals(BrowncoatVariants.PEASANTKNIGHT) || peasantEntity.getVariant().equals(BrowncoatVariants.PEASANTKNIGHTHYPNO))) {
 			this.setTarget(null);
 		}
-		this.setRotation(impYawn, 0);
 		super.tick();
 		double random = Math.random();
 		if (--spawningTicks <= 0){

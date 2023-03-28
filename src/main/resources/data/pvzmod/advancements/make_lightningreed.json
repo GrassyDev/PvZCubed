@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:lightningreed_seed_packet"
+    },
+    "title": "The Multi-hits",
+    "description": "Craft a Lightning Reed",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "pvzmod:start_pvz",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:lightningreed_seed_packet"
+            ],
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+    ],
+    "experience": 25
+  }
+}

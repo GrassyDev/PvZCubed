@@ -2,7 +2,7 @@
   "name": "Bellflower",
   "icon": "pvzmod:bellflower_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 310,
+  "sortnum": 313,
   "advancement": "pvzmod:start_pvz",
   "pages": [
     {
@@ -32,7 +32,7 @@
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies Heroes: $()$(#ff0000)Bellflower"
+        "$(br)$(#bd951a)Plants vs. Zombies: Heroes: $()$(#ff0000)Bellflower"
       ]
     }
   ]

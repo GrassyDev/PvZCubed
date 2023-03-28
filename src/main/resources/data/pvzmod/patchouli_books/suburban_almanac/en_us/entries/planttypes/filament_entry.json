@@ -8,12 +8,14 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Filament family is composed of electric plants",
-        "$(br2)$()$(#bd951a)Hits multiple zombies with electric arcs and deals extra damage to wet zombies. Electricity doesn't work against zombies with plastic, paper, and rubber, unless they are wet"
+        "$(br2)$()$(#bd951a)They deal Electric damage."
         ]
     },
     {
       "type": "relations",
       "entries": [
+        "pvzmod:plants/lightningreed_entry",
+        "pvzmod:plants/zapricot_entry"
       ],
       "title": "⚡ Fila Plants:"
     }
