@@ -37,14 +37,14 @@
         "pvzmod:plants/cattail_entry",
         "pvzmod:plants/snowqueenpea_entry",
         "pvzmod:plants/hypnoshroom_entry",
-        "pvzmod:plants/spikeweed_entry",
-        "pvzmod:plants/lightningreed_entry"
+        "pvzmod:plants/spikeweed_entry"
       ]
     },
     {
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
+        "pvzmod:plants/lightningreed_entry",
         "pvzmod:plants/firepea_entry",
         "pvzmod:plants/peapod_entry",
         "pvzmod:plants/pepperpult_entry",
