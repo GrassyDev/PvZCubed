@@ -337,6 +337,9 @@ public class PvZCubed implements ModInitializer {
 	public static final Identifier IMPANNOUNCER = new Identifier("pvzmod:imp.announcer");
 	public static SoundEvent IMPANNOUNCEREVENT = new SoundEvent(IMPANNOUNCER);
 
+	public static final Identifier IMPANNOUNCERALT = new Identifier("pvzmod:imp.announcer.alt");
+	public static SoundEvent IMPANNOUNCERALTEVENT = new SoundEvent(IMPANNOUNCERALT);
+
 	public static final Identifier KNIGHTTRANSFORM = new Identifier("pvzmod:knight.transform");
 	public static SoundEvent KNIGHTTRANSFORMEVENT = new SoundEvent(KNIGHTTRANSFORM);
 
@@ -411,6 +414,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GARGANTUARSMASH, GARGANTUARSMASHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPLAUNCH, IMPLAUNCHEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPANNOUNCER, IMPANNOUNCEREVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPANNOUNCERALT, IMPANNOUNCERALTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.KNIGHTTRANSFORM, KNIGHTTRANSFORMEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ZOMBIEMOAN, ZOMBIEMOANEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.IMPMOAN, IMPMOANEVENT);

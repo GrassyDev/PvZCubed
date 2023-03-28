@@ -54,7 +54,6 @@ public class ZombieKingEgg extends Item {
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					zombieKingEntity.refreshPositionAndAngles(zombieKingEntity.getX(), zombieKingEntity.getY(), zombieKingEntity.getZ(), f, 0.0F);
 					zombieKingEntity.spawningTicks = 15;
-					zombieKingEntity.impYawn = f;
                     ((ServerWorld) world).spawnEntityAndPassengers(zombieKingEntity);
 					zombieKingEntity.setPersistent();
                     world.playSound((PlayerEntity) null, zombieKingEntity.getX(), zombieKingEntity.getY(), zombieKingEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);

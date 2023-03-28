@@ -36,6 +36,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
@@ -531,16 +532,24 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 				zombieKingEntity.initialize(serverWorld, AnnouncerImpEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				zombieKingEntity.refreshPositionAndAngles(blockPos, AnnouncerImpEntity.this.getYaw(), 0.0F);
 				zombieKingEntity.setOwner(AnnouncerImpEntity.this);
+				zombieKingEntity.impTarget = AnnouncerImpEntity.this.getTarget();
 				serverWorld.spawnEntityAndPassengers(zombieKingEntity);
+				if (this.announcerImpEntity.isInsideWaterOrBubbleColumn()) {
+					world.playSound((PlayerEntity) null, announcerImpEntity.getX(), announcerImpEntity.getY(), announcerImpEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.HOSTILE, 1F, 1F);
+				}
 				zombieKingEntity.copyPositionAndRotation(AnnouncerImpEntity.this);
-				zombieKingEntity.impYawn = AnnouncerImpEntity.this.getYaw() - 1;
 				zombieKingEntity.spawningTicks = 15;
 				AnnouncerImpEntity.this.discard();
             }
         }
 
         protected SoundEvent getSoundPrepare() {
-            return PvZCubed.IMPANNOUNCEREVENT;
+			if (this.announcerImpEntity.isInsideWaterOrBubbleColumn()){
+				return PvZCubed.IMPANNOUNCERALTEVENT;
+			}
+			else {
+				return PvZCubed.IMPANNOUNCEREVENT;
+			}
         }
 
         protected Spell getSpell() {

@@ -989,13 +989,13 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<ZombieKingEntity> ZOMBIEKING = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "zombieking"),
-			QuiltEntityTypeBuilder.<ZombieKingEntity>create(SpawnGroup.MONSTER, ZombieKingEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<ZombieKingEntity>create(SpawnGroup.MONSTER, ZombieKingEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 1.8f)).build()
 	);
 
 	public static final EntityType<ZombieKingEntity> ZOMBIEKINGHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "zombieking_hypnotized"),
-			QuiltEntityTypeBuilder.<ZombieKingEntity>create(SpawnGroup.CREATURE, ZombieKingEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<ZombieKingEntity>create(SpawnGroup.CREATURE, ZombieKingEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 1.8f)).build()
 	);
 
 

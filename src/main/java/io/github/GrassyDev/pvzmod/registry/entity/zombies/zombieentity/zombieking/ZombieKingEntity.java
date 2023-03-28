@@ -59,10 +59,11 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
     private String controllerName = "walkingcontroller";
 	boolean isFrozen;
 	boolean isIced;
-	public float impYawn;
+	public LivingEntity impTarget;
 	public int spawningTicks;
 	public boolean startSpawn;
 	public int convertTicks = 0;
+	int animationMultiplier = 1;
 	public boolean convertIs;
 	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
@@ -175,14 +176,23 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.startSpawn){
-			event.getController().setAnimation(new AnimationBuilder().loop("zombieking.falling"));
-		}
-		else if (this.convertIs){
-			event.getController().setAnimation(new AnimationBuilder().loop("zombieking.crowning"));
+		if (this.isInsideWaterOrBubbleColumn()) {
+			if (this.startSpawn) {
+				event.getController().setAnimation(new AnimationBuilder().loop("zombieking.fallingwater"));
+			} else if (this.convertIs) {
+				event.getController().setAnimation(new AnimationBuilder().loop("zombieking.crowningwater"));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("zombieking.idlewater"));
+			}
 		}
 		else {
-			event.getController().setAnimation(new AnimationBuilder().loop("zombieking.idle"));
+			if (this.startSpawn) {
+				event.getController().setAnimation(new AnimationBuilder().loop("zombieking.falling"));
+			} else if (this.convertIs) {
+				event.getController().setAnimation(new AnimationBuilder().loop("zombieking.crowning"));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().loop("zombieking.idle"));
+			}
 		}
 		if (this.isFrozen) {
 			event.getController().setAnimationSpeed(0);
@@ -267,16 +277,19 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getTarget() instanceof PeasantEntity peasantEntity && (peasantEntity.getVariant().equals(BrowncoatVariants.PEASANTKNIGHT) || peasantEntity.getVariant().equals(BrowncoatVariants.PEASANTKNIGHTHYPNO))) {
 			this.setTarget(null);
 		}
+		if (impTarget != null && impTarget.isAlive()){
+			this.getLookControl().lookAt(impTarget);
+		}
 		super.tick();
 		double random = Math.random();
 		if (--spawningTicks <= 0){
 			--convertTicks;
 		}
-		if (convertTicks == 25 && this.getTarget() instanceof PeasantEntity peasantEntity && (peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOAT) || peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO)) && !this.hasStatusEffect(FROZEN)){
+		if (convertTicks == 25 * animationMultiplier && this.getTarget() instanceof PeasantEntity peasantEntity && (peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOAT) || peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO)) && !this.hasStatusEffect(FROZEN)){
 			this.upgradeKnight(peasantEntity);
 		}
 		if (convertTicks <= 0 && this.getTarget() instanceof PeasantEntity peasantEntity && random <= 0.01 && (peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOAT) || peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO)) && !this.hasStatusEffect(PvZCubed.FROZEN)) {
-			this.convertTicks = 45;
+			this.convertTicks = 45 * animationMultiplier;
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.convertTicks = 0;
@@ -306,9 +319,11 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.animationMultiplier = 2;
 			this.world.sendEntityStatus(this, (byte) 71);
 		}
 		else {
+			this.animationMultiplier = 1;
 			this.world.sendEntityStatus(this, (byte) 72);
 		}
 	}
