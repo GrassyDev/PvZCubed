@@ -194,14 +194,24 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 
 	public static boolean canRoofGraveSpawn(EntityType<? extends RoofGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getDifficulty() != Difficulty.PEACEFUL &&
-				world.toServerWorld().getTime() > 42000 &&
-				world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.8 &&
-				canMobSpawn(type, world, spawnReason, pos, random) &&
-				pos.getY() >= 50 &&
-				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type) &&
-				!checkVillager(Vec3d.ofCenter(pos), world) &&
-				!checkPlant(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_GRAVE_SPAWN);
+		float cavespawn = random.nextFloat();
+		if (cavespawn <= 0.66) {
+			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					world.toServerWorld().getTime() > 42000 &&
+					pos.getY() > 50 &&
+					world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.8 &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&
+					!checkVillager(Vec3d.ofCenter(pos), world) &&
+					!checkPlant(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_GRAVE_SPAWN);
+		}
+		else {
+			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					world.toServerWorld().getTime() > 42000 &&
+					world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.8 &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&
+					!checkVillager(Vec3d.ofCenter(pos), world) &&
+					!checkPlant(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_GRAVE_SPAWN);
+		}
 	}
 
 

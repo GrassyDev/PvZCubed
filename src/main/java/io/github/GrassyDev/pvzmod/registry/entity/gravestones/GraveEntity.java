@@ -200,7 +200,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	}
 
 	public static boolean checkPlant(Vec3d pos, ServerWorldAccess world) {
-		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(5));
+		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(15));
 		return !list.isEmpty();
 	}
 }

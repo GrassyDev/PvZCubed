@@ -293,9 +293,6 @@ public class ZapricotEntity extends PlantEntity implements IAnimatable, RangedAt
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
 	}
 
 
@@ -633,10 +630,13 @@ public class ZapricotEntity extends PlantEntity implements IAnimatable, RangedAt
 		BlockPos blockPos = pos.down();
 		float nightchance = random.nextFloat();
 		if (nightchance <= 0.5){
-			return !world.getBlockState(blockPos).isOf(Blocks.AIR) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+			return !world.getBlockState(blockPos).isOf(Blocks.AIR) &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
 		}
 		else {
-			return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() < 4 &&
+			return !world.getBlockState(blockPos).isOf(Blocks.AIR) &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && world.getAmbientDarkness() < 4 &&
 					world.getLightLevel(LightType.SKY, pos) > 10 && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
 		}
 	}

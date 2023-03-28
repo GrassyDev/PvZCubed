@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)50",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Stiff",
-        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)10s",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)15s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Summons 4 Backup Dancer Zombies around him.",
         "$(br2)$(#bd951a)Dancing Zombie's latest album, \"GrarrBRAINSarblarbl,\" is already rocketing up the undead charts."
       ]
@@ -37,7 +37,8 @@
         "pvzmod:plants/threepeater_entry",
         "pvzmod:plants/pepperpult_entry",
         "pvzmod:plants/peapod_entry",
-        "pvzmod:plants/spikeweed_entry"
+        "pvzmod:plants/spikeweed_entry",
+        "pvzmod:plants/lightningreed_entry"
       ]
     },
     {

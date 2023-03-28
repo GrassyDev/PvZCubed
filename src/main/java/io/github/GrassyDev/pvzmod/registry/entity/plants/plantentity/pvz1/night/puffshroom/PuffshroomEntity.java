@@ -378,9 +378,20 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 
 	public static boolean canPuffshroomSpawn(EntityType<? extends PuffshroomEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && world.getAmbientDarkness() >= 2 ||
-				world.getLightLevel(LightType.SKY, pos) < 2 ||
-				world.getBiome(blockPos).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+		float cavespawn = random.nextFloat();
+		if (cavespawn <= 0.66) {
+			return !world.getBlockState(blockPos).isOf(Blocks.AIR) &&
+					pos.getY() > 50 &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && world.getAmbientDarkness() >= 2 ||
+					world.getLightLevel(LightType.SKY, pos) < 2 ||
+					world.getBiome(blockPos).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+		}
+		else {
+			return !world.getBlockState(blockPos).isOf(Blocks.AIR) &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && world.getAmbientDarkness() >= 2 ||
+					world.getLightLevel(LightType.SKY, pos) < 2 ||
+					world.getBiome(blockPos).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+		}
 	}
 
 

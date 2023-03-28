@@ -191,13 +191,26 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 
 	public static boolean canDarkAgesGraveSpawn(EntityType<? extends DarkAgesGraveEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return world.getDifficulty() != Difficulty.PEACEFUL &&
-				world.toServerWorld().getTime() > 24000 &&
-				(world.getAmbientDarkness() >= 2 ||
-				world.getLightLevel(LightType.SKY, pos) < 2 ) &&
-				world.getBlockState(blockPos).allowsSpawning(world, blockPos, type)  &&
-				!checkVillager(Vec3d.ofCenter(pos), world) &&
-				!checkPlant(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_GRAVE_SPAWN);
+		float cavespawn = random.nextFloat();
+		if (cavespawn <= 0.66) {
+			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					world.toServerWorld().getTime() > 24000  &&
+					pos.getY() > 50 &&
+					(world.getAmbientDarkness() >= 2 ||
+							world.getLightLevel(LightType.SKY, pos) < 2) &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&
+					!checkVillager(Vec3d.ofCenter(pos), world) &&
+					!checkPlant(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_GRAVE_SPAWN);
+		}
+		else {
+			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					world.toServerWorld().getTime() > 24000 &&
+					(world.getAmbientDarkness() >= 2 ||
+							world.getLightLevel(LightType.SKY, pos) < 2) &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&
+					!checkVillager(Vec3d.ofCenter(pos), world) &&
+					!checkPlant(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_GRAVE_SPAWN);
+		}
 	}
 
 	/** /~*~//~*GOALS*~//~*~/ **/

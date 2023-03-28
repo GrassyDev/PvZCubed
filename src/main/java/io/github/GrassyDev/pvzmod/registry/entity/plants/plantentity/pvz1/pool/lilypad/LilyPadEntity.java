@@ -10,7 +10,7 @@ import io.github.GrassyDev.pvzmod.registry.items.seedpackets.CattailSeeds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -50,7 +50,9 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-;import java.util.Objects;
+import java.util.Objects;
+
+;
 
 public class LilyPadEntity extends PlantEntity implements IAnimatable {
 
@@ -421,6 +423,8 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 	}
 
 	public static boolean canLilyPadSpawn(EntityType<? extends LilyPadEntity> entityType, WorldAccess worldAccess, SpawnReason reason, BlockPos pos, RandomGenerator random) {
-		return worldAccess.isSkyVisibleAllowingSea(pos) && worldAccess.getBlockState(pos.down()).isOf(Blocks.WATER) && Objects.requireNonNull(worldAccess.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+		return (worldAccess.getBlockState(pos.down()).getMaterial().isLiquid() && !worldAccess.getBlockState(pos.down()).getMaterial().equals(Material.LAVA) ||
+				worldAccess.getBlockState(pos.down()).getMaterial().equals(Material.ICE)) &&
+				Objects.requireNonNull(worldAccess.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
 	}
 }
