@@ -29,7 +29,7 @@ import java.util.List;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class JalapenoSeeds extends Item implements FabricItem {
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.jalapenoS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.jalapenoS() * 20);
     public JalapenoSeeds(Settings settings) {
         super(settings);
     }

@@ -30,7 +30,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class CabbagepultSeeds extends Item implements FabricItem {
     public boolean used;
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.cabbagepultS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.cabbagepultS() * 20);
 
     public CabbagepultSeeds(Settings settings) {
         super(settings);

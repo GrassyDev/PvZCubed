@@ -8,12 +8,105 @@ import io.wispforest.owo.config.annotation.*;
 public class PvZConfigModel {
 	@Sync(Option.SyncMode.OVERRIDE_CLIENT)
 
+	@SectionHeader("spawns")
+	@Nest
+	public PvZSpawnNest nestedSpawns = new PvZSpawnNest();
+	public static class PvZSpawnNest {
+		public String dummy = "dummy setting";
+		@Nest
+		public PvZSpawnNestGrave nestedGraveSpawns = new PvZSpawnNestGrave();
+		@Nest
+		public PvZSpawnNestPlant nestedPlantSpawns = new PvZSpawnNestPlant();
+	}
+
+	public static class PvZSpawnNestGrave {
+		@RestartRequired
+		public int basicG = 12;
+		@RestartRequired
+		public int basicGmin = 1;
+		@RestartRequired
+		public int basicGmax = 1;
+		@RestartRequired
+		public int nightG = 12;
+		@RestartRequired
+		public int nightGmin = 1;
+		@RestartRequired
+		public int nightGmax = 1;
+		@RestartRequired
+		public int poolG = 8;
+		@RestartRequired
+		public int poolGmin = 1;
+		@RestartRequired
+		public int poolGmax = 1;
+		@RestartRequired
+		public int roofG = 8;
+		@RestartRequired
+		public int roofGmin = 1;
+		@RestartRequired
+		public int roofGmax = 1;
+		@RestartRequired
+		public int futureG = 10;
+		@RestartRequired
+		public int futureGmin = 1;
+		@RestartRequired
+		public int futureGmax = 1;
+		@RestartRequired
+		public int darkagesG = 12;
+		@RestartRequired
+		public int darkagesGmin = 1;
+		@RestartRequired
+		public int darkagesGmax = 1;
+	}
+	public static class PvZSpawnNestPlant {
+		public int peashooterSP = 50;
+		public int peashooterSPmin = 1;
+		public int peashooterSPmax = 1;
+		public int bellflowerSP = 50;
+		public int bellflowerSPmin = 2;
+		public int bellflowerSPmax = 2;
+		public int puffshroomSP = 50;
+		public int puffshroomSPmin = 4;
+		public int puffshroomSPmax = 8;
+		public int weeniebeanieSP = 15;
+		public int weeniebeanieSPmin = 3;
+		public int weeniebeanieSPmax = 4;
+		public int sunflowerseedSP = 17;
+		public int sunflowerseedSPmin = 3;
+		public int sunflowerseedSPmax = 4;
+		public int lilypadSP = 13;
+		public int lilypadSPmin = 4;
+		public int lilypadSPmax = 8;
+		public int bombseedlingSP = 10;
+		public int bombseedlingSPmin = 1;
+		public int bombseedlingSPmax = 3;
+		public int smallnutSP = 15;
+		public int smallnutSPmin = 3;
+		public int smallnutSPmax = 4;
+		public int loquatSP = 11;
+		public int loquatSPmin = 1;
+		public int loquatSPmax = 3;
+		public int icebergSP = 10;
+		public int icebergSPmin = 1;
+		public int icebergSPmax = 3;
+		public int zapricotSP = 10;
+		public int zapricotSPmin = 1;
+		public int zapricotSPmax = 3;
+		public int buttonshroomSP = 6;
+		public int buttonshroomSPmin = 2;
+		public int buttonshroomSPmax = 2;
+	}
+
 	@SectionHeader("plants")
 	@Nest
 	public PvZSeedNest nestedSeeds = new PvZSeedNest();
 	public static class PvZSeedNest {
 		public boolean infiniteSeeds = false;
 		public boolean instantRecharge = false;
+		@Nest
+		public PvZMoreSeeds moreSeeds = new PvZMoreSeeds();
+	}
+
+	public static class PvZMoreSeeds {
 		public float acidshrooomS = 15.0f;
 		public float admiralnavybeanS = 10.0f;
 		public float beeshooterS = 15.0f;
@@ -70,6 +163,7 @@ public class PvZConfigModel {
 		public float weeniebeanieS = 2.5f;
 		public float zapricotS = 7.5f;
 	}
+
 	@Nest
 	public PvZSunNest nestedSun = new PvZSunNest();
 	public static class PvZSunNest {

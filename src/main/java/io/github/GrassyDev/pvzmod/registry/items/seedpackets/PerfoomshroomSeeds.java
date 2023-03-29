@@ -29,7 +29,7 @@ import java.util.List;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class PerfoomshroomSeeds extends Item implements FabricItem {
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.perfoomshroomS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.perfoomshroomS() * 20);
     public PerfoomshroomSeeds(Settings settings) {
         super(settings);
     }

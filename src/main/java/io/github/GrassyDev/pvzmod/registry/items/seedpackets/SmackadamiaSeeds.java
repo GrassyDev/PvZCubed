@@ -37,7 +37,7 @@ import java.util.List;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class SmackadamiaSeeds extends Item implements FabricItem {
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.smackadamiaS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.smackadamiaS() * 20);
     public SmackadamiaSeeds(Settings settings) {
         super(settings);
     }

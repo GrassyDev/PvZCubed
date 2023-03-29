@@ -18,7 +18,7 @@ import java.util.List;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class SpikerockSeeds extends Item implements FabricItem {
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.spikerockS() * 20);;
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.spikerockS() * 20);;
     public SpikerockSeeds(Settings settings) {
         super(settings);
     }

@@ -30,7 +30,7 @@ import java.util.List;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class SnowpeaSeeds extends Item implements FabricItem {
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.snowpeaS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.snowpeaS() * 20);
 
 	public SnowpeaSeeds(Settings settings) {
 		super(settings);

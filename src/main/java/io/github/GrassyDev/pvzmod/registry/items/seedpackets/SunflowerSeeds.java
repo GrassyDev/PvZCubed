@@ -35,7 +35,7 @@ import java.util.List;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class SunflowerSeeds extends Item implements FabricItem {
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.sunflowerS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.sunflowerS() * 20);
 
 	public SunflowerSeeds(Item.Settings settings) {
         super(settings);

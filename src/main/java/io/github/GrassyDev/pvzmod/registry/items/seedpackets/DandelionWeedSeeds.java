@@ -30,7 +30,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class DandelionWeedSeeds extends Item implements FabricItem {
 	public boolean used;
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.dandelionweedS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.dandelionweedS() * 20);
 
 	public DandelionWeedSeeds(Settings settings) {
 		super(settings);

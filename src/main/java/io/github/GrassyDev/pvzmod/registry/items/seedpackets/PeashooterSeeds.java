@@ -30,7 +30,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class PeashooterSeeds extends Item implements FabricItem {
 	public boolean used;
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.peashooterS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.peashooterS() * 20);
 
 	public PeashooterSeeds(Settings settings) {
 		super(settings);

@@ -30,7 +30,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class CoconutCannonSeeds extends Item implements FabricItem {
 
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.coconutS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.coconutS() * 20);
     public CoconutCannonSeeds(Settings settings) {
         super(settings);
     }

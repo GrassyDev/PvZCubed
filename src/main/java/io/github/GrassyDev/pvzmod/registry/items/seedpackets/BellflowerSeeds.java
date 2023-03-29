@@ -30,7 +30,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class BellflowerSeeds extends Item implements FabricItem {
     public boolean used;
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.bellflowerS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.bellflowerS() * 20);
 
     public BellflowerSeeds(Settings settings) {
         super(settings);

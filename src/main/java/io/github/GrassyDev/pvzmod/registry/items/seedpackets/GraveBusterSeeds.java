@@ -36,7 +36,7 @@ import java.util.List;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class GraveBusterSeeds extends Item implements FabricItem {
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.gravebusterS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.gravebusterS() * 20);
     public GraveBusterSeeds(Item.Settings settings) {
         super(settings);
     }

@@ -30,7 +30,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class TorchwoodSeeds extends Item implements FabricItem {
 	public boolean used;
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.torchwoodS() * 20);
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.torchwoodS() * 20);
 
 	public TorchwoodSeeds(Settings settings) {
 		super(settings);
