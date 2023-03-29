@@ -103,7 +103,6 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new PepperpultEntity.FireBeamGoal(this));
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 30.0F));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !(snorkelEntity.getHypno());

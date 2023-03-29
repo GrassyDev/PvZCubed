@@ -47,8 +47,6 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 	private static final TrackedData<Integer> SUN_SPEED;
 
 	private String controllerName = "puffcontroller";
-    public boolean isAsleep;
-    public boolean isTired;
     public int sunProducingTime;
 
 
@@ -91,12 +89,6 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 113) {
-			this.isTired = true;
-		}
-		else if (status == 112) {
-			this.isTired = false;
-		}
 	}
 
 
@@ -115,7 +107,7 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (this.isTired) {
+        if (this.getIsAsleep()) {
             event.getController().setAnimation(new AnimationBuilder().loop("sunshroom.asleep"));
         }
         else {
@@ -127,6 +119,9 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 
 	/** /~*~//~*AI*~//~*~/ **/
 	protected void initGoals() {
+	}
+
+	protected void awakeGoals() {
 		this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 50.0F));
 	}
 
@@ -167,7 +162,29 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 		return (Integer)this.dataTracker.get(SUN_SPEED);
 	}
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	public void tick() {
+		if (!this.world.isClient) {
+			if ((this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+					&& !awakeSwitch) {
+				this.awakeGoals();
+				this.setIsAsleep(IsAsleep.FALSE);
+				sleepSwitch = false;
+				awakeSwitch = true;
+			} else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+					&& !sleepSwitch) {
+				this.setIsAsleep(IsAsleep.TRUE);
+				this.clearGoalsAndTasks();
+				sleepSwitch = true;
+				awakeSwitch = false;
+			}
+		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
@@ -184,7 +201,7 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 			}
 
 			if (this.currentFuseTime >= this.sunProducingTime) {
-				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
+				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn() && !this.getIsAsleep()) {
 					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 					double probability = this.random.nextDouble();
 					if (probability <= PVZCONFIG.nestedSun.sunshroomSunChance()) { // 45%
@@ -204,7 +221,7 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 
 	public void tickMovement() {
 		super.tickMovement();
-		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.isAsleep) {
+		if (!this.world.isClient && this.isAlive() && --this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn() && !this.getIsAsleep()) {
 			if (--raycastDelay >= 0){
 				this.produceSun();
 				raycastDelay = 60;
@@ -215,33 +232,6 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 			this.kill();
 		}
 
-	}
-
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
-	protected void mobTick() {
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 112);
-			this.initGoals();
-			this.isAsleep = false;
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 113);
-			this.clearGoalsAndTasks();
-			this.isAsleep = true;
-			sleepSwitch = true;
-			awakeSwitch = false;
-		}
-		super.mobTick();
 	}
 
 	protected void produceSun() {

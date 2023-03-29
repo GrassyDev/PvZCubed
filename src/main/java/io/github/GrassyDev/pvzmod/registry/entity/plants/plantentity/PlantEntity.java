@@ -44,10 +44,14 @@ import io.github.GrassyDev.pvzmod.registry.items.seedpackets.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -61,8 +65,11 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.RaycastContext;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 
@@ -85,6 +92,58 @@ public abstract class PlantEntity extends GolemEntity {
 		this.refreshPositionAndAngles(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), livingEntity.bodyYaw, 0.0F);
 		this.startRiding(livingEntity);
 	}
+
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(DATA_ID_ASLEEP, false);
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("Asleep", this.getIsAsleep());
+	}
+
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(DATA_ID_ASLEEP, tag.getBoolean("Asleep"));
+	}
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	protected static final TrackedData<Boolean> DATA_ID_ASLEEP =
+			DataTracker.registerData(PlantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	public enum IsAsleep {
+		FALSE(false),
+		TRUE(true);
+
+		IsAsleep(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean getIsAsleep() {
+		return this.dataTracker.get(DATA_ID_ASLEEP);
+	}
+
+	public void setIsAsleep(PlantEntity.IsAsleep asleep) {
+		this.dataTracker.set(DATA_ID_ASLEEP, asleep.getId());
+	}
+
+	/** ----------------------------------------------------------------------- **/
 
 	public void tick() {
 		super.tick();

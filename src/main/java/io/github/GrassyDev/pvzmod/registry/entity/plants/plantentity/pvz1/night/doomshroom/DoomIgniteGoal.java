@@ -13,7 +13,7 @@ public class DoomIgniteGoal extends Goal {
 
     public boolean canStart() {
         LivingEntity livingEntity = this.doom.getTarget();
-        return (this.doom.getFuseSpeed() > 0 || livingEntity != null && this.doom.squaredDistanceTo(livingEntity) < 25.0D) && !this.doom.isTired;
+        return (this.doom.getFuseSpeed() > 0 || livingEntity != null && this.doom.squaredDistanceTo(livingEntity) < 25.0D) && !this.doom.getIsAsleep();
     }
 
     public void start() {
@@ -26,7 +26,7 @@ public class DoomIgniteGoal extends Goal {
     }
 
     public void tick() {
-		if (!doom.isAsleep) {
+		if (!doom.getIsAsleep()) {
 			if (this.target == null) {
 				this.doom.setFuseSpeed(-1);
 			} else if (this.doom.squaredDistanceTo(this.target) > 25.0D || this.doom.isInsideWaterOrBubbleColumn()) {

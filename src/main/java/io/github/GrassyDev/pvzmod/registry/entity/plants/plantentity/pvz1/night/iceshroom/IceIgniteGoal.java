@@ -13,7 +13,7 @@ public class IceIgniteGoal extends Goal {
 
     public boolean canStart() {
         LivingEntity livingEntity = this.ice.getTarget();
-        return (this.ice.getFuseSpeed() > 0 || livingEntity != null && this.ice.squaredDistanceTo(livingEntity) < 25.0D) && !this.ice.isAsleep;
+        return (this.ice.getFuseSpeed() > 0 || livingEntity != null && this.ice.squaredDistanceTo(livingEntity) < 25.0D) && !this.ice.getIsAsleep();
     }
 
     public void start() {
@@ -26,7 +26,7 @@ public class IceIgniteGoal extends Goal {
     }
 
     public void tick() {
-		if (!ice.isAsleep) {
+		if (!ice.getIsAsleep()) {
 			if (this.target == null) {
 				this.ice.setFuseSpeed(-1);
 			} else if (this.ice.squaredDistanceTo(this.target) > 25.0D || this.ice.isInsideWaterOrBubbleColumn()) {

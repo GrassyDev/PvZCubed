@@ -19,8 +19,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
@@ -63,8 +61,6 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
     private int currentFuseTime;
     private int fuseTime = 40;
     private int explosionRadius = 1;
-    public boolean isTired;
-	public boolean isAsleep;
 	private String controllerName = "doomcontroller";
 
     public DoomshroomEntity(EntityType<? extends DoomshroomEntity> entityType, World world) {
@@ -120,12 +116,6 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 			super.handleStatus(status);
 		}
 		RandomGenerator randomGenerator = this.getRandom();
-		if (status == 113) {
-			this.isTired = true;
-		}
-		else if (status == 112) {
-			this.isTired = false;
-		}
 		if (status == 106) {
 			for(int i = 0; i < 256; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
@@ -217,7 +207,7 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.getFuseSpeed();
-        if (this.isTired){
+        if (this.getIsAsleep()){
             event.getController().setAnimation(new AnimationBuilder().loop("doomshroom.asleep"));
         }
         else if (i > 0) {
@@ -386,16 +376,49 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		int i = this.getFuseSpeed();
+		if (i <= 0 || source.getAttacker() instanceof PlayerEntity) {
+			super.applyDamage(source, amount);
+		}
+	}
+
+
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
 
 	public void tick() {
+		if (!this.world.isClient) {
+			if ((this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+					&& !awakeSwitch) {
+				this.awakeGoals();
+				this.setIsAsleep(IsAsleep.FALSE);
+				sleepSwitch = false;
+				awakeSwitch = true;
+			} else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+					&& !sleepSwitch) {
+				this.setIsAsleep(IsAsleep.TRUE);
+				this.clearGoalsAndTasks();
+				sleepSwitch = true;
+				awakeSwitch = false;
+			}
+		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.isAlive() && !this.isAsleep) {
+		if (this.getIsAsleep()){
+			this.setFuseSpeed(-1);
+		}
+		if (this.isAlive() && !this.getIsAsleep()) {
 			this.lastFuseTime = this.currentFuseTime;
 			if (this.getIgnited()) {
 				this.setFuseSpeed(1);
@@ -403,17 +426,15 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 
 			int i = this.getFuseSpeed();
 			if (i > 0 && this.currentFuseTime == 0) {
-				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 				this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
 			}
 
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
-				removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
-			if (this.currentFuseTime >= this.fuseTime && !this.isAsleep) {
+			if (this.currentFuseTime >= this.fuseTime && !this.getIsAsleep()) {
 				this.currentFuseTime = this.fuseTime;
 				this.raycastExplode();
 				this.world.sendEntityStatus(this, (byte) 106);
@@ -428,38 +449,9 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
     public void tickMovement() {
         super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.clearStatusEffects();
             this.kill();
         }
     }
-
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
-	protected void mobTick() {
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 112);
-			this.isAsleep = false;
-			this.awakeGoals();
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.isAsleep = true;
-			this.world.sendEntityStatus(this, (byte) 113);
-			this.clearGoalsAndTasks();
-			this.removeStatusEffect(StatusEffects.RESISTANCE);
-			sleepSwitch = true;
-			awakeSwitch = false;
-		}
-		super.mobTick();
-	}
 
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/

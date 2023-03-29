@@ -15,7 +15,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -103,7 +102,6 @@ public class CabbagepultEntity extends PlantEntity implements IAnimatable, Range
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new CabbagepultEntity.FireBeamGoal(this));
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 30.0F));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !(snorkelEntity.getHypno());

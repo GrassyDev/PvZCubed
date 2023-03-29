@@ -15,7 +15,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -52,7 +51,6 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private String controllerName = "puffcontroller";
-    public boolean isTired;
 
 	public boolean isFiring;
 	private int amphibiousRaycastDelay;
@@ -81,12 +79,6 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 113) {
-			this.isTired = true;
-			this.isFiring = false;
-		} else if (status == 112) {
-			this.isTired = false;
-		}
 		if (status == 111) {
 			this.isFiring = true;
 		} else if (status == 110) {
@@ -110,7 +102,7 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.isTired) {
+		if (this.getIsAsleep()) {
 			event.getController().setAnimation(new AnimationBuilder().loop("seashroom.asleep"));
 		} else if (this.isFiring) {
 			event.getController().setAnimation(new AnimationBuilder().playOnce("seashroom.shoot"));
@@ -124,8 +116,10 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
+	}
+
+	protected void awakeGoals(){
 		this.goalSelector.add(1, new SeashroomEntity.FireBeamGoal(this));
-		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(25) + 20, 6.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
@@ -134,6 +128,7 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 		}));
 		snorkelGoal();
 	}
+
 	protected void snorkelGoal() {
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
@@ -168,7 +163,36 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	public void tick() {
+		if (!this.world.isClient) {
+			if ((this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+					&& !awakeSwitch) {
+				this.setIsAsleep(IsAsleep.FALSE);
+				this.awakeGoals();
+				sleepSwitch = false;
+				awakeSwitch = true;
+			} else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+					&& !sleepSwitch) {
+				this.setIsAsleep(IsAsleep.TRUE);
+				for (Goal goal : this.goalSelector.getGoals()) {
+					if (!(goal instanceof FireBeamGoal fireBeamGoal)) {
+						this.goalSelector.remove(goal);
+					}
+					else {
+						fireBeamGoal.stop();
+					}
+				}
+				sleepSwitch = true;
+				awakeSwitch = false;
+			}
+		}
 		super.tick();
 		BlockPos blockPos = this.getBlockPos();
 		if (!this.isAiDisabled() && this.isAlive()) {
@@ -223,31 +247,6 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.kill();
 		}
-	}
-
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
-	protected void mobTick() {
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 112);
-			this.initGoals();
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 113);
-			this.clearGoalsAndTasks();
-			sleepSwitch = true;
-			awakeSwitch = false;
-		}
-		super.mobTick();
 	}
 
 
@@ -354,7 +353,7 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 		}
 
 		public boolean shouldContinue() {
-			return super.shouldContinue();
+			return super.shouldContinue() && !this.plantEntity.getIsAsleep();
 		}
 
 		public void start() {
@@ -374,8 +373,7 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 			LivingEntity livingEntity = this.plantEntity.getTarget();
 			this.plantEntity.getNavigation().stop();
 			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.plantEntity.canSee(livingEntity)) &&
-					this.animationTicks >= 0) {
+			if ((!this.plantEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.plantEntity.getIsAsleep()){
 				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
 				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);

@@ -19,7 +19,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -62,8 +61,6 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 
 	private String controllerName = "fumecontroller";
 
-	private boolean isTired;
-
 	private boolean isFiring;
 
 	public FumeshroomEntity(EntityType<? extends FumeshroomEntity> entityType, World world) {
@@ -94,12 +91,6 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 	public void handleStatus(byte status) {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
-		}
-		if (status == 113) {
-			this.isTired = true;
-			this.isFiring = false;
-		} else if (status == 112) {
-			this.isTired = false;
 		}
 		if (status == 111) {
 			this.isFiring = true;
@@ -148,7 +139,7 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.isTired) {
+		if (this.getIsAsleep()) {
 			event.getController().setAnimation(new AnimationBuilder().loop("fumeshroom.asleep"));
 		} else if (this.isFiring) {
 			event.getController().setAnimation(new AnimationBuilder().playOnce("fumeshroom.attack"));
@@ -162,8 +153,10 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
+	}
+
+	protected void awakeGoals(){
 		this.goalSelector.add(1, new FumeshroomEntity.FireBeamGoal(this));
-		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(25) + 20, 6.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
@@ -175,6 +168,7 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 		}));
 		snorkelGoal();
 	}
+
 	protected void snorkelGoal() {
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
@@ -214,7 +208,39 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	public void tick() {
+		//ambient darkness: daytime = 0, rain = 2, thunder/night > 2
+		//skylight is the light of the sky hitting the block. Allows for mushrooms to stay awake underground while preventing light from torches making them asleep
+		//we need this switch to prevent high server lag because of the goals
+		if (!this.world.isClient) {
+			if ((this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+					&& !awakeSwitch) {
+				this.setIsAsleep(IsAsleep.FALSE);
+				this.awakeGoals();
+				sleepSwitch = false;
+				awakeSwitch = true;
+			} else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+					&& !sleepSwitch) {
+				this.setIsAsleep(IsAsleep.TRUE);
+				for (Goal goal : this.goalSelector.getGoals()) {
+					if (!(goal instanceof FireBeamGoal fireBeamGoal)) {
+						this.goalSelector.remove(goal);
+					}
+					else {
+						fireBeamGoal.stop();
+					}
+				}
+				sleepSwitch = true;
+				awakeSwitch = false;
+			}
+		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
@@ -236,34 +262,6 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.kill();
 		}
-	}
-
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
-	protected void mobTick() {
-		//ambient darkness: daytime = 0, rain = 2, thunder/night > 2
-		//skylight is the light of the sky hitting the block. Allows for mushrooms to stay awake underground while preventing light from torches making them asleep
-		//we need this switch to prevent high server lag because of the goals
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 112);
-			this.initGoals();
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 113);
-			this.clearGoalsAndTasks();
-			sleepSwitch = true;
-			awakeSwitch = false;
-		}
-		super.mobTick();
 	}
 
 
@@ -435,7 +433,7 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 		}
 
 		public boolean shouldContinue() {
-			return super.shouldContinue() && !this.plantEntity.isTired;
+			return super.shouldContinue() && !this.plantEntity.getIsAsleep();
 		}
 
 		public void start() {
@@ -454,7 +452,7 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 			LivingEntity livingEntity = this.plantEntity.getTarget();
 			this.plantEntity.getNavigation().stop();
 			this.plantEntity.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-			if ((!this.plantEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.plantEntity.isTired){
+			if ((!this.plantEntity.canSee(livingEntity) && this.animationTicks >= 0) || this.plantEntity.getIsAsleep()){
 				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
 				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);

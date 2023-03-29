@@ -47,8 +47,6 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "hypnocontroller";
-    public boolean isAsleep;
-    public boolean isTired;
 
 
     private static final TrackedData<Integer> HYPNO_BEAM_TARGET_ID;
@@ -84,12 +82,6 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 113) {
-			this.isTired = true;
-		}
-		else if (status == 112) {
-			this.isTired = false;
-		}
 	}
 
 
@@ -108,7 +100,7 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (this.isTired) {
+        if (this.getIsAsleep()) {
             event.getController().setAnimation(new AnimationBuilder().loop("hypnoshroom.asleep"));
         }
         else {
@@ -121,6 +113,9 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
+	}
+
+	protected void awakeGoals(){
 		this.goalSelector.add(1, new HypnoshroomEntity.FireBeamGoal(this));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) &&
@@ -215,7 +210,29 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	public void tick() {
+		if (!this.world.isClient) {
+			if ((this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+					&& !awakeSwitch) {
+				this.awakeGoals();
+				this.setIsAsleep(IsAsleep.FALSE);
+				sleepSwitch = false;
+				awakeSwitch = true;
+			} else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+					&& !sleepSwitch) {
+				this.setIsAsleep(IsAsleep.TRUE);
+				this.clearGoalsAndTasks();
+				sleepSwitch = true;
+				awakeSwitch = false;
+			}
+		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
@@ -256,33 +273,6 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 				}
 			}
 		}
-	}
-
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
-	protected void mobTick() {
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 112);
-			this.initGoals();
-			this.isAsleep = false;
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 113);
-			this.clearGoalsAndTasks();
-			this.isAsleep = true;
-			sleepSwitch = true;
-			awakeSwitch = false;
-		}
-		super.mobTick();
 	}
 
 
@@ -444,7 +434,7 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
             LivingEntity livingEntity = this.hypnoshroom.getTarget();
             this.hypnoshroom.getNavigation().stop();
             this.hypnoshroom.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-            if (!this.hypnoshroom.canSee(livingEntity) || this.hypnoshroom.isAsleep) {
+            if (!this.hypnoshroom.canSee(livingEntity) || this.hypnoshroom.getIsAsleep()) {
                 this.hypnoshroom.setTarget((LivingEntity) null);
             } else {
                 ++this.beamTicks;

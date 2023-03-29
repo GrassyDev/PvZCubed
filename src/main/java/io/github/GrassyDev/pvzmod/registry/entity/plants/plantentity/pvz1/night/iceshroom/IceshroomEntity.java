@@ -61,8 +61,6 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
     private int currentFuseTime;
     private int fuseTime = 30;
     private int explosionRadius = 1;
-    public boolean isAsleep;
-    public boolean isTired;
 	private String controllerName = "icecontroller";
 
 	public IceshroomEntity(EntityType<? extends IceshroomEntity> entityType, World world) {
@@ -117,12 +115,6 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 113) {
-			this.isTired = true;
-		}
-		else if (status == 112) {
-			this.isTired = false;
-		}
 		if (status == 106) {
 			for(int i = 0; i < 1000; ++i) {
 				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
@@ -162,7 +154,7 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.getFuseSpeed();
-        if (this.isTired){
+        if (this.getIsAsleep()){
             event.getController().setAnimation(new AnimationBuilder().loop("iceshroom.asleep"));
         }
         else if (i > 0) {
@@ -329,12 +321,37 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	public void tick() {
+		if ((this.world.getAmbientDarkness() >= 2 ||
+				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+				&& !awakeSwitch) {
+			this.setIsAsleep(IsAsleep.FALSE);
+			this.awakeGoals();
+			sleepSwitch = false;
+			awakeSwitch = true;
+		}
+		else if (this.world.getAmbientDarkness() < 2 &&
+				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+				&& !sleepSwitch) {
+			this.setIsAsleep(IsAsleep.TRUE);
+			this.clearGoalsAndTasks();
+			this.removeStatusEffect(StatusEffects.RESISTANCE);
+			sleepSwitch = true;
+			awakeSwitch = false;
+		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.isAlive() && !this.isAsleep) {
+		if (this.getIsAsleep()){
+			this.setFuseSpeed(-1);
+		}
+		if (this.isAlive() && !this.getIsAsleep()) {
 			this.lastFuseTime = this.currentFuseTime;
 			if (this.getIgnited()) {
 				this.setFuseSpeed(1);
@@ -369,34 +386,6 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 			this.clearStatusEffects();
 			this.kill();
 		}
-	}
-
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
-	protected void mobTick() {
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.isAsleep = false;
-			this.world.sendEntityStatus(this, (byte) 112);
-			this.awakeGoals();
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 113);
-			this.isAsleep = true;
-			this.clearGoalsAndTasks();
-			this.removeStatusEffect(StatusEffects.RESISTANCE);
-			sleepSwitch = true;
-			awakeSwitch = false;
-		}
-		super.mobTick();
 	}
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/

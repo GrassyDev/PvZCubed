@@ -16,7 +16,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -60,7 +59,6 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 
 	private String controllerName = "scaredycontroller";
 
-	private boolean isTired;
 
 	private boolean isFiring;
 
@@ -112,12 +110,6 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 		} else if (status == 110) {
 			this.isFiring = false;
 		}
-		if (status == 113) {
-			this.isTired = true;
-		}
-		else if (status == 112) {
-			this.isTired = false;
-		}
 	}
 
 
@@ -161,7 +153,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.isTired) {
+		if (this.getIsAsleep()) {
 			event.getController().setAnimation(new AnimationBuilder().loop("scaredyshroom.asleep"));
 		}
 		else if (this.isFiring) {
@@ -183,11 +175,13 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
+	}
+
+	protected void awakeGoals() {
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
 		}));
 		this.goalSelector.add(1, new ScaredyshroomEntity.FireBeamGoal(this));
-		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, this.random.nextInt(45) + 40, 30.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
@@ -208,6 +202,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 		}));
 		snorkelGoal();
 	}
+
 	protected void snorkelGoal() {
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
@@ -267,7 +262,36 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 
 	/** /~*~//~**TICKING**~//~*~/ **/
 
+	boolean sleepSwitch = false;
+	boolean awakeSwitch = false;
+
 	public void tick() {
+		if (!this.world.isClient) {
+			if ((this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+					&& !awakeSwitch) {
+				this.setIsAsleep(IsAsleep.FALSE);
+				this.awakeGoals();
+				sleepSwitch = false;
+				awakeSwitch = true;
+			} else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+					&& !sleepSwitch) {
+				this.setIsAsleep(IsAsleep.TRUE);
+				for (Goal goal : this.goalSelector.getGoals()) {
+					if (!(goal instanceof FireBeamGoal fireBeamGoal)) {
+						this.goalSelector.remove(goal);
+					}
+					else {
+						fireBeamGoal.stop();
+					}
+				}
+				sleepSwitch = true;
+				awakeSwitch = false;
+			}
+		}
 		super.tick();
 		this.checkForZombies();
 		if (!this.isAiDisabled() && this.isAlive()) {
@@ -294,31 +318,6 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 		if (this.animationScare > 0 && this.isAfraid) {
 			--this.animationScare;
 		}
-	}
-
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
-	protected void mobTick() {
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 112);
-			this.initGoals();
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 113);
-			this.clearGoalsAndTasks();
-			sleepSwitch = true;
-			awakeSwitch = false;
-		}
-		super.mobTick();
 	}
 
 
@@ -454,7 +453,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 
 		public boolean canStart() {
 			LivingEntity livingEntity = this.plantEntity.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && !this.plantEntity.isTired;
+			return livingEntity != null && livingEntity.isAlive() && !this.plantEntity.getIsAsleep();
 		}
 
 		public boolean shouldContinue() {
@@ -485,7 +484,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 				this.plantEntity.setTarget((LivingEntity) null);
 			}
 			else {
-				if (!this.plantEntity.isTired && !this.plantEntity.isAfraid) {
+				if (!this.plantEntity.getIsAsleep() && !this.plantEntity.isAfraid) {
 					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 					++this.animationTicks;
 					++this.beamTicks;
