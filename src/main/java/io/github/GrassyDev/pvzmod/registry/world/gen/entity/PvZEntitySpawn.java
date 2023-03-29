@@ -53,40 +53,40 @@ public class PvZEntitySpawn {
 
 		//Plants
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.PEASHOOTER, 50, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.PEASHOOTER, PVZCONFIG.nestedSpawns.nestedPlantSpawns.peashooterSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.peashooterSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.peashooterSPmax());
 		SpawnRestriction.register(PvZEntity.PEASHOOTER, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PeashooterEntity::canPeashooterSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.BELLFLOWER, 50, 2, 2);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.BELLFLOWER, PVZCONFIG.nestedSpawns.nestedPlantSpawns.bellflowerSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.bellflowerSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.bellflowerSPmax());
 		SpawnRestriction.register(PvZEntity.BELLFLOWER, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BellflowerEntity::canBellflowerSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.PUFFSHROOM, 50, 4, 8);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.PUFFSHROOM, PVZCONFIG.nestedSpawns.nestedPlantSpawns.puffshroomSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.puffshroomSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.puffshroomSPmax());
 		SpawnRestriction.register(PvZEntity.PUFFSHROOM, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PuffshroomEntity::canPuffshroomSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.WEENIEBEANIE, 15, 3, 4);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.WEENIEBEANIE, PVZCONFIG.nestedSpawns.nestedPlantSpawns.weeniebeanieSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.weeniebeanieSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.weeniebeanieSPmax());
 		SpawnRestriction.register(PvZEntity.WEENIEBEANIE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WeenieBeanieEntity::canWeenieBeanieSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.SUNFLOWERSEED, 17, 3, 4);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.SUNFLOWERSEED, PVZCONFIG.nestedSpawns.nestedPlantSpawns.sunflowerseedSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.sunflowerseedSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.sunflowerseedSPmax());
 		SpawnRestriction.register(PvZEntity.SUNFLOWERSEED, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SunflowerSeedEntity::canSunflowerSeedSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.LILYPAD, 13, 4, 8);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.LILYPAD, PVZCONFIG.nestedSpawns.nestedPlantSpawns.lilypadSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.lilypadSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.lilypadSPmax());
 		SpawnRestriction.register(PvZEntity.LILYPAD, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilyPadEntity::canLilyPadSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.BOMBSEEDLING, 10, 1, 3);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.BOMBSEEDLING, PVZCONFIG.nestedSpawns.nestedPlantSpawns.bombseedlingSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.bombseedlingSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.bombseedlingSPmax());
 		SpawnRestriction.register(PvZEntity.BOMBSEEDLING, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BombSeedlingEntity::canBombSeedlingSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.SMALLNUT, 15, 3, 4);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.SMALLNUT, PVZCONFIG.nestedSpawns.nestedPlantSpawns.smallnutSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.smallnutSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.smallnutSPmax());
 		SpawnRestriction.register(PvZEntity.SMALLNUT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SmallNutEntity::canSmallnutSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.LOQUAT, 11, 1, 3);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.LOQUAT, PVZCONFIG.nestedSpawns.nestedPlantSpawns.loquatSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.loquatSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.loquatSPmax());
 		SpawnRestriction.register(PvZEntity.LOQUAT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LoquatEntity::canLoquatSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.ICEBERGLETTUCE, 10, 1, 3);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.ICEBERGLETTUCE, PVZCONFIG.nestedSpawns.nestedPlantSpawns.icebergSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.icebergSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.icebergSPmax());
 		SpawnRestriction.register(PvZEntity.ICEBERGLETTUCE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, IcebergLettuceEntity::canIcebergLettuceSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.ZAPRICOT, 10, 1, 3);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.ZAPRICOT, PVZCONFIG.nestedSpawns.nestedPlantSpawns.zapricotSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.zapricotSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.zapricotSPmax());
 		SpawnRestriction.register(PvZEntity.ZAPRICOT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ZapricotEntity::canZapricotSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.BUTTONSHROOM, 6, 2, 2);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.BUTTONSHROOM, PVZCONFIG.nestedSpawns.nestedPlantSpawns.buttonshroomSP(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.buttonshroomSPmin(), PVZCONFIG.nestedSpawns.nestedPlantSpawns.buttonshroomSPmax());
 		SpawnRestriction.register(PvZEntity.BUTTONSHROOM, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ButtonshroomEntity::canButtonshroomSpawn);
 
 

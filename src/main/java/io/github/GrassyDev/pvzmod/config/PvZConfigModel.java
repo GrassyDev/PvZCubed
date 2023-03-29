@@ -67,7 +67,7 @@ public class PvZConfigModel {
 		public int puffshroomSP = 50;
 		public int puffshroomSPmin = 4;
 		public int puffshroomSPmax = 8;
-		public int weeniebeanieSP = 15;
+		public int weeniebeanieSP = 17;
 		public int weeniebeanieSPmin = 3;
 		public int weeniebeanieSPmax = 4;
 		public int sunflowerseedSP = 17;
