@@ -25,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class BackupDancerEgg extends Item {
     public BackupDancerEgg(Settings settings) {
         super(settings);
@@ -59,7 +61,9 @@ public class BackupDancerEgg extends Item {
                     world.playSound((PlayerEntity) null, backupDancerEntity.getX(), backupDancerEntity.getY(), backupDancerEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
 
-                itemStack.decrement(1);
+                if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+				itemStack.decrement(1);
+			};
                 return ActionResult.success(world.isClient);
             }
 			 else {

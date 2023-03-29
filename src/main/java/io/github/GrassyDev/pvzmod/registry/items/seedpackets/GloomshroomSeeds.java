@@ -15,8 +15,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class GloomshroomSeeds extends Item implements FabricItem {
-	public static int cooldown = 700;
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.gloomshroomS() * 20);
     public GloomshroomSeeds(Settings settings) {
         super(settings);
     }

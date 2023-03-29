@@ -25,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class FutureGraveSpawn extends Item {
     public FutureGraveSpawn(Settings settings) {
         super(settings);
@@ -57,7 +59,9 @@ public class FutureGraveSpawn extends Item {
 					basicGraveEntity.setPersistent();
                     world.playSound((PlayerEntity) null, basicGraveEntity.getX(), basicGraveEntity.getY(), basicGraveEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
-                itemStack.decrement(1);
+                if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+				itemStack.decrement(1);
+			};
                 return ActionResult.success(world.isClient);
             }
 		else {

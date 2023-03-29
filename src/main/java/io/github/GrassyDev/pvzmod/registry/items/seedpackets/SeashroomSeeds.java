@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
+import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.fog.seashroom.SeashroomEntity;
@@ -33,8 +34,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class SeashroomSeeds extends Item implements FabricItem {
-	public static int cooldown = 200;
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.seashroomS() * 20);
     public SeashroomSeeds(Settings settings) {
         super(settings);
     }
@@ -121,7 +124,9 @@ public class SeashroomSeeds extends Item implements FabricItem {
 									return TypedActionResult.fail(itemStack);
 								}
 								if (!user.getAbilities().creativeMode) {
-									itemStack.decrement(1);
+									if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+				itemStack.decrement(1);
+			};
 									user.getItemCooldownManager().set(this, cooldown);
 								}
 							}

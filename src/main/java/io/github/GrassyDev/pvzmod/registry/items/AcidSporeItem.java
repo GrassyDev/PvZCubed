@@ -44,7 +44,8 @@ public class AcidSporeItem extends Item {
         }
 
         if (!user.getAbilities().creativeMode) {
-            itemStack.decrement(1); // decrements itemStack if user is not in creative mode
+				itemStack.decrement(1);
+				// decrements itemStack if user is not in creative mode
             user.getItemCooldownManager().set(this, 20);
         }
 

@@ -49,6 +49,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAnimatable {
 	private String controllerName = "peacontroller";
 
@@ -212,7 +214,9 @@ public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAni
 				this.remove(RemovalReason.DISCARDED);
 			}
 			if (!player.getAbilities().creativeMode){
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
+			};
 				player.getItemCooldownManager().set(ModItems.GATLINGPEA_SEED_PACKET, GatlingpeaSeeds.cooldown);
 			}
 			return ActionResult.SUCCESS;

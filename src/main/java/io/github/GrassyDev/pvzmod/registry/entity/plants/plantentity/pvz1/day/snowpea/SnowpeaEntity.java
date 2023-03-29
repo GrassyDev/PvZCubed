@@ -57,6 +57,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
@@ -277,8 +279,10 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 				this.remove(RemovalReason.DISCARDED);
 			}
 			if (!player.getAbilities().creativeMode){
-				itemStack.decrement(1);
-				player.getItemCooldownManager().set(ModItems.TWINSUNFLOWER_SEED_PACKET, TwinSunflowerSeeds.cooldown);
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+				player.getItemCooldownManager().set(ModItems.SNOW_QUEENPEA_SEED_PACKET, TwinSunflowerSeeds.cooldown);
 			}
 			return ActionResult.SUCCESS;
 		}

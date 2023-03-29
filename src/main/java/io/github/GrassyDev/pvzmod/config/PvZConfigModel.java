@@ -8,7 +8,68 @@ import io.wispforest.owo.config.annotation.*;
 public class PvZConfigModel {
 	@Sync(Option.SyncMode.OVERRIDE_CLIENT)
 
-	@SectionHeader("sunProduction")
+	@SectionHeader("plants")
+	@Nest
+	public PvZSeedNest nestedSeeds = new PvZSeedNest();
+	public static class PvZSeedNest {
+		public boolean infiniteSeeds = false;
+		public boolean instantRecharge = false;
+		public float acidshrooomS = 15.0f;
+		public float admiralnavybeanS = 10.0f;
+		public float beeshooterS = 15.0f;
+		public float bellflowerS = 2.5f;
+		public float bombseedlingS = 2.5f;
+		public float buttonshroomS = 2.5f;
+		public float cabbagepultS = 5.0f;
+		public float cattailS = 35.0f;
+		public float cherrybombS = 35.0f;
+		public float chomperS = 20.0f;
+		public float coconutS = 35.0f;
+		public float dandelionweedS = 7.5f;
+		public float doomshroomS = 25.0f;
+		public float firepeaS = 15.0f;
+		public float fumeshroomS = 7.5f;
+		public float gatlingpeaS = 35.0f;
+		public float gloomshroomS = 35.0f;
+		public float gravebusterS = 5.0f;
+		public float hypnoshroomS = 20.0f;
+		public float iceberglettuceS = 20.0f;
+		public float iceshroomS = 25.0f;
+		public float jalapenoS = 35.0f;
+		public float lightningreedS = 12.5f;
+		public float lilypadS = 0f;
+		public float loquatS = 2.5f;
+		public float narcissusS = 7.5f;
+		public float navybeanS = 5.0f;
+		public float peapodS = 3.75f;
+		public float peashooterS = 5.0f;
+		public float pepperpultS = 20.0f;
+		public float perfoomshroomS = 25.0f;
+		public float potatomineS = 20.0f;
+		public float puffshroomS = 2.5f;
+		public float repeaterS = 7.5f;
+		public float scaredyshroomS = 5.0f;
+		public float seashroomS = 10.0f;
+		public float shamrockS = 5.0f;
+		public float smackadamiaS = 50.0f;
+		public float smallnutS = 10.0f;
+		public float snowpeaS = 7.5f;
+		public float snowqueenpeaS = 35f;
+		public float spikerockS = 35.0f;
+		public float spikeweedS = 5.0f;
+		public float squashS = 25.0f;
+		public float sunflowerS = 2.5f;
+		public float sunflowerseedS = 2.5f;
+		public float sunshroomS = 5.0f;
+		public float tallnutS = 50.0f;
+		public float tanglekelpS = 25.0f;
+		public float threepeaterS = 7.5f;
+		public float torchwoodS = 37.5f;
+		public float twinsunflowerS = 35.0f;
+		public float wallnutS = 50.0f;
+		public float weeniebeanieS = 2.5f;
+		public float zapricotS = 7.5f;
+	}
 	@Nest
 	public PvZSunNest nestedSun = new PvZSunNest();
 	public static class PvZSunNest {

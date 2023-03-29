@@ -52,6 +52,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class ChomperEntity extends PlantEntity implements IAnimatable {
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =

@@ -58,15 +58,20 @@ public class PvZCubed implements ModInitializer {
 	public static final StatusEffect ACID = new Acid();
 
 	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_PLANT_SPAWN =
-			GameRuleRegistry.register("doPlantSpawn", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(true));
+			GameRuleRegistry.register("pvzdoPlantSpawn", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(true));
 	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_GRAVE_SPAWN =
-			GameRuleRegistry.register("doGraveSpawn", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(true));
+			GameRuleRegistry.register("pvzdoGraveSpawn", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(true));
 
 	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_PLANT_DROP =
-			GameRuleRegistry.register("doPlantDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
+			GameRuleRegistry.register("pvzdoPlantDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
 
 	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_ZOMBIE_DROP =
-			GameRuleRegistry.register("doZombieDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
+			GameRuleRegistry.register("pvzdoZombieDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
+
+	public static final GameRules.Key<GameRules.BooleanRule> INFINITE_SEEDS =
+			GameRuleRegistry.register("pvzinfiniteSeeds", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(false));
+	public static final GameRules.Key<GameRules.BooleanRule> INSTANT_RECHARGE =
+			GameRuleRegistry.register("pvzinstantRecharge", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(false));
 
 	public static final String MOD_ID = "pvzmod";
 

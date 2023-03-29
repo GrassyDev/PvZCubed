@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.darkages.PeasantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -25,6 +24,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class PeasantConeEgg extends Item {
     public PeasantConeEgg(Settings settings) {
@@ -61,7 +62,9 @@ public class PeasantConeEgg extends Item {
 				world.playSound((PlayerEntity) null, coneheadEntity.getX(), coneheadEntity.getY(), coneheadEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 			}
 
-			itemStack.decrement(1);
+			if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+				itemStack.decrement(1);
+			};
 			return ActionResult.success(world.isClient);
 		} else {
 			return ActionResult.FAIL;

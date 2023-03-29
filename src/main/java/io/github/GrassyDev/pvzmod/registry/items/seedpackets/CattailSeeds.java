@@ -15,8 +15,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class CattailSeeds extends Item implements FabricItem {
-	public static int cooldown = 700;
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.cattailS() * 20);
     public CattailSeeds(Settings settings) {
         super(settings);
     }

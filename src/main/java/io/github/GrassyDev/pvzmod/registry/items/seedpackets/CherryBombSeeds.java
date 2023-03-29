@@ -26,8 +26,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class CherryBombSeeds extends Item implements FabricItem {
-	public static int cooldown = 700;
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.cherrybombS() * 20);
     public CherryBombSeeds(Settings settings) {
         super(settings);
     }
@@ -108,7 +110,9 @@ public class CherryBombSeeds extends Item implements FabricItem {
 
 					PlayerEntity user = context.getPlayer();
 					if (!user.getAbilities().creativeMode) {
-						itemStack.decrement(1);
+						if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+				itemStack.decrement(1);
+			};
 						user.getItemCooldownManager().set(this, cooldown);
 					}
 					return ActionResult.success(world.isClient);

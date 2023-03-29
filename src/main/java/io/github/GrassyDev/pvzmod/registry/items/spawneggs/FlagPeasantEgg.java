@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 import static io.github.GrassyDev.pvzmod.registry.PvZEntity.FLAGPEASANT;
 
 public class FlagPeasantEgg extends Item {
@@ -60,7 +61,9 @@ public class FlagPeasantEgg extends Item {
                     world.playSound((PlayerEntity) null, flagzombieEntity.getX(), flagzombieEntity.getY(), flagzombieEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
 
-                itemStack.decrement(1);
+                if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+				itemStack.decrement(1);
+			};
                 return ActionResult.success(world.isClient);
             }
 			 else {

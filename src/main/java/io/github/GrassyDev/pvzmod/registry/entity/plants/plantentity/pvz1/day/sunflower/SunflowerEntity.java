@@ -325,7 +325,9 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 				this.remove(RemovalReason.DISCARDED);
 			}
 			if (!player.getAbilities().creativeMode){
-				itemStack.decrement(1);
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
 				player.getItemCooldownManager().set(ModItems.TWINSUNFLOWER_SEED_PACKET, TwinSunflowerSeeds.cooldown);
 			}
 			return ActionResult.SUCCESS;

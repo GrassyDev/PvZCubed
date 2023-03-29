@@ -34,8 +34,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class NarcissusSeeds extends Item implements FabricItem {
-	public static int cooldown = 150;
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.narcissusS() * 20);
     public NarcissusSeeds(Settings settings) {
         super(settings);
     }
@@ -119,7 +121,9 @@ public class NarcissusSeeds extends Item implements FabricItem {
 									world.playSound((PlayerEntity) null, aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 								}
 								if (!user.getAbilities().creativeMode) {
-									itemStack.decrement(1);
+									if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+				itemStack.decrement(1);
+			};
 									user.getItemCooldownManager().set(this, cooldown);
 								}
 							}

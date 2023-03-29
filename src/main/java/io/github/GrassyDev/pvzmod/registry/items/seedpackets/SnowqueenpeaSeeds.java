@@ -15,8 +15,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class SnowqueenpeaSeeds extends Item implements FabricItem {
-	public static int cooldown = 300;
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.snowqueenpeaS() * 20);
 
 	public SnowqueenpeaSeeds(Settings settings) {
 		super(settings);

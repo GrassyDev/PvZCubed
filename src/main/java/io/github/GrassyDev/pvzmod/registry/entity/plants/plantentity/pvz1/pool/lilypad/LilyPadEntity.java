@@ -52,7 +52,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Objects;
 
-;
+;import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class LilyPadEntity extends PlantEntity implements IAnimatable {
 
@@ -306,7 +306,9 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 				this.remove(RemovalReason.DISCARDED);
 			}
 			if (!player.getAbilities().creativeMode){
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
+			};
 				player.getItemCooldownManager().set(ModItems.CATTAIL_SEED_PACKET, CattailSeeds.cooldown);
 			}
 			return ActionResult.SUCCESS;

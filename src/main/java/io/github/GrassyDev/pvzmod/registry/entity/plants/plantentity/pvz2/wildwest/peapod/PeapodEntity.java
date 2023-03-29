@@ -59,6 +59,7 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnimatable {
 	private String controllerName = "peacontroller";
@@ -323,7 +324,9 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 			maxHealthAttribute.addPersistentModifier(createHealthModifier(health + 12));
 			heal(12);
 			if (!player.getAbilities().creativeMode){
-				itemStack.decrement(1);
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
 				player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, PeaPodSeeds.cooldown);
 			}
 			return ActionResult.SUCCESS;

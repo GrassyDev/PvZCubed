@@ -25,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class FootballEgg extends Item {
     public FootballEgg(Settings settings) {
         super(settings);
@@ -57,7 +59,9 @@ public class FootballEgg extends Item {
                     ((ServerWorld) world).spawnEntityAndPassengers(footballEntity);
                     world.playSound((PlayerEntity) null, footballEntity.getX(), footballEntity.getY(), footballEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
-                itemStack.decrement(1);
+                if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+				itemStack.decrement(1);
+			};
                 return ActionResult.success(world.isClient);
             }
 			 else {
