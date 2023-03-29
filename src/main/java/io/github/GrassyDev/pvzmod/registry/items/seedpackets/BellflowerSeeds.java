@@ -115,7 +115,9 @@ public class BellflowerSeeds extends Item implements FabricItem {
 						if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-						user.getItemCooldownManager().set(this, cooldown);
+						if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+							user.getItemCooldownManager().set(this, cooldown);
+						}
 					}
 					return ActionResult.success(world.isClient);
 				} else {

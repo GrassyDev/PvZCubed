@@ -230,11 +230,14 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 				serverWorld.spawnEntityAndPassengers(upgradeEntity);
 				this.remove(RemovalReason.DISCARDED);
 			}
-			if (!player.getAbilities().creativeMode){
+			if (!player.getAbilities().creativeMode) {
 				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
-				itemStack.decrement(1);
-			};
-				player.getItemCooldownManager().set(ModItems.SPIKEROCK_SEED_PACKET, GatlingpeaSeeds.cooldown);
+					itemStack.decrement(1);
+				}
+				;
+				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+					player.getItemCooldownManager().set(ModItems.SPIKEROCK_SEED_PACKET, GatlingpeaSeeds.cooldown);
+				}
 			}
 			return ActionResult.SUCCESS;
 		} else {

@@ -55,6 +55,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.Optional;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class FumeshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -299,9 +301,13 @@ public class FumeshroomEntity extends PlantEntity implements IAnimatable, Ranged
 				serverWorld.spawnEntityAndPassengers(gloomshroomEntity);
 				this.remove(RemovalReason.DISCARDED);
 			}
-			if (!player.getAbilities().creativeMode){
-				itemStack.decrement(1);
-				player.getItemCooldownManager().set(ModItems.GLOOMSHROOM_SEED_PACKET, GloomshroomSeeds.cooldown);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+					player.getItemCooldownManager().set(ModItems.GLOOMSHROOM_SEED_PACKET, GloomshroomSeeds.cooldown);
+				}
 			}
 			return ActionResult.SUCCESS;
 		}

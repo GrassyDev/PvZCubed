@@ -278,11 +278,13 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 				serverWorld.spawnEntityAndPassengers(snowqueenpeaEntity);
 				this.remove(RemovalReason.DISCARDED);
 			}
-			if (!player.getAbilities().creativeMode){
+			if (!player.getAbilities().creativeMode) {
 				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 					itemStack.decrement(1);
 				}
-				player.getItemCooldownManager().set(ModItems.SNOW_QUEENPEA_SEED_PACKET, TwinSunflowerSeeds.cooldown);
+				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+					player.getItemCooldownManager().set(ModItems.SNOW_QUEENPEA_SEED_PACKET, TwinSunflowerSeeds.cooldown);
+				}
 			}
 			return ActionResult.SUCCESS;
 		}

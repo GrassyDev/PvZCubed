@@ -217,9 +217,12 @@ public abstract class PlantEntity extends GolemEntity {
 				}
 				if (!player.getAbilities().creativeMode) {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
-				itemStack.decrement(1);
-			};
-					player.getItemCooldownManager().set(ModItems.PEASHOOTER_SEED_PACKET, PeashooterSeeds.cooldown);
+						itemStack.decrement(1);
+					}
+					;
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.PEASHOOTER_SEED_PACKET, PeashooterSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -258,9 +261,11 @@ public abstract class PlantEntity extends GolemEntity {
 				}
 				if (!player.getAbilities().creativeMode) {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
-				itemStack.decrement(1);
-			};
-					player.getItemCooldownManager().set(ModItems.SUNFLOWER_SEED_PACKET, SunflowerSeeds.cooldown);
+						itemStack.decrement(1);
+					}
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.SUNFLOWER_SEED_PACKET, SunflowerSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -284,7 +289,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.CHERRYBOMB_SEED_PACKET, CherryBombSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.CHERRYBOMB_SEED_PACKET, CherryBombSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -308,7 +315,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.WALLNUT_SEED_PACKET, WallnutSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.WALLNUT_SEED_PACKET, WallnutSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -340,7 +349,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.SNOW_PEA_SEED_PACKET, SnowpeaSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.SNOW_PEA_SEED_PACKET, SnowpeaSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -374,7 +385,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.CHOMPER_SEED_PACKET, ChomperSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.CHOMPER_SEED_PACKET, ChomperSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -398,7 +411,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.REPEATER_SEED_PACKET, RepeaterSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.REPEATER_SEED_PACKET, RepeaterSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -423,7 +438,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.PUFFSHROOM_SEED_PACKET, PuffshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.PUFFSHROOM_SEED_PACKET, PuffshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -448,7 +465,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.SUNSHROOM_SEED_PACKET, SunshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.SUNSHROOM_SEED_PACKET, SunshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -480,7 +499,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.FUMESHROOM_SEED_PACKET, FumeshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.FUMESHROOM_SEED_PACKET, FumeshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -504,7 +525,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.HYPNOSHROOM_SEED_PACKET, HypnoshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.HYPNOSHROOM_SEED_PACKET, HypnoshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -536,7 +559,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.SCAREDYSHROOM_SEED_PACKET, ScaredyshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.SCAREDYSHROOM_SEED_PACKET, ScaredyshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -560,7 +585,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.ICESHROOM_SEED_PACKET, IceshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.ICESHROOM_SEED_PACKET, IceshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -584,7 +611,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.DOOMSHROOM_SEED_PACKET, DoomshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.DOOMSHROOM_SEED_PACKET, DoomshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -609,7 +638,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.SQUASH_SEED_PACKET, SquashSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.SQUASH_SEED_PACKET, SquashSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -633,7 +664,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.THREEPEATER_SEED_PACKET, ThreepeaterSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.THREEPEATER_SEED_PACKET, ThreepeaterSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -657,7 +690,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.JALAPENO_SEED_PACKET, JalapenoSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.JALAPENO_SEED_PACKET, JalapenoSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -681,7 +716,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.TORCHWOOD_SEED_PACKET, TorchwoodSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.TORCHWOOD_SEED_PACKET, TorchwoodSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -705,7 +742,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.TALLNUT_SEED_PACKET, TallnutSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.TALLNUT_SEED_PACKET, TallnutSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -729,7 +768,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.CABBAGEPULT_SEED_PACKET, CabbagepultSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.CABBAGEPULT_SEED_PACKET, CabbagepultSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -753,7 +794,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.BEESHOOTER_SEED_PACKET, BeeshooterSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.BEESHOOTER_SEED_PACKET, BeeshooterSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -783,7 +826,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.SHAMROCK_SEED_PACKET, ShamrockSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.SHAMROCK_SEED_PACKET, ShamrockSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -808,7 +853,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.ICEBERGLETTUCE_SEED_PACKET, IcebergLettuceSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.ICEBERGLETTUCE_SEED_PACKET, IcebergLettuceSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -838,7 +885,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, PeaPodSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, PeaPodSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -863,7 +912,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.PEPPERPULT_SEED_PACKET, PepperpultSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.PEPPERPULT_SEED_PACKET, PepperpultSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -887,7 +938,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.FIRE_PEA_SEED_PACKET, FirepeaSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.FIRE_PEA_SEED_PACKET, FirepeaSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -911,7 +964,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.DANDELIONWEED_SEED_PACKET, DandelionWeedSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.DANDELIONWEED_SEED_PACKET, DandelionWeedSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -935,7 +990,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.PERFOOMSHROOM_SEED_PACKET, PerfoomshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.PERFOOMSHROOM_SEED_PACKET, PerfoomshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -960,7 +1017,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.SMALLNUT_SEED_PACKET, SmallnutSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.SMALLNUT_SEED_PACKET, SmallnutSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -985,7 +1044,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.BUTTONSHROOM_SEED_PACKET, ButtonshroomSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.BUTTONSHROOM_SEED_PACKET, ButtonshroomSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -1010,7 +1071,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.BOMBSEEDLING_SEED_PACKET, BombSeedlingSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.BOMBSEEDLING_SEED_PACKET, BombSeedlingSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -1036,7 +1099,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.ZAPRICOT_SEED_PACKET, ZapricotSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.ZAPRICOT_SEED_PACKET, ZapricotSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -1061,7 +1126,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.WEENIEBEANIE_SEED_PACKET, WeenieBeanieSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.WEENIEBEANIE_SEED_PACKET, WeenieBeanieSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -1086,7 +1153,9 @@ public abstract class PlantEntity extends GolemEntity {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
 			};
-					player.getItemCooldownManager().set(ModItems.SUNFLOWERSEED_SEED_PACKET, SunflowerSeedSeeds.cooldown);
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.SUNFLOWERSEED_SEED_PACKET, SunflowerSeedSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -1108,12 +1177,16 @@ public abstract class PlantEntity extends GolemEntity {
 				}
 				if (!player.getAbilities().creativeMode) {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
-				itemStack.decrement(1);
-			};
-					player.getItemCooldownManager().set(ModItems.BELLFLOWER_SEED_PACKET, BellflowerSeeds.cooldown);
+						itemStack.decrement(1);
+					}
+
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.BELLFLOWER_SEED_PACKET, BellflowerSeeds.cooldown);
+					}
 				}
 				return ActionResult.SUCCESS;
-			}else {
+			}
+			else {
 				return ActionResult.CONSUME;
 			}
 		}

@@ -323,11 +323,13 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 			maxHealthAttribute.removeModifier(MAX_HEALTH_UUID);
 			maxHealthAttribute.addPersistentModifier(createHealthModifier(health + 12));
 			heal(12);
-			if (!player.getAbilities().creativeMode){
+			if (!player.getAbilities().creativeMode) {
 				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 					itemStack.decrement(1);
 				}
-				player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, PeaPodSeeds.cooldown);
+				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+					player.getItemCooldownManager().set(ModItems.PEAPOD_SEED_PACKET, PeaPodSeeds.cooldown);
+				}
 			}
 			return ActionResult.SUCCESS;
 		}
