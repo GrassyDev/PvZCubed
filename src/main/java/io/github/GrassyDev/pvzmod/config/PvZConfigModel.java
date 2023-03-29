@@ -58,41 +58,77 @@ public class PvZConfigModel {
 		public int darkagesGmax = 1;
 	}
 	public static class PvZSpawnNestPlant {
+		@RestartRequired
 		public int peashooterSP = 50;
+		@RestartRequired
 		public int peashooterSPmin = 1;
+		@RestartRequired
 		public int peashooterSPmax = 1;
+		@RestartRequired
 		public int bellflowerSP = 50;
+		@RestartRequired
 		public int bellflowerSPmin = 2;
+		@RestartRequired
 		public int bellflowerSPmax = 2;
+		@RestartRequired
 		public int puffshroomSP = 50;
+		@RestartRequired
 		public int puffshroomSPmin = 4;
+		@RestartRequired
 		public int puffshroomSPmax = 8;
+		@RestartRequired
 		public int weeniebeanieSP = 17;
+		@RestartRequired
 		public int weeniebeanieSPmin = 3;
+		@RestartRequired
 		public int weeniebeanieSPmax = 4;
+		@RestartRequired
 		public int sunflowerseedSP = 17;
+		@RestartRequired
 		public int sunflowerseedSPmin = 3;
+		@RestartRequired
 		public int sunflowerseedSPmax = 4;
+		@RestartRequired
 		public int lilypadSP = 13;
+		@RestartRequired
 		public int lilypadSPmin = 4;
+		@RestartRequired
 		public int lilypadSPmax = 8;
+		@RestartRequired
 		public int bombseedlingSP = 10;
+		@RestartRequired
 		public int bombseedlingSPmin = 1;
+		@RestartRequired
 		public int bombseedlingSPmax = 3;
+		@RestartRequired
 		public int smallnutSP = 15;
+		@RestartRequired
 		public int smallnutSPmin = 3;
+		@RestartRequired
 		public int smallnutSPmax = 4;
+		@RestartRequired
 		public int loquatSP = 11;
+		@RestartRequired
 		public int loquatSPmin = 1;
+		@RestartRequired
 		public int loquatSPmax = 3;
+		@RestartRequired
 		public int icebergSP = 10;
+		@RestartRequired
 		public int icebergSPmin = 1;
+		@RestartRequired
 		public int icebergSPmax = 3;
+		@RestartRequired
 		public int zapricotSP = 10;
+		@RestartRequired
 		public int zapricotSPmin = 1;
+		@RestartRequired
 		public int zapricotSPmax = 3;
+		@RestartRequired
 		public int buttonshroomSP = 6;
+		@RestartRequired
 		public int buttonshroomSPmin = 2;
+		@RestartRequired
 		public int buttonshroomSPmax = 2;
 	}
 
@@ -210,56 +246,100 @@ public class PvZConfigModel {
 	@Nest
 	public PvZZombieHealth nestedZombieHealth = new PvZZombieHealth();
 	public static class PvZZombieHealth {
+		@RestartRequired
 		public double basicGraveH = 140D;
+		@RestartRequired
 		public double nightGraveH = 170D;
+		@RestartRequired
 		public double poolGraveH = 200D;
+		@RestartRequired
 		public double roofGraveH = 230D;
+		@RestartRequired
 		public double futureGraveH = 240D;
+		@RestartRequired
 		public double darkAgesGraveH = 170D;
 
+		@RestartRequired
 		public double backupH = 27D;
+		@RestartRequired
 		public double browncoatH = 27D;
+		@RestartRequired
 		public double peasantH = 27D;
+		@RestartRequired
 		public double bullyH = 110D;
+		@RestartRequired
 		public double basketballH = 110D;
+		@RestartRequired
 		public double dancingH = 50D;
+		@RestartRequired
 		public double dolphinH = 50D;
+		@RestartRequired
 		public double flagH = 50D;
+		@RestartRequired
 		public double flagPeasantH = 50D;
+		@RestartRequired
 		public double footballH = 27D;
+		@RestartRequired
 		public double berserkerH = 27D;
+		@RestartRequired
 		public double gargantuarH = 360D;
+		@RestartRequired
 		public double defensiveendH = 360D;
+		@RestartRequired
 		public double impH = 20D;
+		@RestartRequired
 		public double superFanH = 20D;
+		@RestartRequired
 		public double announcerH = 37D;
+		@RestartRequired
 		public double jetpackH = 50D;
+		@RestartRequired
 		public double blastronautH = 50D;
+		@RestartRequired
 		public double newspaperH = 27D;
+		@RestartRequired
 		public double sundayH = 50D;
+		@RestartRequired
 		public double poleH = 50D;
+		@RestartRequired
 		public double snorkelH = 50D;
+		@RestartRequired
 		public double zombiekingH = 100D;
 
+		@RestartRequired
 		public double coneH = 37D;
 
+		@RestartRequired
 		public double bucketH = 110D;
+		@RestartRequired
 		public double medallionH = 37D;
+		@RestartRequired
 		public double footballHelmH = 140D;
+		@RestartRequired
 		public double berserkerHelmH = 333D;
+		@RestartRequired
 		public double defensiveendHelmH = 140D;
+		@RestartRequired
 		public double blastronautHelmH = 37D;
+		@RestartRequired
 		public double knightHelmH = 152D;
 
+		@RestartRequired
 		public double coneTowerH = 53D;
+		@RestartRequired
 		public double brickH = 212D;
 
+		@RestartRequired
 		public double screendoorShieldH = 153D;
 
+		@RestartRequired
 		public double newspaperShieldH = 15D;
+		@RestartRequired
 		public double sundayShieldH = 115D;
 
+		@RestartRequired
 		public double trashcanObstH = 225D;
+		@RestartRequired
 		public double basketballObstH = 120D;
 	}
 }
