@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.bombseedling.BombSeedlingEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -28,10 +29,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.LightType;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -95,6 +93,19 @@ public class LoquatEntity extends PlantEntity implements IAnimatable {
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+		entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+		if (entityData == null) {
+			entityData = new PlantData(true);
+		}
+		if (entityData instanceof BombSeedlingEntity.PlantData plantData && !spawnReason.equals(SpawnReason.SPAWN_EGG)) {
+			this.naturalSpawn = true;
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
 
 	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
 			DataTracker.registerData(LoquatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
