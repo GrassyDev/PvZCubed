@@ -17,7 +17,7 @@
       "type": "text",
       "text": [
         "$(br2)The second most common type of projectile is the Pierce type: they shoot straight and go through Zombies.",
-        "$(br2)These projectiles go through shields and go over Snorkel Zombies. If they are a Spike projectile they can only pierce 3 zombies (Shield included)."
+        "$(br2)These projectiles go through shields and go over Snorkel Zombies. If they are a Spike projectile they can only pierce 3 zombies (Shield included). Covered Zombies reduce the pierce amount by 2."
       ]
     },
     {

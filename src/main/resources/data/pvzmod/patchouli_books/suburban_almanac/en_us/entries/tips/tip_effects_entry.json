@@ -19,7 +19,7 @@
         "$(br2)Chill slows down Zombies, giving plants more time to finish them off.",
         "$(br2)Damage done by zombies is halved.",
         "$(br2)Moves based on animation like Gargantuar's smash are slowed down by half.",
-        "$(br2)Machine can't be Chilled."
+        "$(br2)Machines can't be Chilled."
       ]
     },
     {
@@ -30,7 +30,7 @@
         "$(br2)Frozen Zombies can't attack.",
         "$(br2)Frozen Zombies can't do their abilities.",
         "$(br2)Frozen instantly kills zombies that swim and flying Zombies.",
-        "$(br2)Machine can't be Frozen."
+        "$(br2)Machines can't be Frozen."
       ]
     },
     {
@@ -57,7 +57,7 @@
       "text": [
         "$(br2)Electricity",
         "$(br)Chains damage between Zombies based on initial damage unless specified otherwise. Chain's range is by the Electric Radius, that is based on the location of the hit Zombie.",
-        "$(br)Electricity chains by the number of Electric Chains. Metallic/Machine don't count torwards the number. Plastic/Rubber cost 2 Electric Chains when hit.",
+        "$(br)Electricity chains by the number of Electric Chains. Metallic doesn't count towards the number. Plastic/Rubber cost 2 Electric Chains when hit.",
         "$(br)Electric damage doubles if the target is Wet."
       ]
     },
@@ -84,7 +84,8 @@
       "text": [
         "$(br2)Hypno",
         "$(br2)Transforms the Zombie into a Hypnotized version of itself.",
-        "$(br2)Most of the time they have their abilities, save a few exceptions."
+        "$(br2)Most of the time they have their abilities, save a few exceptions.",
+        "$(br2)Covered Zombies are immune to Hypnosis."
       ]
     },
     {
