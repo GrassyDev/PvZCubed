@@ -41,6 +41,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public abstract class GeneralPvZombieEntity extends HostileEntity {
 	private static final TrackedData<Byte> FLYING_TAG;
+	private static final TrackedData<Byte> COVERED_TAG;
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 		this.setFlying(false);
@@ -65,6 +66,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(FLYING_TAG, (byte)16);
+		this.dataTracker.startTracking(COVERED_TAG, (byte)16);
 		this.dataTracker.startTracking(DATA_ID_HYPNOTIZED, false);
 	}
 
@@ -72,6 +74,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putBoolean("isFlying", this.isFlying());
+		tag.putBoolean("isCovered", this.isCovered());
 		tag.putBoolean("Hypnotized", this.getHypno());
 	}
 
@@ -79,6 +82,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		super.readCustomDataFromNbt(tag);
 		if (tag.contains("isFlying")) {
 			this.setFlying(tag.getBoolean("isFlying"));
+		}
+		if (tag.contains("isCovered")) {
+			this.setFlying(tag.getBoolean("isCovered"));
 		}
 		this.dataTracker.set(DATA_ID_HYPNOTIZED, tag.getBoolean("Hypnotized"));
 	}
@@ -97,8 +103,23 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	}
 
+	public boolean isCovered() {
+		return ((Byte)this.dataTracker.get(COVERED_TAG) & 16) != 0;
+	}
+
+	public void setCoveredTag(boolean isCovered) {
+		byte b = (Byte)this.dataTracker.get(COVERED_TAG);
+		if (isCovered) {
+			this.dataTracker.set(COVERED_TAG, (byte)(b | 16));
+		} else {
+			this.dataTracker.set(COVERED_TAG, (byte)(b & -17));
+		}
+
+	}
+
 	static {
 		FLYING_TAG = DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BYTE);
+		COVERED_TAG = DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
@@ -349,7 +370,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		Entity entity = this;
 		if (this.getHealth() < this.getMaxHealth() / 2 && !(entity instanceof ZombiePropEntity) &&
 				!(entity instanceof GargantuarEntity) && !(entity instanceof ImpEntity) && !(entity instanceof AnnouncerImpEntity) &&
-				!(entity instanceof ZombieKingEntity)){
+				!(entity instanceof ZombieKingEntity) && IS_MACHINE.get(entity.getType()).orElse(false).equals(false)){
 			if (this.pop && !this.dead){
 				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
 				pop = false;

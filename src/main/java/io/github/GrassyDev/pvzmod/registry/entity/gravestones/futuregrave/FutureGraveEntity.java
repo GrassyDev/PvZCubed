@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiemachines.robocone.RoboConeEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
@@ -120,7 +121,6 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.goalSelector.add(1, new FutureGraveEntity.summonZombieGoal(this));
-        this.targetSelector.add(2, new FutureGraveEntity.TrackOwnerTargetGoal(this));
     }
 
 
@@ -422,6 +422,18 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 							coneheadEntity.initialize(serverWorld, FutureGraveEntity.this.world.getLocalDifficulty(blockPos4), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 							coneheadEntity.setOwner(FutureGraveEntity.this);
 							serverWorld.spawnEntityAndPassengers(coneheadEntity);
+						}
+					}
+				}
+				if (difficulty >= 1.529 + difficultymodifier) {
+					if (probability4 <= 0.50) { // 50% x1 Robo-Cone Zombie
+						for (int p = 0; p < 1; ++p) {
+							BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
+							RoboConeEntity roboConeEntity = (RoboConeEntity) PvZEntity.ROBOCONE.create(FutureGraveEntity.this.world);
+							roboConeEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							roboConeEntity.initialize(serverWorld, FutureGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							roboConeEntity.setOwner(FutureGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(roboConeEntity);
 						}
 					}
 				}

@@ -1,13 +1,11 @@
-package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel;
+package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiemachines.robocone;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
@@ -21,10 +19,6 @@ import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -41,8 +35,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -57,76 +49,26 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
-	private static final TrackedData<Byte> SNORKEL_FLAGS;
+public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
 	boolean isFrozen;
 	boolean isIced;
 
-    public SnorkelEntity(EntityType<? extends SnorkelEntity> entityType, World world) {
+	boolean zombieeating;
+
+	public RoboConeEntity(EntityType<? extends RoboConeEntity> entityType, World world) {
         super(entityType, world);
-		this.invulnerableZombie = false;
-		setInvisibleSnorkel(false);
+		this.setCoveredTag(true);
         this.ignoreCameraFrustum = true;
-        this.experiencePoints = 6;
-	}
-
-	@Override
-	public boolean canBreatheInWater() {
-		return true;
-	}
-
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(SNORKEL_FLAGS, (byte)16);
-		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
-	}
-
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
-		nbt.putBoolean("InvisSnorkel", this.isInvisibleSnorkel());
-		nbt.putInt("Variant", this.getTypeVariant());
-	}
-
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
-		if (nbt.contains("InvisSnorkel")) {
-			this.setInvisibleSnorkel(nbt.getBoolean("InvisSnorkel"));
-			this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
-		}
-
-	}
-
-	public boolean isInvisibleSnorkel() {
-		return ((Byte)this.dataTracker.get(SNORKEL_FLAGS) & 16) != 0;
-	}
-
-	public void setInvisibleSnorkel(boolean isInvisibleSnorkel) {
-		byte b = (Byte)this.dataTracker.get(SNORKEL_FLAGS);
-		if (isInvisibleSnorkel) {
-			this.dataTracker.set(SNORKEL_FLAGS, (byte)(b | 16));
-		} else {
-			this.dataTracker.set(SNORKEL_FLAGS, (byte)(b & -17));
-		}
-
-	}
-
-	static {
-		SNORKEL_FLAGS = DataTracker.registerData(SnorkelEntity.class, TrackedDataHandlerRegistry.BYTE);
+        this.experiencePoints = 3;
 	}
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
-		}
-		if (status == 106) {
-			this.invulnerableZombie = true;
-		}
-		else if (status == 105) {
-			this.invulnerableZombie = false;
 		}
 		if (status == 70) {
 			this.isFrozen = true;
@@ -139,6 +81,12 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		else if (status == 72) {
 			this.isIced = false;
 			this.isFrozen = false;
+		}
+		if (status == 117) {
+			this.zombieeating = true;
+		}
+		else if (status == 118){
+			this.zombieeating = false;
 		}
 	}
 
@@ -163,12 +111,13 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+		Entity entity = this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
-			if (invulnerableZombie){
-				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.ducky"));
+			if (this.zombieeating){
+				event.getController().setAnimation(new AnimationBuilder().loop("robocone.ducky.eating"));
 			}
 			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.duckyattack"));
+				event.getController().setAnimation(new AnimationBuilder().loop("robocone.ducky"));
 			}
 			if (this.isIced) {
 				event.getController().setAnimationSpeed(0.5);
@@ -176,11 +125,14 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 			else {
 				event.getController().setAnimationSpeed(1);
 			}
-		}else {
-			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.walking"));
+		} else {
+			if (this.zombieeating){
+				event.getController().setAnimation(new AnimationBuilder().loop("robocone.eating"));
+			}
+			else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+				event.getController().setAnimation(new AnimationBuilder().loop("robocone.walk"));
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("snorkel.idle"));
+				event.getController().setAnimation(new AnimationBuilder().loop("robocone.idle"));
 			}
 			if (this.isFrozen) {
 				event.getController().setAnimationSpeed(0);
@@ -195,66 +147,21 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		return PlayState.CONTINUE;
 	}
 
-	public SnorkelEntity(World world) {
-        this(PvZEntity.SNORKEL, world);
-    }
-
-	@Override
-	public void onDeath(DamageSource source) {
-		super.onDeath(source);
-	}
-
-
-	/** /~*~//~*VARIANTS*~//~*~/ **/
-
-	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
-			DataTracker.registerData(SnorkelEntity.class, TrackedDataHandlerRegistry.INTEGER);
-
-	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
-								 SpawnReason spawnReason, @Nullable EntityData entityData,
-								 @Nullable NbtCompound entityNbt) {
-		if (this.getType().equals(PvZEntity.SNORKELHYPNO)){
-			setVariant(DefaultAndHypnoVariants.HYPNO);
-			this.setHypno(IsHypno.TRUE);
-		}
-		else {
-			setVariant(DefaultAndHypnoVariants.DEFAULT);
-		}
-		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
-	}
-
-	private int getTypeVariant() {
-		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
-	}
-
-	public DefaultAndHypnoVariants getVariant() {
-		return DefaultAndHypnoVariants.byId(this.getTypeVariant() & 255);
-	}
-
-	public void setVariant(DefaultAndHypnoVariants variant) {
-		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
-	}
-
 
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		if (this.getType().equals(PvZEntity.SNORKELHYPNO)) {
-			initHypnoGoals();
-		}
-		else {
-			initCustomGoals();
-		}
-	}
+		initCustomGoals();
+    }
 
-	protected void initCustomGoals() {
+    protected void initCustomGoals() {
 
 		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")));
+			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
 		}));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -271,25 +178,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
-	}
-
-	protected void initHypnoGoals(){
-
-		this.goalSelector.add(8, new LookAroundGoal(this));
-		this.goalSelector.add(1, new HypnoPvZombieAttackGoal(this, 1.0D, true));
-		////////// Hypnotized Zombie targets ///////
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof ZombiePropEntity zombiePropEntity && !(zombiePropEntity.getHypno()));
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-	}
-
+    }
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
@@ -299,31 +188,15 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 			if (this.CollidesWithPlant() != null){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant());
+				this.world.sendEntityStatus(this, (byte) 117);
 			}
 			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
 				this.setTarget(CollidesWithPlayer());
-			}
-		}
-		LivingEntity target = this.getTarget();
-		if (this.isInsideWaterOrBubbleColumn()){
-			if (target != null){
-				if (this.squaredDistanceTo(target) > 4){
-					this.world.sendEntityStatus(this, (byte) 106);
-					setInvisibleSnorkel(true);
-				}
-				else {
-					this.world.sendEntityStatus(this, (byte) 105);
-					setInvisibleSnorkel(false);
-				}
+				this.world.sendEntityStatus(this, (byte) 117);
 			}
 			else {
-				this.world.sendEntityStatus(this, (byte) 1065);
-				setInvisibleSnorkel(false);
+				this.world.sendEntityStatus(this, (byte) 118);
 			}
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 1065);
-			setInvisibleSnorkel(false);
 		}
 	}
 
@@ -346,7 +219,9 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.SNORKELEGG.getDefaultStack();
+		ItemStack itemStack;
+		itemStack = ModItems.ROBOCONEEGG.getDefaultStack();
+		return itemStack;
 	}
 
 
@@ -365,21 +240,16 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 		return true;
 	}
 
-	public static DefaultAttributeContainer.Builder createSnorkelAttributes() {
+	public static DefaultAttributeContainer.Builder createRoboconeAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.105D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.snorkelH());
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.roboconeH());
     }
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
-			return PvZCubed.ZOMBIEMOANEVENT;
-		}
-		else {
-			return PvZCubed.SILENCEVENET;
-		}
+		return PvZCubed.ZOMBIEMOANEVENT;
 	}
 
 	public EntityGroup getGroup() {
@@ -402,59 +272,7 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 
-
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
-
-	protected EntityType<?> hypnoType;
-	protected void checkHypno(){
-		if (this.getType().equals(PvZEntity.SNORKEL)){
-			hypnoType = PvZEntity.SNORKELHYPNO;
-		}
-		else {
-			hypnoType = PvZEntity.SNORKELHYPNO;
-		}
-	}
-
-	public boolean damage(DamageSource source, float amount) {
-		if (!super.damage(source, amount)) {
-			return false;
-		} else if (!(this.world instanceof ServerWorld)) {
-			return false;
-		} else {
-			ServerWorld serverWorld = (ServerWorld)this.world;
-			LivingEntity livingEntity = this.getTarget();
-			if (livingEntity == null && source.getAttacker() instanceof LivingEntity) {
-				livingEntity = (LivingEntity)source.getAttacker();
-			}
-
-			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
-				checkHypno();
-				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
-				SnorkelEntity hypnotizedZombie = (SnorkelEntity) hypnoType.create(world);
-				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
-				hypnotizedZombie.setAiDisabled(this.isAiDisabled());
-				hypnotizedZombie.setHealth(this.getHealth());
-				if (this.hasCustomName()) {
-					hypnotizedZombie.setCustomName(this.getCustomName());
-					hypnotizedZombie.setCustomNameVisible(this.isCustomNameVisible());
-				}
-				for (Entity entity1 : this.getPassengerList()) {
-					if (entity1 instanceof ZombiePropEntity zpe) {
-						zpe.setHypno(IsHypno.TRUE);
-						zpe.startRiding(hypnotizedZombie);
-					}
-				}
-
-				hypnotizedZombie.setPersistent();
-
-				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
-				this.remove(RemovalReason.DISCARDED);
-			}
-
-			return true;
-		}
-	}
 
 	public boolean onKilledOther(ServerWorld serverWorld, LivingEntity livingEntity) {
 		super.onKilledOther(serverWorld, livingEntity);
@@ -490,11 +308,11 @@ public class SnorkelEntity extends PvZombieEntity implements IAnimatable {
         }
 
         public boolean canStart() {
-            return SnorkelEntity.this.owner != null && SnorkelEntity.this.owner.getTarget() != null && this.canTrack(SnorkelEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
+            return RoboConeEntity.this.owner != null && RoboConeEntity.this.owner.getTarget() != null && this.canTrack(RoboConeEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
         }
 
         public void start() {
-            SnorkelEntity.this.setTarget(SnorkelEntity.this.owner.getTarget());
+            RoboConeEntity.this.setTarget(RoboConeEntity.this.owner.getTarget());
             super.start();
         }
     }

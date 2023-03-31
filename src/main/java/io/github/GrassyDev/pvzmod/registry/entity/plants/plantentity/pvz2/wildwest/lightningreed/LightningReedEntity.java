@@ -965,12 +965,12 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 								damaged.damage(PvZCubed.LIGHTNING_DAMAGE, 2);
 							}
 							damaged.damage(DamageSource.thrownProjectile(this.plantEntity, this.plantEntity), 0);
-							this.plantEntity.lightningCounter = 3;
+							this.plantEntity.lightningCounter = 5;
 							if (zombieMaterial.equals("plastic")){
-								this.plantEntity.lightningCounter = 2;
+								this.plantEntity.lightningCounter -= 2;
 							}
 							this.plantEntity.lightning(damaged);
-							this.plantEntity.lightningCounter = 3;
+							this.plantEntity.lightningCounter = 5;
 							this.beamTicks = -7;
 							this.plantEntity.targetZombie = damaged;
 						}

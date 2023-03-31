@@ -195,7 +195,6 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 		this.goalSelector.add(8, new LookAroundGoal(this));
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
-		this.targetSelector.add(2, new BackupDancerEntity.TrackOwnerTargetGoal(this));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {

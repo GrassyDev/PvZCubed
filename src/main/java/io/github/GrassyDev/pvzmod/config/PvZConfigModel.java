@@ -302,6 +302,8 @@ public class PvZConfigModel {
 		@RestartRequired
 		public double poleH = 50D;
 		@RestartRequired
+		public double roboconeH = 250D;
+		@RestartRequired
 		public double snorkelH = 50D;
 		@RestartRequired
 		public double zombiekingH = 100D;

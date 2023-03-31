@@ -196,6 +196,7 @@
   "text.config.pvz-config.option.nestedZombieHealth.newspaperH": "Newspaper Zombie Health",
   "text.config.pvz-config.option.nestedZombieHealth.sundayH": "Sunday Edition Zombie Health",
   "text.config.pvz-config.option.nestedZombieHealth.poleH": "Pole Vaulting Health",
+  "text.config.pvz-config.option.nestedZombieHealth.roboconeG": "Robo-Cone Health",
   "text.config.pvz-config.option.nestedZombieHealth.snorkelH": "Snorkel Zombie Health",
   "text.config.pvz-config.option.nestedZombieHealth.zombiekingH": "Zombie King Health",
 
@@ -623,6 +624,9 @@
   "entity.pvzmod.jetpack": "Jetpack Zombie",
   "item.pvzmod.jetpack_egg": "Jetpack Zombie",
   "entity.pvzmod.jetpack_hypnotized": "Hypnotized Jetpack Zombie",
+
+  "entity.pvzmod.robocone": "Robo-Cone Zombie",
+  "item.pvzmod.robocone_egg": "Robo-Cone Zombie",
 
   "entity.pvzmod.blastronaut": "Blastronaut Zombie",
   "item.pvzmod.blastronaut_egg": "Blastronaut Zombie",

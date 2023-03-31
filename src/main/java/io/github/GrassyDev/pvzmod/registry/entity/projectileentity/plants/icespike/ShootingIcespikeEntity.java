@@ -156,7 +156,12 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			if (entity != entityStore && entityStoreVehicle != entity){
-				++this.damageCounter;
+				if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered()){
+					this.damageCounter = this.damageCounter + 2;
+				}
+				else {
+					++this.damageCounter;
+				}
 			}
 			else if (entity != entityStore && zombiePropEntity instanceof ZombieShieldEntity){
 				++this.damageCounter;

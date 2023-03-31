@@ -192,7 +192,7 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 				case "stone" -> PvZCubed.STONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			if (entity instanceof ZombieShieldEntity){
+			if (entity instanceof ZombieShieldEntity || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())){
 				entity.playSound(sound, 0.2F, 1F);
 			}
 			else {

@@ -127,7 +127,12 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			if (entity != entityStore && entityStoreVehicle != entity){
-				++this.damageCounter;
+				if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered()){
+					this.damageCounter = this.damageCounter + 2;
+				}
+				else {
+					++this.damageCounter;
+				}
 			}
 			else if (entity != entityStore && zombiePropEntity instanceof ZombieShieldEntity){
 				++this.damageCounter;

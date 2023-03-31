@@ -27,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -181,6 +182,17 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 				if (!(entity instanceof ZombieShieldEntity)) {
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
 				}
+			}
+			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+			SoundEvent sound;
+			sound = switch (zombieMaterial) {
+				case "metallic" -> PvZCubed.BUCKETHITEVENT;
+				case "plastic" -> PvZCubed.CONEHITEVENT;
+				case "stone" -> PvZCubed.STONEHITEVENT;
+				default -> PvZCubed.PEAHITEVENT;
+			};
+			if (entity instanceof ZombieShieldEntity || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())){
+				entity.playSound(sound, 0.2F, 1F);
 			}
 			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.2F, 1F);
 			float damage = PVZCONFIG.nestedProjDMG.snowQueenPeaDMG();

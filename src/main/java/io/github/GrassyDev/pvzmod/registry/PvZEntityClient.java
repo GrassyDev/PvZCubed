@@ -103,6 +103,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiemachines.robocone.RoboConeEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntityRenderer;
@@ -354,6 +355,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.JETPACKHYPNO, JetpackEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BLASTRONAUT, JetpackEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BLASTRONAUTHYPNO, JetpackEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.ROBOCONE, RoboConeEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.PEASANT, PeasantEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.PEASANTHYPNO, PeasantEntityRenderer::new);

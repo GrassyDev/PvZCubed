@@ -118,7 +118,6 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.goalSelector.add(1, new DarkAgesGraveEntity.summonZombieGoal(this));
-        this.targetSelector.add(2, new DarkAgesGraveEntity.TrackOwnerTargetGoal(this));
     }
 
 

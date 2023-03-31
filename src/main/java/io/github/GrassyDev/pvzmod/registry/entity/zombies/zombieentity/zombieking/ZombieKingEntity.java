@@ -219,7 +219,6 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
     }
 
     protected void initCustomGoals() {
-		this.targetSelector.add(2, new ZombieKingEntity.TrackOwnerTargetGoal(this));
 		////////// Zombie targets ///////
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof PeasantEntity peasantEntity && !(peasantEntity.getHypno()) && peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOAT));

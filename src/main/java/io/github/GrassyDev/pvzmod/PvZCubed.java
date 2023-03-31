@@ -35,6 +35,9 @@ public class PvZCubed implements ModInitializer {
 	// Thanks to Ennui Langeweile for the help with Registry Entry Attachments
 	public static final RegistryEntryAttachment<EntityType<?>, String> ZOMBIE_MATERIAL =
 			RegistryEntryAttachment.stringBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_material")).build();
+
+	public static final RegistryEntryAttachment<EntityType<?>, Boolean> IS_MACHINE =
+			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "is_machine")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, Integer> ZOMBIE_STRENGTH =
 			RegistryEntryAttachment.intBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_strength")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, Boolean> TARGET_GROUND =
@@ -192,6 +195,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.TRASHCANEGG));
 				stacks.add(new ItemStack(ModItems.BERSERKEREGG));
 				stacks.add(new ItemStack(ModItems.JETPACKEGG));
+				stacks.add(new ItemStack(ModItems.ROBOCONEEGG));
 				stacks.add(new ItemStack(ModItems.BLASTRONAUTEGG));
 				stacks.add(new ItemStack(ModItems.PEASANTEGG));
 				stacks.add(new ItemStack(ModItems.FLAGPEASANTEGG));

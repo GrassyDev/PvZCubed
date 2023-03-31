@@ -103,6 +103,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiemachines.robocone.RoboConeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
@@ -1029,6 +1030,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<JetpackEntity>create(SpawnGroup.MONSTER, JetpackEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 2.4f)).build()
 	);
 
+	public static final EntityType<RoboConeEntity> ROBOCONE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "robocone"),
+			QuiltEntityTypeBuilder.<RoboConeEntity>create(SpawnGroup.MONSTER, RoboConeEntity::new).setDimensions(EntityDimensions.fixed(0.825f, 2.25f)).build()
+	);
+
 	public static final EntityType<BullyEntity> BULLY = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "bully"),
@@ -1332,6 +1339,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACKHYPNO, JetpackEntity.createJetpackAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BLASTRONAUT, JetpackEntity.createBlastronautAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BLASTRONAUTHYPNO, JetpackEntity.createBlastronautAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ROBOCONE, RoboConeEntity.createRoboconeAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEASANT, PeasantEntity.createPeasantAttributes().build());
 

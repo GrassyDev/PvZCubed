@@ -122,7 +122,6 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.goalSelector.add(1, new RoofGraveEntity.summonZombieGoal(this));
-        this.targetSelector.add(2, new RoofGraveEntity.TrackOwnerTargetGoal(this));
     }
 
 

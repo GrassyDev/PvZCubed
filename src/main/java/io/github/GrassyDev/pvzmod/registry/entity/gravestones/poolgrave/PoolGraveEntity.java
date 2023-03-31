@@ -121,7 +121,6 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.goalSelector.add(1, new PoolGraveEntity.summonZombieGoal(this));
-        this.targetSelector.add(2, new PoolGraveEntity.TrackOwnerTargetGoal(this));
     }
 
 

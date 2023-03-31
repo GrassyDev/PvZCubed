@@ -120,7 +120,6 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.goalSelector.add(1, new BasicGraveEntity.summonZombieGoal(this));
-        this.targetSelector.add(2, new BasicGraveEntity.TrackOwnerTargetGoal(this));
     }
 
 

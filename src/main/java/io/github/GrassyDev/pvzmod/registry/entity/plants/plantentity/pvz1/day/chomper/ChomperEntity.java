@@ -52,7 +52,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.IS_MACHINE;
 
 public class ChomperEntity extends PlantEntity implements IAnimatable {
 
@@ -245,7 +245,8 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				target instanceof ImpEntity ||
 				target instanceof AnnouncerImpEntity ||
 		        target instanceof GargantuarEntity ||
-				target instanceof ZombieObstacleEntity) {
+				target instanceof ZombieObstacleEntity ||
+				IS_MACHINE.get(target.getType()).orElse(false).equals(true)) {
 			Entity damaged = target;
 			if (passenger != null){
 				damaged = passenger;

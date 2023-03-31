@@ -122,7 +122,6 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 
     protected void initCustomGoals() {
         this.goalSelector.add(1, new NightGraveEntity.summonZombieGoal(this));
-        this.targetSelector.add(2, new NightGraveEntity.TrackOwnerTargetGoal(this));
     }
 
 
