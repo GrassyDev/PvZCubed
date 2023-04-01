@@ -2,7 +2,7 @@
   "name": "Shamrock",
   "icon": "pvzmod:shamrock_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 38,
+  "sortnum": 41,
   "advancement": "pvzmod:make_bellflower",
   "pages": [
     {

@@ -96,6 +96,7 @@
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.gravebusterS": "Grave Buster Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.hypnoshroomS": "Hypno-shroom Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.iceberglettuceS": "Iceberg Lettuce Seed",
+  "text.config.pvz-config.option.nestedSeeds.moreSeeds.icebergpultS": "Iceberg-pult Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.iceshroomS": "Ice-shroom Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.jalapenoS": "Jalapeno Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.lightningreedS": "Lightning Reed Seed",
@@ -153,6 +154,7 @@
   "text.config.pvz-config.option.nestedProjDMG.coconutDMG": "Coconut Damage (Direct dmg is x2)",
   "text.config.pvz-config.option.nestedProjDMG.flamingPeaDMG": "Flaming Pea Damage",
   "text.config.pvz-config.option.nestedProjDMG.fumeDMG": "Fume Damage",
+  "text.config.pvz-config.option.nestedProjDMG.icebergDMG": "Iceberg Damage (Direct dmg is x2)",
   "text.config.pvz-config.option.nestedProjDMG.iceSpikeDMG": "Ice Spike Damage",
   "text.config.pvz-config.option.nestedProjDMG.iceSpikeMultiplier": "Ice Spike Multiplier (Chill Target)",
   "text.config.pvz-config.option.nestedProjDMG.jingleDMG": "Jingle Damage",
@@ -395,7 +397,7 @@
   "item.pvzmod.seashroom_seed_packet.flavour2": " disadvantaged Plants in his spare time.",
   "item.pvzmod.acidspore": "Acid Spore",
 
-  "entity.pvzmod.cabbagepult": "Cabbage-ult",
+  "entity.pvzmod.cabbagepult": "Cabbage-pult",
   "item.pvzmod.cabbagepult_seed_packet": "\uD83C\uDFF9 Cabbage-pult Seed Packet",
   "item.pvzmod.cabbagepult_seed_packet.flavour": "\"Coleslaw from above!\"",
   "item.pvzmod.cabbage": "Cabbage",
@@ -422,6 +424,11 @@
   "item.pvzmod.spikerock_seed_packet": "✂ Spikerock Seed Packet",
   "item.pvzmod.spikerock_seed_packet.flavour": "Being the most metal plant, Spikerock has decided",
   "item.pvzmod.spikerock_seed_packet.flavour2": "to hold his metal concert at Madison Rock Garden.",
+
+  "entity.pvzmod.icebergpult": "Iceberg-pult",
+  "item.pvzmod.icebergpult_seed_packet": "\uD83C\uDFF9 Iceberg-pult Seed Packet",
+  "item.pvzmod.icebergpult_seed_packet.flavour": "An exciting piggyback ride",
+  "item.pvzmod.iceberg": "Iceberg",
 
   "entity.pvzmod.shamrock": "Shamrock",
   "item.pvzmod.shamrock_seed_packet": "⭘ Shamrock Seed Packet",

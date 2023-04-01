@@ -24,6 +24,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.t
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.threepeater.ThreepeaterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.cabbagepult.CabbagepultEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.scrapped.icebergpult.IcebergpultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntity;
@@ -770,6 +771,32 @@ public abstract class PlantEntity extends GolemEntity {
 			};
 					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 						player.getItemCooldownManager().set(ModItems.CABBAGEPULT_SEED_PACKET, CabbagepultSeeds.cooldown);
+					}
+				}
+				return ActionResult.SUCCESS;
+			}
+
+			/**ICEBERG-PULT**/
+			if (itemStack.isOf(ModItems.ICEBERGPULT_SEED_PACKET) && !itemCooldown) {
+				if (world instanceof ServerWorld) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					IcebergpultEntity plantEntity = (IcebergpultEntity) PvZEntity.ICEBERGPULT.create(serverWorld, itemStack.getNbt(), (Text) null, player, this.getBlockPos(), SpawnReason.SPAWN_EGG, true, true);
+					if (plantEntity == null) {
+						return ActionResult.FAIL;
+					}
+
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), f, 0.0F);
+					((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
+					plantEntity.rideLilyPad(this);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
+				}
+				if (!player.getAbilities().creativeMode) {
+					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+						itemStack.decrement(1);
+					};
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						player.getItemCooldownManager().set(ModItems.ICEBERGPULT_SEED_PACKET, IcebergpultSeeds.cooldown);
 					}
 				}
 				return ActionResult.SUCCESS;

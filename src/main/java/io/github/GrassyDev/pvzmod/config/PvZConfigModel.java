@@ -163,6 +163,7 @@ public class PvZConfigModel {
 		public float gravebusterS = 5.0f;
 		public float hypnoshroomS = 20.0f;
 		public float iceberglettuceS = 20.0f;
+		public float icebergpultS = 12.5f;
 		public float iceshroomS = 25.0f;
 		public float jalapenoS = 35.0f;
 		public float lightningreedS = 12.5f;
@@ -226,6 +227,7 @@ public class PvZConfigModel {
 		public float coconutDMG = 90f;
 		public float flamingPeaDMG = 4f;
 		public float fumeDMG = 2.5f;
+		public float icebergDMG = 1f;
 		public float iceSpikeDMG = 2f;
 		public float iceSpikeMultiplier = 2f;
 		public float jingleDMG = 8f;

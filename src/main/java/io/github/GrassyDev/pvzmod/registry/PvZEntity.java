@@ -33,6 +33,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.t
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.threepeater.ThreepeaterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.cabbagepult.CabbagepultEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.scrapped.icebergpult.IcebergpultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.cattail.CattailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.gatlingpea.GatlingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.gloomshroom.GloomshroomEntity;
@@ -71,6 +72,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbag
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.coconut.CoconutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamingpea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.iceberg.ShootingIcebergEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.icespike.ShootingIcespikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingle.JingleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
@@ -315,6 +317,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<SpikerockEntity>create(SpawnGroup.CREATURE, SpikerockEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.125f)).build()
 	);
 
+	public static final EntityType<IcebergpultEntity> ICEBERGPULT = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "icebergpult"),
+			QuiltEntityTypeBuilder.<IcebergpultEntity>create(SpawnGroup.CREATURE, IcebergpultEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
 	public static final EntityType<ShamrockEntity> SHAMROCK = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "shamrock"),
@@ -556,6 +564,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "cabbage"),
 			QuiltEntityTypeBuilder.<ShootingCabbageEntity>create(SpawnGroup.MISC, ShootingCabbageEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<ShootingIcebergEntity> ICEBERG = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "iceberg"),
+			QuiltEntityTypeBuilder.<ShootingIcebergEntity>create(SpawnGroup.MISC, ShootingIcebergEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingPepperEntity> PEPPERPROJ = Registry.register(
@@ -1176,6 +1190,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.CATTAIL, CattailEntity.createCattailAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SPIKEROCK, SpikerockEntity.createSpikerockAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ICEBERGPULT, IcebergpultEntity.createIcebergPultAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SHAMROCK, ShamrockEntity.createShamrockAttributes().build());
 

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:iceberglettuce_seed_packet"
+    },
+    {
+      "item": "pvzmod:cabbagepult_seed_packet"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:smallsun"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:icebergpult_seed_packet",
+    "count": 1
+  }
+}

@@ -1,9 +1,7 @@
-package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowqueenpea;
+package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.iceberg;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -52,10 +50,12 @@ import java.util.UUID;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAnimatable {
+public class ShootingIcebergEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
+	private LivingEntity target;
 
 	@Override
 	public void registerControllers(AnimationData animationData) {
@@ -70,30 +70,34 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(new AnimationBuilder().loop("peashot.idle"));
+		event.getController().setAnimation(new AnimationBuilder().loop("cabbage.idle"));
 		return PlayState.CONTINUE;
 	}
 
-    public ShootingSnowqueenPeaEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+    public ShootingIcebergEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
-		this.setNoGravity(true);
+		this.setNoGravity(false);
     }
 
-    public ShootingSnowqueenPeaEntity(World world, LivingEntity owner) {
+    public ShootingIcebergEntity(World world, LivingEntity owner) {
         super(EntityType.SNOWBALL, owner, world);
     }
 
     @Environment(EnvType.CLIENT)
-    public ShootingSnowqueenPeaEntity(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
-        super(PvZEntity.SNOWPEAPROJ, world);
-		updatePosition(x, y, z);
-		updateTrackedPositionAndAngles(x, y, z, yaw, pitch, interpolation, interpolate);
+    public ShootingIcebergEntity(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
+        super(PvZEntity.PEPPERPROJ, world);
+        updatePosition(x, y, z);
+        updateTrackedPositionAndAngles(x, y, z, yaw, pitch, interpolation, interpolate);
 		setId(id);
-		setUuid(uuid);
+        setUuid(uuid);
     }
 
+	public LivingEntity getTarget (LivingEntity target){
+		return this.target = target;
+	}
+
     public void tick() {
-		super.tick();
+        super.tick();
 		HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
 		RandomGenerator randomGenerator = this.random;
 		boolean bl = false;
@@ -117,56 +121,53 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 			this.onCollision(hitResult);
 		}
 
-		if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
-			this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
-		}
+        if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
+			if (!this.isWet()){
+				this.world.sendEntityStatus(this, (byte)3);
+			}
+            this.remove(RemovalReason.DISCARDED);
+        }
 
-		if (!this.world.isClient && this.age >= 60) {
-			this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
-		}
-
-		for (int j = 0; j < 2; ++j) {
-			double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
-			double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
-			double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
-			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
-		}
-
-		if (checkTorchwood(this.getPos()) != null) {
-			if (!checkTorchwood(this.getPos()).isWet()) {
-				ShootingPeaEntity shootingPeaEntity = (ShootingPeaEntity) PvZEntity.PEA.create(world);
-				shootingPeaEntity.torchwoodMemory = checkTorchwood(this.getPos());
-				shootingPeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				shootingPeaEntity.setVelocity(this.getVelocity());
-				shootingPeaEntity.setOwner(this.getOwner());
-				world.spawnEntity(shootingPeaEntity);
-				shootingPeaEntity.age = this.age;
-				this.remove(RemovalReason.DISCARDED);
+        if (!this.world.isClient && this.age >= 120) {
+			if (!this.isWet()){
+				this.world.sendEntityStatus(this, (byte)3);
+			}
+            this.remove(RemovalReason.DISCARDED);
+        }
+		if (!this.world.isClient && this.age > 50 && target != null) {
+			if (target.getHealth() > 0) {
+				this.setVelocity(0,this.getVelocity().getY(), 0);
+				this.setPosition(target.getPos().getX(), this.getY() - 0.0005, target.getZ());
 			}
 		}
-	}
-
-	@Override
-	protected Item getDefaultItem() {
-		return null;
-	}
-
-	public TorchwoodEntity checkTorchwood(Vec3d pos) {
-		List<TorchwoodEntity> list = world.getNonSpectatingEntities(TorchwoodEntity.class, PvZEntity.PEA.getDimensions().getBoxAt(pos));
-		if (!list.isEmpty()){
-			return list.get(0);
+		if (target != null){
+			if ((target.getHealth() > 0 && (this.getPos().getX() <= target.getPos().getX() + 0.2 && this.getPos().getX() >= target.getPos().getX() - 0.2) &&
+					this.getPos().getZ() <= target.getPos().getZ() + 0.2 && this.getPos().getZ() >= target.getPos().getZ() - 0.2)){
+				this.setVelocity(0,this.getVelocity().getY(), 0);
+				this.setPosition(target.getPos().getX(), this.getY() - 0.0005, target.getZ());
+			}
 		}
-		else {
-			return null;
+
+		if (!this.isWet()){
+			double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+			double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
+			double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
+
+			for (int j = 0; j < 1; ++j) {
+				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
+				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e * -1, f);
+			}
 		}
-	}
+    }
 
+    @Override
+    protected Item getDefaultItem() {
+        return null;
+    }
 
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
-        Entity entity = entityHitResult.getEntity();
+	protected void onEntityHit(EntityHitResult entityHitResult) {
+		super.onEntityHit(entityHitResult);
+		Entity entity = entityHitResult.getEntity();
 		ZombiePropEntity zombiePropEntity2 = null;
 		for (Entity entity1 : entity.getPassengerList()) {
 			if (entity1 instanceof ZombiePropEntity zpe) {
@@ -175,14 +176,8 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
-			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !entity.isOnFire() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
-				if (!(entity instanceof ZombieShieldEntity)) {
-					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
-				}
-			}
+				!(zombiePropEntity2 instanceof ZombiePropEntity && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
@@ -191,23 +186,20 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 				case "stone" -> PvZCubed.STONEHITEVENT;
 				default -> PvZCubed.PEAHITEVENT;
 			};
-			if (entity instanceof ZombieShieldEntity || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())){
+			if (entity instanceof ZombieShieldEntity || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())) {
 				entity.playSound(sound, 0.2F, 1F);
 			}
 			entity.playSound(PvZCubed.SNOWPEAHITEVENT, 0.2F, 1F);
-			float damage = PVZCONFIG.nestedProjDMG.snowQueenPeaDMG();
+			float damage = PVZCONFIG.nestedProjDMG.icebergDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
-					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
+					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 				float damage2 = damage - ((LivingEntity) entity).getHealth();
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
-			}
-			else {
+			} else {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-			this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
 			Vec3d vec3d = this.getPos();
 			List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
 			Iterator var9 = list.iterator();
@@ -267,41 +259,48 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 				}
 			}
 		}
-    }
+	}
 
-    @Environment(EnvType.CLIENT)
-    private ParticleEffect getParticleParameters() {
-        ItemStack itemStack = this.getItem();
-        return (ParticleEffect)(itemStack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
-    }
+	@Environment(EnvType.CLIENT)
+	private ParticleEffect getParticleParameters() {
+		ItemStack itemStack = this.getItem();
+		return (ParticleEffect)(itemStack.isEmpty() ? ParticleTypes.SNOWFLAKE : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
+	}
 
 
-    @Environment(EnvType.CLIENT)
+
+	@Environment(EnvType.CLIENT)
     public void handleStatus(byte status) {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-        if (status == 3) {
-            ParticleEffect particleEffect = this.getParticleParameters();
+		if (status == 3) {
+			ParticleEffect particleEffect = this.getParticleParameters();
 
-            for(int i = 0; i < 16; ++i) {
-                this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
-            }
+			for(int i = 0; i < 6; ++i) {
+				double vx = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				double vy = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				double vz = this.random.nextDouble() / 2 * this.random.range(-1, 1);
+				this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), vx, vy, vz);
+			}
 
-			for (int j = 0; j < 32; ++j) {
+			for (int j = 0; j < 8; ++j) {
+
 				double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
 				double e = this.random.nextDouble() / 2 * this.random.range(-1, 1);
 				double f = this.random.nextDouble() / 2 * this.random.range(-1, 1);
 				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
 			}
-        }
+		}
 
     }
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
         if (!this.world.isClient) {
-            this.world.sendEntityStatus(this, (byte)3);
-            this.remove(RemovalReason.DISCARDED);
+			if (!this.isWet()){
+				this.world.sendEntityStatus(this, (byte)3);
+			}
+			this.remove(RemovalReason.DISCARDED);
         }
     }
 

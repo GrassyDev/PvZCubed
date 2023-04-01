@@ -225,7 +225,7 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 
 							livingEntity = (LivingEntity) var9.next();
 						} while (livingEntity == this.getOwner());
-					} while (entity.squaredDistanceTo(livingEntity) > 6);
+					} while (entity.squaredDistanceTo(livingEntity) > 6.25);
 
 					boolean bl = false;
 

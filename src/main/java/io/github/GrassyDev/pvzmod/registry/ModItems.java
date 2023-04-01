@@ -51,6 +51,7 @@ public class ModItems {
 		SEED_PACKET_LIST.add(ModItems.CATTAIL_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.TWINSUNFLOWER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.SPIKEROCK_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.ICEBERGPULT_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.SHAMROCK_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.BEESHOOTER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.SNOW_QUEENPEA_SEED_PACKET);
@@ -99,6 +100,7 @@ public class ModItems {
     public static final Item SNOWPEAPROJ = new SnowPeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
     public static final Item FIREPEA = new FirepeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.RARE));
 	public static final Item CABBAGE = new CabbageItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
+	public static final Item ICEBERG = new IcebergItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.UNCOMMON));
 	public static final Item SNOWQUEENPEAPROJ = new SnowqueenpeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
 	public static final Item COCONUT = new CoconutItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.RARE));
 	public static final Item PEPPER = new PepperItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
@@ -148,6 +150,7 @@ public class ModItems {
 	public static final Item GLOOMSHROOM_SEED_PACKET = new GloomshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item CATTAIL_SEED_PACKET = new CattailSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item SPIKEROCK_SEED_PACKET = new SpikerockSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
+	public static final Item ICEBERGPULT_SEED_PACKET = new IcebergpultSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item SHAMROCK_SEED_PACKET = new ShamrockSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item BEESHOOTER_SEED_PACKET = new BeeshooterSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.EPIC));
 	public static final Item SNOW_QUEENPEA_SEED_PACKET = new SnowqueenpeaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.EPIC));
@@ -270,6 +273,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowpeaproj"), SNOWPEAPROJ);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"firepea"), FIREPEA);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cabbage"), CABBAGE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"iceberg"), ICEBERG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowqueenpeaproj"), SNOWQUEENPEAPROJ);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"coconut"), COCONUT);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pepper"), PEPPER);
@@ -341,6 +345,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cattail_seed_packet"), CATTAIL_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"twinsunflower_seed_packet"), TWINSUNFLOWER_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"spikerock_seed_packet"), SPIKEROCK_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"icebergpult_seed_packet"), ICEBERGPULT_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"shamrock_seed_packet"), SHAMROCK_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"beeshooter_seed_packet"), BEESHOOTER_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"snowqueenpea_seed_packet"), SNOW_QUEENPEA_SEED_PACKET);

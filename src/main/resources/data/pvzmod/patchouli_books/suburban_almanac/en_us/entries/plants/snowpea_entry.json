@@ -12,7 +12,7 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1.5s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)7.5s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Freezes Zombies.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Chills Zombies.",
         "$(br2)$(#bd951a)Folks often tell Snow Pea how \"cool\" he is, or exhort him to \"chill out.\" They tell him to \"stay frosty.\" Snow Pea just rolls his eyes. He's heard 'em all."
       ]
     },

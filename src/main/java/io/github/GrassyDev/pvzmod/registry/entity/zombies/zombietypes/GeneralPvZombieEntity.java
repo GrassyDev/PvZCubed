@@ -350,28 +350,29 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			this.setTarget(null);
 		}
 
-		// thanks to Pluiedev for this hipster code
-		var zombiePropEntity = this.getPassengerList()
-				.stream()
-				.filter(e -> e instanceof ZombiePropEntity)
-				.map(e -> (ZombiePropEntity) e)
-				.findFirst();
+		if (this.world.isClient) {
+			// thanks to Pluiedev for this hipster code
+			var zombiePropEntity = this.getPassengerList()
+					.stream()
+					.filter(e -> e instanceof ZombiePropEntity)
+					.map(e -> (ZombiePropEntity) e)
+					.findFirst();
 
-		if (zombiePropEntity.isPresent()) {
-			var e = zombiePropEntity.get();
-			this.geardmg = e.getHealth() < e.getMaxHealth() / 2;
-			this.gearless = false;
-		} else {
-			this.gearless = true;
-			this.geardmg = false;
+			if (zombiePropEntity.isPresent()) {
+				var e = zombiePropEntity.get();
+				this.geardmg = e.getHealth() < e.getMaxHealth() / 2;
+				this.gearless = false;
+			} else {
+				this.gearless = true;
+				this.geardmg = false;
+			}
+
+			this.armless = this.getHealth() < this.getMaxHealth() / 2;
 		}
-
-		this.armless = this.getHealth() < this.getMaxHealth() / 2;
-		Entity entity = this;
-		if (this.getHealth() < this.getMaxHealth() / 2 && !(entity instanceof ZombiePropEntity) &&
-				!(entity instanceof GargantuarEntity) && !(entity instanceof ImpEntity) && !(entity instanceof AnnouncerImpEntity) &&
-				!(entity instanceof ZombieKingEntity) && IS_MACHINE.get(entity.getType()).orElse(false).equals(false)){
-			if (this.pop && !this.dead){
+		if (this.getHealth() < this.getMaxHealth() / 2 && !(this instanceof ZombiePropEntity) &&
+				!(this instanceof GargantuarEntity) && !(this instanceof ImpEntity) && !(this instanceof AnnouncerImpEntity) &&
+				!(this instanceof ZombieKingEntity) && IS_MACHINE.get(this.getType()).orElse(false).equals(false)) {
+			if (this.pop && !this.dead) {
 				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
 				pop = false;
 			}

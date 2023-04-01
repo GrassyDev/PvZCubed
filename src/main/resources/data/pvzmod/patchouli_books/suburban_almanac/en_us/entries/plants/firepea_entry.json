@@ -10,7 +10,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)16",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s, 4 DMG (Splash)",
-        "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)2.5 Blocks",
+        "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)1.5 Blocks",
         "$(br)$(#bd951a)Plasma DMG: $()$(#ff0000)12 DMG/1.5s (Pierce)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
