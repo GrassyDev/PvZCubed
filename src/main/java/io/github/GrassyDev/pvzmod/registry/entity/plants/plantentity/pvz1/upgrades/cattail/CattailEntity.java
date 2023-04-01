@@ -481,7 +481,6 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.9F, 0F);
 						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
 						proj.setOwner(this.plantEntity);
-						proj.setYaw(this.plantEntity.getYaw());
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -2;
 							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);

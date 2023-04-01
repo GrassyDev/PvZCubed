@@ -433,7 +433,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
-				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
+				if (this.beamTicks >= 0 && this.animationTicks <= -5) {
 					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						SpitEntity proj = new SpitEntity(PvZEntity.SPIT, this.plantEntity.world);
 						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
@@ -448,9 +448,8 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
 						proj.setOwner(this.plantEntity);
-						proj.setYaw(this.plantEntity.getYaw());
 						if (livingEntity.isAlive()) {
-							this.beamTicks = -2;
+							this.beamTicks = -3;
 							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
 							this.plantEntity.world.spawnEntity(proj);
