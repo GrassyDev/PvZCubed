@@ -179,12 +179,14 @@
   "text.config.pvz-config.option.nestedZombieHealth.darkAgesGraveH": "Dark Ages Gravestone Health",
   "text.config.pvz-config.option.nestedZombieHealth.backupH": "Backup Zombie Health",
   "text.config.pvz-config.option.nestedZombieHealth.browncoatH": "Browncoat Health",
+  "text.config.pvz-config.option.nestedZombieHealth.mummyH": "Mummy Health",
   "text.config.pvz-config.option.nestedZombieHealth.peasantH": "Peasant Health",
   "text.config.pvz-config.option.nestedZombieHealth.bullyH": "Bully Health",
   "text.config.pvz-config.option.nestedZombieHealth.basketballH": "Basketball Carrier Health",
   "text.config.pvz-config.option.nestedZombieHealth.dancingH": "Dancing Zombie Health",
   "text.config.pvz-config.option.nestedZombieHealth.dolphinH": "Dolphin Rider Health",
   "text.config.pvz-config.option.nestedZombieHealth.flagH": "Flag Zombie Health",
+  "text.config.pvz-config.option.nestedZombieHealth.flagMummyH": "Flag Mummy Health",
   "text.config.pvz-config.option.nestedZombieHealth.flagPeasantH": "Flag Peasant Health",
   "text.config.pvz-config.option.nestedZombieHealth.footballH": "Football Health",
   "text.config.pvz-config.option.nestedZombieHealth.berserkerH": "Berserker Health",
@@ -627,6 +629,27 @@
   "item.pvzmod.berserker_egg": "Berserker",
   "entity.pvzmod.berserkergear": "Berserker Helmet",
   "entity.pvzmod.berserker_hypnotized": "Hypnotized Berserker",
+
+  "entity.pvzmod.mummy": "Mummy Zombie",
+  "item.pvzmod.mummy_egg": "Mummy Zombie",
+  "entity.pvzmod.mummy_hypnotized": "Hypnotized Mummy Zombie",
+
+  "entity.pvzmod.flagmummy": "Flag Mummy Zombie",
+  "item.pvzmod.flagmummy_egg": "Flag Mummy Zombie",
+  "entity.pvzmod.flagmummy_hypnotized": "Hypnotized Flag Mummy Zombie",
+
+  "entity.pvzmod.mummycone": "Conehead Mummy Zombie",
+  "item.pvzmod.mummycone_egg": "Conehead Mummy Zombie",
+  "entity.pvzmod.mummycone_hypnotized": "Hypnotized Conehead Mummy Zombie",
+
+  "entity.pvzmod.mummybucket": "Buckethead Mummy Zombie",
+  "item.pvzmod.mummybucket_egg": "Buckethead Mummy Zombie",
+  "entity.pvzmod.mummybucket_hypnotized": "Hypnotized Buckethead Mummy Zombie",
+
+  "entity.pvzmod.pyramidhead": "Pyramidhead Zombie",
+  "item.pvzmod.pyramidhead_egg": "Pyramidhead Zombie",
+  "entity.pvzmod.pyramidgear": "Pyramid",
+  "entity.pvzmod.pyramidhead_hypnotized": "Hypnotized Pyramidhead Zombie",
 
   "entity.pvzmod.jetpack": "Jetpack Zombie",
   "item.pvzmod.jetpack_egg": "Jetpack Zombie",

@@ -123,10 +123,7 @@ public class AcidFumeEntity extends ThrownItemEntity implements IAnimatable {
 			Entity entity2 = entityHitResult.getEntity();
 			float damage = PVZCONFIG.nestedProjDMG.acidFumeDMG();
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
-			if ("paper".equals(zombieMaterial)) {
-				damage = damage * 5;
-			}
-			else if ("stone".equals(zombieMaterial)) {
+			if ("paper".equals(zombieMaterial) || "stone".equals(zombieMaterial)) {
 				damage = damage * 2;
 			}
 			SoundEvent sound;

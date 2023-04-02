@@ -240,33 +240,19 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 						checkList.add(livingEntity);
 						checkList.add(generalPvZombieEntity);
 					} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
-						String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombieShieldEntity.getType()).orElse("flesh");
-						if ("paper".equals(zombieMaterial)) {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), 99999);
-						} else {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-						}
+						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
 						checkList.add(zombieShieldEntity);
 					}
 					else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {
 						String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombieShieldEntity.getType()).orElse("flesh");
-						if ("paper".equals(zombieMaterial)) {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), 99999);
-						} else {
-							zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-						}
+						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add(livingEntity);
 						checkList.add(zombieShieldEntity);
 					}
 					else {
 						if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombiePropEntity.getType()).orElse("flesh");
-							if ("paper".equals(zombieMaterial)) {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), 99999);
-							} else {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							}
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
 						}

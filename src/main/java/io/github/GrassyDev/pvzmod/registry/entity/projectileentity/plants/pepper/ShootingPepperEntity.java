@@ -259,7 +259,7 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 								else if (livingEntity instanceof ZombiePropEntity zombiePropEntity) {
 									String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombiePropEntity.getType()).orElse("flesh");
 									if ("paper".equals(zombieMaterial)) {
-										livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 99999);
+										livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage * 2);
 									} else {
 										livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 									}

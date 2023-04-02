@@ -11,6 +11,8 @@
     "pvzmod:sundayedition": 7,
     "pvzmod:newyearimp": 7,
     "pvzmod:flagzombie": 6,
+    "pvzmod:flagpeasant": 6,
+    "pvzmod:flagmummy": 6,
     "pvzmod:blastronaut": 6,
     "pvzmod:superfanimp": 5,
     "pvzmod:dancing_zombie": 5,
@@ -22,6 +24,7 @@
     "pvzmod:dolphinrider": 4,
     "pvzmod:bully": 4,
     "pvzmod:buckethead": 4,
+    "pvzmod:mummybucket": 4,
     "pvzmod:peasantbucket": 4,
     "pvzmod:basketballbin": 4,
     "pvzmod:jetpack": 4,
@@ -31,9 +34,11 @@
     "pvzmod:polevaulting": 3,
     "pvzmod:snorkel": 2,
     "pvzmod:conehead": 2,
+    "pvzmod:mummycone": 2,
     "pvzmod:peasantcone": 2,
     "pvzmod:backup_dancer": 2,
     "pvzmod:browncoat": 1,
+    "pvzmod:mummy": 1,
     "pvzmod:peasant": 1
   }
 }

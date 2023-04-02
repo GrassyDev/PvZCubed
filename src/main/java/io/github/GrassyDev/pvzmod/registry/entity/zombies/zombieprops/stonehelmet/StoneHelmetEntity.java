@@ -81,6 +81,9 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
 		if (this.getType().equals(PvZEntity.TOWERGEAR)){
 			setVariant(StoneHelmetVariants.TOWER);
 		}
+		else if (this.getType().equals(PvZEntity.PYRAMIDGEAR)){
+			setVariant(StoneHelmetVariants.PYRAMID);
+		}
 		else {
 			setVariant(StoneHelmetVariants.BRICK);
 		}
@@ -138,6 +141,14 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.brickH());
     }
+
+	public static DefaultAttributeContainer.Builder createPyramidGearAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.pyramidH());
+	}
 
 	public static DefaultAttributeContainer.Builder createTowerGearAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)

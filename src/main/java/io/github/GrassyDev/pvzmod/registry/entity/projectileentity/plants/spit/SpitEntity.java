@@ -140,10 +140,7 @@ public class SpitEntity extends ThrownItemEntity implements IAnimatable {
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			float damage = PVZCONFIG.nestedProjDMG.spitDMG();
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
-			if ("paper".equals(zombieMaterial)) {
-				damage = damage * 5;
-			}
-			else if ("stone".equals(zombieMaterial)) {
+			if ("paper".equals(zombieMaterial) || "stone".equals(zombieMaterial)) {
 				damage = damage * 2;
 			}
 			SoundEvent sound;

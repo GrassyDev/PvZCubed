@@ -268,6 +268,8 @@ public class PvZConfigModel {
 		@RestartRequired
 		public double peasantH = 27D;
 		@RestartRequired
+		public double mummyH = 27D;
+		@RestartRequired
 		public double bullyH = 110D;
 		@RestartRequired
 		public double basketballH = 110D;
@@ -277,6 +279,8 @@ public class PvZConfigModel {
 		public double dolphinH = 50D;
 		@RestartRequired
 		public double flagH = 50D;
+		@RestartRequired
+		public double flagMummyH = 50D;
 		@RestartRequired
 		public double flagPeasantH = 50D;
 		@RestartRequired
@@ -329,9 +333,11 @@ public class PvZConfigModel {
 		public double knightHelmH = 152D;
 
 		@RestartRequired
+		public double brickH = 212D;
+		@RestartRequired
 		public double coneTowerH = 53D;
 		@RestartRequired
-		public double brickH = 212D;
+		public double pyramidH = 340D;
 
 		@RestartRequired
 		public double screendoorShieldH = 153D;
