@@ -41,10 +41,12 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public abstract class GeneralPvZombieEntity extends HostileEntity {
 	private static final TrackedData<Byte> FLYING_TAG;
+	private static final TrackedData<Byte> CANHYPNO_TAG;
 	private static final TrackedData<Byte> COVERED_TAG;
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 		this.setFlying(false);
+		this.setCoveredTag(false);
 		this.setPathfindingPenalty(PathNodeType.RAIL, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.UNPASSABLE_RAIL, 0.0F);
 		this.getNavigation().setCanSwim(true);
@@ -66,6 +68,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(FLYING_TAG, (byte)16);
+		this.dataTracker.startTracking(CANHYPNO_TAG, (byte)16);
 		this.dataTracker.startTracking(COVERED_TAG, (byte)16);
 		this.dataTracker.startTracking(DATA_ID_HYPNOTIZED, false);
 	}
@@ -74,6 +77,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putBoolean("isFlying", this.isFlying());
+		tag.putBoolean("canHypno", this.canHypno());
 		tag.putBoolean("isCovered", this.isCovered());
 		tag.putBoolean("Hypnotized", this.getHypno());
 	}
@@ -82,6 +86,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		super.readCustomDataFromNbt(tag);
 		if (tag.contains("isFlying")) {
 			this.setFlying(tag.getBoolean("isFlying"));
+		}
+		if (tag.contains("canHypno")) {
+			this.setFlying(tag.getBoolean("canHypno"));
 		}
 		if (tag.contains("isCovered")) {
 			this.setFlying(tag.getBoolean("isCovered"));
@@ -103,6 +110,20 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	}
 
+	public boolean canHypno() {
+		return ((Byte)this.dataTracker.get(CANHYPNO_TAG) & 16) != 0;
+	}
+
+	public void setCanHypno(boolean canHypno) {
+		byte b = (Byte)this.dataTracker.get(CANHYPNO_TAG);
+		if (canHypno) {
+			this.dataTracker.set(CANHYPNO_TAG, (byte)(b | 16));
+		} else {
+			this.dataTracker.set(CANHYPNO_TAG, (byte)(b & -17));
+		}
+
+	}
+
 	public boolean isCovered() {
 		return ((Byte)this.dataTracker.get(COVERED_TAG) & 16) != 0;
 	}
@@ -119,6 +140,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	static {
 		FLYING_TAG = DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BYTE);
+		CANHYPNO_TAG = DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BYTE);
 		COVERED_TAG = DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
@@ -130,6 +152,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
+		if (!this.getType().equals(PvZEntity.PYRAMIDHEAD)) {
+			this.setCanHypno(true);
+		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
@@ -349,14 +374,14 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.getTarget() != null && this.getTarget().isDead()){
 			this.setTarget(null);
 		}
+		// thanks to Pluiedev for this hipster code
+		var zombiePropEntity = this.getPassengerList()
+				.stream()
+				.filter(e -> e instanceof ZombiePropEntity)
+				.map(e -> (ZombiePropEntity) e)
+				.findFirst();
 
 		if (this.world.isClient) {
-			// thanks to Pluiedev for this hipster code
-			var zombiePropEntity = this.getPassengerList()
-					.stream()
-					.filter(e -> e instanceof ZombiePropEntity)
-					.map(e -> (ZombiePropEntity) e)
-					.findFirst();
 
 			if (zombiePropEntity.isPresent()) {
 				var e = zombiePropEntity.get();
@@ -368,6 +393,12 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			}
 
 			this.armless = this.getHealth() < this.getMaxHealth() / 2;
+		}
+		if (zombiePropEntity.isPresent()) {
+			var e = zombiePropEntity.get();
+			if (this.getType().equals(PvZEntity.PYRAMIDHEAD)){
+				e.setHypno(IsHypno.FALSE);
+			}
 		}
 		if (this.getHealth() < this.getMaxHealth() / 2 && !(this instanceof ZombiePropEntity) &&
 				!(this instanceof GargantuarEntity) && !(this instanceof ImpEntity) && !(this instanceof AnnouncerImpEntity) &&

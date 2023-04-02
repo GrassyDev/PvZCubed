@@ -15,6 +15,7 @@
       "type": "relations",
       "entries": [
         "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/icebergpult_entry",
         "pvzmod:plants/iceshroom_entry",
         "pvzmod:plants/snowqueenpea_entry",
         "pvzmod:plants/iceberglettuce_entry"

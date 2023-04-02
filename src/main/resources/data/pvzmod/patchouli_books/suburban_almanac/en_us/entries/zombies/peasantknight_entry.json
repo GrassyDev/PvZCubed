@@ -28,6 +28,7 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/icebergpult_entry",
         "pvzmod:plants/potatomine_entry",
         "pvzmod:plants/squash_entry",
         "pvzmod:plants/cherrybomb_entry",

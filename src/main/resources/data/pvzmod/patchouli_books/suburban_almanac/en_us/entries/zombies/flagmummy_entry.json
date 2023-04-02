@@ -1,8 +1,8 @@
 {
-  "name": "Flag Zombie",
-  "icon": "pvzmod:flagzombie_egg",
+  "name": "Mummy Flag Zombie",
+  "icon": "pvzmod:flagmummy_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 1,
+  "sortnum": 71,
   "pages": [
     {
       "type": "text",
@@ -11,19 +11,19 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
         "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Summons x2 Bucketheads, x1 Screendoor, x3 Coneheads, and x6 Browncoats behind them.",
-        "$(br2)$(#bd951a)Make no mistake, Flag Zombie loves brains but somewhere down the line he also picked up a fascination with flags."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Summons x2 Buckethead Mummies, x1 Pyramid Head, x3 Conehead Mummies, and x6 Mummies behind them.",
+        "$(br)$(#bd951a)Egyptian Flag Zombie is so far behind he thinks he's in first place. He's clearly living in de-Nile."
       ]
     },
     {
       "type": "image",
 
       "images": [
-        "pvzmod:textures/gui/entries/flagzombie.png"
+        "pvzmod:textures/gui/entries/flagmummy.png"
       ],
-      "title": "Basic Zombie",
+      "title": "Ancient Egypt Zombie",
       "border": "true",
-      "text": "$(#25228d)Flag Zombie marks the arrival of a huge pile or \"wave\" of zombies."
+      "text": "$(#25228d)Marks the arrival of a huge sandy \"wave\" of zombies."
     },
     {
       "type": "relations",
@@ -44,7 +44,7 @@
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Flag Zombie"
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Flag Peasant Zombie"
       ]
     }
   ]

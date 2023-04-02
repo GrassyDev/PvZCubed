@@ -20,6 +20,10 @@ public class MummyEntity extends BrowncoatEntity {
 
 	@Override
 	public void tick() {
+		System.out.println(this.canHypno());
+		if (this.getVariant().equals(BrowncoatVariants.PYRAMIDHEAD)){
+			this.setCanHypno(false);
+		}
 		super.tick();
 	}
 

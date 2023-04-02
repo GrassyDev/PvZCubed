@@ -38,6 +38,8 @@ public class PvZCubed implements ModInitializer {
 
 	public static final RegistryEntryAttachment<EntityType<?>, Boolean> IS_MACHINE =
 			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "is_machine")).build();
+	public static final RegistryEntryAttachment<EntityType<?>, Boolean> CAN_HYPNO =
+			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "can_hypno")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, Integer> ZOMBIE_STRENGTH =
 			RegistryEntryAttachment.intBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_strength")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, Boolean> TARGET_GROUND =
@@ -51,7 +53,6 @@ public class PvZCubed implements ModInitializer {
 
 	public static final DamageSource HYPNO_DAMAGE = new HypnoDamage().setHypnoDamage();
 	public static final DamageSource LIGHTNING_DAMAGE = new LightningDamage().setLightningDamage();
-	public static final StatusEffect HYPNOTIZED = new Hypnotized();
 
 	public static final StatusEffect ICE = new Ice();
 	public static final StatusEffect FROZEN = new Frozen();
@@ -396,7 +397,6 @@ public class PvZCubed implements ModInitializer {
 		PvZEntitySpawn.addEntitySpawn();
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "ice"), ICE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "frozen"), FROZEN);
-		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "hypnotized"), HYPNOTIZED);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "warm"), WARM);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "wet"), WET);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "pvzpoison"), PVZPOISON);

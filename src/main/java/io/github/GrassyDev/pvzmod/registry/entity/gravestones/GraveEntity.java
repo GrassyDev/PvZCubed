@@ -86,9 +86,6 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		}
 		List<GravebusterEntity> list = world.getNonSpectatingEntities(GravebusterEntity.class, entityBox.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
 		this.beingEaten = !list.isEmpty();
-		if (this.hasStatusEffect(PvZCubed.HYPNOTIZED)){
-			this.removeStatusEffect(PvZCubed.HYPNOTIZED);
-		}
 	}
 
 	public boolean canWalkOnFluid(FluidState state) {
