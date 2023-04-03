@@ -33,6 +33,6 @@ public class FlagPeasantEntityModel extends AnimatedGeoModel<FlagPeasantEntity> 
 	@Override
 	public Identifier getAnimationResource(FlagPeasantEntity object)
     {
-        return new Identifier ("pvzmod", "animations/flagzombie.json");
+        return new Identifier ("pvzmod", "animations/newbrowncoat.json");
     }
 }

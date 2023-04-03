@@ -38,8 +38,6 @@ public class PvZCubed implements ModInitializer {
 
 	public static final RegistryEntryAttachment<EntityType<?>, Boolean> IS_MACHINE =
 			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "is_machine")).build();
-	public static final RegistryEntryAttachment<EntityType<?>, Boolean> CAN_HYPNO =
-			RegistryEntryAttachment.boolBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "can_hypno")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, Integer> ZOMBIE_STRENGTH =
 			RegistryEntryAttachment.intBuilder(Registry.ENTITY_TYPE, new Identifier("pvzmod", "zombie_strength")).build();
 	public static final RegistryEntryAttachment<EntityType<?>, Boolean> TARGET_GROUND =
@@ -201,6 +199,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.FLAGMUMMYEGG));
 				stacks.add(new ItemStack(ModItems.MUMMYCONEEGG));
 				stacks.add(new ItemStack(ModItems.MUMMYBUCKETEGG));
+				stacks.add(new ItemStack(ModItems.EXPLOREREGG));
 				stacks.add(new ItemStack(ModItems.PYRAMIDHEADEGG));
 				stacks.add(new ItemStack(ModItems.JETPACKEGG));
 				stacks.add(new ItemStack(ModItems.ROBOCONEEGG));

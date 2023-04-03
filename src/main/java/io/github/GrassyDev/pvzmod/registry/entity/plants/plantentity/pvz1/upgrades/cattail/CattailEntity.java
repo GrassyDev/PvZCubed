@@ -50,7 +50,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 
 	private int amphibiousRaycastDelay;
 
-	private boolean dryLand;
+
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 

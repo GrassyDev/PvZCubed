@@ -197,6 +197,7 @@ public class ModItems {
 	public static final Item FLAGMUMMYEGG = new FlagMummyEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item MUMMYCONEEGG = new MummyConeEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
 	public static final Item MUMMYBUCKETEGG = new MummyBucketEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
+	public static final Item EXPLOREREGG = new ExplorerEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
 	public static final Item PYRAMIDHEADEGG = new PyramidHeadEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item PEASANTEGG = new PeasantEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.COMMON));
 	public static final Item FLAGPEASANTEGG = new FlagPeasantEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
@@ -395,6 +396,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"flagmummy_egg"), FLAGMUMMYEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"mummycone_egg"), MUMMYCONEEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"mummybucket_egg"), MUMMYBUCKETEGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"explorer_egg"), EXPLOREREGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pyramidhead_egg"), PYRAMIDHEADEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peasant_egg"), PEASANTEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"flagpeasant_egg"), FLAGPEASANTEGG);

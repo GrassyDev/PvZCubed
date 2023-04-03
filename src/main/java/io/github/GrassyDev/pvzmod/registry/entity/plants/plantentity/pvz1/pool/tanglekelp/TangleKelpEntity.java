@@ -68,7 +68,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-	private boolean dryLand;
+
 
 	public Vec3d originalVec3d;
 

@@ -81,6 +81,8 @@ public abstract class PlantEntity extends GolemEntity {
 
 	public boolean naturalSpawn;
 
+	protected boolean dryLand;
+
 	@Override
 	public boolean canBeLeashedBy(PlayerEntity player) {
 		return false;
@@ -98,29 +100,59 @@ public abstract class PlantEntity extends GolemEntity {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(DATA_ID_ASLEEP, false);
+		this.dataTracker.startTracking(DATA_ID_FIREIMMUNE, false);
 	}
 
 	@Override
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putBoolean("Asleep", this.getIsAsleep());
+		tag.putBoolean("fireImmune", this.getFireImmune());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
 		this.dataTracker.set(DATA_ID_ASLEEP, tag.getBoolean("Asleep"));
+		this.dataTracker.set(DATA_ID_FIREIMMUNE, tag.getBoolean("fireImmune"));
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
-
-	protected static final TrackedData<Boolean> DATA_ID_ASLEEP =
-			DataTracker.registerData(PlantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
+
+	protected static final TrackedData<Boolean> DATA_ID_FIREIMMUNE =
+			DataTracker.registerData(PlantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public enum FireImmune {
+		FALSE(false),
+		TRUE(true);
+
+		FireImmune(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean getFireImmune() {
+		return this.dataTracker.get(DATA_ID_FIREIMMUNE);
+	}
+
+	public void setFireImmune(PlantEntity.FireImmune fireImmune) {
+		this.dataTracker.set(DATA_ID_FIREIMMUNE, fireImmune.getId());
+	}
+	
+
+	protected static final TrackedData<Boolean> DATA_ID_ASLEEP =
+			DataTracker.registerData(PlantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	public enum IsAsleep {
 		FALSE(false),

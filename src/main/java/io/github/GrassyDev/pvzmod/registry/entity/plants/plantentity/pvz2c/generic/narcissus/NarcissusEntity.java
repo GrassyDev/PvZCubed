@@ -56,7 +56,7 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-	private boolean dryLand;
+
 
     public NarcissusEntity(EntityType<? extends NarcissusEntity> entityType, World world) {
         super(entityType, world);

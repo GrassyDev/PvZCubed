@@ -50,7 +50,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 
 	private int amphibiousRaycastDelay;
 
-	private boolean dryLand;
+
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 

@@ -55,7 +55,7 @@ public class AcidshroomEntity extends PlantEntity implements IAnimatable, Ranged
 
 	private boolean isFiring;
 	private int amphibiousRaycastDelay;
-	private boolean dryLand;
+
 
 	public AcidshroomEntity(EntityType<? extends AcidshroomEntity> entityType, World world) {
 		super(entityType, world);

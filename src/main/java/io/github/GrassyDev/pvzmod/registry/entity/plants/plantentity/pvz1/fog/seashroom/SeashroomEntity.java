@@ -54,7 +54,7 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 
 	public boolean isFiring;
 	private int amphibiousRaycastDelay;
-	private boolean dryLand;
+
 
     public SeashroomEntity(EntityType<? extends SeashroomEntity> entityType, World world) {
         super(entityType, world);

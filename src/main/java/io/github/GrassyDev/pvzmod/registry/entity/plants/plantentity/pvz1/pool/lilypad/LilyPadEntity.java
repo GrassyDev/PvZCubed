@@ -64,7 +64,7 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 	private int amphibiousRaycastDelay;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-	private boolean dryLand;
+
 
 	public LilyPadEntity(EntityType<? extends LilyPadEntity> entityType, World world) {
         super(entityType, world);

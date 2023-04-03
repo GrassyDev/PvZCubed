@@ -278,6 +278,8 @@ public class PvZConfigModel {
 		@RestartRequired
 		public double dolphinH = 50D;
 		@RestartRequired
+		public double explorerH = 50D;
+		@RestartRequired
 		public double flagH = 50D;
 		@RestartRequired
 		public double flagMummyH = 50D;

@@ -185,6 +185,7 @@
   "text.config.pvz-config.option.nestedZombieHealth.basketballH": "Basketball Carrier Health",
   "text.config.pvz-config.option.nestedZombieHealth.dancingH": "Dancing Zombie Health",
   "text.config.pvz-config.option.nestedZombieHealth.dolphinH": "Dolphin Rider Health",
+  "text.config.pvz-config.option.nestedZombieHealth.explorerH": "Explorer Health",
   "text.config.pvz-config.option.nestedZombieHealth.flagH": "Flag Zombie Health",
   "text.config.pvz-config.option.nestedZombieHealth.flagMummyH": "Flag Mummy Health",
   "text.config.pvz-config.option.nestedZombieHealth.flagPeasantH": "Flag Peasant Health",
@@ -645,6 +646,10 @@
   "entity.pvzmod.mummybucket": "Buckethead Mummy Zombie",
   "item.pvzmod.mummybucket_egg": "Buckethead Mummy Zombie",
   "entity.pvzmod.mummybucket_hypnotized": "Hypnotized Buckethead Mummy Zombie",
+
+  "entity.pvzmod.explorer": "Explorer Zombie",
+  "item.pvzmod.explorer_egg": "Explorer Zombie",
+  "entity.pvzmod.explorer_hypnotized": "Hypnotized Explorer Zombie",
 
   "entity.pvzmod.pyramidhead": "Pyramidhead Zombie",
   "item.pvzmod.pyramidhead_egg": "Pyramidhead Zombie",

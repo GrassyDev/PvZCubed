@@ -52,7 +52,7 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 
 	private int amphibiousRaycastDelay;
 
-	private boolean dryLand;
+
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 

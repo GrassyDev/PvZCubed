@@ -53,10 +53,6 @@ import java.util.Objects;
 public class ZapricotEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 
-	private int amphibiousRaycastDelay;
-
-	private boolean dryLand;
-
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	private int attackTicksLeft;
@@ -89,7 +85,6 @@ public class ZapricotEntity extends PlantEntity implements IAnimatable, RangedAt
 	public ZapricotEntity(EntityType<? extends ZapricotEntity> entityType, World world) {
 		super(entityType, world);
 		this.ignoreCameraFrustum = true;
-		amphibiousRaycastDelay = 1;
 
 		this.setNoGravity(true);
 	}

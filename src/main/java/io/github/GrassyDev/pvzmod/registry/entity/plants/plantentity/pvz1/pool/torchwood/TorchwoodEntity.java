@@ -43,6 +43,7 @@ public class TorchwoodEntity extends PlantEntity implements IAnimatable {
 
 	public TorchwoodEntity(EntityType<? extends TorchwoodEntity> entityType, World world) {
         super(entityType, world);
+		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
     }
 
