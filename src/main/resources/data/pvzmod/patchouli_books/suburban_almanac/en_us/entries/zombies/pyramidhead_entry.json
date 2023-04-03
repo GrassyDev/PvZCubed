@@ -7,11 +7,11 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)27 (Paper), 110(Stone Pyramid)",
+        "$(#bd951a)Health: $()$(#ff0000)27 (Paper), 340(Stone Pyramid)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Creeper (Pyramid)",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to hypnosis.",
-        "$(br)$(#bd951a)No one knows who Pyramidhead truly is. Some say that he was the pharaoh in his past life, others say that he's just a shy kid, others say he is the physical manifestation of Crazy Dave's wish to be punished for not protecting humanity. But nobody really asked his name, he would be happy to tell them."
+        "$(br)$(#bd951a)No one knows who Pyramidhead truly is. Some say that he was a pharaoh in his past life, others say he is the physical manifestation of Crazy Dave's wish to be punished for failing to protect humanity. But nobody really asked his name, he would be happy to tell them."
       ]
     },
     {
@@ -39,8 +39,14 @@
         "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/potatomine_entry",
-        "pvzmod:plants/narcissus_entry",
         "pvzmod:plants/coconutcannon_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/narcissus_entry"
       ]
     },
     {

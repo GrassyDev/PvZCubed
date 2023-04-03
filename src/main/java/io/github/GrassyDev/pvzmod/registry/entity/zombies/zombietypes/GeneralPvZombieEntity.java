@@ -40,13 +40,8 @@ import java.util.List;
 import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public abstract class GeneralPvZombieEntity extends HostileEntity {
-	private static final TrackedData<Byte> FLYING_TAG;
-	private static final TrackedData<Byte> CANHYPNO_TAG;
-	private static final TrackedData<Byte> COVERED_TAG;
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
-		this.setFlying(false);
-		this.setCoveredTag(false);
 		this.setPathfindingPenalty(PathNodeType.RAIL, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.UNPASSABLE_RAIL, 0.0F);
 		this.getNavigation().setCanSwim(true);
@@ -67,9 +62,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	protected void initDataTracker() {
 		super.initDataTracker();
-		this.dataTracker.startTracking(FLYING_TAG, (byte)16);
-		this.dataTracker.startTracking(CANHYPNO_TAG, (byte)16);
-		this.dataTracker.startTracking(COVERED_TAG, (byte)16);
+		this.dataTracker.startTracking(FLYING_TAG, false);
+		this.dataTracker.startTracking(CANHYPNO_TAG, true);
+		this.dataTracker.startTracking(COVERED_TAG, false);
 		this.dataTracker.startTracking(DATA_ID_HYPNOTIZED, false);
 	}
 
@@ -84,79 +79,88 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
-		if (tag.contains("isFlying")) {
-			this.setFlying(tag.getBoolean("isFlying"));
-		}
-		if (tag.contains("canHypno")) {
-			this.setFlying(tag.getBoolean("canHypno"));
-		}
-		if (tag.contains("isCovered")) {
-			this.setFlying(tag.getBoolean("isCovered"));
-		}
+		this.dataTracker.set(FLYING_TAG, tag.getBoolean("isFlying"));
+		this.dataTracker.set(CANHYPNO_TAG, tag.getBoolean("canHypno"));
+		this.dataTracker.set(COVERED_TAG, tag.getBoolean("isCovered"));
 		this.dataTracker.set(DATA_ID_HYPNOTIZED, tag.getBoolean("Hypnotized"));
 	}
 
-	public boolean isFlying() {
-		return ((Byte)this.dataTracker.get(FLYING_TAG) & 16) != 0;
-	}
-
-	public void setFlying(boolean isFlying) {
-		byte b = (Byte)this.dataTracker.get(FLYING_TAG);
-		if (isFlying) {
-			this.dataTracker.set(FLYING_TAG, (byte)(b | 16));
-		} else {
-			this.dataTracker.set(FLYING_TAG, (byte)(b & -17));
-		}
-
-	}
-
-	public boolean canHypno() {
-		return ((Byte)this.dataTracker.get(CANHYPNO_TAG) & 16) != 0;
-	}
-
-	public void setCanHypno(boolean canHypno) {
-		byte b = (Byte)this.dataTracker.get(CANHYPNO_TAG);
-		if (canHypno) {
-			this.dataTracker.set(CANHYPNO_TAG, (byte)(b | 16));
-		} else {
-			this.dataTracker.set(CANHYPNO_TAG, (byte)(b & -17));
-		}
-
-	}
-
-	public boolean isCovered() {
-		return ((Byte)this.dataTracker.get(COVERED_TAG) & 16) != 0;
-	}
-
-	public void setCoveredTag(boolean isCovered) {
-		byte b = (Byte)this.dataTracker.get(COVERED_TAG);
-		if (isCovered) {
-			this.dataTracker.set(COVERED_TAG, (byte)(b | 16));
-		} else {
-			this.dataTracker.set(COVERED_TAG, (byte)(b & -17));
-		}
-
-	}
-
 	static {
-		FLYING_TAG = DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BYTE);
-		CANHYPNO_TAG = DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BYTE);
-		COVERED_TAG = DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
-	protected static final TrackedData<Boolean> DATA_ID_HYPNOTIZED =
-			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		if (!this.getType().equals(PvZEntity.PYRAMIDHEAD)) {
-			this.setCanHypno(true);
-		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
+
+
+	//Flying Tag
+
+	protected static final TrackedData<Boolean> FLYING_TAG =
+			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum Flying {
+		FALSE(false),
+		TRUE(true);
+
+		Flying(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isFlying() {
+		return this.dataTracker.get(FLYING_TAG);
+	}
+
+	public void setFlying(GeneralPvZombieEntity.Flying flying) {
+		this.dataTracker.set(FLYING_TAG, flying.getId());
+	}
+
+
+	//Covered Tag
+
+	protected static final TrackedData<Boolean> COVERED_TAG =
+			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum Covered {
+		FALSE(false),
+		TRUE(true);
+
+		Covered(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isCovered() {
+		return this.dataTracker.get(COVERED_TAG);
+	}
+
+	public void setCoveredTag(GeneralPvZombieEntity.Covered coveredTag) {
+		this.dataTracker.set(COVERED_TAG, coveredTag.getId());
+	}
+
+	// Hypno Tag
+
+	protected static final TrackedData<Boolean> DATA_ID_HYPNOTIZED =
+			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 		public enum IsHypno {
 		FALSE(false),
@@ -179,6 +183,34 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void setHypno(GeneralPvZombieEntity.IsHypno hypno) {
 		this.dataTracker.set(DATA_ID_HYPNOTIZED, hypno.getId());
+	}
+
+	// Can be Hypnotized Tag
+
+	protected static final TrackedData<Boolean> CANHYPNO_TAG =
+			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public enum CanHypno {
+		TRUE(true),
+		FALSE(false);
+
+		CanHypno(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean canHypno() {
+		return this.dataTracker.get(CANHYPNO_TAG);
+	}
+
+	public void setCanHypno(GeneralPvZombieEntity.CanHypno canHypno) {
+		this.dataTracker.set(CANHYPNO_TAG, canHypno.getId());
 	}
 
 	/** ----------------------------------------------------------------------- **/
@@ -345,6 +377,18 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	private float getMovementSpeed(float slipperiness) {
 		return this.onGround ? this.getMovementSpeed() * (0.21600002F / (slipperiness * slipperiness * slipperiness)) : this.flyingSpeed;
+	}
+
+
+	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
+
+	public boolean damage(DamageSource source, float amount) {
+		if ((!this.canHypno() || this.isCovered()) && source.equals(HYPNO_DAMAGE)) {
+			return false;
+		}
+		else {
+			return super.damage(source, amount);
+		}
 	}
 
 	public int playerGetTick;

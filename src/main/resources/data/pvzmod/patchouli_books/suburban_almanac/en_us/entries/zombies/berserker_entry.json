@@ -28,8 +28,8 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/snowqueenpea_entry",
+        "pvzmod:plants/icebergpult_entry",
         "pvzmod:plants/doomshroom_entry",
-        "pvzmod:plants/coconutcannon_entry",
         "pvzmod:plants/chomper_entry",
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",
@@ -46,7 +46,8 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/perfoomshroom_entry",
-        "pvzmod:plants/narcissus_entry"
+        "pvzmod:plants/narcissus_entry",
+        "pvzmod:plants/coconutcannon_entry"
       ]
     },
     {

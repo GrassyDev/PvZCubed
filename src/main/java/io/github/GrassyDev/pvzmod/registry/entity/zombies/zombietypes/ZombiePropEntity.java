@@ -57,7 +57,7 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 		super.tick();
 		LivingEntity vehicle = (LivingEntity) this.getVehicle();
 		if (vehicle instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
-			this.setFlying(true);
+			this.setFlying(Flying.TRUE);
 		}
 		if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this instanceof ZombieShieldEntity) &&
 		vehicle instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){

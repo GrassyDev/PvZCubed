@@ -39,8 +39,14 @@
         "pvzmod:plants/icebergpult_entry",
         "pvzmod:plants/firepea_entry",
         "pvzmod:plants/squash_entry",
-        "pvzmod:plants/perfoomshroom_entry",
         "pvzmod:plants/cattail_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/perfoomshroom_entry"
       ]
     },
     {

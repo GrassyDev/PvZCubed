@@ -66,7 +66,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 
 	public JetpackEntity(EntityType<? extends JetpackEntity> entityType, World world) {
         super(entityType, world);
-		this.setFlying(true);
+		this.setFlying(Flying.TRUE);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
 	}
@@ -262,7 +262,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 				}
 			}
 			this.setNoGravity(true);
-			this.setFlying(true);
+			this.setFlying(Flying.TRUE);
 			if (this.isInsideWaterOrBubbleColumn()) {
 				this.addVelocity(0, 0.3, 0);
 			}

@@ -150,8 +150,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 			this.initCustomGoals();
 		}
 		else if (this.getType().equals(PvZEntity.PYRAMIDHEAD)){
+			this.setCanHypno(CanHypno.FALSE);
 			setVariant(BrowncoatVariants.PYRAMIDHEAD);
-			this.setCanHypno(false);
 			createPyramidProp();
 			this.initCustomGoals();
 		}
@@ -676,9 +676,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
             return false;
         } else if (!(this.world instanceof ServerWorld)) {
             return false;
-        } else if (this.getType().equals(PvZEntity.PYRAMIDHEAD)){
-			return false;
-		}
+        }
 		else {
             ServerWorld serverWorld = (ServerWorld)this.world;
             LivingEntity livingEntity = this.getTarget();

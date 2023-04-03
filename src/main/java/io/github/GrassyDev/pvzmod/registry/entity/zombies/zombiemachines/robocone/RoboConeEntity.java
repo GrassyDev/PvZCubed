@@ -35,6 +35,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -60,7 +62,6 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 
 	public RoboConeEntity(EntityType<? extends RoboConeEntity> entityType, World world) {
         super(entityType, world);
-		this.setCoveredTag(true);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
 	}
@@ -95,6 +96,11 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 		super.setHypno(hypno);
 	}
 
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+		this.setCoveredTag(Covered.TRUE);
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
