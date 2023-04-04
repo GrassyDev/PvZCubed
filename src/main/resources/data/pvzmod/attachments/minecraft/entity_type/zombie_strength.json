@@ -2,7 +2,8 @@
   "replace": false,
   "values": {
     "pvzmod:berserker": 10,
-    "pvzmod:zombieking": 10,
+    "pvzmod:torchlight": 10,
+    "pvzmod:zombieking": 9,
     "pvzmod:defensiveend": 9,
     "pvzmod:gargantuar": 8,
     "pvzmod:pyramidhead": 7,
@@ -11,6 +12,7 @@
     "pvzmod:announcerimp": 7,
     "pvzmod:sundayedition": 7,
     "pvzmod:newyearimp": 7,
+    "pvzmod:explorer": 7,
     "pvzmod:flagzombie": 6,
     "pvzmod:flagpeasant": 6,
     "pvzmod:flagmummy": 6,
