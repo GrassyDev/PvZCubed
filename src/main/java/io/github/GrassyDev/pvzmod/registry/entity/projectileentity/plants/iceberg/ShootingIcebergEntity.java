@@ -122,16 +122,12 @@ public class ShootingIcebergEntity extends ThrownItemEntity implements IAnimatab
 		}
 
         if (!this.world.isClient && this.isInsideWaterOrBubbleColumn()) {
-			if (!this.isWet()){
-				this.world.sendEntityStatus(this, (byte)3);
-			}
+			this.world.sendEntityStatus(this, (byte)3);
             this.remove(RemovalReason.DISCARDED);
         }
 
         if (!this.world.isClient && this.age >= 120) {
-			if (!this.isWet()){
-				this.world.sendEntityStatus(this, (byte)3);
-			}
+			this.world.sendEntityStatus(this, (byte)3);
             this.remove(RemovalReason.DISCARDED);
         }
 		if (!this.world.isClient && this.age > 50 && target != null) {
@@ -148,15 +144,13 @@ public class ShootingIcebergEntity extends ThrownItemEntity implements IAnimatab
 			}
 		}
 
-		if (!this.isWet()){
-			double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
-			double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
-			double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
+		double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+		double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
+		double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
 
-			for (int j = 0; j < 1; ++j) {
-				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
-				this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e * -1, f);
-			}
+		for (int j = 0; j < 1; ++j) {
+			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
+			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e * -1, f);
 		}
     }
 
@@ -297,9 +291,7 @@ public class ShootingIcebergEntity extends ThrownItemEntity implements IAnimatab
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
         if (!this.world.isClient) {
-			if (!this.isWet()){
-				this.world.sendEntityStatus(this, (byte)3);
-			}
+			this.world.sendEntityStatus(this, (byte)3);
 			this.remove(RemovalReason.DISCARDED);
         }
     }

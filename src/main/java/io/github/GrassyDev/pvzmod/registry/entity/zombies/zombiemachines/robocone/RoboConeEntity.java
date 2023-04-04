@@ -248,7 +248,7 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 
 	public static DefaultAttributeContainer.Builder createRoboconeAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.105D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.11D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.roboconeH());
@@ -302,24 +302,4 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 
 		return bl;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return RoboConeEntity.this.owner != null && RoboConeEntity.this.owner.getTarget() != null && this.canTrack(RoboConeEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            RoboConeEntity.this.setTarget(RoboConeEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
 }

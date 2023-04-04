@@ -2,7 +2,7 @@
   "name": "Zombie King",
   "icon": "pvzmod:zombieking_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 88,
+  "sortnum": 89,
   "pages": [
     {
       "type": "text",

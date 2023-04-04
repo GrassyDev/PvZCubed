@@ -159,7 +159,7 @@ public class BubbleEntity extends ThrownItemEntity implements IAnimatable {
 				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 5, 1)));
+			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 100, 1)));
 			entity.extinguish();
 			entityStore = (LivingEntity) entityHitResult.getEntity();
 			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();

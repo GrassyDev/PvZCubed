@@ -15,11 +15,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -290,7 +288,7 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createBackupDancerAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.105D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.11D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.backupH());
@@ -388,24 +386,4 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 
 		return bl;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-    class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return BackupDancerEntity.this.owner != null && BackupDancerEntity.this.owner.getTarget() != null && this.canTrack(BackupDancerEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            BackupDancerEntity.this.setTarget(BackupDancerEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
 }

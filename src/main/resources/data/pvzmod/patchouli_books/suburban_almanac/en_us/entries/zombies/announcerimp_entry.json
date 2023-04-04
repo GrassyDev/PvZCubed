@@ -2,7 +2,7 @@
   "name": "Announcer Imp",
   "icon": "pvzmod:announcerimp_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 87,
+  "sortnum": 88,
   "pages": [
     {
       "type": "text",

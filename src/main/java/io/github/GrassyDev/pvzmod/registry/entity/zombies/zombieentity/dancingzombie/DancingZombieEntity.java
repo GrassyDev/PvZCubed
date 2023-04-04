@@ -328,7 +328,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createDancingZombieAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.105D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.11D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.dancingH());
@@ -587,23 +587,6 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
         protected DancingZombieEntity.Spell getSpell() {
             return DancingZombieEntity.Spell.SUMMON_VEX;
-        }
-    }
-
-    class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return DancingZombieEntity.this.owner != null && DancingZombieEntity.this.owner.getTarget() != null && this.canTrack(DancingZombieEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            DancingZombieEntity.this.setTarget(DancingZombieEntity.this.owner.getTarget());
-            super.start();
         }
     }
 }

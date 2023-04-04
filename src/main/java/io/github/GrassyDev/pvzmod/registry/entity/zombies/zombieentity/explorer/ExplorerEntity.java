@@ -7,19 +7,16 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ExplorerVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -165,7 +162,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
 	}
 
-	public void setFireStage(SuperFanImpEntity.FireStage fireStage) {
+	public void setFireStage(ExplorerEntity.FireStage fireStage) {
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, fireStage.getId());
 	}
 
@@ -175,12 +172,26 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		if (this.getType().equals(PvZEntity.EXPLORERHYPNO)){
-			setVariant(DefaultAndHypnoVariants.HYPNO);
+		if (this.getType().equals(PvZEntity.TORCHLIGHT)){
+			setVariant(ExplorerVariants.TORCHLIGHT);
+			setFireStage(FireStage.FIRE);
+			setCanBurn(CanBurn.FALSE);
+			this.initCustomGoals();
+		}
+		else if (this.getType().equals(PvZEntity.EXPLORERHYPNO)){
+			setVariant(ExplorerVariants.EXPLORERHYPNO);
+			this.setHypno(IsHypno.TRUE);
+			setFireStage(FireStage.FIRE);
+		}
+		else if (this.getType().equals(PvZEntity.TORCHLIGHTHYPNO)){
+			setVariant(ExplorerVariants.TORCHLIGHTHYPNO);
+			setFireStage(FireStage.FIRE);
+			setCanBurn(CanBurn.FALSE);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else {
-			setVariant(DefaultAndHypnoVariants.DEFAULT);
+			setVariant(ExplorerVariants.EXPLORER);
+			setFireStage(FireStage.FIRE);
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
@@ -189,11 +200,11 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
 	}
 
-	public DefaultAndHypnoVariants getVariant() {
-		return DefaultAndHypnoVariants.byId(this.getTypeVariant() & 255);
+	public ExplorerVariants getVariant() {
+		return ExplorerVariants.byId(this.getTypeVariant() & 255);
 	}
 
-	public void setVariant(DefaultAndHypnoVariants variant) {
+	public void setVariant(ExplorerVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
@@ -251,7 +262,8 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		if (this.getType().equals(PvZEntity.EXPLORERHYPNO)) {
+		if (this.getType().equals(PvZEntity.EXPLORERHYPNO) ||
+				this.getType().equals(PvZEntity.TORCHLIGHTHYPNO)) {
 			initHypnoGoals();
 		}
 		else {
@@ -304,11 +316,22 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
+	private boolean isBeingRainedOn() {
+		BlockPos blockPos = this.getBlockPos();
+		return this.world.hasRain(blockPos) || this.world.hasRain(new BlockPos((double)blockPos.getX(), this.getBoundingBox().maxY, (double)blockPos.getZ()));
+	}
+
 	public void tick() {
 		super.tick();
+		if (this.isBeingRainedOn() || this.hasStatusEffect(PvZCubed.ICE) || this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.WET) || this.isSubmergedInWater()){
+			this.setFireStage(FireStage.EXTINGUISHED);
+		}
+		else if (this.isOnFire() || this.hasStatusEffect(PvZCubed.WARM)){
+			this.setFireStage(FireStage.FIRE);
+		}
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlant() != null) {
-				if (!this.CollidesWithPlant().onWater && !this.CollidesWithPlant().getFireImmune()) {
+				if (!this.CollidesWithPlant().onWater && !this.CollidesWithPlant().getFireImmune() && this.getFireStage()) {
 					this.CollidesWithPlant().damage(DamageSource.GENERIC, this.CollidesWithPlant().getMaxHealth() * 5);
 					if (this.CollidesWithPlant() == null) {
 						this.world.sendEntityStatus(this, (byte) 115);
@@ -344,7 +367,12 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 	@Override
 	public ItemStack getPickBlockStack() {
 		ItemStack itemStack;
-		itemStack = ModItems.EXPLOREREGG.getDefaultStack();
+		if (this.getVariant().equals(ExplorerVariants.TORCHLIGHT) || this.getVariant().equals(ExplorerVariants.TORCHLIGHTHYPNO)){
+			itemStack = ModItems.TORCHLIGHTEGG.getDefaultStack();
+		}
+		else {
+			itemStack = ModItems.EXPLOREREGG.getDefaultStack();
+		}
 		return itemStack;
 	}
 
@@ -372,6 +400,14 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.explorerH());
     }
+
+	public static DefaultAttributeContainer.Builder createTorchlightAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.21D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.torchlightH());
+	}
 
 	protected SoundEvent getAmbientSound() {
 		if (!this.getHypno()) {
@@ -406,8 +442,8 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 
 	protected EntityType<?> hypnoType;
 	protected void checkHypno(){
-		if (this.getType().equals(PvZEntity.EXPLORER)){
-			hypnoType = PvZEntity.EXPLORERHYPNO;
+		if (this.getType().equals(PvZEntity.TORCHLIGHT)){
+			hypnoType = PvZEntity.TORCHLIGHTHYPNO;
 		}
 		else {
 			hypnoType = PvZEntity.EXPLORERHYPNO;
@@ -477,24 +513,4 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 
 		return bl;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return ExplorerEntity.this.owner != null && ExplorerEntity.this.owner.getTarget() != null && this.canTrack(ExplorerEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            ExplorerEntity.this.setTarget(ExplorerEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
 }

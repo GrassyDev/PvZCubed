@@ -10,21 +10,19 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BrowncoatVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.mummy.MummyEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.plastichelmet.PlasticHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.plastichelmet.PlasticHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -480,7 +478,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 				if (!this.speedSwitch) {
 					assert maxSpeedAttribute != null;
 					maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
-					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.035));
+					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.02));
 					this.speedSwitch = true;
 				}
 			}
@@ -496,7 +494,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 				if (!this.speedSwitch) {
 					assert maxSpeedAttribute != null;
 					maxSpeedAttribute.removeModifier(MAX_SPEED_UUID);
-					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.035));
+					maxSpeedAttribute.addPersistentModifier(createSpeedModifier(-0.02));
 					this.speedSwitch = true;
 				}
 			}
@@ -734,24 +732,4 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 		return bl;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return BrowncoatEntity.this.owner != null && BrowncoatEntity.this.owner.getTarget() != null && this.canTrack(BrowncoatEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            BrowncoatEntity.this.setTarget(BrowncoatEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
 }

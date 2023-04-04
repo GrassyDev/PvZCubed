@@ -161,7 +161,7 @@ public class ArmorBubbleEntity extends ThrownItemEntity implements IAnimatable {
 			if (((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM)){
 				((LivingEntity) entity).removeStatusEffect(PvZCubed.WARM);
 			}
-			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 5, 1)));
+			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 100, 1)));
 			entity.extinguish();
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);

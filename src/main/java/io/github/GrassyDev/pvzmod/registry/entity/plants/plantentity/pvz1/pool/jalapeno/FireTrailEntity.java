@@ -88,7 +88,7 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 
 			if (((livingEntity instanceof Monster &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-							&& (generalPvZombieEntity.getHypno()))) && (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET)) &&
+							&& (generalPvZombieEntity.getHypno()))) && (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET) && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
 							generalPvZombieEntity.isFlying()))) {
 				ZombiePropEntity zombiePropEntity2 = null;
@@ -101,7 +101,7 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 				zombiePropEntity2 instanceof ZombieShieldEntity) {
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 2);
 					if (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
-						if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
+						if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
 							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 							livingEntity.removeStatusEffect(PvZCubed.ICE);
 							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
@@ -109,6 +109,11 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 						}
 					}
 				}
+			}
+			else if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
+				livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+				livingEntity.removeStatusEffect(PvZCubed.ICE);
+				livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 			}
 		}
 	}

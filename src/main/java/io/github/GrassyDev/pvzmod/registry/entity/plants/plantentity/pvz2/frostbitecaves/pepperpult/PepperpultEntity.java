@@ -15,7 +15,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -54,6 +53,7 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 
     public PepperpultEntity(EntityType<? extends PepperpultEntity> entityType, World world) {
         super(entityType, world);
+		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
 
     }

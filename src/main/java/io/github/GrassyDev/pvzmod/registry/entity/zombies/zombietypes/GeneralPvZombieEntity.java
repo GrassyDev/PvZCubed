@@ -64,6 +64,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		super.initDataTracker();
 		this.dataTracker.startTracking(FLYING_TAG, false);
 		this.dataTracker.startTracking(CANHYPNO_TAG, true);
+		this.dataTracker.startTracking(CANBURN_TAG, true);
 		this.dataTracker.startTracking(COVERED_TAG, false);
 		this.dataTracker.startTracking(DATA_ID_HYPNOTIZED, false);
 	}
@@ -73,6 +74,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		super.writeCustomDataToNbt(tag);
 		tag.putBoolean("isFlying", this.isFlying());
 		tag.putBoolean("canHypno", this.canHypno());
+		tag.putBoolean("canBurn", this.canBurn());
 		tag.putBoolean("isCovered", this.isCovered());
 		tag.putBoolean("Hypnotized", this.getHypno());
 	}
@@ -81,6 +83,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		super.readCustomDataFromNbt(tag);
 		this.dataTracker.set(FLYING_TAG, tag.getBoolean("isFlying"));
 		this.dataTracker.set(CANHYPNO_TAG, tag.getBoolean("canHypno"));
+		this.dataTracker.set(CANBURN_TAG, tag.getBoolean("canBurn"));
 		this.dataTracker.set(COVERED_TAG, tag.getBoolean("isCovered"));
 		this.dataTracker.set(DATA_ID_HYPNOTIZED, tag.getBoolean("Hypnotized"));
 	}
@@ -211,6 +214,36 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void setCanHypno(GeneralPvZombieEntity.CanHypno canHypno) {
 		this.dataTracker.set(CANHYPNO_TAG, canHypno.getId());
+	}
+
+	/** ----------------------------------------------------------------------- **/
+
+	// Can be Burned Tag
+
+	protected static final TrackedData<Boolean> CANBURN_TAG =
+			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public enum CanBurn {
+		TRUE(true),
+		FALSE(false);
+
+		CanBurn(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean canBurn() {
+		return this.dataTracker.get(CANBURN_TAG);
+	}
+
+	public void setCanBurn(GeneralPvZombieEntity.CanBurn canBurn) {
+		this.dataTracker.set(CANBURN_TAG, canBurn.getId());
 	}
 
 	/** ----------------------------------------------------------------------- **/

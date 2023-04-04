@@ -64,7 +64,6 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 
     public BombSeedlingEntity(EntityType<? extends BombSeedlingEntity> entityType, World world) {
         super(entityType, world);
-		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
     }
 

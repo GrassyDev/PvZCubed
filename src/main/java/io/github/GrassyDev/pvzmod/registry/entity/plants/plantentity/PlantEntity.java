@@ -149,7 +149,7 @@ public abstract class PlantEntity extends GolemEntity {
 	public void setFireImmune(PlantEntity.FireImmune fireImmune) {
 		this.dataTracker.set(DATA_ID_FIREIMMUNE, fireImmune.getId());
 	}
-	
+
 
 	protected static final TrackedData<Boolean> DATA_ID_ASLEEP =
 			DataTracker.registerData(PlantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -180,6 +180,9 @@ public abstract class PlantEntity extends GolemEntity {
 	/** ----------------------------------------------------------------------- **/
 
 	public void tick() {
+		if (this.getFireImmune()){
+			this.setFireTicks(0);
+		}
 		super.tick();
 		Entity vehicle = this.getVehicle();
 		if (vehicle instanceof LilyPadEntity){

@@ -62,7 +62,6 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 
     public CherrybombEntity(EntityType<? extends CherrybombEntity> entityType, World world) {
         super(entityType, world);
-		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
     }
 
@@ -262,15 +261,20 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 							checkList.add(livingEntity);
 						}
 					}
-					if (zombiePropEntity2 == null && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
+					if (zombiePropEntity2 == null && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())){
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						livingEntity.setOnFireFor(4);
+						if (!(livingEntity instanceof ZombieShieldEntity)) {
+							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+						}
 						this.world.sendEntityStatus(this, (byte) 3);
 						this.remove(RemovalReason.DISCARDED);
 					}
-					if (!(livingEntity instanceof ZombieShieldEntity)) {
-						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+					else if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
+						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+						livingEntity.removeStatusEffect(PvZCubed.ICE);
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 					}
 				}
 			}

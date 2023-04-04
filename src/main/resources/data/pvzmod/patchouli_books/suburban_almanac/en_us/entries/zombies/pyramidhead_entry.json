@@ -2,7 +2,7 @@
   "name": "Pyramidhead Zombie",
   "icon": "pvzmod:pyramidhead_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 74,
+  "sortnum": 77,
   "pages": [
     {
       "type": "text",

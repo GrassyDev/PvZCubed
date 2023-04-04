@@ -1,0 +1,52 @@
+{
+  "name": "Explorer Zombie",
+  "icon": "pvzmod:explorer_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 74,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)50",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4, Instant-kill (Burn)",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Burns a plant it touches, or bites it if its fire is extinguished.",
+        "$(br2)$(#bd951a)His impressive friendly mutton chops has always kept food in them for weeks, making sure his explorations are filled with snacks."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/explorer.png"
+      ],
+      "title": "Ancient Egypt Zombie",
+      "border": "true",
+      "text": "$(#25228d)Carries a torch that can instantly destroy your plants."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/icebergpult_entry",
+        "pvzmod:plants/iceberglettuce_entry",
+        "pvzmod:plants/acidshroom_entry",
+        "pvzmod:plants/navybean_entry",
+        "pvzmod:plants/cattail_entry",
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/torchwood_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/spikerock_entry",
+        "pvzmod:plants/narcissus_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Explorer Zombie"
+      ]
+    }
+  ]
+}

@@ -471,22 +471,4 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
             return Spell.SUMMON_VEX;
         }
     }
-
-    class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return DarkAgesGraveEntity.this.owner != null && DarkAgesGraveEntity.this.owner.getTarget() != null && this.canTrack(DarkAgesGraveEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            DarkAgesGraveEntity.this.setTarget(DarkAgesGraveEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
-
 }

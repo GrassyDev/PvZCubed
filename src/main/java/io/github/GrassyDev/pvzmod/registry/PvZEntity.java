@@ -716,6 +716,17 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<ExplorerEntity>create(SpawnGroup.MONSTER, ExplorerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
 	);
 
+	public static final EntityType<ExplorerEntity> TORCHLIGHT = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "torchlight"),
+			QuiltEntityTypeBuilder.<ExplorerEntity>create(SpawnGroup.MONSTER, ExplorerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+	public static final EntityType<ExplorerEntity> TORCHLIGHTHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "torchlight_hypnotized"),
+			QuiltEntityTypeBuilder.<ExplorerEntity>create(SpawnGroup.MONSTER, ExplorerEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+
 	public static final EntityType<PeasantEntity> PEASANT = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "peasant"),
@@ -1444,9 +1455,10 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PYRAMIDHEADHYPNO, MummyEntity.createMummyAttributes().build());
 
-
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.EXPLORER, ExplorerEntity.createExplorerAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.EXPLORERHYPNO, ExplorerEntity.createExplorerAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TORCHLIGHT, ExplorerEntity.createTorchlightAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TORCHLIGHTHYPNO, ExplorerEntity.createTorchlightAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACK, JetpackEntity.createJetpackAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.JETPACKHYPNO, JetpackEntity.createJetpackAttributes().build());

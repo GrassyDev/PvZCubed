@@ -184,11 +184,11 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			else {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-			if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET)) {
-				if (!(entity instanceof ZombieShieldEntity)) {
-					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
-				}
-				if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet()) {
+			if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
+				if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet() && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
+					if (!(entity instanceof ZombieShieldEntity)) {
+						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+					}
 					entity.setOnFireFor(4);
 					((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 					((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
@@ -248,13 +248,18 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 								else {
 									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 								}
-								if (!(livingEntity instanceof ZombieShieldEntity )) {
-									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
-								}
-								if (!livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
+								if (!livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
 									livingEntity.setOnFireFor(4);
+									if (!(livingEntity instanceof ZombieShieldEntity )) {
+										livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+									}
 									livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 									livingEntity.removeStatusEffect(PvZCubed.ICE);
+								}
+								else if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
+									livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+									livingEntity.removeStatusEffect(PvZCubed.ICE);
+									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 								}
 								this.world.sendEntityStatus(this, (byte) 3);
 								this.remove(RemovalReason.DISCARDED);
@@ -262,6 +267,11 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 						}
 					}
 				}
+			}
+			else if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet()){
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 			}
 			else {
 				this.world.sendEntityStatus(this, (byte) 3);

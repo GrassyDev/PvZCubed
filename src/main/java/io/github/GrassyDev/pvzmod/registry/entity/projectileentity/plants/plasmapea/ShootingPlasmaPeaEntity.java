@@ -159,6 +159,9 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			LivingEntity entity2 = (LivingEntity) entityHitResult.getEntity();
 			float damage = PVZCONFIG.nestedProjDMG.plasmaPeaDMG();
+			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet() && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())){
+				damage = PVZCONFIG.nestedProjDMG.plasmaPeaDMG() / 2;
+			}
 			if (entity2 != entityStore) {
 				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&
@@ -177,12 +180,14 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				entity2.getVehicle().playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));
 				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-			if (!(entity instanceof ZombieShieldEntity)) {
-				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet() && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+				entity.setOnFireFor(4);
+				if (!(entity instanceof ZombieShieldEntity)) {
+					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+				}
 			}
-			((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
-			((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
-			entity.setOnFireFor(4);
 			entityStore = (LivingEntity) entityHitResult.getEntity();
 			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
 		}

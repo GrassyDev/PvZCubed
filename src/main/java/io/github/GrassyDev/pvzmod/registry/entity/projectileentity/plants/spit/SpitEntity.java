@@ -161,7 +161,7 @@ public class SpitEntity extends ThrownItemEntity implements IAnimatable {
 			else {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 5, 1)));
+			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 100, 1)));
 			entity.extinguish();
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);

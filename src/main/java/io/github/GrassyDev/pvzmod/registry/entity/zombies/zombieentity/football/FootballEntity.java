@@ -17,8 +17,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -632,25 +633,4 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 		return bl;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return FootballEntity.this.owner != null && FootballEntity.this.owner.getTarget() != null && this.canTrack(FootballEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            FootballEntity.this.setTarget(FootballEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
-
 }

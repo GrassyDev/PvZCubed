@@ -14,7 +14,7 @@
         "$(br)$(#bd951a)Plasma DMG: $()$(#ff0000)12 DMG/1.5s (Pierce)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Sets zombies on fire. 66% Fire Pea, 33% Plasma Pea",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Burn. Sets zombies on fire. 66% Fire Pea, 33% Plasma Pea",
         "$(br)$(#bd951a)She had a relationship with Snow Queen Pea a few months back. She may have cooled since then, but her burning peas have never been hotter."
       ]
     },

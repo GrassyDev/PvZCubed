@@ -74,7 +74,6 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 
 	public PotatomineEntity(EntityType<? extends PotatomineEntity> entityType, World world) {
         super(entityType, world);
-		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
 		this.potatoPreparingTime = 1200;
 		potatoAnimationTime = 10;

@@ -178,7 +178,7 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 instanceof ZombiePropEntity && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
-			if (entity.isWet()){
+			if (entity.isWet() && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())){
 				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
@@ -203,14 +203,14 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 			else {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-			if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET)) {
-				if (!(entity instanceof ZombieShieldEntity)) {
-					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
-				}
-				if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet()) {
+			if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
+				if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet() && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
 					((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 					((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
 					entity.setOnFireFor(4);
+					if (!(entity instanceof ZombieShieldEntity)) {
+						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+					}
 				}
 				Vec3d vec3d = this.getPos();
 				List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
@@ -267,13 +267,18 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 								else {
 									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 								}
-								if (!(livingEntity instanceof ZombieShieldEntity )) {
-									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
-								}
-								if (!livingEntity.hasStatusEffect(PvZCubed.WET) && !entity.isWet()) {
+								if (!livingEntity.hasStatusEffect(PvZCubed.WET) && !entity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
 									livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 									livingEntity.removeStatusEffect(PvZCubed.ICE);
+									if (!(livingEntity instanceof ZombieShieldEntity )) {
+										livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+									}
 									livingEntity.setOnFireFor(4);
+								}
+								else if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
+									livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+									livingEntity.removeStatusEffect(PvZCubed.ICE);
+									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 								}
 								if (!entity.isWet()){
 									this.world.sendEntityStatus(this, (byte)3);
@@ -283,6 +288,11 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 						}
 					}
 				}
+			}
+			else if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet()){
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
+				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
+				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 			}
 			else {
 				if (!entity.isWet()){

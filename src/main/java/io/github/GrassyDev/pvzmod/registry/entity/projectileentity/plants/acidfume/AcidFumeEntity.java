@@ -161,7 +161,7 @@ public class AcidFumeEntity extends ThrownItemEntity implements IAnimatable {
 			if (!(entity instanceof ZombieShieldEntity)) {
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ACID, 60, 6)));
 			}
-			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 5, 1)));
+			((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 100, 1)));
 			entity.extinguish();
 			entityStore = (LivingEntity) entityHitResult.getEntity();
 			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();

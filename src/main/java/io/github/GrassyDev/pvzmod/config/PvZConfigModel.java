@@ -280,6 +280,8 @@ public class PvZConfigModel {
 		@RestartRequired
 		public double explorerH = 50D;
 		@RestartRequired
+		public double torchlightH = 65D;
+		@RestartRequired
 		public double flagH = 50D;
 		@RestartRequired
 		public double flagMummyH = 50D;

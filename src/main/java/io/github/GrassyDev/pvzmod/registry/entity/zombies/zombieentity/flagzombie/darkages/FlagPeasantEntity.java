@@ -609,21 +609,4 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
             return Spell.SUMMON_VEX;
         }
     }
-
-    class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return FlagPeasantEntity.this.owner != null && FlagPeasantEntity.this.owner.getTarget() != null && this.canTrack(FlagPeasantEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            FlagPeasantEntity.this.setTarget(FlagPeasantEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
 }

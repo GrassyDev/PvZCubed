@@ -99,7 +99,7 @@ public class TorchwoodEntity extends PlantEntity implements IAnimatable {
 
 			if (((livingEntity instanceof Monster &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-							&& (generalPvZombieEntity.getHypno()))) && (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET)))) {
+							&& (generalPvZombieEntity.getHypno()))) && (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET))) && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
 				ZombiePropEntity zombiePropEntity2 = null;
 				for (Entity entity1 : livingEntity.getPassengerList()) {
 					if (entity1 instanceof ZombiePropEntity zpe) {
@@ -109,15 +109,18 @@ public class TorchwoodEntity extends PlantEntity implements IAnimatable {
 				if (zombiePropEntity2 == null ||
 						zombiePropEntity2 instanceof ZombieShieldEntity) {
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
-					if (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
-						if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
-							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
-							livingEntity.removeStatusEffect(PvZCubed.ICE);
-							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
-							livingEntity.setOnFireFor(4);
-						}
+					if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
+						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+						livingEntity.removeStatusEffect(PvZCubed.ICE);
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+						livingEntity.setOnFireFor(4);
 					}
 				}
+			}
+			else if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
+				livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+				livingEntity.removeStatusEffect(PvZCubed.ICE);
+				livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 			}
 		}
 	}

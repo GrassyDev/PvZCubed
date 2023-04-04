@@ -16,8 +16,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -388,7 +389,7 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createBullyAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.105D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.11D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.bullyH());
@@ -503,24 +504,4 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 
 		return bl;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	protected class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return BullyEntity.this.owner != null && BullyEntity.this.owner.getTarget() != null && this.canTrack(BullyEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            BullyEntity.this.setTarget(BullyEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
 }

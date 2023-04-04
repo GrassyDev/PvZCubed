@@ -651,6 +651,10 @@
   "item.pvzmod.explorer_egg": "Explorer Zombie",
   "entity.pvzmod.explorer_hypnotized": "Hypnotized Explorer Zombie",
 
+  "entity.pvzmod.torchlight": "Torchlight Zombie",
+  "item.pvzmod.torchlight_egg": "Torchlight Zombie",
+  "entity.pvzmod.torchlight_hypnotized": "Hypnotized Torchlight Zombie",
+
   "entity.pvzmod.pyramidhead": "Pyramidhead Zombie",
   "item.pvzmod.pyramidhead_egg": "Pyramidhead Zombie",
   "entity.pvzmod.pyramidgear": "Pyramid",

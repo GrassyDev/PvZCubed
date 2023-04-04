@@ -481,24 +481,4 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 
 		return bl;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	class TrackOwnerTargetGoal extends TrackTargetGoal {
-		private final TargetPredicate TRACK_OWNER_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
-
-        public TrackOwnerTargetGoal(PathAwareEntity mob) {
-            super(mob, false);
-        }
-
-        public boolean canStart() {
-            return JetpackEntity.this.owner != null && JetpackEntity.this.owner.getTarget() != null && this.canTrack(JetpackEntity.this.owner.getTarget(), this.TRACK_OWNER_PREDICATE);
-        }
-
-        public void start() {
-            JetpackEntity.this.setTarget(JetpackEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
 }
