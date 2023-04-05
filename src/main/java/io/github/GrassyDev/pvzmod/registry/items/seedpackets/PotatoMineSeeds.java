@@ -6,7 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.potatomine.PotatomineEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -21,7 +20,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -137,8 +135,8 @@ public class PotatoMineSeeds extends Item implements FabricItem {
 		PlantEntity plantEntity = null;
 		List<PlantEntity> list = null;
 		if (world instanceof ServerWorld serverWorld) {
-			plantEntity = PvZEntity.PERFOOMSHROOM.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
-			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PERFOOMSHROOM.getDimensions().getBoxAt(plantEntity.getPos()));
+			plantEntity = PvZEntity.POTATOMINE.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
+			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.POTATOMINE.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
 		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
 				&& !(entity instanceof ScorchedTile)) {
@@ -160,31 +158,6 @@ public class PotatoMineSeeds extends Item implements FabricItem {
 			} else {
 				return ActionResult.FAIL;
 			}
-		} else if (world instanceof ServerWorld serverWorld && entity instanceof LilyPadEntity lilyPadEntity) {
-			if (lilyPadEntity.onWater) {
-				sound = SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED;
-			} else {
-				sound = PvZCubed.PLANTPLANTEDEVENT;
-			}
-			lilyPadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
-			if (plantEntity == null) {
-				return ActionResult.FAIL;
-			}
-
-			float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-			plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
-			((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
-			plantEntity.rideLilyPad(entity);
-			world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, 0.6f, 0.8F);
-			if (!user.getAbilities().creativeMode) {
-				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
-					stack.decrement(1);
-				}
-				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
-					user.getItemCooldownManager().set(this, cooldown);
-				}
-			}
-			return ActionResult.success(world.isClient);
 		} else {
 			return ActionResult.PASS;
 		}

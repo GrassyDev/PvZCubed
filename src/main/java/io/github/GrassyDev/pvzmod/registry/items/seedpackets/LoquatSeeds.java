@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.skycity.loquat.LoquatEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
@@ -105,7 +104,8 @@ public class LoquatSeeds extends Item implements FabricItem {
 					} else {
 						if (!world.isClient) {
 							List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.LOQUAT.getDimensions().getBoxAt(aquaticEntity.getPos()));
-							if (list.isEmpty()){
+							List<TileEntity> list2 = world.getNonSpectatingEntities(TileEntity.class, PvZEntity.LOQUAT.getDimensions().getBoxAt(aquaticEntity.getPos()));
+							if (list.isEmpty() && list2.isEmpty()){
 								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
 								((ServerWorld) world).spawnEntityAndPassengers(aquaticEntity);
@@ -161,8 +161,7 @@ public class LoquatSeeds extends Item implements FabricItem {
 			plantEntity = PvZEntity.LOQUAT.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
 			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.LOQUAT.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
-		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
-				&& !(entity instanceof ScorchedTile)) {
+		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity) {
 			if (list.isEmpty()) {
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);

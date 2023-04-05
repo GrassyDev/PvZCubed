@@ -1176,7 +1176,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<ScorchedTile> SCORCHEDTILE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "scorchedtile"),
-			QuiltEntityTypeBuilder.<ScorchedTile>create(SpawnGroup.MONSTER, ScorchedTile::new).setDimensions(EntityDimensions.fixed(1f, 0.125f)).build()
+			QuiltEntityTypeBuilder.<ScorchedTile>create(SpawnGroup.MONSTER, ScorchedTile::new).setDimensions(EntityDimensions.fixed(1f, 0.05f)).build()
 	);
 
     public static final EntityType<BasicGraveEntity> BASICGRAVESTONE = Registry.register(

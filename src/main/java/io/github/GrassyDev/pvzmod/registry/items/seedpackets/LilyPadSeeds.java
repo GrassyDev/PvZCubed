@@ -111,7 +111,8 @@ public class LilyPadSeeds extends Item implements FabricItem {
 					} else {
 						if (!world.isClient) {
 							List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.LILYPAD.getDimensions().getBoxAt(aquaticEntity.getPos()));
-							if (list.isEmpty()){
+							List<TileEntity> list2 = world.getNonSpectatingEntities(TileEntity.class, PvZEntity.LILYPAD.getDimensions().getBoxAt(aquaticEntity.getPos()));
+							if (list.isEmpty() && list2.isEmpty()){
 								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
 								((ServerWorld) world).spawnEntityAndPassengers(aquaticEntity);

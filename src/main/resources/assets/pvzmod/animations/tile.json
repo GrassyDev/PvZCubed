@@ -2,7 +2,34 @@
 	"format_version": "1.8.0",
 	"animations": {
 		"tile.anim": {
-			"loop": true
+			"loop": true,
+			"bones": {
+				"gold": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"normal": {
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				}
+			}
+		},
+		"tile.active": {
+			"loop": true,
+			"bones": {
+				"gold": {
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"normal": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

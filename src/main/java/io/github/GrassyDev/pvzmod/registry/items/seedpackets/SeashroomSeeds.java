@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.fog.seashroom.SeashroomEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
@@ -104,7 +105,8 @@ public class SeashroomSeeds extends Item implements FabricItem {
 					} else {
 						if (!world.isClient) {
 							List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SEASHROOM.getDimensions().getBoxAt(aquaticEntity.getPos()));
-							if (list.isEmpty()){
+							List<TileEntity> list2 = world.getNonSpectatingEntities(TileEntity.class, PvZEntity.SEASHROOM.getDimensions().getBoxAt(aquaticEntity.getPos()));
+							if (list.isEmpty() && list2.isEmpty()){
 								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
 								FluidState fluidState = world.getFluidState(aquaticEntity.getBlockPos().add(0, -0.25, 0));

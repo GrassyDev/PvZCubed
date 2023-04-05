@@ -149,12 +149,15 @@ public class SnowpeaSeeds extends Item implements FabricItem {
 			plantEntity = PvZEntity.SNOWPEA.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
 			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SNOWPEA.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
-		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
-				&& !(entity instanceof ScorchedTile)) {
+		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity) {
 			if (list.isEmpty()) {
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
 				world.spawnEntity(plantEntity);
+				if (entity instanceof ScorchedTile){
+					entity.playSound(PvZCubed.SNOWPEAHITEVENT);
+					entity.discard();
+				}
 				world.playSound((PlayerEntity) null, entity.getX(), entity.getY(), entity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 				if (!user.getAbilities().creativeMode) {

@@ -105,7 +105,8 @@ public class LightningReedSeeds extends Item implements FabricItem {
 					} else {
 						if (!world.isClient) {
 							List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.LIGHTNINGREED.getDimensions().getBoxAt(aquaticEntity.getPos()));
-							if (list.isEmpty()){
+							List<TileEntity> list2 = world.getNonSpectatingEntities(TileEntity.class, PvZEntity.SMACKADAMIA.getDimensions().getBoxAt(aquaticEntity.getPos()));
+							if (list.isEmpty() && list2.isEmpty()){
 								float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 								aquaticEntity.refreshPositionAndAngles(aquaticEntity.getX(), aquaticEntity.getY(), aquaticEntity.getZ(), f, 0.0F);
 								((ServerWorld) world).spawnEntityAndPassengers(aquaticEntity);
@@ -157,8 +158,8 @@ public class LightningReedSeeds extends Item implements FabricItem {
 		PlantEntity plantEntity = null;
 		List<PlantEntity> list = null;
 		if (world instanceof ServerWorld serverWorld) {
-			plantEntity = PvZEntity.ADMIRALNAVYBEAN.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
-			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.ADMIRALNAVYBEAN.getDimensions().getBoxAt(plantEntity.getPos()));
+			plantEntity = PvZEntity.LIGHTNINGREED.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
+			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.LIGHTNINGREED.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
 		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
 				&& !(entity instanceof ScorchedTile)) {
