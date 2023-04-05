@@ -60,7 +60,6 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
     private String controllerName = "walkingcontroller";
 	boolean isFrozen;
 	boolean isIced;
-	public LivingEntity impTarget;
 	public int spawningTicks;
 	public boolean startSpawn;
 	public int convertTicks = 0;
@@ -277,9 +276,6 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getTarget() instanceof PeasantEntity peasantEntity && (peasantEntity.getVariant().equals(BrowncoatVariants.PEASANTKNIGHT) || peasantEntity.getVariant().equals(BrowncoatVariants.PEASANTKNIGHTHYPNO))) {
 			this.setTarget(null);
 		}
-		if (impTarget != null && impTarget.isAlive()){
-			this.getLookControl().lookAt(impTarget);
-		}
 		super.tick();
 		double random = Math.random();
 		if (--spawningTicks <= 0){
@@ -429,6 +425,8 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 				}
 
 				hypnotizedZombie.setPersistent();
+
+				hypnotizedZombie.setHeadYaw(this.getHeadYaw());
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }

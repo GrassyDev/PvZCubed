@@ -155,6 +155,18 @@ public class ModBlocks {
 			.sounds(BlockSoundGroup.GLASS)
 			.strength(1.9f, 1200f));
 
+	public static final Block LOSTCITY_TILE = new Block(QuiltBlockSettings
+			.of(Material.STONE)
+			.requiresTool()
+			.sounds(BlockSoundGroup.STONE)
+			.strength(1.9f, 1200f));
+
+	public static final Block DARK_LOSTCITY_TILE = new Block(QuiltBlockSettings
+			.of(Material.STONE)
+			.requiresTool()
+			.sounds(BlockSoundGroup.STONE)
+			.strength(1.9f, 1200f));
+
 	public static final Block SKYCITY_TILE = new Block(QuiltBlockSettings
 			.of(Material.METAL)
 			.requiresTool()
@@ -193,6 +205,8 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_underwater_tile"), DARK_UNDERWATER_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"frost_tile"), FROST_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_frost_tile"), DARK_FROST_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"lostcity_tile"), LOSTCITY_TILE);
+		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_lostcity_tile"), DARK_LOSTCITY_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"skycity_tile"), SKYCITY_TILE);
 		Registry.register(Registry.BLOCK, new Identifier(PvZCubed.MOD_ID,"dark_skycity_tile"), DARK_SKYCITY_TILE);
 

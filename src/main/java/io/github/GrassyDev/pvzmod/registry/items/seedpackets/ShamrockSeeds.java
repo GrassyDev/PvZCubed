@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
@@ -146,10 +147,17 @@ public class ShamrockSeeds extends Item implements FabricItem {
 			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SHAMROCK.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
 		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
-				&& !(entity instanceof ScorchedTile)) {
+				&& !(entity instanceof ScorchedTile)
+				&& !(entity instanceof CraterTile)) {
 			if (list.isEmpty()) {
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
+				double random = Math.random();
+				if (random <= 0.25) {
+					((ShamrockEntity) plantEntity).setVariant(ShamrockVariants.PRIDE);
+				} else {
+					((ShamrockEntity) plantEntity).setVariant(ShamrockVariants.DEFAULT);
+				}
 				world.spawnEntity(plantEntity);
 				world.playSound((PlayerEntity) null, entity.getX(), entity.getY(), entity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
@@ -178,6 +186,12 @@ public class ShamrockSeeds extends Item implements FabricItem {
 
 			float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 			plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
+			double random = Math.random();
+			if (random <= 0.25) {
+				((ShamrockEntity) plantEntity).setVariant(ShamrockVariants.PRIDE);
+			} else {
+				((ShamrockEntity) plantEntity).setVariant(ShamrockVariants.DEFAULT);
+			}
 			((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 			plantEntity.rideLilyPad(entity);
 			world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, 0.6f, 0.8F);

@@ -390,7 +390,9 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 				}
 
 				hypnotizedZombie.setPersistent();
-				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
+
+				hypnotizedZombie.setHeadYaw(this.getHeadYaw());
+                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
 				this.remove(RemovalReason.DISCARDED);
 			}
 
@@ -531,12 +533,11 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 				zombieKingEntity.initialize(serverWorld, AnnouncerImpEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				zombieKingEntity.refreshPositionAndAngles(blockPos, AnnouncerImpEntity.this.getYaw(), 0.0F);
 				zombieKingEntity.setOwner(AnnouncerImpEntity.this);
-				zombieKingEntity.impTarget = AnnouncerImpEntity.this.getTarget();
+				zombieKingEntity.setHeadYaw(AnnouncerImpEntity.this.getHeadYaw());
 				serverWorld.spawnEntityAndPassengers(zombieKingEntity);
 				if (this.announcerImpEntity.isInsideWaterOrBubbleColumn()) {
 					world.playSound((PlayerEntity) null, announcerImpEntity.getX(), announcerImpEntity.getY(), announcerImpEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.HOSTILE, 1F, 1F);
 				}
-				zombieKingEntity.copyPositionAndRotation(AnnouncerImpEntity.this);
 				zombieKingEntity.spawningTicks = 15;
 				AnnouncerImpEntity.this.discard();
             }

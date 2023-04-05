@@ -126,12 +126,22 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 			setVariant(ImpVariants.SUPERFAN);
 			this.initCustomGoals();
 		}
-		if (this.getType().equals(PvZEntity.NEWYEARIMP)){
+		else if (this.getType().equals(PvZEntity.IMPDRAGON)){
+			setVariant(ImpVariants.IMPDRAGON);
+			setCanBurn(CanBurn.FALSE);
+			this.initCustomGoals();
+		}
+		else if (this.getType().equals(PvZEntity.NEWYEARIMP)){
 			setVariant(ImpVariants.NEWYEAR);
 			this.initCustomGoals();
 		}
 		else if (this.getType().equals(PvZEntity.IMPHYPNO)){
 			setVariant(ImpVariants.DEFAULTHYPNO);
+			this.setHypno(IsHypno.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.IMPDRAGONHYPNO)){
+			setVariant(ImpVariants.IMPDRAGONHYPNO);
+			setCanBurn(CanBurn.FALSE);
 			this.setHypno(IsHypno.TRUE);
 		}
 		else if (this.getType().equals(PvZEntity.SUPERFANIMPHYPNO)){
@@ -181,26 +191,47 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 		}else {
 			if (!this.isOnGround()) {
 				event.getController().setAnimation(new AnimationBuilder().loop("imp.ball"));
-				if (this.isFrozen) {
-					event.getController().setAnimationSpeed(0);
-				}
-				else if (this.isIced) {
-					event.getController().setAnimationSpeed(0.5);
+				if (this.getVariant().equals(ImpVariants.IMPDRAGON) || this.getVariant().equals(ImpVariants.IMPDRAGONHYPNO)) {
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.375);
+					}
+					else {
+						event.getController().setAnimationSpeed(0.75);
+					}
 				}
 				else {
-					event.getController().setAnimationSpeed(1);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					} else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 			} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				event.getController().setAnimation(new AnimationBuilder().loop("imp.run"));
-
-				if (this.isFrozen) {
-					event.getController().setAnimationSpeed(0);
-				}
-				else if (this.isIced) {
-					event.getController().setAnimationSpeed(0.75);
+				if (this.getVariant().equals(ImpVariants.IMPDRAGON) || this.getVariant().equals(ImpVariants.IMPDRAGONHYPNO)) {
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					}
+					else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.5);
+					}
+					else {
+						event.getController().setAnimationSpeed(1);
+					}
 				}
 				else {
-					event.getController().setAnimationSpeed(1.5);
+					if (this.isFrozen) {
+						event.getController().setAnimationSpeed(0);
+					} else if (this.isIced) {
+						event.getController().setAnimationSpeed(0.75);
+					} else {
+						event.getController().setAnimationSpeed(1.5);
+					}
 				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("imp.idle"));
@@ -225,7 +256,8 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 	protected void initGoals() {
 		if (this.getType().equals(PvZEntity.IMPHYPNO) ||
 				this.getType().equals(PvZEntity.SUPERFANIMPHYPNO) ||
-				this.getType().equals(PvZEntity.NEWYEARIMPHYPNO)) {
+				this.getType().equals(PvZEntity.NEWYEARIMPHYPNO) ||
+				this.getType().equals(PvZEntity.IMPDRAGONHYPNO)) {
 			initHypnoGoals();
 		}
 		else {
@@ -352,6 +384,14 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.impH());
     }
 
+	public static DefaultAttributeContainer.Builder createImpDragonAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12.0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.impH());
+	}
+
 	@Override
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
 		return false;
@@ -414,6 +454,9 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getType().equals(PvZEntity.SUPERFANIMP)){
 			hypnoType = PvZEntity.SUPERFANIMPHYPNO;
 		}
+		else if (this.getType().equals(PvZEntity.IMPDRAGON)){
+			hypnoType = PvZEntity.IMPDRAGONHYPNO;
+		}
 		else if (this.getType().equals(PvZEntity.NEWYEARIMP)){
 			hypnoType = PvZEntity.NEWYEARIMPHYPNO;
 		}
@@ -455,7 +498,9 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 
 				hypnotizedZombie.setPersistent();
 
-				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
+
+				hypnotizedZombie.setHeadYaw(this.getHeadYaw());
+                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
 				this.remove(RemovalReason.DISCARDED);
 			}
 

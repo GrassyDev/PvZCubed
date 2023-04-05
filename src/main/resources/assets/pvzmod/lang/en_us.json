@@ -108,6 +108,7 @@
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.peashooterS": "Peashooter Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.pepperpultS": "Pepper-pult Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.perfoomshroomS": "Perfoom-shroom Seed",
+  "text.config.pvz-config.option.nestedSeeds.moreSeeds.goldleafS": "Gold Leaf Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.potatomineS": "Potato Mine Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.puffshroomS": "Puff-shroom Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.repeaterS": "Repeater Seed",
@@ -496,6 +497,11 @@
   "item.pvzmod.firepea": "Fire Pea",
   "item.pvzmod.plasmapea": "Plasma Pea",
 
+  "entity.pvzmod.goldleaf": "Gold Leaf",
+  "item.pvzmod.goldleaf_seed_packet": "☀ Gold Leaf Seed Packet",
+  "item.pvzmod.goldleaf_seed_packet.flavour": "\"All that glitters is sun",
+  "item.pvzmod.goldleaf_seed_packet.flavour2": "Only gold shovels break the tile\"",
+
   "entity.pvzmod.loquat": "Loquat",
   "item.pvzmod.loquat_seed_packet": "⛨ Loquat Seed Packet",
   "item.pvzmod.loquat_seed_packet.flavour": "\"The floor is Lava Guava!\"",
@@ -703,6 +709,10 @@
   "item.pvzmod.zombieking_egg": "Zombie King",
   "entity.pvzmod.zombieking_hypnotized": "Hypnotized Zombie King",
 
+  "entity.pvzmod.impdragon": "Imp Dragon Zombie",
+  "item.pvzmod.impdragon_egg": "Imp Dragon Zombie",
+  "entity.pvzmod.impdragon_hypnotized": "Hypnotized Dragon Zombie",
+
   "entity.pvzmod.brickhead": "Brickhead Zombie",
   "item.pvzmod.brickhead_egg": "Brickhead Zombie",
   "entity.pvzmod.brickgear": "Brick",
@@ -765,6 +775,7 @@
   "item.pvzmod.darkagesgrave_spawn": "Dark Ages Gravestone",
 
   "entity.pvzmod.scorchedtile": "Scorched Tile",
+  "entity.pvzmod.cratertile": "Crater Tile",
   "entity.pvzmod.goldtile": "Gold Tile",
 
   "itemGroup.pvzmod.blocks": "PvZ Blocks",
@@ -791,6 +802,8 @@
   "block.pvzmod.dark_underwater_tile": "Dark Underwater Tile",
   "block.pvzmod.frost_tile": "Frost Tile",
   "block.pvzmod.dark_frost_tile": "Dark Frost Tile",
+  "block.pvzmod.lostcity_tile": "Lost City Tile",
+  "block.pvzmod.dark_lostcity_tile": "Dark Lost City Tile",
   "block.pvzmod.skycity_tile": "Sky City Tile",
   "block.pvzmod.dark_skycity_tile": "Dark Sky City Tile"
 }

@@ -32,7 +32,8 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/enlighten/twinsunflower"
+      "pvzmod:plants/enlighten/twinsunflower",
+      "pvzmod:plants/enlighten/goldleaf"
     ],
     "experience": 25
   }

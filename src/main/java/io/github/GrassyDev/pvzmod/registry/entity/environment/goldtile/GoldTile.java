@@ -117,9 +117,6 @@ public class GoldTile extends TileEntity {
 		super.tick();
 		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
 		this.powered = !list.isEmpty();
-		if (this.age >= 1200){
-			this.discard();
-		}
 
 		if (this.isAlive()) {
 			this.setFuseSpeed(1);
@@ -167,7 +164,7 @@ public class GoldTile extends TileEntity {
 
 					livingEntity = (LivingEntity) var9.next();
 				} while (livingEntity == this);
-			} while (this.squaredDistanceTo(livingEntity) > 225);
+			} while (this.squaredDistanceTo(livingEntity) > 100);
 
 			if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 				if (livingEntity.getY() < (this.getY() + 5) && livingEntity.getY() > (this.getY() - 5)) {

@@ -160,6 +160,7 @@ public class PvZConfigModel {
 		public float fumeshroomS = 7.5f;
 		public float gatlingpeaS = 35.0f;
 		public float gloomshroomS = 35.0f;
+		public float goldleafS = 20.0f;
 		public float gravebusterS = 5.0f;
 		public float hypnoshroomS = 20.0f;
 		public float iceberglettuceS = 20.0f;
@@ -298,6 +299,8 @@ public class PvZConfigModel {
 		public double defensiveendH = 360D;
 		@RestartRequired
 		public double impH = 20D;
+		@RestartRequired
+		public double impdragonH = 65D;
 		@RestartRequired
 		public double superFanH = 20D;
 		@RestartRequired

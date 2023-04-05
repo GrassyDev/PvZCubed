@@ -2,6 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
@@ -25,6 +27,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
@@ -370,7 +373,7 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
 					this.dropItem(ModItems.DOOMSHROOM_SEED_PACKET);
 				}
-				this.kill();
+				this.discard();
 			}
 
 		}
@@ -387,6 +390,17 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 
 
 	/** /~*~//~*TICKING*~//~*~/ **/
+
+	public void createCraterTile(BlockPos blockPos){
+		if (this.world instanceof ServerWorld serverWorld) {
+			CraterTile tile = (CraterTile) PvZEntity.CRATERTILE.create(world);
+			tile.refreshPositionAndAngles(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0);
+			tile.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_EGG, (EntityData) null, (NbtCompound) null);
+			tile.setPersistent();
+			tile.setHeadYaw(0);
+			serverWorld.spawnEntityAndPassengers(tile);
+		}
+	}
 
 	boolean sleepSwitch = false;
 	boolean awakeSwitch = false;
@@ -436,6 +450,7 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 
 			if (this.currentFuseTime >= this.fuseTime && !this.getIsAsleep()) {
 				this.currentFuseTime = this.fuseTime;
+				this.createCraterTile(this.getBlockPos());
 				this.raycastExplode();
 				this.world.sendEntityStatus(this, (byte) 106);
 				this.playSound(PvZCubed.DOOMSHROOMEXPLOSIONEVENT, 1F, 1F);
@@ -449,7 +464,7 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
     public void tickMovement() {
         super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-            this.kill();
+            this.discard();
         }
     }
 
@@ -533,7 +548,7 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
-			this.kill();
+			this.discard();
 		}
 		this.playBlockFallSound();
 		return true;

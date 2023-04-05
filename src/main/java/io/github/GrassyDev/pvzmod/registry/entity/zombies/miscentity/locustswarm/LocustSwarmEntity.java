@@ -147,7 +147,7 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
 			BlockPos blockPos2 = this.getBlockPos();
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
-				this.kill();
+				this.discard();
 			}
 
 		}
@@ -176,8 +176,8 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
         super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.clearStatusEffects();
-            this.kill();
-        }
+			this.discard();
+		}
     }
 
 
@@ -251,7 +251,7 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
-			this.kill();
+			this.discard();
 		}
 		this.playBlockFallSound();
 		return true;

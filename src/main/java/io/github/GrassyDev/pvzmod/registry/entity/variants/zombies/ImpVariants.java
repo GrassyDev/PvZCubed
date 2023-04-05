@@ -9,7 +9,9 @@ public enum ImpVariants {
 	SUPERFAN(2),
 	SUPERFANHYPNO(3),
 	NEWYEAR(4),
-	NEWYEARHYPNO(5);
+	NEWYEARHYPNO(5),
+	IMPDRAGON(6),
+	IMPDRAGONHYPNO(7);
 
 	private static final ImpVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(ImpVariants::getId)).toArray(ImpVariants[]::new);

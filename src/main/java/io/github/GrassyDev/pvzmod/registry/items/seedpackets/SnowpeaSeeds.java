@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.snowpea.SnowpeaEntity;
@@ -149,10 +150,19 @@ public class SnowpeaSeeds extends Item implements FabricItem {
 			plantEntity = PvZEntity.SNOWPEA.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
 			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SNOWPEA.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
-		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity) {
+		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
+				&& !(entity instanceof CraterTile)) {
 			if (list.isEmpty()) {
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
+				double random = Math.random();
+				if (random <= 0.125) {
+					((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.BISEXUAL);
+				} else if (random <= 0.25) {
+					((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.MLM);
+				} else {
+					((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.DEFAULT);
+				}
 				world.spawnEntity(plantEntity);
 				if (entity instanceof ScorchedTile){
 					entity.playSound(PvZCubed.SNOWPEAHITEVENT);
@@ -185,6 +195,14 @@ public class SnowpeaSeeds extends Item implements FabricItem {
 
 			float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 			plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
+			double random = Math.random();
+			if (random <= 0.125) {
+				((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.BISEXUAL);
+			} else if (random <= 0.25) {
+				((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.MLM);
+			} else {
+				((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.DEFAULT);
+			}
 			((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 			plantEntity.rideLilyPad(entity);
 			world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, 0.6f, 0.8F);

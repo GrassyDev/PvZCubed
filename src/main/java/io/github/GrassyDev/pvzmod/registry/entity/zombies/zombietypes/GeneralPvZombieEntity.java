@@ -390,11 +390,12 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 			if (!list.isEmpty()){
 				for (PlantEntity plantEntity : list) {
-					if (!plantEntity.getFireImmune()) {
+					if (!plantEntity.getFireImmune() && !PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")) {
 						damage(DamageSource.GENERIC, plantEntity.getMaxHealth() * 5);
 					}
 				}
 			}
+			tile.setHeadYaw(0);
 
 			tile.setPersistent();
 			serverWorld.spawnEntityAndPassengers(tile);

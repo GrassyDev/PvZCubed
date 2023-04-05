@@ -135,6 +135,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEPPERPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.GOLDLEAF_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.LOQUAT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.ACIDSHROOM_SEED_PACKET));
@@ -212,6 +213,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PEASANTKNIGHTEGG));
 				stacks.add(new ItemStack(ModItems.ANNOUNCERIMPEGG));
 				stacks.add(new ItemStack(ModItems.ZOMBIEKINGEGG));
+				stacks.add(new ItemStack(ModItems.IMPDRAGONEGG));
 				stacks.add(new ItemStack(ModItems.BRICKHEADEGG));
 				stacks.add(new ItemStack(ModItems.SUNDAYEDITIONEGG));
 				stacks.add(new ItemStack(ModItems.SUPERFANIMPEGG));
@@ -259,6 +261,8 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.DARK_UNDERWATER_TILE));
 				stacks.add(new ItemStack(ModItems.FROST_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_FROST_TILE));
+				stacks.add(new ItemStack(ModItems.LOSTCITY_TILE));
+				stacks.add(new ItemStack(ModItems.DARK_LOSTCITY_TILE));
 				stacks.add(new ItemStack(ModItems.SKYCITY_TILE));
 				stacks.add(new ItemStack(ModItems.DARK_SKYCITY_TILE));
 			}).build();

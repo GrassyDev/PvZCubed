@@ -690,7 +690,9 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 				hypnotizedZombie.setPersistent();
 
-				serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
+
+				hypnotizedZombie.setHeadYaw(this.getHeadYaw());
+                serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
 				this.remove(RemovalReason.DISCARDED);
 			}
 

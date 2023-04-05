@@ -108,8 +108,8 @@ public abstract class TileEntity extends PathAwareEntity implements IAnimatable 
         super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.clearStatusEffects();
-            this.kill();
-        }
+			this.discard();
+		}
     }
 
 

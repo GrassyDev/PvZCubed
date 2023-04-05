@@ -21,6 +21,8 @@
     "pvzmod:dark_underwater_tile",
     "pvzmod:frost_tile",
     "pvzmod:dark_frost_tile",
+    "pvzmod:lostcity_tile",
+    "pvzmod:dark_lostcity_tile",
     "pvzmod:skycity_tile",
     "pvzmod:dark_skycity_tile"
   ]

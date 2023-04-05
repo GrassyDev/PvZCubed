@@ -170,7 +170,7 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
 					this.dropItem(ModItems.SUNFLOWER_SEED_PACKET);
 				}
-				this.kill();
+				this.discard();
 			}
 
 		}
@@ -234,7 +234,7 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 		}
 
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.kill();
+			this.discard();
 		}
 	}
 
@@ -444,7 +444,7 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
-			this.kill();
+			this.discard();
 		}
 		this.playBlockFallSound();
 		return true;

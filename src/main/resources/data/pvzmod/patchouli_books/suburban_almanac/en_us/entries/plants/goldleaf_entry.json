@@ -1,0 +1,40 @@
+{
+  "name": "Gold Leaf",
+  "icon": "pvzmod:goldleaf_seed_packet",
+  "category": "pvzmod:plant_category",
+  "advancement": "pvzmod:make_sunflower",
+  "sortnum": 64,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Gold Tile Sun: $()$(#ff0000)Small",
+        "$(br)$(#bd951a)Gold Tile Sun Rate: $()$(#ff0000)3 minutes",
+        "$(br)$(#bd951a)Gold Tile Zombie Sun Radius: $()$(#ff0000)10 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Transforms into a Gold Tile on an empty block.",
+        "$(br2)$(#bd951a)\"For a small initial investment, you too can generate huge sun,\" says Gold Leaf. She's a firm believer in solar markets."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/goldleaf.png"
+      ],
+      "title": "☀ Enlighten Family",
+      "border": "true",
+      "text": "$(#25228d)Gold Leaves create a Gold Tile on planting."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/enlighten/goldleaf"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Gold Leaf"
+      ]
+    }
+  ]
+}

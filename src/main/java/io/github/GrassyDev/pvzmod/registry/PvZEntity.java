@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry;
 
+import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.goldtile.GoldTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveEntity;
@@ -44,6 +45,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.lostcity.goldleaf.GoldLeafEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.pirateseas.coconutcannon.CoconutCannonEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildwest.lightningreed.LightningReedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildwest.peapod.PeapodEntity;
@@ -399,6 +401,12 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "flamingpea"),
             QuiltEntityTypeBuilder.<FlamingpeaEntity>create(SpawnGroup.CREATURE, FlamingpeaEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
     );
+
+	public static final EntityType<GoldLeafEntity> GOLDLEAF = Registry.register((
+					Registry.ENTITY_TYPE),
+			new Identifier(ModID, "goldleaf"),
+			QuiltEntityTypeBuilder.<GoldLeafEntity>create(SpawnGroup.CREATURE, GoldLeafEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
 
 	public static final EntityType<LoquatEntity> LOQUAT = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -1049,6 +1057,18 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.CREATURE, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
 	);
 
+	public static final EntityType<ImpEntity> IMPDRAGON = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "impdragon"),
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
+	);
+
+	public static final EntityType<ImpEntity> IMPDRAGONHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "impdragon_hypnotized"),
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.CREATURE, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 0.95f)).build()
+	);
+
 	public static final EntityType<SuperFanImpEntity> SUPERFANIMP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "superfanimp"),
@@ -1178,6 +1198,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "scorchedtile"),
 			QuiltEntityTypeBuilder.<ScorchedTile>create(SpawnGroup.MONSTER, ScorchedTile::new).setDimensions(EntityDimensions.fixed(1f, 0.05f)).build()
+	);
+
+	public static final EntityType<CraterTile> CRATERTILE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "cratertile"),
+			QuiltEntityTypeBuilder.<CraterTile>create(SpawnGroup.MONSTER, CraterTile::new).setDimensions(EntityDimensions.fixed(1f, 0.05f)).build()
 	);
 
 	public static final EntityType<GoldTile> GOLDTILE = Registry.register(
@@ -1313,6 +1339,8 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FLAMINGPEA, FlamingpeaEntity.createFlamingpeaAttributes().build());
 
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GOLDLEAF, GoldLeafEntity.createGoldLeafAttributes().build());
+
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LOQUAT, LoquatEntity.createLoquatAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NARCISSUS, NarcissusEntity.createNarcissusAttributes().build());
@@ -1438,6 +1466,8 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.IMP, ImpEntity.createImpAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.IMPHYPNO, ImpEntity.createImpAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.IMPDRAGON, ImpEntity.createImpDragonAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.IMPDRAGONHYPNO, ImpEntity.createImpDragonAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUPERFANIMP, SuperFanImpEntity.createSuperFanImpAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUPERFANIMPHYPNO, SuperFanImpEntity.createSuperFanImpAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWYEARIMP, SuperFanImpEntity.createSuperFanImpAttributes().build());
@@ -1515,6 +1545,8 @@ public class PvZEntity implements ModInitializer {
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SCORCHEDTILE, ScorchedTile.createTileAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.CRATERTILE, CraterTile.createTileAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GOLDTILE, GoldTile.createTileAttributes().build());
 

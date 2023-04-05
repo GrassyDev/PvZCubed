@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.admiralnavybean.AdmiralNavyBeanEntity;
@@ -165,7 +166,8 @@ public class AdmiralNavyBeanSeeds extends Item implements FabricItem {
 			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.ADMIRALNAVYBEAN.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
 		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
-				&& !(entity instanceof ScorchedTile)) {
+				&& !(entity instanceof ScorchedTile)
+				&& !(entity instanceof CraterTile)) {
 			if (list.isEmpty()) {
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);

@@ -245,7 +245,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 		if (this.age != 0) {
 			BlockPos blockPos2 = this.getBlockPos();
 			if (!blockPos2.equals(blockPos)) {
-				this.kill();
+				this.discard();
 			}
 
 		}
@@ -290,7 +290,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 				if (!(fluidState.getFluid() == Fluids.WATER)) {
 					this.dryLand = true;
 					onWater = false;
-					this.kill();
+					this.discard();
 				} else {
 					this.dryLand = false;
 					onWater = true;
@@ -299,7 +299,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 					if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
 					this.dropItem(ModItems.CATTAIL_SEED_PACKET);
 				}
-					this.kill();
+					this.discard();
 				}
 			}
 		}
@@ -308,7 +308,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 	public void tickMovement() {
 		super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
-			this.kill();
+			this.discard();
 		}
 
 		if (this.attackTicksLeft > 0) {
@@ -409,7 +409,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
-			this.kill();
+			this.discard();
 		}
 		this.playBlockFallSound();
 		return true;

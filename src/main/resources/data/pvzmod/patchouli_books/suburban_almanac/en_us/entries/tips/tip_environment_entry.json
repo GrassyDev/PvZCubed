@@ -30,6 +30,15 @@
       ]
     },
     {
+      "type": "text",
+      "text": [
+        "$(br)Gold Tile",
+        "$(br2)Gold Tile produces one Small Sun every 3 minutes if there's a plant on top of them. The Zombie Sun Radius is 10 blocks.",
+        "$(br2)They can be removed by right clicking them with a Gold Shovel."
+
+      ]
+    },
+    {
       "type": "relations",
       "entries": [
         "pvzmod:plants/trashcan_entry",
@@ -38,7 +47,8 @@
         "pvzmod:plants/iceberglettuce_entry",
         "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/doomshroom_entry",
-        "pvzmod:plants/smackadamia_entry"
+        "pvzmod:plants/smackadamia_entry",
+        "pvzmod:plants/goldleaf_entry"
       ]
     }
   ]

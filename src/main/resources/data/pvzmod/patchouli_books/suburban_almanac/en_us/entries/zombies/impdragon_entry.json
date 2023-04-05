@@ -1,0 +1,49 @@
+{
+  "name": "Imp Dragon Zombie",
+  "icon": "pvzmod:impdragon_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 90,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)65",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)12",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Small. Immune to Fire.",
+        "$(br2)$(#bd951a)Imp Zombie knows he's too old to wear a dragon costume like a kid on Halloween. But he doesn't care. Let the others judge. His spirit animal is a dragon, and he feels closer to his true self when he's dressed like this."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/impdragon.png"
+      ],
+      "title": "Dark Ages Zombie",
+      "border": "true",
+      "text": "$(#25228d)Comes from Scorched Tiles, then claws forward."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/chomper_entry",
+        "pvzmod:plants/spikerock_entry",
+        "pvzmod:plants/lightningreed_entry",
+        "pvzmod:plants/navybean_entry",
+        "pvzmod:plants/smackadamia_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: $()$(#ff0000)Imp",
+        "$(br2)$(#bd951a)Plants vs. Zombies: Garden Warfare 2: $()$(#ff0000)Imp"
+      ]
+    }
+  ]
+}

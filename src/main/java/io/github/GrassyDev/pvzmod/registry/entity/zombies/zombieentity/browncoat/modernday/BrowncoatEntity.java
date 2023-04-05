@@ -702,6 +702,8 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 				}
 
 				hypnotizedZombie.setPersistent();
+
+				hypnotizedZombie.setHeadYaw(this.getHeadYaw());
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }

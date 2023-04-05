@@ -128,6 +128,8 @@ public class MetalShieldEntity extends ZombieShieldEntity implements IAnimatable
                 }
 
 				hypnotizedZombie.setPersistent();
+
+				hypnotizedZombie.setHeadYaw(this.getHeadYaw());
                 serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
                 this.remove(RemovalReason.DISCARDED);
             }

@@ -4,9 +4,10 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVariants;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
@@ -180,12 +181,32 @@ public class SunflowerSeeds extends Item implements FabricItem {
 			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SUNFLOWER.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
 		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
-				&& !(entity instanceof ScorchedTile)) {
+				&& !(entity instanceof ScorchedTile)
+				&& !(entity instanceof CraterTile)) {
 			if (list.isEmpty()) {
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
+				double random = Math.random();
+				if (random <= 0.125) {
+					((SunflowerEntity) plantEntity).setVariant(SunflowerVariants.LESBIAN);
+				}
+				else if (random <= 0.25) {
+					((SunflowerEntity) plantEntity).setVariant(SunflowerVariants.WLW);
+				}
+				else if (random <= 0.375) {
+					((SunflowerEntity) plantEntity).setVariant(SunflowerVariants.MLM);
+				}
+				else {
+					((SunflowerEntity) plantEntity).setVariant(SunflowerVariants.DEFAULT);
+				}
 				world.spawnEntity(plantEntity);
-				world.playSound((PlayerEntity) null, entity.getX(), entity.getY(), entity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+				((SunflowerEntity) plantEntity).sunProducingTime = (int) (PVZCONFIG.nestedSun.sunflowerSecInitial() * 20);
+				world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+				if (PVZCONFIG.nestedSun.sunflowerDropSun()){
+					plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+					plantEntity.dropItem(ModItems.SUN);
+					plantEntity.dropItem(ModItems.SUN);
+				}
 
 				if (!user.getAbilities().creativeMode) {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
@@ -212,6 +233,26 @@ public class SunflowerSeeds extends Item implements FabricItem {
 
 			float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 			plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
+			double random = Math.random();
+			if (random <= 0.125) {
+				((SunflowerEntity) plantEntity).setVariant(SunflowerVariants.LESBIAN);
+			}
+			else if (random <= 0.25) {
+				((SunflowerEntity) plantEntity).setVariant(SunflowerVariants.WLW);
+			}
+			else if (random <= 0.375) {
+				((SunflowerEntity) plantEntity).setVariant(SunflowerVariants.MLM);
+			}
+			else {
+				((SunflowerEntity) plantEntity).setVariant(SunflowerVariants.DEFAULT);
+			}
+			world.spawnEntity(plantEntity);
+			((SunflowerEntity) plantEntity).sunProducingTime = (int) (PVZCONFIG.nestedSun.sunflowerSecInitial() * 20);
+			if (PVZCONFIG.nestedSun.sunflowerDropSun()){
+				plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+				plantEntity.dropItem(ModItems.SUN);
+				plantEntity.dropItem(ModItems.SUN);
+			}
 			((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 			plantEntity.rideLilyPad(entity);
 			world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, 0.6f, 0.8F);
