@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancie
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
@@ -225,6 +226,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, ScorchedTile.class, false, false));
 	}
 
 	public boolean tryAttack(Entity target) {
@@ -277,6 +279,9 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 
 			if (bl) {
 				float damage = 4;
+				if (livingEntity instanceof ScorchedTile){
+					livingEntity.discard();
+				}
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
@@ -383,14 +388,10 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 			}
 
 			int i = this.getFuseSpeed();
-			if (i > 0 && this.currentFuseTime == 0) {
-				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
-			}
 
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
-				removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {
@@ -495,8 +496,6 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 			return this.damage(DamageSource.player(playerEntity), 9999.0F);
 		}
 		else {
-			this.raycastExplode();
-			this.removeStatusEffect(StatusEffects.RESISTANCE);
 			this.world.sendEntityStatus(this, (byte) 106);
 			this.playSound(PvZCubed.ICEBERGEXPLOSIONEVENT, 1F, 1F);
 			this.spawnEffectsCloud();
@@ -506,9 +505,17 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 		}
 	}
 
+
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		int i = this.getFuseSpeed();
+		if (i <= 0 || source.getAttacker() instanceof PlayerEntity) {
+			super.applyDamage(source, amount);
+		}
+	}
+
 	@Override
 	public void onDeath(DamageSource source) {
-		super.onDeath(source);
 		LivingEntity attacker = (LivingEntity) source.getAttacker();
 		if (attacker instanceof GargantuarEntity && attacker.isAlive()){
 			attacker.damage(DamageSource.thrownProjectile(this, this), 4);
@@ -522,15 +529,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 			attacker.removeStatusEffect(PvZCubed.FROZEN);
 			attacker.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 		}
-		if (!(attacker instanceof PlayerEntity)) {
-			this.raycastExplode();
-			this.removeStatusEffect(StatusEffects.RESISTANCE);
-			this.world.sendEntityStatus(this, (byte) 80);
-			this.playSound(PvZCubed.ICEBERGEXPLOSIONEVENT, 1F, 1F);
-			this.spawnEffectsCloud();
-			this.dead = true;
-			this.remove(RemovalReason.DISCARDED);
-		}
+		super.onDeath(source);
 	}
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {

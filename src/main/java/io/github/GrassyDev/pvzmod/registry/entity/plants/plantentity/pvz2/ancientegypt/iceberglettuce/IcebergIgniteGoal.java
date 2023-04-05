@@ -14,8 +14,8 @@ public class IcebergIgniteGoal extends Goal {
 
     public boolean canStart() {
         LivingEntity livingEntity = this.icebergLettuce.getTarget();
-        return this.icebergLettuce.getFuseSpeed() > 0 || livingEntity != null && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
-				generalPvZombieEntity.isFlying()) && this.icebergLettuce.squaredDistanceTo(livingEntity) < 4.0D;
+        return this.icebergLettuce.getFuseSpeed() > 0 || livingEntity != null && (!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+				generalPvZombieEntity.isFlying())) && this.icebergLettuce.squaredDistanceTo(livingEntity) < 4.0D;
     }
 
     public void start() {

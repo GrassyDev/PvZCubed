@@ -555,7 +555,6 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 
 	@Override
 	public void onDeath(DamageSource source) {
-		super.onDeath(source);
 		float damage = 180;
 		LivingEntity attacker = (LivingEntity) source.getAttacker();
 		if (attacker instanceof GargantuarEntity && this.getPotatoStage() && attacker.isAlive()){
@@ -574,17 +573,7 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 				attacker.damage(DamageSource.thrownProjectile(this, this), damage);
 			}
 		}
-		if (this.getPotatoStage()) {
-			if (!(attacker instanceof PlayerEntity)) {
-				this.raycastExplode();
-				this.removeStatusEffect(StatusEffects.RESISTANCE);
-				this.world.sendEntityStatus(this, (byte) 80);
-				this.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 1F, 1F);
-				this.spawnEffectsCloud();
-				this.dead = true;
-				this.remove(RemovalReason.DISCARDED);
-			}
-		}
+		super.onDeath(source);
 	}
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {

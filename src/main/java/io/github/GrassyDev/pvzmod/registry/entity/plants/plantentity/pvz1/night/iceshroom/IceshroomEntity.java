@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
@@ -20,7 +21,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
@@ -177,6 +177,7 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
+		this.targetSelector.add(2, new TargetGoal<>(this, ScorchedTile.class, false, false));
 	}
 
 	public boolean tryAttack(Entity target) {
@@ -234,6 +235,9 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 
 			if (bl) {
 				float damage = 4;
+				if (livingEntity instanceof ScorchedTile){
+					livingEntity.discard();
+				}
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
@@ -318,6 +322,13 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		int i = this.getFuseSpeed();
+		if (i <= 0 || source.getAttacker() instanceof PlayerEntity) {
+			super.applyDamage(source, amount);
+		}
+	}
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
@@ -325,24 +336,24 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 	boolean awakeSwitch = false;
 
 	public void tick() {
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.setIsAsleep(IsAsleep.FALSE);
-			this.awakeGoals();
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.setIsAsleep(IsAsleep.TRUE);
-			this.clearGoalsAndTasks();
-			this.removeStatusEffect(StatusEffects.RESISTANCE);
-			sleepSwitch = true;
-			awakeSwitch = false;
+		if (!this.world.isClient) {
+			if ((this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
+					&& !awakeSwitch) {
+				this.awakeGoals();
+				this.setIsAsleep(IsAsleep.FALSE);
+				sleepSwitch = false;
+				awakeSwitch = true;
+			} else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
+					&& !sleepSwitch) {
+				this.setIsAsleep(IsAsleep.TRUE);
+				this.clearGoalsAndTasks();
+				sleepSwitch = true;
+				awakeSwitch = false;
+			}
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
@@ -358,14 +369,10 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 			}
 
 			int i = this.getFuseSpeed();
-			if (i > 0 && this.currentFuseTime == 0) {
-				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
-			}
 
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
-				this.removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {

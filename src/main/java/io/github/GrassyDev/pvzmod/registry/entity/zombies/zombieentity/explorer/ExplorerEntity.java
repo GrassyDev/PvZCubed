@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.explorer
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
@@ -332,9 +333,37 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlant() != null) {
 				if (!this.CollidesWithPlant().onWater && !this.CollidesWithPlant().getFireImmune() && this.getFireStage()) {
+					BlockPos blockPos = this.CollidesWithPlant().getBlockPos();
+					boolean bl = this.CollidesWithPlant().hasVehicle();
+					boolean bl2 = false;
+					boolean bl3 = this.CollidesWithPlant().onWater;
+					LivingEntity vehicle = null;
+					if (bl){
+						vehicle = (LivingEntity) this.CollidesWithPlant().getVehicle();
+						if (vehicle instanceof PlantEntity plantEntity){
+							if (plantEntity.onWater){
+								bl2 = true;
+							}
+						}
+					}
 					this.CollidesWithPlant().damage(DamageSource.GENERIC, this.CollidesWithPlant().getMaxHealth() * 5);
+					if (vehicle != null) {
+						vehicle.damage(DamageSource.GENERIC, vehicle.getMaxHealth() * 5);
+					}
 					if (this.CollidesWithPlant() == null) {
 						this.world.sendEntityStatus(this, (byte) 115);
+					}
+					if (!bl2 && !bl3 && this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.CollidesWithPlant() == null) {
+						if (this.world instanceof ServerWorld) {
+							ServerWorld serverWorld = (ServerWorld) this.world;
+							ScorchedTile tile = (ScorchedTile) PvZEntity.SCORCHEDTILE.create(world);
+							tile.refreshPositionAndAngles(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0);
+							tile.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_EGG, (EntityData) null, (NbtCompound) null);
+
+							tile.setPersistent();
+							serverWorld.spawnEntityAndPassengers(tile);
+							System.out.println(tile.getPos());
+						}
 					}
 				} else {
 					this.setVelocity(0, -0.3, 0);
