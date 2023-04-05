@@ -13,7 +13,7 @@
         "$(br)$(#bd951a)Damage Area: $()$(#ff0000)Low Profile. 10 Blocks in front and behind, 3 wide.",
         "  $(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Won't explode if wet. Sets zombies on fire. Leaves a fire trail that deals 8 dmg/s for 5 seconds.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Fire. Won't explode if wet. Sets zombies on fire. Leaves a fire trail that deals 8 dmg/s for 5 seconds.",
         "$(br)$(#bd951a)\"NNNNNGGGGG!!!!!!!!\" Jalapeno says. He's not going to explode, not this time. But soon. Oh, so soon. It's close."
         ]
     },

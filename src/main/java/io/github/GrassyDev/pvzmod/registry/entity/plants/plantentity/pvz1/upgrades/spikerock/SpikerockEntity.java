@@ -49,6 +49,7 @@ public class SpikerockEntity extends PlantEntity implements IAnimatable {
 
     public SpikerockEntity(EntityType<? extends SpikerockEntity> entityType, World world) {
         super(entityType, world);
+		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
     }
 

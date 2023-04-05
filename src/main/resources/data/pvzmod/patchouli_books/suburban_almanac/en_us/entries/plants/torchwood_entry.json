@@ -12,7 +12,7 @@
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)37.5s",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/0.5s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)0.25 Blocks",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Burn. Burns or thaws peas that hit it. Deals damage to all zombies close to it. Burning peas do double the damage and have splash damage.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Fire. Burns or thaws peas that hit it. Deals damage to all zombies close to it. Burning peas do double the damage and have splash damage.",
         "$(br2)$(#bd951a)Torchwood and Snapdragon have become friends. They hang out at either the Tiki Lounge or the Renaissance Faire."
       ]
     },

@@ -330,7 +330,7 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 			}
 			return ActionResult.SUCCESS;
 		}
-		return addPlants(player, hand);
+		return super.interactMob(player, hand);
 	}
 
 	@Nullable

@@ -9,10 +9,10 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)+90(for each Spike)",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)+4 DMG/1s(for each Spike)",
-        "$(br)$(#bd951a)Range: $()$(#ff0000)0.75 Blocks",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)+4 DMG/1s(for each Spike) ",
+        "$(#bd951a)Range: $()$(#ff0000)0.75 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile. Spikeweed, but takes 90 damage from objects. Starts with 3 Spikes, spend a Large Sun to heal each. Immune to Instant-kills.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile. Immune to Fire. Spikeweed, but takes 90 damage from objects. Starts with 3 Spikes, spend a Large Sun to heal each. Immune to Instant-kills.",
         "$(br)$(#bd951a)Spikerock just got back from a trip to Europe. He never knew they made museums so big. That was a big surprise for him."
       ]
     },

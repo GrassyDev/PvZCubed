@@ -13,7 +13,7 @@
         "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)2.5 Blocks",
         "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks (Lobbed)",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Burn. Sets zombies on fire.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Fire. Sets zombies on fire.",
         "$(br2)$(#bd951a)Some say Pepper-pult is a hot head. Some find his fiery disposition off-putting. But the truth is, he's just very focused and determined."
       ]
     },

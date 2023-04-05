@@ -13,7 +13,7 @@
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)5 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)35s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Sets zombies on fire",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Fire. Sets zombies on fire.",
         "$(br2)$(#bd951a)\"I wanna explode,\" says Cherry #1. \"No, let's detonate instead!\" says his brother, Cherry #2. After intense consultation they agree to explodonate."
         ]
     },

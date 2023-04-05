@@ -10,8 +10,8 @@
         "$(#bd951a)Health: $()$(#ff0000)65",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)8, Instant-kill (Burn)",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Speedy",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Fire. Explorer Zombie.",
-        "$(br2)$(#bd951a)Torchlight Zombie has no fear of the dark. That's not because he's always got a torch, however, but rather because as a zombie he has no capacity for fear in the first place."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Fire. Explorer Zombie. Leaves Scorched Tiles when burning plants or 50% of the time every 5 seconds.",
+        "$(br)$(#bd951a)Torchlight Zombie has no fear of the dark. That's not because he's always got a torch, however, but rather because as a zombie he has no capacity for fear in the first place."
       ]
     },
     {

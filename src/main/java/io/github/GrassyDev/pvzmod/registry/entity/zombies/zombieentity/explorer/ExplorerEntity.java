@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.explorer
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
@@ -322,8 +321,19 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 		return this.world.hasRain(blockPos) || this.world.hasRain(new BlockPos((double)blockPos.getX(), this.getBoundingBox().maxY, (double)blockPos.getZ()));
 	}
 
+	protected int createTileTicks = 100;
+
 	public void tick() {
 		super.tick();
+		if (this.getVariant().equals(ExplorerVariants.TORCHLIGHT)) {
+			double random = Math.random();
+			if (--createTileTicks <= 0) {
+				if (random <= 0.5 && HasTile(this.getBlockPos()) == null && this.getTarget() != null && this.onGround && !this.isInsideWaterOrBubbleColumn()) {
+					createScorchedTile(this.getBlockPos());
+				}
+				createTileTicks = 100;
+			}
+		}
 		if (this.isBeingRainedOn() || this.hasStatusEffect(PvZCubed.ICE) || this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.WET) || this.isSubmergedInWater()){
 			this.setFireStage(FireStage.EXTINGUISHED);
 		}
@@ -355,14 +365,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 					}
 					if (!bl2 && !bl3 && this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.CollidesWithPlant() == null) {
 						if (this.world instanceof ServerWorld) {
-							ServerWorld serverWorld = (ServerWorld) this.world;
-							ScorchedTile tile = (ScorchedTile) PvZEntity.SCORCHEDTILE.create(world);
-							tile.refreshPositionAndAngles(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0);
-							tile.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_EGG, (EntityData) null, (NbtCompound) null);
-
-							tile.setPersistent();
-							serverWorld.spawnEntityAndPassengers(tile);
-							System.out.println(tile.getPos());
+							createScorchedTile(blockPos);
 						}
 					}
 				} else {

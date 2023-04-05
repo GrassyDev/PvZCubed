@@ -3,6 +3,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
@@ -26,6 +28,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -341,6 +344,15 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		return setPlant;
 	}
 
+	public TileEntity HasTile(BlockPos blockPos){
+		List<TileEntity> list = world.getNonSpectatingEntities(TileEntity.class, entityBox.getDimensions().getBoxAt(blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+		TileEntity setTile = null;
+		for (TileEntity tileEntity : list) {
+			setTile = tileEntity;
+		}
+		return setTile;
+	}
+
 	public PlayerEntity CollidesWithPlayer(){
 		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
@@ -365,6 +377,30 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		return obstacleEntity;
 	}
+
+	public void createScorchedTile(BlockPos blockPos){
+		if (this.world instanceof ServerWorld serverWorld) {
+			ScorchedTile tile = (ScorchedTile) PvZEntity.SCORCHEDTILE.create(world);
+			tile.refreshPositionAndAngles(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0);
+			tile.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_EGG, (EntityData) null, (NbtCompound) null);
+
+			Vec3d vec3d = Vec3d.ofCenter(blockPos).add(0, -0.5, 0);
+
+			List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, entityBox.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ()));
+
+			if (!list.isEmpty()){
+				for (PlantEntity plantEntity : list) {
+					if (!plantEntity.getFireImmune()) {
+						damage(DamageSource.GENERIC, plantEntity.getMaxHealth() * 5);
+					}
+				}
+			}
+
+			tile.setPersistent();
+			serverWorld.spawnEntityAndPassengers(tile);
+		}
+	}
+
 
 	boolean pop = true;
 

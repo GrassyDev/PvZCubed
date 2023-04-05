@@ -763,6 +763,8 @@
   "entity.pvzmod.darkagesgrave": "Dark Ages Gravestone",
   "item.pvzmod.darkagesgrave_spawn": "Dark Ages Gravestone",
 
+  "entity.pvzmod.scorchedtile": "Scorched Tile",
+
   "itemGroup.pvzmod.blocks": "PvZ Blocks",
 
   "block.pvzmod.grass_tile": "Grass Tile",

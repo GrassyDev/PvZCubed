@@ -8,13 +8,13 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)16",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s, 4 DMG (Splash)",
+        "$(#bd951a)Health: $()$(#ff0000)16 ",
+        "$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s, 4 DMG (Splash)",
         "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)1.5 Blocks",
         "$(br)$(#bd951a)Plasma DMG: $()$(#ff0000)12 DMG/1.5s (Pierce)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Burn. Sets zombies on fire. 66% Fire Pea, 33% Plasma Pea",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Fire. Sets zombies on fire. 66% Fire Pea, 33% Plasma Pea",
         "$(br)$(#bd951a)She had a relationship with Snow Queen Pea a few months back. She may have cooled since then, but her burning peas have never been hotter."
       ]
     },

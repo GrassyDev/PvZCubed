@@ -2,12 +2,16 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -18,13 +22,16 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.RaycastContext;
@@ -147,6 +154,42 @@ public class LilyPadSeeds extends Item implements FabricItem {
 			}
 		}
 		return TypedActionResult.pass(itemStack);
+	}
+
+	@Override
+	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+		World world = user.getWorld();
+		BlockPos blockPos = entity.getBlockPos();
+		SoundEvent sound = null;
+		PlantEntity plantEntity = null;
+		List<PlantEntity> list = null;
+		if (world instanceof ServerWorld serverWorld) {
+			plantEntity = PvZEntity.LILYPAD.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
+			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.LILYPAD.getDimensions().getBoxAt(plantEntity.getPos()));
+		}
+		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
+				&& !(entity instanceof ScorchedTile)) {
+			if (list.isEmpty()) {
+				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
+				world.spawnEntity(plantEntity);
+				world.playSound((PlayerEntity) null, entity.getX(), entity.getY(), entity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+
+				if (!user.getAbilities().creativeMode) {
+					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+						stack.decrement(1);
+					}
+					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
+						user.getItemCooldownManager().set(this, cooldown);
+					}
+				}
+				return ActionResult.success(world.isClient);
+			} else {
+				return ActionResult.FAIL;
+			}
+		} else {
+			return ActionResult.PASS;
+		}
 	}
 
 	private LilyPadEntity createEntity(World world, HitResult hitResult) {

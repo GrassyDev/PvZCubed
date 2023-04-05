@@ -64,6 +64,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 
 	public JalapenoEntity(EntityType<? extends JalapenoEntity> entityType, World world) {
 		super(entityType, world);
+		this.setFireImmune(FireImmune.TRUE);
 		this.ignoreCameraFrustum = true;
 	}
 
