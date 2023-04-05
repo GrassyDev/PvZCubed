@@ -142,6 +142,7 @@
   "text.config.pvz-config.option.nestedSun.sunshroomSecInitial": "Sun-shroom Production Initial in Seconds",
   "text.config.pvz-config.option.nestedSun.sunshroomSunChance": "Sun-shroom Production Sun Chance",
   "text.config.pvz-config.option.nestedSun.sunshroomSun2ndChance": "Sun-shroom Production 2nd Sun Chance",
+  "text.config.pvz-config.option.nestedSun.goldtileSec": "Gold Tile Production in Seconds",
 
   "text.config.pvz-config.section.projDMG": "Projectile Damage Settings",
   "text.config.pvz-config.category.nestedProjDMG": "Projectile Damage Settings",
@@ -764,6 +765,7 @@
   "item.pvzmod.darkagesgrave_spawn": "Dark Ages Gravestone",
 
   "entity.pvzmod.scorchedtile": "Scorched Tile",
+  "entity.pvzmod.goldtile": "Gold Tile",
 
   "itemGroup.pvzmod.blocks": "PvZ Blocks",
 

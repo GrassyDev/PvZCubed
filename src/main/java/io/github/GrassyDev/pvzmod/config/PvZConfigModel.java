@@ -212,6 +212,7 @@ public class PvZConfigModel {
 		public float sunshroomSecInitial = 5f;
 		public float sunshroomSunChance = 0.45f;
 		public float sunshroomSun2ndChance = 0.75f;
+		public float goldtileSec = 120f;
 	}
 
 	@SectionHeader("projDMG")

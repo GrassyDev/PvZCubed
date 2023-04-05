@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry;
 
+import io.github.GrassyDev.pvzmod.registry.entity.environment.goldtile.GoldTileRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTileRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.darkagesgrave.DarkAgesGraveRenderer;
@@ -429,6 +430,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 
 		EntityRendererRegistry.register(PvZEntity.SCORCHEDTILE, ScorchedTileRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.GOLDTILE, GoldTileRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.BASICGRAVESTONE, BasicGraveRenderer::new);
 

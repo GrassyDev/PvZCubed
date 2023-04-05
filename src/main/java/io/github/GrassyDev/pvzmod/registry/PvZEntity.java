@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry;
 
+import io.github.GrassyDev.pvzmod.registry.entity.environment.goldtile.GoldTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.basicgrave.BasicGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.darkagesgrave.DarkAgesGraveEntity;
@@ -1179,6 +1180,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<ScorchedTile>create(SpawnGroup.MONSTER, ScorchedTile::new).setDimensions(EntityDimensions.fixed(1f, 0.05f)).build()
 	);
 
+	public static final EntityType<GoldTile> GOLDTILE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "goldtile"),
+			QuiltEntityTypeBuilder.<GoldTile>create(SpawnGroup.MONSTER, GoldTile::new).setDimensions(EntityDimensions.fixed(1f, 0.05f)).build()
+	);
+
     public static final EntityType<BasicGraveEntity> BASICGRAVESTONE = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "basicgrave"),
@@ -1508,6 +1515,8 @@ public class PvZEntity implements ModInitializer {
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SCORCHEDTILE, ScorchedTile.createTileAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GOLDTILE, GoldTile.createTileAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BASICGRAVESTONE, BasicGraveEntity.createBasicGraveAttributes().build());
 

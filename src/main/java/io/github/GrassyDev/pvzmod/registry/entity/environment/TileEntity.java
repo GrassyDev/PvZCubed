@@ -131,7 +131,7 @@ public abstract class TileEntity extends PathAwareEntity implements IAnimatable 
 	}
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-		return 0.60F;
+		return 0.05F;
 	}
 
 	@Nullable
