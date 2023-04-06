@@ -293,6 +293,10 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 				((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+				if (!entity.isWet()){
+					this.world.sendEntityStatus(this, (byte)3);
+				}
+				this.remove(RemovalReason.DISCARDED);
 			}
 			else {
 				if (!entity.isWet()){

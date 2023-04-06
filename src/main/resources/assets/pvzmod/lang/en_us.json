@@ -196,6 +196,7 @@
   "text.config.pvz-config.option.nestedZombieHealth.gargantuarH": "Gargantuar Health",
   "text.config.pvz-config.option.nestedZombieHealth.defensiveendH": "Defensive End Health",
   "text.config.pvz-config.option.nestedZombieHealth.impH": "Imp Health",
+  "text.config.pvz-config.option.nestedZombieHealth.impdragonH": "Imp Dragon Health",
   "text.config.pvz-config.option.nestedZombieHealth.superFanH": "Super-fan Imp Health",
   "text.config.pvz-config.option.nestedZombieHealth.announcerH": "Announcer Imp Health",
   "text.config.pvz-config.option.nestedZombieHealth.jetpackH": "Jetpack Health",

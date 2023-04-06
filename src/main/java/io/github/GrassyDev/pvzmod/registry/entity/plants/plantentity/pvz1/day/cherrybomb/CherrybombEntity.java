@@ -276,6 +276,8 @@ public class CherrybombEntity extends PlantEntity implements IAnimatable {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+						this.world.sendEntityStatus(this, (byte) 3);
+						this.remove(RemovalReason.DISCARDED);
 					}
 				}
 			}

@@ -264,7 +264,11 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 					} while (livingEntity == this);
 				} while (this.squaredDistanceTo(livingEntity) > 100);
 
-				float damage = 180;
+				float damage = 0;
+
+				if (!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())){
+					damage = 180;
+				}
 
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) &&
@@ -314,8 +318,6 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 						if (!(livingEntity instanceof ZombieShieldEntity)) {
 							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
 						}
-						this.world.sendEntityStatus(this, (byte) 3);
-						this.remove(RemovalReason.DISCARDED);
 					}
 					else if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);

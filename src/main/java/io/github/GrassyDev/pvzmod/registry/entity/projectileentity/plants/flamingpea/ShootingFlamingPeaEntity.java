@@ -272,6 +272,8 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 				((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
 				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+				this.world.sendEntityStatus(this, (byte) 3);
+				this.remove(RemovalReason.DISCARDED);
 			}
 			else {
 				this.world.sendEntityStatus(this, (byte) 3);

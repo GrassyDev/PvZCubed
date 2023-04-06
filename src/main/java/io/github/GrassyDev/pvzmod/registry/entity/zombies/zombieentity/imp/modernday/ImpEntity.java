@@ -389,7 +389,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12.0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.impH());
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.impdragonH());
 	}
 
 	@Override
