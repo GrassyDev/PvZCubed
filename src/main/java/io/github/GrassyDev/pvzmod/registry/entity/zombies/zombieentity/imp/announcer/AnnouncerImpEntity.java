@@ -279,7 +279,7 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){
@@ -439,7 +439,7 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean canStart() {
 			LivingEntity livingEntity = AnnouncerImpEntity.this.getTarget();
-			if (livingEntity != null && livingEntity.isAlive() && !AnnouncerImpEntity.this.hasStatusEffect(PvZCubed.FROZEN)) {
+			if (livingEntity != null && livingEntity.isAlive() && !AnnouncerImpEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !AnnouncerImpEntity.this.hasStatusEffect(PvZCubed.STUN)) {
 				if (AnnouncerImpEntity.this.isSpellcasting()) {
 					return false;
 				} else {
@@ -452,7 +452,7 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean shouldContinue() {
 			LivingEntity livingEntity = AnnouncerImpEntity.this.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !AnnouncerImpEntity.this.hasStatusEffect(PvZCubed.FROZEN);
+			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !AnnouncerImpEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !AnnouncerImpEntity.this.hasStatusEffect(PvZCubed.STUN);
 		}
 
 		public void start() {

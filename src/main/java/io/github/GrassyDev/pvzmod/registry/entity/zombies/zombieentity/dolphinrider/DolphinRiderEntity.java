@@ -349,7 +349,7 @@ public class DolphinRiderEntity extends PvZombieEntity implements IAnimatable {
 		else if (!this.isInsideWaterOrBubbleColumn()){
 			this.waterSwitch = false;
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){

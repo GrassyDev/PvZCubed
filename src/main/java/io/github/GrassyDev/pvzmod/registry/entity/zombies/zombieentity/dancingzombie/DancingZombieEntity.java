@@ -289,7 +289,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		else {
 			this.world.sendEntityStatus(this, (byte) 112);
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){
@@ -449,7 +449,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean canStart() {
 			LivingEntity livingEntity = DancingZombieEntity.this.getTarget();
-			if (livingEntity != null && livingEntity.isAlive() && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.FROZEN)) {
+			if (livingEntity != null && livingEntity.isAlive() && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.STUN)) {
 				if (DancingZombieEntity.this.isSpellcasting()) {
 					return false;
 				} else {
@@ -462,7 +462,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean shouldContinue() {
 			LivingEntity livingEntity = DancingZombieEntity.this.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.FROZEN);
+			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.STUN);
 		}
 
 		public void start() {

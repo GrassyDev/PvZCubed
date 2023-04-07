@@ -170,6 +170,7 @@ public class PvZConfigModel {
 		public float lightningreedS = 12.5f;
 		public float lilypadS = 0f;
 		public float loquatS = 2.5f;
+		public float saucerS = 30f;
 		public float narcissusS = 7.5f;
 		public float navybeanS = 5.0f;
 		public float peapodS = 3.75f;

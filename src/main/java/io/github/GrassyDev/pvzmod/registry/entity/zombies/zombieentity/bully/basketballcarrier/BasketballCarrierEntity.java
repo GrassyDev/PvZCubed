@@ -248,7 +248,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 	}
 
 	public boolean tryAttack(Entity target) {
-		if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.inLaunchAnimation && this.getTarget() != null) {
+		if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.inLaunchAnimation && this.getTarget() != null) {
 			return super.tryAttack(this.getTarget());
 		}
 		else {
@@ -259,7 +259,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 	//Launch Basket
 	public void tryLaunch(Entity target) {
 		ShootingBasketballEntity basketballEntity = new ShootingBasketballEntity(PvZEntity.BASKETBALLPROJ, this.world);
-		if (launchAnimation == 29 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN)) {
+		if (launchAnimation == 29 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN)) {
 			if (this.getTarget() instanceof ZombiePropEntity zombiePropEntity && zombiePropEntity.hasVehicle()){
 				target = zombiePropEntity.getVehicle();
 			}

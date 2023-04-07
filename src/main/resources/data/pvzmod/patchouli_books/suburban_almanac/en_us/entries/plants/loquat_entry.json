@@ -2,7 +2,7 @@
   "name": "Loquat",
   "icon": "pvzmod:loquat_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 99,
+  "sortnum": 98,
   "pages": [
     {
       "type": "text",

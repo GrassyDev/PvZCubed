@@ -464,6 +464,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public int playerGetTick;
 
 	public void tick() {
+		if (this.isCovered()){
+			this.removeStatusEffect(STUN);
+		}
 		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("metallic")) && this.hasStatusEffect(ACID)){
 			this.removeStatusEffect(ACID);
 		}
@@ -556,7 +559,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 				TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
 						(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying") &&
 						TARGET_FLY.get(this.getType()).orElse(false).equals(true)))) {
-			if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
+			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN)) {
 				float sound = 0.75f;
 				if (this.getHypno()) {
 					sound = 0.33f;
@@ -568,7 +571,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		else if (this.getTarget() != null &&
 				!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground"))) &&
 				!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying")))){
-			if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
+			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN)) {
 				float sound = 0.75f;
 				if (this.getHypno()) {
 					sound = 0.33f;

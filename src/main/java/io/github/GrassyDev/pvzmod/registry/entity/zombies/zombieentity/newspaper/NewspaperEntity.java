@@ -340,7 +340,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		if (this.isOnFire() && this.getFirstPassenger() instanceof NewspaperShieldEntity){
 			this.getFirstPassenger().setOnFireFor(this.getFireTicks());
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){

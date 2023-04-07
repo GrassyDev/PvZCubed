@@ -1,0 +1,39 @@
+{
+  "name": "Saucer",
+  "icon": "pvzmod:saucer_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 99,
+  "advancement": "pvzmod:make_gravebuster",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)0 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)30s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Flying. Stuns everyone nearby. Instant-kills non-covered small Zombies and non-covered medium height zombies without headgear.",
+        "$(br)$(#bd951a)Everyone thinks Saucer is alien, but they are just really shy, that's why they doesn't blend in."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/saucer.png"
+      ],
+      "title": "⏳ Contain Family",
+      "border": "true",
+      "text": "$(#25228d)Saucers emit light to stun and capture Zombies below them."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/contain/saucer"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Saucer"
+      ]
+    }
+  ]
+}

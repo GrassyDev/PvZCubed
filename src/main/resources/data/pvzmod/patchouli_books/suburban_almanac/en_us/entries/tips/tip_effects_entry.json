@@ -64,6 +64,16 @@
     {
       "type": "text",
       "text": [
+        "$(br2)Stun",
+        "$(br2)Stun completely stops Zombies in their tracks for 0.5 seconds.",
+        "$(br2)Stunned Zombies can't attack.",
+        "$(br2)Stunned Zombies can't do their abilities.",
+        "$(br2)Covered Zombies can't be Stunned."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
         "$(br2)Poison",
         "$(br2)Deals continuous direct damage to the zombie, ignoring armor.",
         "$(br2)Deals 1.5 DMG/0.5sec.",

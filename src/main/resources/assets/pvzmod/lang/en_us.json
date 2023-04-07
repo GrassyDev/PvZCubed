@@ -102,6 +102,7 @@
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.lightningreedS": "Lightning Reed Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.lilypadS": "Lily Pad Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.loquatS": "Loquat Seed",
+  "text.config.pvz-config.option.nestedSeeds.moreSeeds.saucerS": "Saucer Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.narcissusS": "Narcissus Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.navybeanS": "Navy Bean Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.peapodS": "Pea Pod Seed",
@@ -515,6 +516,11 @@
   "entity.pvzmod.loquat": "Loquat",
   "item.pvzmod.loquat_seed_packet": "⛨ Loquat Seed Packet",
   "item.pvzmod.loquat_seed_packet.flavour": "\"The floor is Lava Guava!\"",
+
+  "entity.pvzmod.saucer": "Saucer",
+  "item.pvzmod.saucer_seed_packet": "⏳ Saucer Seed Packet",
+  "item.pvzmod.saucer_seed_packet.flavour": "\"I may be called Saucer, but I beg you,",
+  "item.pvzmod.saucer_seed_packet.flavour2": "I don't taste good in sauce!\"",
 
   "entity.pvzmod.narcissus": "Narcissus",
   "item.pvzmod.narcissus_seed_packet": "✂ Narcissus Seed Packet",
