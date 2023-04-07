@@ -11,6 +11,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -116,6 +117,16 @@ public abstract class TileEntity extends PathAwareEntity implements IAnimatable 
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
+
+	@Override
+	public boolean canBeLeashedBy(PlayerEntity player) {
+		return false;
+	}
+
+	@Override
+	public boolean hasCustomName() {
+		return super.hasCustomName();
+	}
 
 	public static DefaultAttributeContainer.Builder createTileAttributes() {
         return MobEntity.createMobAttributes()

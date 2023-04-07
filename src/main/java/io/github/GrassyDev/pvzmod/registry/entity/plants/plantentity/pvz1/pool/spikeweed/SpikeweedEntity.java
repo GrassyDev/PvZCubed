@@ -206,8 +206,19 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 		return ModItems.SPIKEWEED_SEED_PACKET.getDefaultStack();
 	}
 
+
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.SPIKEWEED_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
 		Item item = itemStack.getItem();
 		if (itemStack.isOf(ModItems.SPIKEROCK_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
@@ -240,9 +251,8 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 				}
 			}
 			return ActionResult.SUCCESS;
-		} else {
-			return ActionResult.CONSUME;
 		}
+		return super.interactMob(player, hand);
 	}
 
 

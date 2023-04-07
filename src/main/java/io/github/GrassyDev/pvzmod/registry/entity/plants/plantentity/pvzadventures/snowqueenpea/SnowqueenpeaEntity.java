@@ -53,6 +53,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
@@ -230,6 +232,16 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.SNOW_QUEENPEA_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
 		if (!this.getVariant().equals(SnowQueenPeaVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
 			this.setVariant(SnowQueenPeaVariants.DEFAULT);
 			if (!player.getAbilities().creativeMode){
@@ -253,9 +265,7 @@ public class SnowqueenpeaEntity extends PlantEntity implements IAnimatable, Rang
 			}
 			return ActionResult.SUCCESS;
 		}
-		else {
-			return ActionResult.CONSUME;
-		}
+		return super.interactMob(player, hand);
 	}
 
 

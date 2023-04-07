@@ -191,6 +191,16 @@ public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAni
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.REPEATER_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
 		Item item = itemStack.getItem();
 		if (itemStack.isOf(ModItems.GATLINGPEA_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
 			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
@@ -223,9 +233,8 @@ public class RepeaterEntity extends PlantEntity implements RangedAttackMob, IAni
 				}
 			}
 			return ActionResult.SUCCESS;
-		} else {
-			return ActionResult.CONSUME;
 		}
+		return super.interactMob(player, hand);
 	}
 
 	@Nullable

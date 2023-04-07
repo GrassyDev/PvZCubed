@@ -227,6 +227,9 @@
 
   "itemGroup.pvzmod.plants": "Plants",
 
+  "item.pvzmod.gardeningglove": "Gardening Glove",
+  "item.pvzmod.gardeninggloves": "Use on a Plant to destroy them",
+  "item.pvzmod.gardeninggloves2": "and get their Seed Packet",
 
   "item.pvzmod.plantfood": "Plant Food",
   "item.pvzmod.plantfood_air": "Windy Plant Food",

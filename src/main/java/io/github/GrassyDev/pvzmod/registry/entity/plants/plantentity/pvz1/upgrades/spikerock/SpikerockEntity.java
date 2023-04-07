@@ -42,6 +42,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class SpikerockEntity extends PlantEntity implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -257,8 +259,19 @@ public class SpikerockEntity extends PlantEntity implements IAnimatable {
 		return ModItems.SPIKEROCK_SEED_PACKET.getDefaultStack();
 	}
 
+
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.SPIKEROCK_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
 		if (itemStack.isOf(ModItems.LARGESUN) && !this.getCrack().equals(Crack.FULL)) {
 			float heal = 0;
 			if (this.getCrack().equals(Crack.DAMAGED)){
@@ -272,9 +285,8 @@ public class SpikerockEntity extends PlantEntity implements IAnimatable {
 				itemStack.decrement(1);
 			}
 			return ActionResult.SUCCESS;
-		} else {
-			return ActionResult.CONSUME;
 		}
+		return super.interactMob(player, hand);
 	}
 
 

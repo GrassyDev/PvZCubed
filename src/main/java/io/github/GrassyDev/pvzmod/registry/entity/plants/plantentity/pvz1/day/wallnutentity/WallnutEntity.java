@@ -45,6 +45,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class WallnutEntity extends PlantEntity implements IAnimatable {
     private String controllerName = "wallcontroller";
 
@@ -201,15 +203,24 @@ public class WallnutEntity extends PlantEntity implements IAnimatable {
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.WALLNUT_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
 		if (itemStack.isOf(ModItems.LARGESUN) && this.getHealth() < this.getMaxHealth()) {
 			this.setHealth(this.getMaxHealth());
 			if (!player.getAbilities().creativeMode){
 				itemStack.decrement(1);
 			}
 			return ActionResult.SUCCESS;
-		} else {
-			return ActionResult.CONSUME;
 		}
+		return super.interactMob(player, hand);
 	}
 
 

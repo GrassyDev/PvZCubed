@@ -309,8 +309,19 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
 
+
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.PEAPOD_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
 		Item item = itemStack.getItem();
 		if (itemStack.isOf(ModItems.PEAPOD_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item) && !this.getCount().equals(PeapodCountVariants.FIVE)) {
 			if (this.getCount().equals(PeapodCountVariants.FOUR)){
@@ -348,9 +359,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 			}
 			return ActionResult.SUCCESS;
 		}
-		else {
-			return ActionResult.CONSUME;
-		}
+		return super.interactMob(player, hand);
 	}
 
 	@Nullable

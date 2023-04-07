@@ -43,6 +43,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_STRENGTH;
 
 public class CoconutCannonEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
@@ -302,8 +303,20 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 
 	protected boolean startShooting;
 
+
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
-		if (!this.world.isClient) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.COCONUTCANNON_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
+		else if (!this.world.isClient) {
 			if (rechargeTime <= 0 && !this.isFiring && this.getTarget() != null) {
 				startShooting = true;
 				return ActionResult.SUCCESS;
@@ -311,7 +324,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 				return ActionResult.PASS;
 			}
 		}
-		return ActionResult.PASS;
+		return super.interactMob(player, hand);
 	}
 
 

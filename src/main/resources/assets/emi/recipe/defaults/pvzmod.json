@@ -1,5 +1,6 @@
 {
   "recipes": [
+    "pvzmod:gardeningglove",
     "pvzmod:plants/ailment/scaredyshroom",
     "pvzmod:tiles/tile_dark_grass",
     "pvzmod:tiles/tile_dark_sand",

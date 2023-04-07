@@ -54,6 +54,8 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class ShamrockEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -279,6 +281,16 @@ public class ShamrockEntity extends PlantEntity implements IAnimatable, RangedAt
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.SHAMROCK_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
 		if (!this.getVariant().equals(ShamrockVariants.DEFAULT) && itemStack.isOf(Items.WHITE_DYE)) {
 			this.setVariant(ShamrockVariants.DEFAULT);
 			if (!player.getAbilities().creativeMode){
@@ -294,9 +306,7 @@ public class ShamrockEntity extends PlantEntity implements IAnimatable, RangedAt
 			}
 			return ActionResult.SUCCESS;
 		}
-		else {
-			return ActionResult.CONSUME;
-		}
+		return super.interactMob(player, hand);
 	}
 
 	@Nullable

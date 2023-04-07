@@ -463,9 +463,8 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 				itemStack.decrement(1);
 			}
 			return ActionResult.SUCCESS;
-		} else {
-			return ActionResult.CONSUME;
 		}
+		return super.interactMob(player, hand);
 	}
 
 	@Nullable

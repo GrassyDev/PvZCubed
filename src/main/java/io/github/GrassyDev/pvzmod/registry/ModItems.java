@@ -20,6 +20,7 @@ public class ModItems {
 
 	// REMEMBER TO REGISTER NEW PLANT SEEDS HERE TOO
 	public static void setSeedPacketList(){
+		SEED_PACKET_LIST.add(ModItems.GARDENINGGLOVE);
 		SEED_PACKET_LIST.add(ModItems.SUNFLOWER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.PEASHOOTER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.CHERRYBOMB_SEED_PACKET);
@@ -121,6 +122,7 @@ public class ModItems {
     public static final Item WAVE_FLAG = new Item(new Item.Settings().group(PvZCubed.PVZZOMBIES));
 
     //Plant Spawn
+	public static final Item GARDENINGGLOVE = new GardeningGloves(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(1).rarity(Rarity.RARE));
     public static final Item SUNFLOWER_SEED_PACKET = new SunflowerSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item PEASHOOTER_SEED_PACKET = new PeashooterSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item CHERRYBOMB_SEED_PACKET = new CherryBombSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
@@ -330,6 +332,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_lostcity_tile"), DARK_LOSTCITY_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"skycity_tile"), SKYCITY_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_skycity_tile"), DARK_SKYCITY_TILE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gardeningglove"), GARDENINGGLOVE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sunflower_seed_packet"), SUNFLOWER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peashooter_seed_packet"), PEASHOOTER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cherrybomb_seed_packet"), CHERRYBOMB_SEED_PACKET);
