@@ -100,13 +100,14 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 				if (zombiePropEntity2 == null ||
 				zombiePropEntity2 instanceof ZombieShieldEntity) {
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 2);
-					if (!livingEntity.isWet() && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()) {
-						if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
-							livingEntity.removeStatusEffect(PvZCubed.FROZEN);
-							livingEntity.removeStatusEffect(PvZCubed.ICE);
-							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
-							livingEntity.setOnFireFor(4);
+					if (!(livingEntity instanceof ZombieShieldEntity)) {
+						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
+						livingEntity.removeStatusEffect(PvZCubed.ICE);
+						if (livingEntity.hasStatusEffect(PvZCubed.WARM) || livingEntity.isOnFire()) {
+							livingEntity.removeStatusEffect(PvZCubed.WARM);
+							livingEntity.extinguish();
 						}
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 					}
 				}
 			}

@@ -441,6 +441,12 @@
   "item.pvzmod.shamrock_seed_packet.flavour": "\"Keep absolutely still. Its vision's based on movement.\"",
   "item.pvzmod.rainbowbullet": "Rainbow Bullet",
 
+  "entity.pvzmod.chillypepper": "Chilly Pepper",
+  "item.pvzmod.chillypepper_seed_packet": "❄ Chilly Pepper Seed Packet",
+  "item.pvzmod.chillypepper_seed_packet.flavour": "He looks cold, but maybe he's",
+  "item.pvzmod.chillypepper_seed_packet.flavour2": "hiding an explosive temper.",
+  "item.pvzmod.chillypepper_seed_packet.flavour3": "Or, he could just be really cold.",
+
   "entity.pvzmod.beeshooter": "Beeshooter",
   "item.pvzmod.beeshooter_seed_packet": "\uD83E\uDDEA Beeshooter Seed Packet",
   "item.pvzmod.beeshooter_seed_packet.flavour": "\"BUZZZZ!\"",
@@ -776,6 +782,7 @@
   "item.pvzmod.darkagesgrave_spawn": "Dark Ages Gravestone",
 
   "entity.pvzmod.scorchedtile": "Scorched Tile",
+  "entity.pvzmod.icetile": "Ice Tile",
   "entity.pvzmod.cratertile": "Crater Tile",
   "entity.pvzmod.goldtile": "Gold Tile",
 

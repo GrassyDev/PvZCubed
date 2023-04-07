@@ -325,7 +325,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		if (this.getVariant().equals(ExplorerVariants.TORCHLIGHT)) {
+		if (this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.getFireStage()) {
 			double random = Math.random();
 			if (--createTileTicks <= 0) {
 				if (random <= 0.5 && HasTile(this.getBlockPos()) == null && this.getTarget() != null && this.onGround && !this.isInsideWaterOrBubbleColumn()) {

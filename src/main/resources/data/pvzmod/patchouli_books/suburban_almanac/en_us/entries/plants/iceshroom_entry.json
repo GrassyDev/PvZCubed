@@ -3,7 +3,7 @@
   "icon": "pvzmod:iceshroom_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 14,
-  "advancement": "pvzmod:make_gravebuster",
+  "advancement": "pvzmod:make_chillypepper",
   "pages": [
     {
       "type": "text",

@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 /*
@@ -12,5 +13,9 @@ public class NightGraveRenderer extends GeoEntityRenderer<NightGraveEntity> {
         super(ctx, new NightGraveModel());
         this.shadowRadius = 0.5F; //change 0.7 to the desired shadow size.
     }
+
+	protected int getBlockLight(NightGraveEntity graveEntity, BlockPos blockPos) {
+		return 6;
+	}
 
 }

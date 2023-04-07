@@ -182,6 +182,7 @@ public class PvZConfigModel {
 		public float scaredyshroomS = 5.0f;
 		public float seashroomS = 10.0f;
 		public float shamrockS = 5.0f;
+		public float chillypepperS = 25.0f;
 		public float smackadamiaS = 50.0f;
 		public float smallnutS = 10.0f;
 		public float snowpeaS = 7.5f;

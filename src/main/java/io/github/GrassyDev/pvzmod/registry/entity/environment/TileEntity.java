@@ -94,11 +94,13 @@ public abstract class TileEntity extends PathAwareEntity implements IAnimatable 
 		if (this.isInsideWall()){
 			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
 		}
-		if (!this.onGround && this.age > 5){
-			this.setPosition(this.getX(), this.getY() - 1, this.getZ());
-		}
-		if (!this.isAiDisabled() && this.isAlive()) {
-			setPosition(this.getX(), this.getY(), this.getZ());
+		if (!this.hasNoGravity()) {
+			if (!this.onGround && this.age > 5) {
+				this.setPosition(this.getX(), this.getY() - 1, this.getZ());
+			}
+			if (!this.isAiDisabled() && this.isAlive()) {
+				setPosition(this.getX(), this.getY(), this.getZ());
+			}
 		}
 		super.tick();
 	}

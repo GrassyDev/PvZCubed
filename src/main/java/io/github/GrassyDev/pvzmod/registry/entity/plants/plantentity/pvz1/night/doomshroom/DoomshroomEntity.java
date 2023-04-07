@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -399,6 +400,9 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 			tile.setPersistent();
 			tile.setHeadYaw(0);
 			serverWorld.spawnEntityAndPassengers(tile);
+			if (this.getVehicle() instanceof LilyPadEntity lilyPadEntity && lilyPadEntity.onWater){
+				tile.setNoGravity(true);
+			}
 		}
 	}
 
@@ -452,6 +456,12 @@ public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 				this.currentFuseTime = this.fuseTime;
 				this.createCraterTile(this.getBlockPos());
 				this.raycastExplode();
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
+				for (PlantEntity plantEntity : list) {
+					if (plantEntity != this) {
+						plantEntity.discard();
+					}
+				}
 				this.world.sendEntityStatus(this, (byte) 106);
 				this.playSound(PvZCubed.DOOMSHROOMEXPLOSIONEVENT, 1F, 1F);
 				this.spawnEffectsCloud();

@@ -3,8 +3,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.icetile.IceTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -21,7 +22,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
@@ -266,6 +266,10 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 
 				float damage = 0;
 
+				if (livingEntity instanceof IceTile){
+					livingEntity.discard();
+				}
+
 				if (!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())){
 					damage = 180;
 				}
@@ -353,6 +357,13 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity) {
+			super.applyDamage(source, amount);
+		}
+	}
+
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
@@ -376,7 +387,6 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 
 			int i = this.getFuseSpeed();
 			if (i > 0 && this.currentFuseTime == 0) {
-				this.addStatusEffect((new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999, 999999999)));
 				this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
 				for(int j = 0; j < 4; ++j) {
 					double e = (double)MathHelper.nextBetween(randomGenerator, 0.025F, 0.075F);
@@ -387,7 +397,6 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
-				removeStatusEffect(StatusEffects.RESISTANCE);
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {

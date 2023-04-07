@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVaria
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import java.util.Map;
@@ -31,5 +32,9 @@ public class SunflowerEntityRenderer extends GeoEntityRenderer<SunflowerEntity> 
 		super(ctx, new SunflowerEntityModel());
         this.shadowRadius = 0.4F; //change 0.7 to the desired shadow size.
     }
+
+	protected int getBlockLight(SunflowerEntity plantEntity, BlockPos blockPos) {
+		return 5;
+	}
 
 }

@@ -2,9 +2,11 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack;
 
 import com.google.common.collect.Maps;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.JetpackVariants;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dancingzombie.DancingZombieEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import java.util.Map;
@@ -35,4 +37,7 @@ public class JetpackEntityRenderer extends GeoEntityRenderer<JetpackEntity> {
 		return LOCATION_MODEL_BY_VARIANT.get(object.getVariant());
 	}
 
+	protected int getBlockLight(DancingZombieEntity zombieEntity, BlockPos blockPos) {
+		return 7;
+	}
 }

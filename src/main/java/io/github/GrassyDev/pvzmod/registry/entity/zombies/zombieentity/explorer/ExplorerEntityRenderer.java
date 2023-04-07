@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ExplorerVaria
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import java.util.Map;
@@ -35,4 +36,7 @@ public class ExplorerEntityRenderer extends GeoEntityRenderer<ExplorerEntity> {
 		return LOCATION_MODEL_BY_VARIANT.get(object.getVariant());
 	}
 
+	protected int getBlockLight(ExplorerEntity zombie, BlockPos blockPos) {
+		return zombie.getFireStage()? 15 : 0;
+	}
 }

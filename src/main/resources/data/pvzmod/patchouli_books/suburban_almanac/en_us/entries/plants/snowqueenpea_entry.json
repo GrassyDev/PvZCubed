@@ -2,7 +2,7 @@
   "name": "Snow Queen Pea",
   "icon": "pvzmod:snowqueenpea_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 43,
+  "sortnum": 46,
   "advancement": "pvzmod:make_snowpea",
   "pages": [
     {

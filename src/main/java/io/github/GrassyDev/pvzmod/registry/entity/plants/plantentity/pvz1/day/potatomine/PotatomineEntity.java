@@ -194,7 +194,7 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 		}
 	}
 
-	private Boolean getPotatoStage() {
+	public Boolean getPotatoStage() {
 		return this.dataTracker.get(DATA_ID_TYPE_COUNT);
 	}
 
