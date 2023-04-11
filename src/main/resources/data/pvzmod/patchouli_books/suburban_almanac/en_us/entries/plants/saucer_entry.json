@@ -3,16 +3,16 @@
   "icon": "pvzmod:saucer_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 99,
-  "advancement": "pvzmod:make_gravebuster",
+  "advancement": "pvzmod:make_empeach",
   "pages": [
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)8",
+        "$(#bd951a)Health: $()$(#ff0000)12",
         "$(br)$(#bd951a)Range: $()$(#ff0000)0 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)30s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Flying. Stuns everyone nearby. Instant-kills non-covered small Zombies and non-covered medium height zombies without headgear.",
-        "$(br)$(#bd951a)Everyone thinks Saucer is alien, but they are just really shy, that's why they doesn't blend in."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Flying. Stuns everyone nearby every 1s. Instant-kills non-covered small Zombies and non-covered medium height zombies without headgear.",
+        "$(br2)$(#bd951a)Everyone thinks Saucer is alien, but they are just really shy, that's why they don't blend in."
       ]
     },
     {

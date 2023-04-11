@@ -1,0 +1,16 @@
+{
+  "name": "Diamond Donators",
+  "icon": "minecraft:diamonder",
+  "category": "pvzmod:donate_donators",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)15$/month",
+        "$(br)$(#bd951a)You can choose a Plant and a Zombie for the next update!",
+        "$(br)$(#bd951a)Gives you access to early access builds of the mod before they go public!"
+      ]
+    }
+  ]
+}

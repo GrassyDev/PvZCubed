@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)50, 37 (Metal Helmet)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Flight.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Flight (Electronic).",
         "$(br2)$(#bd951a)Blastronaut's rocket-pack is strictly ornamental; his hovering ability comes from a deep meditative state and from being full of helium."
       ]
     },

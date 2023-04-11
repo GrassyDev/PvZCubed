@@ -284,10 +284,10 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		if (convertTicks == 25 * animationMultiplier && this.getTarget() instanceof PeasantEntity peasantEntity && (peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOAT) || peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO)) && !this.hasStatusEffect(FROZEN)){
 			this.upgradeKnight(peasantEntity);
 		}
-		if (convertTicks <= 0 && this.getTarget() instanceof PeasantEntity peasantEntity && random <= 0.01 && (peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOAT) || peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO)) && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN)) {
+		if (convertTicks <= 0 && this.getTarget() instanceof PeasantEntity peasantEntity && random <= 0.01 && (peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOAT) || peasantEntity.getVariant().equals(BrowncoatVariants.BROWNCOATHYPNO)) && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			this.convertTicks = 45 * animationMultiplier;
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN)){
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
 			this.convertTicks = 0;
 		}
 		if (!this.world.isClient) {
@@ -311,7 +311,7 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		else {
 			this.world.sendEntityStatus(this, (byte) 116);
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN)){
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){

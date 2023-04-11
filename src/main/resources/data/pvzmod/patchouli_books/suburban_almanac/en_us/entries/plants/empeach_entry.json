@@ -1,0 +1,42 @@
+{
+  "name": "E.M.Peach",
+  "icon": "pvzmod:empeach_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 54,
+  "advancement": "pvzmod:make_gravebuster",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Damage: $()$(#ff0000)20",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)12 Blocks",
+        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)3.5 Blocks",
+        "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)0.75s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Stuns Zombies for 5 seconds and Disable Machines and Electronics for 15 seconds.",
+        "$(br)$(#bd951a)E.M.Peach has grown tired of people lazily calling him E.M.Pea. \"There's a C and H there for a reason people! And I've got the stone to prove it!\""
+        ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/empeach.png"
+      ],
+      "title": "⚡ Filament Family",
+      "border": "true",
+      "text": "$(#25228d)E.M.Peaches explode and disable all machines in an area."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/filament/empeach"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)E.M.Peach",
+        "$(br2)$(#bd951a)Plants vs. Zombies: Garden Warfare 2: $()$(#ff0000)E.M.Peach"
+      ]
+    }
+  ]
+}

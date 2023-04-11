@@ -44,6 +44,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.farfuture.EMPeachEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.gemium.flamingpea.FlamingpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.lostcity.goldleaf.GoldLeafEntity;
@@ -397,6 +398,12 @@ public class PvZEntity implements ModInitializer {
 					Registry.ENTITY_TYPE),
 			new Identifier(ModID, "peapod"),
 			QuiltEntityTypeBuilder.<PeapodEntity>create(SpawnGroup.CREATURE, PeapodEntity::new).setDimensions(EntityDimensions.fixed(1f,1.8f)).build()
+	);
+
+	public static final EntityType<EMPeachEntity> EMPEACH = Registry.register((
+					Registry.ENTITY_TYPE),
+			new Identifier(ModID, "empeach"),
+			QuiltEntityTypeBuilder.<EMPeachEntity>create(SpawnGroup.CREATURE, EMPeachEntity::new).setDimensions(EntityDimensions.fixed(1f,0.8f)).build()
 	);
 
 	public static final EntityType<PepperpultEntity> PEPPERPULT = Registry.register((
@@ -1358,6 +1365,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LIGHTNINGREED, LightningReedEntity.createLightningReedAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEAPOD, PeapodEntity.createPeapodAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.EMPEACH, EMPeachEntity.createEMPeachAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEPPERPULT, PepperpultEntity.createPepperPultAttributes().build());
 

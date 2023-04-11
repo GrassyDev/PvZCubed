@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:iceshroom_seed_packet"
+      "item": "pvzmod:saucer_seed_packet"
     },
     "title": "UFP",
     "description": "Craft a Saucer",
@@ -10,7 +10,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "pvzmod:make_gravebuster",
+  "parent": "pvzmod:make_empeach",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:iceshroom_seed_packet"
+              "pvzmod:saucer_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -31,7 +31,6 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/winter/iceshroom"
     ],
     "experience": 25
   }

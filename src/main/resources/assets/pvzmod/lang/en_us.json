@@ -487,14 +487,19 @@
   "item.pvzmod.coconutcannon_seed_packet.flavour2": "bowling nuts ever since 2014.",
   "item.pvzmod.coconut": "Coconut",
 
+  "entity.pvzmod.lightningreed": "Lightning Reed",
+  "item.pvzmod.lightningreed_seed_packet": "⚡ Lightning Reed Seed Packet",
+  "item.pvzmod.lightningreed_seed_packet.flavour": "\"I do it for the shock value.\"",
+
   "entity.pvzmod.peapod": "Pea Pod",
   "item.pvzmod.peapod_seed_packet": "⭘ Pea Pod Seed Packet",
   "item.pvzmod.peapod_seed_packet.flavour": "Sometimes they squabble, but they usually",
   "item.pvzmod.peapod_seed_packet.flavour2": "get along like five peas in a pod.",
 
-  "entity.pvzmod.lightningreed": "Lightning Reed",
-  "item.pvzmod.lightningreed_seed_packet": "⚡ Lightning Reed Packet",
-  "item.pvzmod.lightningreed_seed_packet.flavour": "\"I do it for the shock value.\"",
+  "entity.pvzmod.empeach": "E.M.Peach",
+  "item.pvzmod.empeach_seed_packet": "⚡ E.M.Peach Seed Packet",
+  "item.pvzmod.empeach_seed_packet.flavour": "\"Zombies these days are always glued",
+  "item.pvzmod.empeach_seed_packet.flavour2": "to their robots! I HATE technology!\"",
 
   "entity.pvzmod.pepperpult": "Pepper-pult",
   "item.pvzmod.pepperpult_seed_packet": "\uD83D\uDD25 Pepper-pult Seed Packet",

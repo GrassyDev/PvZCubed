@@ -289,7 +289,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		else {
 			this.world.sendEntityStatus(this, (byte) 112);
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN)){
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){

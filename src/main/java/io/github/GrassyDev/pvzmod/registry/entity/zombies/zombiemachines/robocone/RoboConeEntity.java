@@ -63,6 +63,8 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 	boolean isIced;
 
 	boolean zombieeating;
+	private boolean isDisabled = false;
+	private int disableTicks = 60;
 
 	public RoboConeEntity(EntityType<? extends RoboConeEntity> entityType, World world) {
         super(entityType, world);
@@ -86,6 +88,13 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 		else if (status == 72) {
 			this.isIced = false;
 			this.isFrozen = false;
+		}
+		if (status == 73) {
+			this.isDisabled = true;
+		}
+		else if (status == 74) {
+			this.isDisabled = false;
+			this.disableTicks = 60;
 		}
 		if (status == 117) {
 			this.zombieeating = true;
@@ -121,37 +130,45 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		Entity entity = this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
-			if (this.zombieeating){
-				event.getController().setAnimation(new AnimationBuilder().loop("robocone.ducky.eating"));
+			if (this.isDisabled && this.disableTicks > 0) {
+				event.getController().setAnimation(new AnimationBuilder().playOnce("robocone.ducky.stun"));
+			} else if (this.isDisabled) {
+				event.getController().setAnimation(new AnimationBuilder().loop("robocone.ducky.stunidle"));
 			}
-			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("robocone.ducky"));
-			}
-			if (this.isIced) {
-				event.getController().setAnimationSpeed(0.5);
-			}
-			else {
-				event.getController().setAnimationSpeed(1);
-			}
-		} else {
-			if (this.zombieeating){
-				event.getController().setAnimation(new AnimationBuilder().loop("robocone.eating"));
-			}
-			else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
-				event.getController().setAnimation(new AnimationBuilder().loop("robocone.walk"));
+		}
+		else if (this.isDisabled && this.disableTicks > 0) {
+			event.getController().setAnimation(new AnimationBuilder().playOnce("robocone.stun"));
+		} else if (this.isDisabled) {
+			event.getController().setAnimation(new AnimationBuilder().loop("robocone.stunidle"));
+		}
+		else {
+			if (this.isInsideWaterOrBubbleColumn()) {
+				if (this.zombieeating) {
+					event.getController().setAnimation(new AnimationBuilder().loop("robocone.ducky.eating"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("robocone.ducky"));
+				}
+				if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				} else {
+					event.getController().setAnimationSpeed(1);
+				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().loop("robocone.idle"));
-			}
-			if (this.isFrozen) {
-				event.getController().setAnimationSpeed(0);
-			}
-			else if (this.isIced) {
-				event.getController().setAnimationSpeed(0.5);
-			}
-			else {
-				event.getController().setAnimationSpeed(1);
+				if (this.zombieeating) {
+					event.getController().setAnimation(new AnimationBuilder().loop("robocone.eating"));
+				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
+					event.getController().setAnimation(new AnimationBuilder().loop("robocone.walk"));
+				} else {
+					event.getController().setAnimation(new AnimationBuilder().loop("robocone.idle"));
+				}
+				if (this.isFrozen) {
+					event.getController().setAnimationSpeed(0);
+				} else if (this.isIced) {
+					event.getController().setAnimationSpeed(0.5);
+				} else {
+					event.getController().setAnimationSpeed(1);
+				}
 			}
 		}
 		return PlayState.CONTINUE;
@@ -194,6 +211,9 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 
 	public void tick() {
 		super.tick();
+		if (this.isDisabled){
+			--disableTicks;
+		}
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlant() != null){
 				this.setVelocity(0, -0.3, 0);
@@ -220,6 +240,15 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 		}
 		else {
 			this.world.sendEntityStatus(this, (byte) 72);
+		}
+		if (this.hasStatusEffect(PvZCubed.DISABLE)){
+			this.isDisabled = true;
+			this.world.sendEntityStatus(this, (byte) 73);
+		}
+		else {
+			this.isDisabled = false;
+			this.disableTicks = 60;
+			this.world.sendEntityStatus(this, (byte) 74);
 		}
 	}
 

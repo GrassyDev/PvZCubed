@@ -55,6 +55,7 @@ public class PvZCubed implements ModInitializer {
 	public static final StatusEffect ICE = new Ice();
 	public static final StatusEffect FROZEN = new Frozen();
 	public static final StatusEffect STUN = new Stun();
+	public static final StatusEffect DISABLE = new Disable();
 	public static final StatusEffect WARM = new Warm();
 	public static final StatusEffect WET = new Wet();
 	public static final StatusEffect PVZPOISON = new PvZPoison();
@@ -136,6 +137,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.COCONUTCANNON_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.LIGHTNINGREED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.EMPEACH_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEPPERPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.GOLDLEAF_SEED_PACKET));
@@ -319,6 +321,8 @@ public class PvZCubed implements ModInitializer {
 	public static SoundEvent DOOMSHROOMEXPLOSIONEVENT = new SoundEvent(DOOMSHROOMEXPLOSION);
 	public static final Identifier ICEBERGEXPLOSION = new Identifier("pvzmod:iceberg.explosion");
 	public static SoundEvent ICEBERGEXPLOSIONEVENT = new SoundEvent(ICEBERGEXPLOSION);
+	public static final Identifier EMPEACHEXPLOSION = new Identifier("pvzmod:empeach.explosion");
+	public static SoundEvent EMPEACHEXPLOSIONEVENT = new SoundEvent(EMPEACHEXPLOSION);
 
 	public static final Identifier SQUASHHUM = new Identifier("pvzmod:squash.hm");
 	public static SoundEvent SQUASHHUMEVENT = new SoundEvent(SQUASHHUM);
@@ -406,6 +410,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "ice"), ICE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "frozen"), FROZEN);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "stun"), STUN);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "disable"), DISABLE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "warm"), WARM);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "wet"), WET);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "pvzpoison"), PVZPOISON);
@@ -429,6 +434,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.POTATOMINEEXPLOSION, POTATOMINEEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.DOOMSHROOMEXPLOSION, DOOMSHROOMEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.ICEBERGEXPLOSION, ICEBERGEXPLOSIONEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZCubed.EMPEACHEXPLOSION, EMPEACHEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.SQUASHHUM, SQUASHHUMEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.CHOMPERBITE, CHOMPERBITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZCubed.GRAVEBUSTEREATING, GRAVEBUSTEREATINGEVENT);

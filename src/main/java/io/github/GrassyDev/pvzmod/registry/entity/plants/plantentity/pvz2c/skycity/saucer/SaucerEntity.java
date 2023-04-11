@@ -236,7 +236,9 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 		if (--tickDamage <= 0){
 			this.zombieList.clear();
 			this.damageEntity();
-			tickDamage = 20;
+			if (this.attacking){
+				tickDamage = 20;
+			}
 		}
 		BlockPos blockPos = this.getBlockPos();
 		if (--amphibiousRaycastDelay >= 0) {

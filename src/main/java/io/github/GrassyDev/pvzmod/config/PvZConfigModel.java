@@ -174,6 +174,7 @@ public class PvZConfigModel {
 		public float narcissusS = 7.5f;
 		public float navybeanS = 5.0f;
 		public float peapodS = 3.75f;
+		public float empeachS = 25.0f;
 		public float peashooterS = 5.0f;
 		public float pepperpultS = 20.0f;
 		public float perfoomshroomS = 25.0f;

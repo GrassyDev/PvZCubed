@@ -109,6 +109,11 @@
       "pvzmod:iceberg_explosion"
     ]
   },
+  "empeach.explosion": {
+    "sounds": [
+      "pvzmod:empeach_explosion"
+    ]
+  },
   "squash.hm": {
     "sounds": [
       "pvzmod:squash_hm"

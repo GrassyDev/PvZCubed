@@ -363,7 +363,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	//Smash
 	public boolean tryAttack(Entity target) {
 		if (!this.getPassengerList().contains(target)) {
-			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.inLaunchAnimation) {
+			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.inLaunchAnimation) {
 				boolean bl = false;
 				if (this.firstAttack && this.animationTicksLeft <= 0 && this.squaredDistanceTo(target) < 16D) {
 					this.animationTicksLeft = 90 * animationMultiplier;
@@ -417,7 +417,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	//Launch Imp
 	public void tryLaunch(Entity target){
 		this.setImp();
-		if (this.getImpStage().equals(Boolean.TRUE) && launchAnimation == 20 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN)){
+		if (this.getImpStage().equals(Boolean.TRUE) && launchAnimation == 20 * animationMultiplier && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)){
 			if (target != null){
 				double d = this.squaredDistanceTo(target);
 				float df = (float) d;
@@ -460,7 +460,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	public void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN)){
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
 		else if (this.hasStatusEffect(PvZCubed.ICE)){
@@ -501,10 +501,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			}
 		}
 		if (this.animationTicksLeft == 40 * animationMultiplier && !inLaunchAnimation) {
-			if (!this.isInsideWaterOrBubbleColumn() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN)) {
+			if (!this.isInsideWaterOrBubbleColumn() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 				this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
 			}
-			else if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN)) {
+			else if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 				world.sendEntityStatus(this, (byte) 107);
 				this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
 			}

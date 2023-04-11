@@ -246,6 +246,9 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	private Vec3d firstPos;
 
 	public void tick() {
+		if (this.hasStatusEffect(PvZCubed.DISABLE)){
+			this.kill();
+		}
 		super.tick();
 		LivingEntity target = this.getTarget();
 		if (target != null){
@@ -265,7 +268,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 				this.addVelocity(0, 0.3, 0);
 			}
 			if (firstPos != null) {
-				if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant() == null && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30) {
+				if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant() == null && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30) {
 					this.setVelocity(0, 0, 0);
 					this.addVelocity(0, 0.3, 0);
 				}
