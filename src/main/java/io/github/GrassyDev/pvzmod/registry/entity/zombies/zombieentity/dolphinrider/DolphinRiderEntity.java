@@ -313,23 +313,23 @@ public class DolphinRiderEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno()) && this.isAlive()){
-			if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof TangleKelpEntity) && this.getDolphinStage() && this.isInsideWaterOrBubbleColumn() && !removeDolphin){
+			if (this.CollidesWithPlant(1f) != null && !(this.CollidesWithPlant(1f) instanceof TangleKelpEntity) && this.getDolphinStage() && this.isInsideWaterOrBubbleColumn() && !removeDolphin){
 				Vec3d vec3d = new Vec3d(0.5, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 				this.removeDolphin = true;
 				this.waitDolphinTick = 5;
 				this.playSound(DOLPHINJUMPEVENT, 0.75f, 1);
 			}
-			else if (this.CollidesWithPlant() != null && (PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("flying")) && !this.onGround && !this.isInsideWaterOrBubbleColumn()){
+			else if (this.CollidesWithPlant(1f) != null && (PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("flying")) && !this.onGround && !this.isInsideWaterOrBubbleColumn()){
 				Vec3d vec3d = new Vec3d(-0.175, -0.3, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 			}
-			else if (this.CollidesWithPlant() != null && ((this.isInsideWaterOrBubbleColumn() && !this.getDolphinStage()) || this.onGround)){
+			else if (this.CollidesWithPlant(1f) != null && ((this.isInsideWaterOrBubbleColumn() && !this.getDolphinStage()) || this.onGround)){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant());
+				this.setTarget(CollidesWithPlant(1f));
 			}
-			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
+			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
+				this.setTarget(CollidesWithPlayer(1.5f));
 			}
 		}
 		if (--waitDolphinTick <= 0 && removeDolphin && (this.isInsideWaterOrBubbleColumn() || this.onGround)){

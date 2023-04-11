@@ -186,10 +186,8 @@ public class ZapricotEntity extends PlantEntity implements IAnimatable, RangedAt
 			this.isFiring = false;
 		}
 		if (status == 121) {
-			System.out.println("test");
 			if (this.getSparkTarget() != null) {
 				LivingEntity livingEntity = this.getSparkTarget();
-				System.out.println("test2");
 				for (int i = 0; i < 64; ++i) {
 					double d = this.random.nextDouble() / 2 * this.random.range(-1, 1);
 					double e = this.random.nextDouble() / 2 * this.random.range(0, 1);

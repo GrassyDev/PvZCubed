@@ -40,7 +40,6 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
         super(entityType, world);
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 3;
-		this.colliderOffset = 0;
 	}
 
 	public MetalObstacleEntity(World world) {
@@ -66,33 +65,33 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 		if (this.hasVehicle() && this.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHealth() <= 0 || generalPvZombieEntity.isDead())){
 			this.dismountVehicle();
 		}
-		if (this.CollidesWithPlant() != null){
-			if (this.CollidesWithPlant() instanceof SpikerockEntity) {
+		if (this.CollidesWithPlant(0f) != null){
+			if (this.CollidesWithPlant(0f) instanceof SpikerockEntity) {
 				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()) {
-					this.CollidesWithPlant().damage(DamageSource.thrownProjectile(this, this), 90);
+					this.CollidesWithPlant(0f).damage(DamageSource.thrownProjectile(this, this), 90);
 					this.kill();
 				}
 				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
-					this.CollidesWithPlant().damage(DamageSource.thrownProjectile(this, this), 90);
+					this.CollidesWithPlant(0f).damage(DamageSource.thrownProjectile(this, this), 90);
 					this.kill();
 				}
 			}
-			else if (this.CollidesWithPlant() instanceof SpikeweedEntity) {
+			else if (this.CollidesWithPlant(0f) instanceof SpikeweedEntity) {
 				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()) {
-					this.CollidesWithPlant().kill();
+					this.CollidesWithPlant(0f).kill();
 					this.kill();
 				}
 				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
-					this.CollidesWithPlant().kill();
+					this.CollidesWithPlant(0f).kill();
 					this.kill();
 				}
 			}
-			else if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof GravebusterEntity)) {
+			else if (this.CollidesWithPlant(0f) != null && !(this.CollidesWithPlant(0f) instanceof GravebusterEntity)) {
 				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()){
-					this.CollidesWithPlant().kill();
+					this.CollidesWithPlant(0f).kill();
 				}
 				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
-					this.CollidesWithPlant().kill();
+					this.CollidesWithPlant(0f).kill();
 				}
 			}
 		}

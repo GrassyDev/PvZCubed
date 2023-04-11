@@ -112,7 +112,6 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		System.out.println(this.getVariant());
 		if (this.getVehicle() == null){
 			this.kill();
 		}

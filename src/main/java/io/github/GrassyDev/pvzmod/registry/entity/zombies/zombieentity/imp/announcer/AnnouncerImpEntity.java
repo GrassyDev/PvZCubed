@@ -267,12 +267,12 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 			this.setVelocity(0, -0.3, 0);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant() != null){
+			if (this.CollidesWithPlant(1f) != null){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant());
+				this.setTarget(CollidesWithPlant(1f));
 			}
-			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
+			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
+				this.setTarget(CollidesWithPlayer(1.5f));
 			}
 		}
 	}

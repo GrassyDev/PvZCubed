@@ -287,8 +287,8 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 		if (this.isInsideWaterOrBubbleColumn() && zombieObstacleEntity.isPresent()){
 			zombieObstacleEntity.get().stopRiding();
 		}
-		if (zombieObstacleEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.BASKETBALLBIN) && !this.CollidesWithObstacle().hasVehicle() && !this.CollidesWithObstacle().beingEaten && !this.isInsideWaterOrBubbleColumn()){
-			this.CollidesWithObstacle().startRiding(this, true);
+		if (zombieObstacleEntity.isEmpty() && this.CollidesWithObstacle(1f) != null && this.CollidesWithObstacle(1f).getType().equals(PvZEntity.BASKETBALLBIN) && !this.CollidesWithObstacle(1f).hasVehicle() && !this.CollidesWithObstacle(1f).beingEaten && !this.isInsideWaterOrBubbleColumn()){
+			this.CollidesWithObstacle(1f).startRiding(this, true);
 		}
 		if (random <= 0.0075 && zombieObstacleEntity.isPresent() && getTarget() != null && this.squaredDistanceTo(this.getTarget()) <= 225 && !this.inLaunchAnimation) {
 			this.launchAnimation = 80 * animationMultiplier;

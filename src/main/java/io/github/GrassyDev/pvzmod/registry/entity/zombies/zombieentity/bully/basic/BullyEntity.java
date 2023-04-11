@@ -287,12 +287,12 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant() != null && !(this.CollidesWithPlant() instanceof GravebusterEntity)){
+			if (this.CollidesWithPlant(1f) != null && !(this.CollidesWithPlant(1f) instanceof GravebusterEntity)){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant());
+				this.setTarget(CollidesWithPlant(1f));
 			}
-			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
+			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
+				this.setTarget(CollidesWithPlayer(1.5f));
 			}
 		}
 	}
@@ -307,6 +307,7 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 			this.world.sendEntityStatus(this, (byte) 71);
 		}
 		else {
+			this.animationMultiplier = 1;
 			this.world.sendEntityStatus(this, (byte) 72);
 		}
 

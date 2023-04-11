@@ -57,8 +57,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
-	public float colliderOffset = 0.4F;
-
 	public boolean armless;
 	public boolean geardmg;
 	public boolean gearless;
@@ -313,7 +311,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 	}
 
-	public PlantEntity CollidesWithPlant(){
+	public PlantEntity CollidesWithPlant(Float colliderOffset){
 		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
 		PlantEntity setPlant = null;
@@ -353,7 +351,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		return setTile;
 	}
 
-	public PlayerEntity CollidesWithPlayer(){
+	public PlayerEntity CollidesWithPlayer(Float colliderOffset){
 		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
 		if (!list.isEmpty()){
@@ -364,7 +362,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 	}
 
-	public ZombieObstacleEntity CollidesWithObstacle(){
+	public ZombieObstacleEntity CollidesWithObstacle(Float colliderOffset){
 		Vec3d vec3d = new Vec3d((double)colliderOffset + 0.66, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		List<ZombieObstacleEntity> list = world.getNonSpectatingEntities(ZombieObstacleEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
 		ZombieObstacleEntity obstacleEntity = null;

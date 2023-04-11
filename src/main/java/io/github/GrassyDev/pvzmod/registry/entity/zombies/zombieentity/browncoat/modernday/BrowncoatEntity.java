@@ -440,12 +440,12 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant() != null){
+			if (this.CollidesWithPlant(1f) != null){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant());
+				this.setTarget(CollidesWithPlant(1f));
 			}
-			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
+			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
+				this.setTarget(CollidesWithPlayer(1.5f));
 			}
 		}
 	}
@@ -484,12 +484,12 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 		if (this.isInsideWaterOrBubbleColumn() && zombieObstacleEntity.isPresent()){
 			zombieObstacleEntity.get().stopRiding();
 		}
-		if (zombieObstacleEntity.isEmpty() && zombieShieldEntity.isEmpty() && this.CollidesWithObstacle() != null && this.CollidesWithObstacle().getType().equals(PvZEntity.TRASHCANBIN) && !this.CollidesWithObstacle().hasVehicle() && !this.CollidesWithObstacle().beingEaten && !this.isInsideWaterOrBubbleColumn()
+		if (zombieObstacleEntity.isEmpty() && zombieShieldEntity.isEmpty() && this.CollidesWithObstacle(1f) != null && this.CollidesWithObstacle(1f).getType().equals(PvZEntity.TRASHCANBIN) && !this.CollidesWithObstacle(1f).hasVehicle() && !this.CollidesWithObstacle(1f).beingEaten && !this.isInsideWaterOrBubbleColumn()
 		&& (this.getVariant().equals(BrowncoatVariants.TRASHCAN) ||
 				this.getVariant().equals(BrowncoatVariants.TRASHCANHYPNO) ||
 				this.getType().equals(PvZEntity.BROWNCOAT) ||
 				this.getType().equals(PvZEntity.BROWNCOATHYPNO))){
-			this.CollidesWithObstacle().startRiding(this, true);
+			this.CollidesWithObstacle(1f).startRiding(this, true);
 		}
 
 		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);

@@ -86,7 +86,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
         this.ignoreCameraFrustum = true;
         this.experiencePoints = 100;
         this.firstAttack = true;
-		this.colliderOffset = 2F;
 		this.entityBox = PvZEntity.GARGANTUAR;
 		this.impEntity = new ImpEntity(PvZEntity.IMP, this.world);
 		this.healthImp = 180;
@@ -448,12 +447,12 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant() != null){
+			if (this.CollidesWithPlant(2f) != null){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant());
+				this.setTarget(CollidesWithPlant(2f));
 			}
-			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
+			else if (this.CollidesWithPlayer(2f) != null && !this.CollidesWithPlayer(2f).isCreative()){
+				this.setTarget(CollidesWithPlayer(2f));
 			}
 		}
 	}

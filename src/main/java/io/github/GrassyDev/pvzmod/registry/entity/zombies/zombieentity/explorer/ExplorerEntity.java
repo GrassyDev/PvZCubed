@@ -341,40 +341,40 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 			this.setFireStage(FireStage.FIRE);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant() != null) {
-				if (!this.CollidesWithPlant().onWater && !this.CollidesWithPlant().getFireImmune() && this.getFireStage()) {
-					BlockPos blockPos = this.CollidesWithPlant().getBlockPos();
-					boolean bl = this.CollidesWithPlant().hasVehicle();
+			if (this.CollidesWithPlant(1f) != null) {
+				if (!this.CollidesWithPlant(1f).onWater && !this.CollidesWithPlant(1f).getFireImmune() && this.getFireStage()) {
+					BlockPos blockPos = this.CollidesWithPlant(1f).getBlockPos();
+					boolean bl = this.CollidesWithPlant(1f).hasVehicle();
 					boolean bl2 = false;
-					boolean bl3 = this.CollidesWithPlant().onWater;
+					boolean bl3 = this.CollidesWithPlant(1f).onWater;
 					LivingEntity vehicle = null;
 					if (bl){
-						vehicle = (LivingEntity) this.CollidesWithPlant().getVehicle();
+						vehicle = (LivingEntity) this.CollidesWithPlant(1f).getVehicle();
 						if (vehicle instanceof PlantEntity plantEntity){
 							if (plantEntity.onWater){
 								bl2 = true;
 							}
 						}
 					}
-					this.CollidesWithPlant().damage(DamageSource.GENERIC, this.CollidesWithPlant().getMaxHealth() * 5);
+					this.CollidesWithPlant(1f).damage(DamageSource.GENERIC, this.CollidesWithPlant(1f).getMaxHealth() * 5);
 					if (vehicle != null) {
 						vehicle.damage(DamageSource.GENERIC, vehicle.getMaxHealth() * 5);
 					}
-					if (this.CollidesWithPlant() == null) {
+					if (this.CollidesWithPlant(1f) == null) {
 						this.world.sendEntityStatus(this, (byte) 115);
 					}
-					if (!bl2 && !bl3 && this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.CollidesWithPlant() == null) {
+					if (!bl2 && !bl3 && this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.CollidesWithPlant(1f) == null) {
 						if (this.world instanceof ServerWorld) {
 							createScorchedTile(blockPos);
 						}
 					}
 				} else {
 					this.setVelocity(0, -0.3, 0);
-					this.setTarget(CollidesWithPlant());
+					this.setTarget(CollidesWithPlant(1f));
 				}
 			}
-			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
+			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
+				this.setTarget(CollidesWithPlayer(1.5f));
 			}
 		}
 	}

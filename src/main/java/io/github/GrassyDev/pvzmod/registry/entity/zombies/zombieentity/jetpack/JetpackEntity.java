@@ -271,7 +271,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 				this.addVelocity(0, 0.3, 0);
 			}
 			if (firstPos != null) {
-				if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant() == null && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30) {
+				if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30) {
 					this.setVelocity(0, 0, 0);
 					this.addVelocity(0, 0.3, 0);
 				}
@@ -296,13 +296,13 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			this.setNoGravity(false);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant() != null && (PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("maintarget") ||
-					PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant().getType()).orElse("normal").equals("flying"))){
-				this.setTarget(CollidesWithPlant());
+			if (this.CollidesWithPlant(1f) != null && (PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("maintarget") ||
+					PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("flying"))){
+				this.setTarget(CollidesWithPlant(1f));
 				this.setVelocity(0, 0, 0);
 			}
-			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
+			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
+				this.setTarget(CollidesWithPlayer(1.5f));
 			}
 		}
 	}

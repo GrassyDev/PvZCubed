@@ -41,6 +41,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -67,7 +68,9 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 	boolean isFrozen;
 	boolean isIced;
 	public boolean speedSwitch;
-	protected int summonTicks;
+	protected int summonTicks = 60;
+	protected int animationTicks;
+	protected int animationMultiplier = 1;
 	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
 	public PharaohEntity(EntityType<? extends PharaohEntity> entityType, World world) {
@@ -199,6 +202,37 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	public void createPharaoh(){
+		Vec3d vec3d2 = new Vec3d((double) 0.5, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+		Vec3d vec3d3 = new Vec3d((double) -0.5, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+		if (world instanceof ServerWorld serverWorld) {
+			PharaohEntity pharaohEntity = new PharaohEntity(PvZEntity.PHARAOH, this.world);
+			BlockPos blockPos = new BlockPos(this.getBlockPos().getX() + vec3d2.getX(), this.getBlockPos().getY() + vec3d2.getY(), this.getBlockPos().getZ() + vec3d2.getZ());
+			Vec3d blockPos2 = new Vec3d(Vec3d.ofCenter(blockPos).getX() + vec3d3.getX(), Vec3d.ofCenter(blockPos).getY(), Vec3d.ofCenter(blockPos).getZ() + vec3d3.getZ());
+			pharaohEntity.refreshPositionAndAngles(blockPos2.getX(), this.getY(), blockPos2.getZ(), this.bodyYaw, 0.0F);
+			pharaohEntity.setPosition(blockPos2.getX(), this.getY(), blockPos2.getZ());
+			pharaohEntity.setHeadYaw(this.getHeadYaw());
+			pharaohEntity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			serverWorld.spawnEntityAndPassengers(pharaohEntity);
+		}
+	}
+
+	public void createHypnoPharaoh(){
+		Vec3d vec3d2 = new Vec3d((double) 1, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+		Vec3d vec3d3 = new Vec3d((double) -0.5, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+		if (world instanceof ServerWorld serverWorld) {
+			PharaohEntity pharaohEntity = new PharaohEntity(PvZEntity.PHARAOHHYPNO, this.world);
+			BlockPos blockPos = new BlockPos(this.getBlockPos().getX() + vec3d2.getX(), this.getBlockPos().getY() + vec3d2.getY(), this.getBlockPos().getZ() + vec3d2.getZ());
+			Vec3d blockPos2 = new Vec3d(Vec3d.ofCenter(blockPos).getX() + vec3d3.getX(), Vec3d.ofCenter(blockPos).getY(), Vec3d.ofCenter(blockPos).getZ() + vec3d3.getZ());
+			pharaohEntity.refreshPositionAndAngles(blockPos2.getX(), this.getY(), blockPos2.getZ(), this.bodyYaw, 0.0F);
+			pharaohEntity.setPosition(blockPos2.getX(), this.getY(), blockPos2.getZ());
+			pharaohEntity.setHeadYaw(this.getHeadYaw());
+			pharaohEntity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			serverWorld.spawnEntityAndPassengers(pharaohEntity);
+		}
+	}
+
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -217,14 +251,23 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		Entity entity = this.getFirstPassenger();
 		if (this.getSummoning()){
-			if (this.summonTicks > 0){
-				event.getController().setAnimation(new AnimationBuilder().loop("pharaoh.summon"));
+			if (this.animationTicks > 0){
+				event.getController().setAnimation(new AnimationBuilder().playOnce("pharaoh.summon"));
 			}
 			else {
 				event.getController().setAnimation(new AnimationBuilder().loop("pharaoh.summon.idle"));
 			}
+			if (this.isFrozen) {
+				event.getController().setAnimationSpeed(0);
+			}
+			else if (this.isIced) {
+				event.getController().setAnimationSpeed(0.25);
+			}
+			else {
+				event.getController().setAnimationSpeed(0.5);
+			}
 		}
-		if (this.isInsideWaterOrBubbleColumn()) {
+		else if (this.isInsideWaterOrBubbleColumn()) {
 			if (this.hasPassenger(entity)){
 				event.getController().setAnimation(new AnimationBuilder().loop("pharaoh.ducky2"));
 			}
@@ -339,19 +382,70 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		}));
 	}
 
+	@Override
+	public boolean tryAttack(Entity target) {
+		if (!this.getSummoning() && this.age > 1) {
+			return super.tryAttack(target);
+		}
+		else {
+			return false;
+		}
+	}
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
-		super.tick();
-		System.out.println(this.isCovered());
-		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant() != null){
-				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant());
+		ZombiePropEntity sarcophagusEntity = null;
+		for (Entity sarcophagus : this.getPassengerList()) {
+			if (sarcophagus.getType().equals(PvZEntity.SARCOPHAGUS)) {
+				sarcophagusEntity = (ZombiePropEntity) sarcophagus;
 			}
-			else if (this.CollidesWithPlayer() != null && !this.CollidesWithPlayer().isCreative()){
-				this.setTarget(CollidesWithPlayer());
+		}
+		if (!this.world.isClient()) {
+			if ((this.getVariant().equals(PharaohVariants.UNDYING) || this.getVariant().equals(PharaohVariants.UNDYINGHYPNO)) && sarcophagusEntity != null) {
+				if (this.CollidesWithPlant(3.5f) != null || this.CollidesWithPlant(2.5f) != null || this.CollidesWithPlant(1.5f) != null || this.CollidesWithPlant(0.5f) != null) {
+					this.setSummoning(IsSummoning.TRUE);
+				} else {
+					this.setSummoning(IsSummoning.FALSE);
+					this.summonTicks = 60 * animationMultiplier;
+					this.animationTicks = 0;
+				}
+			} else {
+				this.setSummoning(IsSummoning.FALSE);
+				this.summonTicks = 60 * animationMultiplier;
+				this.animationTicks = 0;
+			}
+		}
+		if (this.getSummoning()) {
+			if (--summonTicks <= 0) {
+				if (this.getHypno()) {
+					createHypnoPharaoh();
+				} else {
+					createPharaoh();
+				}
+				summonTicks = 160 * animationMultiplier;
+			}
+			if (this.world.isClient) {
+				if (summonTicks == 18 * animationMultiplier){
+					this.animationTicks = 60 * animationMultiplier;
+				}
+				if (animationTicks > 0) {
+					--this.animationTicks;
+				}
+			}
+			assert sarcophagusEntity != null;
+			this.setVelocity(Vec3d.ZERO);
+			this.setMovementSpeed(0);
+			this.getNavigation().stop();
+		}
+		super.tick();
+		if (this.getAttacking() == null && !(this.getHypno())){
+			if (this.CollidesWithPlant(1f) != null){
+				this.setVelocity(0, -0.3, 0);
+				this.setTarget(CollidesWithPlant(1f));
+			}
+			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
+				this.setTarget(CollidesWithPlayer(1.5f));
 			}
 		}
 	}
@@ -362,8 +456,10 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 			this.world.sendEntityStatus(this, (byte) 70);
 		} else if (this.hasStatusEffect(PvZCubed.ICE)) {
 			this.world.sendEntityStatus(this, (byte) 71);
+			this.animationMultiplier = 2;
 		} else {
 			this.world.sendEntityStatus(this, (byte) 72);
+			this.animationMultiplier = 1;
 		}
 
 		ZombiePropEntity sarcophagusEntity = null;
@@ -479,47 +575,11 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 
 	protected EntityType<?> hypnoType;
 	protected void checkHypno(){
-		if (this.getType().equals(PvZEntity.CONEHEAD)){
-			hypnoType = PvZEntity.CONEHEADHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.BUCKETHEAD)){
-			hypnoType = PvZEntity.BUCKETHEADHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.BRICKHEAD)){
-			hypnoType = PvZEntity.BRICKHEADHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.SCREENDOOR)){
-			hypnoType = PvZEntity.SCREENDOORHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.TRASHCAN)){
-			hypnoType = PvZEntity.TRASHCANHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.MUMMY)){
-			hypnoType = PvZEntity.MUMMYHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.MUMMYCONE)){
-			hypnoType = PvZEntity.MUMMYCONEHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.MUMMYBUCKET)){
-			hypnoType = PvZEntity.MUMMYBUCKETHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.PYRAMIDHEAD)){
-			hypnoType = PvZEntity.PYRAMIDHEADHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.PEASANT)){
-			hypnoType = PvZEntity.PEASANTHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.PEASANTCONE)){
-			hypnoType = PvZEntity.PEASANTCONEHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.PEASANTBUCKET)){
-			hypnoType = PvZEntity.PEASANTBUCKETHYPNO;
-		}
-		else if (this.getType().equals(PvZEntity.PEASANTKNIGHT)){
-			hypnoType = PvZEntity.PEASANTKNIGHTHYPNO;
+		if (this.getType().equals(PvZEntity.PHARAOH)){
+			hypnoType = PvZEntity.PHARAOHHYPNO;
 		}
 		else {
-			hypnoType = PvZEntity.BROWNCOATHYPNO;
+			hypnoType = PvZEntity.UNDYINGPHARAOH;
 		}
 	}
 

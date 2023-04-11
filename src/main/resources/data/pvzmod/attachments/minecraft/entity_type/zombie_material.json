@@ -16,6 +16,8 @@
     "pvzmod:mummybucket": "paper",
     "pvzmod:flagmummy": "paper",
     "pvzmod:pyramidhead": "paper",
+    "pvzmod:pharaoh": "paper",
+    "pvzmod:undyingpharaoh": "paper",
     "pvzmod:newspapershield": "paper",
     "pvzmod:robocone": "plastic",
     "pvzmod:sundayeditionshield": "paper",
@@ -26,6 +28,7 @@
     "pvzmod:basicgrave": "stone",
     "pvzmod:nightgrave": "stone",
     "pvzmod:poolgrave": "stone",
+    "pvzmod:sarcophagus": "stone",
     "pvzmod:roofgrave": "stone",
     "pvzmod:futuregrave": "stone",
     "pvzmod:darkagesgrave": "stone"
