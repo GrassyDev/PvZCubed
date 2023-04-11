@@ -6,7 +6,8 @@ import java.util.Comparator;
 public enum StoneHelmetVariants {
 	BRICK(0),
 	TOWER(1),
-	PYRAMID(2);
+	PYRAMID(2),
+	SARCOPHAGUS(3);
 
 	private static final StoneHelmetVariants[] BY_ID = Arrays.stream(values()).sorted(Comparator.
 			comparingInt(StoneHelmetVariants::getId)).toArray(StoneHelmetVariants[]::new);

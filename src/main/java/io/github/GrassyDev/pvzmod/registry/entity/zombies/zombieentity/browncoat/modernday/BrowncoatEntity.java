@@ -230,52 +230,78 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	public void createConeheadProp(){
-		PlasticHelmetEntity propentity = new PlasticHelmetEntity(PvZEntity.CONEHEADGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+		if (world instanceof ServerWorld serverWorld) {
+			PlasticHelmetEntity propentity = new PlasticHelmetEntity(PvZEntity.CONEHEADGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+		}
 	}
 
 	public void createBucketProp(){
-		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BUCKETGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+		if (world instanceof ServerWorld serverWorld) {
+			MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BUCKETGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+		}
 	}
 
-	public ZombiePropEntity createKnightProp(){
-		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.KNIGHTGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
-		return propentity;
+	public ZombiePropEntity createKnightProp() {
+		if (world instanceof ServerWorld serverWorld) {
+			MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.KNIGHTGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+			return propentity;
+		} else {
+			return null;
+		}
 	}
 
-	public void createBrickProp(){
-		StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.BRICKGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+	public void createBrickProp() {
+		if (world instanceof ServerWorld serverWorld) {
+			StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.BRICKGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+		}
 	}
 
-	public void createPyramidProp(){
-		StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.PYRAMIDGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+	public void createPyramidProp() {
+		if (world instanceof ServerWorld serverWorld) {
+			StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.PYRAMIDGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+		}
 	}
 
-	public void createTowerProp(){
-		StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.TOWERGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+	public void createTowerProp() {
+		if (world instanceof ServerWorld serverWorld) {
+			StoneHelmetEntity propentity = new StoneHelmetEntity(PvZEntity.TOWERGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+		}
 	}
 
-	public void createShield(){
-		MetalShieldEntity metalShieldEntity = new MetalShieldEntity(PvZEntity.SCREENDOORSHIELD, this.world);
-		metalShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		metalShieldEntity.startRiding(this);
+	public void createShield() {
+		if (world instanceof ServerWorld serverWorld) {
+			MetalShieldEntity metalShieldEntity = new MetalShieldEntity(PvZEntity.SCREENDOORSHIELD, this.world);
+			metalShieldEntity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			metalShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			metalShieldEntity.startRiding(this);
+		}
 	}
 
-	public void createObstacle(){
-		MetalObstacleEntity metalObstacleEntity = new MetalObstacleEntity(PvZEntity.TRASHCANBIN, this.world);
-		metalObstacleEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		metalObstacleEntity.startRiding(this);
+	public void createObstacle() {
+		if (world instanceof ServerWorld serverWorld) {
+			MetalObstacleEntity metalObstacleEntity = new MetalObstacleEntity(PvZEntity.TRASHCANBIN, this.world);
+			metalObstacleEntity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			metalObstacleEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			metalObstacleEntity.startRiding(this);
+		}
 	}
 
 

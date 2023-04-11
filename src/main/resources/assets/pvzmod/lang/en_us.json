@@ -688,6 +688,14 @@
   "entity.pvzmod.pyramidgear": "Pyramid",
   "entity.pvzmod.pyramidhead_hypnotized": "Hypnotized Pyramidhead Zombie",
 
+  "entity.pvzmod.undyingpharaoh": "Undying Pharaoh",
+  "item.pvzmod.undying_egg": "Undying Pharaoh",
+  "entity.pvzmod.pharaoh": "Pharaoh Zombie",
+  "item.pvzmod.pharaoh_egg": "Pharaoh Zombie",
+  "entity.pvzmod.sarcophagus": "Sarcophagus",
+  "entity.pvzmod.pundyingpharaoh_hypnotized": "Undying Pharaoh",
+  "entity.pvzmod.pharaoh_hypnotized": "Pharaoh Zombie",
+
   "entity.pvzmod.jetpack": "Jetpack Zombie",
   "item.pvzmod.jetpack_egg": "Jetpack Zombie",
   "entity.pvzmod.jetpack_hypnotized": "Hypnotized Jetpack Zombie",

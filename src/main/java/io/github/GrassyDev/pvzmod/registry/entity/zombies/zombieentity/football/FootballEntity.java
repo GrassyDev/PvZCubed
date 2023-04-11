@@ -208,15 +208,21 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	public void createFootballProp(){
-		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.FOOTBALLGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+		if (world instanceof ServerWorld serverWorld) {
+			MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.FOOTBALLGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+		}
 	}
 
 	public void createBerserkerProp(){
-		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BERSERKERGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+		if (world instanceof ServerWorld serverWorld) {
+			MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BERSERKERGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+		}
 	}
 
 

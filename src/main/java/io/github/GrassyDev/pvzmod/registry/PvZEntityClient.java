@@ -113,6 +113,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.moder
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pharaoh.PharaohEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntityRenderer;
@@ -338,6 +339,7 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.TOWERGEAR, StoneHelmetEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.BRICKGEAR, StoneHelmetEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.PYRAMIDGEAR, StoneHelmetEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.SARCOPHAGUS, StoneHelmetEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPER, NewspaperEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.NEWSPAPERHYPNO, NewspaperEntityRenderer::new);
@@ -390,6 +392,11 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.MUMMYBUCKETHYPNO, MummyEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.PYRAMIDHEAD, MummyEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.PYRAMIDHEADHYPNO, MummyEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.UNDYINGPHARAOH, PharaohEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.UNDYINGPHARAOHHYPNO, PharaohEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.PHARAOH, PharaohEntityRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.PHARAOHHYPNO, PharaohEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.EXPLORER, ExplorerEntityRenderer::new);
 		EntityRendererRegistry.register(PvZEntity.EXPLORERHYPNO, ExplorerEntityRenderer::new);

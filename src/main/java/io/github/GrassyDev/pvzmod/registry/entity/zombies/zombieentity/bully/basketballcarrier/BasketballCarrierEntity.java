@@ -6,9 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.zombies.ShootingBasketballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BullyVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basic.BullyEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.plastichelmet.PlasticHelmetEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -125,23 +122,6 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
-	public void createConeheadProp(){
-		PlasticHelmetEntity propentity = new PlasticHelmetEntity(PvZEntity.CONEHEADGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
-	}
-
-	public void createBucketProp(){
-		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BUCKETGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
-	}
-
-	public void createShield(){
-		MetalShieldEntity metalShieldEntity = new MetalShieldEntity(PvZEntity.SCREENDOORSHIELD, this.world);
-		metalShieldEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		metalShieldEntity.startRiding(this);
-	}
 
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/

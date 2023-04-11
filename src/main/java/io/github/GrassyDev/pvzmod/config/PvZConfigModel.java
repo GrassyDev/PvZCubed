@@ -319,6 +319,10 @@ public class PvZConfigModel {
 		@RestartRequired
 		public double poleH = 50D;
 		@RestartRequired
+		public double pharaohH = 50D;
+		@RestartRequired
+		public double undyingPharaohH = 65D;
+		@RestartRequired
 		public double roboconeH = 250D;
 		@RestartRequired
 		public double snorkelH = 50D;
@@ -349,6 +353,8 @@ public class PvZConfigModel {
 		public double coneTowerH = 53D;
 		@RestartRequired
 		public double pyramidH = 340D;
+		@RestartRequired
+		public double sarcophagusH = 160D;
 
 		@RestartRequired
 		public double screendoorShieldH = 153D;

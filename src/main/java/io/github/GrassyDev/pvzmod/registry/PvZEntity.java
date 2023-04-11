@@ -113,6 +113,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.moder
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pharaoh.PharaohEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
@@ -737,6 +738,28 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<MummyEntity>create(SpawnGroup.MONSTER, MummyEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
 	);
 
+	public static final EntityType<PharaohEntity> UNDYINGPHARAOH = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "undyingpharaoh"),
+			QuiltEntityTypeBuilder.<PharaohEntity>create(SpawnGroup.MONSTER, PharaohEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+	public static final EntityType<PharaohEntity> UNDYINGPHARAOHHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "undyingpharaoh_hypnotized"),
+			QuiltEntityTypeBuilder.<PharaohEntity>create(SpawnGroup.MONSTER, PharaohEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+
+	public static final EntityType<PharaohEntity> PHARAOH = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "pharaoh"),
+			QuiltEntityTypeBuilder.<PharaohEntity>create(SpawnGroup.MONSTER, PharaohEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+	public static final EntityType<PharaohEntity> PHARAOHHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "pharaoh_hypnotized"),
+			QuiltEntityTypeBuilder.<PharaohEntity>create(SpawnGroup.MONSTER, PharaohEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+
 	public static final EntityType<ExplorerEntity> EXPLORER = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "explorer"),
@@ -841,6 +864,11 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "brickgear"),
 			QuiltEntityTypeBuilder.<StoneHelmetEntity>create(SpawnGroup.MONSTER, StoneHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
+	);
+	public static final EntityType<StoneHelmetEntity> SARCOPHAGUS = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "sarcophagus"),
+			QuiltEntityTypeBuilder.<StoneHelmetEntity>create(SpawnGroup.MONSTER, StoneHelmetEntity::new).setDimensions(EntityDimensions.fixed(1f, 2.25f)).build()
 	);
 	public static final EntityType<MetalHelmetEntity> MEDALLIONGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -1456,6 +1484,7 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TOWERGEAR, StoneHelmetEntity.createTowerGearAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PYRAMIDGEAR, StoneHelmetEntity.createPyramidGearAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BRICKGEAR, StoneHelmetEntity.createBrickGearAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SARCOPHAGUS, StoneHelmetEntity.createSarcophagusAttributes().build());
 
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NEWSPAPER, NewspaperEntity.createNewspaperAttributes().build());
@@ -1533,6 +1562,11 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PYRAMIDHEAD, MummyEntity.createMummyAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PYRAMIDHEADHYPNO, MummyEntity.createMummyAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.UNDYINGPHARAOH, PharaohEntity.createUndyingPharaohAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.UNDYINGPHARAOHHYPNO, PharaohEntity.createUndyingPharaohAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PHARAOH, PharaohEntity.createPharaohAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PHARAOHHYPNO, PharaohEntity.createPharaohAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.EXPLORER, ExplorerEntity.createExplorerAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.EXPLORERHYPNO, ExplorerEntity.createExplorerAttributes().build());

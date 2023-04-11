@@ -2,7 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.backupdancer.BackupDancerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pharaoh.PharaohEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -27,8 +27,8 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class BackupDancerEgg extends Item {
-    public BackupDancerEgg(Settings settings) {
+public class UndyingEgg extends Item {
+    public UndyingEgg(Settings settings) {
         super(settings);
     }
 
@@ -46,19 +46,18 @@ public class BackupDancerEgg extends Item {
         BlockPos blockPos = itemPlacementContext.getBlockPos();
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-        Box box = PvZEntity.BACKUPDANCER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-		if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
-                    BackupDancerEntity backupDancerEntity = (BackupDancerEntity) PvZEntity.BACKUPDANCER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (backupDancerEntity == null) {
+        Box box = PvZEntity.UNDYINGPHARAOH.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+             if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
+                    PharaohEntity pharaohEntity = (PharaohEntity) PvZEntity.UNDYINGPHARAOH.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    if (pharaohEntity == null) {
                         return ActionResult.FAIL;
                     }
 
                     float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    backupDancerEntity.refreshPositionAndAngles(backupDancerEntity.getX(), backupDancerEntity.getY(), backupDancerEntity.getZ(), f, 0.0F);
-					backupDancerEntity.setPersistent();
-                    ((ServerWorld) world).spawnEntityAndPassengers(backupDancerEntity);
-                    world.playSound((PlayerEntity) null, backupDancerEntity.getX(), backupDancerEntity.getY(), backupDancerEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-
+                    pharaohEntity.refreshPositionAndAngles(pharaohEntity.getX(), pharaohEntity.getY(), pharaohEntity.getZ(), f, 0.0F);
+                    ((ServerWorld) world).spawnEntityAndPassengers(pharaohEntity);
+					pharaohEntity.setPersistent();
+                    world.playSound((PlayerEntity) null, pharaohEntity.getX(), pharaohEntity.getY(), pharaohEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
                 if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
@@ -70,3 +69,4 @@ public class BackupDancerEgg extends Item {
 			 }
 	}
 }
+

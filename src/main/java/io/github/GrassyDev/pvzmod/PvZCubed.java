@@ -207,6 +207,8 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.MUMMYCONEEGG));
 				stacks.add(new ItemStack(ModItems.MUMMYBUCKETEGG));
 				stacks.add(new ItemStack(ModItems.EXPLOREREGG));
+				stacks.add(new ItemStack(ModItems.UNDYINGEGG));
+				stacks.add(new ItemStack(ModItems.PHARAOHEGG));
 				stacks.add(new ItemStack(ModItems.TORCHLIGHTEGG));
 				stacks.add(new ItemStack(ModItems.PYRAMIDHEADEGG));
 				stacks.add(new ItemStack(ModItems.JETPACKEGG));

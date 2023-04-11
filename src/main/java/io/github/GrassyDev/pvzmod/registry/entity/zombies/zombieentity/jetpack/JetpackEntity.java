@@ -149,9 +149,12 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	public void createBlastronautProp(){
-		MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BLASTRONAUTGEAR, this.world);
-		propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-		propentity.startRiding(this);
+		if (world instanceof ServerWorld serverWorld) {
+			MetalHelmetEntity propentity = new MetalHelmetEntity(PvZEntity.BLASTRONAUTGEAR, this.world);
+			propentity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			propentity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			propentity.startRiding(this);
+		}
 	}
 
 

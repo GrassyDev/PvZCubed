@@ -470,6 +470,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.isCovered()){
 			this.removeStatusEffect(STUN);
 		}
+		if (this.isCovered()){
+			this.removeStatusEffect(PVZPOISON);
+		}
 		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("metallic")) && this.hasStatusEffect(ACID)){
 			this.removeStatusEffect(ACID);
 		}

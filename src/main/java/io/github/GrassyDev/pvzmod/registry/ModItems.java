@@ -210,6 +210,8 @@ public class ModItems {
 	public static final Item EXPLOREREGG = new ExplorerEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
 	public static final Item TORCHLIGHTEGG = new TorchlightEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item PYRAMIDHEADEGG = new PyramidHeadEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
+	public static final Item UNDYINGEGG = new UndyingEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
+	public static final Item PHARAOHEGG = new PharaohEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item PEASANTEGG = new PeasantEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.COMMON));
 	public static final Item FLAGPEASANTEGG = new FlagPeasantEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.RARE));
 	public static final Item PEASANTCONEEGG = new PeasantConeEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.UNCOMMON));
@@ -420,6 +422,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"explorer_egg"), EXPLOREREGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"torchlight_egg"), TORCHLIGHTEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pyramidhead_egg"), PYRAMIDHEADEGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"undying_egg"), UNDYINGEGG);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pharaoh_egg"), PHARAOHEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peasant_egg"), PEASANTEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"flagpeasant_egg"), FLAGPEASANTEGG);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peasantcone_egg"), PEASANTCONEEGG);

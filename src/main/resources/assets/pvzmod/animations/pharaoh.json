@@ -4513,6 +4513,105 @@
 					}
 				}
 			}
+		},
+		"pharaoh.summon.idle": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"scale": {
+						"vector": [0.9, 0.9, 0.9]
+					}
+				},
+				"lid2": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, -5.6, 0]
+					}
+				},
+				"lid": {
+					"position": {
+						"vector": [0, -5.6, 0]
+					}
+				},
+				"hip": {
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"headwear": {
+					"position": {
+						"vector": [0, -0.5, 0]
+					},
+					"scale": {
+						"vector": [1, 0.7, 1]
+					}
+				},
+				"jaw": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"vector": [-25, 32.5, 0]
+					}
+				},
+				"leftforearm": {
+					"rotation": {
+						"vector": [-79.37242, 19.6835, -3.61644]
+					},
+					"position": {
+						"vector": [0.5, 0, 1.9]
+					}
+				},
+				"lefthand": {
+					"rotation": {
+						"vector": [11.00966, -24.59477, -4.62934]
+					},
+					"position": {
+						"vector": [0, 0.5, 0.5]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"scepter": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"effect": {
+					"rotation": {
+						"vector": [0, 0, -360]
+					},
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"vector": [-25, -32.5, 0]
+					}
+				},
+				"rightforearm": {
+					"rotation": {
+						"vector": [-79.37242, -19.6835, -3.61644]
+					},
+					"position": {
+						"vector": [-0.5, 0, 1.9]
+					}
+				},
+				"righthand": {
+					"rotation": {
+						"vector": [-57.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0.5, 0.5]
+					}
+				}
+			}
 		}
 	}
 }

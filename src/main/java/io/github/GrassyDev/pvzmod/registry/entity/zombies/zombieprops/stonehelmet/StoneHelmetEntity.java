@@ -78,7 +78,11 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
-		if (this.getType().equals(PvZEntity.TOWERGEAR)){
+		if (this.getType().equals(PvZEntity.SARCOPHAGUS)){
+			setVariant(StoneHelmetVariants.SARCOPHAGUS);
+			this.setCoveredTag(Covered.TRUE);
+		}
+		else if (this.getType().equals(PvZEntity.TOWERGEAR)){
 			setVariant(StoneHelmetVariants.TOWER);
 		}
 		else if (this.getType().equals(PvZEntity.PYRAMIDGEAR)){
@@ -108,6 +112,7 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		System.out.println(this.getVariant());
 		if (this.getVehicle() == null){
 			this.kill();
 		}
@@ -158,6 +163,14 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.coneTowerH());
 	}
 
+	public static DefaultAttributeContainer.Builder createSarcophagusAttributes() {
+		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, PVZCONFIG.nestedZombieHealth.sarcophagusH());
+	}
+
 	protected SoundEvent getAmbientSound() {
 		return PvZCubed.SILENCEVENET;
 	}
@@ -173,6 +186,17 @@ public class StoneHelmetEntity extends ZombiePropEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
+		ItemStack itemStack;
+		if (this.getVariant().equals(StoneHelmetVariants.TOWER)){
+			itemStack = ModItems.PEASANTCONEEGG.getDefaultStack();
+		}
+		else
+		if (this.getVariant().equals(StoneHelmetVariants.SARCOPHAGUS)){
+			itemStack = ModItems.UNDYINGEGG.getDefaultStack();
+		}
+		else{
+			itemStack = ModItems.PHARAOHEGG.getDefaultStack();
+		}
 		return ModItems.BRICKHEADEGG.getDefaultStack();
 	}
 
