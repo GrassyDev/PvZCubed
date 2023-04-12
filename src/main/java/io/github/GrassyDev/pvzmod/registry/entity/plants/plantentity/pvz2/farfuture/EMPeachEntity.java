@@ -346,12 +346,14 @@ public class EMPeachEntity extends PlantEntity implements IAnimatable {
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
 			}
-
-			if (this.currentFuseTime >= this.fuseTime) {
-				this.currentFuseTime = this.fuseTime;
+			if (this.currentFuseTime == 3) {
 				this.raycastExplode();
 				this.world.sendEntityStatus(this, (byte) 106);
 				this.playSound(PvZCubed.EMPEACHEXPLOSIONEVENT, 1F, 1F);
+			}
+
+			if (this.currentFuseTime >= this.fuseTime) {
+				this.currentFuseTime = this.fuseTime;
 				this.dead = true;
 				this.remove(RemovalReason.DISCARDED);
 			}

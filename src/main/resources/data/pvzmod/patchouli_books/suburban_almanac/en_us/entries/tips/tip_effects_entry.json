@@ -68,7 +68,7 @@
         "$(br2)Stun completely stops Zombies in their tracks for 0.5 seconds.",
         "$(br2)Stunned Zombies can't attack.",
         "$(br2)Stunned Zombies can't do their abilities.",
-        "$(br2)Covered Zombies can't be Stunned."
+        "$(br2)Covered and Machine Zombies can't be Stunned."
       ]
     },
     {

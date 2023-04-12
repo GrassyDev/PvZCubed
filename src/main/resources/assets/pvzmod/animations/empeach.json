@@ -35,18 +35,23 @@
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"0.75": {
+						"0.5": {
 							"vector": [-5, 0, 0],
-							"easing": "easeOutElastic"
+							"easing": "easeInElastic"
 						}
 					},
 					"scale": {
 						"0.0": {
 							"vector": [1, 1, 1]
 						},
-						"0.75": {
-							"vector": [1.3, 1.3, 1.3],
+						"0.2917": {
+							"vector": [1.5, 1.5, 1.5],
 							"easing": "easeOutElastic"
+						},
+						"0.3333": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [2]
 						}
 					}
 				},
@@ -55,9 +60,9 @@
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"0.7083": {
+						"0.4583": {
 							"vector": [1, 1, 1],
-							"easing": "easeOutElastic"
+							"easing": "easeInElastic"
 						},
 						"0.7917": {
 							"vector": [1, 1, 1]

@@ -462,6 +462,25 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public int playerGetTick;
 
 	public void tick() {
+		// thanks to Pluiedev for this hipster code
+		var zombiePropEntity = this.getPassengerList()
+				.stream()
+				.filter(e -> e instanceof ZombiePropEntity)
+				.map(e -> (ZombiePropEntity) e)
+				.findFirst();
+		if (zombiePropEntity.isPresent()) {
+			var e = zombiePropEntity.get();
+			if (this.getType().equals(PvZEntity.PYRAMIDHEAD)){
+				e.setHypno(IsHypno.FALSE);
+			}
+			if (e.isCovered()){
+				e.removeStatusEffect(STUN);
+				this.removeStatusEffect(STUN);
+			}
+			if (e.isCovered()){
+				this.removeStatusEffect(PVZPOISON);
+			}
+		}
 		if (this.getTarget() != null) {
 			if (PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") && TARGET_GROUND.get(this.getType()).orElse(false).equals(false)) {
 				this.setTarget(null);
@@ -471,6 +490,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		if (IS_MACHINE.get(this.getType()).orElse(false).equals(false)){
 			this.removeStatusEffect(DISABLE);
+		}
+		else {
+			this.removeStatusEffect(STUN);
 		}
 		if (this.isCovered()){
 			this.removeStatusEffect(STUN);
@@ -499,12 +521,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
 			this.kill();
 		}
-		// thanks to Pluiedev for this hipster code
-		var zombiePropEntity = this.getPassengerList()
-				.stream()
-				.filter(e -> e instanceof ZombiePropEntity)
-				.map(e -> (ZombiePropEntity) e)
-				.findFirst();
 
 		if (this.world.isClient) {
 
@@ -518,12 +534,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			}
 
 			this.armless = this.getHealth() < this.getMaxHealth() / 2;
-		}
-		if (zombiePropEntity.isPresent()) {
-			var e = zombiePropEntity.get();
-			if (this.getType().equals(PvZEntity.PYRAMIDHEAD)){
-				e.setHypno(IsHypno.FALSE);
-			}
 		}
 		if (this.getHealth() < this.getMaxHealth() / 2 && !(this instanceof ZombiePropEntity) &&
 				!(this instanceof GargantuarEntity) && !(this instanceof ImpEntity) && !(this instanceof AnnouncerImpEntity) &&
