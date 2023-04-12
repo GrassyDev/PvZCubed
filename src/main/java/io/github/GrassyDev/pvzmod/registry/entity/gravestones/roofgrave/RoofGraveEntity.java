@@ -194,6 +194,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 		float cavespawn = random.nextFloat();
 		if (cavespawn <= 0.66) {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 48000 &&
 					pos.getY() > 50 &&
 					world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.8 &&
@@ -203,6 +204,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 		}
 		else {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 42000 &&
 					world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.8 &&
 					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&

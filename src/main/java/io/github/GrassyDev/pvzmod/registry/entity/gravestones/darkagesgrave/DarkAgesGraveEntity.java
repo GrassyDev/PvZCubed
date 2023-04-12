@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.darkages.FlagPeasantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
@@ -16,7 +17,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -24,7 +24,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -193,6 +192,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 		float cavespawn = random.nextFloat();
 		if (cavespawn <= 0.66) {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 24000  &&
 					pos.getY() > 50 &&
 					(world.getAmbientDarkness() >= 2 ||
@@ -203,6 +203,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 		}
 		else {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 24000 &&
 					(world.getAmbientDarkness() >= 2 ||
 							world.getLightLevel(LightType.SKY, pos) < 2) &&
@@ -426,6 +427,26 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 						coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						coneheadEntity.setOwner(DarkAgesGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(coneheadEntity);
+					}
+				}
+				if (probability10 <= 0.3) { // 30% x2 Imp Dragons
+					for (int h = 0; h < 2; ++h) {
+						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+						ImpEntity impEntity = (ImpEntity) PvZEntity.IMPDRAGON.create(DarkAgesGraveEntity.this.world);
+						impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						impEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						impEntity.setOwner(DarkAgesGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(impEntity);
+					}
+				}
+				if (probability4 <= 0.3) { // 30% x2 Imp Dragons
+					for (int i = 0; i < 3; ++i) {
+						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));
+						ImpEntity impEntity = (ImpEntity) PvZEntity.IMPDRAGON.create(DarkAgesGraveEntity.this.world);
+						impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						impEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						impEntity.setOwner(DarkAgesGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(impEntity);
 					}
 				}
 				if (difficulty >= 1.519 + difficultymodifier) {

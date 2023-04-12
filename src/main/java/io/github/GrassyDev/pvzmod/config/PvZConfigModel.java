@@ -45,6 +45,12 @@ public class PvZConfigModel {
 		@RestartRequired
 		public int roofGmax = 1;
 		@RestartRequired
+		public int egyptG = 8;
+		@RestartRequired
+		public int egyptGmin = 1;
+		@RestartRequired
+		public int egyptGmax = 1;
+		@RestartRequired
 		public int futureG = 10;
 		@RestartRequired
 		public int futureGmin = 1;
@@ -156,6 +162,7 @@ public class PvZConfigModel {
 		public float coconutS = 35.0f;
 		public float dandelionweedS = 7.5f;
 		public float doomshroomS = 25.0f;
+		public float dropeaS = 10f;
 		public float firepeaS = 15.0f;
 		public float fumeshroomS = 7.5f;
 		public float gatlingpeaS = 35.0f;
@@ -230,6 +237,7 @@ public class PvZConfigModel {
 		public float bubblesDMG = 2f;
 		public float cabbageDMG = 4f;
 		public float coconutDMG = 90f;
+		public float dropDMG = 1.5f;
 		public float flamingPeaDMG = 4f;
 		public float fumeDMG = 2.5f;
 		public float icebergDMG = 1f;
@@ -259,6 +267,8 @@ public class PvZConfigModel {
 		public double nightGraveH = 170D;
 		@RestartRequired
 		public double poolGraveH = 200D;
+		@RestartRequired
+		public double egyptGraveH = 200D;
 		@RestartRequired
 		public double roofGraveH = 230D;
 		@RestartRequired

@@ -2,7 +2,7 @@
   "name": "Pyramidhead Zombie",
   "icon": "pvzmod:pyramidhead_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 77,
+  "sortnum": 78,
   "pages": [
     {
       "type": "text",
@@ -46,6 +46,7 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
+        "pvzmod:plants/dropea_entry",
         "pvzmod:plants/narcissus_entry"
       ]
     },

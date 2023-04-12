@@ -33,7 +33,8 @@
     "recipes": [
       "pvzmod:plants/appease/repeaterpvz",
       "pvzmod:plants/appease/peapod",
-      "pvzmod:plants/winter/snowpeapvz"
+      "pvzmod:plants/winter/snowpeapvz",
+      "pvzmod:plants/appease/dropea"
     ],
     "experience": 25
   }

@@ -24,6 +24,9 @@
   "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.roofG": "Roof Grave Weight",
   "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.roofGmin": "Roof Grave Group Min",
   "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.roofGmax": "Roof Grave Group Max",
+  "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.egyptG": "Egypt Grave Weight",
+  "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.egyptGmin": "Egypt Grave Group Min",
+  "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.egyptGmax": "Egypt Grave Group Max",
   "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.futureG": "Future Grave Weight",
   "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.futureGmin": "Future Grave Group Min",
   "text.config.pvz-config.option.nestedSpawns.nestedGraveSpawns.futureGmax": "Future Grave Group Max",
@@ -89,6 +92,7 @@
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.coconutS": "Coconut Cannon Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.dandelionweedS": "Dandelion Weed Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.doomshroomS": "Doom-shroom Seed",
+  "text.config.pvz-config.option.nestedSeeds.moreSeeds.dropeaS": "Dropea Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.firepeaS": "Fire Pea Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.fumeshroomS": "Fume-shroom Seed",
   "text.config.pvz-config.option.nestedSeeds.moreSeeds.gatlingpeaS": "Gatling Pea Seed",
@@ -155,6 +159,7 @@
   "text.config.pvz-config.option.nestedProjDMG.bubblesDMG": "Bubbles Damage",
   "text.config.pvz-config.option.nestedProjDMG.cabbageDMG": "Cabbage Damage",
   "text.config.pvz-config.option.nestedProjDMG.coconutDMG": "Coconut Damage (Direct dmg is x2)",
+  "text.config.pvz-config.option.nestedProjDMG.dropDMG": "Drop Damage",
   "text.config.pvz-config.option.nestedProjDMG.flamingPeaDMG": "Flaming Pea Damage",
   "text.config.pvz-config.option.nestedProjDMG.fumeDMG": "Fume Damage",
   "text.config.pvz-config.option.nestedProjDMG.icebergDMG": "Iceberg Damage (Direct dmg is x2)",
@@ -178,6 +183,7 @@
   "text.config.pvz-config.option.nestedZombieHealth.nightGraveH": "Night Gravestone Health",
   "text.config.pvz-config.option.nestedZombieHealth.poolGraveH": "Pool Gravestone Health",
   "text.config.pvz-config.option.nestedZombieHealth.roofGraveH": "Roof Gravestone Health",
+  "text.config.pvz-config.option.nestedZombieHealth.egyptGraveH": "Egypt Gravestone Health",
   "text.config.pvz-config.option.nestedZombieHealth.futureGraveH": "Future Gravestone Health",
   "text.config.pvz-config.option.nestedZombieHealth.darkAgesGraveH": "Dark Ages Gravestone Health",
   "text.config.pvz-config.option.nestedZombieHealth.backupH": "Backup Zombie Health",
@@ -534,6 +540,11 @@
   "item.pvzmod.bubblesitem": "Bubbles",
   "item.pvzmod.armorbubbleitem": "Armor Bubble",
 
+  "entity.pvzmod.dropea": "Dropea",
+  "item.pvzmod.dropea_seed_packet": "⭘ Dropea Seed Packet",
+  "item.pvzmod.dropea_seed_packet.flavour": "Has a bubbly personality",
+  "item.pvzmod.drop": "Drop",
+
   "entity.pvzmod.smallnut": "Small-nut",
   "item.pvzmod.smallnut_seed_packet": "⛨ Small-nut Seed Packet",
   "item.pvzmod.smallnut_seed_packet.flavour": "\"I'm nuts.\"",
@@ -796,6 +807,9 @@
 
   "entity.pvzmod.roofgrave": "Roof Gravestone",
   "item.pvzmod.roofgrave_spawn": "Roof Gravestone",
+
+  "entity.pvzmod.egyptgrave": "Egypt Gravestone",
+  "item.pvzmod.egyptgrave_spawn": "Egypt Gravestone",
 
   "entity.pvzmod.futuregrave": "Futuristic Gravestone",
   "item.pvzmod.futuregrave_spawn": "Futuristic Gravestone",

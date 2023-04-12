@@ -1,0 +1,46 @@
+{
+  "name": "Pharaoh Zombie",
+  "icon": "pvzmod:pharaoh_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 77,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)50 (Paper)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)8",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
+        "$(br2)$(#bd951a)The second cousin once removed of King Rot, he rose to power with his disappearing sarcophagus act, but met his untimely end in an unfortunate goat accident."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/pharaoh.png"
+      ],
+      "title": "Ancient Egypt Zombie",
+      "border": "true",
+      "text": "$(#25228d)They are quick and deal a lot of damage."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/torchwood_entry",
+        "pvzmod:plants/navybean_entry",
+        "pvzmod:plants/repeater_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/lightningreed_entry",
+        "pvzmod:plants/dropea_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Pharaoh Zombie"
+      ]
+    }
+  ]
+}

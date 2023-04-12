@@ -1,0 +1,63 @@
+{
+  "name": "Undying Pharaoh",
+  "icon": "pvzmod:undying_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 76,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)65 (Paper), 212(Stone Sarcophagus) ",
+        "$(#bd951a)Damage: $()$(#ff0000)12 ",
+        "$(#bd951a)Speed: $()$(#ff0000)Hungry, Stiff (Sarcophagus)",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)3s (Initial), 8s ",
+        "$(#bd951a)Special: $()$(#ff0000)Covered by Sarcophagus. Stays in place and enters Summoning mode when he has a Sarcophagus and there's a plant in front of him (3.5 Blocks). Spawns Pharaoh Zombies in Summoning mode.",
+        "$(br)$(#bd951a)If the Plants think they're going to beat the Undying Pharaoh, they're in de-Nile."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/undying.png"
+      ],
+      "title": "Ancient Egypt Zombie",
+      "border": "true",
+      "text": "$(#25228d)His sarcophagus greatly protects him, and allows him to spawn Pharaohs."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/torchwood_entry",
+        "pvzmod:plants/gatlingpea_entry",
+        "pvzmod:plants/peapod_entry",
+        "pvzmod:plants/lightningreed_entry",
+        "pvzmod:plants/fumeshroom_entry",
+        "pvzmod:plants/firepea_entry",
+        "pvzmod:plants/jalapeno_entry",
+        "pvzmod:plants/iceshroom_entry",
+        "pvzmod:plants/chillypepper_entry",
+        "pvzmod:plants/cherrybomb_entry",
+        "pvzmod:plants/iceberglettuce_entry",
+        "pvzmod:plants/narcissus_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/admiralnavybean_entry",
+        "pvzmod:plants/dropea_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Pharaoh Zombie",
+        "$(br)$(#bd951a)Plants vs. Zombies: Heroes: $()$(#ff0000)Undying Pharaoh"
+      ]
+    }
+  ]
+}

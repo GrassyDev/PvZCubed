@@ -32,7 +32,8 @@
         "pvzmod:zombies/peasantbucket_entry",
         "pvzmod:zombies/peasantknight_entry",
         "pvzmod:zombies/announcerimp_entry",
-        "pvzmod:zombies/zombieking_entry"
+        "pvzmod:zombies/zombieking_entry",
+        "pvzmod:zombies/impdragon_entry"
       ],
       "title": "Spawnable Zombies"
     }

@@ -1,0 +1,41 @@
+{
+  "name": "Dropea",
+  "icon": "pvzmod:dropea_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 46,
+  "advancement": "pvzmod:make_peashooter",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)16",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)3 DMG/1.5s, 1.5 DMG (Splash)",
+        "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)1.5 Blocks",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)10s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Wet Zombies.",
+        "$(br2)$(#bd951a)Her favorite pass time is soaking Zombies and Torchwoods. Why Torchwoods? Because she thinks it's funny seeing them without the flames."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/dropea.png"
+      ],
+      "title": "⭘ Appease Family",
+      "border": "true",
+      "text": "$(#25228d)Dropeas deal damage to a group of zombies."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/appease/dropea"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br2)$(#bd951a)Plants vs. Zombies: All Stars: $()$(#ff0000)Drop Shooter"
+      ]
+    }
+  ]
+}

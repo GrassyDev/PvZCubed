@@ -7,7 +7,7 @@
     {
       "type": "text",
       "text": [
-        "$(#bd951a)Health: $()$(#ff0000)50",
+        "$(#bd951a)Health: $()$(#ff0000)50 (Paper)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
         "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
@@ -37,6 +37,8 @@
         "pvzmod:plants/threepeater_entry",
         "pvzmod:plants/peapod_entry",
         "pvzmod:plants/firepea_entry",
+        "pvzmod:plants/dropea_entry",
+        "pvzmod:plants/admiralnavybean_entry",
         "pvzmod:plants/cattail_entry"
       ]
     },

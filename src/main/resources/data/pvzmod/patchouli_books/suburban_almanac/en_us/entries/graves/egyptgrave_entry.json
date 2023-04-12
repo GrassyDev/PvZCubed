@@ -1,0 +1,41 @@
+{
+  "name": "Egypt Gravestone",
+  "icon": "pvzmod:egyptgrave_spawn",
+  "category": "pvzmod:grave_category",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)200",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)15s",
+        "$(br)$(#bd951a)Spawn Condition: $()$(#ff0000)Common.",
+        "$(br2)$(#bd951a)We don't like sand. It's coarse and rough and irritating and it gets everywhere. Not like in the garden. Here everything is soft and smooth."
+      ]
+    },
+    {
+      "type": "image",
+
+      "images": [
+        "pvzmod:textures/gui/entries/egyptgrave.png"
+      ],
+      "title": "Ancient Egypt Zombie",
+      "border": "true",
+      "text": "$(#25228d)Spawns Ancient Egypt Zombies."
+    },
+    {
+      "type": "relations",
+      "entries": [
+        "pvzmod:zombies/mummy_entry",
+        "pvzmod:zombies/mummycone_entry",
+        "pvzmod:zombies/mummybucket_entry",
+        "pvzmod:zombies/pyramidhead_entry",
+        "pvzmod:zombies/explorer_entry",
+        "pvzmod:zombies/torchlight_entry",
+        "pvzmod:zombies/pharaoh_entry",
+        "pvzmod:zombies/undying_entry"
+      ],
+      "title": "Spawnable Zombies"
+    }
+  ]
+}

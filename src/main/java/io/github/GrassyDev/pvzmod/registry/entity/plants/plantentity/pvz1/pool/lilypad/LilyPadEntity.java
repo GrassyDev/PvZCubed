@@ -52,7 +52,9 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Objects;
 
-;import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
+;
 
 public class LilyPadEntity extends PlantEntity implements IAnimatable {
 
@@ -428,7 +430,8 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 	}
 
 	public static boolean canLilyPadSpawn(EntityType<? extends LilyPadEntity> entityType, WorldAccess worldAccess, SpawnReason reason, BlockPos pos, RandomGenerator random) {
-		return (worldAccess.getBlockState(pos.down()).getMaterial().isLiquid() && !worldAccess.getBlockState(pos.down()).getMaterial().equals(Material.LAVA) ||
+		BlockPos blockPos2 = pos.add(0, 0.5, 0);
+		return ((worldAccess.getBlockState(pos.down()).getMaterial().isLiquid() && !worldAccess.getBlockState(blockPos2).getMaterial().isLiquid() && !worldAccess.getBlockState(pos.down()).getMaterial().equals(Material.LAVA)) ||
 				worldAccess.getBlockState(pos.down()).getMaterial().equals(Material.ICE)) &&
 				Objects.requireNonNull(worldAccess.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
 	}

@@ -193,6 +193,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 		float cavespawn = random.nextFloat();
 		if (cavespawn <= 0.66) {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 8000 &&
 					pos.getY() > 50 &&
 					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&
@@ -201,6 +202,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 		}
 		else {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 8000 &&
 					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&
 					!checkVillager(Vec3d.ofCenter(pos), world) &&

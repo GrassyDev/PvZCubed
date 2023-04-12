@@ -193,6 +193,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 		float cavespawn = random.nextFloat();
 		if (cavespawn <= 0.66) {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 72000 &&
 					pos.getY() > 50 &&
 					world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.6 &&
@@ -202,6 +203,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 		}
 		else {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 48000 &&
 					world.getLocalDifficulty(pos).getLocalDifficulty() >= 1.6 &&
 					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&

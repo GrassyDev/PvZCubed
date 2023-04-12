@@ -45,6 +45,7 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/narcissus_entry",
+        "pvzmod:plants/dropea_entry",
         "pvzmod:plants/admiralnavybean_entry"
       ]
     },

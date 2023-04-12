@@ -462,6 +462,13 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public int playerGetTick;
 
 	public void tick() {
+		if (this.getTarget() != null) {
+			if (PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") && TARGET_GROUND.get(this.getType()).orElse(false).equals(false)) {
+				this.setTarget(null);
+			} else if (PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying") && TARGET_FLY.get(this.getType()).orElse(false).equals(false)) {
+				this.setTarget(null);
+			}
+		}
 		if (IS_MACHINE.get(this.getType()).orElse(false).equals(false)){
 			this.removeStatusEffect(DISABLE);
 		}
@@ -491,9 +498,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
 			this.kill();
-		}
-		if (this.getTarget() != null && this.getTarget().isDead()){
-			this.setTarget(null);
 		}
 		// thanks to Pluiedev for this hipster code
 		var zombiePropEntity = this.getPassengerList()
@@ -549,7 +553,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			this.removeStatusEffect(FROZEN);
 			this.removeStatusEffect(ICE);
 		}
-		if (!this.getHypno() && !(this instanceof ZombieKingEntity) && this.getTarget() == null && --this.playerGetTick == 0) {
+		if (!this.getHypno() && !(this instanceof ZombieKingEntity) && this.getTarget() == null && --this.playerGetTick <= 0) {
 			this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 			this.playerGetTick = 300;
 		}

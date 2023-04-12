@@ -2,7 +2,7 @@
   "name": "Torchlight Zombie",
   "icon": "pvzmod:torchlight_egg",
   "category": "pvzmod:zombie_category",
-  "sortnum": 75,
+  "sortnum": 77,
   "pages": [
     {
       "type": "text",

@@ -416,7 +416,11 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 				this.animationTicks = 0;
 			}
 		}
-		if (this.getSummoning()) {
+		if (this.hasStatusEffect(FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE) || this.isFrozen) {
+			this.summonTicks = 160 * animationMultiplier;
+			this.animationTicks = 0;
+		}
+		else if (this.getSummoning() && !this.isFrozen) {
 			if (--summonTicks <= 0) {
 				if (this.getHypno()) {
 					createHypnoPharaoh();

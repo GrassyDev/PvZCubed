@@ -195,6 +195,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 		float cavespawn = random.nextFloat();
 		if (cavespawn <= 0.66) {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 12000 &&
 					pos.getY() > 50 &&
 					(world.getAmbientDarkness() >= 2 ||
@@ -205,6 +206,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 		}
 		else {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
+					!world.getBlockState(pos).getMaterial().isLiquid() &&
 					world.toServerWorld().getTime() > 12000 &&
 					(world.getAmbientDarkness() >= 2 ||
 							world.getLightLevel(LightType.SKY, pos) < 2) &&

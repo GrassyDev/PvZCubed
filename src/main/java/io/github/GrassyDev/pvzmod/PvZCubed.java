@@ -144,6 +144,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.LOQUAT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SAUCER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.DROPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.ACIDSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.DANDELIONWEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PERFOOMSHROOM_SEED_PACKET));
@@ -176,6 +177,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.ICESPIKE));
 				stacks.add(new ItemStack(ModItems.BUBBLES));
 				stacks.add(new ItemStack(ModItems.ARMORBUBBLE));
+				stacks.add(new ItemStack(ModItems.DROP));
 				stacks.add(new ItemStack(ModItems.ACIDFUME));
 				stacks.add(new ItemStack(ModItems.SPIT));
 				stacks.add(new ItemStack(ModItems.JINGLE));
@@ -238,8 +240,9 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.BASICGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.NIGHTGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.POOLGRAVESPAWN));
-				stacks.add(new ItemStack(ModItems.FUTUREGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.ROOFGRAVESPAWN));
+				stacks.add(new ItemStack(ModItems.EGYPTGRAVESPAWN));
+				stacks.add(new ItemStack(ModItems.FUTUREGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.DARKAGESGRAVESPAWN));
 			}).build();
 
