@@ -35,7 +35,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class DropeaSeeds extends Item implements FabricItem {
+public class DropeaSeeds extends SeedItem implements FabricItem {
 	public boolean used;
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.dropeaS() * 20);
 

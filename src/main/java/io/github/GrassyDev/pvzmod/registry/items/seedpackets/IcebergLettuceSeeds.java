@@ -35,7 +35,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class IcebergLettuceSeeds extends Item implements FabricItem {
+public class IcebergLettuceSeeds extends SeedItem implements FabricItem {
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.iceberglettuceS() * 20);
     public IcebergLettuceSeeds(Settings settings) {
         super(settings);

@@ -36,7 +36,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class ChomperSeeds extends Item implements FabricItem {
+public class ChomperSeeds extends SeedItem implements FabricItem {
 
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.chomperS() * 20);
     public ChomperSeeds(Settings settings) {

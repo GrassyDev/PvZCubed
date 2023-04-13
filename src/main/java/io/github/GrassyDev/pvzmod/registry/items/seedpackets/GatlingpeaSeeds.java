@@ -17,7 +17,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class GatlingpeaSeeds extends Item implements FabricItem {
+public class GatlingpeaSeeds extends SeedItem implements FabricItem {
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.gatlingpeaS() * 20);
     public GatlingpeaSeeds(Settings settings) {
         super(settings);

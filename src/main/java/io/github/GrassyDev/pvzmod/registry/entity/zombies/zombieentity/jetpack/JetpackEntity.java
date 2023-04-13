@@ -248,15 +248,32 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 
 	private Vec3d firstPos;
 
+	@Override
+	public void setOnGround(boolean onGround) {
+
+	}
+
+	@Override
+	public boolean isOnGround() {
+		return false;
+	}
+
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		if (source != DamageSource.HOT_FLOOR){
+			super.applyDamage(source, amount);
+		}
+	}
+
 	public void tick() {
 		if (this.hasStatusEffect(PvZCubed.DISABLE)){
 			this.kill();
 		}
-		super.tick();
 		LivingEntity target = this.getTarget();
+		this.setNoGravity(true);
 		if (target != null){
 			Vec3d lastPos = this.getPos();
-			if (target.squaredDistanceTo(this) > 4) {
+			if (target.squaredDistanceTo(this) > 2.25) {
 				if (this.getVariant().equals(JetpackVariants.BLASTRONAUT) ||
 						this.getVariant().equals(JetpackVariants.BLASTRONAUTHYPNO)){
 					this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1.8);
@@ -265,7 +282,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 					this.getMoveControl().moveTo(target.getX(), target.getY(), target.getZ(), 1.6);
 				}
 			}
-			this.setNoGravity(true);
 			this.setFlying(Flying.TRUE);
 			if (this.isInsideWaterOrBubbleColumn()) {
 				this.addVelocity(0, 0.3, 0);
@@ -296,12 +312,12 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			if (this.CollidesWithPlant(1f) != null && (PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("maintarget") ||
 					PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("flying"))){
 				this.setTarget(CollidesWithPlant(1f));
-				this.setVelocity(0, 0, 0);
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
 				this.setTarget(CollidesWithPlayer(1.5f));
 			}
 		}
+		super.tick();
 	}
 
 	protected void mobTick() {

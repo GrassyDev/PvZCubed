@@ -33,7 +33,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class PotatoMineSeeds extends Item implements FabricItem {
+public class PotatoMineSeeds extends SeedItem implements FabricItem {
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.potatomineS() * 20);
 
 	public PotatoMineSeeds(Settings settings) {

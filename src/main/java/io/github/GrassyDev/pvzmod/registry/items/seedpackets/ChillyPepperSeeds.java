@@ -35,7 +35,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class ChillyPepperSeeds extends Item implements FabricItem {
+public class ChillyPepperSeeds extends SeedItem implements FabricItem {
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.chillypepperS() * 20);
     public ChillyPepperSeeds(Settings settings) {
         super(settings);

@@ -36,7 +36,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class FumeshroomSeeds extends Item implements FabricItem {
+public class FumeshroomSeeds extends SeedItem implements FabricItem {
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.fumeshroomS() * 20);
     public FumeshroomSeeds(Settings settings) {
         super(settings);

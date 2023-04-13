@@ -519,9 +519,11 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.isInsideWall()){
 			this.setPosition(this.getX(), this.getY() + 1, this.getZ());
 		}
-		if (target != null) {
-			if (target.squaredDistanceTo(this) < 6.25) {
-				this.setVelocity(0, -0.3, 0);
+		if (!this.hasNoGravity() && !this.isFlying()) {
+			if (target != null) {
+				if (target.squaredDistanceTo(this) < 6.25) {
+					this.setVelocity(0, -0.3, 0);
+				}
 			}
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){

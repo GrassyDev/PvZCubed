@@ -33,7 +33,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class SpikeweedSeeds extends Item implements FabricItem {
+public class SpikeweedSeeds extends SeedItem implements FabricItem {
 	public boolean used;
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.spikeweedS() * 20);
 
