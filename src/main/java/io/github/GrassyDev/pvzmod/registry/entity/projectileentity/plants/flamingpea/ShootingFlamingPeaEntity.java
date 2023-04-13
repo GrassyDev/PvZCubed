@@ -50,6 +50,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
 
 public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -171,7 +172,8 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 instanceof ZombiePropEntity && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-				(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) || this.canHitFlying)) {
+				(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) || this.canHitFlying) &&
+				(!(ZOMBIE_SIZE.get(entity.getType()).orElse("medium").equals("small") && this.canHitFlying))) {
 			entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, 1F);
 			float damage = PVZCONFIG.nestedProjDMG.flamingPeaDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&

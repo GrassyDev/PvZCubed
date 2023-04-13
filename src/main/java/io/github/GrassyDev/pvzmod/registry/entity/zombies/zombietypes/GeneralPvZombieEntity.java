@@ -8,9 +8,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.Scorc
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PowderSnowBlock;
@@ -311,32 +308,41 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 	}
 
-	public PlantEntity CollidesWithPlant(Float colliderOffset){
+	public LivingEntity CollidesWithPlant(Float colliderOffset){
 		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
-		PlantEntity setPlant = null;
-		for (PlantEntity plantEntity : list) {
-			if (plantEntity instanceof LilyPadEntity lilyPadEntity) {
-				if (!(lilyPadEntity.hasPassengers())) {
-					setPlant = lilyPadEntity;
+		List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
+		LivingEntity setPlant = null;
+		for (LivingEntity plantEntity : list) {
+			if (plantEntity instanceof PlantEntity) {
+				if (plantEntity instanceof LilyPadEntity lilyPadEntity) {
+					if (!(lilyPadEntity.hasPassengers())) {
+						setPlant = lilyPadEntity;
+					} else {
+						setPlant = (PlantEntity) lilyPadEntity.getFirstPassenger();
+					}
+				} else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) {
+					setPlant = plantEntity;
+				} else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) {
+					setPlant = null;
+				} else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying") && TARGET_FLY.get(this.getType()).orElse(false).equals(true)) {
+					setPlant = plantEntity;
+				} else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")) {
+					setPlant = null;
 				} else {
-					setPlant = (PlantEntity) lilyPadEntity.getFirstPassenger();
+					setPlant = plantEntity;
 				}
 			}
-			else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && TARGET_GROUND.get(this.getType()).orElse(false).equals(true)){
-				setPlant = plantEntity;
-			}
-			else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")){
-				setPlant = null;
-			}
-			else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying") && TARGET_FLY.get(this.getType()).orElse(false).equals(true)){
-				setPlant = plantEntity;
-			}
-			else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")){
-				setPlant = null;
-			}
-			else {
-				setPlant = plantEntity;
+			else if (plantEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()){
+				if (generalPvZombieEntity.hasPassengers()) {
+					for (Entity entity1 : generalPvZombieEntity.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							setPlant = zpe;
+						}
+					}
+				}
+				else {
+					setPlant = generalPvZombieEntity;
+				}
 			}
 		}
 		return setPlant;
@@ -536,7 +542,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			this.armless = this.getHealth() < this.getMaxHealth() / 2;
 		}
 		if (this.getHealth() < this.getMaxHealth() / 2 && !(this instanceof ZombiePropEntity) &&
-				!(this instanceof GargantuarEntity) && !(this instanceof ImpEntity) && !(this instanceof AnnouncerImpEntity) &&
+				!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("gargantuar") && !ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small") &&
 				!(this instanceof ZombieKingEntity) && IS_MACHINE.get(this.getType()).orElse(false).equals(false)) {
 			if (this.pop && !this.dead) {
 				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
@@ -572,31 +578,34 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	public boolean tryAttack(Entity target) {
-		if (this.getTarget() != null &&
-				((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
-				TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
-						(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying") &&
-						TARGET_FLY.get(this.getType()).orElse(false).equals(true)))) {
-			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
-				float sound = 0.75f;
-				if (this.getHypno()) {
-					sound = 0.33f;
+		if (this.age > 1) {
+			if (this.getTarget() != null &&
+					((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
+							TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
+							(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying") &&
+									TARGET_FLY.get(this.getType()).orElse(false).equals(true)))) {
+				if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
+					float sound = 0.75f;
+					if (this.getHypno()) {
+						sound = 0.33f;
+					}
+					target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
 				}
-				target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
-			}
-			return super.tryAttack(target);
-		}
-		else if (this.getTarget() != null &&
-				!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground"))) &&
-				!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying")))){
-			if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
-				float sound = 0.75f;
-				if (this.getHypno()) {
-					sound = 0.33f;
+				return super.tryAttack(target);
+			} else if (this.getTarget() != null &&
+					!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground"))) &&
+					!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying")))) {
+				if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
+					float sound = 0.75f;
+					if (this.getHypno()) {
+						sound = 0.33f;
+					}
+					target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
 				}
-				target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
+				return super.tryAttack(target);
+			} else {
+				return false;
 			}
-			return super.tryAttack(target);
 		}
 		else {
 			return false;

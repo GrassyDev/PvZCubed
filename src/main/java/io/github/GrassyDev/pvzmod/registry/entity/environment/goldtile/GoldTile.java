@@ -32,6 +32,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class GoldTile extends TileEntity {
@@ -116,7 +117,12 @@ public class GoldTile extends TileEntity {
 	public void tick() {
 		super.tick();
 		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
-		this.powered = !list.isEmpty();
+		this.powered = false;
+		for (PlantEntity plantEntity : list) {
+			if (!PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")){
+				powered = true;
+			}
+		}
 
 		if (this.isAlive()) {
 			this.setFuseSpeed(1);

@@ -5,7 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -41,6 +40,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
 
 public class GravebusterEntity extends PlantEntity implements IAnimatable {
 
@@ -270,7 +271,7 @@ public class GravebusterEntity extends PlantEntity implements IAnimatable {
 
 	public boolean damage(DamageSource source, float amount) {
 		if (!(source.getSource() instanceof PlayerEntity)) {
-			if (!source.isMagic() && source.getSource() instanceof HostileEntity hostileEntity && !(hostileEntity instanceof GargantuarEntity)) {
+			if (!source.isMagic() && source.getSource() instanceof HostileEntity hostileEntity && !(ZOMBIE_SIZE.get(hostileEntity.getType()).orElse("medium").equals("gargantuar"))) {
 				if (!source.isExplosive()) {
 					hostileEntity.damage(DamageSource.thrownProjectile(this, this), 12.0F);
 				}

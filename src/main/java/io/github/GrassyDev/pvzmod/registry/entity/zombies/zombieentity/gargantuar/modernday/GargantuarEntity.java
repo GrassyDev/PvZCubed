@@ -707,6 +707,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			super(GargantuarEntity.this, 1.0, true);
 		}
 
+		@Override
 		protected double getSquaredMaxAttackDistance(LivingEntity entity) {
 			float f = GargantuarEntity.this.getWidth() - 0.1F;
 			return (double)(f * 4F * f * 4F + entity.getWidth());

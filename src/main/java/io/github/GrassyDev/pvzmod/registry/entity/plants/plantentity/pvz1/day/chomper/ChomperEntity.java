@@ -5,9 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
@@ -52,8 +49,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.IS_MACHINE;
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class ChomperEntity extends PlantEntity implements IAnimatable {
 
@@ -243,11 +239,9 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 			}
 		}
 		if (target instanceof GraveEntity ||
-				target instanceof ImpEntity ||
-				target instanceof AnnouncerImpEntity ||
-		        target instanceof GargantuarEntity ||
 				target instanceof ZombieObstacleEntity ||
-				IS_MACHINE.get(target.getType()).orElse(false).equals(true)) {
+				IS_MACHINE.get(target.getType()).orElse(false).equals(true) ||
+				ZOMBIE_SIZE.get(target.getType()).orElse("medium").equals("gargantuar")) {
 			Entity damaged = target;
 			if (passenger != null){
 				damaged = passenger;
@@ -268,6 +262,21 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 					default -> PvZCubed.PEAHITEVENT;
 				};
 				target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+				this.chomperAudioDelay = 3;
+				return bl;
+			} else {
+				return false;
+			}
+		}
+		else if (ZOMBIE_SIZE.get(target.getType()).orElse("medium").equals("small")) {
+			if (i <= 0) {
+				this.attackTicksLeft = 30;
+				this.world.sendEntityStatus(this, (byte) 106);
+				boolean bl = target.damage(DamageSource.mob(this), 32);
+				if (bl) {
+					this.applyDamageEffects(this, target);
+				}
+				target.kill();
 				this.chomperAudioDelay = 3;
 				return bl;
 			} else {

@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": {
+    "pvzmod:gargantuar": "gargantuar",
+    "pvzmod:defensiveend": "gargantuar",
+    "pvzmod:basketballcarrier": "big",
+    "pvzmod:bully": "big",
+    "pvzmod:imp": "small",
+    "pvzmod:superfanimp": "small",
+    "pvzmod:newyearimp": "small",
+    "pvzmod:announcerimp": "small",
+    "pvzmod:impdragon": "small"
+  }
+}

@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class ScorchedTile extends TileEntity {
@@ -80,7 +81,13 @@ public class ScorchedTile extends TileEntity {
 	public void tick() {
 		super.tick();
 		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
-		this.hasPlant = !list.isEmpty();
+		this.hasPlant = false;
+		for (PlantEntity plantEntity : list) {
+			if (!PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")){
+				hasPlant = true;
+			}
+		}
+
 
 		if (--dragoTick <= 0){
 			if (!hasPlant){

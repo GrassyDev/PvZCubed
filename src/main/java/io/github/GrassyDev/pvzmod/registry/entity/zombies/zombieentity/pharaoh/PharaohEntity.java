@@ -384,7 +384,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 
 	@Override
 	public boolean tryAttack(Entity target) {
-		if (!this.getSummoning() && this.age > 1) {
+		if (!this.getSummoning()) {
 			return super.tryAttack(target);
 		}
 		else {
@@ -583,7 +583,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 			hypnoType = PvZEntity.PHARAOHHYPNO;
 		}
 		else {
-			hypnoType = PvZEntity.UNDYINGPHARAOH;
+			hypnoType = PvZEntity.UNDYINGPHARAOHHYPNO;
 		}
 	}
 

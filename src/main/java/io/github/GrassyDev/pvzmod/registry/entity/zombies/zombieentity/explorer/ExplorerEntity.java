@@ -341,22 +341,22 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 			this.setFireStage(FireStage.FIRE);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) != null) {
-				if (!this.CollidesWithPlant(1f).onWater && !this.CollidesWithPlant(1f).getFireImmune() && this.getFireStage()) {
-					BlockPos blockPos = this.CollidesWithPlant(1f).getBlockPos();
-					boolean bl = this.CollidesWithPlant(1f).hasVehicle();
+			if (this.CollidesWithPlant(1f) instanceof PlantEntity plantEntity) {
+				if (!plantEntity.onWater && !plantEntity.getFireImmune() && this.getFireStage()) {
+					BlockPos blockPos = plantEntity.getBlockPos();
+					boolean bl = plantEntity.hasVehicle();
 					boolean bl2 = false;
-					boolean bl3 = this.CollidesWithPlant(1f).onWater;
+					boolean bl3 = plantEntity.onWater;
 					LivingEntity vehicle = null;
 					if (bl){
-						vehicle = (LivingEntity) this.CollidesWithPlant(1f).getVehicle();
-						if (vehicle instanceof PlantEntity plantEntity){
-							if (plantEntity.onWater){
+						vehicle = (LivingEntity) plantEntity.getVehicle();
+						if (vehicle instanceof PlantEntity plantEntity2){
+							if (plantEntity2.onWater){
 								bl2 = true;
 							}
 						}
 					}
-					this.CollidesWithPlant(1f).damage(DamageSource.GENERIC, this.CollidesWithPlant(1f).getMaxHealth() * 5);
+					plantEntity.damage(DamageSource.GENERIC, plantEntity.getMaxHealth() * 5);
 					if (vehicle != null) {
 						vehicle.damage(DamageSource.GENERIC, vehicle.getMaxHealth() * 5);
 					}
@@ -372,6 +372,10 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 					this.setVelocity(0, -0.3, 0);
 					this.setTarget(CollidesWithPlant(1f));
 				}
+			}
+			else if (this.CollidesWithPlant(1f) != null) {
+				this.setVelocity(0, -0.3, 0);
+				this.setTarget(CollidesWithPlant(1f));
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
 				this.setTarget(CollidesWithPlayer(1.5f));

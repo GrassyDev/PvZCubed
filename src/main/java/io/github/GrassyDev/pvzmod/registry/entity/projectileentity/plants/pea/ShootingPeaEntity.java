@@ -5,8 +5,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamingpea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -53,6 +51,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
 
 public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 
@@ -210,7 +209,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) || this.canHitFlying) &&
-				(!((entity instanceof ImpEntity || entity instanceof AnnouncerImpEntity) && this.canHitFlying))) {
+				(!(ZOMBIE_SIZE.get(entity.getType()).orElse("medium").equals("small") && this.canHitFlying))) {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
