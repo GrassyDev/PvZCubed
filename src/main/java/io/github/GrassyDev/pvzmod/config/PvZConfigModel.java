@@ -4,7 +4,7 @@ import io.wispforest.owo.config.Option;
 import io.wispforest.owo.config.annotation.*;
 
 @Modmenu(modId = "pvzmod")
-@Config(name = "pvz-config", wrapperName = "PvZConfig")
+@Config(name = "pvz3-config", wrapperName = "PvZConfig")
 public class PvZConfigModel {
 	@Sync(Option.SyncMode.OVERRIDE_CLIENT)
 
@@ -83,7 +83,7 @@ public class PvZConfigModel {
 		@RestartRequired
 		public int puffshroomSPmax = 8;
 		@RestartRequired
-		public int weeniebeanieSP = 17;
+		public int weeniebeanieSP = 19;
 		@RestartRequired
 		public int weeniebeanieSPmin = 3;
 		@RestartRequired
