@@ -25,7 +25,7 @@
       ],
       "title": "Roof Zombie",
       "border": "true",
-      "text": "$(#25228d)A zombie that pushes a basket around and throws balls from it."
+      "text": "$(#25228d)A Zombie that pushes a basket around and throws balls from it."
     },
     {
       "type": "relations",

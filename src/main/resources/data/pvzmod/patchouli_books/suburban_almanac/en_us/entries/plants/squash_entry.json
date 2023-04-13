@@ -13,7 +13,7 @@
         "$(br)$(#bd951a)Smash Radius: $()$(#ff0000)1.5 Blocks",
         "$(br)$(#bd951a)Delay: $()$(#ff0000)2.25s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Jumps on top of the target zombie, smashing everyone near.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Jumps on top of the target Zombie, smashing everyone near.",
         "$(br2)$(#bd951a)Squash is actually his stage name. His birth name was Tracy."
         ]
     },
@@ -24,7 +24,7 @@
       ],
       "title": "\uD83D\uDDE1 Enforce Family",
       "border": "true",
-      "text": "$(#25228d)Squashes will smash the first zombie that gets close to it."
+      "text": "$(#25228d)Squashes will smash the first Zombie that gets close to it."
     },
     {
       "type": "crafting",

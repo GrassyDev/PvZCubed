@@ -23,7 +23,7 @@
       ],
       "title": "Night Zombie",
       "border": "true",
-      "text": "$(#25228d)The newspaper protects zombie, who becomes enraged when it is destroyed."
+      "text": "$(#25228d)The newspaper protects Zombie, who becomes enraged when it is destroyed."
     },
     {
       "type": "relations",

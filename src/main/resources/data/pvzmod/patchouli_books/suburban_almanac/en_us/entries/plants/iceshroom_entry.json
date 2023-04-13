@@ -15,7 +15,7 @@
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
         "$(br)$(#bd951a)Freeze Time: $()$(#ff0000)10s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Freezes all zombies in range.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Freezes all Zombies in range.",
         "$(br)$(#bd951a)Ice-shroom frowns, not because he's unhappy or because he disapproves, but because of a childhood injury that left his facial nerves paralyzed."
       ]
     },
@@ -26,7 +26,7 @@
       ],
       "title": "❄ Winter Family",
       "border": "true",
-      "text": "$(#25228d)Ice-shrooms temporarily immobilize all zombies in a large area."
+      "text": "$(#25228d)Ice-shrooms temporarily immobilize all Zombies in a large area."
     },
     {
       "type": "crafting",

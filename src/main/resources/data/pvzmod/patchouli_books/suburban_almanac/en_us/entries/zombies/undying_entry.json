@@ -11,7 +11,7 @@
         "$(#bd951a)Damage: $()$(#ff0000)12 ",
         "$(#bd951a)Speed: $()$(#ff0000)Hungry, Stiff (Sarcophagus)",
         "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)3s (Initial), 8s ",
-        "$(#bd951a)Special: $()$(#ff0000)Covered by Sarcophagus. Stays in place and enters Summoning mode when he has a Sarcophagus and there's a plant in front of him (3.5 Blocks). Spawns Pharaoh Zombies in Summoning mode.",
+        "$(#bd951a)Special: $()$(#ff0000)Covered by Sarcophagus. Stays in place and enters Summoning mode when he has a Sarcophagus and there's a Plant in front of him (3.5 Blocks). Spawns Pharaoh Zombies in Summoning mode.",
         "$(br)$(#bd951a)If the Plants think they're going to beat the Undying Pharaoh, they're in de-Nile."
       ]
     },

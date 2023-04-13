@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)50",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4, Instant-kill (Burn)",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Burns a plant it touches, or bites it if its fire is extinguished.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Burns a Plant it touches, or bites it if its fire is extinguished.",
         "$(br2)$(#bd951a)His impressive friendly mutton chops has always kept food in them for weeks, making sure his explorations are filled with snacks."
       ]
     },

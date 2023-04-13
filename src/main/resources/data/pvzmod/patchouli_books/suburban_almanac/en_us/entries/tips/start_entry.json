@@ -7,7 +7,7 @@
     {
       "type": "text",
       "text": [
-        "The first day on the zombie apocalypse is really important.",
+        "The first day on the Zombie apocalypse is really important.",
         "$(br2)Your objective is to find plants on the surface and punch them (they will glow). When they die, they drop different types of Plant Food. ",
         "The Plant Foods are important to make different plants, but most importantly you will find Sunflower Seeds around. Punch them to get Petal Plant Food."
         ]
@@ -49,7 +49,7 @@
       "recipe": "pvzmod:plants/bombard/potatomine",
       "text": [
         "Potato Mines will ensure the safety of your plants if you have a hole in your defenses,",
-        "as it will be able to instantly kill any zombie that can spawn at this moment in the game."
+        "as it will be able to instantly kill any Zombie that can spawn at this moment in the game."
       ]
     },
     {

@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)27 (Paper)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic",
-        "$(br2)$(#bd951a)Is he a mummy? Is he a zombie? It turns out he's a zombie who's rolled himself in toilet paper to protect his fair skin. True fact!"
+        "$(br2)$(#bd951a)Is he a mummy? Is he a Zombie? It turns out he's a Zombie who's rolled himself in toilet paper to protect his fair skin. True fact!"
       ]
     },
     {
@@ -21,7 +21,7 @@
       ],
       "title": "Ancient Egypt Zombie",
       "border": "true",
-      "text": "$(#25228d)Regular mummified zombie."
+      "text": "$(#25228d)Regular mummified Zombie."
     },
     {
       "type": "relations",

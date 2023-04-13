@@ -10,8 +10,8 @@
         "$(#bd951a)Health: $()$(#ff0000)50",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Hungry (Pole)",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Vaults over the first plant it touches, then loses its pole. Tall plants block its vault.",
-        "$(br2)$(#bd951a)Some zombies take it further, aspire more, push themselves beyond the normal into greatness. That's Pole Vaulting Zombie right there. That is so him."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Vaults over the first plant it touches, then loses its pole. Tall Plants block its vault.",
+        "$(br2)$(#bd951a)Some Zombies take it further, aspire more, push themselves beyond the normal into greatness. That's Pole Vaulting Zombie right there. That is so him."
       ]
     },
     {

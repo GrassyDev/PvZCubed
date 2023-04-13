@@ -12,7 +12,7 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)2 DMG/1.5s (Spike)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Poisons Zombies. Prioritizes flying zombies, then the strongest zombie with headwear",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Poisons Zombies. Prioritizes flying zombies, then the strongest Zombie with headwear",
         "$(br2)$(#bd951a)Beeshooter shoots bees butt-first. It may seem a little weird, but that’s okay. They have a system and it works for them."
       ]
     },

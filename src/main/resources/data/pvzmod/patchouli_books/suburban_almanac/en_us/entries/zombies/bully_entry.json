@@ -21,7 +21,7 @@
       ],
       "title": "Basic Zombie",
       "border": "true",
-      "text": "$(#25228d)A tough zombie that doesn't depend on armor."
+      "text": "$(#25228d)A tough Zombie that doesn't depend on armor."
     },
     {
       "type": "relations",

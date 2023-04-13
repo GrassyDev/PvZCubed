@@ -13,7 +13,7 @@
         "$(#bd951a)Elec Chains: $()$(#ff0000)3 Chains ",
         "$(#bd951a)Range: $()$(#ff0000)10 Blocks ",
         "$(#bd951a)Seed: $()$(#ff0000)7.5s ",
-        "$(#bd951a)Special: $()$(#ff0000)Electrocutes Zombies. Targets any zombie. Spawns uncommonly. Drops Elec Plant Food.",
+        "$(#bd951a)Special: $()$(#ff0000)Electrocutes Zombies. Targets any Zombie. Spawns uncommonly. Drops Elec Plant Food.",
         "$(br)$(#bd951a)\"My uncle used to say 'With great power comes great responsibility.' Took the lesson to heart: charging criminals, helping power plants... but I'm not powerful enough, I was shocked about this truth.\""
       ]
     },

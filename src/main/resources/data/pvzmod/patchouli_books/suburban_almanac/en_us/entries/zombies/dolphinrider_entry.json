@@ -10,8 +10,8 @@
         "$(#bd951a)Health: $()$(#ff0000)50",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Basic, Flighty (Dolphin)",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Rides a Dolphin when in water. The Dolphin jumps over the first plant it touches(3 block jump distance), then disappears. Tall plants block its jump.",
-        "$(br2)$(#bd951a)The dolphin is also a zombie."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Rides a Dolphin when in water. The Dolphin jumps over the first Plant it touches(3 block jump distance), then disappears. Tall plants block its jump.",
+        "$(br2)$(#bd951a)The dolphin is also a Zombie."
       ]
     },
     {

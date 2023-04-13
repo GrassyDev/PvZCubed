@@ -215,11 +215,11 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				passenger = zpe;
 			}
 		}
-		if (passenger instanceof ZombieShieldEntity zombieShieldEntity && !(zombieShieldEntity instanceof ZombieObstacleEntity)) {
+		if ((passenger instanceof ZombieShieldEntity zombieShieldEntity && !(zombieShieldEntity instanceof ZombieObstacleEntity)) || (passenger != null && passenger.isCovered())) {
 			if (i <= 0) {
 				this.attackTicksLeft = 200;
 				this.world.sendEntityStatus(this, (byte) 105);
-				boolean bl = zombieShieldEntity.damage(DamageSource.mob(this), 999);
+				boolean bl = passenger.damage(DamageSource.mob(this), 999);
 				if (bl) {
 					this.applyDamageEffects(this, target);
 				}
@@ -238,10 +238,11 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				return false;
 			}
 		}
-		if (target instanceof GraveEntity ||
+		else if (target instanceof GraveEntity ||
 				target instanceof ZombieObstacleEntity ||
 				IS_MACHINE.get(target.getType()).orElse(false).equals(true) ||
-				ZOMBIE_SIZE.get(target.getType()).orElse("medium").equals("gargantuar")) {
+				ZOMBIE_SIZE.get(target.getType()).orElse("medium").equals("gargantuar") ||
+				ZOMBIE_SIZE.get(target.getType()).orElse("medium").equals("big")) {
 			Entity damaged = target;
 			if (passenger != null){
 				damaged = passenger;
@@ -262,6 +263,29 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 					default -> PvZCubed.PEAHITEVENT;
 				};
 				target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+				this.chomperAudioDelay = 3;
+				return bl;
+			} else {
+				return false;
+			}
+		}
+		else if ((passenger instanceof ZombieShieldEntity zombieShieldEntity && !(zombieShieldEntity instanceof ZombieObstacleEntity)) || (passenger != null && passenger.isCovered())) {
+			if (i <= 0) {
+				this.attackTicksLeft = 200;
+				this.world.sendEntityStatus(this, (byte) 105);
+				boolean bl = passenger.damage(DamageSource.mob(this), 999);
+				if (bl) {
+					this.applyDamageEffects(this, target);
+				}
+				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(passenger.getType()).orElse("flesh");
+				SoundEvent sound;
+				sound = switch (zombieMaterial) {
+					case "metallic" -> PvZCubed.BUCKETHITEVENT;
+					case "plastic" -> PvZCubed.CONEHITEVENT;
+					case "stone" -> PvZCubed.STONEHITEVENT;
+					default -> PvZCubed.PEAHITEVENT;
+				};
+				passenger.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
 				return bl;
 			} else {

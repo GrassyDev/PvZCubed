@@ -12,8 +12,8 @@
         "$(br)$(#bd951a)High Target Range: $()$(#ff0000)3 Blocks",
         "$(br)$(#bd951a)Ground Target Range: $()$(#ff0000)0.25 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)50s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Flying. Smacks a tall, big, or flying zombie from a distance, or a zombie below it.",
-        "$(br2)$(#bd951a)Smackadamia wasn't born with smack smarts. He studied hard. He's a smackademic."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Flying. Smacks a tall or higher Zombie from a distance, a Flying Zombie from a distance, or a Zombie below it.",
+        "$(br)$(#bd951a)Smackadamia wasn't born with smack smarts. He studied hard. He's a smackademic."
       ]
     },
     {

@@ -22,7 +22,7 @@
       ],
       "title": "Dark Ages Zombie",
       "border": "true",
-      "text": "$(#25228d)Regular lower class commoner zombie that got used to sickness."
+      "text": "$(#25228d)Regular lower class commoner Zombie that got used to sickness."
     },
     {
       "type": "relations",

@@ -24,9 +24,9 @@
     {
       "type": "text",
       "text": [
-        "$(br2)\"Tall\", \"Big\", and \"Flying\" Zombies and Plants.",
+        "$(br2)\"Tall\", \"Big\", \"Gargantuar\", and \"Flying\" Zombies and Plants.",
         "$(br2)Tall entities can interact with Flying ones, but they are still affected by other entities, e.g. Tallnuts blocking Flying Zombies and normal Zombies.",
-        "$(br2)Big Zombies are oversized Zombies. They do not necessarily interact with Flying plants, but Gargantuars do. They are immune to most instant-kills. E.g. Gargantuars."
+        "$(br2)Big Zombies are oversized Zombies that are immune to most instant-kills. Gargantuars are another type of Big Zombie, they hit Flying Plants."
       ]
     },
     {
@@ -40,7 +40,7 @@
     {
       "type": "text",
       "text": [
-        "$(br)Some plants specially target a specific type of entity, e.g. Gargantuars target Low Profiles; Dandelion Weeds, Cattails, etc target Flying Zombies; and lobbing plants target Low Profile Zombies.",
+        "$(br)Some plants specially target a specific type of entity, e.g. Gargantuars target Low Profiles; Dandelion Weeds, Cattails, etc target Flying Zombies; and lobbing plants target Low Profile Zombies and Flying Zombies.",
         "$(br2)This mod has a diverse amount of interactions between Plants and Zombies, experiment to find out the intricacies of the systems!"
       ]
     },

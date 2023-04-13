@@ -44,6 +44,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
 
 public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 
@@ -133,7 +134,7 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 		this.goalSelector.add(2, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 15.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(generalPvZombieEntity.isFlying() || PvZCubed.TARGET_FLY.get(livingEntity.getType()).orElse(false).equals(true));
+					(generalPvZombieEntity.isFlying() || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")|| ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall"));
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
@@ -164,7 +165,9 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
-		if ((target instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.isFlying() || PvZCubed.TARGET_FLY.get(target.getType()).orElse(false).equals(true)) && target.squaredDistanceTo(this) <= 25) ||
+		if ((target instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+				(generalPvZombieEntity.isFlying() || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")|| ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall"))
+				&& target.squaredDistanceTo(this) <= 25) ||
 		this.squaredDistanceTo(target) <= 1.5625) {
 			ZombiePropEntity passenger = null;
 			for (Entity entity1 : target.getPassengerList()) {
@@ -233,7 +236,8 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		if (!(this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.isFlying() || PvZCubed.TARGET_FLY.get(generalPvZombieEntity.getType()).orElse(false).equals(true)))){
+		if (!(this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+				(generalPvZombieEntity.isFlying() || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")|| ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall")))){
 			if (this.getTarget() != null && this.getTarget().squaredDistanceTo(this) > 1.5625){
 				this.setTarget(null);
 			}
@@ -280,7 +284,7 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 	@Override
 	protected void mobTick() {
 		super.mobTick();
-		if (this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.isFlying() || PvZCubed.TARGET_FLY.get(generalPvZombieEntity.getType()).orElse(false).equals(true))){
+		if (this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.isFlying() || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")|| ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall"))){
 			world.sendEntityStatus(this, (byte) 108);
 		}
 		else {

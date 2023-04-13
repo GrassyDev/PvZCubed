@@ -20,7 +20,7 @@
       ],
       "title": "Night Zombie",
       "border": "true",
-      "text": "$(#25228d)These zombies appear in sets of four whenever Dancing Zombie rocks out."
+      "text": "$(#25228d)These Zombies appear in sets of four whenever Dancing Zombie rocks out."
     },
     {
       "type": "relations",

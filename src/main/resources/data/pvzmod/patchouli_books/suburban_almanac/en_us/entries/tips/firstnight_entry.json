@@ -40,14 +40,14 @@
       "type": "crafting",
       "recipe": "pvzmod:plants/ailment/fumeshroompvz",
       "text": [
-        "$(br2)The next plant you can make is the Fume-shroom. It's a better Bellflower.",
+        "$(br2)The next Plant you can make is the Fume-shroom. It's a better Bellflower.",
         "$(br2)Fume-shrooms are good crowd controlling plants."
       ]
     },
     {
       "type": "text",
       "text": [
-        "$(br2)One of the main uses of the Fume-shroom is dealing with shielded zombies like the Screen Door Zombie, as it will deal direct damage to the zombie instead of the shield.",
+        "$(br2)One of the main uses of the Fume-shroom is dealing with shielded zombies like the Screen Door Zombie, as it will deal direct damage to the Zombie instead of the shield.",
         "$(br)Fume-shroom can finish off Newspaper Zombies, but they can't easily deal with them by themselves."
       ]
     },

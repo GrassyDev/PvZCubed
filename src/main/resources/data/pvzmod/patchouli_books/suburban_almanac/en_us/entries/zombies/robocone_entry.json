@@ -10,8 +10,8 @@
         "$(#bd951a)Health: $()$(#ff0000)250 (Plastic)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)12",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Stiff",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Machine. Covered.",
-        "$(br2)$(#bd951a)Zombie engineers considered the orange cone the height of zombie protective technology. It wasn't until they perfected the design for the Robo-Cone that someone remembered the bucket."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Machine. Covered. Big.",
+        "$(br2)$(#bd951a)Zombie engineers considered the orange cone the height of Zombie protective technology. It wasn't until they perfected the design for the Robo-Cone that someone remembered the bucket."
       ]
     },
     {

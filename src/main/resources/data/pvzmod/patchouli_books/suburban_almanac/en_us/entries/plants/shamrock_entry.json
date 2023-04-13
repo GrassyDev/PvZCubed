@@ -11,7 +11,7 @@
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1.5s",
         "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)5s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Hides if a zombie is 6 blocks near. Can target Flying Zombies.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Hides if a Zombie is 6 blocks near. Can target Flying Zombies.",
         "$(br)$(#bd951a)You could say Shamrock is lucky, if your definition of “luck” includes “hiding whenever there’s anything dangerous or herbivorous around.” Which is a kind of luck, you must admit."
       ]
     },

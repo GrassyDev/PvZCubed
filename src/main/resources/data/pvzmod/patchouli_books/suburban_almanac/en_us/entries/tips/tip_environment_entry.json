@@ -22,9 +22,9 @@
       "type": "text",
       "text": [
         "$(br)Scorched Tile",
-        "$(br)They prevent non-flying plants, plants not immune to Fire, and plants that are not Winter Family Plants from being able to be planted on them. ",
-        "Using an Iceberg Lettuce on a them will destroy them. Ice attacks that damage the field (e.g. Ice-shroom, Chilly Pepper, etc.) destroy them. ",
-        "Planting Winter Family Plants on top of them instantly destroys them. ",
+        "$(br)They prevent non-flying Plants, Plants not immune to Fire, and Plants that are not icy or watery from being able to be planted on them. ",
+        "Using an Iceberg Lettuce on them will destroy them. Ice or Water attacks that damage the field (e.g. Ice-shroom, Chilly Pepper, etc.) destroy them. ",
+        "Planting icy or watery Plants on top of them instantly destroys them. ",
         "They last for 1 minute. They spawn an Imp Dragon Zombie every 18 seconds."
 
       ]
@@ -41,7 +41,7 @@
       "type": "text",
       "text": [
         "$(br)Gold Tile",
-        "$(br2)Gold Tile produces one Small Sun every 3 minutes if there's a plant on top of them. The Zombie Sun Radius is 10 blocks.",
+        "$(br2)Gold Tile produces one Small Sun every 3 minutes if there's a non-flying Plant on top of them. The Zombie Sun Radius is 10 blocks.",
         "$(br2)They can be removed by right clicking them with a Gold Shovel."
 
       ]

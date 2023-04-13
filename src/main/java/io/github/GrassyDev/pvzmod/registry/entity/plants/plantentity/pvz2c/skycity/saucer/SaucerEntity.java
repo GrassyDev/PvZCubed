@@ -191,7 +191,7 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 					zombiePropEntity2 = zpe;
 				}
 			}
-			if ((livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("small") || (zombiePropEntity2 == null || zombiePropEntity2 instanceof ZombieShieldEntity))) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && !generalPvZombieEntity.isFlying() && !(livingEntity instanceof ZombiePropEntity) && !generalPvZombieEntity.isCovered()){
+			if ((livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("small") || (zombiePropEntity2 == null || zombiePropEntity2 instanceof ZombieShieldEntity))) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall")) && !generalPvZombieEntity.isFlying() && !(livingEntity instanceof ZombiePropEntity) && !generalPvZombieEntity.isCovered()){
 				livingEntity.setVelocity(0, 0, 0);
 				livingEntity.addVelocity(0, 0.5, 0);
 				livingEntity.kill();

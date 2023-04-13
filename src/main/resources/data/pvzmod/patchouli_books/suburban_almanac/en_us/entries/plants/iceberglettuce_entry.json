@@ -13,8 +13,8 @@
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)0.75s",
         "$(br)$(#bd951a)Freeze Time: $()$(#ff0000)10s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile Explosion. Freezes all zombies in range. Spawns uncommonly. Drops Cold Plant Food",
-        "$(br)$(#bd951a)Don't get lost staring into Iceberg's cute eyes. If you do, it will be your last step... but only if you're a zombie."
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile Explosion. Freezes all Zombies in range. Spawns uncommonly. Drops Cold Plant Food",
+        "$(br)$(#bd951a)Don't get lost staring into Iceberg's cute eyes. If you do, it will be your last step... but only if you're a Zombie."
       ]
     },
     {
@@ -24,7 +24,7 @@
       ],
       "title": "❄ Winter Family",
       "border": "true",
-      "text": "$(#25228d)Freeze a zombie when stepped on and their Cold Plant Food makes icy plants."
+      "text": "$(#25228d)Freeze a Zombie when stepped on and their Cold Plant Food makes icy plants."
     },
     {
       "type": "crafting",

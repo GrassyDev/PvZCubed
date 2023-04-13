@@ -13,7 +13,7 @@
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)3 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)1.5s",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Flighty",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Small. Explodes near a plant, or bites it if its fire is extinguished.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Small. Explodes near a Plant, or bites it if its fire is extinguished.",
         "$(br2)$(#bd951a)Super-Fan Imp has season tickets and is super pumped about exploding on contact with fans of the opposing team."
       ]
     },
