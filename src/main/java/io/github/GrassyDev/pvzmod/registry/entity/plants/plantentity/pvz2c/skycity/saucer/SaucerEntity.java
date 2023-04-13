@@ -46,8 +46,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
-import static io.github.GrassyDev.pvzmod.PvZCubed.TARGET_FLY;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class SaucerEntity extends PlantEntity implements IAnimatable {
 
@@ -192,7 +191,7 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 					zombiePropEntity2 = zpe;
 				}
 			}
-			if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (zombiePropEntity2 == null || zombiePropEntity2 instanceof ZombieShieldEntity) && TARGET_FLY.get(generalPvZombieEntity.getType()).orElse(false).equals(false) && !generalPvZombieEntity.isFlying() && !(livingEntity instanceof ZombiePropEntity) && !generalPvZombieEntity.isCovered()){
+			if ((livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("small") || (zombiePropEntity2 == null || zombiePropEntity2 instanceof ZombieShieldEntity))) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && !generalPvZombieEntity.isFlying() && !(livingEntity instanceof ZombiePropEntity) && !generalPvZombieEntity.isCovered()){
 				livingEntity.setVelocity(0, 0, 0);
 				livingEntity.addVelocity(0, 0.5, 0);
 				livingEntity.kill();
@@ -202,7 +201,8 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 							&& (generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 &&
-							generalPvZombieEntity1.isFlying())) && !livingEntity.isInsideWaterOrBubbleColumn() && !(livingEntity instanceof ZombieShieldEntity)) {
+							generalPvZombieEntity1.isFlying())) && !livingEntity.isInsideWaterOrBubbleColumn() && !(livingEntity instanceof ZombieShieldEntity) &&
+					!(ZOMBIE_SIZE.get(livingEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(livingEntity.getType()).orElse("medium").equals("big"))) {
 				if (zombiePropEntity2 == null ||
 						zombiePropEntity2 instanceof ZombieShieldEntity) {
 					livingEntity.playSound(PvZCubed.PEAHITEVENT, 0.1F, (float) (0.5F + Math.random()));

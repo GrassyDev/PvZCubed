@@ -292,9 +292,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 				this.hovering = false;
 			}
 		}
-		if (target == null){
-			this.setNoGravity(false);
-		}
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlant(1f) != null && (PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("maintarget") ||
 					PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("flying"))){

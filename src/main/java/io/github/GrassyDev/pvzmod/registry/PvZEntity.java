@@ -1077,37 +1077,37 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<GargantuarEntity> GARGANTUAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "gargantuar"),
-			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 3.95f)).build()
 	);
 
 	public static final EntityType<GargantuarEntity> GARGANTUARHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "gargantuar_hypnotized"),
-			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.CREATURE, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.25f, 3.95f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.CREATURE, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 3.95f)).build()
 	);
 
 	public static final EntityType<GargantuarEntity> DEFENSIVEEND = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveend"),
-			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 3.85f)).build()
 	);
 
 	public static final EntityType<GargantuarEntity> DEFENSIVEENDHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveend_hypnotized"),
-			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 3.85f)).build()
 	);
 
 	public static final EntityType<GargantuarEntity> DEFENSIVEEND_NEWYEAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveend_newyear"),
-			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 3.85f)).build()
 	);
 
 	public static final EntityType<GargantuarEntity> DEFENSIVEEND_NEWYEARHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "defensiveend_newyear_hypnotized"),
-			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(1.225f, 3.85f)).build()
+			QuiltEntityTypeBuilder.<GargantuarEntity>create(SpawnGroup.MONSTER, GargantuarEntity::new).setDimensions(EntityDimensions.fixed(0.925f, 3.85f)).build()
 	);
 
 	public static final EntityType<ImpEntity> IMP = Registry.register(

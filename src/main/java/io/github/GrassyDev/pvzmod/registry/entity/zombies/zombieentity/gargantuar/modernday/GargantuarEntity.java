@@ -447,7 +447,11 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(2f) != null){
+			if (this.CollidesWithPlant(0f) != null){
+				this.setVelocity(0, -0.3, 0);
+				this.setTarget(CollidesWithPlant(0f));
+			}
+			else if (this.CollidesWithPlant(2f) != null){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(2f));
 			}
