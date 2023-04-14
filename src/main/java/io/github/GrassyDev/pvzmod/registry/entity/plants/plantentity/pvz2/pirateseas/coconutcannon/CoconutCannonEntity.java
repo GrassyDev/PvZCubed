@@ -236,7 +236,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 			super.setPosition((double)MathHelper.floor(x), (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z));
 		}
 
-		if (this.age != 0) {
+		if (this.age > 1) {
 			BlockPos blockPos2 = this.getBlockPos();
 			BlockPos blockPos3 = this.getBlockPos().add(-0.5, 0, 0);
 			BlockPos blockPos4 = this.getBlockPos().add(0, 0, -0.5);

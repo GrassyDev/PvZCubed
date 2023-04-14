@@ -40,7 +40,7 @@
         "pvzmod:plants/chillypepper_entry",
         "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/iceberglettuce_entry",
-        "pvzmod:plants/narcissus_entry"
+        "pvzmod:plants/spikeweed_entry"
       ]
     },
     {
@@ -48,7 +48,9 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/admiralnavybean_entry",
-        "pvzmod:plants/dropea_entry"
+        "pvzmod:plants/dropea_entry",
+        "pvzmod:plants/narcissus_entry",
+        "pvzmod:plants/smackadamia_entry"
       ]
     },
     {

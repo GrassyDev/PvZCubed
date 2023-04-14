@@ -267,7 +267,7 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 			super.setPosition((double) MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
 		}
 
-		if (this.age != 0) {
+		if (this.age > 1) {
 			BlockPos blockPos2 = this.getBlockPos();
 			if (!blockPos2.equals(blockPos)) {
 				this.discard();

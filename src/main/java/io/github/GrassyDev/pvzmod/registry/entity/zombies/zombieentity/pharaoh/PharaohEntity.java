@@ -204,13 +204,11 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 
 	public void createPharaoh(){
 		Vec3d vec3d2 = new Vec3d((double) 0.5, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-		Vec3d vec3d3 = new Vec3d((double) -0.5, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		if (world instanceof ServerWorld serverWorld) {
 			PharaohEntity pharaohEntity = new PharaohEntity(PvZEntity.PHARAOH, this.world);
-			BlockPos blockPos = new BlockPos(this.getBlockPos().getX() + vec3d2.getX(), this.getBlockPos().getY() + vec3d2.getY(), this.getBlockPos().getZ() + vec3d2.getZ());
-			Vec3d blockPos2 = new Vec3d(Vec3d.ofCenter(blockPos).getX() + vec3d3.getX(), Vec3d.ofCenter(blockPos).getY(), Vec3d.ofCenter(blockPos).getZ() + vec3d3.getZ());
-			pharaohEntity.refreshPositionAndAngles(blockPos2.getX(), this.getY(), blockPos2.getZ(), this.bodyYaw, 0.0F);
-			pharaohEntity.setPosition(blockPos2.getX(), this.getY(), blockPos2.getZ());
+			Vec3d vec3d3 = new Vec3d(this.getPos().getX() + vec3d2.getX(), this.getPos().getY() + vec3d2.getY(), this.getPos().getZ() + vec3d2.getZ());
+			pharaohEntity.refreshPositionAndAngles(vec3d3.getX(), this.getY(), vec3d3.getZ(), this.bodyYaw, 0.0F);
+			pharaohEntity.setPosition(vec3d3.getX(), this.getY(), vec3d3.getZ());
 			pharaohEntity.setHeadYaw(this.getHeadYaw());
 			pharaohEntity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 			serverWorld.spawnEntityAndPassengers(pharaohEntity);
@@ -219,13 +217,11 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 
 	public void createHypnoPharaoh(){
 		Vec3d vec3d2 = new Vec3d((double) 1, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-		Vec3d vec3d3 = new Vec3d((double) -0.5, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		if (world instanceof ServerWorld serverWorld) {
 			PharaohEntity pharaohEntity = new PharaohEntity(PvZEntity.PHARAOHHYPNO, this.world);
-			BlockPos blockPos = new BlockPos(this.getBlockPos().getX() + vec3d2.getX(), this.getBlockPos().getY() + vec3d2.getY(), this.getBlockPos().getZ() + vec3d2.getZ());
-			Vec3d blockPos2 = new Vec3d(Vec3d.ofCenter(blockPos).getX() + vec3d3.getX(), Vec3d.ofCenter(blockPos).getY(), Vec3d.ofCenter(blockPos).getZ() + vec3d3.getZ());
-			pharaohEntity.refreshPositionAndAngles(blockPos2.getX(), this.getY(), blockPos2.getZ(), this.bodyYaw, 0.0F);
-			pharaohEntity.setPosition(blockPos2.getX(), this.getY(), blockPos2.getZ());
+			Vec3d vec3d3 = new Vec3d(this.getPos().getX() + vec3d2.getX(), this.getPos().getY() + vec3d2.getY(), this.getPos().getZ() + vec3d2.getZ());
+			pharaohEntity.refreshPositionAndAngles(vec3d3.getX(), this.getY(), vec3d3.getZ(), this.bodyYaw, 0.0F);
+			pharaohEntity.setPosition(vec3d3.getX(), this.getY(), vec3d3.getZ());
 			pharaohEntity.setHeadYaw(this.getHeadYaw());
 			pharaohEntity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 			serverWorld.spawnEntityAndPassengers(pharaohEntity);
