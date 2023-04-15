@@ -491,7 +491,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (probability5 <= 0.05) { // 5% x2 Explorer
+				if (probability5 <= 0.15) { // 15% x2 Explorer
 					for (int p = 0; p < 2; ++p) {
 						BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
 						ExplorerEntity explorerEntity = (ExplorerEntity) PvZEntity.EXPLORER.create(EgyptGraveEntity.this.world);
@@ -568,7 +568,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.659 + difficultymodifier || isUnlock()) {
-					if (probability8 <= 0.4) { // 50% x1 Torchlight Zombie
+					if (probability8 <= 0.3) { // 30% x1 Torchlight Zombie
 						for (int g = 0; g < 1; ++g) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
 							ExplorerEntity torchlight = (ExplorerEntity) PvZEntity.TORCHLIGHT.create(EgyptGraveEntity.this.world);
@@ -594,7 +594,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.709 + difficultymodifier || isUnlock()) {
-					if (probability9 <= 0.4) { // 40% x2 Torchlight Zombie
+					if (probability9 <= 0.3) { // 30% x2 Torchlight Zombie
 						for (int g = 0; g < 3; ++g) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
 							ExplorerEntity torchlight = (ExplorerEntity) PvZEntity.TORCHLIGHT.create(EgyptGraveEntity.this.world);

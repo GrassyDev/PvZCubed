@@ -534,6 +534,8 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 				zombieKingEntity.refreshPositionAndAngles(blockPos, AnnouncerImpEntity.this.getYaw(), 0.0F);
 				zombieKingEntity.setOwner(AnnouncerImpEntity.this);
 				zombieKingEntity.setHeadYaw(AnnouncerImpEntity.this.getHeadYaw());
+				zombieKingEntity.setYaw(AnnouncerImpEntity.this.getYaw());
+				zombieKingEntity.setBodyYaw(AnnouncerImpEntity.this.bodyYaw);
 				serverWorld.spawnEntityAndPassengers(zombieKingEntity);
 				if (this.announcerImpEntity.isInsideWaterOrBubbleColumn()) {
 					world.playSound((PlayerEntity) null, announcerImpEntity.getX(), announcerImpEntity.getY(), announcerImpEntity.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.HOSTILE, 1F, 1F);
