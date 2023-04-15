@@ -453,7 +453,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(jetpackEntity);
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability5 <= 0.15) { // 15% x2 Flag Zombie
 						for (int f = 0; f < 2; ++f) {
 							double random = Math.random();
@@ -495,7 +495,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.50) { // 50% x1 Robo-Cone Zombie
 						for (int p = 0; p < 1; ++p) {
 							BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
@@ -507,7 +507,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.40) { // 50% x1 Blastronaut Zombie
 						for (int p = 0; p < 1; ++p) {
 							BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));
@@ -520,7 +520,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				/**
-				 if (difficulty >= 1.89 + difficultymodifier) {
+				 if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
 				 if (probability6 <= 0.085) { // 8.5% x1 Gargantuar
 				 for (int g = 0; g < 1; ++g) {
 				 BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(-2 + FutureGraveEntity.this.random.nextInt(5), 0.1, -2 + FutureGraveEntity.this.random.nextInt(5));

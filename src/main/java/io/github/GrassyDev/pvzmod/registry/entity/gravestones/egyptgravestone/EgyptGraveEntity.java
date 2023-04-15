@@ -424,7 +424,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (serverWorld.toServerWorld().getTime() > 24000) {
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability11 <= 0.15) { // 15% x2 Conehead
 						for (int c = 0; c < 2; ++c) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
@@ -436,7 +436,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability21 <= 0.10) { // 10% x2 Buckethead
 						for (int u = 0; u < 2; ++u) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
@@ -458,7 +458,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(explorerEntity);
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.15) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
@@ -501,7 +501,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(explorerEntity);
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.4) { // 40% x1 Undying Zombie
 						for (int g = 0; g < 2; ++g) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
@@ -534,7 +534,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability7 <= 0.15) { // 15% x1 Undying Zombie
 						for (int h = 0; h < 1; ++h) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
@@ -567,7 +567,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.659 + difficultymodifier) {
+				if (difficulty >= 1.659 + difficultymodifier || isUnlock()) {
 					if (probability8 <= 0.4) { // 50% x1 Torchlight Zombie
 						for (int g = 0; g < 1; ++g) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
@@ -593,7 +593,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.709 + difficultymodifier) {
+				if (difficulty >= 1.709 + difficultymodifier || isUnlock()) {
 					if (probability9 <= 0.4) { // 40% x2 Torchlight Zombie
 						for (int g = 0; g < 3; ++g) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));
@@ -627,7 +627,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability10 <= 0.4) { // 40% x1 Pyramid Zombie
 						if (difficulty >= 1.709) {
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(-2 + EgyptGraveEntity.this.random.nextInt(5), 0.1, -2 + EgyptGraveEntity.this.random.nextInt(5));

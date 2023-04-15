@@ -421,7 +421,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (serverWorld.toServerWorld().getTime() > 24000) {
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability11 <= 0.15) { // 15% x2 Conehead
 						for (int c = 0; c < 2; ++c) {
 							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
@@ -433,7 +433,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability21 <= 0.10) { // 10% x2 Buckethead
 						for (int u = 0; u < 2; ++u) {
 							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
@@ -455,7 +455,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.15) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							double random = Math.random();
@@ -507,7 +507,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.4) { // 40% x2 Bully Zombie
 						for (int g = 0; g < 2; ++g) {
 							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
@@ -540,7 +540,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability7 <= 0.15) { // 15% x2 Bully Zombie
 						for (int h = 0; h < 2; ++h) {
 							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
@@ -573,7 +573,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability8 <= 0.4) { // 50% x1 Trash Can Zombie
 						for (int g = 0; g < 1; ++g) {
 							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
@@ -606,7 +606,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.709 + difficultymodifier) {
+				if (difficulty >= 1.709 + difficultymodifier || isUnlock()) {
 					if (probability9 <= 0.4) { // 40% x3 Trash Can Zombie
 						for (int g = 0; g < 3; ++g) {
 							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));
@@ -640,7 +640,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability10 <= 0.4) { // 40% x1 Brickhead Zombie
 						if (difficulty >= 1.709) {
 							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(-2 + BasicGraveEntity.this.random.nextInt(5), 0.1, -2 + BasicGraveEntity.this.random.nextInt(5));

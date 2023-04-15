@@ -438,7 +438,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (serverWorld.toServerWorld().getTime() > 24000) {
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability5 <= 0.15) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							double random = Math.random();
@@ -519,7 +519,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(impEntity);
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.2) { // 20% x1 Announcer Imp
 						for (int f = 0; f < 1; ++f) {
 							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(-2 + DarkAgesGraveEntity.this.random.nextInt(5), 0.1, -2 + DarkAgesGraveEntity.this.random.nextInt(5));

@@ -271,6 +271,9 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		}
 		LivingEntity target = this.getTarget();
 		this.setNoGravity(true);
+		if (target instanceof PlayerEntity player && player.getAbilities().creativeMode){
+			this.setTarget(null);
+		}
 		if (target != null){
 			Vec3d lastPos = this.getPos();
 			if (target.squaredDistanceTo(this) > 2.25) {

@@ -400,7 +400,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
                 browncoatEntity.setOwner(PoolGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(browncoatEntity);
             }
-			if (difficulty >= 1.519 + difficultymodifier) {
+			if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 				if (probability <= 0.25) { // 25% x2 Conehead
 					for (int c = 0; c < 2; ++c) {
 						BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -423,7 +423,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(coneheadEntity);
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability2 <= 0.25) { // 25% x1 Buckethead
 						for (int u = 0; u < 1; ++u) {
 							BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -445,7 +445,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(snorkelEntity);
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability21 <= 0.15) { // 15% x4 SnorkelZombie
 						for (int p = 0; p < 4; ++p) {
 							BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -457,7 +457,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.4) { // 40% x1 Dolphin Rider Zombie
 						for (int h = 0; h < 1; ++h) {
 							BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -469,7 +469,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability5 <= 0.4) { // 40% x3 Dolphin Rider Zombie
 						for (int j = 0; j < 3; ++j) {
 							BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));
@@ -481,7 +481,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.15) { // 15% x1 Flag Zombie
 						for (int g = 0; g < 1; ++g) {
 							double random = Math.random();
@@ -530,7 +530,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				/**if (difficulty >= 1.89 + difficultymodifier) {
+				/**if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
 				 if (probability7 <= 0.085) { // 8.5% x1 Zomboni
 				 for (int h = 0; h < 1; ++h) {
 				 BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(-2 + PoolGraveEntity.this.random.nextInt(5), 0.1, -2 + PoolGraveEntity.this.random.nextInt(5));

@@ -236,15 +236,16 @@ public class ModItems {
 	public static final Item LOCUSTSWARMEGG = new LocustswarmEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.EPIC));
 
     //Grave Spawn
-	public static final Item EASY = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
-	public static final Item EASYMED = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
-	public static final Item MED = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
-	public static final Item MEDHARD = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
-	public static final Item HARD = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
-	public static final Item SUPERHARD = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
-	public static final Item NIGHTMARE = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
-	public static final Item CRAAAAZY = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
-	public static final Item INFINITE = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
+	public static final Item EASY = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item EASYMED = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item MED = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item MEDHARD = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item HARD = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item SUPERHARD = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item NIGHTMARE = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item CRAAAAZY = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item INFINITE = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item UNLOCK = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
     public static final Item BASICGRAVESPAWN = new BasicGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.COMMON));
     public static final Item NIGHTGRAVESPAWN = new NightGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.UNCOMMON));
 	public static final Item POOLGRAVESPAWN = new PoolGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.RARE));
@@ -467,6 +468,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightmare"), NIGHTMARE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"crazy"), CRAAAAZY);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"infinite"), INFINITE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"unlock"), UNLOCK);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"basicgrave_spawn"), BASICGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightgrave_spawn"), NIGHTGRAVESPAWN);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"poolgrave_spawn"), POOLGRAVESPAWN);

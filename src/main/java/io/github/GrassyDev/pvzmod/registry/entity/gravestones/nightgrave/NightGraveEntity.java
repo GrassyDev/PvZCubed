@@ -445,7 +445,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(coneheadEntity);
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier) {
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability5 <= 0.15) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							double random = Math.random();
@@ -504,7 +504,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(coneheadEntity);
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability9 <= 0.2) { // 20% x2 Super-Fan Imp
 						for (int j = 0; j < 2; ++j) {
 							BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
@@ -516,7 +516,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.25) { // 25% x1 Football
 						for (int u = 0; u < 1; ++u) {
 							BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
@@ -549,7 +549,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier) {
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.2) { // 20% x1 Dancing Zombie
 						for (int f = 0; f < 1; ++f) {
 							BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
@@ -561,7 +561,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.89 + difficultymodifier) {
+				if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
 					if (probability7 <= 0.25) { // 25% x1 Berserker
 						for (int p = 0; p < 1; ++p) {
 							BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
@@ -594,7 +594,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.89 + difficultymodifier) {
+				if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
 					if (probability10 <= 0.3) { // 30% x1 Sunday Edition and x1 Newspaper
 						for (int l = 0; l < 1; ++l) {
 							BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
@@ -614,7 +614,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.89 + difficultymodifier) {
+				if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
 					if (probability8 <= 0.3) { // 30% x2 New Years Imp
 						for (int j = 0; j < 2; ++j) {
 							BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));
@@ -626,7 +626,7 @@ public class NightGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.89 + difficultymodifier) {
+				if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
 					if (probability7 <= 0.2) { // 20% x1 Defensive End
 						for (int k = 0; k < 1; ++k) {
 							BlockPos blockPos = NightGraveEntity.this.getBlockPos().add(-2 + NightGraveEntity.this.random.nextInt(5), 0.1, -2 + NightGraveEntity.this.random.nextInt(5));

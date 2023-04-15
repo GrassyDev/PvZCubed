@@ -81,12 +81,14 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(INFINITE_TAG, false);
+		this.dataTracker.startTracking(UNLOCK_TAG, false);
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 		this.dataTracker.startTracking(SPELL, (byte)0);
 	}
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
 		this.dataTracker.set(INFINITE_TAG, tag.getBoolean("isInfinite"));
+		this.dataTracker.set(UNLOCK_TAG, tag.getBoolean("isUnlocked"));
 		//Variant//
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
 		this.spellTicks = tag.getInt("SpellTicks");
@@ -95,6 +97,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putBoolean("isInfinite", this.isInfinite());
+		tag.putBoolean("isUnlocked", this.isUnlock());
 		//Variant//
 		tag.putInt("Variant", this.getTypeVariant());
 		tag.putInt("SpellTicks", this.spellTicks);
@@ -155,6 +158,36 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		this.dataTracker.set(INFINITE_TAG, infinite.getId());
 	}
 
+
+	//Unlock Tag
+
+	protected static final TrackedData<Boolean> UNLOCK_TAG =
+			DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum Unlock {
+		FALSE(false),
+		TRUE(true);
+
+		Unlock(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isUnlock() {
+		return this.dataTracker.get(UNLOCK_TAG);
+	}
+
+	public void setUnlock(GraveEntity.Unlock unlock) {
+		this.dataTracker.set(UNLOCK_TAG, unlock.getId());
+	}
+
 	//////////////
 
 
@@ -197,6 +230,10 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		else if (itemStack.isOf(ModItems.INFINITE)) {
 			setInfinite(Infitie.TRUE);
 			this.setPersistent();
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.UNLOCK)) {
+			setUnlock(Unlock.TRUE);
 			return ActionResult.SUCCESS;
 		}
 		else {
