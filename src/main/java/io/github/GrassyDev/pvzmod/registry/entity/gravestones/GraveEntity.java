@@ -113,6 +113,9 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
+		if (this.isInfinite()){
+			this.setPersistent();
+		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
 
