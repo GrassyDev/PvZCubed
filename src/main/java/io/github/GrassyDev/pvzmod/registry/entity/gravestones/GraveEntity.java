@@ -1,13 +1,12 @@
 package io.github.GrassyDev.pvzmod.registry.entity.gravestones;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.graves.GraveDifficulty;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -15,15 +14,21 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.FluidTags;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -70,9 +75,136 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		}
 	}
 
+	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+			DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(INFINITE_TAG, false);
+		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+		this.dataTracker.startTracking(SPELL, (byte)0);
+	}
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(INFINITE_TAG, tag.getBoolean("isInfinite"));
+		//Variant//
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
+		this.spellTicks = tag.getInt("SpellTicks");
+	}
+
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("isInfinite", this.isInfinite());
+		//Variant//
+		tag.putInt("Variant", this.getTypeVariant());
+		tag.putInt("SpellTicks", this.spellTicks);
+	}
+
 	static {
 		SPELL = DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BYTE);
 	}
+
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+								 SpawnReason spawnReason, @Nullable EntityData entityData,
+								 @Nullable NbtCompound entityNbt) {
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private int getTypeVariant() {
+		return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
+	}
+
+	public GraveDifficulty getVariant() {
+		return GraveDifficulty.byId(this.getTypeVariant() & 255);
+	}
+
+	public void setVariant(GraveDifficulty variant) {
+		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+
+	//Infinite Tag
+
+	protected static final TrackedData<Boolean> INFINITE_TAG =
+			DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum Infitie {
+		FALSE(false),
+		TRUE(true);
+
+		Infitie(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isInfinite() {
+		return this.dataTracker.get(INFINITE_TAG);
+	}
+
+	public void setInfinite(GraveEntity.Infitie infinite) {
+		this.dataTracker.set(INFINITE_TAG, infinite.getId());
+	}
+
+	//////////////
+
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.EASY)) {
+			setVariant(GraveDifficulty.EASY);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.EASYMED)) {
+			setVariant(GraveDifficulty.EASYMED);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.MED)) {
+			setVariant(GraveDifficulty.MED);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.MEDHARD)) {
+			setVariant(GraveDifficulty.MEDHARD);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.HARD)) {
+			setVariant(GraveDifficulty.HARD);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.SUPERHARD)) {
+			setVariant(GraveDifficulty.SUPERHARD);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.NIGHTMARE)) {
+			setVariant(GraveDifficulty.NIGHTMARE);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.CRAAAAZY)) {
+			setVariant(GraveDifficulty.CRAAAZY);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.INFINITE)) {
+			setInfinite(Infitie.TRUE);
+			this.setPersistent();
+			return ActionResult.SUCCESS;
+		}
+		else {
+			return ActionResult.PASS;
+		}
+	}
+
+	///
 
 	public EntityType<? extends GraveEntity> entityBox = PvZEntity.BASICGRAVESTONE;
 
@@ -149,21 +281,6 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 			}
 			return true;
 		}
-	}
-
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(SPELL, (byte)0);
-	}
-
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
-		this.spellTicks = nbt.getInt("SpellTicks");
-	}
-
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
-		nbt.putInt("SpellTicks", this.spellTicks);
 	}
 
 	public boolean isSpellcasting() {

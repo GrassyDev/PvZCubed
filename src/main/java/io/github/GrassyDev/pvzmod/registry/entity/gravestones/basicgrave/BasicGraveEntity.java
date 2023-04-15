@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.graves.GraveDifficulty;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basic.BullyEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
@@ -127,27 +128,66 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 		super.tick();
 		this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 		LocalDifficulty localDifficulty = world.getLocalDifficulty(this.getBlockPos());
-		double difficulty = localDifficulty.getLocalDifficulty();
+		double difficulty = 0;
+		if (this.getVariant().equals(GraveDifficulty.NONE)){
+			difficulty = localDifficulty.getLocalDifficulty();
+		}
+		else if (this.getVariant().equals(GraveDifficulty.EASY)){
+			difficulty = 1.0;
+		}
+		else if (this.getVariant().equals(GraveDifficulty.EASYMED)){
+			difficulty = 1.5;
+		}
+		else if (this.getVariant().equals(GraveDifficulty.MED)){
+			difficulty = 1.6;
+		}
+		else if (this.getVariant().equals(GraveDifficulty.MEDHARD)){
+			difficulty = 1.8;
+		}
+		else if (this.getVariant().equals(GraveDifficulty.HARD)){
+			difficulty = 2.1;
+		}
+		else if (this.getVariant().equals(GraveDifficulty.SUPERHARD)){
+			difficulty = 3;
+		}
+		else if (this.getVariant().equals(GraveDifficulty.NIGHTMARE)){
+			difficulty = 4;
+		}
+		else if (this.getVariant().equals(GraveDifficulty.CRAAAZY)){
+			difficulty = 5;
+		}
 		if (this.spawnCounter == 1 && world.getTime() < 24000) {
 			this.kill();
 		}
 		else if (this.spawnCounter == 2 && difficulty <= 1.509 + difficultymodifier){
-			this.kill();
+			if (!this.isInfinite()) {
+				this.kill();
+			}
 		}
 		else if (this.spawnCounter == 3 && difficulty <= 1.709 + difficultymodifier){
-			this.kill();
+			if (!this.isInfinite()) {
+				this.kill();
+			}
 		}
 		else if (this.spawnCounter == 4 && difficulty <= 1.909 + difficultymodifier){
-			this.kill();
+			if (!this.isInfinite()) {
+				this.kill();
+			}
 		}
 		else if (this.spawnCounter == 5 && difficulty <= 2.109 + difficultymodifier){
-			this.kill();
+			if (!this.isInfinite()) {
+				this.kill();
+			}
 		}
 		else if (this.spawnCounter == 6 && difficulty >= 2.309 + difficultymodifier){
-			this.kill();
+			if (!this.isInfinite()) {
+				this.kill();
+			}
 		}
 		else if (this.spawnCounter > 7){
-			this.kill();
+			if (!this.isInfinite()) {
+				this.kill();
+			}
 		}
 		if (this.world.isClient && this.isSpellcasting()) {
 			float g = this.bodyYaw * 0.017453292F + MathHelper.cos((float)this.age * 0.6662F) * 0.25F;
@@ -310,7 +350,34 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
         protected void castSpell() {
             ServerWorld serverWorld = (ServerWorld)BasicGraveEntity.this.world;
 			LocalDifficulty localDifficulty = world.getLocalDifficulty(this.basicGraveEntity.getBlockPos());
-			double difficulty = localDifficulty.getLocalDifficulty();
+			double difficulty = 0;
+			if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.NONE)){
+				difficulty = localDifficulty.getLocalDifficulty();
+			}
+			else if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.EASY)){
+				difficulty = 1.0;
+			}
+			else if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.EASYMED)){
+				difficulty = 1.5;
+			}
+			else if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.MED)){
+				difficulty = 1.6;
+			}
+			else if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.MEDHARD)){
+				difficulty = 1.8;
+			}
+			else if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.HARD)){
+				difficulty = 2.1;
+			}
+			else if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.SUPERHARD)){
+				difficulty = 3;
+			}
+			else if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.NIGHTMARE)){
+				difficulty = 4;
+			}
+			else if (this.basicGraveEntity.getVariant().equals(GraveDifficulty.CRAAAZY)){
+				difficulty = 5;
+			}
             double probability = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
 			double probability11 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
             double probability2 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));

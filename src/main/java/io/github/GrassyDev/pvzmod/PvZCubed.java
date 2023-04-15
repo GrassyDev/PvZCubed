@@ -241,6 +241,15 @@ public class PvZCubed implements ModInitializer {
 					new Identifier(MOD_ID, "graves"))
 			.icon(() -> new ItemStack(ModItems.BASICGRAVESPAWN))
 			.appendItems(stacks -> {
+				stacks.add(new ItemStack(ModItems.EASY));
+				stacks.add(new ItemStack(ModItems.EASYMED));
+				stacks.add(new ItemStack(ModItems.MED));
+				stacks.add(new ItemStack(ModItems.MEDHARD));
+				stacks.add(new ItemStack(ModItems.HARD));
+				stacks.add(new ItemStack(ModItems.SUPERHARD));
+				stacks.add(new ItemStack(ModItems.NIGHTMARE));
+				stacks.add(new ItemStack(ModItems.CRAAAAZY));
+				stacks.add(new ItemStack(ModItems.INFINITE));
 				stacks.add(new ItemStack(ModItems.BASICGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.NIGHTGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.POOLGRAVESPAWN));

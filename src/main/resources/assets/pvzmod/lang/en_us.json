@@ -803,6 +803,16 @@
 
   "itemGroup.pvzmod.graves": "Graves",
 
+  "item.pvzmod.easy": "Easy",
+  "item.pvzmod.easymed": "Easy-Medium",
+  "item.pvzmod.med": "Medium",
+  "item.pvzmod.medhard": "Medium-hard",
+  "item.pvzmod.hard": "Hard",
+  "item.pvzmod.superhard": "Super Hard",
+  "item.pvzmod.nightmare": "Nightmare",
+  "item.pvzmod.crazy": "CRAAAAZY!",
+  "item.pvzmod.infinite": "Infinite Spawns",
+
   "entity.pvzmod.basicgrave": "Basic Gravestone",
   "item.pvzmod.basicgrave_spawn": "Basic Gravestone",
 
