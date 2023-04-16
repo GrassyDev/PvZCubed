@@ -573,7 +573,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		if (!this.getHypno() && !(this instanceof ZombieKingEntity) && this.getTarget() == null && --this.playerGetTick <= 0) {
 			this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
-			this.playerGetTick = 300;
+			this.playerGetTick = 200;
 		}
 		super.tick();
 	}
