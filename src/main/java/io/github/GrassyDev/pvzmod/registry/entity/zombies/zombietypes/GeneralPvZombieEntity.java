@@ -521,7 +521,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		if (!this.hasNoGravity() && !this.isFlying()) {
 			if (target != null) {
-				if (target.squaredDistanceTo(this) < 6.25) {
+				if (target.squaredDistanceTo(this) < 2.25) {
 					this.setVelocity(0, -0.3, 0);
 				}
 			}
