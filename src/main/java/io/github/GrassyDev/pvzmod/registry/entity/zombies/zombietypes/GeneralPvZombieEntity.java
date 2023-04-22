@@ -17,6 +17,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
@@ -485,6 +486,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			}
 			if (e.isCovered()){
 				this.removeStatusEffect(PVZPOISON);
+				this.removeStatusEffect(StatusEffects.POISON);
 			}
 		}
 		if (this.getTarget() != null) {
@@ -505,6 +507,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		if (this.isCovered()){
 			this.removeStatusEffect(PVZPOISON);
+			this.removeStatusEffect(StatusEffects.POISON);
 		}
 		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("metallic")) && this.hasStatusEffect(ACID)){
 			this.removeStatusEffect(ACID);
@@ -564,8 +567,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.submergedInWater){
 			this.jump();
 		}
-		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("flesh")) && this.hasStatusEffect(PVZPOISON) && !(this instanceof ZombiePropEntity)){
+		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("flesh")) && (this.hasStatusEffect(PVZPOISON) || this.hasStatusEffect(StatusEffects.POISON) ) && !(this instanceof ZombiePropEntity)){
 			this.removeStatusEffect(PVZPOISON);
+			this.removeStatusEffect(StatusEffects.POISON);
 		}
 		if (this.hasStatusEffect(WARM) || this.isOnFire()){
 			this.removeStatusEffect(FROZEN);

@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
@@ -104,6 +105,10 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 		if (this.hasStatusEffect(PvZCubed.PVZPOISON) && vehicle != null && !(this instanceof ZombieShieldEntity)){
 			vehicle.addStatusEffect((new StatusEffectInstance(PvZCubed.PVZPOISON, Objects.requireNonNull(this.getStatusEffect(PvZCubed.PVZPOISON)).getDuration(), Objects.requireNonNull(this.getStatusEffect(PvZCubed.PVZPOISON)).getAmplifier())));
 			this.removeStatusEffect(PvZCubed.PVZPOISON);
+		}
+		if (this.hasStatusEffect(StatusEffects.POISON) && vehicle != null && !(this instanceof ZombieShieldEntity)){
+			vehicle.addStatusEffect((new StatusEffectInstance(StatusEffects.POISON, Objects.requireNonNull(this.getStatusEffect(StatusEffects.POISON)).getDuration(), Objects.requireNonNull(this.getStatusEffect(StatusEffects.POISON)).getAmplifier())));
+			this.removeStatusEffect(StatusEffects.POISON);
 		}
 		if (vehicle != null && vehicle.isOnFire() && !(this instanceof ZombieShieldEntity)){
 			vehicle.setOnFire(false);

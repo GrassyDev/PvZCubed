@@ -55,12 +55,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private String controllerName = "puffcontroller";
-	public int sunProducingTime = 3600;
+	public int sunProducingTime = (int) (PVZCONFIG.nestedSun.sunseedSec() * 20);
 	public boolean produceSun;
 
 	public boolean isFiring;
@@ -331,7 +333,7 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 			if (this.produceSun){
 				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 				this.dropItem(ModItems.SMALLSUN);
-				this.sunProducingTime = 3600;
+				this.sunProducingTime = (int) (PVZCONFIG.nestedSun.sunseedSec() * 20);;
 				this.produceSun = false;
 			}
 		}

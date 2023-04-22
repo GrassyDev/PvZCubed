@@ -224,6 +224,7 @@ public class PvZConfigModel {
 		public float sunshroomSunChance = 0.45f;
 		public float sunshroomSun2ndChance = 0.75f;
 		public float goldtileSec = 120f;
+		public float sunseedSec = 180f;
 	}
 
 	@SectionHeader("projDMG")

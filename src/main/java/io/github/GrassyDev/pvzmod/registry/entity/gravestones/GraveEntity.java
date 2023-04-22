@@ -11,6 +11,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -249,8 +250,9 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	public EntityType<? extends GraveEntity> entityBox = PvZEntity.BASICGRAVESTONE;
 
 	public void tick() {
-		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("flesh")) && this.hasStatusEffect(PVZPOISON)){
+		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("flesh")) && (this.hasStatusEffect(PVZPOISON) || this.hasStatusEffect(StatusEffects.POISON))){
 			this.removeStatusEffect(PVZPOISON);
+			this.removeStatusEffect(StatusEffects.POISON);
 		}
 		super.tick();
 		if (this.getWorld().getDifficulty().equals(Difficulty.HARD)){

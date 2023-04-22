@@ -267,8 +267,9 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
-		if (this.hasStatusEffect(PvZCubed.PVZPOISON)){
+		if (this.hasStatusEffect(PvZCubed.PVZPOISON) || this.hasStatusEffect(StatusEffects.POISON)){
 			this.removeStatusEffect(PvZCubed.PVZPOISON);
+			this.removeStatusEffect(StatusEffects.POISON);
 		}
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
