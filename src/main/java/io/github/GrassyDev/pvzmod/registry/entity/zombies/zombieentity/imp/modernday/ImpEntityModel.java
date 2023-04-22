@@ -1,9 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ExplorerVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ImpVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.explorer.ExplorerEntityRenderer;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -21,7 +19,7 @@ public class ImpEntityModel extends AnimatedGeoModel<ImpEntity> {
 		Identifier identifier;
 		if (object.getVariant().equals(ImpVariants.IMPDRAGON) || object.getVariant().equals(ImpVariants.IMPDRAGONHYPNO)) {
 			identifier = new Identifier("pvzmod", "textures/entity/imp/impdragon.png");
-			if (object.getType().equals(PvZEntity.IMPHYPNO)) {
+			if (object.getType().equals(PvZEntity.IMPDRAGONHYPNO)) {
 				identifier = new Identifier("pvzmod", "textures/entity/imp/impdragon_hypnotized.png");
 			}
 		}
