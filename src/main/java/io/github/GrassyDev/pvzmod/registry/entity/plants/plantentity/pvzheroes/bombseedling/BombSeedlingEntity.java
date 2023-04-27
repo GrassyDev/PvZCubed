@@ -396,7 +396,9 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 		}
 		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
 		if (this.age > 4 && this.age <= time && !this.getPuffshroomPermanency() && !this.hasStatusEffect(StatusEffects.GLOWING)) {
-			this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
+			if (this.world.getGameRules().getBoolean(PvZCubed.PLANTS_GLOW)) {
+				this.addStatusEffect((new StatusEffectInstance(StatusEffects.GLOWING, (int) Math.floor(time), 1)));
+			}
 		}
 	}
 

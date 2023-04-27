@@ -81,6 +81,9 @@ public class PvZCubed implements ModInitializer {
 	public static final GameRules.Key<GameRules.BooleanRule> INSTANT_RECHARGE =
 			GameRuleRegistry.register("pvzinstantRecharge", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(false));
 
+	public static final GameRules.Key<GameRules.BooleanRule> PLANTS_GLOW =
+			GameRuleRegistry.register("pvzplantsGlow", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(true));
+
 	public static final String MOD_ID = "pvzmod";
 
 	public static final ItemGroup PVZPLANTS = FabricItemGroupBuilder.create(
