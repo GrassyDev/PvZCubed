@@ -12,20 +12,11 @@ public class DolphinRiderEntityModel extends AnimatedGeoModel<DolphinRiderEntity
     }
 
     @Override
-    public Identifier getTextureResource(DolphinRiderEntity object)
-    {
+    public Identifier getTextureResource(DolphinRiderEntity object) {
 		Identifier identifier;
-		if (object.getHypno()){
-			identifier = new Identifier("pvzmod", "textures/entity/dolphinrider/dolphinrider_hypnotized.png");
-			if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/dolphinrider/dolphinrider_dmg1_hypnotized.png");
-			}
-		}
-		else {
-			identifier = new Identifier("pvzmod", "textures/entity/dolphinrider/dolphinrider.png");
-			if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/dolphinrider/dolphinrider_dmg1.png");
-			}
+		identifier = new Identifier("pvzmod", "textures/entity/dolphinrider/dolphinrider.png");
+		if (object.armless) {
+			identifier = new Identifier("pvzmod", "textures/entity/dolphinrider/dolphinrider_dmg1.png");
 		}
 		return identifier;
     }

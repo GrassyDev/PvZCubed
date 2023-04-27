@@ -73,8 +73,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public boolean inLaunchAnimation;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-	boolean isFrozen;
-	boolean isIced;
+
 	int animationMultiplier = 1;
 
 	protected ImpEntity impEntity;
@@ -118,18 +117,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
+
 		RandomGenerator randomGenerator = this.getRandom();
 		if (status == 107) {
 			Entity target = this.getTarget();
@@ -253,7 +241,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if (this.isFrozen) {
+		if (this.isFrozen || this.isStunned) {
 			event.getController().setAnimationSpeed(0);
 		} else if (this.isIced) {
 			event.getController().setAnimationSpeed(0.5);
@@ -613,7 +601,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.GARGANTUARMOANEVENT;
 		}
 		else {

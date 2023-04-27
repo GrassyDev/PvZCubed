@@ -58,6 +58,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public boolean armless;
 	public boolean geardmg;
 	public boolean gearless;
+	public boolean isFrozen;
+	public boolean isIced;
+	public boolean isPoisoned;
+	public boolean isStunned;
 
 	protected void initDataTracker() {
 		super.initDataTracker();
@@ -88,6 +92,37 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	}
 
 	static {
+	}
+
+	@Override
+	public void handleStatus(byte status) {
+		if (status != 2 && status != 60){
+			super.handleStatus(status);
+		}
+		if (status == 70) {
+			this.isFrozen = true;
+			this.isIced = false;
+		}
+		else if (status == 71) {
+			this.isIced = true;
+			this.isFrozen = false;
+		}
+		else if (status == 72) {
+			this.isIced = false;
+			this.isFrozen = false;
+		}
+		if (status == 75) {
+			this.isPoisoned = true;
+		}
+		else if (status == 76){
+			this.isPoisoned = false;
+		}
+		if (status == 77) {
+			this.isStunned = true;
+		}
+		else if (status == 78){
+			this.isStunned = false;
+		}
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
@@ -412,6 +447,27 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	protected void mobTick() {
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.world.sendEntityStatus(this, (byte) 70);
+		}
+		else if (this.hasStatusEffect(PvZCubed.ICE)){
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 72);
+		}
+		if (this.hasStatusEffect(PVZPOISON)){
+			this.world.sendEntityStatus(this, (byte) 75);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 76);
+		}
+		if (this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
+			this.world.sendEntityStatus(this, (byte) 77);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 78);
+		}
 		super.mobTick();
 	}
 
@@ -467,8 +523,17 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	}
 
 	public int playerGetTick;
+	protected boolean frozenStart = true;
+	protected float frzYaw;
+	protected float frzPitch;
+	protected float frzBodyYaw;
+	protected float frzHeadYaw;
+
 
 	public void tick() {
+		if (this.hasStatusEffect(PvZCubed.FROZEN)){
+			this.removeStatusEffect(STUN);
+		}
 		// thanks to Pluiedev for this hipster code
 		var zombiePropEntity = this.getPassengerList()
 				.stream()
@@ -479,6 +544,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			var e = zombiePropEntity.get();
 			if (this.getType().equals(PvZEntity.PYRAMIDHEAD)){
 				e.setHypno(IsHypno.FALSE);
+			}
+			if (e.hasStatusEffect(FROZEN)){
+				e.removeStatusEffect(STUN);
+				this.removeStatusEffect(STUN);
 			}
 			if (e.isCovered()){
 				e.removeStatusEffect(STUN);
@@ -579,7 +648,29 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			this.setTarget(this.world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 100, true));
 			this.playerGetTick = 200;
 		}
+		if (frozenStart){
+			this.frzYaw = this.getYaw();
+			this.frzPitch = this.getPitch();
+			this.frzHeadYaw = this.getHeadYaw();
+			this.frzBodyYaw = this.bodyYaw;
+		}
+		if (this.hasStatusEffect(FROZEN) || this.hasStatusEffect(DISABLE) || this.hasStatusEffect(STUN) || this.isFrozen || this.isStunned) {
+			this.setHeadYaw(frzHeadYaw);
+			this.setBodyYaw(frzBodyYaw);
+			frozenStart = false;
+		}
+		else if (!this.hasStatusEffect(FROZEN) && !this.hasStatusEffect(DISABLE) && !this.hasStatusEffect(STUN) && !this.isFrozen && !this.isStunned) {
+			frozenStart = true;
+		}
 		super.tick();
+		if (this.hasStatusEffect(FROZEN) || this.hasStatusEffect(DISABLE) || this.hasStatusEffect(STUN) || this.isFrozen || this.isStunned) {
+			this.setHeadYaw(frzHeadYaw);
+			this.setBodyYaw(frzBodyYaw);
+			frozenStart = false;
+		}
+		else if (!this.hasStatusEffect(FROZEN) && !this.hasStatusEffect(DISABLE) && !this.hasStatusEffect(STUN) && !this.isFrozen && !this.isStunned) {
+			frozenStart = true;
+		}
 	}
 
 	@Override

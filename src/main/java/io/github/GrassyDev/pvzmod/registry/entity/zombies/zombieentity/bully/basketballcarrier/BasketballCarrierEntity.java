@@ -42,8 +42,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
+
 	private int launchAnimation;
 	public boolean inLaunchAnimation;
 
@@ -72,18 +71,6 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 	public void handleStatus(byte status) {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
 		}
 		if (status == 104) {
 			this.inLaunchAnimation = true;
@@ -171,7 +158,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 			else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				if (this.hasPassenger(entity) && entity instanceof ZombieShieldEntity) {
 					event.getController().setAnimation(new AnimationBuilder().loop("bully.push"));
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.25);
@@ -189,7 +176,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 						}
 					} else {
 						event.getController().setAnimation(new AnimationBuilder().loop("bully.walk"));
-						if (this.isFrozen) {
+						if (this.isFrozen || this.isStunned) {
 							event.getController().setAnimationSpeed(0);
 						} else if (this.isIced) {
 							event.getController().setAnimationSpeed(1);
@@ -200,7 +187,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("bully.idle"));
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				} else if (this.isIced) {
 					event.getController().setAnimationSpeed(0.5);

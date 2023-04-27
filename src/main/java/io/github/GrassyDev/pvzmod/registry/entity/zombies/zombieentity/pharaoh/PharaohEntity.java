@@ -11,8 +11,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.PharaohVarian
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -65,8 +63,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
+
 	public boolean speedSwitch;
 	protected int summonTicks = 60;
 	protected int animationTicks;
@@ -97,24 +94,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		this.dataTracker.set(DATA_ID_SUMMON, nbt.getBoolean("Summoning"));
 	}
 
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status != 2 && status != 60){
-			super.handleStatus(status);
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
-	}
+
 
 	@Override
 	public void setHypno(IsHypno hypno) {
@@ -253,7 +233,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 			else {
 				event.getController().setAnimation(new AnimationBuilder().loop("pharaoh.summon.idle"));
 			}
-			if (this.isFrozen) {
+			if (this.isFrozen || this.isStunned) {
 				event.getController().setAnimationSpeed(0);
 			}
 			else if (this.isIced) {
@@ -280,7 +260,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				if (this.hasPassenger(entity)){
 					event.getController().setAnimation(new AnimationBuilder().loop("pharaoh.walking2"));
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
@@ -292,7 +272,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 				}
 				else {
 					event.getController().setAnimation(new AnimationBuilder().loop("pharaoh.walking"));
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
@@ -309,7 +289,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 				else {
 					event.getController().setAnimation(new AnimationBuilder().loop("pharaoh.idle"));
 				}
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				}
 				else if (this.isIced) {
@@ -412,11 +392,11 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 				this.animationTicks = 0;
 			}
 		}
-		if (this.hasStatusEffect(FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE) || this.isFrozen) {
+		if (this.hasStatusEffect(FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE) || this.isFrozen || this.isStunned) {
 			this.summonTicks = 160 * animationMultiplier;
 			this.animationTicks = 0;
 		}
-		else if (this.getSummoning() && !this.isFrozen) {
+		else if (this.getSummoning() && !this.isFrozen && !this.isStunned) {
 			if (--summonTicks <= 0) {
 				if (this.getHypno()) {
 					createHypnoPharaoh();
@@ -543,11 +523,11 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

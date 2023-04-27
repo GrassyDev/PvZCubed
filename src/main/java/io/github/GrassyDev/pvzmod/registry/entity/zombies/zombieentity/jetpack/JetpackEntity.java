@@ -10,8 +10,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.JetpackVarian
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -52,15 +50,13 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class JetpackEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
+
 
 	public JetpackEntity(EntityType<? extends JetpackEntity> entityType, World world) {
         super(entityType, world);
@@ -84,24 +80,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
 	}
 
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status != 2 && status != 60){
-			super.handleStatus(status);
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
-	}
+
 
 	@Override
 	public void setHypno(IsHypno hypno) {
@@ -178,7 +157,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		} else {
 			event.getController().setAnimation(new AnimationBuilder().loop("jetpack.idle"));
 		}
-		if (this.isFrozen) {
+		if (this.isFrozen || this.isStunned) {
 			event.getController().setAnimationSpeed(0);
 		} else if (this.isIced) {
 			event.getController().setAnimationSpeed(0.5);
@@ -407,11 +386,11 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

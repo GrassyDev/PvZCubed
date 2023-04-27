@@ -11,12 +11,13 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FlagZombieVar
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -57,8 +58,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
@@ -67,8 +67,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
     private boolean isAggro;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-	boolean isFrozen;
-	boolean isIced;
+
 
     public FlagzombieEntity(EntityType<? extends FlagzombieEntity> entityType, World world) {
         super(entityType, world);
@@ -101,24 +100,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 		super.setHypno(hypno);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status != 2 && status != 60){
-			super.handleStatus(status);
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
-	}
+
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
@@ -195,7 +177,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
@@ -206,7 +188,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 					}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				} else if (this.isIced) {
 					event.getController().setAnimationSpeed(0.5);
@@ -301,15 +283,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
-			this.world.sendEntityStatus(this, (byte) 70);
-		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 72);
-		}
+
 	}
 
 
@@ -346,11 +320,11 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

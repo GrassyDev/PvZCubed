@@ -317,6 +317,7 @@ public class ChillyPepperEntity extends PlantEntity implements IAnimatable {
 						livingEntity.removeStatusEffect(PvZCubed.WARM);
 						livingEntity.extinguish();
 					}
+					livingEntity.removeStatusEffect(PvZCubed.STUN);
 					livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 				}
 			}

@@ -1,6 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper;
 
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.NewspaperVariants;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -16,19 +16,7 @@ public class NewspaperEntityModel extends AnimatedGeoModel<NewspaperEntity> {
     public Identifier getTextureResource(NewspaperEntity object)
     {
 		Identifier identifier;
-		if (object.getType().equals(PvZEntity.NEWSPAPERHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/newspaper/newspaper_hypnotized.png");
-			if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/newspaper/newspaper_dmg1_hypnotized.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.SUNDAYEDITIONHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/newspaper/sundayedition_hypnotized.png");
-			if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/newspaper/sundayedition_dmg1_hypnotized.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.SUNDAYEDITION)){
+		if (object.getVariant().equals(NewspaperVariants.SUNDAYEDITION) || object.getVariant().equals(NewspaperVariants.SUNDAYEDITIONHYPNO)){
 			identifier = new Identifier("pvzmod", "textures/entity/newspaper/sundayedition.png");
 			if (object.armless){
 				identifier = new Identifier("pvzmod", "textures/entity/newspaper/sundayedition_dmg1.png");

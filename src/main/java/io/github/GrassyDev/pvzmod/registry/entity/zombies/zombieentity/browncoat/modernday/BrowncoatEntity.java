@@ -16,8 +16,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicsh
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.plastichelmet.PlasticHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -70,8 +68,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
 	public boolean speedSwitch;
 	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
@@ -94,25 +90,6 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
-	}
-
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status != 2 && status != 60){
-			super.handleStatus(status);
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
 	}
 
 	@Override
@@ -354,7 +331,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 					event.getController().setAnimation(new AnimationBuilder().loop("headwear.idle"));
 				}
 			}
-			if (this.isFrozen) {
+			if (this.isFrozen || this.isStunned) {
 				event.getController().setAnimationSpeed(0);
 			}
 			else if (this.isIced) {
@@ -452,15 +429,7 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
-			this.world.sendEntityStatus(this, (byte) 70);
-		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 72);
-		}
+
 
 		var zombieObstacleEntity = this.getPassengerList()
 				.stream()
@@ -619,11 +588,11 @@ public class BrowncoatEntity extends PvZombieEntity implements IAnimatable {
     }
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

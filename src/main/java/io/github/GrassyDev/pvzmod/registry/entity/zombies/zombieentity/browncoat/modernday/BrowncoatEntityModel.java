@@ -12,44 +12,19 @@ public class BrowncoatEntityModel extends AnimatedGeoModel<BrowncoatEntity> {
     }
 
     @Override
-    public Identifier getTextureResource(BrowncoatEntity object)
-	{
+    public Identifier getTextureResource(BrowncoatEntity object) {
 		Identifier identifier;
-		if (object.getHypno()){
-			identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_hypnotized.png");
-			if (object.armless && object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_dmg1_geardmg1_hypnotized.png");
-			}
-			else if (object.armless && object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_gearless_dmg1_hypnotized.png");
-			}
-			else if (object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_gearless_hypnotized.png");
-			}
-			else if (object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_geardmg1_hypnotized.png");
-			}
-			else if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_dmg1_hypnotized.png");
-			}
-		}
-		else {
-			identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat.png");
-			if (object.armless && object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_dmg1_geardmg1.png");
-			}
-			else if (object.armless && object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_gearless_dmg1.png");
-			}
-			else if (object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_gearless.png");
-			}
-			else if (object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_geardmg1.png");
-			}
-			else if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_dmg1.png");
-			}
+		identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat.png");
+		if (object.armless && object.geardmg) {
+			identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_dmg1_geardmg1.png");
+		} else if (object.armless && object.gearless) {
+			identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_gearless_dmg1.png");
+		} else if (object.gearless) {
+			identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_gearless.png");
+		} else if (object.geardmg) {
+			identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_geardmg1.png");
+		} else if (object.armless) {
+			identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_dmg1.png");
 		}
 		return identifier;
     }

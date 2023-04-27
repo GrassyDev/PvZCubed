@@ -103,11 +103,7 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 					if (!(livingEntity instanceof ZombieShieldEntity)) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
-						if (livingEntity.hasStatusEffect(PvZCubed.WARM) || livingEntity.isOnFire()) {
-							livingEntity.removeStatusEffect(PvZCubed.WARM);
-							livingEntity.extinguish();
-						}
-						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 					}
 				}
 			}

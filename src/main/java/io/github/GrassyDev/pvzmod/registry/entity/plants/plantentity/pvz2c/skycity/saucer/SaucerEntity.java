@@ -206,7 +206,9 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 				if (zombiePropEntity2 == null ||
 						zombiePropEntity2 instanceof ZombieShieldEntity) {
 					livingEntity.playSound(PvZCubed.PEAHITEVENT, 0.1F, (float) (0.5F + Math.random()));
-					livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.STUN, 20, 5)));
+					if (!this.hasStatusEffect(FROZEN) && !this.hasStatusEffect(DISABLE)){
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.STUN, 20, 5)));
+					}
 					this.zombieList.add(livingEntity);
 					this.attacking = true;
 				}

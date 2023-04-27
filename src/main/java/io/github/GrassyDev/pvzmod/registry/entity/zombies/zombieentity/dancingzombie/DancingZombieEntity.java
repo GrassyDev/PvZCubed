@@ -54,8 +54,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
     private MobEntity owner;
@@ -64,8 +63,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
+
 
     public DancingZombieEntity(EntityType<? extends DancingZombieEntity> entityType, World world) {
         super(entityType, world);
@@ -103,18 +101,6 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		}
 		else if (status == 112) {
 			this.dancing = false;
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
 		}
 	}
 	@Override
@@ -192,7 +178,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 					event.getController().setAnimation(new AnimationBuilder().loop("dancingzombie.dancing"));
 				}
 			}
-			if (this.isFrozen) {
+			if (this.isFrozen || this.isStunned) {
 				event.getController().setAnimationSpeed(0);
 			}
 			else if (this.isIced) {
@@ -289,15 +275,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 		else {
 			this.world.sendEntityStatus(this, (byte) 112);
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
-			this.world.sendEntityStatus(this, (byte) 70);
-		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 72);
-		}
+
 		super.mobTick();
 	}
 
@@ -335,11 +313,11 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
     }
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

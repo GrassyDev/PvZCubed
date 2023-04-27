@@ -208,7 +208,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 			} else {
 				if (!this.isOnGround()) {
 					event.getController().setAnimation(new AnimationBuilder().loop("imp.ball"));
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
@@ -218,7 +218,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("imp.run"));
 
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.75);
@@ -228,7 +228,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("imp.idle"));
 
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
@@ -244,7 +244,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 			} else {
 				if (!this.isOnGround()) {
 					event.getController().setAnimation(new AnimationBuilder().loop("imp.ball.gearless"));
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
@@ -254,7 +254,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 				} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 					event.getController().setAnimation(new AnimationBuilder().loop("imp.run.gearless"));
 
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.75);
@@ -264,7 +264,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("imp.idle.gearless"));
 
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);

@@ -16,71 +16,32 @@ public class JetpackEntityModel extends AnimatedGeoModel<JetpackEntity> {
     public Identifier getTextureResource(JetpackEntity object)
 	{
 		Identifier identifier;
-		if (object.getVariant().equals(JetpackVariants.BLASTRONAUT) || object.getVariant().equals(JetpackVariants.BLASTRONAUTHYPNO)){
-			if (object.getHypno()){
-				identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_hypnotized.png");
-				if (object.armless && object.geardmg){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_dmg1_geardmg1_hypnotized.png");
-				}
-				else if (object.armless && object.gearless){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_gearless_dmg1_hypnotized.png");
-				}
-				else if (object.gearless){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_gearless_hypnotized.png");
-				}
-				else if (object.geardmg){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_geardmg1_hypnotized.png");
-				}
-				else if (object.armless){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_dmg1_hypnotized.png");
-				}
-			}
-			else {
-				identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut.png");
-				if (object.armless && object.geardmg){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_dmg1_geardmg1.png");
-				}
-				else if (object.armless && object.gearless){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_gearless_dmg1.png");
-				}
-				else if (object.gearless){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_gearless.png");
-				}
-				else if (object.geardmg){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_geardmg1.png");
-				}
-				else if (object.armless){
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_dmg1.png");
-				}
+		if (object.getVariant().equals(JetpackVariants.BLASTRONAUT) || object.getVariant().equals(JetpackVariants.BLASTRONAUTHYPNO)) {
+			identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut.png");
+			if (object.armless && object.geardmg) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_dmg1_geardmg1.png");
+			} else if (object.armless && object.gearless) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_gearless_dmg1.png");
+			} else if (object.gearless) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_gearless.png");
+			} else if (object.geardmg) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_geardmg1.png");
+			} else if (object.armless) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/blastronaut_dmg1.png");
 			}
 		}
 		else {
-			if (object.getHypno()) {
-				identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_hypnotized.png");
-				if (object.armless && object.geardmg) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1_hypnotized.png");
-				} else if (object.armless && object.gearless) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1_hypnotized.png");
-				} else if (object.gearless) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_hypnotized.png");
-				} else if (object.geardmg) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_hypnotized.png");
-				} else if (object.armless) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1_hypnotized.png");
-				}
-			} else {
+			identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack.png");
+			if (object.armless && object.geardmg) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1.png");
+			} else if (object.armless && object.gearless) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1.png");
+			} else if (object.gearless) {
 				identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack.png");
-				if (object.armless && object.geardmg) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1.png");
-				} else if (object.armless && object.gearless) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1.png");
-				} else if (object.gearless) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack.png");
-				} else if (object.geardmg) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack.png");
-				} else if (object.armless) {
-					identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1.png");
-				}
+			} else if (object.geardmg) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack.png");
+			} else if (object.armless) {
+				identifier = new Identifier("pvzmod", "textures/entity/jetpack/jetpack_dmg1.png");
 			}
 		}
 		return identifier;

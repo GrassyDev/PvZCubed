@@ -12,44 +12,19 @@ public class BasketballCarrierEntityModel extends AnimatedGeoModel<BasketballCar
     }
 
     @Override
-    public Identifier getTextureResource(BasketballCarrierEntity object)
-	{
+    public Identifier getTextureResource(BasketballCarrierEntity object) {
 		Identifier identifier;
-		if (object.getHypno()){
-			identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_hypnotized.png");
-			if (object.armless && object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1_hypnotized.png");
-			}
-			else if (object.armless && object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1_hypnotized.png");
-			}
-			else if (object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_hypnotized.png");
-			}
-			else if (object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_hypnotized.png");
-			}
-			else if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1_hypnotized.png");
-			}
-		}
-		else {
+		identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier.png");
+		if (object.armless && object.geardmg) {
+			identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1.png");
+		} else if (object.armless && object.gearless) {
+			identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1.png");
+		} else if (object.gearless) {
 			identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier.png");
-			if (object.armless && object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1.png");
-			}
-			else if (object.armless && object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1.png");
-			}
-			else if (object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier.png");
-			}
-			else if (object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier.png");
-			}
-			else if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1.png");
-			}
+		} else if (object.geardmg) {
+			identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier.png");
+		} else if (object.armless) {
+			identifier = new Identifier("pvzmod", "textures/entity/bully/basketballcarrier_dmg1.png");
 		}
 		return identifier;
     }

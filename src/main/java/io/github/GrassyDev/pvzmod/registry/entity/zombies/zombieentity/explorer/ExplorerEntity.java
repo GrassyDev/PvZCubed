@@ -63,8 +63,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
+
 
 	public ExplorerEntity(EntityType<? extends ExplorerEntity> entityType, World world) {
         super(entityType, world);
@@ -96,18 +95,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
+
 		if (status == 115) {
 			Vec3d vec3d2 = new Vec3d((double) 1, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 			Vec3d particlePos = Vec3d.ofCenter(this.getBlockPos().add(vec3d2.getX(), 0, vec3d2.getZ()));
@@ -235,7 +223,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 		}else {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.walking"));
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				}
 				else if (this.isIced) {
@@ -246,7 +234,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("flagzombie.idle"));
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				} else if (this.isIced) {
 					event.getController().setAnimationSpeed(0.5);
@@ -385,15 +373,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
-			this.world.sendEntityStatus(this, (byte) 70);
-		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 72);
-		}
+
 	}
 
 
@@ -446,11 +426,11 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

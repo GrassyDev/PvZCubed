@@ -14,11 +14,7 @@ public class ZombieKingEntityModel extends AnimatedGeoModel<ZombieKingEntity> {
     @Override
     public Identifier getTextureResource(ZombieKingEntity object)
     {
-		Identifier identifier = new Identifier("pvzmod", "textures/entity/zombieking/zombieking.png");
-		if (object.getHypno()){
-			identifier = new Identifier("pvzmod", "textures/entity/zombieking/zombieking_hypnotized.png");
-		}
-		return identifier;
+		return new Identifier("pvzmod", "textures/entity/zombieking/zombieking.png");
     }
 
     @Override

@@ -14,11 +14,7 @@ public class AnnouncerImpEntityModel extends AnimatedGeoModel<AnnouncerImpEntity
     @Override
     public Identifier getTextureResource(AnnouncerImpEntity object)
     {
-		Identifier identifier = new Identifier("pvzmod", "textures/entity/imp/announcerimp.png");
-		if (object.getHypno()){
-			identifier = new Identifier("pvzmod", "textures/entity/imp/announcerimp_hypnotized.png");
-		}
-		return identifier;
+		return new Identifier("pvzmod", "textures/entity/imp/announcerimp.png");
     }
 
     @Override

@@ -10,8 +10,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ImpVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -61,8 +59,6 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	protected boolean isFrozen;
-	protected boolean isIced;
 
     public ImpEntity(EntityType<? extends ImpEntity> entityType, World world) {
         super(entityType, world);
@@ -89,24 +85,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
 	}
 
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status != 2 && status != 60){
-			super.handleStatus(status);
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
-	}
+
 
 	@Override
 	public void setHypno(IsHypno hypno) {
@@ -192,7 +171,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 			if (!this.isOnGround()) {
 				event.getController().setAnimation(new AnimationBuilder().loop("imp.ball"));
 				if (this.getVariant().equals(ImpVariants.IMPDRAGON) || this.getVariant().equals(ImpVariants.IMPDRAGONHYPNO)) {
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
@@ -203,7 +182,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 					}
 				}
 				else {
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.5);
@@ -214,7 +193,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 			} else if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				event.getController().setAnimation(new AnimationBuilder().loop("imp.run"));
 				if (this.getVariant().equals(ImpVariants.IMPDRAGON) || this.getVariant().equals(ImpVariants.IMPDRAGONHYPNO)) {
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
@@ -225,7 +204,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 					}
 				}
 				else {
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					} else if (this.isIced) {
 						event.getController().setAnimationSpeed(0.75);
@@ -236,7 +215,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("imp.idle"));
 
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				}
 				else if (this.isIced) {
@@ -340,15 +319,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
-			this.world.sendEntityStatus(this, (byte) 70);
-		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 72);
-		}
+
 	}
 
 
@@ -408,7 +379,7 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.IMPMOANEVENT;
 		}
 		else {

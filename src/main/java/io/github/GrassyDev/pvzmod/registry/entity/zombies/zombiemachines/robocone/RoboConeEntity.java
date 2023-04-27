@@ -59,8 +59,7 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
+
 
 	boolean zombieeating;
 	private boolean isDisabled = false;
@@ -77,18 +76,7 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
+
 		if (status == 73) {
 			this.isDisabled = true;
 		}
@@ -162,7 +150,7 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("robocone.idle"));
 				}
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				} else if (this.isIced) {
 					event.getController().setAnimationSpeed(0.5);
@@ -288,7 +276,12 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
     }
 
 	protected SoundEvent getAmbientSound() {
-		return PvZCubed.ZOMBIEMOANEVENT;
+		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.isFrozen || this.isStunned || this.isDisabled){
+			return null;
+		}
+		else {
+			return PvZCubed.ZOMBIEMOANEVENT;
+		}
 	}
 
 	public EntityGroup getGroup() {

@@ -70,8 +70,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	public boolean speedSwitch;
 	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 	public static final UUID MAX_STRENGTH_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
-	boolean isFrozen;
-	boolean isIced;
+
 
 	public NewspaperEntity(EntityType<? extends NewspaperEntity> entityType, World world) {
         super(entityType, world);
@@ -105,18 +104,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
+
 		if (status == 120) {
 			this.speedUp = true;
 		}
@@ -211,7 +199,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 			if (!(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F)) {
 				if (this.speedUp) {
 					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.angry"));
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
@@ -223,7 +211,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.walking"));
 					if (this.getType().equals(PvZEntity.SUNDAYEDITION) || this.getType().equals(PvZEntity.SUNDAYEDITIONHYPNO)){
-						if (this.isFrozen) {
+						if (this.isFrozen || this.isStunned) {
 							event.getController().setAnimationSpeed(0);
 						}
 						else if (this.isIced) {
@@ -234,7 +222,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 						}
 					}
 					else {
-						if (this.isFrozen) {
+						if (this.isFrozen || this.isStunned) {
 							event.getController().setAnimationSpeed(0);
 						} else if (this.isIced) {
 							event.getController().setAnimationSpeed(0.25);
@@ -250,7 +238,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 				else {
 					event.getController().setAnimation(new AnimationBuilder().loop("newspaper.idle"));
 				}
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				}
 				else if (this.isIced) {
@@ -340,15 +328,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		if (this.isOnFire() && this.getFirstPassenger() instanceof NewspaperShieldEntity){
 			this.getFirstPassenger().setOnFireFor(this.getFireTicks());
 		}
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
-			this.world.sendEntityStatus(this, (byte) 70);
-		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 72);
-		}
+
 		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 		EntityAttributeInstance maxStrengthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 		if (this.getFirstPassenger() == null){
@@ -455,11 +435,11 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

@@ -58,8 +58,7 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
-	boolean isFrozen;
-	boolean isIced;
+
 	public int spawningTicks;
 	public boolean startSpawn;
 	public int convertTicks = 0;
@@ -97,18 +96,7 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
+
 		else if (status == 113){
 			this.startSpawn = true;
 		}
@@ -194,7 +182,7 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 				event.getController().setAnimation(new AnimationBuilder().loop("zombieking.idle"));
 			}
 		}
-		if (this.isFrozen) {
+		if (this.isFrozen || this.isStunned) {
 			event.getController().setAnimationSpeed(0);
 		}
 		else if (this.isIced) {
@@ -358,11 +346,11 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
     }
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

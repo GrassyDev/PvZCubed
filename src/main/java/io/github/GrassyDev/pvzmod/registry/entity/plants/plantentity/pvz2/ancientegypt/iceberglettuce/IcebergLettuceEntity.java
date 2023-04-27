@@ -327,6 +327,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 							livingEntity.removeStatusEffect(PvZCubed.WARM);
 							livingEntity.extinguish();
 						}
+						livingEntity.removeStatusEffect(PvZCubed.STUN);
 						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 					}
 				}
@@ -525,6 +526,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 				attacker.removeStatusEffect(PvZCubed.WARM);
 				attacker.extinguish();
 			}
+			attacker.removeStatusEffect(PvZCubed.STUN);
 			attacker.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));
 			attacker.removeStatusEffect(PvZCubed.FROZEN);
 			attacker.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, 200, 5)));

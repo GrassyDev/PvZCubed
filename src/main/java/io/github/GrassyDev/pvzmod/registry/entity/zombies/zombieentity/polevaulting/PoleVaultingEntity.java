@@ -11,8 +11,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -70,8 +68,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	public boolean speedSwitch;
 	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 	private String controllerName = "runningcontroller";
-	boolean isFrozen;
-	boolean isIced;
+
 
 	public PoleVaultingEntity(EntityType<? extends PoleVaultingEntity> entityType, World world) {
 		super(entityType, world);
@@ -104,24 +101,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	static {
 	}
 
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status != 2 && status != 60){
-			super.handleStatus(status);
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
-	}
+
 
 	@Override
 	public void setHypno(IsHypno hypno) {
@@ -224,7 +204,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 					event.getController().setAnimation(new AnimationBuilder().loop("polevaulting.idle2"));
 				}
 			}
-			if (this.isFrozen) {
+			if (this.isFrozen || this.isStunned) {
 				event.getController().setAnimationSpeed(0);
 			}
 			else if (this.isIced) {
@@ -327,15 +307,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
-			this.world.sendEntityStatus(this, (byte) 70);
-		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 72);
-		}
+
 		EntityAttributeInstance maxSpeedAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 		if (this.getPoleStage()){
 			if (this.speedSwitch) {
@@ -397,11 +369,11 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

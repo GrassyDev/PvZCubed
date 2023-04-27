@@ -1,6 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday;
 
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.GargantuarVariants;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -19,31 +19,16 @@ public class GargantuarEntityModel extends AnimatedGeoModel<GargantuarEntity> {
     public Identifier getTextureResource(GargantuarEntity object)
     {
 		Identifier identifier = new Identifier("pvzmod", "textures/entity/gargantuar/gargantuar.png");
-		if (object.getType().equals(PvZEntity.GARGANTUARHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/gargantuar/gargantuar_hypnotized.png");
-		}
-		else if (object.getType().equals(PvZEntity.DEFENSIVEEND)){
+		if (object.getVariant().equals(GargantuarVariants.DEFENSIVEEND) || object.getVariant().equals(GargantuarVariants.DEFENSIVEENDHYPNO)){
 			identifier = new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend.png");
 			if (object.gearless){
 				identifier = new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend_gearless.png");
 			}
 		}
-		else if (object.getType().equals(PvZEntity.DEFENSIVEENDHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend_hypnotized.png");
-			if (object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend_gearless_hypnotized.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEAR)){
+		else if (object.getVariant().equals(GargantuarVariants.DEFENSIVEEND_NEWYEAR) || object.getVariant().equals(GargantuarVariants.DEFENSIVEEND_NEWYEARHYPNO)){
 			identifier = new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend_newyear.png");
 			if (object.gearless){
 				identifier = new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend_newyear_gearless.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.DEFENSIVEEND_NEWYEARHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend_newyear_hypnotized.png");
-			if (object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/gargantuar/defensiveend_newyear_gearless_hypnotized.png");
 			}
 		}
         return identifier;

@@ -1,6 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football;
 
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FootballVariants;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -19,43 +19,7 @@ public class FootballEntityModel extends AnimatedGeoModel<FootballEntity> {
 	public Identifier getTextureResource(FootballEntity object)
 	{
 		Identifier identifier;
-		if (object.getType().equals(PvZEntity.FOOTBALLHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/football/football_hypnotized.png");
-			if (object.armless && object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/football/football_dmg1_geardmg1_hypnotized.png");
-			}
-			else if (object.armless && object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/football/football_gearless_dmg1_hypnotized.png");
-			}
-			else if (object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/football/football_gearless_hypnotized.png");
-			}
-			else if (object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/football/football_geardmg1_hypnotized.png");
-			}
-			else if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/football/football_dmg1_hypnotized.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.BERSERKERHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/football/berserker_hypnotized.png");
-			if (object.armless && object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/football/berserker_dmg1_geardmg1_hypnotized.png");
-			}
-			else if (object.armless && object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/football/berserker_gearless_dmg1_hypnotized.png");
-			}
-			else if (object.gearless){
-				identifier = new Identifier("pvzmod", "textures/entity/football/berserker_gearless_hypnotized.png");
-			}
-			else if (object.geardmg){
-				identifier = new Identifier("pvzmod", "textures/entity/football/berserker_geardmg1_hypnotized.png");
-			}
-			else if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/football/berserker_dmg1_hypnotized.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.BERSERKER)){
+		if (object.getVariant().equals(FootballVariants.BERSERKER) || object.getVariant().equals(FootballVariants.BERSERKERHYPNO)){
 			identifier = new Identifier("pvzmod", "textures/entity/football/berserker.png");
 			if (object.armless && object.geardmg){
 				identifier = new Identifier("pvzmod", "textures/entity/football/berserker_dmg1_geardmg1.png");

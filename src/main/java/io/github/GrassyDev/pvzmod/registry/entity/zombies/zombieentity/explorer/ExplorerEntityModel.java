@@ -17,56 +17,28 @@ public class ExplorerEntityModel extends AnimatedGeoModel<ExplorerEntity> {
     {
 		Identifier identifier;
 		if (object.getVariant().equals(ExplorerVariants.TORCHLIGHT) || object.getVariant().equals(ExplorerVariants.TORCHLIGHTHYPNO)) {
-			if (object.getHypno()) {
-				if (object.getFireStage()) {
-					identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_hypnotized.png");
-					if (object.armless) {
-						identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_dmg1_hypnotized.png");
-					}
-				} else {
-					identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_hypnotized_extinguished.png");
-					if (object.armless) {
-						identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_dmg1_hypnotized_extinguished.png");
-					}
+			if (object.getFireStage()) {
+				identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight.png");
+				if (object.armless) {
+					identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_dmg1.png");
 				}
 			} else {
-				if (object.getFireStage()) {
-					identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight.png");
-					if (object.armless) {
-						identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_dmg1.png");
-					}
-				} else {
-					identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_extinguished.png");
-					if (object.armless) {
-						identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_dmg1_extinguished.png");
-					}
+				identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_extinguished.png");
+				if (object.armless) {
+					identifier = new Identifier("pvzmod", "textures/entity/explorer/torchlight_dmg1_extinguished.png");
 				}
 			}
 		}
 		else {
-			if (object.getHypno()) {
-				if (object.getFireStage()) {
-					identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_hypnotized.png");
-					if (object.armless) {
-						identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_dmg1_hypnotized.png");
-					}
-				} else {
-					identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_hypnotized_extinguished.png");
-					if (object.armless) {
-						identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_dmg1_hypnotized_extinguished.png");
-					}
+			if (object.getFireStage()) {
+				identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer.png");
+				if (object.armless) {
+					identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_dmg1.png");
 				}
 			} else {
-				if (object.getFireStage()) {
-					identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer.png");
-					if (object.armless) {
-						identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_dmg1.png");
-					}
-				} else {
-					identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_extinguished.png");
-					if (object.armless) {
-						identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_dmg1_extinguished.png");
-					}
+				identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_extinguished.png");
+				if (object.armless) {
+					identifier = new Identifier("pvzmod", "textures/entity/explorer/explorer_dmg1_extinguished.png");
 				}
 			}
 		}

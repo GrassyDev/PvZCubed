@@ -1228,7 +1228,7 @@ public class PvZEntity implements ModInitializer {
 
 	public static final EntityType<BullyEntity> BULLYHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
-			new Identifier(ModID, "bully_hypnotozed"),
+			new Identifier(ModID, "bully_hypnotized"),
 			QuiltEntityTypeBuilder.<BullyEntity>create(SpawnGroup.MONSTER, BullyEntity::new).setDimensions(EntityDimensions.fixed(0.825f, 2.2f)).build()
 	);
 

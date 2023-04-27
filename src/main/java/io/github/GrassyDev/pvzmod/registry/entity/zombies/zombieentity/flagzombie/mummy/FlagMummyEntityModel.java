@@ -12,20 +12,11 @@ public class FlagMummyEntityModel extends AnimatedGeoModel<FlagMummyEntity> {
 	}
 
 	@Override
-	public Identifier getTextureResource(FlagMummyEntity object)
-	{
+	public Identifier getTextureResource(FlagMummyEntity object) {
 		Identifier identifier;
-		if (object.getHypno()) {
-			identifier = new Identifier("pvzmod", "textures/entity/browncoat/mummy/mummy_hypnotized.png");
-			if (object.armless) {
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/mummy/mummy_dmg1_hypnotized.png");
-			}
-		}
-		else {
-			identifier = new Identifier("pvzmod", "textures/entity/browncoat/mummy/mummy.png");
-			if (object.armless) {
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/mummy/mummy_dmg1.png");
-			}
+		identifier = new Identifier("pvzmod", "textures/entity/browncoat/mummy/mummy.png");
+		if (object.armless) {
+			identifier = new Identifier("pvzmod", "textures/entity/browncoat/mummy/mummy_dmg1.png");
 		}
 		return identifier;
 	}

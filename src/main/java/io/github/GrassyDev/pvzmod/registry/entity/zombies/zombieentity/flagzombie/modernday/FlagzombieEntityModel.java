@@ -1,6 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday;
 
-import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FlagZombieVariants;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
@@ -16,34 +16,16 @@ public class FlagzombieEntityModel extends AnimatedGeoModel<FlagzombieEntity> {
     public Identifier getTextureResource(FlagzombieEntity object)
     {
 		Identifier identifier;
-		if (object.getType().equals(PvZEntity.FLAGZOMBIE_G)){
+		if (object.getVariant().equals(FlagZombieVariants.GAY) || object.getVariant().equals(FlagZombieVariants.GAYHYPNO)){
 			identifier = new Identifier("pvzmod", "textures/entity/browncoat/flagzombie/browncoat_g.png");
 			if (object.armless){
 				identifier = new Identifier("pvzmod", "textures/entity/browncoat/flagzombie/browncoat_g_dmg1.png");
 			}
 		}
-		else if (object.getType().equals(PvZEntity.FLAGZOMBIE_T)){
+		else if (object.getVariant().equals(FlagZombieVariants.TRANS) || object.getVariant().equals(FlagZombieVariants.TRANSHYPNO)){
 			identifier = new Identifier("pvzmod", "textures/entity/browncoat/flagzombie/browncoat_t.png");
 			if (object.armless){
 				identifier = new Identifier("pvzmod", "textures/entity/browncoat/flagzombie/browncoat_t_dmg1.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.FLAGZOMBIEHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_hypnotized.png");
-			if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/browncoat_dmg1_hypnotized.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.FLAGZOMBIE_GHYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/browncoat/flagzombie/browncoat_g_hypnotized.png");
-			if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/flagzombie/browncoat_g_dmg1_hypnotized.png");
-			}
-		}
-		else if (object.getType().equals(PvZEntity.FLAGZOMBIE_THYPNO)){
-			identifier = new Identifier("pvzmod", "textures/entity/browncoat/flagzombie/browncoat_t_hypnotized.png");
-			if (object.armless){
-				identifier = new Identifier("pvzmod", "textures/entity/browncoat/flagzombie/browncoat_t_dmg1_hypnotized.png");
 			}
 		}
 		else {

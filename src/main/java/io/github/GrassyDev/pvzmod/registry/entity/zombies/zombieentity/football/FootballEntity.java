@@ -13,8 +13,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -71,8 +69,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
     private int attackTicksLeft;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-	boolean isFrozen;
-	boolean isIced;
+
 
 	public boolean speedSwitch;
 
@@ -116,24 +113,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	}
 
-	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) {
-		if (status != 2 && status != 60){
-			super.handleStatus(status);
-		}
-		if (status == 70) {
-			this.isFrozen = true;
-			this.isIced = false;
-		}
-		else if (status == 71) {
-			this.isIced = true;
-			this.isFrozen = false;
-		}
-		else if (status == 72) {
-			this.isIced = false;
-			this.isFrozen = false;
-		}
-	}
+
 
 	@Override
 	public void setHypno(IsHypno hypno) {
@@ -244,7 +224,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		ZombiePropEntity zombiePropEntity = (ZombiePropEntity) this.getFirstPassenger();
 		if (this.isInsideWaterOrBubbleColumn()) {
 			event.getController().setAnimation(new AnimationBuilder().loop("football.ducky"));
-			if (this.isFrozen) {
+			if (this.isFrozen || this.isStunned) {
 				event.getController().setAnimationSpeed(0);
 			}
 			else if (this.isIced) {
@@ -258,7 +238,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 				if (!this.getTackleStage()) {
 					event.getController().setAnimation(new AnimationBuilder().loop("football.running"));
 					if (this.getType().equals(PvZEntity.BERSERKER) || this.getType().equals(PvZEntity.BERSERKERHYPNO)){
-						if (this.isFrozen) {
+						if (this.isFrozen || this.isStunned) {
 							event.getController().setAnimationSpeed(0);
 						}
 						else if (this.isIced) {
@@ -269,7 +249,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 						}
 					}
 					else {
-						if (this.isFrozen) {
+						if (this.isFrozen || this.isStunned) {
 							event.getController().setAnimationSpeed(0);
 						}
 						else if (this.isIced) {
@@ -281,7 +261,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 					}
 				} else {
 					event.getController().setAnimation(new AnimationBuilder().loop("football.tackle"));
-					if (this.isFrozen) {
+					if (this.isFrozen || this.isStunned) {
 						event.getController().setAnimationSpeed(0);
 					}
 					else if (this.isIced) {
@@ -293,7 +273,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 				}
 			} else {
 				event.getController().setAnimation(new AnimationBuilder().loop("football.idle"));
-				if (this.isFrozen) {
+				if (this.isFrozen || this.isStunned) {
 					event.getController().setAnimationSpeed(0);
 				}
 				else if (this.isIced) {
@@ -450,15 +430,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 			this.setTackleStage(TackleStage.EATING);
 		}
 
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)){
-			this.world.sendEntityStatus(this, (byte) 70);
-		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
-			this.world.sendEntityStatus(this, (byte) 71);
-		}
-		else {
-			this.world.sendEntityStatus(this, (byte) 72);
-		}
+
 
 		if (this.getVariant().equals(FootballVariants.BERSERKER) ||
 				this.getVariant().equals(FootballVariants.BERSERKERHYPNO) ) {
@@ -532,11 +504,11 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		if (!this.getHypno()) {
+		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 			return PvZCubed.ZOMBIEMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return null;
 		}
 	}
 

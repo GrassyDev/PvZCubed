@@ -49,7 +49,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.List;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.IS_MACHINE;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class EMPeachEntity extends PlantEntity implements IAnimatable {
 
@@ -243,10 +243,12 @@ public class EMPeachEntity extends PlantEntity implements IAnimatable {
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
-					if (IS_MACHINE.get(livingEntity.getType()).orElse(false).equals(false) && !(livingEntity instanceof JetpackEntity)){
+					if (IS_MACHINE.get(livingEntity.getType()).orElse(false).equals(false) && !(livingEntity instanceof JetpackEntity) && !this.hasStatusEffect(FROZEN) && !this.hasStatusEffect(DISABLE)){
 						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.STUN, 100, 5)));
 					}
 					else {
+						livingEntity.removeStatusEffect(FROZEN);
+						livingEntity.removeStatusEffect(STUN);
 						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.DISABLE, 300, 5)));
 					}
 					ZombiePropEntity zombiePropEntity2 = null;
