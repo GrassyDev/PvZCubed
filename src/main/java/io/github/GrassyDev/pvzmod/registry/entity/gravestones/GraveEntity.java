@@ -41,6 +41,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	/** For Zombies that can summon other zombies**/
 
 	protected float difficultymodifier = 0;
+	protected float halfModifier = 1;
 
 	protected int spellTicks;
 
@@ -82,6 +83,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(ONE_TAG, false);
+		this.dataTracker.startTracking(HALF_TAG, false);
 		this.dataTracker.startTracking(INFINITE_TAG, false);
 		this.dataTracker.startTracking(UNLOCK_TAG, false);
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
@@ -90,6 +92,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
 		this.dataTracker.set(ONE_TAG, tag.getBoolean("is1x1"));
+		this.dataTracker.set(HALF_TAG, tag.getBoolean("half"));
 		this.dataTracker.set(INFINITE_TAG, tag.getBoolean("isInfinite"));
 		this.dataTracker.set(UNLOCK_TAG, tag.getBoolean("isUnlocked"));
 		//Variant//
@@ -100,6 +103,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putBoolean("is1x1", this.is1x1());
+		tag.putBoolean("half", this.isHalf());
 		tag.putBoolean("isInfinite", this.isInfinite());
 		tag.putBoolean("isUnlocked", this.isUnlock());
 		//Variant//
@@ -133,6 +137,36 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	public void setVariant(GraveDifficulty variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+
+	//Half Tag
+
+	protected static final TrackedData<Boolean> HALF_TAG =
+			DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum HalfSpawn {
+		FALSE(false),
+		TRUE(true);
+
+		HalfSpawn(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isHalf() {
+		return this.dataTracker.get(HALF_TAG);
+	}
+
+	public void setHalfSpawn(GraveEntity.HalfSpawn halfSpawn) {
+		this.dataTracker.set(HALF_TAG, halfSpawn.getId());
 	}
 
 
@@ -266,7 +300,10 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		}
 		else if (itemStack.isOf(ModItems.ONEBYONE)) {
 			set1x1(OnexOne.TRUE);
-			this.setPersistent();
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.HALF)) {
+			setHalfSpawn(HalfSpawn.TRUE);
 			return ActionResult.SUCCESS;
 		}
 		else if (itemStack.isOf(ModItems.INFINITE)) {
@@ -283,8 +320,6 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		}
 	}
 
-	///
-
 	public EntityType<? extends GraveEntity> entityBox = PvZEntity.BASICGRAVESTONE;
 
 	public void tick() {
@@ -293,8 +328,11 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 			this.removeStatusEffect(StatusEffects.POISON);
 		}
 		super.tick();
-		if (this.getWorld().getDifficulty().equals(Difficulty.HARD)){
+		if (this.getWorld().getDifficulty().equals(Difficulty.HARD) && this.getVariant().equals(GraveDifficulty.NONE)){
 			difficultymodifier = 0.75f;
+		}
+		if (this.isHalf()){
+			halfModifier = 2;
 		}
 		List<GravebusterEntity> list = world.getNonSpectatingEntities(GravebusterEntity.class, entityBox.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
 		this.beingEaten = !list.isEmpty();

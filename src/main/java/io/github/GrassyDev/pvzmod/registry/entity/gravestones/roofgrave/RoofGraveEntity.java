@@ -403,7 +403,11 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 				zombiePosZ = 0;
 			}
 
-			for(int b = 0; b < 3; ++b) { // 100% x3 Browncoat
+			for(int b = 0; b < Math.round(3 / halfModifier); ++b) { // 100% x3 Browncoat
+				if (!RoofGraveEntity.this.is1x1()) {
+					zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+					zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+				}
 				BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 				BrowncoatEntity browncoatEntity = (BrowncoatEntity)PvZEntity.BROWNCOAT.create(RoofGraveEntity.this.world);
 				browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -411,8 +415,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 				browncoatEntity.setOwner(RoofGraveEntity.this);
 				serverWorld.spawnEntityAndPassengers(browncoatEntity);
 			}
-			if (probability <= 0.5) { // 60% x2 Conehead
-				for(int c = 0; c < 2; ++c) {
+			if (probability <= 0.5 / halfModifier) { // 60% x2 Conehead
+				for(int c = 0; c < 2 / halfModifier; ++c) {
+					if (!RoofGraveEntity.this.is1x1()) {
+						zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+						zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+					}
 					BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(RoofGraveEntity.this.world);
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -421,8 +429,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					serverWorld.spawnEntityAndPassengers(coneheadEntity);
 				}
 			}
-			if (probability11 <= 0.5) { // 60% x2 Conehead
-				for(int c = 0; c < 2; ++c) {
+			if (probability11 <= 0.5 / halfModifier) { // 60% x2 Conehead
+				for(int c = 0; c < 2 / halfModifier; ++c) {
+					if (!RoofGraveEntity.this.is1x1()) {
+						zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+						zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+					}
 					BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 					BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(RoofGraveEntity.this.world);
 					coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -432,8 +444,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (serverWorld.toServerWorld().getTime() > 24000) {
-				if (probability2 <= 0.4) { // 40% x2 Buckethead
-					for (int u = 0; u < 2; ++u) {
+				if (probability2 <= 0.4 / halfModifier) { // 40% x2 Buckethead
+					for (int u = 0; u < 2 / halfModifier; ++u) {
+						if (!RoofGraveEntity.this.is1x1()) {
+							zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+							zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+						}
 						BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 						BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(RoofGraveEntity.this.world);
 						bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -442,8 +458,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 					}
 				}
-				if (probability21 <= 0.4) { // 50% x1 Buckethead
+				if (probability21 <= 0.4 / halfModifier) { // 50% x1 Buckethead
 					for (int u = 0; u < 1; ++u) {
+						if (!RoofGraveEntity.this.is1x1()) {
+							zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+							zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+						}
 						BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 						BrowncoatEntity bucketheadEntity = (BrowncoatEntity) PvZEntity.BUCKETHEAD.create(RoofGraveEntity.this.world);
 						bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -452,8 +472,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 					}
 				}
-				if (probability3 <= 0.4) { // 50% x2 Imps
-					for (int h = 0; h < 2; ++h) {
+				if (probability3 <= 0.4 / halfModifier) { // 50% x2 Imps
+					for (int h = 0; h < 2 / halfModifier; ++h) {
+						if (!RoofGraveEntity.this.is1x1()) {
+							zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+							zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+						}
 						BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 						ImpEntity impEntity = (ImpEntity) PvZEntity.IMP.create(RoofGraveEntity.this.world);
 						impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -462,8 +486,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(impEntity);
 					}
 				}
-				if (probability8 <= 0.4) { // 50% x3 Imps
-					for (int i = 0; i < 3; ++i) {
+				if (probability8 <= 0.4 / halfModifier) { // 50% x3 Imps
+					for (int i = 0; i < Math.round(3 / halfModifier); ++i) {
+						if (!RoofGraveEntity.this.is1x1()) {
+							zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+							zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+						}
 						BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 						ImpEntity impEntity = (ImpEntity) PvZEntity.IMP.create(RoofGraveEntity.this.world);
 						impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -473,8 +501,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.859 + difficultymodifier || isUnlock()) {
-					if (probability4 <= 0.50) { // 60% x1 Basketball Carrier Zombie
+					if (probability4 <= 0.50 / halfModifier) { // 60% x1 Basketball Carrier Zombie
 						for (int p = 0; p < 1; ++p) {
+							if (!RoofGraveEntity.this.is1x1()) {
+								zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+								zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							BasketballCarrierEntity basketballCarrierEntity = (BasketballCarrierEntity) PvZEntity.BASKETBALLCARRIER.create(RoofGraveEntity.this.world);
 							basketballCarrierEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -485,8 +517,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
-					if (probability5 <= 0.15) { // 15% x1 Flag Zombie
+					if (probability5 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
+							if (!RoofGraveEntity.this.is1x1()) {
+								zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+								zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+							}
 							double random = Math.random();
 							EntityType<?> flagType;
 							if (random <= 0.125) {
@@ -541,8 +577,12 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
-					if (probability6 <= 0.6) { // 70% x2 Basketball Carrier Zombie
-						for (int p = 0; p < 2; ++p) {
+					if (probability6 <= 0.6 / halfModifier) { // 70% x2 Basketball Carrier Zombie
+						for (int p = 0; p < 2 / halfModifier; ++p) {
+							if (!RoofGraveEntity.this.is1x1()) {
+								zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+								zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							BasketballCarrierEntity basketballCarrierEntity = (BasketballCarrierEntity) PvZEntity.BASKETBALLCARRIER.create(RoofGraveEntity.this.world);
 							basketballCarrierEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -553,12 +593,16 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
-					if (probability7 <= 0.35) { // 35% x1/x2 Gargantuar
+					if (probability7 <= 0.35 / halfModifier) { // 35% x1/x2 Gargantuar
 						int xx = 1;
 						if (difficulty >= 2.09) {
-							xx = 2;
+							xx = (int) Math.floor(2 / halfModifier);
 						}
 						for (int g = 0; g < xx; ++g) {
+							if (!RoofGraveEntity.this.is1x1()) {
+								zombiePosZ = RoofGraveEntity.this.random.range(-1, 1);
+								zombiePos = RoofGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = RoofGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							GargantuarEntity gargantuarEntity = (GargantuarEntity) PvZEntity.GARGANTUAR.create(RoofGraveEntity.this.world);
 							gargantuarEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);

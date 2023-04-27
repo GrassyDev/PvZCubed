@@ -245,6 +245,7 @@ public class ModItems {
 	public static final Item NIGHTMARE = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
 	public static final Item CRAAAAZY = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
 	public static final Item ONEBYONE = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item HALF = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
 	public static final Item INFINITE = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
 	public static final Item UNLOCK = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
     public static final Item BASICGRAVESPAWN = new BasicGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.COMMON));
@@ -469,6 +470,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightmare"), NIGHTMARE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"crazy"), CRAAAAZY);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"1x1"), ONEBYONE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"half"), HALF);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"infinite"), INFINITE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"unlock"), UNLOCK);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"basicgrave_spawn"), BASICGRAVESPAWN);

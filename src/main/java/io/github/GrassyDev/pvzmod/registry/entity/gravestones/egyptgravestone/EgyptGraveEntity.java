@@ -402,7 +402,11 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 				zombiePosZ = 0;
 			}
 
-            for(int b = 0; b < 2; ++b) { // 100% x2 Browncoat
+            for(int b = 0; b < 2 / halfModifier; ++b) { // 100% x2 Browncoat
+				if (!EgyptGraveEntity.this.is1x1()) {
+					zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+					zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+				}
                 BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
                 MummyEntity mummyEntity = (MummyEntity)PvZEntity.MUMMY.create(EgyptGraveEntity.this.world);
                 mummyEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -410,8 +414,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
                 mummyEntity.setOwner(EgyptGraveEntity.this);
                 serverWorld.spawnEntityAndPassengers(mummyEntity);
             }
-            if (probability <= 0.25) { // 25% x1 Conehead
+            if (probability <= 0.25 / halfModifier) { // 25% x1 Conehead
                 for(int c = 0; c < 1; ++c) {
+					if (!EgyptGraveEntity.this.is1x1()) {
+						zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+						zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+					}
                     BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 					MummyEntity coneheadEntity = (MummyEntity) PvZEntity.MUMMYCONE.create(EgyptGraveEntity.this.world);
                     coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -420,8 +428,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
                     serverWorld.spawnEntityAndPassengers(coneheadEntity);
                 }
             }
-			if (probability2 <= 0.10) { // 10% x1 Buckethead
+			if (probability2 <= 0.10 / halfModifier) { // 10% x1 Buckethead
 				for(int u = 0; u < 1; ++u) {
+					if (!EgyptGraveEntity.this.is1x1()) {
+						zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+						zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+					}
 					BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 					MummyEntity bucketheadEntity = (MummyEntity) PvZEntity.MUMMYBUCKET.create(EgyptGraveEntity.this.world);
 					bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -432,8 +444,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 			}
 			if (serverWorld.toServerWorld().getTime() > 24000) {
 				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
-					if (probability11 <= 0.15) { // 15% x2 Conehead
-						for (int c = 0; c < 2; ++c) {
+					if (probability11 <= 0.15 / halfModifier) { // 15% x2 Conehead
+						for (int c = 0; c < 2 / halfModifier; ++c) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							MummyEntity coneheadEntity = (MummyEntity) PvZEntity.MUMMYCONE.create(EgyptGraveEntity.this.world);
 							coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -444,8 +460,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
-					if (probability21 <= 0.10) { // 10% x2 Buckethead
-						for (int u = 0; u < 2; ++u) {
+					if (probability21 <= 0.10 / halfModifier) { // 10% x2 Buckethead
+						for (int u = 0; u < 2 / halfModifier; ++u) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							MummyEntity bucketheadEntity = (MummyEntity) PvZEntity.MUMMYBUCKET.create(EgyptGraveEntity.this.world);
 							bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -455,8 +475,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (probability3 <= 0.20) { // 20% x1 Explorer
+				if (probability3 <= 0.20 / halfModifier) { // 20% x1 Explorer
 					for (int p = 0; p < 1; ++p) {
+						if (!EgyptGraveEntity.this.is1x1()) {
+							zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+							zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+						}
 						BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 						ExplorerEntity explorerEntity = (ExplorerEntity) PvZEntity.EXPLORER.create(EgyptGraveEntity.this.world);
 						explorerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -466,8 +490,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
-					if (probability4 <= 0.15) { // 15% x1 Flag Zombie
+					if (probability4 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							FlagMummyEntity flagzombieEntity = (FlagMummyEntity) PvZEntity.FLAGMUMMY.create(EgyptGraveEntity.this.world);
 							flagzombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -498,8 +526,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (probability5 <= 0.15) { // 15% x2 Explorer
-					for (int p = 0; p < 2; ++p) {
+				if (probability5 <= 0.15 / halfModifier) { // 15% x2 Explorer
+					for (int p = 0; p < 2 / halfModifier; ++p) {
+						if (!EgyptGraveEntity.this.is1x1()) {
+							zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+							zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+						}
 						BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 						ExplorerEntity explorerEntity = (ExplorerEntity) PvZEntity.EXPLORER.create(EgyptGraveEntity.this.world);
 						explorerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -509,8 +541,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
-					if (probability6 <= 0.4) { // 40% x1 Undying Zombie
-						for (int g = 0; g < 2; ++g) {
+					if (probability6 <= 0.4 / halfModifier) { // 40% x1 Undying Zombie
+						for (int g = 0; g < 2 / halfModifier; ++g) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							PharaohEntity pharaohEntity = (PharaohEntity) PvZEntity.UNDYINGPHARAOH.create(EgyptGraveEntity.this.world);
 							pharaohEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -542,8 +578,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
-					if (probability7 <= 0.15) { // 15% x1 Undying Zombie
+					if (probability7 <= 0.15 / halfModifier) { // 15% x1 Undying Zombie
 						for (int h = 0; h < 1; ++h) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							PharaohEntity pharaohEntity = (PharaohEntity) PvZEntity.UNDYINGPHARAOH.create(EgyptGraveEntity.this.world);
 							pharaohEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -575,8 +615,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.659 + difficultymodifier || isUnlock()) {
-					if (probability8 <= 0.3) { // 30% x1 Torchlight Zombie
+					if (probability8 <= 0.3 / halfModifier) { // 30% x1 Torchlight Zombie
 						for (int g = 0; g < 1; ++g) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							ExplorerEntity torchlight = (ExplorerEntity) PvZEntity.TORCHLIGHT.create(EgyptGraveEntity.this.world);
 							torchlight.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -601,8 +645,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.709 + difficultymodifier || isUnlock()) {
-					if (probability9 <= 0.3) { // 30% x2 Torchlight Zombie
-						for (int g = 0; g < 3; ++g) {
+					if (probability9 <= 0.3 / halfModifier) { // 30% x2 Torchlight Zombie
+						for (int g = 0; g < Math.round(3 / halfModifier); ++g) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							ExplorerEntity torchlight = (ExplorerEntity) PvZEntity.TORCHLIGHT.create(EgyptGraveEntity.this.world);
 							torchlight.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -610,7 +658,11 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 							torchlight.setOwner(EgyptGraveEntity.this);
 							serverWorld.spawnEntityAndPassengers(torchlight);
 						}
-						for (int g1 = 0; g1 < 2; ++g1) {
+						for (int g1 = 0; g1 < 2 / halfModifier; ++g1) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos2 = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							MummyEntity mummyEntity = (MummyEntity) PvZEntity.MUMMY.create(EgyptGraveEntity.this.world);
 							mummyEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
@@ -635,8 +687,12 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
-					if (probability10 <= 0.4) { // 40% x1 Pyramid Zombie
+					if (probability10 <= 0.4 / halfModifier) { // 40% x1 Pyramid Zombie
 						if (difficulty >= 1.709) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							MummyEntity pyramidHead = (MummyEntity) PvZEntity.PYRAMIDHEAD.create(EgyptGraveEntity.this.world);
 							pyramidHead.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -659,6 +715,10 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 							serverWorld.spawnEntityAndPassengers(mummyEntity2);
 						}
 						for (int j = 0; j < 1; ++j) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
 							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
 							MummyEntity pyramidHead = (MummyEntity) PvZEntity.PYRAMIDHEAD.create(EgyptGraveEntity.this.world);
 							pyramidHead.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
