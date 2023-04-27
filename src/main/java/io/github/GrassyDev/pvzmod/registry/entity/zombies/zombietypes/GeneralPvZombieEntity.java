@@ -62,6 +62,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public boolean isIced;
 	public boolean isPoisoned;
 	public boolean isStunned;
+	public int fireSplashTicks;
 
 	protected void initDataTracker() {
 		super.initDataTracker();
@@ -122,6 +123,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		else if (status == 78){
 			this.isStunned = false;
+		}
+		if (status == 80){
+			this.fireSplashTicks = 10;
 		}
 	}
 
@@ -671,6 +675,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		else if (!this.hasStatusEffect(FROZEN) && !this.hasStatusEffect(DISABLE) && !this.hasStatusEffect(STUN) && !this.isFrozen && !this.isStunned) {
 			frozenStart = true;
 		}
+		if (fireSplashTicks == 10){
+			this.world.sendEntityStatus(this, (byte) 80);
+		}
+		--fireSplashTicks;
 	}
 
 	@Override

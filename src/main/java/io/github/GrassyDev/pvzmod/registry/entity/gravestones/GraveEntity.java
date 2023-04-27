@@ -81,6 +81,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	protected void initDataTracker() {
 		super.initDataTracker();
+		this.dataTracker.startTracking(ONE_TAG, false);
 		this.dataTracker.startTracking(INFINITE_TAG, false);
 		this.dataTracker.startTracking(UNLOCK_TAG, false);
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
@@ -88,6 +89,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	}
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(ONE_TAG, tag.getBoolean("is1x1"));
 		this.dataTracker.set(INFINITE_TAG, tag.getBoolean("isInfinite"));
 		this.dataTracker.set(UNLOCK_TAG, tag.getBoolean("isUnlocked"));
 		//Variant//
@@ -97,6 +99,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("is1x1", this.is1x1());
 		tag.putBoolean("isInfinite", this.isInfinite());
 		tag.putBoolean("isUnlocked", this.isUnlock());
 		//Variant//
@@ -130,6 +133,36 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	public void setVariant(GraveDifficulty variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+
+	//1x1 Tag
+
+	protected static final TrackedData<Boolean> ONE_TAG =
+			DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum OnexOne {
+		FALSE(false),
+		TRUE(true);
+
+		OnexOne(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean is1x1() {
+		return this.dataTracker.get(ONE_TAG);
+	}
+
+	public void set1x1(GraveEntity.OnexOne onexOne) {
+		this.dataTracker.set(ONE_TAG, onexOne.getId());
 	}
 
 
@@ -229,6 +262,11 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		}
 		else if (itemStack.isOf(ModItems.CRAAAAZY)) {
 			setVariant(GraveDifficulty.CRAAAZY);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.ONEBYONE)) {
+			set1x1(OnexOne.TRUE);
+			this.setPersistent();
 			return ActionResult.SUCCESS;
 		}
 		else if (itemStack.isOf(ModItems.INFINITE)) {

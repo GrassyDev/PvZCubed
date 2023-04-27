@@ -263,6 +263,15 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 									livingEntity.removeStatusEffect(PvZCubed.ICE);
 									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 								}
+								if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+									generalPvZombieEntity.fireSplashTicks = 10;
+								}
+								if (livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+									generalPvZombieEntity.fireSplashTicks = 10;
+								}
+								if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+									generalPvZombieEntity.fireSplashTicks = 10;
+								}
 								this.world.sendEntityStatus(this, (byte) 3);
 								this.remove(RemovalReason.DISCARDED);
 							}

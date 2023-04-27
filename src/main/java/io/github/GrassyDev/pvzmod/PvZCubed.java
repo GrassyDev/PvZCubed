@@ -251,6 +251,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.CRAAAAZY));
 				stacks.add(new ItemStack(ModItems.INFINITE));
 				stacks.add(new ItemStack(ModItems.UNLOCK));
+				stacks.add(new ItemStack(ModItems.ONEBYONE));
 				stacks.add(new ItemStack(ModItems.BASICGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.NIGHTGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.POOLGRAVESPAWN));

@@ -42,6 +42,9 @@ public class BasketballCarrierEntityRenderer extends GeoEntityRenderer<Basketbal
 		if (animatable.getHypno()) {
 			super.render(model, animatable, partialTick, type, poseStack, bufferSource, buffer, 255, packedOverlay, 1, 255, 1, alpha);
 		}
+		else if (animatable.fireSplashTicks > 0){
+			super.render(model, animatable, partialTick, type, poseStack, bufferSource, buffer, packedLight, packedOverlay, 1, 255, 255, alpha);
+		}
 		else if(animatable.isIced || animatable.isFrozen){
 			super.render(model, animatable, partialTick, type, poseStack, bufferSource, buffer, packedLight, packedOverlay, 255, 75, 1, alpha);
 		}

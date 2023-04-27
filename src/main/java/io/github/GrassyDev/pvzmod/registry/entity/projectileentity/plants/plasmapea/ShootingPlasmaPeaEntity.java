@@ -187,6 +187,15 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				if (!(entity instanceof ZombieShieldEntity)) {
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 				}
+				if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+					generalPvZombieEntity.fireSplashTicks = 10;
+				}
+				if (entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity){
+					generalPvZombieEntity.fireSplashTicks = 10;
+				}
+				if (entity2 instanceof GeneralPvZombieEntity generalPvZombieEntity){
+					generalPvZombieEntity.fireSplashTicks = 10;
+				}
 			}
 			entityStore = (LivingEntity) entityHitResult.getEntity();
 			entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
