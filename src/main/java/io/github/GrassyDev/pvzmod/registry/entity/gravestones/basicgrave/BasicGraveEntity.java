@@ -485,6 +485,36 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						poleVaultingEntity.setOwner(BasicGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
 					}
+					if (difficulty >= 1.519 + difficultymodifier || isUnlock()){
+						for (int p = 0; p < 2; ++p) {
+							if (!BasicGraveEntity.this.is1x1()) {
+								zombiePosZ = BasicGraveEntity.this.random.range(-1, 1);
+								zombiePos = BasicGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(BasicGraveEntity.this.world);
+							poleVaultingEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							poleVaultingEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							poleVaultingEntity.setOwner(BasicGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
+						}
+					}
+				}
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+					if (probability12 <= 0.35 / halfModifier) { // 35% x3 Pole Vaulting Zombie
+						for (int p = 0; p < 3; ++p) {
+							if (!BasicGraveEntity.this.is1x1()) {
+								zombiePosZ = BasicGraveEntity.this.random.range(-1, 1);
+								zombiePos = BasicGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(BasicGraveEntity.this.world);
+							poleVaultingEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							poleVaultingEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							poleVaultingEntity.setOwner(BasicGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
+						}
+					}
 				}
 				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie

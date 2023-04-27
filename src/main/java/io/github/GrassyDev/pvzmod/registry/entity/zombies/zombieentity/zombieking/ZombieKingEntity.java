@@ -49,10 +49,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-
-import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+import static io.github.GrassyDev.pvzmod.PvZCubed.FROZEN;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
@@ -64,7 +62,6 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 	public int convertTicks = 0;
 	int animationMultiplier = 1;
 	public boolean convertIs;
-	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
 	public ZombieKingEntity(EntityType<? extends ZombieKingEntity> entityType, World world) {
         super(entityType, world);
@@ -96,8 +93,7 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-
-		else if (status == 113){
+		if (status == 113){
 			this.startSpawn = true;
 		}
 		else if (status == 114){
