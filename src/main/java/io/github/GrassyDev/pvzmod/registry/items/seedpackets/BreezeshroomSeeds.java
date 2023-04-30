@@ -6,10 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.snowpea.SnowpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1c.social.breezeshroom.BreezeshroomEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SnowPeaVariants;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -73,8 +71,8 @@ public class BreezeshroomSeeds extends SeedItem implements FabricItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.ailment.family")
-				.formatted(Formatting.DARK_PURPLE));
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.winter.family")
+				.formatted(Formatting.AQUA));
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.nocturnal.tooltip")
 				.formatted(Formatting.UNDERLINE));
@@ -108,7 +106,6 @@ public class BreezeshroomSeeds extends SeedItem implements FabricItem {
 				if (list.isEmpty()) {
 					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
-					double random = Math.random();
 					world.spawnEntity(plantEntity);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
@@ -147,14 +144,6 @@ public class BreezeshroomSeeds extends SeedItem implements FabricItem {
 			if (list.isEmpty()) {
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
-				double random = Math.random();
-				if (random <= 0.125) {
-					((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.BISEXUAL);
-				} else if (random <= 0.25) {
-					((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.MLM);
-				} else {
-					((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.DEFAULT);
-				}
 				world.spawnEntity(plantEntity);
 				if (entity instanceof ScorchedTile){
 					entity.playSound(PvZCubed.SNOWPEAHITEVENT);
@@ -187,14 +176,6 @@ public class BreezeshroomSeeds extends SeedItem implements FabricItem {
 
 			float f = (float) MathHelper.floor((MathHelper.wrapDegrees(user.getYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 			plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
-			double random = Math.random();
-			if (random <= 0.125) {
-				((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.BISEXUAL);
-			} else if (random <= 0.25) {
-				((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.MLM);
-			} else {
-				((SnowpeaEntity) plantEntity).setVariant(SnowPeaVariants.DEFAULT);
-			}
 			((ServerWorld) world).spawnEntityAndPassengers(plantEntity);
 			plantEntity.rideLilyPad(entity);
 			world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, 0.6f, 0.8F);

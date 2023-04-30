@@ -1,0 +1,40 @@
+{
+  "name": "Breeze-shroom",
+  "icon": "pvzmod:breezeshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 47,
+  "advancement": "pvzmod:make_fumeshroom",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)22",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)x5 2 DMG/2s (Pierce)",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)6 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Wind damage. Chills Zombies.",
+        "$(br2)$(#bd951a)\"I was in a dead-end job cooling desserts at a bakery,\" says Breeze-shroom. \"Then Fume-shroom, bless 'im, told me about this great opportunity blowing Zombies.\""
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/breezeshroom.png"
+      ],
+      "title": "❄ Winter Family",
+      "border": "true",
+      "text": "$(#25228d)Breeze-shrooms shoot a chilly wind that slows down multiple zombies."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/winter/breezeshroom"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: Social Edition: $()$(#ff0000)Icy Fume-shroom"
+      ]
+    }
+  ]
+}

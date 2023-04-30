@@ -55,6 +55,14 @@
     {
       "type": "text",
       "text": [
+        "$(br2)Wind",
+        "$(br2)Knocks back Flying Zombies that don't have protection.",
+        "$(br2)Deals double the damage against Paper, and half against Stone."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
         "$(br2)Electricity",
         "$(br)Chains damage between Zombies, the chain damage is the base damage. Chain's range is by the Electric Radius, that is based on the location of the hit Zombie.",
         "$(br)Electricity chains by the number of Electric Chains. Metallic doesn't count towards the number. Plastic/Rubber cost 2 Electric Chains when hit.",
