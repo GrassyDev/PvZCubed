@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
@@ -50,7 +51,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class JetpackEntity extends PvZombieEntity implements IAnimatable {
     private MobEntity owner;
@@ -198,9 +200,10 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, GardenEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, SunshroomEntity.class, false, true));
     }
 
 	protected void initHypnoGoals(){

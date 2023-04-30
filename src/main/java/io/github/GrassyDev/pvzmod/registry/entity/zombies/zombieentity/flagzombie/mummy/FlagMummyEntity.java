@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzomb
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
@@ -11,12 +12,13 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHyp
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.mummy.MummyEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -206,7 +208,7 @@ public class FlagMummyEntity extends SummonerEntity implements IAnimatable {
 		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
+		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
 		}));
 
@@ -221,9 +223,10 @@ public class FlagMummyEntity extends SummonerEntity implements IAnimatable {
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, GardenEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, SunshroomEntity.class, false, true));
 	}
 
 	protected void initHypnoGoals(){

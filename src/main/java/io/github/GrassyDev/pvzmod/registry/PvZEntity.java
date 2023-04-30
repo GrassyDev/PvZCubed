@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.futuregrave.Future
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave.RoofGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.cherrybomb.CherrybombEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.peashooter.PeashooterEntity;
@@ -140,6 +141,12 @@ import org.quiltmc.qsl.entity.api.QuiltEntityTypeBuilder;
 public class PvZEntity implements ModInitializer {
 
     public static final String ModID = "pvzmod"; // This is just so we can refer to our ModID easier.
+
+	public static final EntityType<GardenEntity> GARDEN = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "garden"),
+			QuiltEntityTypeBuilder.<GardenEntity>create(SpawnGroup.CREATURE, GardenEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.0f)).build()
+	);
 
     public static final EntityType<PeashooterEntity> PEASHOOTER = Registry.register(
             Registry.ENTITY_TYPE,
@@ -1328,6 +1335,7 @@ public class PvZEntity implements ModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GARDEN, GardenEntity.createGardenAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEASHOOTER, PeashooterEntity.createPeashooterAttributes().build());
 

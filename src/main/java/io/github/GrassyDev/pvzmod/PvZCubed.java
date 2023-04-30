@@ -90,6 +90,7 @@ public class PvZCubed implements ModInitializer {
 					new Identifier(MOD_ID, "plants"))
 			.icon(() -> new ItemStack(ModItems.SUN))
 			.appendItems(stacks -> {
+				stacks.add(new ItemStack(ModItems.GARDEN_SPAWN));
 				stacks.add(new ItemStack(ModItems.GARDENINGGLOVE));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD));
 				stacks.add(new ItemStack(ModItems.PLANTFOOD_AIR));

@@ -818,6 +818,10 @@
   "item.pvzmod.infinite": "Infinite Spawns",
   "item.pvzmod.unlock": "Unlock All Zombies",
 
+  "entity.pvzmod.garden": "Garden",
+  "item.pvzmod.garden_spawn": "Garden",
+  "item.pvzmod.garden_spawn.flavour": "Attracts Zombies and Gravestones",
+
   "entity.pvzmod.basicgrave": "Basic Gravestone",
   "item.pvzmod.basicgrave_spawn": "Basic Gravestone",
 

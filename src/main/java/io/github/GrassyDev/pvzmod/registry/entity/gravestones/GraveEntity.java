@@ -3,10 +3,12 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.graves.GraveDifficulty;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -322,7 +324,35 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	public EntityType<? extends GraveEntity> entityBox = PvZEntity.BASICGRAVESTONE;
 
+
+	public <T extends LivingEntity> T getClosestGarden(List<? extends T> entityList, TargetPredicate targetPredicate, @Nullable LivingEntity entity, double x, double y, double z) {
+		double d = -1.0;
+		T livingEntity = null;
+
+		for(T livingEntity2 : entityList) {
+			if (targetPredicate.test(entity, livingEntity2)) {
+				double e = livingEntity2.squaredDistanceTo(x, y, z);
+				if (d == -1.0 || e < d) {
+					d = e;
+					livingEntity = livingEntity2;
+				}
+			}
+		}
+
+		return livingEntity;
+	}
+
+	public static List<GardenEntity> checkGarden(Vec3d pos, ServerWorldAccess world) {
+		return world.getNonSpectatingEntities(GardenEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(50));
+	}
+
 	public void tick() {
+		if (!this.world.isClient() && this.getTarget() == null) {
+			ServerWorldAccess serverWorldAccess = (ServerWorldAccess) this.getWorld();
+			if (serverWorldAccess != null) {
+				this.setTarget(this.getClosestGarden(checkGarden(this.getPos(), serverWorldAccess), TargetPredicate.DEFAULT, this, this.getX(), this.getY(), this.getZ()));
+			}
+		}
 		if (!(ZOMBIE_MATERIAL.get(this.getType()).orElse("flesh").equals("flesh")) && (this.hasStatusEffect(PVZPOISON) || this.hasStatusEffect(StatusEffects.POISON))){
 			this.removeStatusEffect(PVZPOISON);
 			this.removeStatusEffect(StatusEffects.POISON);

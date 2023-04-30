@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dolphinr
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
@@ -12,8 +13,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -264,9 +263,10 @@ public class DolphinRiderEntity extends PvZombieEntity implements IAnimatable {
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
 		////////// Must-Protect Plants ///////
-		this.targetSelector.add(3, new TargetGoal<>(this, SunflowerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
-		this.targetSelector.add(3, new TargetGoal<>(this, SunshroomEntity.class, false, true));
+		this.targetSelector.add(3, new TargetGoal<>(this, GardenEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, SunflowerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));
+		this.targetSelector.add(4, new TargetGoal<>(this, SunshroomEntity.class, false, true));
 	}
 
 	protected void initHypnoGoals(){

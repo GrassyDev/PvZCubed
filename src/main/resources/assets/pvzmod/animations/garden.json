@@ -11,11 +11,11 @@
 							"vector": [0, 0, 0]
 						},
 						"1.0": {
-							"vector": [0, 0, -5],
+							"vector": [0, 0, -1.2],
 							"easing": "easeOutBack"
 						},
 						"3.0": {
-							"vector": [0, 0, 7.5],
+							"vector": [0, 0, 1.2],
 							"easing": "easeInBack"
 						},
 						"4.0": {
