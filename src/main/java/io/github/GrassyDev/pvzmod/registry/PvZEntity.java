@@ -45,6 +45,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.gloomshroom.GloomshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1c.social.breezeshroom.BreezeshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.farfuture.EMPeachEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
@@ -78,6 +79,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidfu
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidspore.AcidSporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.armorbubble.ArmorBubbleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike.ShootingBeeSpikeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.breeze.BreezeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.bubbles.BubbleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbage.ShootingCabbageEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.coconut.CoconutEntity;
@@ -213,6 +215,12 @@ public class PvZEntity implements ModInitializer {
             new Identifier(ModID, "fumeshroom"),
             QuiltEntityTypeBuilder.<FumeshroomEntity>create(SpawnGroup.CREATURE, FumeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
     );
+
+	public static final EntityType <BreezeshroomEntity> BREEZESHROOM = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "breezeshroom"),
+			QuiltEntityTypeBuilder.<BreezeshroomEntity>create(SpawnGroup.CREATURE, BreezeshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.55f)).build()
+	);
 
 	public static final EntityType<GravebusterEntity> GRAVEBUSTER = Registry.register(
             Registry.ENTITY_TYPE,
@@ -598,6 +606,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "fume"),
 			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
+	);
+
+	public static final EntityType<BreezeEntity> BREEZE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "breeze"),
+			QuiltEntityTypeBuilder.<BreezeEntity>create(SpawnGroup.MISC, BreezeEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
 	);
 
 	public static final EntityType<AcidFumeEntity> ACIDFUME = Registry.register(
@@ -1358,6 +1372,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SUNSHROOM, SunshroomEntity.createSunshroomAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUMESHROOM, FumeshroomEntity.createFumeshroomAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BREEZESHROOM, BreezeshroomEntity.createBreezeshroomAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GRAVEBUSTER, GravebusterEntity.createGravebusterAttributes().build());
 

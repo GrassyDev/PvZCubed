@@ -12,6 +12,8 @@
     "pvzmod:tallnut": "reinforce",
     "pvzmod:doomshroom": "bombard",
     "pvzmod:fumeshroom": "ailment",
+    "pvzmod:acidshroom": "ailment",
+    "pvzmod:breezeshroom": "winter",
     "pvzmod:gravebuster": "contain",
     "pvzmod:hypnoshroom": "enchant",
     "pvzmod:iceshroom": "winter",

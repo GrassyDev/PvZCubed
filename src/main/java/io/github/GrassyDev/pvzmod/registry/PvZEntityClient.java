@@ -45,6 +45,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.gloomshroom.GloomshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1c.social.breezeshroom.BreezeshroomEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.farfuture.EMPeachEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntityRenderer;
@@ -78,6 +79,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidfu
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidspore.AcidSporeEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.armorbubble.ArmorBubbleEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike.ShootingBeeSpikeEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.breeze.BreezeEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.bubbles.BubbleEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbage.ShootingCabbageEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.coconut.CoconutEntityRenderer;
@@ -164,6 +166,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.SUNSHROOM, SunshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FUMESHROOM, FumeshroomEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.BREEZESHROOM, BreezeshroomEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.GRAVEBUSTER, GravebusterEntityRenderer::new);
 
@@ -294,6 +298,8 @@ public class PvZEntityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(PvZEntity.ACIDSPORE, AcidSporeEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.FUME, FumeEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.BREEZE, BreezeEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.ACIDFUME, AcidFumeEntityRenderer::new);
 

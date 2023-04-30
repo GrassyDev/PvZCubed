@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pvzmod:plantfood_cold"
+    },
+    {
+      "item": "pvzmod:fumeshroom_seed_packet"
+    },
+    {
+      "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:smallsun"
+    }
+  ],
+  "result": {
+    "item": "pvzmod:breezeshroom_seed_packet",
+    "count": 1
+  }
+}

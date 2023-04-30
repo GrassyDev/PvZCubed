@@ -483,6 +483,11 @@
   "item.pvzmod.acidshroom_seed_packet.flavour2": "\"tchoo.\"",
   "item.pvzmod.acidfume": "Acid Goop",
 
+  "entity.pvzmod.breezeshroom": "Breeze-shroom",
+  "item.pvzmod.breezeshroom_seed_packet": "❄ Breeze-shroom Seed Packet",
+  "item.pvzmod.breezeshroom_seed_packet.flavour": "Bless you.",
+  "item.pvzmod.breeze": "Breeze",
+
   "entity.pvzmod.dandelionweed": "Dandelion Weed",
   "item.pvzmod.dandelionweed_seed_packet": "\uD83D\uDDE1 Dandelion Weed Seed Packet",
   "item.pvzmod.dandelionweed_seed_packet.flavour": "\"OH MY GOSH! A PEASHOOTER! OH MY GOSH! OH MY GOSH!\"",

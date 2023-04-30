@@ -96,7 +96,6 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
     public void tick() {
 		super.tick();
 		HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
-		RandomGenerator randomGenerator = this.random;
 		boolean bl = false;
 		if (hitResult.getType() == HitResult.Type.BLOCK) {
 			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
@@ -127,11 +126,12 @@ public class ShootingSnowPeaEntity extends ThrownItemEntity implements IAnimatab
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
-		double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
-		double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
-		double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
 
 		for (int j = 0; j < 2; ++j) {
+			RandomGenerator randomGenerator = this.random;
+			double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+			double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+			double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
 			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
 		}
 

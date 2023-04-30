@@ -57,6 +57,7 @@ public class ModItems {
 		SEED_PACKET_LIST.add(ModItems.CHILLYPEPPER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.BEESHOOTER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.SNOW_QUEENPEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.BREEZESHROOM_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.ACIDSHROOM_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.DANDELIONWEED_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.PERFOOMSHROOM_SEED_PACKET);
@@ -100,6 +101,7 @@ public class ModItems {
     public static final Item PEA = new PeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.COMMON));
     public static final Item SPORE = new SporeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(64).rarity(Rarity.COMMON));
     public static final Item FUME = new FumeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
+	public static final Item BREEZE = new BreezeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
 	public static final Item ACIDFUME = new AcidFumeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32	).rarity(Rarity.UNCOMMON));
 	public static final Item HYPNO = new HypnoItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.EPIC));
 	public static final Item ACIDSPORE = new AcidSporeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
@@ -163,6 +165,7 @@ public class ModItems {
 	public static final Item CHILLYPEPPER_SEED_PACKET = new ChillyPepperSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item BEESHOOTER_SEED_PACKET = new BeeshooterSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.EPIC));
 	public static final Item SNOW_QUEENPEA_SEED_PACKET = new SnowqueenpeaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.EPIC));
+	public static final Item BREEZESHROOM_SEED_PACKET = new BreezeshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item ACIDSHROOM_SEED_PACKET = new AcidshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item DANDELIONWEED_SEED_PACKET = new DandelionWeedSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item PERFOOMSHROOM_SEED_PACKET = new PerfoomshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
@@ -306,6 +309,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"pea"), PEA);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"spore"), SPORE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"fume"), FUME);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"breeze"), BREEZE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"acidfume"), ACIDFUME);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"hypno"), HYPNO);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"acidspore"), ACIDSPORE);
@@ -368,6 +372,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sunshroom_seed_packet"), SUNSHROOM_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"puffshroom_seed_packet"), PUFFSHROOM_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"fumeshroom_seed_packet"), FUMESHROOM_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"breezeshroom_seed_packet"), BREEZESHROOM_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gravebuster_seed_packet"), GRAVEBUSTER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"hypnoshroom_seed_packet"), HYPNOSHROOM_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"scaredyshroom_seed_packet"), SCAREDYSHROOM_SEED_PACKET);

@@ -154,6 +154,7 @@ public class PvZConfigModel {
 		public float beeshooterS = 15.0f;
 		public float bellflowerS = 2.5f;
 		public float bombseedlingS = 2.5f;
+		public float breezesroomS = 15f;
 		public float buttonshroomS = 2.5f;
 		public float cabbagepultS = 5.0f;
 		public float cattailS = 35.0f;
@@ -235,6 +236,7 @@ public class PvZConfigModel {
 		public float acidSporeDMG = 3f;
 		public float armorBubbleDMG = 2f;
 		public float beeSpikeDMG = 2f;
+		public float breezeDMG = 2f;
 		public float bubblesDMG = 2f;
 		public float cabbageDMG = 4f;
 		public float coconutDMG = 90f;
