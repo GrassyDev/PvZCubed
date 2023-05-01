@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beesp
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spike.ShootingPowerSpikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -122,7 +121,7 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 	}
 
 	public PlantEntity checkFilamint(Vec3d pos) {
-		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SPIKEPROJ.getDimensions().getBoxAt(pos));
+		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SPIKEPROJ.getDimensions().getBoxAt(pos).expand(1.25));
 		PlantEntity entity = null;
 		if (!list.isEmpty()){
 			for (PlantEntity plantEntity : list) {

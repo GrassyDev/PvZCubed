@@ -122,7 +122,7 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 	}
 
 	public PlantEntity checkFilamint(Vec3d pos) {
-		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SPIKEPROJ.getDimensions().getBoxAt(pos));
+		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SPIKEPROJ.getDimensions().getBoxAt(pos).expand(1.25));
 		PlantEntity entity = null;
 		if (!list.isEmpty()){
 			for (PlantEntity plantEntity : list) {
