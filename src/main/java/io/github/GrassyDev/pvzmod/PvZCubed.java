@@ -179,12 +179,15 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.ICEBERG));
 				stacks.add(new ItemStack(ModItems.RAINBOWBULLET));
 				stacks.add(new ItemStack(ModItems.BEESPIKE));
+				stacks.add(new ItemStack(ModItems.POWERBEESPIKE));
 				stacks.add(new ItemStack(ModItems.SNOWQUEENPEAPROJ));
 				stacks.add(new ItemStack(ModItems.BREEZE));
 				stacks.add(new ItemStack(ModItems.COCONUT));
 				stacks.add(new ItemStack(ModItems.PEPPER));
 				stacks.add(new ItemStack(ModItems.PLASMAPEA));
+				stacks.add(new ItemStack(ModItems.POWERSPIKE));
 				stacks.add(new ItemStack(ModItems.ICESPIKE));
+				stacks.add(new ItemStack(ModItems.POWERICESPIKE));
 				stacks.add(new ItemStack(ModItems.BUBBLES));
 				stacks.add(new ItemStack(ModItems.ARMORBUBBLE));
 				stacks.add(new ItemStack(ModItems.DROP));

@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#ff0000)The Filament family is composed of electric plants",
-        "$(br2)$()$(#bd951a)They deal Electric damage."
+        "$(br2)$()$(#bd951a)They deal Electric damage. When Spike-like Projectiles touch them the projectiles get 50% stronger, can pierce an extra Zombie, and deal Electric damage."
         ]
     },
     {

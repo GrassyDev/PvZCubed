@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.icesp
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -31,6 +32,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -42,8 +44,10 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.List;
 import java.util.UUID;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_TYPE;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimatable {
@@ -68,7 +72,7 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 		return PlayState.CONTINUE;
 	}
 
-    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "icespikeproj");
+    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "powericespike");
 
 
     public ShootingIcespikeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
@@ -130,6 +134,29 @@ public class ShootingIcespikeEntity extends ThrownItemEntity implements IAnimata
 			double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
 			this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), d, e, f);
 		}
+
+		if (!this.world.isClient && checkFilamint(this.getPos()) != null) {
+			ShootingPowerIcespikeEntity powerSpike = (ShootingPowerIcespikeEntity) PvZEntity.POWERICESPIKE.create(world);
+			powerSpike.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+			powerSpike.setVelocity(this.getVelocity());
+			powerSpike.age = this.age;
+			powerSpike.setOwner(this.getOwner());
+			world.spawnEntity(powerSpike);
+			this.remove(RemovalReason.DISCARDED);
+		}
+	}
+
+	public PlantEntity checkFilamint(Vec3d pos) {
+		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SPIKEPROJ.getDimensions().getBoxAt(pos));
+		PlantEntity entity = null;
+		if (!list.isEmpty()){
+			for (PlantEntity plantEntity : list) {
+				if (PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("filament")) {
+					entity = plantEntity;
+				}
+			}
+		}
+		return entity;
 	}
 
     @Override

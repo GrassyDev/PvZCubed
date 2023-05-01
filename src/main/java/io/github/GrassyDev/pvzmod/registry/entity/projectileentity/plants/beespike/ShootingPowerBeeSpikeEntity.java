@@ -2,8 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beesp
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spike.ShootingPowerSpikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -27,7 +25,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -39,12 +36,9 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.util.List;
-
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_TYPE;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimatable {
+public class ShootingPowerBeeSpikeEntity extends ThrownItemEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -66,14 +60,14 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 		return PlayState.CONTINUE;
 	}
 
-    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "beespike");
+    public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "powerbeespike");
 
-    public ShootingBeeSpikeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+    public ShootingPowerBeeSpikeEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
 		this.setNoGravity(true);
     }
 
-    public ShootingBeeSpikeEntity(World world, LivingEntity owner) {
+    public ShootingPowerBeeSpikeEntity(World world, LivingEntity owner) {
         super(EntityType.SNOWBALL, owner, world);
     }
 
@@ -106,32 +100,9 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		if (!this.world.isClient && this.age >= 41 || this.damageCounter >= 3) {
+		if (!this.world.isClient && this.age >= 41 || this.damageCounter >= 4) {
 			this.remove(RemovalReason.DISCARDED);
 		}
-
-		if (!this.world.isClient && checkFilamint(this.getPos()) != null) {
-			ShootingPowerBeeSpikeEntity powerSpike = (ShootingPowerBeeSpikeEntity) PvZEntity.POWERBEESPIKE.create(world);
-			powerSpike.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-			powerSpike.setVelocity(this.getVelocity());
-			powerSpike.age = this.age;
-			powerSpike.setOwner(this.getOwner());
-			world.spawnEntity(powerSpike);
-			this.remove(RemovalReason.DISCARDED);
-		}
-	}
-
-	public PlantEntity checkFilamint(Vec3d pos) {
-		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.SPIKEPROJ.getDimensions().getBoxAt(pos));
-		PlantEntity entity = null;
-		if (!list.isEmpty()){
-			for (PlantEntity plantEntity : list) {
-				if (PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("filament")) {
-					entity = plantEntity;
-				}
-			}
-		}
-		return entity;
 	}
 
     @Override
@@ -173,6 +144,11 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
 			Entity entity2 = entityHitResult.getEntity();
 			float damage = PVZCONFIG.nestedProjDMG.beeSpikeDMG();
+			if (entity instanceof LivingEntity livingEntity) {
+				if (livingEntity.isWet() || livingEntity.hasStatusEffect(PvZCubed.WET)) {
+					damage = damage * 2;
+				}
+			}
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {

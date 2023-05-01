@@ -79,6 +79,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidfu
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidspore.AcidSporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.armorbubble.ArmorBubbleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike.ShootingBeeSpikeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike.ShootingPowerBeeSpikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.breeze.BreezeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.bubbles.BubbleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbage.ShootingCabbageEntity;
@@ -88,6 +89,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamin
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.iceberg.ShootingIcebergEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.icespike.ShootingIcespikeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.icespike.ShootingPowerIcespikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingle.JingleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pepper.ShootingPepperEntity;
@@ -95,6 +97,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasma
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.rainbowbullet.RainbowBulletEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowqueenpea.ShootingSnowqueenPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spike.ShootingPowerSpikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spike.ShootingSpikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit.SpitEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
@@ -564,6 +567,24 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "spikeproj"),
 			QuiltEntityTypeBuilder.<ShootingSpikeEntity>create(SpawnGroup.MISC, ShootingSpikeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<ShootingPowerSpikeEntity> POWERSPIKE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "elecspike"),
+			QuiltEntityTypeBuilder.<ShootingPowerSpikeEntity>create(SpawnGroup.MISC, ShootingPowerSpikeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<ShootingPowerBeeSpikeEntity> POWERBEESPIKE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "powerbeespike"),
+			QuiltEntityTypeBuilder.<ShootingPowerBeeSpikeEntity>create(SpawnGroup.MISC, ShootingPowerBeeSpikeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<ShootingPowerIcespikeEntity> POWERICESPIKE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "powericespike"),
+			QuiltEntityTypeBuilder.<ShootingPowerIcespikeEntity>create(SpawnGroup.MISC, ShootingPowerIcespikeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<RainbowBulletEntity> RAINBOWBULLET = Registry.register(

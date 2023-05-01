@@ -85,6 +85,7 @@
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.beeshooterS": "Beeshooter Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bellflowerS": "Bellflower Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bombseedlingS": "Bomb Seedling Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.breezeshroomS": "Breeze-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.buttonshroomS": "Button-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.cabbagepultS": "Cabbage-pult Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.cattailS": "Cattail Seed",
@@ -160,6 +161,7 @@
   "text.config.pvz3-config.option.nestedProjDMG.acidSporeDMG": "Acid Spore Damage",
   "text.config.pvz3-config.option.nestedProjDMG.armorBubbleDMG": "Armor Bubble Damage",
   "text.config.pvz3-config.option.nestedProjDMG.beeSpikeDMG": "Bee Spike Damage",
+  "text.config.pvz3-config.option.nestedProjDMG.breezeDMG": "Breeze Damage",
   "text.config.pvz3-config.option.nestedProjDMG.bubblesDMG": "Bubbles Damage",
   "text.config.pvz3-config.option.nestedProjDMG.cabbageDMG": "Cabbage Damage",
   "text.config.pvz3-config.option.nestedProjDMG.coconutDMG": "Coconut Damage (Direct dmg is x2)",
@@ -444,6 +446,8 @@
   "item.pvzmod.cattail_seed_packet": "✂ Cattail Seed Packet",
   "item.pvzmod.cattail_seed_packet.flavour": "\"My secret weapon? It's my cute little hat!\"",
   "item.pvzmod.spike": "Spike",
+  "item.pvzmod.elecspike": "Powered Spike",
+
 
   "entity.pvzmod.spikerock": "Spikerock",
   "item.pvzmod.spikerock_seed_packet": "✂ Spikerock Seed Packet",
@@ -470,12 +474,14 @@
   "item.pvzmod.beeshooter_seed_packet": "\uD83E\uDDEA Beeshooter Seed Packet",
   "item.pvzmod.beeshooter_seed_packet.flavour": "\"BUZZZZ!\"",
   "item.pvzmod.beespike": "Bee Spike",
+  "item.pvzmod.powerbeespike": "Powered Bee Spike",
 
   "entity.pvzmod.snowqueenpea": "Snow Queen Pea",
   "item.pvzmod.snowqueenpea_seed_packet": "❄ Snow Queen Pea Seed Packet",
   "item.pvzmod.snowqueenpea_seed_packet.flavour": "\"Chill and let it go!\"",
   "item.pvzmod.snowqueenpeaproj": "Snow Queen Pea",
   "item.pvzmod.icespike": "Ice Spike",
+  "item.pvzmod.powericespike": "Powered Ice Spike",
 
   "entity.pvzmod.acidshroom": "Acid Goop-shroom",
   "item.pvzmod.acidshroom_seed_packet": "\uD83E\uDDEA Acid Goop-shroom Seed Packet",
