@@ -25,10 +25,12 @@
     "pvzmod:trashcanbin": "metallic",
     "pvzmod:knightgear": "metallic",
     "pvzmod:towergear": "stone",
+    "pvzmod:sarcophagus": "stone",
+    "pvzmod:zombiegrave": "stone",
     "pvzmod:basicgrave": "stone",
     "pvzmod:nightgrave": "stone",
     "pvzmod:poolgrave": "stone",
-    "pvzmod:sarcophagus": "stone",
+    "pvzmod:egyptgrave": "stone",
     "pvzmod:roofgrave": "stone",
     "pvzmod:futuregrave": "stone",
     "pvzmod:darkagesgrave": "stone"

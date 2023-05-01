@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "pvzmod:items/cone"
+    "layer0": "pvzmod:items/zombiegrave_spawn"
   }
 }

@@ -198,8 +198,9 @@ public class PvZCubed implements ModInitializer {
 
 	public static final ItemGroup PVZZOMBIES = FabricItemGroupBuilder.create(
 					new Identifier(MOD_ID, "zombies"))
-			.icon(() -> new ItemStack(ModItems.WAVE_FLAG))
+			.icon(() -> new ItemStack(ModItems.BRAIN))
 			.appendItems(stacks -> {
+				stacks.add(new ItemStack(ModItems.BRAIN));
 				stacks.add(new ItemStack(ModItems.LOCUSTSWARMEGG));
 				stacks.add(new ItemStack(ModItems.BROWNCOATEGG));
 				stacks.add(new ItemStack(ModItems.FLAGZOMBIEEGG));
@@ -248,8 +249,9 @@ public class PvZCubed implements ModInitializer {
 
 	public static final ItemGroup PVZGRAVES = FabricItemGroupBuilder.create(
 					new Identifier(MOD_ID, "graves"))
-			.icon(() -> new ItemStack(ModItems.BASICGRAVESPAWN))
+			.icon(() -> new ItemStack(ModItems.ZOMBIEGRAVESPAWN))
 			.appendItems(stacks -> {
+				stacks.add(new ItemStack(ModItems.ZOMBIEGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.EASY));
 				stacks.add(new ItemStack(ModItems.EASYMED));
 				stacks.add(new ItemStack(ModItems.MED));

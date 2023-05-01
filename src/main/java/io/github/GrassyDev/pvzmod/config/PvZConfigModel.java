@@ -226,6 +226,7 @@ public class PvZConfigModel {
 		public float sunshroomSun2ndChance = 0.75f;
 		public float goldtileSec = 120f;
 		public float sunseedSec = 180f;
+		public float zombiegraveSec = 10f;
 	}
 
 	@SectionHeader("projDMG")
@@ -264,6 +265,8 @@ public class PvZConfigModel {
 	@Nest
 	public PvZZombieHealth nestedZombieHealth = new PvZZombieHealth();
 	public static class PvZZombieHealth {
+		@RestartRequired
+		public double zombieGraveH = 60D;
 		@RestartRequired
 		public double basicGraveH = 140D;
 		@RestartRequired

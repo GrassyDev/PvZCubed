@@ -811,9 +811,6 @@
   "entity.pvzmod.locustswarm": "Locust Swarm",
   "item.pvzmod.locustswarm_egg": "Locust Swarm",
 
-  "item.pvzmod.wave_flag": "Wave Flag",
-  "item.pvzmod.cone": "Cone",
-
   "itemGroup.pvzmod.graves": "Graves",
 
   "item.pvzmod.easy": "Easy",
@@ -832,6 +829,10 @@
   "entity.pvzmod.garden": "Garden",
   "item.pvzmod.garden_spawn": "Garden",
   "item.pvzmod.garden_spawn.flavour": "Attracts Zombies and Gravestones",
+
+  "entity.pvzmod.zombiegrave": "Zombie Gravestone",
+  "item.pvzmod.zombiegrave_spawn": "Zombie Gravestone",
+  "item.pvzmod.brain": "Brain",
 
   "entity.pvzmod.basicgrave": "Basic Gravestone",
   "item.pvzmod.basicgrave_spawn": "Basic Gravestone",
