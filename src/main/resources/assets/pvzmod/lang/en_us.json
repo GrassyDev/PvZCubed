@@ -154,6 +154,7 @@
   "text.config.pvz3-config.option.nestedSun.sunshroomSun2ndChance": "Sun-shroom Production 2nd Sun Chance",
   "text.config.pvz3-config.option.nestedSun.goldtileSec": "Gold Tile Production in Seconds",
   "text.config.pvz3-config.option.nestedSun.sunseedSec": "Sunflower Seed Production in Seconds",
+  "text.config.pvz3-config.option.nestedSun.zombiegraveSec": "Zombie Grave Production in Seconds",
 
   "text.config.pvz3-config.section.projDMG": "Projectile Damage Settings",
   "text.config.pvz3-config.category.nestedProjDMG": "Projectile Damage Settings",
