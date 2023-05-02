@@ -13,6 +13,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -549,6 +550,10 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
 				Vec3d vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
                 BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.range(0, 1), 0.0, 0.0).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				}
 				BrowncoatEntity screendoorEntity = (BrowncoatEntity) screen.create(FlagzombieEntity.this.world);
 				screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				screendoorEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
@@ -562,7 +567,11 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				RandomGenerator randomGenerator = FlagzombieEntity.this.getRandom();
 				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
 				Vec3d vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-				BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.range(0, 1), 0.0, 0.0).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				}
 				BrowncoatEntity coneheadEntity = (BrowncoatEntity) cone.create(FlagzombieEntity.this.world);
                 coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 coneheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -576,7 +585,11 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				RandomGenerator randomGenerator = FlagzombieEntity.this.getRandom();
 				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
 				Vec3d vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-				BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.range(0, 1), 0.0, 0.0).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				}
 				BrowncoatEntity bucketheadEntity = (BrowncoatEntity) bucket.create(FlagzombieEntity.this.world);
                 bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 bucketheadEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -590,7 +603,11 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				RandomGenerator randomGenerator = FlagzombieEntity.this.getRandom();
 				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
 				Vec3d vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-				BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+                BlockPos blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					vec3d = new Vec3d((double)-2 - FlagzombieEntity.this.random.range(0, 1), 0.0, 0.0).rotateY(-FlagzombieEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					blockPos = FlagzombieEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				}
                 BrowncoatEntity browncoatEntity = (BrowncoatEntity) coat.create(FlagzombieEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 browncoatEntity.initialize(serverWorld, FlagzombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);

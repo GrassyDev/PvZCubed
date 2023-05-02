@@ -15,6 +15,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -522,7 +523,10 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 			}
 
             for(int b = 0; b < 1; ++b) { // 1 backup
-                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(-1, 1, 0);
+                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(-1, 0, 0);
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					blockPos = DancingZombieEntity.this.getBlockPos();
+				}
                 BackupDancerEntity backupDancerEntity = (BackupDancerEntity) backup.create(DancingZombieEntity.this.world);
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound) null);
@@ -533,7 +537,10 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int p = 0; p < 1; ++p) { // 1 backup
-                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(0, 1, +1);
+                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(0, 0, +1);
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					blockPos = DancingZombieEntity.this.getBlockPos();
+				}
                 BackupDancerEntity backupDancerEntity = (BackupDancerEntity)backup.create(DancingZombieEntity.this.world);
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -544,7 +551,10 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int d = 0; d < 1; ++d) { // 1 backup
-                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(+1, 1, 0);
+                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(+1, 0, 0);
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					blockPos = DancingZombieEntity.this.getBlockPos();
+				}
                 BackupDancerEntity backupDancerEntity = (BackupDancerEntity)backup.create(DancingZombieEntity.this.world);
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
@@ -555,7 +565,10 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
             for(int t = 0; t < 1; ++t) { // 1 backup
-                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(0, 1, -1);
+                BlockPos blockPos = DancingZombieEntity.this.getBlockPos().add(0, 0, -1);
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					blockPos = DancingZombieEntity.this.getBlockPos();
+				}
                 BackupDancerEntity backupDancerEntity = (BackupDancerEntity)backup.create(DancingZombieEntity.this.world);
                 backupDancerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 backupDancerEntity.initialize(serverWorld, DancingZombieEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);

@@ -66,10 +66,10 @@ public class ScorchedTile extends TileEntity {
 		}
 	}
 
-	public void createImp(BlockPos blockPos){
+	public void createImp(BlockPos blockPos, Vec3d vec3d){
 		if (this.world instanceof ServerWorld serverWorld) {
 			ImpEntity zombie = (ImpEntity) PvZEntity.IMPDRAGON.create(world);
-			zombie.refreshPositionAndAngles(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0);
+			zombie.refreshPositionAndAngles(vec3d.getX(), vec3d.getY(), vec3d.getZ(), 0, 0);
 			zombie.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_EGG, (EntityData) null, (NbtCompound) null);
 			zombie.setPersistent();
 			zombie.setHeadYaw(0);
@@ -91,7 +91,7 @@ public class ScorchedTile extends TileEntity {
 
 		if (--dragoTick <= 0){
 			if (!hasPlant){
-				createImp(this.getBlockPos());
+				createImp(this.getBlockPos(), Vec3d.ofCenter(this.getBlockPos()));
 				this.world.sendEntityStatus(this, (byte) 115);
 			}
 			dragoTick = 360;

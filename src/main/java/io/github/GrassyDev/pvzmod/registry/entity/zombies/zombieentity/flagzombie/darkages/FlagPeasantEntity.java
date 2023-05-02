@@ -14,6 +14,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -488,11 +489,11 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 
     class summonZombieGoal extends CastSpellGoal {
         private final TargetPredicate closeZombiePredicate;
-		private final FlagPeasantEntity flagzombieEntity;
+		private final FlagPeasantEntity FlagPeasantEntity;
 
-        private summonZombieGoal(FlagPeasantEntity flagzombieEntity) {
+        private summonZombieGoal(FlagPeasantEntity FlagPeasantEntity) {
             super();
-			this.flagzombieEntity = flagzombieEntity;
+			this.FlagPeasantEntity = FlagPeasantEntity;
 			this.closeZombiePredicate = (TargetPredicate.createNonAttackable().setBaseMaxDistance(16.0D).ignoreVisibility().ignoreDistanceScalingFactor());
         }
 
@@ -518,7 +519,7 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 			EntityType<?> cone = PvZEntity.PEASANTCONE;
 			EntityType<?> bucket = PvZEntity.PEASANTBUCKET;
 			EntityType<?> coat = PvZEntity.PEASANT;
-			if (this.flagzombieEntity.getHypno()){
+			if (this.FlagPeasantEntity.getHypno()){
 				screen = PvZEntity.PEASANTKNIGHTHYPNO;
 				cone = PvZEntity.PEASANTCONEHYPNO;
 				bucket = PvZEntity.PEASANTBUCKETHYPNO;
@@ -531,11 +532,15 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
 				Vec3d vec3d = new Vec3d((double)-2 - FlagPeasantEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagPeasantEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
                 BlockPos blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					vec3d = new Vec3d((double)-2 - FlagPeasantEntity.this.random.range(0, 1), 0.0, 0.0).rotateY(-FlagPeasantEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				}
 				PeasantEntity screendoorEntity = (PeasantEntity) screen.create(FlagPeasantEntity.this.world);
 				screendoorEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
 				screendoorEntity.initialize(serverWorld, FlagPeasantEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				screendoorEntity.setOwner(FlagPeasantEntity.this);
-				if (this.flagzombieEntity.getHypno()){
+				if (this.FlagPeasantEntity.getHypno()){
 					screendoorEntity.createShield();
 				}
 				serverWorld.spawnEntityAndPassengers(screendoorEntity);
@@ -544,12 +549,16 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 				RandomGenerator randomGenerator = FlagPeasantEntity.this.getRandom();
 				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
 				Vec3d vec3d = new Vec3d((double)-2 - FlagPeasantEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagPeasantEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-				BlockPos blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+                BlockPos blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					vec3d = new Vec3d((double)-2 - FlagPeasantEntity.this.random.range(0, 1), 0.0, 0.0).rotateY(-FlagPeasantEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				}
 				PeasantEntity coneheadEntity = (PeasantEntity) cone.create(FlagPeasantEntity.this.world);
                 coneheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 coneheadEntity.initialize(serverWorld, FlagPeasantEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 coneheadEntity.setOwner(FlagPeasantEntity.this);
-				if (this.flagzombieEntity.getHypno()){
+				if (this.FlagPeasantEntity.getHypno()){
 					coneheadEntity.createConeheadProp();
 				}
                 serverWorld.spawnEntityAndPassengers(coneheadEntity);
@@ -558,12 +567,16 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 				RandomGenerator randomGenerator = FlagPeasantEntity.this.getRandom();
 				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
 				Vec3d vec3d = new Vec3d((double)-2 - FlagPeasantEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagPeasantEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-				BlockPos blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+                BlockPos blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					vec3d = new Vec3d((double)-2 - FlagPeasantEntity.this.random.range(0, 1), 0.0, 0.0).rotateY(-FlagPeasantEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				}
 				PeasantEntity bucketheadEntity = (PeasantEntity) bucket.create(FlagPeasantEntity.this.world);
                 bucketheadEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 bucketheadEntity.initialize(serverWorld, FlagPeasantEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
                 bucketheadEntity.setOwner(FlagPeasantEntity.this);
-				if (this.flagzombieEntity.getHypno()){
+				if (this.FlagPeasantEntity.getHypno()){
 					bucketheadEntity.createBucketProp();
 				}
                 serverWorld.spawnEntityAndPassengers(bucketheadEntity);
@@ -572,7 +585,11 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 				RandomGenerator randomGenerator = FlagPeasantEntity.this.getRandom();
 				float random = MathHelper.nextBetween(randomGenerator, -4, 4);
 				Vec3d vec3d = new Vec3d((double)-2 - FlagPeasantEntity.this.random.nextInt(10), 0.0, random).rotateY(-FlagPeasantEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-				BlockPos blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+                BlockPos blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				if (!world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR)){
+					vec3d = new Vec3d((double)-2 - FlagPeasantEntity.this.random.range(0, 1), 0.0, 0.0).rotateY(-FlagPeasantEntity.this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					blockPos = FlagPeasantEntity.this.getBlockPos().add(vec3d.getX(), 0, vec3d.getZ());
+				}
 				PeasantEntity browncoatEntity = (PeasantEntity) coat.create(FlagPeasantEntity.this.world);
                 browncoatEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 browncoatEntity.initialize(serverWorld, FlagPeasantEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null, (NbtCompound)null);
