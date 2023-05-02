@@ -172,6 +172,9 @@ public class BreezeEntity extends ThrownItemEntity implements IAnimatable {
 			}
 			if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()){
 				Vec3d vec3d = new Vec3d((double) 0.0125, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				if (this.getOwner() != null){
+					vec3d = new Vec3d((double) 0.0125, 0.0, 0.0).rotateY(-this.getOwner().getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				}
 				entity.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 			}
 			entityStore = (LivingEntity) entityHitResult.getEntity();

@@ -14,7 +14,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
-import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -185,7 +184,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
     protected void initCustomGoals() {
 
 		this.goalSelector.add(8, new LookAroundGoal(this));
-		this.targetSelector.add(6, new RevengeGoal(this, new Class[0]));
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 
