@@ -32,7 +32,8 @@
       "type": "text",
       "title": "References",
       "text": [
-        "$(br)$(#bd951a)Plants vs. Zombies: All-stars: $()$(#ff0000)Talisman-shroom"
+        "$(br)$(#bd951a)Plants vs. Zombies: All-stars: $()$(#ff0000)Talisman-shroom",
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Caulipower"
       ]
     }
   ]

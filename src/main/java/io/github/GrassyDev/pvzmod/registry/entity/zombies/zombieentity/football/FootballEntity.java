@@ -382,7 +382,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 								target.playSound(PvZCubed.ZOMBIEBITEEVENT, 0.75f, 1f);
 								this.applyDamageEffects(this, target);
 							}
-							if (target instanceof HypnoshroomEntity hypnoshroomEntity){
+							if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep()){
 								hypnoshroomEntity.kill();
 								this.damage(HYPNO_DAMAGE, 0);
 							}

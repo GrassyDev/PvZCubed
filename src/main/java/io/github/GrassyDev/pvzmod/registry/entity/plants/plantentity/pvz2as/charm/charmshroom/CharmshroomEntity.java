@@ -476,7 +476,9 @@ public class CharmshroomEntity extends PlantEntity implements IAnimatable, Range
 					}
                 } else if (this.beamTicks >= this.plantEntity.getWarmupTime()) {
 					if (livingEntity != null && livingEntity.isAlive()) {
-						livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+						if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.isCovered()) {
+							livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+						}
 						this.plantEntity.setTarget((LivingEntity) null);
 						if (ZOMBIE_SIZE.get(livingEntity.getType()).orElse("medium").equals("gargantuar")){
 							this.plantEntity.setCount(2);

@@ -379,6 +379,12 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 				sarcophagusEntity = (ZombiePropEntity) sarcophagus;
 			}
 		}
+		if (sarcophagusEntity != null && sarcophagusEntity.isCovered()){
+			this.setCoveredTag(Covered.TRUE);
+		}
+		else {
+			this.setCoveredTag(Covered.FALSE);
+		}
 		if (!this.world.isClient()) {
 			if ((this.getVariant().equals(PharaohVariants.UNDYING) || this.getVariant().equals(PharaohVariants.UNDYINGHYPNO)) && sarcophagusEntity != null) {
 				if (this.CollidesWithPlant(3.5f) != null || this.CollidesWithPlant(2.5f) != null || this.CollidesWithPlant(1.5f) != null || this.CollidesWithPlant(0.5f) != null) {

@@ -251,8 +251,12 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
 						if (random <= 0.166) {
-							livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
-							generalPvZombieEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+							if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && !generalPvZombieEntity1.isCovered()) {
+								livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+							}
+							if (!generalPvZombieEntity.isCovered()) {
+								generalPvZombieEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+							}
 						}
 						checkList.add(livingEntity);
 						checkList.add(generalPvZombieEntity);
@@ -270,8 +274,12 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 						if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							if (random <= 0.166) {
-								zombiePropEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
-								livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+								if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && !generalPvZombieEntity1.isCovered()) {
+									livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+								}
+								if (!generalPvZombieEntity.isCovered()) {
+									generalPvZombieEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+								}
 							}
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
@@ -279,7 +287,9 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							if (random <= 0.166) {
-								livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+								if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && !generalPvZombieEntity1.isCovered()) {
+									livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
+								}
 							}
 							checkList.add(livingEntity);
 						}
