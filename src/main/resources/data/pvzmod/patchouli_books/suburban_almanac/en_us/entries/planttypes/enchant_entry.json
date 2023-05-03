@@ -15,7 +15,8 @@
       "type": "relations",
       "entries": [
         "pvzmod:plants/hypnoshroom_entry",
-        "pvzmod:plants/perfoomshroom_entry"
+        "pvzmod:plants/perfoomshroom_entry",
+        "pvzmod:plants/beautyshroom_entry"
       ],
       "title": "⭐ Enchant Plants:"
     }

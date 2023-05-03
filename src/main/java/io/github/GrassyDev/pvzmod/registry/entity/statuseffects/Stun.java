@@ -11,7 +11,7 @@ public class Stun extends StatusEffect {
         super(
                 StatusEffectType.HARMFUL, // whether beneficial or harmful for entity
                 0xFAE66F); // color in RGB
-		this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", 0, EntityAttributeModifier.Operation.MULTIPLY_BASE);
+		this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.5, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 		this.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", -0.5, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 

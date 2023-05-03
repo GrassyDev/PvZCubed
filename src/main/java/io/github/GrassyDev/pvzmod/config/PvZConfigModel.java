@@ -151,6 +151,7 @@ public class PvZConfigModel {
 	public static class PvZMoreSeeds {
 		public float acidshrooomS = 15.0f;
 		public float admiralnavybeanS = 10.0f;
+		public float beautyshroomS = 12.5f;
 		public float beeshooterS = 15.0f;
 		public float bellflowerS = 2.5f;
 		public float bombseedlingS = 2.5f;

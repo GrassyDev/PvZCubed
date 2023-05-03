@@ -1,0 +1,126 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"beautyshroom.idle": {
+			"loop": true,
+			"animation_length": 1.25,
+			"bones": {
+				"body": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.75": {
+							"vector": [1, 0.6, 1],
+							"easing": "easeInBack"
+						},
+						"1.25": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"cap": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.75": {
+							"vector": [1, 1.5, 1],
+							"easing": "easeInBack"
+						},
+						"1.25": {
+							"vector": [1, 1, 1]
+						}
+					}
+				}
+			}
+		},
+		"beautyshroom.idle.asleep": {
+			"loop": true,
+			"animation_length": 2.5,
+			"bones": {
+				"body": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.5": {
+							"vector": [1, 0.6, 1],
+							"easing": "easeInBack"
+						},
+						"2.5": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"cap": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.5": {
+							"vector": [1, 1.5, 1],
+							"easing": "easeInBack"
+						},
+						"2.5": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"eyelidleft": {
+					"position": {
+						"vector": [0, 0.2, 0]
+					},
+					"scale": {
+						"vector": [1, 2.2, 1]
+					}
+				},
+				"eyelidright": {
+					"position": {
+						"vector": [0, 0.2, 0]
+					},
+					"scale": {
+						"vector": [1, 2.2, 1]
+					}
+				},
+				"eyelidthingies": {
+					"position": {
+						"vector": [0, -2.7, -0.4]
+					}
+				}
+			}
+		},
+		"beautyshroom.explosion": {
+			"animation_length": 0.83333,
+			"bones": {
+				"body": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.75": {
+							"vector": [1.3, 0.2, 1.2],
+							"easing": "easeInBack",
+							"easingArgs": [3]
+						}
+					}
+				},
+				"cap": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.375": {
+							"vector": [1.4, 0.8, 1.3],
+							"easing": "easeInQuad"
+						},
+						"0.75": {
+							"vector": [1, 1, 1],
+							"easing": "easeOutElastic"
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,8 +1,10 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.perfoomshroom;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.farfuture.empeach;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -19,24 +21,21 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.LightType;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -49,22 +48,23 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
-public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+
+public class EMPeachEntity extends PlantEntity implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Integer> FUSE_SPEED;
     private static final TrackedData<Boolean> CHARGED;
     private static final TrackedData<Boolean> IGNITED;
-    private int lastFuseTime;
     private int currentFuseTime;
-    private int fuseTime = 40;
+    private int fuseTime = 16;
     private int explosionRadius = 1;
-	private String controllerName = "doomcontroller";
+	private String controllerName = "bombcontroller";
 
-    public PerfoomshroomEntity(EntityType<? extends PerfoomshroomEntity> entityType, World world) {
+    public EMPeachEntity(EntityType<? extends EMPeachEntity> entityType, World world) {
         super(entityType, world);
+		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
     }
 
@@ -73,6 +73,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 		this.dataTracker.startTracking(FUSE_SPEED, -1);
 		this.dataTracker.startTracking(CHARGED, false);
 		this.dataTracker.startTracking(IGNITED, false);
+		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, false);
 	}
 
 	public void writeCustomDataToNbt(NbtCompound nbt) {
@@ -104,91 +105,52 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 	}
 
 	static {
-		FUSE_SPEED = DataTracker.registerData(PerfoomshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
-		CHARGED = DataTracker.registerData(PerfoomshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-		IGNITED = DataTracker.registerData(PerfoomshroomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		FUSE_SPEED = DataTracker.registerData(EMPeachEntity.class, TrackedDataHandlerRegistry.INTEGER);
+		CHARGED = DataTracker.registerData(EMPeachEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		IGNITED = DataTracker.registerData(EMPeachEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	}
-
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
 		}
-		RandomGenerator randomGenerator = this.getRandom();
 		if (status == 106) {
-			for(int i = 0; i < 256; ++i) {
-				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
-				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
-			}
-			for(int i = 0; i < 256; ++i) {
-				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
-				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
-			}
-			for(int i = 0; i < 256; ++i) {
-				double d = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				double e = this.random.nextDouble() / 2 * (this.random.range(0, 1) * 2);
-				double f = this.random.nextDouble() / 2 * (this.random.range(-1, 1) * 1.5);
-				this.world.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + (this.random.range(-1, 1)), this.getZ() + (this.random.range(-1, 1)), d, e, f);
-			}
 			for(int i = 0; i < 128; ++i) {
-				double e = (double)MathHelper.nextBetween(randomGenerator, 0.04F, 0.06F);
-				this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getX() +  (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
-						this.getY() + (double)MathHelper.nextBetween(randomGenerator, 0F, 4.5F),
-						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
-						0, e, 0);
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
-						this.getY() + (double)MathHelper.nextBetween(randomGenerator, 0F, 4.5F),
-						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -0.5F, 0.5F),
-						0, e, 0);
-			}
-			for (int i = 0; i < 128; ++i){
-				double e = (double)MathHelper.nextBetween(randomGenerator, 0.04F, 0.06F);
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -3F, 3F),
-						this.getY() + 5,
-						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -3F, 3F),
-						0, e, 0);
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -4F, 4F),
-						this.getY() + (this.random.range(3, 7)),
-						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -4F, 4F),
-						0, e, 0);
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double)MathHelper.nextBetween(randomGenerator, -5F, 5F),
-						this.getY() + 5,
-						this.getZ() + (double)MathHelper.nextBetween(randomGenerator, -5F, 5F),
-						0, e, 0);
-			}
-			for(int i = 0; i < 128; ++i) {
-				double d = this.random.nextDouble() / 2 * 0.75;
-				double f = this.random.nextDouble() / 2 * 0.75;
-				double d1 = this.random.nextDouble() / 2 * 0.75;
-				double f1 = this.random.nextDouble() / 2 * 0.75;
-				double d2 = this.random.nextDouble() / 2 * 0.75;
-				double f2 = this.random.nextDouble() / 2 * 0.75;
-				double d3 = this.random.nextDouble() / 2 * 0.75;
-				double f3 = this.random.nextDouble() / 2 * 0.75;
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
-						this.getY() + MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
-						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
-						d, 0, f);
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
-						this.getY() + MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
-						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
-						d1, 0, f1 * -1);
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
-						this.getY() + MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
-						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
-						d2 * -1, 0, f2 * -1);
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
-						this.getY() + MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
-						this.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1F, 1F),
-						d3 * -1, 0, f3);
+				double d = this.random.nextDouble() / 4 * this.random.range(-1, 1);
+				double e = this.random.nextDouble() / 4 * this.random.range(0, 1);
+				double f = this.random.nextDouble() / 4 * this.random.range(-1, 1);
+				this.world.addParticle(ParticleTypes.ELECTRIC_SPARK, this.getX() + (this.random.range(-2, 2)), this.getY() + (this.random.range(0, 2)), this.getZ() + (this.random.range(-2, 2)), d, e, f);
 			}
 		}
 	}
+
+	/** /~*~//~*VARIANTS*~//~*~/ **/
+
+	@Nullable
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+		entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+		if (entityData == null) {
+			entityData = new PlantData(true);
+		}
+		if (entityData instanceof PlantData plantData && !spawnReason.equals(SpawnReason.SPAWN_EGG)) {
+			this.naturalSpawn = true;
+			if (plantData.tryLilyPad) {
+				List<LilyPadEntity> list = world.getEntitiesByClass(
+						LilyPadEntity.class, this.getBoundingBox().expand(12.5), EntityPredicates.NOT_MOUNTED
+				);
+				if (!list.isEmpty()) {
+					LilyPadEntity lilyPadEntity = (LilyPadEntity) list.get(0);
+					this.startRiding(lilyPadEntity);
+				}
+			}
+		}
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	private static final TrackedData<Boolean> DATA_ID_TYPE_COUNT =
+			DataTracker.registerData(EMPeachEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
@@ -207,41 +169,29 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         int i = this.getFuseSpeed();
-        if (this.getIsAsleep()){
-            event.getController().setAnimation(new AnimationBuilder().loop("doomshroom.asleep"));
-        }
-        else if (i > 0) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce("doomshroom.explode"));
+        if (i > 0) {
+            event.getController().setAnimation(new AnimationBuilder().playOnce("empeach.explode"));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().loop("doomshroom.idle"));
+            event.getController().setAnimation(new AnimationBuilder().loop("empeach.idle"));
         }
         return PlayState.CONTINUE;
     }
 
+
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-	}
-
-	protected void awakeGoals() {
-		this.goalSelector.add(2, new PerfoomIgniteGoal(this));
+		int i = this.getFuseSpeed();
+		this.goalSelector.add(2, new EMPeachIgniteGoal(this));
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
 	}
 
 	public boolean tryAttack(Entity target) {
 		return true;
-	}
-
-	@Environment(EnvType.CLIENT)
-	public float getClientFuseTime(float timeDelta) {
-		return MathHelper.lerp(timeDelta, (float)this.lastFuseTime, (float)this.currentFuseTime) / (float)(this.fuseTime - 2);
 	}
 
 	public int getFuseSpeed() {
@@ -263,7 +213,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 
 	private void raycastExplode() {
 		Vec3d vec3d = this.getPos();
-		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(10));
+		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5));
 		Iterator var9 = list.iterator();
 		while (true) {
 			LivingEntity livingEntity;
@@ -275,7 +225,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 
 					livingEntity = (LivingEntity) var9.next();
 				} while (livingEntity == this);
-			} while (this.squaredDistanceTo(livingEntity) > 81);
+			} while (this.squaredDistanceTo(livingEntity) > 12.25);
 
 			boolean bl = false;
 
@@ -289,10 +239,21 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 			}
 
 			if (bl) {
-				float damage = 100;
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
+					float damage = 20;
+					if (IS_MACHINE.get(livingEntity.getType()).orElse(false).equals(false) && !(livingEntity instanceof JetpackEntity) && !livingEntity.hasStatusEffect(FROZEN) && !livingEntity.hasStatusEffect(DISABLE)){
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.STUN, 100, 5)));
+					}
+					else {
+						livingEntity.removeStatusEffect(FROZEN);
+						livingEntity.removeStatusEffect(STUN);
+						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.DISABLE, 300, 5)));
+					}
+					if (livingEntity.hasStatusEffect(WET) || livingEntity.isWet()){
+						damage = damage * 2;
+					}
 					ZombiePropEntity zombiePropEntity2 = null;
 					for (Entity entity1 : livingEntity.getPassengerList()) {
 						if (entity1 instanceof ZombiePropEntity zpe) {
@@ -305,8 +266,6 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 						float damage2 = damage - livingEntity.getHealth();
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this), damage2);
-						livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
-						generalPvZombieEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
 						checkList.add(livingEntity);
 						checkList.add(generalPvZombieEntity);
 					} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
@@ -322,31 +281,17 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 					else {
 						if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							zombiePropEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
-							livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
 						}
 						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
 							checkList.add(livingEntity);
 						}
 					}
 				}
 			}
 		}
-	}
-
-	private void spawnEffectsCloud() {
-		AreaEffectCloudEntity areaEffectCloudEntity2 = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
-		areaEffectCloudEntity2.setColor(0xFF66FF);
-		areaEffectCloudEntity2.setRadius(6F);
-		areaEffectCloudEntity2.setRadiusOnUse(-0.5F);
-		areaEffectCloudEntity2.setWaitTime(5);
-		areaEffectCloudEntity2.setDuration(areaEffectCloudEntity2.getDuration() / 6);
-		areaEffectCloudEntity2.setRadiusGrowth(-areaEffectCloudEntity2.getRadius() / (float)areaEffectCloudEntity2.getDuration());
-		this.world.spawnEntity(areaEffectCloudEntity2);
 	}
 
 
@@ -365,7 +310,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
-					this.dropItem(ModItems.PERFOOMSHROOM_SEED_PACKET);
+					this.dropItem(ModItems.EMPEACH_SEED_PACKET);
 				}
 				this.discard();
 			}
@@ -373,76 +318,55 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 		}
 	}
 
-
-	/** /~*~//~*TICKING*~//~*~/ **/
-
 	@Override
 	protected void applyDamage(DamageSource source, float amount) {
-		int i = this.getFuseSpeed();
-		if (i <= 0 || source.getAttacker() instanceof PlayerEntity) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity) {
 			super.applyDamage(source, amount);
 		}
 	}
 
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
+
+	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
-		if (!this.world.isClient) {
-			if ((this.world.getAmbientDarkness() >= 2 ||
-					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-					&& !awakeSwitch) {
-				this.awakeGoals();
-				this.setIsAsleep(IsAsleep.FALSE);
-				sleepSwitch = false;
-				awakeSwitch = true;
-			} else if (this.world.getAmbientDarkness() < 2 &&
-					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-					&& !sleepSwitch) {
-				this.setIsAsleep(IsAsleep.TRUE);
-				this.clearGoalsAndTasks();
-				sleepSwitch = true;
-				awakeSwitch = false;
-			}
-		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.getIsAsleep()){
-			this.setFuseSpeed(-1);
-		}
-		if (this.isAlive() && !this.getIsAsleep()) {
-			this.lastFuseTime = this.currentFuseTime;
+		if (this.isAlive()) {
 			if (this.getIgnited()) {
 				this.setFuseSpeed(1);
 			}
 
 			int i = this.getFuseSpeed();
 			if (i > 0 && this.currentFuseTime == 0) {
-				this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+				RandomGenerator randomGenerator = this.getRandom();
+				for(int j = 0; j < 32; ++j) {
+					double e = (double)MathHelper.nextBetween(randomGenerator, 0.025F, 0.075F);
+					this.world.addParticle(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY() + 2.25, this.getZ(), 0, e, 0);
+				}
 			}
 
 			this.currentFuseTime += i;
 			if (this.currentFuseTime < 0) {
 				this.currentFuseTime = 0;
 			}
-
-			if (this.currentFuseTime >= this.fuseTime && !this.getIsAsleep()) {
-				this.currentFuseTime = this.fuseTime;
+			if (this.currentFuseTime == 3) {
 				this.raycastExplode();
 				this.world.sendEntityStatus(this, (byte) 106);
-				this.playSound(PvZCubed.DOOMSHROOMEXPLOSIONEVENT, 1F, 1F);
-				this.spawnEffectsCloud();
+				this.playSound(PvZCubed.EMPEACHEXPLOSIONEVENT, 1F, 1F);
+			}
+
+			if (this.currentFuseTime >= this.fuseTime) {
+				this.currentFuseTime = this.fuseTime;
 				this.dead = true;
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}
 	}
 
-    public void tickMovement() {
+
+	public void tickMovement() {
         super.tickMovement();
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.clearStatusEffects();
@@ -456,20 +380,20 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.PERFOOMSHROOM_SEED_PACKET.getDefaultStack();
+		return ModItems.EMPEACH_SEED_PACKET.getDefaultStack();
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createPerfoomshroomAttributes() {
-		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 5D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 180);
-	}
+	public static DefaultAttributeContainer.Builder createEMPeachAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 12D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 20);
+    }
 
 	protected boolean canClimb() {
 		return false;
@@ -485,7 +409,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return null	;
 	}
 
 	@Nullable

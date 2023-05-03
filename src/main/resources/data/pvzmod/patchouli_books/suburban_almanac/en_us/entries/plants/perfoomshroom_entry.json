@@ -3,7 +3,7 @@
   "icon": "pvzmod:perfoomshroom_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 150,
-  "advancement": "pvzmod:make_hypnoshroom",
+  "advancement": "pvzmod:make_beautyshroom",
   "pages": [
     {
       "type": "text",
@@ -14,8 +14,8 @@
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)6 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)2s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Hypnotizes every Zombie in the blast after dealing damage.",
-        "$(br2)$(#bd951a)Doom-shroom at home and Perfoom-shroom at the stage. This lovely smelling shroom is dolled up and ready to go!"
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Magic Damage. Hypnotizes every Zombie in the blast after dealing damage.",
+        "$(br)$(#bd951a)Doom-shroom at home and Perfoom-shroom at the stage. This lovely smelling shroom is dolled up and ready to go!"
       ]
     },
     {

@@ -82,6 +82,7 @@
   "text.config.pvz3-config.category.nestedSeeds.moreSeeds": "Seed Packet Recharge Settings (Restart)",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.acidshrooomS": "Acid Goop-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.admiralnavybeanS": "Admiral Navy Bean Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.beautyshroomS": "Beauty-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.beeshooterS": "Beeshooter Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bellflowerS": "Bellflower Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bombseedlingS": "Bomb Seedling Seed",
@@ -565,6 +566,10 @@
   "item.pvzmod.dropea_seed_packet": "⭘ Dropea Seed Packet",
   "item.pvzmod.dropea_seed_packet.flavour": "Has a bubbly personality",
   "item.pvzmod.drop": "Drop",
+
+  "entity.pvzmod.beautyshroom": "Beauty-shroom",
+  "item.pvzmod.beautyshroom_seed_packet": "⭐ Beauty-shroom Seed Packet",
+  "item.pvzmod.beautyshroom_seed_packet.flavour": "Aspires to be as fab as Perfoom-shroom.",
 
   "entity.pvzmod.smallnut": "Small-nut",
   "item.pvzmod.smallnut_seed_packet": "⛨ Small-nut Seed Packet",
