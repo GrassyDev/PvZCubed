@@ -571,6 +571,11 @@
   "item.pvzmod.beautyshroom_seed_packet": "⭐ Beauty-shroom Seed Packet",
   "item.pvzmod.beautyshroom_seed_packet.flavour": "Aspires to be as fab as Perfoom-shroom.",
 
+  "entity.pvzmod.charmshroom": "Charm-shroom",
+  "item.pvzmod.charmshroom_seed_packet": "⭐ Charm-shroom Seed Packet",
+  "item.pvzmod.charmshroom_seed_packet.flavour": "\"Lucky charm? How about a love charm?\"",
+  "item.pvzmod.charmshroom_seed_packet.flavour2": "[You feel dizzy as you are losing consciousness...]",
+
   "entity.pvzmod.smallnut": "Small-nut",
   "item.pvzmod.smallnut_seed_packet": "⛨ Small-nut Seed Packet",
   "item.pvzmod.smallnut_seed_packet.flavour": "\"I'm nuts.\"",

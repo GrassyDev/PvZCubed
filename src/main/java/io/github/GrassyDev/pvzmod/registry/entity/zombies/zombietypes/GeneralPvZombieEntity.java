@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
@@ -695,6 +696,12 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 						sound = 0.33f;
 					}
 					target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
+					if (target instanceof HypnoshroomEntity hypnoshroomEntity){
+						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
+							hypnoshroomEntity.kill();
+						}
+						this.damage(HYPNO_DAMAGE, 0);
+					}
 				}
 				return super.tryAttack(target);
 			} else if (this.getTarget() != null &&
@@ -706,6 +713,12 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 						sound = 0.33f;
 					}
 					target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
+					if (target instanceof HypnoshroomEntity hypnoshroomEntity){
+						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
+							hypnoshroomEntity.kill();
+						}
+						this.damage(HYPNO_DAMAGE, 0);
+					}
 				}
 				return super.tryAttack(target);
 			} else {

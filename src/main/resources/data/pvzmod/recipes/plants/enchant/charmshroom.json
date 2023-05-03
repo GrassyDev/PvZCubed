@@ -2,20 +2,20 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:diamond"
+      "item": "pvzmod:plantfood_mushroom"
     },
     {
-      "item": "pvzmod:beautyshroom_seed_packet"
+      "item": "pvzmod:hypnoshroom_seed_packet"
     },
     {
-      "item": "pvzmod:doomshroom_seed_packet"
+      "item": "pvzmod:sun"
     },
     {
       "item": "pvzmod:smallsun"
     }
   ],
   "result": {
-    "item": "pvzmod:perfoomshroom_seed_packet",
+    "item": "pvzmod:charmshroom_seed_packet",
     "count": 1
   }
 }

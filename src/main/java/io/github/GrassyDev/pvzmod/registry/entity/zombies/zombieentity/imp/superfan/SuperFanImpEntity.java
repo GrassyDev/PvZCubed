@@ -45,7 +45,6 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.List;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
@@ -383,20 +382,8 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 	}
 
 	public boolean tryAttack(Entity target) {
-		if (this.getTarget() != null &&
-				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying")))) {
-			int i = this.attackTick;
-			if (i <= 0) {
-				this.attackTick = 20;
-				boolean bl = target.damage(DamageSource.mob(this), this.getAttackDamage());
-				if (bl && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
-					target.playSound(PvZCubed.ZOMBIEBITEEVENT, 0.75f, 1f);
-					this.applyDamageEffects(this, target);
-				}
-				return bl;
-			} else {
-				return false;
-			}
+		if (!this.getFireStage()){
+			return super.tryAttack(target);
 		}
 		else {
 			return false;
@@ -410,8 +397,6 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 		BlockPos blockPos = this.getBlockPos();
 		return this.world.hasRain(blockPos) || this.world.hasRain(new BlockPos((double)blockPos.getX(), this.getBoundingBox().maxY, (double)blockPos.getZ()));
 	}
-	int attackTick = 20;
-
 	private float getAttackDamage(){
 		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 	}
@@ -423,7 +408,6 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 		}
 		else if (this.isOnFire() || this.hasStatusEffect(PvZCubed.WARM)){
 			this.setFireStage(FireStage.FIRE);
-			this.attackTick = 20;
 		}
 		if (this.age < 20){
 			this.setTarget(null);
@@ -457,9 +441,6 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 				this.dead = true;
 				this.remove(RemovalReason.DISCARDED);
 			}
-		}
-		else if (!this.getFireStage() && this.getTarget() != null) {
-			--this.attackTick;
 		}
 	}
 

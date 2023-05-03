@@ -4,24 +4,18 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TargetGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -39,10 +33,9 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.util.EnumSet;
 import java.util.Optional;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_STRENGTH;
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
 
 public class HypnoshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
@@ -50,32 +43,14 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
     private String controllerName = "hypnocontroller";
 
 
-    private static final TrackedData<Integer> HYPNO_BEAM_TARGET_ID;
-    private LivingEntity cachedBeamTarget;
-    private int beamTicks;
-
     public HypnoshroomEntity(EntityType<? extends HypnoshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
 
     }
 
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(HYPNO_BEAM_TARGET_ID, 0);
-	}
-
-	public void onTrackedDataSet(TrackedData<?> data) {
-		if (HYPNO_BEAM_TARGET_ID.equals(data)) {
-			this.beamTicks = 0;
-			this.cachedBeamTarget = null;
-		}
-
-		super.onTrackedDataSet(data);
-	}
-
 	static {
-		HYPNO_BEAM_TARGET_ID = DataTracker.registerData(HypnoshroomEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -117,55 +92,7 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 	}
 
 	protected void awakeGoals(){
-		this.goalSelector.add(1, new HypnoshroomEntity.FireBeamGoal(this));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 11);
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 10);
-		}));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
-		}));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
-		}));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
-		}));
-		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
-		}));
-		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
-		}));
-		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
-		}));
-		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
-		}));
-		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
-		}));
-		this.targetSelector.add(11, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
-		}));
-		this.targetSelector.add(12, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombiePropEntity) && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isCovered()) && generalPvZombieEntity.canHypno()&&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
-		}));
+		this.goalSelector.add(1, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 15.0F));
 	}
 
 	@Override
@@ -196,6 +123,14 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 		}
 	}
 
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		if (source.getAttacker() != null) {
+			if (!ZOMBIE_SIZE.get(source.getAttacker().getType()).orElse("medium").equals("small")) {
+				super.applyDamage(source, amount);
+			}
+		}
+	}
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
@@ -233,35 +168,6 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 		if (!this.world.isClient && this.isAlive() && this.isInsideWaterOrBubbleColumn() && this.deathTime == 0) {
 			this.discard();
 		}
-
-		if (this.hasBeamTarget()) {
-			if (this.beamTicks < this.getWarmupTime()) {
-				++this.beamTicks;
-			}
-
-			LivingEntity livingEntity = this.getBeamTarget();
-			if (livingEntity != null) {
-				this.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-				this.getLookControl().tick();
-				double d = (double)this.getBeamProgress(0.0F);
-				double e = livingEntity.getX() - this.getX();
-				double f = livingEntity.getBodyY(0.5D) - this.getEyeY();
-				double g = livingEntity.getZ() - this.getZ();
-				double h = Math.sqrt(e * e + f * f + g * g);
-				e /= h;
-				f /= h;
-				g /= h;
-				double j = this.random.nextDouble();
-
-				while(j < h) {
-					j += 1.8D - d + this.random.nextDouble() * (1.7D - d);
-					double rd = (double)(this.random.range(160, 255) & 255) / 255.0;
-					double gr = (double) (170 & 255) / 255.0;
-					double bl = (double)(this.random.range(200, 255) & 255) / 255.0;
-					this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + e * j, this.getEyeY() + f * j, this.getZ() + g * j, rd, gr, bl);
-				}
-			}
-		}
 	}
 
 
@@ -281,7 +187,7 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 1.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 10D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1D);
     }
 
@@ -348,94 +254,4 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 		this.playBlockFallSound();
 		return true;
 	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	public int getWarmupTime() {
-		return 20;
-	}
-
-	private void setHypnoBeamTarget(int entityId) {
-		this.dataTracker.set(HYPNO_BEAM_TARGET_ID, entityId);
-	}
-
-	public boolean hasBeamTarget() {
-		return (Integer)this.dataTracker.get(HYPNO_BEAM_TARGET_ID) != 0;
-	}
-
-	@Nullable
-	public LivingEntity getBeamTarget() {
-		if (!this.hasBeamTarget()) {
-			return null;
-		} else if (this.world.isClient) {
-			if (this.cachedBeamTarget != null) {
-				return this.cachedBeamTarget;
-			} else {
-				Entity entity = this.world.getEntityById((Integer)this.dataTracker.get(HYPNO_BEAM_TARGET_ID));
-				if (entity instanceof LivingEntity) {
-					this.cachedBeamTarget = (LivingEntity)entity;
-					return this.cachedBeamTarget;
-				} else {
-					return null;
-				}
-			}
-		} else {
-			return this.getTarget();
-		}
-	}
-
-	public float getBeamProgress(float tickDelta) {
-		return ((float)this.beamTicks + tickDelta) / (float)this.getWarmupTime();
-	}
-
-    static class FireBeamGoal extends Goal {
-        private final HypnoshroomEntity hypnoshroom;
-        private int beamTicks;
-
-        public FireBeamGoal(HypnoshroomEntity hypnoshroom) {
-            this.hypnoshroom = hypnoshroom;
-            this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
-        }
-
-        public boolean canStart() {
-            LivingEntity livingEntity = this.hypnoshroom.getTarget();
-            return livingEntity != null && livingEntity.isAlive();
-        }
-
-        public boolean shouldContinue() {
-            return super.shouldContinue() && (this.hypnoshroom.squaredDistanceTo(this.hypnoshroom.getTarget()) > 9.0D);
-        }
-
-        public void start() {
-            this.beamTicks = -10;
-            this.hypnoshroom.getNavigation().stop();
-            this.hypnoshroom.getLookControl().lookAt(this.hypnoshroom.getTarget(), 90.0F, 90.0F);
-            this.hypnoshroom.velocityDirty = true;
-        }
-
-        public void stop() {
-            this.hypnoshroom.setHypnoBeamTarget(0);
-            this.hypnoshroom.setTarget((LivingEntity)null);
-        }
-
-        public void tick() {
-            LivingEntity livingEntity = this.hypnoshroom.getTarget();
-            this.hypnoshroom.getNavigation().stop();
-            this.hypnoshroom.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
-            if (!this.hypnoshroom.canSee(livingEntity) || this.hypnoshroom.getIsAsleep()) {
-                this.hypnoshroom.setTarget((LivingEntity) null);
-            } else {
-                ++this.beamTicks;
-                if (this.beamTicks == 0) {
-                    this.hypnoshroom.setHypnoBeamTarget(this.hypnoshroom.getTarget().getId());
-                } else if (this.beamTicks >= this.hypnoshroom.getWarmupTime()) {
-					livingEntity.damage(PvZCubed.HYPNO_DAMAGE, 0);
-                    this.hypnoshroom.setTarget((LivingEntity) null);
-                    this.hypnoshroom.remove(RemovalReason.DISCARDED);
-                }
-                super.tick();
-            }
-        }
-    }
 }

@@ -159,6 +159,7 @@ public class PvZConfigModel {
 		public float buttonshroomS = 2.5f;
 		public float cabbagepultS = 5.0f;
 		public float cattailS = 35.0f;
+		public float charmshroomS = 25.0f;
 		public float cherrybombS = 35.0f;
 		public float chomperS = 20.0f;
 		public float coconutS = 35.0f;

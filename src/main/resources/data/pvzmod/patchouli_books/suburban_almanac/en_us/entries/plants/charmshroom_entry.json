@@ -1,0 +1,39 @@
+{
+  "name": "Charm-shroom",
+  "icon": "pvzmod:charmshroom_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 103,
+  "advancement": "pvzmod:make_beautyshroom",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)12 $(#bd951a)Range: $()$(#ff0000)10 Blocks",
+        "$(br)$(#bd951a)Hypnotizing Time: $()$(#ff0000)2.5s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Hypnotizes up to 2 of the toughest Zombies or 1 Gargantuar, then vanishes.",
+        "$(br)$(#bd951a)\"People ask if I have all these charms to ward off evil Zombies or if it's a new fashion trend. But I can't bring myself to tell them the truth: that it's for good luck in my entrance exams.\""
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/charmshroom.png"
+      ],
+      "title": "⭐ Enchant Family",
+      "border": "true",
+      "text": "$(#25228d)Charm-shrooms will make Zombies turn around and fight for you."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/enchant/charmshroom"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: All-stars: $()$(#ff0000)Talisman-shroom"
+      ]
+    }
+  ]
+}
