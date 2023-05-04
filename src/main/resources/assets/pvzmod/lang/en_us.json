@@ -139,6 +139,7 @@
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.tanglekelpS": "Tangle Kelp Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.threepeaterS": "Threepeater Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.torchwoodS": "Torchwood Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.tulimpeterS": "Tulimpeter Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.twinsunflowerS": "Twin Sunflower Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.wallnutS": "Wall-nut Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.weeniebeanieS": "Weenie Beanie Seed",
@@ -555,6 +556,11 @@
   "item.pvzmod.saucer_seed_packet": "⏳ Saucer Seed Packet",
   "item.pvzmod.saucer_seed_packet.flavour": "\"I may be called Saucer, but I beg you,",
   "item.pvzmod.saucer_seed_packet.flavour2": "I don't taste good in sauce!\"",
+
+  "entity.pvzmod.tulimpeter": "Tulimpeter",
+  "item.pvzmod.tulimpeter_seed_packet": "⭐ Tulimpeter Seed Packet",
+  "item.pvzmod.tulimpeter_seed_packet.flavour": "Was a band kid.",
+  "item.pvzmod.hypnoproj": "Hypno Projectile",
 
   "entity.pvzmod.narcissus": "Narcissus",
   "item.pvzmod.narcissus_seed_packet": "✂ Narcissus Seed Packet",

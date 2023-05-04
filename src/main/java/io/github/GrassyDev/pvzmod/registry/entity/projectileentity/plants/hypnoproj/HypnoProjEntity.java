@@ -146,7 +146,7 @@ public class HypnoProjEntity extends ThrownItemEntity implements IAnimatable {
 		if (entity instanceof ZombiePropEntity zpe && !(zpe instanceof ZombieShieldEntity)){
 			hasHelmet = true;
 		}
-		if (hasHelmet){
+		if (hasHelmet || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())){
 			damage = damage/2;
 		}
         if (!world.isClient && entity instanceof Monster monster &&

@@ -107,6 +107,20 @@
       ]
     },
     {
+      "type": "text",
+      "text": [
+        "$(br2)Magic",
+        "$(br2)Deals half the damage against Zombies with headgear and Covered Zombies"
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)Sound",
+        "$(br2)Has a 25% chance to make the the projectile or other means of attack \"critical\", which increases the damage by 50%."
+      ]
+    },
+    {
       "type": "relations",
       "entries": [
         "pvzmod:plants/peashooter_entry",

@@ -263,7 +263,7 @@ public class TulimpeterEntity extends PlantEntity implements IAnimatable, Ranged
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
-					this.dropItem(ModItems.SCAREDYSHROOM_SEED_PACKET);
+					this.dropItem(ModItems.TULIMPETER_SEED_PACKET);
 				}
 				this.discard();
 			}
@@ -306,7 +306,7 @@ public class TulimpeterEntity extends PlantEntity implements IAnimatable, Ranged
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
-			dropItem(ModItems.PEASHOOTER_SEED_PACKET);
+			dropItem(ModItems.TULIMPETER_SEED_PACKET);
 			if (!player.getAbilities().creativeMode) {
 				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 					itemStack.decrement(1);
@@ -321,13 +321,13 @@ public class TulimpeterEntity extends PlantEntity implements IAnimatable, Ranged
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.PEASHOOTER_SEED_PACKET.getDefaultStack();
+		return ModItems.TULIMPETER_SEED_PACKET.getDefaultStack();
 	}
 
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createTulimperAttributes() {
+	public static DefaultAttributeContainer.Builder createTulimpeterAttributes() {
 		return MobEntity.createMobAttributes()
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
@@ -473,6 +473,10 @@ public class TulimpeterEntity extends PlantEntity implements IAnimatable, Ranged
 							double g = predictedPos.getZ() - this.plantEntity.getZ();
 							float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 							proj.jingleAge = 60;
+							double random = Math.random();
+							if (random <= 0.25) {
+								proj.critical = true;
+							}
 							proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 							proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
 							proj.setOwner(this.plantEntity);

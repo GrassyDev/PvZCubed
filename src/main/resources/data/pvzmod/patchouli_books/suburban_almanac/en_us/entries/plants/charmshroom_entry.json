@@ -2,7 +2,7 @@
   "name": "Charm-shroom",
   "icon": "pvzmod:charmshroom_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 103,
+  "sortnum": 106,
   "advancement": "pvzmod:make_beautyshroom",
   "pages": [
     {

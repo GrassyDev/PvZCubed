@@ -43,6 +43,8 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
 	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "jingle");
 	public int jingleAge = 7;
 
+	public boolean critical;
+
 	@Override
 	public void registerControllers(AnimationData animationData) {
 		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
@@ -109,7 +111,10 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-		float damage = PVZCONFIG.nestedProjDMG.jingleDMG();
+		float damage = PVZCONFIG.nestedProjDMG.jingleDMGv2();
+		if (this.critical){
+			damage = damage * 1.5f;
+		}
 		ZombiePropEntity zombiePropEntity = null;
 		for (Entity entity1 : entity.getPassengerList()) {
 			if (entity1 instanceof ZombiePropEntity zpe) {

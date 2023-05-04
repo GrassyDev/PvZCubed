@@ -41,7 +41,7 @@
       "recipe": "pvzmod:plants/spear/bellflower",
       "text": [
         "Bellflowers are weak but cheap and effective, make one or two if you can. ",
-        "They deal double the damage of a Peashooter to all zombies in an area while ignoring shields, but have really short range."
+        "They deal slightly less damage than a repeater, but their attacks pierce and have a chance to deal a critical hit. They have really short range."
       ]
     },
     {

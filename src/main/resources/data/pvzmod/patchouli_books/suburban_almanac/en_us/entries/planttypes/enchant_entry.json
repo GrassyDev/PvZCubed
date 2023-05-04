@@ -16,7 +16,9 @@
       "entries": [
         "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/perfoomshroom_entry",
-        "pvzmod:plants/beautyshroom_entry"
+        "pvzmod:plants/beautyshroom_entry",
+        "pvzmod:plants/charmshroom_entry",
+        "pvzmod:plants/tulimpeter_entry"
       ],
       "title": "⭐ Enchant Plants:"
     }

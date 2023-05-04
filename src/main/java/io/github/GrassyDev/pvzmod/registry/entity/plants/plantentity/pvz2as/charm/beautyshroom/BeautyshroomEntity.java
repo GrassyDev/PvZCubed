@@ -241,7 +241,7 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 					if (livingEntity instanceof ZombiePropEntity zpe  && !(zpe instanceof ZombieShieldEntity)){
 						hasHelmet = true;
 					}
-					if (hasHelmet){
+					if (hasHelmet || (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())){
 						damage = damage/2;
 					}
 

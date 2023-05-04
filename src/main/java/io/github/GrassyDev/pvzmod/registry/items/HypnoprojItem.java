@@ -1,7 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.items;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingle.JingleEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.hypnoproj.HypnoProjEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -17,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class JingleItem extends Item {
-    public JingleItem(Settings settings) {
+public class HypnoprojItem extends Item {
+    public HypnoprojItem(Settings settings) {
         super(settings);
     }
 
@@ -32,23 +32,19 @@ public class JingleItem extends Item {
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand); // creates a new ItemStack instance of the user's itemStack in-hand
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.NEUTRAL, 10F, 1F); // plays a globalSoundEvent
+        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 1F); // plays a globalSoundEvent
 
         if (!world.isClient) {
-            JingleEntity proj = new JingleEntity(PvZEntity.JINGLE, world);
-			double random = Math.random();
-			if (random <= 0.25) {
-				proj.critical = true;
-			}
+            HypnoProjEntity proj = new HypnoProjEntity(PvZEntity.HYPNOPROJ, world);
             proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
             proj.setOwner(user);
-            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.33F, 0);
+            proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.33f, 0);
             world.spawnEntity(proj);
         }
 
         if (!user.getAbilities().creativeMode) {
             itemStack.decrement(1); // decrements itemStack if user is not in creative mode
-            user.getItemCooldownManager().set(this, 20);
+            user.getItemCooldownManager().set(this, 30);
         }
 
         return TypedActionResult.success(itemStack, world.isClient());

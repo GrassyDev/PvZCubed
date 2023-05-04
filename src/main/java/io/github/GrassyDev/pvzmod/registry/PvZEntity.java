@@ -649,19 +649,19 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<FumeEntity> FUME = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "fume"),
-			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
+			QuiltEntityTypeBuilder.<FumeEntity>create(SpawnGroup.MISC, FumeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<BreezeEntity> BREEZE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "breeze"),
-			QuiltEntityTypeBuilder.<BreezeEntity>create(SpawnGroup.MISC, BreezeEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
+			QuiltEntityTypeBuilder.<BreezeEntity>create(SpawnGroup.MISC, BreezeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<AcidFumeEntity> ACIDFUME = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "acidfume"),
-			QuiltEntityTypeBuilder.<AcidFumeEntity>create(SpawnGroup.MISC, AcidFumeEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
+			QuiltEntityTypeBuilder.<AcidFumeEntity>create(SpawnGroup.MISC, AcidFumeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<AcidSporeEntity> ACIDSPORE = Registry.register(
@@ -697,7 +697,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<BubbleEntity> BUBBLE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "bubble"),
-			QuiltEntityTypeBuilder.<BubbleEntity>create(SpawnGroup.MISC, BubbleEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
+			QuiltEntityTypeBuilder.<BubbleEntity>create(SpawnGroup.MISC, BubbleEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<ArmorBubbleEntity> ARMORBUBBLE = Registry.register(
@@ -715,7 +715,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<JingleEntity> JINGLE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "jingle"),
-			QuiltEntityTypeBuilder.<JingleEntity>create(SpawnGroup.MISC, JingleEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
+			QuiltEntityTypeBuilder.<JingleEntity>create(SpawnGroup.MISC, JingleEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1507,7 +1507,7 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SAUCER, SaucerEntity.createSaucerAttributes().build());
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TULIMPETER, TulimpeterEntity.createTulimperAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TULIMPETER, TulimpeterEntity.createTulimpeterAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NARCISSUS, NarcissusEntity.createNarcissusAttributes().build());
 

@@ -152,6 +152,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.GOLDLEAF_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.LOQUAT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SAUCER_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.TULIMPETER_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NARCISSUS_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.DROPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BEAUTYSHROOM_SEED_PACKET));
@@ -190,6 +191,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.POWERSPIKE));
 				stacks.add(new ItemStack(ModItems.ICESPIKE));
 				stacks.add(new ItemStack(ModItems.POWERICESPIKE));
+				stacks.add(new ItemStack(ModItems.HYPNOPROJ));
 				stacks.add(new ItemStack(ModItems.BUBBLES));
 				stacks.add(new ItemStack(ModItems.ARMORBUBBLE));
 				stacks.add(new ItemStack(ModItems.DROP));

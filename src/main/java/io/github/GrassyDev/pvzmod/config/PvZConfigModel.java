@@ -209,6 +209,7 @@ public class PvZConfigModel {
 		public float tanglekelpS = 25.0f;
 		public float threepeaterS = 7.5f;
 		public float torchwoodS = 37.5f;
+		public float tulimpeterS = 20.0f;
 		public float twinsunflowerS = 35.0f;
 		public float wallnutS = 50.0f;
 		public float weeniebeanieS = 2.5f;
@@ -250,7 +251,7 @@ public class PvZConfigModel {
 		public float icebergDMG = 1f;
 		public float iceSpikeDMG = 2f;
 		public float iceSpikeMultiplier = 2f;
-		public float jingleDMG = 8f;
+		public float jingleDMGv2 = 7f;
 		public float peaDMG = 4f;
 		public float pepperDMG = 3f;
 		public float plasmaPeaDMG = 12f;
