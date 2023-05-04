@@ -713,7 +713,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 						sound = 0.33f;
 					}
 					target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
-					System.out.println(this.isCovered());
 					if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep() && !this.isCovered()){
 						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
 							hypnoshroomEntity.kill();
