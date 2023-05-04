@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.supe
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ImpVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
@@ -436,7 +437,7 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 				this.currentFuseTime = this.fuseTime;
 				this.world.sendEntityStatus(this, (byte) 106);
 				this.raycastExplode();
-				this.playSound(PvZCubed.CHERRYBOMBEXPLOSIONEVENT, 1F, 1F);
+				this.playSound(PvZSounds.CHERRYBOMBEXPLOSIONEVENT, 1F, 1F);
 				this.spawnEffectsCloud();
 				this.dead = true;
 				this.remove(RemovalReason.DISCARDED);

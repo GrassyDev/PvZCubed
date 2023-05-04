@@ -1,6 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.miscentity.locustswarm;
 
-import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.PvZombieEntity;
@@ -211,7 +211,7 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -250,7 +250,7 @@ public class LocustSwarmEntity extends PvZombieEntity implements IAnimatable {
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

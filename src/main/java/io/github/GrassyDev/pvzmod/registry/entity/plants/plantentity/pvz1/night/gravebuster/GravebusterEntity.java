@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
@@ -18,6 +20,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -108,7 +111,7 @@ public class GravebusterEntity extends PlantEntity implements IAnimatable {
 		this.notready = false;
 		int i = this.attackTicksLeft;
 		if (i == 80) {
-			this.playSound(PvZCubed.GRAVEBUSTEREATINGEVENT, 1F, 1.0F);
+			this.playSound(PvZSounds.GRAVEBUSTEREATINGEVENT, 1F, 1.0F);
 		}
 		if (i > 0) {
 			float f = 1;
@@ -237,12 +240,12 @@ public class GravebusterEntity extends PlantEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -291,7 +294,7 @@ public class GravebusterEntity extends PlantEntity implements IAnimatable {
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

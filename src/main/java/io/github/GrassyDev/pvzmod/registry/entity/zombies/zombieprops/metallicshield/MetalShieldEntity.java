@@ -1,8 +1,9 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield;
 
-import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -90,7 +91,7 @@ public class MetalShieldEntity extends ZombieShieldEntity implements IAnimatable
     }
 
 	protected SoundEvent getAmbientSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {
@@ -98,7 +99,7 @@ public class MetalShieldEntity extends ZombieShieldEntity implements IAnimatable
 	}
 
 	protected SoundEvent getStepSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
@@ -116,7 +117,7 @@ public class MetalShieldEntity extends ZombieShieldEntity implements IAnimatable
             }
 
             if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE) {
-                this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+                this.playSound(PvZSounds.HYPNOTIZINGEVENT, 1.5F, 1.0F);
                 HypnoScreendoorEntity hypnotizedZombie = (HypnoScreendoorEntity)PvZEntity.HYPNOSCREENDOOR.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);

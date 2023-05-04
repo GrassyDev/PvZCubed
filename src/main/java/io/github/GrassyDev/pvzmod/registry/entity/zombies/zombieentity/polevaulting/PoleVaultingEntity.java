@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaul
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
@@ -30,6 +32,7 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -291,7 +294,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 				Vec3d vec3d = new Vec3d(0.4, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 				this.setPoleStage(PoleStage.NOPOLE);
-				this.playSound(PvZCubed.POLEVAULTEVENT, 0.75f, 1);
+				this.playSound(PvZSounds.POLEVAULTEVENT, 0.75f, 1);
 			}
 			else if (this.CollidesWithPlant(1f) != null && (PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("flying")) && !this.onGround && !this.isInsideWaterOrBubbleColumn()){
 				Vec3d vec3d = new Vec3d(-0.175, -0.3, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
@@ -372,7 +375,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 	protected SoundEvent getAmbientSound() {
 		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
-			return PvZCubed.ZOMBIEMOANEVENT;
+			return PvZSounds.ZOMBIEMOANEVENT;
 		}
 		else {
 			return null;
@@ -426,7 +429,7 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 
 			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
 				checkHypno();
-				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+				this.playSound(PvZSounds.HYPNOTIZINGEVENT, 1.5F, 1.0F);
 				PoleVaultingEntity hypnotizedZombie = (PoleVaultingEntity) hypnoType.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);

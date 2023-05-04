@@ -2,12 +2,14 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.SeedItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -60,7 +62,7 @@ public class GardenSpawn extends SeedItem {
 			gardenEntity.refreshPositionAndAngles(gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), f, 0.0F);
                     ((ServerWorld) world).spawnEntityAndPassengers(gardenEntity);
 			gardenEntity.setPersistent();
-                    world.playSound((PlayerEntity) null, gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
                 if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);

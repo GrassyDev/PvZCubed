@@ -7,6 +7,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -58,7 +59,7 @@ public class FlagMummyEgg extends SeedItem {
                     flagzombieEntity.refreshPositionAndAngles(flagzombieEntity.getX(), flagzombieEntity.getY(), flagzombieEntity.getZ(), f, 0.0F);
                     ((ServerWorld) world).spawnEntityAndPassengers(flagzombieEntity);
 					flagzombieEntity.setPersistent();
-                    world.playSound((PlayerEntity) null, flagzombieEntity.getX(), flagzombieEntity.getY(), flagzombieEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, flagzombieEntity.getX(), flagzombieEntity.getY(), flagzombieEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
 
                 if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {

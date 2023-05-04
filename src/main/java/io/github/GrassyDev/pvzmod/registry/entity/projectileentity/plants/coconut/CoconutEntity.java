@@ -1,6 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.coconut;
 
-import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -131,7 +131,7 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
 				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
-			entity.playSound(PvZCubed.POTATOMINEEXPLOSIONEVENT, 0.8F, 1F);
+			entity.playSound(PvZSounds.POTATOMINEEXPLOSIONEVENT, 0.8F, 1F);
 			float damage = PVZCONFIG.nestedProjDMG.coconutDMG();
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&

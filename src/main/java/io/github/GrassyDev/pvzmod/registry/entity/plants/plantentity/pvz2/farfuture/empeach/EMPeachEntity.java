@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.farfu
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.JetpackEntity;
@@ -25,6 +26,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -354,7 +356,7 @@ public class EMPeachEntity extends PlantEntity implements IAnimatable {
 			if (this.currentFuseTime == 3) {
 				this.raycastExplode();
 				this.world.sendEntityStatus(this, (byte) 106);
-				this.playSound(PvZCubed.EMPEACHEXPLOSIONEVENT, 1F, 1F);
+				this.playSound(PvZSounds.EMPEACHEXPLOSIONEVENT, 1F, 1F);
 			}
 
 			if (this.currentFuseTime >= this.fuseTime) {
@@ -414,7 +416,7 @@ public class EMPeachEntity extends PlantEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -453,7 +455,7 @@ public class EMPeachEntity extends PlantEntity implements IAnimatable {
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasm
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -15,6 +16,7 @@ import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
@@ -163,7 +165,7 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				damage = PVZCONFIG.nestedProjDMG.plasmaPeaDMG() / 2;
 			}
 			if (entity2 != entityStore) {
-				entity.playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));
+				entity.playSound(PvZSounds.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
 						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -177,7 +179,7 @@ public class ShootingPlasmaPeaEntity extends ThrownItemEntity implements IAnimat
 				entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
 			}
 			if (entity2.getVehicle() != null && entityStoreVehicle != entity2.getVehicle()){
-				entity2.getVehicle().playSound(PvZCubed.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));
+				entity2.getVehicle().playSound(PvZSounds.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));
 				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet() && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {

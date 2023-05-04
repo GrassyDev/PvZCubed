@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -26,6 +27,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
@@ -219,10 +221,10 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(damaged.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
-				case "metallic" -> PvZCubed.BUCKETHITEVENT;
-				case "plastic" -> PvZCubed.CONEHITEVENT;
-				case "stone" -> PvZCubed.STONEHITEVENT;
-				default -> PvZCubed.PEAHITEVENT;
+				case "metallic" -> PvZSounds.BUCKETHITEVENT;
+				case "plastic" -> PvZSounds.CONEHITEVENT;
+				case "stone" -> PvZSounds.STONEHITEVENT;
+				default -> PvZSounds.PEAHITEVENT;
 			};
 			target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 			this.chomperAudioDelay = 3;
@@ -264,7 +266,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 	public void tick() {
 		super.tick();
 		if (--this.chomperAudioDelay == 0) {
-			this.playSound(PvZCubed.PEASHOOTEVENT, 1.0F, 1.0F);
+			this.playSound(PvZSounds.PEASHOOTEVENT, 1.0F, 1.0F);
 		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
@@ -341,12 +343,12 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -384,7 +386,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

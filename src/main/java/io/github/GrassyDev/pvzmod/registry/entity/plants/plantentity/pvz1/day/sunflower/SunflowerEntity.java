@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.s
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.SunflowerVariants;
@@ -22,6 +24,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -203,7 +206,7 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 
 			if (this.currentFuseTime >= this.sunProducingTime) {
 				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
-					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+					this.playSound(PvZSounds.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 					if (this.world.getAmbientDarkness() >= 2 ||
 							this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2){
 						this.dropItem(ModItems.SMALLSUN);
@@ -278,7 +281,7 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 		}
 		Item item = itemStack.getItem();
 		if (itemStack.isOf(ModItems.TWINSUNFLOWER_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT);
 			if ((this.world instanceof ServerWorld)) {
 				ServerWorld serverWorld = (ServerWorld) this.world;
 				TwinSunflowerEntity twinSunflowerEntity = (TwinSunflowerEntity) PvZEntity.TWINSUNFLOWER.create(world);
@@ -404,12 +407,12 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -447,7 +450,7 @@ public class SunflowerEntity extends PlantEntity implements IAnimatable {
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

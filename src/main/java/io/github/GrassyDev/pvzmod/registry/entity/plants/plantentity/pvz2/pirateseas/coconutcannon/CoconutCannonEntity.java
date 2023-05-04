@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.pirat
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.coconut.CoconutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -22,6 +24,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
@@ -347,10 +350,10 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.SILENCEVENET;}
+	protected SoundEvent getHurtSound(DamageSource source) {return PvZSounds.SILENCEVENET;}
 
 	@Nullable
-	protected SoundEvent getDeathSound() {return PvZCubed.PLANTPLANTEDEVENT;}
+	protected SoundEvent getDeathSound() {return PvZSounds.PLANTPLANTEDEVENT;}
 
 	public boolean hurtByWater() {return false;}
 
@@ -386,7 +389,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();
@@ -472,7 +475,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 							this.beamTicks = -30;
 							this.plantEntity.attacked = true;
 							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
-							this.plantEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+							this.plantEntity.playSound(PvZSounds.PEASHOOTEVENT, 0.2F, 1);
 							this.plantEntity.world.spawnEntity(proj);
 						}
 					}

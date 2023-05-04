@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.rainb
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -154,10 +155,10 @@ public class RainbowBulletEntity extends ThrownItemEntity implements IAnimatable
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
-				case "metallic" -> PvZCubed.BUCKETHITEVENT;
-				case "plastic" -> PvZCubed.CONEHITEVENT;
-				case "stone" -> PvZCubed.STONEHITEVENT;
-				default -> PvZCubed.PEAHITEVENT;
+				case "metallic" -> PvZSounds.BUCKETHITEVENT;
+				case "plastic" -> PvZSounds.CONEHITEVENT;
+				case "stone" -> PvZSounds.STONEHITEVENT;
+				default -> PvZSounds.PEAHITEVENT;
 			};
 			entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 			float damage = PVZCONFIG.nestedProjDMG.rainbowBulletDMG();

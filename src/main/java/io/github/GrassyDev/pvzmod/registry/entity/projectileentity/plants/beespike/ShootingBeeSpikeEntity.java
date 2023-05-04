@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beesp
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
@@ -14,6 +15,7 @@ import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
@@ -175,10 +177,10 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
-				case "metallic" -> PvZCubed.BUCKETHITEVENT;
-				case "plastic" -> PvZCubed.CONEHITEVENT;
-				case "stone" -> PvZCubed.STONEHITEVENT;
-				default -> PvZCubed.PEAHITEVENT;
+				case "metallic" -> PvZSounds.BUCKETHITEVENT;
+				case "plastic" -> PvZSounds.CONEHITEVENT;
+				case "stone" -> PvZSounds.STONEHITEVENT;
+				default -> PvZSounds.PEAHITEVENT;
 			};
 			if (entity2 != entityStore) {
 				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
@@ -197,10 +199,10 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 			if (entity2.getVehicle() != null && entityStoreVehicle != entity2.getVehicle()){
 				String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(entity2.getVehicle().getType()).orElse("flesh");
 				sound = switch (zombieMaterial2) {
-					case "metallic" -> PvZCubed.BUCKETHITEVENT;
-					case "plastic" -> PvZCubed.CONEHITEVENT;
-					case "stone" -> PvZCubed.STONEHITEVENT;
-					default -> PvZCubed.PEAHITEVENT;
+					case "metallic" -> PvZSounds.BUCKETHITEVENT;
+					case "plastic" -> PvZSounds.CONEHITEVENT;
+					case "stone" -> PvZSounds.STONEHITEVENT;
+					default -> PvZSounds.PEAHITEVENT;
 				};
 				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);

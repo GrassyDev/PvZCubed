@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.ba
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.zombies.ShootingBasketballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BullyVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bully.basic.BullyEntity;
@@ -251,7 +253,7 @@ public class BasketballCarrierEntity extends BullyEntity implements IAnimatable 
 			}
 
 			basketballEntity.setOwner(this);
-			this.playSound(PvZCubed.PEASHOOTEVENT, 1F, 1);
+			this.playSound(PvZSounds.PEASHOOTEVENT, 1F, 1);
 			this.world.spawnEntity(basketballEntity);
 		}
 	}

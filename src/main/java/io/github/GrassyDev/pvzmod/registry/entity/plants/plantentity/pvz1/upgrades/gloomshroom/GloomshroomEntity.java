@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgra
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -26,6 +27,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -271,10 +273,10 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 							SoundEvent sound;
 							sound = switch (zombieMaterial) {
-								case "metallic" -> PvZCubed.BUCKETHITEVENT;
-								case "plastic" -> PvZCubed.CONEHITEVENT;
-								case "stone" -> PvZCubed.STONEHITEVENT;
-								default -> PvZCubed.PEAHITEVENT;
+								case "metallic" -> PvZSounds.BUCKETHITEVENT;
+								case "plastic" -> PvZSounds.CONEHITEVENT;
+								case "stone" -> PvZSounds.STONEHITEVENT;
+								default -> PvZSounds.PEAHITEVENT;
 							};
 							livingEntity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 							float damage = 6F;
@@ -448,12 +450,12 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -491,7 +493,7 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();
@@ -547,7 +549,7 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						this.beamTicks = -2;
 						this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
-						this.plantEntity.playSound(PvZCubed.FUMESHROOMSHOOTEVENT, 0.3F, 1);
+						this.plantEntity.playSound(PvZSounds.FUMESHROOMSHOOTEVENT, 0.3F, 1);
 						this.plantEntity.splashDamage();
 						this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 106);
 					}

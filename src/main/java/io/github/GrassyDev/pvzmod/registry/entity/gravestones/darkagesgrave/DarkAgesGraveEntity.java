@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.darkagesgrave;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.graves.GraveDifficulty;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.modernday.BrowncoatEntity;
@@ -14,6 +16,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -259,7 +262,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	protected SoundEvent getCastSpellSound() {
-        return PvZCubed.ENTITYRISINGEVENT;
+        return PvZSounds.ENTITYRISINGEVENT;
     }
 
 	protected abstract class CastSpellGoal extends Goal {
@@ -596,7 +599,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
         }
 
         protected SoundEvent getSoundPrepare() {
-            return PvZCubed.GRAVERISINGEVENT;
+            return PvZSounds.GRAVERISINGEVENT;
         }
 
         protected Spell getSpell() {

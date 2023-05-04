@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
@@ -15,8 +17,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -143,9 +147,9 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 						 plantEntity.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), dg, eg, fg, 0.0, 0.0, 0.0);
 					 }
 					plantEntity.sunProducingTime = (int) (PVZCONFIG.nestedSun.sunflowerSecInitial() * 20);
-                    world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+                    world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZSounds.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 					if (PVZCONFIG.nestedSun.sunflowerDropSun()){
-						plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+						plantEntity.playSound(PvZSounds.SUNDROPEVENT, 0.5F, 1F);
 						plantEntity.dropItem(ModItems.SUN);
 						plantEntity.dropItem(ModItems.SUN);
 					}
@@ -201,9 +205,9 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 				}
 				world.spawnEntity(plantEntity);
 				((SunflowerEntity) plantEntity).sunProducingTime = (int) (PVZCONFIG.nestedSun.sunflowerSecInitial() * 20);
-				world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+				world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZSounds.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 				if (PVZCONFIG.nestedSun.sunflowerDropSun()){
-					plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+					plantEntity.playSound(PvZSounds.SUNDROPEVENT, 0.5F, 1F);
 					plantEntity.dropItem(ModItems.SUN);
 					plantEntity.dropItem(ModItems.SUN);
 				}
@@ -224,7 +228,7 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 			if (lilyPadEntity.onWater) {
 				sound = SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED;
 			} else {
-				sound = PvZCubed.PLANTPLANTEDEVENT;
+				sound = PvZSounds.PLANTPLANTEDEVENT;
 			}
 			lilyPadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
 			if (plantEntity == null) {
@@ -249,7 +253,7 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 			world.spawnEntity(plantEntity);
 			((SunflowerEntity) plantEntity).sunProducingTime = (int) (PVZCONFIG.nestedSun.sunflowerSecInitial() * 20);
 			if (PVZCONFIG.nestedSun.sunflowerDropSun()){
-				plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+				plantEntity.playSound(PvZSounds.SUNDROPEVENT, 0.5F, 1F);
 				plantEntity.dropItem(ModItems.SUN);
 				plantEntity.dropItem(ModItems.SUN);
 			}

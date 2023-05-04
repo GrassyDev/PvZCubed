@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgra
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.TwinSunflowerVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
@@ -18,6 +19,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -204,7 +206,7 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 
 			if (this.currentFuseTime >= this.sunProducingTime) {
 				if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()) {
-					this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+					this.playSound(PvZSounds.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 					this.dropItem(ModItems.SUN);
 					this.sunProducingTime = (int) (PVZCONFIG.nestedSun.twinSunflowerSec() * 20);
 					secondSunTick = 20;
@@ -213,7 +215,7 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 				}
 				if (secondSunStart) {
 					if (--secondSunTick < 0) {
-						this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+						this.playSound(PvZSounds.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 						this.dropItem(ModItems.SUN);
 						secondSunStart = false;
 						this.currentFuseTime = this.sunProducingTime;
@@ -232,7 +234,7 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 			}
 		}
 		if (!this.world.isClient && this.isAlive() && this.zombieSunCheck && !this.isInsideWaterOrBubbleColumn()){
-			this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+			this.playSound(PvZSounds.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 			this.dropItem(ModItems.SUN);
 			this.sunProducingTime = (int) (PVZCONFIG.nestedSun.twinSunflowerSec() * 20);
 			secondSunTick = 6;
@@ -241,7 +243,7 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 		}
 		if (secondSunStart) {
 			if (--secondSunTick < 0) {
-				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+				this.playSound(PvZSounds.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 					this.dropItem(ModItems.SUN);
 				secondSunStart = false;
 			}
@@ -378,12 +380,12 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -421,7 +423,7 @@ public class TwinSunflowerEntity extends PlantEntity implements IAnimatable {
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

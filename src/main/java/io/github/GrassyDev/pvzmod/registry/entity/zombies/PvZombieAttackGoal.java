@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies;
 
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 
 public class PvZombieAttackGoal extends MeleeAttackGoal {

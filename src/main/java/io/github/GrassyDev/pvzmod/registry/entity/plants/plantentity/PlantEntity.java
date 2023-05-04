@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.cherrybomb.CherrybombEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.peashooter.PeashooterEntity;
@@ -50,6 +52,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -229,7 +232,7 @@ public abstract class PlantEntity extends GolemEntity {
 			if (onWater) {
 				sound = SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED;
 			} else {
-				sound = PvZCubed.PLANTPLANTEDEVENT;
+				sound = PvZSounds.PLANTPLANTEDEVENT;
 			}
 			lilyPadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
 		}
@@ -291,7 +294,7 @@ public abstract class PlantEntity extends GolemEntity {
 					plantEntity.rideLilyPad(this);
 					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), sound, SoundCategory.BLOCKS, volume, 0.8F);
 					plantEntity.sunProducingTime = 600;
-					plantEntity.playSound(PvZCubed.SUNDROPEVENT, 0.5F, 1F);
+					plantEntity.playSound(PvZSounds.SUNDROPEVENT, 0.5F, 1F);
 					plantEntity.dropItem(ModItems.SUN);
 					plantEntity.dropItem(ModItems.SUN);
 				}

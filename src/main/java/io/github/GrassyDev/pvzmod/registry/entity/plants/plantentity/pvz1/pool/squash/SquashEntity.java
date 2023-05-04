@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -22,6 +23,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
@@ -50,6 +52,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+import static io.github.GrassyDev.pvzmod.registry.PvZSounds.SILENCEVENET;
+import static io.github.GrassyDev.pvzmod.registry.PvZSounds.SQUASHHUMEVENT;
 
 public class SquashEntity extends PlantEntity implements IAnimatable {
 
@@ -348,7 +352,7 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 		}
 		if (this.animationTicksLeft == 9 && !this.isInsideWaterOrBubbleColumn()) {
 			this.attackLock = true;
-			this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
+			this.playSound(PvZSounds.GARGANTUARSMASHEVENT, 1F, 1.0F);
 			if (getTarget() != null) {
 				this.firstAttack = true;
 			}
@@ -443,7 +447,7 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -485,7 +489,7 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

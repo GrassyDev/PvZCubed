@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -29,6 +30,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -258,10 +260,10 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 							SoundEvent sound;
 							sound = switch (zombieMaterial) {
-								case "metallic" -> PvZCubed.BUCKETHITEVENT;
-								case "plastic" -> PvZCubed.CONEHITEVENT;
-								case "stone" -> PvZCubed.STONEHITEVENT;
-									default -> PvZCubed.PEAHITEVENT;
+								case "metallic" -> PvZSounds.BUCKETHITEVENT;
+								case "plastic" -> PvZSounds.CONEHITEVENT;
+								case "stone" -> PvZSounds.STONEHITEVENT;
+									default -> PvZSounds.PEAHITEVENT;
 							};
 							livingEntity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 							float damage = 4F;
@@ -333,7 +335,7 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 
 		if (!this.world.isClient && this.isAlive() && this.sunProducingTime <= 0 && !this.isInsideWaterOrBubbleColumn()){
 			if (this.produceSun){
-				this.playSound(PvZCubed.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
+				this.playSound(PvZSounds.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);
 				this.dropItem(ModItems.SMALLSUN);
 				this.sunProducingTime = (int) (PVZCONFIG.nestedSun.sunseedSec() * 20);;
 				this.produceSun = false;
@@ -376,12 +378,12 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -419,7 +421,7 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();
@@ -487,7 +489,7 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 					if (!this.sunflowerSeedEntity.isInsideWaterOrBubbleColumn()) {
 						this.beamTicks = -6;
 						this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 111);
-						this.sunflowerSeedEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+						this.sunflowerSeedEntity.playSound(PvZSounds.PEASHOOTEVENT, 0.2F, 1);
 						this.sunflowerSeedEntity.splashDamage();
 						this.sunflowerSeedEntity.world.sendEntityStatus(this.sunflowerSeedEntity, (byte) 106);
 						this.sunflowerSeedEntity.produceSun = true;

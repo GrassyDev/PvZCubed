@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterTile;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
@@ -12,8 +13,10 @@ import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -117,7 +120,7 @@ public class PuffshroomSeeds extends SeedItem implements FabricItem {
                     plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
                     world.spawnEntity(plantEntity);
 					plantEntity.setPuffshroomPermanency(PuffshroomEntity.PuffPermanency.PERMANENT);
-                    world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+                    world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZSounds.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 
 					PlayerEntity user = context.getPlayer();
@@ -158,7 +161,7 @@ public class PuffshroomSeeds extends SeedItem implements FabricItem {
 				plantEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), f, 0.0F);
 				world.spawnEntity(plantEntity);
 				((PuffshroomEntity) plantEntity).setPuffshroomPermanency(PuffshroomEntity.PuffPermanency.PERMANENT);
-				world.playSound((PlayerEntity) null, entity.getX(), entity.getY(), entity.getZ(), PvZCubed.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+				world.playSound((PlayerEntity) null, entity.getX(), entity.getY(), entity.getZ(), PvZSounds.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 				if (!user.getAbilities().creativeMode) {
 					if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
@@ -176,7 +179,7 @@ public class PuffshroomSeeds extends SeedItem implements FabricItem {
 			if (lilyPadEntity.onWater) {
 				sound = SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED;
 			} else {
-				sound = PvZCubed.PLANTPLANTEDEVENT;
+				sound = PvZSounds.PLANTPLANTEDEVENT;
 			}
 			lilyPadEntity.setPuffshroomPermanency(LilyPadEntity.PuffPermanency.PERMANENT);
 			if (plantEntity == null) {

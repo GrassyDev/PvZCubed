@@ -58,6 +58,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2as.char
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2as.charm.charmshroom.CharmshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.generic.dropea.DropeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.generic.narcissus.NarcissusEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.generic.tulimpeter.TulimpeterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.skycity.loquat.LoquatEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.skycity.saucer.SaucerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventures.beeshooter.BeeshooterEntity;
@@ -89,6 +90,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.coconu
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.dropea.ShootingDropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.flamingpea.ShootingFlamingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.fume.FumeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.hypnoproj.HypnoProjEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.iceberg.ShootingIcebergEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.icespike.ShootingIcespikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.icespike.ShootingPowerIcespikeEntity;
@@ -461,6 +463,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<SaucerEntity>create(SpawnGroup.CREATURE, SaucerEntity::new).setDimensions(EntityDimensions.fixed(1f, 2.65f)).build()
 	);
 
+	public static final EntityType<TulimpeterEntity> TULIMPETER = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "tulimpeter"),
+			QuiltEntityTypeBuilder.<TulimpeterEntity>create(SpawnGroup.CREATURE, TulimpeterEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
 	public static final EntityType<NarcissusEntity> NARCISSUS = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "narcissus"),
@@ -678,6 +686,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "pepperproj"),
 			QuiltEntityTypeBuilder.<ShootingPepperEntity>create(SpawnGroup.MISC, ShootingPepperEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<HypnoProjEntity> HYPNOPROJ = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "hypnoproj"),
+			QuiltEntityTypeBuilder.<HypnoProjEntity>create(SpawnGroup.MISC, HypnoProjEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<BubbleEntity> BUBBLE = Registry.register(
@@ -1492,6 +1506,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LOQUAT, LoquatEntity.createLoquatAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SAUCER, SaucerEntity.createSaucerAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TULIMPETER, TulimpeterEntity.createTulimperAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.NARCISSUS, NarcissusEntity.createNarcissusAttributes().build());
 

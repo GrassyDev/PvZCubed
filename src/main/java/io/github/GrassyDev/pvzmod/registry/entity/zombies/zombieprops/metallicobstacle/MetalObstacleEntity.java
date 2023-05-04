@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallico
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.spikeweed.SpikeweedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
@@ -146,7 +148,7 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 	}
 
 	protected SoundEvent getAmbientSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {
@@ -154,7 +156,7 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 	}
 
 	protected SoundEvent getStepSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable

@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantu
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
@@ -34,6 +36,7 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -422,7 +425,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			impEntity.updatePosition(this.getX(), this.getY() + 3.75D, this.getZ());
 			impEntity.setOwner(this);
 			this.setImpStage(ImpStage.NOIMP);
-			this.playSound(PvZCubed.IMPLAUNCHEVENT, 1F, 1);
+			this.playSound(PvZSounds.IMPLAUNCHEVENT, 1F, 1);
 			if (this.getHypno()){
 				impEntity.setHypno(IsHypno.TRUE);
 			}
@@ -495,7 +498,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 		}
 		if (this.animationTicksLeft == 40 * animationMultiplier && !inLaunchAnimation) {
 			if (!this.isInsideWaterOrBubbleColumn() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
-				this.playSound(PvZCubed.GARGANTUARSMASHEVENT, 1F, 1.0F);
+				this.playSound(PvZSounds.GARGANTUARSMASHEVENT, 1F, 1.0F);
 			}
 			else if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 				world.sendEntityStatus(this, (byte) 107);
@@ -604,10 +607,10 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 	protected SoundEvent getAmbientSound() {
 		if (!this.getHypno() && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.isFrozen && !this.isStunned && !this.hasStatusEffect(PvZCubed.DISABLE)) {
-			return PvZCubed.GARGANTUARMOANEVENT;
+			return PvZSounds.GARGANTUARMOANEVENT;
 		}
 		else {
-			return PvZCubed.SILENCEVENET;
+			return PvZSounds.SILENCEVENET;
 		}
 	}
 
@@ -620,7 +623,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	}
 
 	protected SoundEvent getStepSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		this.playSound(this.getStepSound(), 0.15F, 1.0F);
@@ -661,7 +664,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 
 			if (this.getRecentDamageSource() == PvZCubed.HYPNO_DAMAGE && !(this.getHypno())) {
 				checkHypno();
-				this.playSound(PvZCubed.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+				this.playSound(PvZSounds.HYPNOTIZINGEVENT, 1.5F, 1.0F);
 				GargantuarEntity hypnotizedZombie = (GargantuarEntity) hypnoType.create(world);
 				hypnotizedZombie.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);

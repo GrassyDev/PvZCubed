@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -24,6 +25,7 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -40,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+import static io.github.GrassyDev.pvzmod.registry.PvZSounds.*;
 
 public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -303,12 +306,12 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return (this.getHypno()) ? PvZCubed.ZOMBIEBITEEVENT : PvZCubed.SILENCEVENET;
+		return (this.getHypno()) ? PvZSounds.ZOMBIEBITEEVENT : PvZSounds.SILENCEVENET;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Override
@@ -624,7 +627,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 				!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("gargantuar") && !ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small") &&
 				!(this instanceof ZombieKingEntity) && IS_MACHINE.get(this.getType()).orElse(false).equals(false)) {
 			if (this.pop && !this.dead) {
-				playSound(PvZCubed.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
+				playSound(PvZSounds.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
 				pop = false;
 			}
 		}
@@ -695,7 +698,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 					if (this.getHypno()) {
 						sound = 0.33f;
 					}
-					target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
+					target.playSound(PvZSounds.ZOMBIEBITEEVENT, sound, 1f);
 					if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep() && !this.isCovered()){
 						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
 							hypnoshroomEntity.kill();
@@ -712,7 +715,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 					if (this.getHypno()) {
 						sound = 0.33f;
 					}
-					target.playSound(PvZCubed.ZOMBIEBITEEVENT, sound, 1f);
+					target.playSound(PvZSounds.ZOMBIEBITEEVENT, sound, 1f);
 					if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep() && !this.isCovered()){
 						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
 							hypnoshroomEntity.kill();

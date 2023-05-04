@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
@@ -40,7 +41,7 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return (this.getHypno()) ? PvZCubed.ZOMBIEBITEEVENT : PvZCubed.SILENCEVENET;
+		return (this.getHypno()) ? PvZSounds.ZOMBIEBITEEVENT : PvZSounds.SILENCEVENET;
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	public void tick() {

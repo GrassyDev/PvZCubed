@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.farfuture.empeach;
 
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.ai.goal.Goal;
 
 public class EMPeachIgniteGoal extends Goal {

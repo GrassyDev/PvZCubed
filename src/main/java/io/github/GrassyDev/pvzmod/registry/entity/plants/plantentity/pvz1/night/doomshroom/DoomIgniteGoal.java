@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.doomshroom;
 
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.ai.goal.Goal;
 
 public class DoomIgniteGoal extends Goal {

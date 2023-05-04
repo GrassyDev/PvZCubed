@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.breez
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -11,6 +12,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
@@ -134,10 +136,10 @@ public class BreezeEntity extends ThrownItemEntity implements IAnimatable {
 			}
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
-				case "metallic" -> PvZCubed.BUCKETHITEVENT;
-				case "plastic" -> PvZCubed.CONEHITEVENT;
-				case "stone" -> PvZCubed.STONEHITEVENT;
-				default -> PvZCubed.PEAHITEVENT;
+				case "metallic" -> PvZSounds.BUCKETHITEVENT;
+				case "plastic" -> PvZSounds.CONEHITEVENT;
+				case "stone" -> PvZSounds.STONEHITEVENT;
+				default -> PvZSounds.PEAHITEVENT;
 			};
 			if (entity2 != entityStore) {
 				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
@@ -156,10 +158,10 @@ public class BreezeEntity extends ThrownItemEntity implements IAnimatable {
 			if (entity2.getVehicle() != null && entityStoreVehicle != entity2.getVehicle()){
 				String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(entity2.getVehicle().getType()).orElse("flesh");
 				sound = switch (zombieMaterial2) {
-					case "metallic" -> PvZCubed.BUCKETHITEVENT;
-					case "plastic" -> PvZCubed.CONEHITEVENT;
-					case "stone" -> PvZCubed.STONEHITEVENT;
-					default -> PvZCubed.PEAHITEVENT;
+					case "metallic" -> PvZSounds.BUCKETHITEVENT;
+					case "plastic" -> PvZSounds.CONEHITEVENT;
+					case "stone" -> PvZSounds.STONEHITEVENT;
+					default -> PvZSounds.PEAHITEVENT;
 				};
 				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
@@ -167,7 +169,7 @@ public class BreezeEntity extends ThrownItemEntity implements IAnimatable {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).isOnFire() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)){
 				if (!(((LivingEntity) entity) instanceof ZombieShieldEntity)) {
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
-					((LivingEntity) entity).playSound(PvZCubed.ICEBERGEXPLOSIONEVENT, 0.1f, 1);
+					((LivingEntity) entity).playSound(PvZSounds.ICEBERGEXPLOSIONEVENT, 0.1f, 1);
 				}
 			}
 			if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()){

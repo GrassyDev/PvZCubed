@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;

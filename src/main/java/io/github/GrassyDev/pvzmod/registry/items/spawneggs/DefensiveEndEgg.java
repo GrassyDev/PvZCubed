@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.SeedItem;
 import net.minecraft.client.item.TooltipContext;
@@ -66,7 +67,7 @@ public class DefensiveEndEgg extends SeedItem {
 					gargantuarEntity.refreshPositionAndAngles(gargantuarEntity.getX(), gargantuarEntity.getY(), gargantuarEntity.getZ(), f, 0.0F);
                     ((ServerWorld) world).spawnEntityAndPassengers(gargantuarEntity);
 					gargantuarEntity.setPersistent();
-                    world.playSound((PlayerEntity) null, gargantuarEntity.getX(), gargantuarEntity.getY(), gargantuarEntity.getZ(), PvZCubed.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+                    world.playSound((PlayerEntity) null, gargantuarEntity.getX(), gargantuarEntity.getY(), gargantuarEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
 
                 if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {

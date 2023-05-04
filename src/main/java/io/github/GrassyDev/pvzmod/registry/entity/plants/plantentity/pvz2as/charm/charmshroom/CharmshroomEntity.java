@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2as.cha
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -20,10 +21,13 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.*;
@@ -41,8 +45,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.Optional;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
-import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_STRENGTH;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class CharmshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
@@ -310,6 +313,21 @@ public class CharmshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	/** /~*~//~*INTERACTION*~//~*~/ **/
 
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
+			dropItem(ModItems.CHARMSHROOM_SEED_PACKET);
+			if (!player.getAbilities().creativeMode) {
+				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+					itemStack.decrement(1);
+				}
+			}
+			this.discard();
+			return ActionResult.SUCCESS;
+		}
+		return super.interactMob(player, hand);
+	}
+
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
@@ -342,12 +360,12 @@ public class CharmshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -385,7 +403,7 @@ public class CharmshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

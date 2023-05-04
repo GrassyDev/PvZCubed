@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.s
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventures.snowqueenpea.SnowqueenpeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntity;
@@ -30,6 +32,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -251,7 +254,7 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 		}
 		Item item = itemStack.getItem();
 		if (itemStack.isOf(ModItems.SNOW_QUEENPEA_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT);
 			if ((this.world instanceof ServerWorld)) {
 				ServerWorld serverWorld = (ServerWorld) this.world;
 				SnowqueenpeaEntity snowqueenpeaEntity = (SnowqueenpeaEntity) PvZEntity.SNOWQUEENPEA.create(world);
@@ -355,12 +358,12 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -398,7 +401,7 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();
@@ -468,7 +471,7 @@ public class SnowpeaEntity extends PlantEntity implements IAnimatable, RangedAtt
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
 							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
-							this.plantEntity.playSound(PvZCubed.SNOWPEASHOOTEVENT, 1F, 1);
+							this.plantEntity.playSound(PvZSounds.SNOWPEASHOOTEVENT, 1F, 1);
 							this.plantEntity.world.spawnEntity(proj);
 						}
 					}

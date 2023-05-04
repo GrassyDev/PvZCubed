@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -30,7 +31,7 @@ public abstract class SummonerEntity extends GeneralPvZombieEntity implements Mo
 	}
 
 	protected SoundEvent getCastSpellSound() {
-		return PvZCubed.ENTITYRISINGEVENT;
+		return PvZSounds.ENTITYRISINGEVENT;
 	}
 
 	public EntityGroup getGroup() {

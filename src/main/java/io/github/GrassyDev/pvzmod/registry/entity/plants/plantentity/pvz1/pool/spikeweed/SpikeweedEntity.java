@@ -3,8 +3,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -130,10 +131,10 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 					SoundEvent sound;
 					sound = switch (zombieMaterial) {
-						case "metallic" -> PvZCubed.BUCKETHITEVENT;
-						case "plastic" -> PvZCubed.CONEHITEVENT;
-						case "stone" -> PvZCubed.STONEHITEVENT;
-						default -> PvZCubed.PEAHITEVENT;
+						case "metallic" -> PvZSounds.BUCKETHITEVENT;
+						case "plastic" -> PvZSounds.CONEHITEVENT;
+						case "stone" -> PvZSounds.STONEHITEVENT;
+						default -> PvZSounds.PEAHITEVENT;
 					};
 					livingEntity.playSound(sound, 0.1F, (float) (0.5F + Math.random()));
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
@@ -221,7 +222,7 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 		}
 		Item item = itemStack.getItem();
 		if (itemStack.isOf(ModItems.SPIKEROCK_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT);
 			if ((this.world instanceof ServerWorld)) {
 				ServerWorld serverWorld = (ServerWorld) this.world;
 				SpikerockEntity upgradeEntity = (SpikerockEntity) PvZEntity.SPIKEROCK.create(world);
@@ -278,10 +279,10 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.SILENCEVENET;}
+	protected SoundEvent getHurtSound(DamageSource source) {return PvZSounds.SILENCEVENET;}
 
 	@Nullable
-	protected SoundEvent getDeathSound() {return PvZCubed.PLANTPLANTEDEVENT;}
+	protected SoundEvent getDeathSound() {return PvZSounds.PLANTPLANTEDEVENT;}
 
 	public boolean hurtByWater() {
 		return false;
@@ -317,7 +318,7 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

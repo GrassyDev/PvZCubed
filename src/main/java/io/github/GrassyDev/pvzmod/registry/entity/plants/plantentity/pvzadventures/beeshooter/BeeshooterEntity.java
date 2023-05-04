@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventu
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike.ShootingBeeSpikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -320,10 +321,10 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {return PvZCubed.SILENCEVENET;}
+	protected SoundEvent getHurtSound(DamageSource source) {return PvZSounds.SILENCEVENET;}
 
 	@Nullable
-	protected SoundEvent getDeathSound() {return PvZCubed.PLANTPLANTEDEVENT;}
+	protected SoundEvent getDeathSound() {return PvZSounds.PLANTPLANTEDEVENT;}
 
 	public boolean hurtByWater() {return false;}
 
@@ -359,7 +360,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

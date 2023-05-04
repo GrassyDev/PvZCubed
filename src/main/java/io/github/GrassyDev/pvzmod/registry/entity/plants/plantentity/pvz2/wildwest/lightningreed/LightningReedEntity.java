@@ -2,7 +2,9 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildw
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
@@ -23,6 +25,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -472,10 +475,10 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(damaged.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
-					case "metallic" -> PvZCubed.BUCKETHITEVENT;
-					case "plastic" -> PvZCubed.CONEHITEVENT;
-					case "stone" -> PvZCubed.STONEHITEVENT;
-					default -> PvZCubed.PEAHITEVENT;
+					case "metallic" -> PvZSounds.BUCKETHITEVENT;
+					case "plastic" -> PvZSounds.CONEHITEVENT;
+					case "stone" -> PvZSounds.STONEHITEVENT;
+					default -> PvZSounds.PEAHITEVENT;
 				};
 				damaged.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				if (livingEntity.isWet() || livingEntity.hasStatusEffect(PvZCubed.WET)){
@@ -563,12 +566,12 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -612,7 +615,7 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();
@@ -967,12 +970,12 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(damaged.getType()).orElse("flesh");
 							SoundEvent sound;
 							sound = switch (zombieMaterial) {
-								case "metallic" -> PvZCubed.BUCKETHITEVENT;
-								case "plastic" -> PvZCubed.CONEHITEVENT;
-								case "stone" -> PvZCubed.STONEHITEVENT;
-								default -> PvZCubed.PEAHITEVENT;
+								case "metallic" -> PvZSounds.BUCKETHITEVENT;
+								case "plastic" -> PvZSounds.CONEHITEVENT;
+								case "stone" -> PvZSounds.STONEHITEVENT;
+								default -> PvZSounds.PEAHITEVENT;
 							};
-							this.plantEntity.playSound(PvZCubed.LIGHTNINGSHOOTEVENT, 0.75F, (float) (0.75F + (Math.random() / 2)));
+							this.plantEntity.playSound(PvZSounds.LIGHTNINGSHOOTEVENT, 0.75F, (float) (0.75F + (Math.random() / 2)));
 							damaged.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 							if (livingEntity.isWet() || livingEntity.hasStatusEffect(PvZCubed.WET)){
 								damaged.damage(PvZCubed.LIGHTNING_DAMAGE, 4);

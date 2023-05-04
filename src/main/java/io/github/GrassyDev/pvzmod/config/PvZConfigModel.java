@@ -246,6 +246,7 @@ public class PvZConfigModel {
 		public float dropDMG = 1.5f;
 		public float flamingPeaDMG = 4f;
 		public float fumeDMG = 2.5f;
+		public float hypnoprojDMG = 16f;
 		public float icebergDMG = 1f;
 		public float iceSpikeDMG = 2f;
 		public float iceSpikeMultiplier = 2f;

@@ -2,6 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.c
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
@@ -26,6 +28,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -226,10 +229,10 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(passenger.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
-					case "metallic" -> PvZCubed.BUCKETHITEVENT;
-					case "plastic" -> PvZCubed.CONEHITEVENT;
-					case "stone" -> PvZCubed.STONEHITEVENT;
-					default -> PvZCubed.PEAHITEVENT;
+					case "metallic" -> PvZSounds.BUCKETHITEVENT;
+					case "plastic" -> PvZSounds.CONEHITEVENT;
+					case "stone" -> PvZSounds.STONEHITEVENT;
+					default -> PvZSounds.PEAHITEVENT;
 				};
 				passenger.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
@@ -257,10 +260,10 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(damaged.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
-					case "metallic" -> PvZCubed.BUCKETHITEVENT;
-					case "plastic" -> PvZCubed.CONEHITEVENT;
-					case "stone" -> PvZCubed.STONEHITEVENT;
-					default -> PvZCubed.PEAHITEVENT;
+					case "metallic" -> PvZSounds.BUCKETHITEVENT;
+					case "plastic" -> PvZSounds.CONEHITEVENT;
+					case "stone" -> PvZSounds.STONEHITEVENT;
+					default -> PvZSounds.PEAHITEVENT;
 				};
 				target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
@@ -280,10 +283,10 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(passenger.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
-					case "metallic" -> PvZCubed.BUCKETHITEVENT;
-					case "plastic" -> PvZCubed.CONEHITEVENT;
-					case "stone" -> PvZCubed.STONEHITEVENT;
-					default -> PvZCubed.PEAHITEVENT;
+					case "metallic" -> PvZSounds.BUCKETHITEVENT;
+					case "plastic" -> PvZSounds.CONEHITEVENT;
+					case "stone" -> PvZSounds.STONEHITEVENT;
+					default -> PvZSounds.PEAHITEVENT;
 				};
 				passenger.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
@@ -355,7 +358,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (--this.chomperAudioDelay == 0){
-			this.playSound(PvZCubed.CHOMPERBITEVENT, 1.0F, 1.0F);
+			this.playSound(PvZSounds.CHOMPERBITEVENT, 1.0F, 1.0F);
 		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
@@ -470,12 +473,12 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -517,7 +520,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();

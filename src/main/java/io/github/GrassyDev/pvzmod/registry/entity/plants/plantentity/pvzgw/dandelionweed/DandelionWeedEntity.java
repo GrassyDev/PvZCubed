@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.dand
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
@@ -185,10 +186,10 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 						String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 						SoundEvent sound;
 						sound = switch (zombieMaterial) {
-							case "metallic" -> PvZCubed.BUCKETHITEVENT;
-							case "plastic" -> PvZCubed.CONEHITEVENT;
-							case "stone" -> PvZCubed.STONEHITEVENT;
-							default -> PvZCubed.PEAHITEVENT;
+							case "metallic" -> PvZSounds.BUCKETHITEVENT;
+							case "plastic" -> PvZSounds.CONEHITEVENT;
+							case "stone" -> PvZSounds.STONEHITEVENT;
+							default -> PvZSounds.PEAHITEVENT;
 						};
 						livingEntity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 						float damage = 9F;
@@ -298,12 +299,12 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return PvZCubed.PLANTPLANTEDEVENT;
+		return PvZSounds.PLANTPLANTEDEVENT;
 	}
 
 	public boolean hurtByWater() {
@@ -341,7 +342,7 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {
-			this.playSound(PvZCubed.PLANTPLANTEDEVENT, 0.4F, 1.0F);
+			this.playSound(PvZSounds.PLANTPLANTEDEVENT, 0.4F, 1.0F);
 			this.discard();
 		}
 		this.playBlockFallSound();
@@ -398,7 +399,7 @@ public class DandelionWeedEntity extends PlantEntity implements IAnimatable, Ran
 					if (!this.dandelionWeedEntity.isInsideWaterOrBubbleColumn()) {
 						this.beamTicks = -6;
 						this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 111);
-						this.dandelionWeedEntity.playSound(PvZCubed.PEASHOOTEVENT, 0.2F, 1);
+						this.dandelionWeedEntity.playSound(PvZSounds.PEASHOOTEVENT, 0.2F, 1);
 						this.dandelionWeedEntity.splashDamage();
 						this.dandelionWeedEntity.world.sendEntityStatus(this.dandelionWeedEntity, (byte) 106);
 					}

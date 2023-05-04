@@ -1,8 +1,8 @@
 package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield;
 
-import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.PapershieldVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -148,7 +148,7 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 	}
 
 	protected SoundEvent getAmbientSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 	public EntityGroup getGroup() {
@@ -156,7 +156,7 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 	}
 
 	protected SoundEvent getStepSound() {
-		return PvZCubed.SILENCEVENET;
+		return PvZSounds.SILENCEVENET;
 	}
 
 

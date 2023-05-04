@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingl
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -40,6 +41,7 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	public static final Identifier PacketID = new Identifier(PvZEntity.ModID, "jingle");
+	public int jingleAge = 7;
 
 	@Override
 	public void registerControllers(AnimationData animationData) {
@@ -83,7 +85,7 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
 			this.remove(RemovalReason.DISCARDED);
 		}
 
-		if (!this.world.isClient && this.age >= 7) {
+		if (!this.world.isClient && this.age >= this.jingleAge) {
 			this.world.sendEntityStatus(this, (byte) 3);
 			this.remove(RemovalReason.DISCARDED);
 		}
@@ -123,10 +125,10 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
-				case "metallic" -> PvZCubed.BUCKETHITEVENT;
-				case "plastic" -> PvZCubed.CONEHITEVENT;
-				case "stone" -> PvZCubed.STONEHITEVENT;
-				default -> PvZCubed.PEAHITEVENT;
+				case "metallic" -> PvZSounds.BUCKETHITEVENT;
+				case "plastic" -> PvZSounds.CONEHITEVENT;
+				case "stone" -> PvZSounds.STONEHITEVENT;
+				default -> PvZSounds.PEAHITEVENT;
 			};
 			if (entity2 != entityStore) {
 				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
@@ -145,10 +147,10 @@ public class JingleEntity extends ThrownItemEntity implements IAnimatable {
 			if (entity2.getVehicle() != null && entityStoreVehicle != entity2.getVehicle()){
 				String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(entity2.getVehicle().getType()).orElse("flesh");
 				sound = switch (zombieMaterial2) {
-					case "metallic" -> PvZCubed.BUCKETHITEVENT;
-					case "plastic" -> PvZCubed.CONEHITEVENT;
-					case "stone" -> PvZCubed.STONEHITEVENT;
-					default -> PvZCubed.PEAHITEVENT;
+					case "metallic" -> PvZSounds.BUCKETHITEVENT;
+					case "plastic" -> PvZSounds.CONEHITEVENT;
+					case "stone" -> PvZSounds.STONEHITEVENT;
+					default -> PvZSounds.PEAHITEVENT;
 				};
 				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
