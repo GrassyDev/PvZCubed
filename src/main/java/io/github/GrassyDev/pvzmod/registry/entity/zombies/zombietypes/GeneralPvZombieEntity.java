@@ -10,6 +10,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PowderSnowBlock;
@@ -25,7 +26,6 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -458,10 +458,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.world.sendEntityStatus(this, (byte) 70);
 		}
-		else if (this.hasStatusEffect(PvZCubed.ICE)){
+		else if (this.hasStatusEffect(PvZCubed.ICE) && !(this instanceof GargantuarEntity)){
 			this.world.sendEntityStatus(this, (byte) 71);
 		}
-		else {
+		else if (!this.hasStatusEffect(ICE)) {
 			this.world.sendEntityStatus(this, (byte) 72);
 		}
 		if (this.hasStatusEffect(PVZPOISON)){

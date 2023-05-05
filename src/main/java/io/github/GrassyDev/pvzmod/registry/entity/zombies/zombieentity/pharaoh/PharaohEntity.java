@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pharaoh;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
@@ -32,7 +31,6 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -443,13 +441,9 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 
 	protected void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE)) {
-			this.world.sendEntityStatus(this, (byte) 70);
-		} else if (this.hasStatusEffect(PvZCubed.ICE)) {
-			this.world.sendEntityStatus(this, (byte) 71);
+		if (this.hasStatusEffect(PvZCubed.ICE)) {
 			this.animationMultiplier = 2;
 		} else {
-			this.world.sendEntityStatus(this, (byte) 72);
 			this.animationMultiplier = 1;
 		}
 

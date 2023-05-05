@@ -227,9 +227,6 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 					boolean hasHelmet = false;
 					ZombiePropEntity zombiePropEntity2 = null;
 					double random = Math.random();
-					if (!livingEntity.hasStatusEffect(FROZEN) && !livingEntity.hasStatusEffect(DISABLE) && random > 0.166){
-						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.STUN, 100, 5)));
-					}
 					for (Entity entity1 : livingEntity.getPassengerList()) {
 						if (entity1 instanceof ZombiePropEntity zpe) {
 							zombiePropEntity2 = zpe;
@@ -293,6 +290,11 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 								}
 							}
 							checkList.add(livingEntity);
+						}
+					}
+					if (!(livingEntity instanceof ZombieShieldEntity) && !(zombiePropEntity2 instanceof ZombieShieldEntity)) {
+						if (!livingEntity.hasStatusEffect(FROZEN) && !livingEntity.hasStatusEffect(DISABLE) && random > 0.166){
+							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.STUN, 100, 5)));
 						}
 					}
 				}
