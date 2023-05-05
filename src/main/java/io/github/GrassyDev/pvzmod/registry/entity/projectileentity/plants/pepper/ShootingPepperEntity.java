@@ -16,7 +16,6 @@ import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
@@ -250,32 +249,36 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 									zombiePropEntity3 = zpe;
 								}
 							}
+							float damageSplash = PVZCONFIG.nestedProjDMG.flamingPeaDMG();
+							String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
+							if ("paper".equals(zombieMaterial2)) {
+								damageSplash = damageSplash * 2;
+							}
 							if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
-								if (damage > livingEntity.getHealth() &&
+								if (damageSplash > livingEntity.getHealth() &&
 										!(livingEntity instanceof ZombieShieldEntity ) &&
 										livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
-									float damage2 = damage - livingEntity.getHealth();
-									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-									generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+									float damageSplash2 = damageSplash - livingEntity.getHealth();
+									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damageSplash);
+									generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damageSplash2);
 								}
 								else if (livingEntity instanceof ZombiePropEntity zombiePropEntity) {
-									String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombiePropEntity.getType()).orElse("flesh");
-									if ("paper".equals(zombieMaterial)) {
-										livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage * 2);
-									} else {
-										livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-									}
+									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damageSplash);
 								}
 								else {
-									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+									livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damageSplash);
 								}
 								if (!livingEntity.hasStatusEffect(PvZCubed.WET) && !entity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
 									livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 									livingEntity.removeStatusEffect(PvZCubed.ICE);
-									if (!(livingEntity instanceof ZombieShieldEntity )) {
+									if (!(livingEntity instanceof ZombieShieldEntity)) {
 										livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+										livingEntity.setOnFireFor(4);
 									}
-									livingEntity.setOnFireFor(4);
+									else if (livingEntity instanceof ZombieShieldEntity && PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh").equals("paper")) {
+										livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
+										livingEntity.setOnFireFor(4);
+									}
 								}
 								else if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn() && !(generalPvZombieEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet()){
 									livingEntity.removeStatusEffect(PvZCubed.FROZEN);

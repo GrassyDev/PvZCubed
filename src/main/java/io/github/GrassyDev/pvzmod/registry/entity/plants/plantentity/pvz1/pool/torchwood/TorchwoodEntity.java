@@ -19,7 +19,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
@@ -112,15 +111,14 @@ public class TorchwoodEntity extends PlantEntity implements IAnimatable {
 						zombiePropEntity2 = zpe;
 					}
 				}
+				float damage = 4;
 				if (zombiePropEntity2 == null ||
 						zombiePropEntity2 instanceof ZombieShieldEntity) {
 					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 					if ("paper".equals(zombieMaterial)) {
-						livingEntity.damage(DamageSource.thrownProjectile(this, this), 8);
+						damage = damage * 2;
 					}
-					else {
-						livingEntity.damage(DamageSource.thrownProjectile(this, this), 4);
-					}
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 					if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);

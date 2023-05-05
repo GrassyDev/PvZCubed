@@ -285,6 +285,10 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 							zombiePropEntity2 = zpe;
 						}
 					}
+					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
+					if ("paper".equals(zombieMaterial)) {
+						damage = damage * 2;
+					}
 					if (damage > livingEntity.getHealth() &&
 							!(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -298,12 +302,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 						checkList.add(livingEntity);
 					} else {
 						if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
-							String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(zombiePropEntity.getType()).orElse("flesh");
-							if ("paper".equals(zombieMaterial)) {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage * 2);
-							} else {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-							}
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 							if (!(livingEntity instanceof ZombieShieldEntity)) {
 								checkList.add(generalPvZombieEntity);

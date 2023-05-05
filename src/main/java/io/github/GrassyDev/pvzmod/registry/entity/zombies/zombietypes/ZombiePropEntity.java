@@ -56,6 +56,10 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 	}
 
 	public void tick() {
+		if (this.getVehicle() != null){
+			this.setYaw(this.getVehicle().getYaw());
+			this.setHeadYaw(this.getVehicle().getHeadYaw());
+		}
 		super.tick();
 		LivingEntity vehicle = (LivingEntity) this.getVehicle();
 		if (vehicle instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
