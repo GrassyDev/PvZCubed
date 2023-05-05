@@ -70,7 +70,6 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
     private String controllerName = "walkingcontroller";
 
 	public boolean speedSwitch;
-	protected int animationMultiplier = 1;
 	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
 	public BullyEntity(EntityType<? extends BullyEntity> entityType, World world) {

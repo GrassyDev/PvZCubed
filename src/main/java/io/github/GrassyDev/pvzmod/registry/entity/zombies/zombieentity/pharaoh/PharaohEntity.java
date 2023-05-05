@@ -69,7 +69,6 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 	public boolean speedSwitch;
 	protected int summonTicks = 60;
 	protected int animationTicks;
-	protected int animationMultiplier = 1;
 	public static final UUID MAX_SPEED_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 
 	public PharaohEntity(EntityType<? extends PharaohEntity> entityType, World world) {
@@ -392,27 +391,45 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 					this.setSummoning(IsSummoning.TRUE);
 				} else {
 					this.setSummoning(IsSummoning.FALSE);
-					this.summonTicks = 60 * animationMultiplier;
-					this.animationTicks = 0;
 				}
 			} else {
 				this.setSummoning(IsSummoning.FALSE);
-				this.summonTicks = 60 * animationMultiplier;
-				this.animationTicks = 0;
 			}
+		}
+		if (!this.getSummoning()){
+			this.summonTicks = 60 * animationMultiplier;
+			this.animationTicks = 0;
+		}
+		if (this.isIced){
+			this.animationMultiplier = 2;
+		}
+		else {
+			this.animationMultiplier = 1;
 		}
 		if (this.hasStatusEffect(FROZEN) || this.hasStatusEffect(PvZCubed.STUN) || this.hasStatusEffect(PvZCubed.DISABLE) || this.isFrozen || this.isStunned) {
 			this.summonTicks = 160 * animationMultiplier;
 			this.animationTicks = 0;
 		}
 		else if (this.getSummoning() && !this.isFrozen && !this.isStunned) {
-			if (--summonTicks <= 0) {
-				if (this.getHypno()) {
-					createHypnoPharaoh();
-				} else {
-					createPharaoh();
+			if (this.isIced) {
+				if (--summonTicks <= 20) {
+					if (this.getHypno()) {
+						createHypnoPharaoh();
+					} else {
+						createPharaoh();
+					}
+					summonTicks = 160 * animationMultiplier;
 				}
-				summonTicks = 160 * animationMultiplier;
+			}
+			else {
+				if (--summonTicks <= 0) {
+					if (this.getHypno()) {
+						createHypnoPharaoh();
+					} else {
+						createPharaoh();
+					}
+					summonTicks = 160 * animationMultiplier;
+				}
 			}
 			if (this.world.isClient) {
 				if (summonTicks == 18 * animationMultiplier){
@@ -439,11 +456,21 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		}
 	}
 
+	@Override
+	public void handleStatus(byte status) {
+		super.handleStatus(status);
+	}
+
 	protected void mobTick() {
 		super.mobTick();
-		if (this.hasStatusEffect(PvZCubed.ICE)) {
+		if (this.hasStatusEffect(PvZCubed.ICE)){
 			this.animationMultiplier = 2;
-		} else {
+			this.isIced = true;
+			this.world.sendEntityStatus(this, (byte) 71);
+		}
+		else {
+			this.isIced = false;
+			this.world.sendEntityStatus(this, (byte) 72);
 			this.animationMultiplier = 1;
 		}
 

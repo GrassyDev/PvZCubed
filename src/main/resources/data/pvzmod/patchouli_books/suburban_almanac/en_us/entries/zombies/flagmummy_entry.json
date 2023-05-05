@@ -39,9 +39,16 @@
         "pvzmod:plants/peapod_entry",
         "pvzmod:plants/firepea_entry",
         "pvzmod:plants/dropea_entry",
-        "pvzmod:plants/admiralnavybean_entry",
         "pvzmod:plants/cattail_entry",
-        "pvzmod:plants/beautyshroom_entry"
+        "pvzmod:plants/breezeshroom_entry"
+      ]
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/beautyshroom_entry",
+        "pvzmod:plants/admiralnavybean_entry"
       ]
     },
     {

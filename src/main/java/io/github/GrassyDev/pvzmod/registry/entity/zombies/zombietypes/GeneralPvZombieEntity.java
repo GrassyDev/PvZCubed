@@ -59,6 +59,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
+	protected int animationMultiplier = 1;
+
 	public boolean armless;
 	public boolean geardmg;
 	public boolean gearless;
@@ -107,10 +109,12 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (status == 70) {
 			this.isFrozen = true;
 			this.isIced = false;
+			animationMultiplier = 2;
 		}
 		else if (status == 71) {
 			this.isIced = true;
 			this.isFrozen = false;
+			animationMultiplier = 1;
 		}
 		else if (status == 72) {
 			this.isIced = false;

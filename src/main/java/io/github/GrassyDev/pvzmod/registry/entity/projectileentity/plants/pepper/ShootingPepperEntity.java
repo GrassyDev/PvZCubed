@@ -179,8 +179,8 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 instanceof ZombiePropEntity && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())) {
+			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			if (entity.isWet() && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())){
-				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
 					case "metallic" -> PvZSounds.BUCKETHITEVENT;
@@ -194,6 +194,16 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 				entity.playSound(PvZSounds.FIREPEAHITEVENT, 0.2F, 1F);
 			}
 			float damage = PVZCONFIG.nestedProjDMG.pepperDMG();
+			if ("paper".equals(zombieMaterial)) {
+				if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET)) {
+					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+					entity.setOnFireFor(4);
+					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+						generalPvZombieEntity.fireSplashTicks = 10;
+					}
+				}
+				damage = damage * 2;
+			}
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
@@ -249,7 +259,7 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 									zombiePropEntity3 = zpe;
 								}
 							}
-							float damageSplash = PVZCONFIG.nestedProjDMG.flamingPeaDMG();
+							float damageSplash = PVZCONFIG.nestedProjDMG.pepperDMG();
 							String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 							if ("paper".equals(zombieMaterial2)) {
 								damageSplash = damageSplash * 2;

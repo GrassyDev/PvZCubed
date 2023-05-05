@@ -32,22 +32,23 @@
         "pvzmod:plants/jalapeno_entry",
         "pvzmod:plants/potatomine_entry",
         "pvzmod:plants/chomper_entry",
-        "pvzmod:plants/hypnoshroom_entry",
         "pvzmod:plants/iceshroom_entry",
         "pvzmod:plants/repeater_entry",
         "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/squash_entry",
         "pvzmod:plants/tallnut_entry",
-        "pvzmod:plants/spikerock_entry"
+        "pvzmod:plants/spikerock_entry",
+        "pvzmod:plants/icebergpult_entry"
       ]
     },
     {
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/icebergpult_entry",
         "pvzmod:plants/narcissus_entry",
-        "pvzmod:plants/coconutcannon_entry"
+        "pvzmod:plants/breezeshroom_entry",
+        "pvzmod:plants/coconutcannon_entry",
+        "pvzmod:plants/charmshroom_entry"
       ]
     },
     {

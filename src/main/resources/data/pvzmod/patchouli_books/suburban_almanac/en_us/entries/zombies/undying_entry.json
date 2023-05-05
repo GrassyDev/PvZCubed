@@ -34,23 +34,26 @@
         "pvzmod:plants/peapod_entry",
         "pvzmod:plants/lightningreed_entry",
         "pvzmod:plants/fumeshroom_entry",
-        "pvzmod:plants/firepea_entry",
         "pvzmod:plants/jalapeno_entry",
         "pvzmod:plants/iceshroom_entry",
         "pvzmod:plants/chillypepper_entry",
         "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/iceberglettuce_entry",
-        "pvzmod:plants/spikeweed_entry"
+        "pvzmod:plants/spikeweed_entry",
+        "pvzmod:plants/breezeshroom_entry"
       ]
     },
     {
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
+        "pvzmod:plants/firepea_entry",
+        "pvzmod:plants/tulimpeter_entry",
         "pvzmod:plants/admiralnavybean_entry",
         "pvzmod:plants/dropea_entry",
         "pvzmod:plants/narcissus_entry",
-        "pvzmod:plants/smackadamia_entry"
+        "pvzmod:plants/smackadamia_entry",
+        "pvzmod:plants/bellflower_entry"
       ]
     },
     {

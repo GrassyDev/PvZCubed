@@ -36,10 +36,10 @@
         "pvzmod:plants/cattail_entry",
         "pvzmod:plants/repeater_entry",
         "pvzmod:plants/torchwood_entry",
-        "pvzmod:plants/peapod_entry",
         "pvzmod:plants/spikerock_entry",
         "pvzmod:plants/narcissus_entry",
-        "pvzmod:plants/dropea_entry"
+        "pvzmod:plants/dropea_entry",
+        "pvzmod:plants/breezeshroom_entry"
       ]
     },
     {

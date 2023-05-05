@@ -75,9 +75,6 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public boolean inLaunchAnimation;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-
-	int animationMultiplier = 1;
-
 	protected ImpEntity impEntity;
 
 	protected float healthImp;

@@ -191,12 +191,14 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			entity.playSound(PvZSounds.FIREPEAHITEVENT, 0.2F, 1F);
 			float damage = PVZCONFIG.nestedProjDMG.flamingPeaDMG();
 			if ("paper".equals(zombieMaterial)) {
-				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
-				entity.setOnFireFor(4);
-				damage = damage * 2;
-				if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
-					generalPvZombieEntity.fireSplashTicks = 10;
+				if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET)) {
+					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
+					entity.setOnFireFor(4);
+					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity){
+						generalPvZombieEntity.fireSplashTicks = 10;
+					}
 				}
+				damage = damage * 2;
 			}
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&

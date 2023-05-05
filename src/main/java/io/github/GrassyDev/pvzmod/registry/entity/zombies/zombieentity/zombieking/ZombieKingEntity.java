@@ -61,7 +61,6 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 	public int spawningTicks;
 	public boolean startSpawn;
 	public int convertTicks = 0;
-	int animationMultiplier = 1;
 	public boolean convertIs;
 
 	public ZombieKingEntity(EntityType<? extends ZombieKingEntity> entityType, World world) {

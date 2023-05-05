@@ -29,15 +29,15 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
-        "pvzmod:plants/snowqueenpea_entry",
-        "pvzmod:plants/firepea_entry",
+        "pvzmod:plants/fumeshroom_entry",
         "pvzmod:plants/cattail_entry",
-        "pvzmod:plants/doomshroom_entry",
         "pvzmod:plants/jalapeno_entry",
-        "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/cabbagepult_entry",
+        "pvzmod:plants/pepperpult_entry",
+        "pvzmod:plants/icebergpult_entry",
         "pvzmod:plants/spikerock_entry",
-        "pvzmod:plants/gravebuster_entry"
+        "pvzmod:plants/gravebuster_entry",
+        "pvzmod:plants/bellflower_entry"
       ]
     },
     {
