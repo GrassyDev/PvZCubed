@@ -108,6 +108,12 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 		}
 
 		if (!this.world.isClient && this.age >= maxAge || this.damageCounter >= 3) {
+			// Bloomerang logic
+			/**Vec3d vec3d = new Vec3d((double) -0.05, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+			 if (this.getOwner() != null){
+			 vec3d = new Vec3d((double) -0.05, 0.0, 0.0).rotateY(-this.getOwner().getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+			 }
+			 this.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());**/
 			this.remove(RemovalReason.DISCARDED);
 		}
 

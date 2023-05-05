@@ -105,9 +105,6 @@ public class NewspaperShieldEntity extends ZombieShieldEntity implements IAnimat
 		if (this.getVehicle() == null){
 			this.kill();
 		}
-		if (this.isOnFire()){
-			this.kill();
-		}
 	}
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
