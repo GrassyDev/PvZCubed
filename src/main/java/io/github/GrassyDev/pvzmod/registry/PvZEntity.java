@@ -46,6 +46,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1c.social.breezeshroom.BreezeshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.bloomerang.BloomerangEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.bloomerang.BloomerangEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.ancientegypt.iceberglettuce.IcebergLettuceEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.farfuture.empeach.EMPeachEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.frostbitecaves.pepperpult.PepperpultEntity;
@@ -83,6 +85,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidsp
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.armorbubble.ArmorBubbleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike.ShootingBeeSpikeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike.ShootingPowerBeeSpikeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.boomerang.ShootingBoomerangEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.breeze.BreezeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.bubbles.BubbleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbage.ShootingCabbageEntity;
@@ -403,6 +406,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<PerfoomshroomEntity>create(SpawnGroup.CREATURE, PerfoomshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
+	public static final EntityType<BloomerangEntity> BLOOMERANG = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "bloomerang"),
+			QuiltEntityTypeBuilder.<BloomerangEntity>create(SpawnGroup.CREATURE, BloomerangEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+	);
+
 	public static final EntityType<IcebergLettuceEntity> ICEBERGLETTUCE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "iceberglettuce"),
@@ -680,6 +689,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "iceberg"),
 			QuiltEntityTypeBuilder.<ShootingIcebergEntity>create(SpawnGroup.MISC, ShootingIcebergEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<ShootingBoomerangEntity> BOOMERANGPROJ = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "boomerangproj"),
+			QuiltEntityTypeBuilder.<ShootingBoomerangEntity>create(SpawnGroup.MISC, ShootingBoomerangEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingPepperEntity> PEPPERPROJ = Registry.register(
@@ -1488,7 +1503,10 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PERFOOMSHROOM, PerfoomshroomEntity.createPerfoomshroomAttributes().build());
 
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BLOOMERANG, BloomerangEntity.createBloomerangAttributes().build());
+
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ICEBERGLETTUCE, IcebergLettuceEntity.createIcebergLettuceAttributes().build());
+
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.COCONUTCANNON, CoconutCannonEntity.createCoconutCannonAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.LIGHTNINGREED, LightningReedEntity.createLightningReedAttributes().build());

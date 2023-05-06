@@ -69,6 +69,11 @@
       "pvzmod:fumeshroom_shoot"
     ]
   },
+  "bloomerang.shoot": {
+    "sounds": [
+      "pvzmod:bloomerang_shoot"
+    ]
+  },
   "lightning.shoot": {
     "sounds": [
       "pvzmod:lightning_shoot"
@@ -82,6 +87,11 @@
   "snowpea.shoot": {
     "sounds": [
       "pvzmod:snowpea_shoot"
+    ]
+  },
+  "boomerang.ambient": {
+    "sounds": [
+      "pvzmod:boomerang_ambient"
     ]
   },
   "cherrybomb.explosion": {

@@ -15,7 +15,8 @@
       "type": "text",
       "text": [
         "$(br2)Crater Tile",
-        "$(br2)Craters prevent non-flying plants from being planted on them."
+        "$(br2)Craters prevent non-flying plants from being planted on them.",
+        "$(br2)They can be removed by right clicking them with a Sun."
       ]
     },
     {

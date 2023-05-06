@@ -3,14 +3,14 @@
     "icon": {
       "item": "pvzmod:lightningreed_seed_packet"
     },
-    "title": "The Multi-hits",
+    "title": "We've ran out of shock jokes",
     "description": "Craft a Lightning Reed",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "pvzmod:start_pvz",
+  "parent": "pvzmod:make_bellflower",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

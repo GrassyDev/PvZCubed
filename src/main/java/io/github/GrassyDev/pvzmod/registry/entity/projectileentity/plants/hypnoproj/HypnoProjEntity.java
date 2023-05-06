@@ -174,7 +174,7 @@ public class HypnoProjEntity extends ThrownItemEntity implements IAnimatable {
 			else {
 				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 			}
-			if (random <= 0.0625) {
+			if (random <= 0.1) {
 				entity.damage(PvZCubed.HYPNO_DAMAGE, 0f);
 			}
             this.world.sendEntityStatus(this, (byte) 3);

@@ -22,7 +22,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -570,7 +569,16 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 				this.removeStatusEffect(StatusEffects.POISON);
 			}
 		}
-		if (this.getTarget() != null) {
+		if (this.getAttacker() instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()){
+			this.setTarget(generalPvZombieEntity);
+		}
+		if (zombiePropEntity.isPresent()) {
+			var e = zombiePropEntity.get();
+			if (e.getAttacker() instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno()){
+				this.setTarget(generalPvZombieEntity);
+			}
+		}
+		if (this.getTarget() != null && this.getTarget() instanceof PlantEntity) {
 			if (PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") && TARGET_GROUND.get(this.getType()).orElse(false).equals(false)) {
 				this.setTarget(null);
 			} else if (PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying") && TARGET_FLY.get(this.getType()).orElse(false).equals(false)) {
@@ -594,9 +602,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			this.removeStatusEffect(ACID);
 		}
 		LivingEntity target = this.getTarget();
-		if (!this.getHypno() && !(this instanceof ZombieKingEntity) && target instanceof Monster){
-			setTarget(null);
-		}
 		if (this.getHypno() && (target instanceof PlayerEntity || target instanceof PassiveEntity || target instanceof GolemEntity)){
 			this.setTarget(null);
 		}
@@ -639,6 +644,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			this.setTarget(null);
 		}
 		if (this.getTarget() instanceof FireTrailEntity){
+			this.setTarget(null);
+		}
+		if (this.getTarget() instanceof TileEntity){
 			this.setTarget(null);
 		}
 		if (this.getTarget() instanceof ZombieObstacleEntity zombieObstacleEntity && !zombieObstacleEntity.getHypno() && !this.getHypno()){

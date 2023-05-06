@@ -1,9 +1,13 @@
 package io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile;
 
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -27,5 +31,19 @@ public class CraterTile extends TileEntity {
 				}
 			}
 		}
+	}
+
+	/** /~*~//~*INTERACTION*~//~*~/ **/
+
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(ModItems.SUN)) {
+			this.discard();
+			if (!player.getAbilities().creativeMode){
+				itemStack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+		return super.interactMob(player, hand);
 	}
 }

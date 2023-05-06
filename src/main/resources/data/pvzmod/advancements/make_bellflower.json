@@ -3,7 +3,7 @@
     "icon": {
       "item": "pvzmod:bellflower_seed_packet"
     },
-    "title": "The Flowers",
+    "title": "The Multi-hits",
     "description": "Craft a Bellflower",
     "frame": "task",
     "show_toast": true,
@@ -33,7 +33,8 @@
     "recipes": [
       "pvzmod:plants/enforce/dandelionweed",
       "pvzmod:plants/spear/narcissus",
-      "pvzmod:plants/appease/shamrock"
+      "pvzmod:plants/spear/bloomerang",
+      "pvzmod:plants/filament/lightningreed"
     ],
     "experience": 25
   }

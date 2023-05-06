@@ -14,7 +14,7 @@
         "$(#bd951a)Heal: $()$(#ff0000)2 HP/1.5s ",
         "$(#bd951a)Range: $()$(#ff0000)11-15 Blocks (Jingle), 7-10 (Hypno), 6 (Heal), 4 (Heal Area) ",
         "$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s ",
-        "$(#bd951a)Special: $()$(#ff0000)Jingle deals Sound DMG. Hypno deals Magic DMG with 6.25% chance to Hypnotize. Changes form based on the closest Zombie. ",
+        "$(#bd951a)Special: $()$(#ff0000)Jingle deals Sound DMG. Hypno deals Magic DMG with 10% chance to Hypnotize. Changes form based on the closest Zombie. ",
         "$(br2)$(#bd951a)They often say, \"He's such an unpredictable plant.\""
       ]
     },

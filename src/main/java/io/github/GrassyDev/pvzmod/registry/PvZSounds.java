@@ -41,8 +41,14 @@ public class PvZSounds {
 	public static final Identifier FUMESHROOMSHOOT = new Identifier("pvzmod:fumeshroom.shoot");
 	public static SoundEvent FUMESHROOMSHOOTEVENT = new SoundEvent(FUMESHROOMSHOOT);
 
+	public static final Identifier BLOOMERANGSHOOT = new Identifier("pvzmod:bloomerang.shoot");
+	public static SoundEvent BLOOMERANGSHOOTEVENT = new SoundEvent(BLOOMERANGSHOOT);
+
 	public static final Identifier LIGHTNINGSHOOT = new Identifier("pvzmod:lightning.shoot");
 	public static SoundEvent LIGHTNINGSHOOTEVENT = new SoundEvent(LIGHTNINGSHOOT);
+
+	public static final Identifier BOOMERANGAMBIENT = new Identifier("pvzmod:boomerang.ambient");
+	public static SoundEvent BOOMERANGAMBIENTEVENT = new SoundEvent(BOOMERANGAMBIENT);
 
 	public static final Identifier CHERRYBOMBEXPLOSION = new Identifier("pvzmod:cherrybomb.explosion");
 	public static SoundEvent CHERRYBOMBEXPLOSIONEVENT = new SoundEvent(CHERRYBOMBEXPLOSION);

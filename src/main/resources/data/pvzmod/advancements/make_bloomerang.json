@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:bloomerang_seed_packet"
+    },
+    "title": "A Brick Joke",
+    "description": "Craft a Bloomerang",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "pvzmod:make_bellflower",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:bloomerang_seed_packet"
+            ],
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+    ],
+    "experience": 25
+  }
+}

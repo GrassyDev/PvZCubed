@@ -3,7 +3,7 @@
   "icon": "pvzmod:lightningreed_seed_packet",
   "category": "pvzmod:plant_category",
   "sortnum": 52,
-  "advancement": "pvzmod:start_pvz",
+  "advancement": "pvzmod:make_bellflower",
   "pages": [
     {
       "type": "text",

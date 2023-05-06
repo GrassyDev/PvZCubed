@@ -85,6 +85,7 @@
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.beautyshroomS": "Beauty-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.beeshooterS": "Beeshooter Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bellflowerS": "Bellflower Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bloomerangS": "Bloomerang Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bombseedlingS": "Bomb Seedling Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.breezeshroomS": "Breeze-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.buttonshroomS": "Button-shroom Seed",
@@ -165,6 +166,7 @@
   "text.config.pvz3-config.option.nestedProjDMG.armorBubbleDMG": "Armor Bubble Damage",
   "text.config.pvz3-config.option.nestedProjDMG.beeSpikeDMG": "Bee Spike Damage",
   "text.config.pvz3-config.option.nestedProjDMG.breezeDMG": "Breeze Damage",
+  "text.config.pvz3-config.option.nestedProjDMG.boomerangDMG": "Boomerang Damage",
   "text.config.pvz3-config.option.nestedProjDMG.bubblesDMG": "Bubbles Damage",
   "text.config.pvz3-config.option.nestedProjDMG.cabbageDMG": "Cabbage Damage",
   "text.config.pvz3-config.option.nestedProjDMG.coconutDMG": "Coconut Damage (Direct dmg is x2)",
@@ -505,6 +507,12 @@
   "entity.pvzmod.perfoomshroom": "Perfoom-shroom",
   "item.pvzmod.perfoomshroom_seed_packet": "⭐ Perfoom-shroom Seed Packet",
   "item.pvzmod.perfoomshroom_seed_packet.flavour": "\"My glamour is enchanting.\"",
+
+  "entity.pvzmod.bloomerang": "Bloomerang",
+  "item.pvzmod.bloomerang_seed_packet": "✂ Bloomerang Seed Packet",
+  "item.pvzmod.bloomerang_seed_packet.flavour": "\"Magnets? Gravity? Crikey,",
+  "item.pvzmod.bloomerang_seed_packet.flavour2": " I don't have a clue why they come back.\"",
+  "item.pvzmod.boomerangproj": "Boomerang",
 
   "entity.pvzmod.iceberglettuce": "Iceberg Lettuce",
   "item.pvzmod.iceberglettuce_seed_packet": "❄ Iceberg Lettuce Seed Packet",
