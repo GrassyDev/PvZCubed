@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.egyptgravestone;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
@@ -16,7 +15,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -478,7 +476,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (probability3 <= 0.20 / halfModifier) { // 20% x1 Explorer
+				if (probability3 <= 0.15 / halfModifier) { // 15% x1 Explorer
 					for (int p = 0; p < 1; ++p) {
 						if (!EgyptGraveEntity.this.is1x1()) {
 							zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
@@ -529,18 +527,20 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (probability5 <= 0.15 / halfModifier) { // 15% x2 Explorer
-					for (int p = 0; p < 2 / halfModifier; ++p) {
-						if (!EgyptGraveEntity.this.is1x1()) {
-							zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
-							zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
+					if (probability5 <= 0.25 / halfModifier) { // 25% x2 Explorer
+						for (int p = 0; p < 2 / halfModifier; ++p) {
+							if (!EgyptGraveEntity.this.is1x1()) {
+								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
+								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							ExplorerEntity explorerEntity = (ExplorerEntity) PvZEntity.EXPLORER.create(EgyptGraveEntity.this.world);
+							explorerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							explorerEntity.initialize(serverWorld, EgyptGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							explorerEntity.setOwner(EgyptGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(explorerEntity);
 						}
-						BlockPos blockPos = EgyptGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
-						ExplorerEntity explorerEntity = (ExplorerEntity) PvZEntity.EXPLORER.create(EgyptGraveEntity.this.world);
-						explorerEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						explorerEntity.initialize(serverWorld, EgyptGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						explorerEntity.setOwner(EgyptGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(explorerEntity);
 					}
 				}
 				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
