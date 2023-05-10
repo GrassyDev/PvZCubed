@@ -85,6 +85,8 @@ public class GroundBounceEntity extends ThrownItemEntity implements IAnimatable 
         setUuid(uuid);
     }
 
+	private boolean canBounce;
+
     public void tick() {
         super.tick();
 		if (this.isInsideWaterOrBubbleColumn()){
@@ -97,6 +99,10 @@ public class GroundBounceEntity extends ThrownItemEntity implements IAnimatable 
 		BlockPos blockPos2 = new BlockPos(l, m, n);
 		if (!this.world.getBlockState(blockPos2).isAir() && !this.world.getBlockState(blockPos2).getMaterial().isLiquid()) {
 			this.setVelocity(this.getVelocity().getX(), 0, this.getVelocity().getZ());
+			this.canBounce = true;
+		}
+		else {
+			this.canBounce = false;
 		}
 		for(int i = 0; i < 4; ++i) {
 			double d = this.getX() + (double) MathHelper.nextBetween(randomGenerator, -0.7F, 0.7F);
@@ -135,7 +141,7 @@ public class GroundBounceEntity extends ThrownItemEntity implements IAnimatable 
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-				(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()))) {
+				(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) && this.canBounce) {
 			splashDamage();
 			bounceZombies(entity.getPos());
 			this.remove(RemovalReason.DISCARDED);
