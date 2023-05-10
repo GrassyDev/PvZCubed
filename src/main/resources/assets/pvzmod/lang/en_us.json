@@ -132,6 +132,7 @@
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.snowqueenpeaS": "Snow Queen Pea Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.spikerockS": "Spikerock Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.spikeweedS": "Spikeweed Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.springbeanS": "Spring Bean Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.squashS": "Squash Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.sunflowerS": "Sunflower Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.sunflowerseedS": "Sunflower Seed Seed",
@@ -518,6 +519,10 @@
   "item.pvzmod.iceberglettuce_seed_packet": "❄ Iceberg Lettuce Seed Packet",
   "item.pvzmod.iceberglettuce_seed_packet.flavour": "\"FREEZE! Ha, just kidding.",
   "item.pvzmod.iceberglettuce_seed_packet.flavour2": "Little Iceberg humor there.\"",
+
+  "entity.pvzmod.springbean": "Spring Bean",
+  "item.pvzmod.springbean_seed_packet": "⏳ Spring Bean Seed Packet",
+  "item.pvzmod.springbean_seed_packet.flavour": "His favorite season is Fall.",
 
   "entity.pvzmod.coconutcannon": "Coconut Cannon",
   "item.pvzmod.coconutcannon_seed_packet": "☄ Coconut Cannon Seed Packet",

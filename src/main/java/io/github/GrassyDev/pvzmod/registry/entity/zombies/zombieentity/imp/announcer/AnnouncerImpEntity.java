@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.anno
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
@@ -34,7 +33,6 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -208,7 +206,7 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
+			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && !(plantEntity.getLowProfile())) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
 		}));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -244,11 +242,11 @@ public class AnnouncerImpEntity extends SummonerEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		if (this.isAggro){
+		if (this.isAggro && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 			this.setVelocity(0, -0.3, 0);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) != null){
+			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(1f));
 			}

@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -24,7 +23,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -274,6 +272,12 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 				this.discard();
 				}
 			}
+		}
+		if (!this.onWater){
+			this.setLowprof(LowProf.TRUE);
+		}
+		else {
+			this.setLowprof(LowProf.FALSE);
 		}
 		if (this.age >= 600 && !this.getPuffshroomPermanency() && !this.hasPassengers()) {
 			this.discard();

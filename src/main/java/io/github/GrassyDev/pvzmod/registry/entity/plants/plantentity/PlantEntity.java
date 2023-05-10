@@ -50,6 +50,7 @@ public abstract class PlantEntity extends GolemEntity {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(DATA_ID_ASLEEP, false);
+		this.dataTracker.startTracking(DATA_ID_LOWPROF, false);
 		this.dataTracker.startTracking(DATA_ID_FIREIMMUNE, false);
 	}
 
@@ -57,22 +58,60 @@ public abstract class PlantEntity extends GolemEntity {
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putBoolean("Asleep", this.getIsAsleep());
+		tag.putBoolean("lowProf", this.getLowProfile());
 		tag.putBoolean("fireImmune", this.getFireImmune());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
 		this.dataTracker.set(DATA_ID_ASLEEP, tag.getBoolean("Asleep"));
+		this.dataTracker.set(DATA_ID_LOWPROF, tag.getBoolean("lowProf"));
 		this.dataTracker.set(DATA_ID_FIREIMMUNE, tag.getBoolean("fireImmune"));
 	}
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
+
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
+		if (PLANT_LOCATION.get(this.getType()).orElse("normal").equals("ground")){
+			this.setLowprof(LowProf.TRUE);
+		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
+
+
+	//Flying Tag
+
+	protected static final TrackedData<Boolean> DATA_ID_LOWPROF =
+			DataTracker.registerData(PlantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum LowProf {
+		FALSE(false),
+		TRUE(true);
+
+		LowProf(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean getLowProfile() {
+		return this.dataTracker.get(DATA_ID_LOWPROF);
+	}
+
+	public void setLowprof(PlantEntity.LowProf lowprof) {
+		this.dataTracker.set(DATA_ID_LOWPROF, lowprof.getId());
+	}
+
+	// Fire Immune
 
 	protected static final TrackedData<Boolean> DATA_ID_FIREIMMUNE =
 			DataTracker.registerData(PlantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);

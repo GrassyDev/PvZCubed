@@ -202,6 +202,7 @@ public class PvZConfigModel {
 		public float snowqueenpeaS = 35f;
 		public float spikerockS = 35.0f;
 		public float spikeweedS = 5.0f;
+		public float springbeanS = 15f;
 		public float squashS = 25.0f;
 		public float sunflowerS = 2.5f;
 		public float sunflowerseedS = 2.5f;

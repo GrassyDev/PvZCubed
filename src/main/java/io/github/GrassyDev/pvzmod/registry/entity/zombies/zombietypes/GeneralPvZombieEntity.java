@@ -362,14 +362,14 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		for (LivingEntity plantEntity : list) {
 			if (plantEntity instanceof PlantEntity) {
 				if (plantEntity instanceof LilyPadEntity lilyPadEntity) {
-					if (!(lilyPadEntity.hasPassengers())) {
+					if (!(lilyPadEntity.hasPassengers()) && (!lilyPadEntity.getLowProfile() || (lilyPadEntity.getLowProfile() && TARGET_GROUND.get(this.getType()).orElse(false).equals(true)))) {
 						setPlant = lilyPadEntity;
 					} else {
 						setPlant = (PlantEntity) lilyPadEntity.getFirstPassenger();
 					}
-				} else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) {
+				} else if ((PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") || ((PlantEntity) plantEntity).getLowProfile()) && TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) {
 					setPlant = plantEntity;
-				} else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) {
+				} else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") || ((PlantEntity) plantEntity).getLowProfile()) {
 					setPlant = null;
 				} else if (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying") && TARGET_FLY.get(this.getType()).orElse(false).equals(true)) {
 					setPlant = plantEntity;
@@ -579,7 +579,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			}
 		}
 		if (this.getTarget() != null && this.getTarget() instanceof PlantEntity) {
-			if (PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") && TARGET_GROUND.get(this.getType()).orElse(false).equals(false)) {
+			if ((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") || (this.getTarget() instanceof PlantEntity plantEntity && plantEntity.getLowProfile())) && TARGET_GROUND.get(this.getType()).orElse(false).equals(false)) {
 				this.setTarget(null);
 			} else if (PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying") && TARGET_FLY.get(this.getType()).orElse(false).equals(false)) {
 				this.setTarget(null);
@@ -610,7 +610,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		if (!this.hasNoGravity() && !this.isFlying()) {
 			if (target != null) {
-				if (target.squaredDistanceTo(this) < 2.25) {
+				if (target.squaredDistanceTo(this) < 2.25 && !this.hasStatusEffect(PvZCubed.BOUNCED)) {
 					this.setVelocity(0, -0.3, 0);
 				}
 			}
@@ -701,7 +701,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	public boolean tryAttack(Entity target) {
 		if (this.age > 1) {
 			if (this.getTarget() != null &&
-					((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") &&
+					(((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground") || (this.getTarget() instanceof PlantEntity plantEntity && plantEntity.getLowProfile())) &&
 							TARGET_GROUND.get(this.getType()).orElse(false).equals(true)) ||
 							(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying") &&
 									TARGET_FLY.get(this.getType()).orElse(false).equals(true)))) {
@@ -721,6 +721,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 				return super.tryAttack(target);
 			} else if (this.getTarget() != null &&
 					!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground"))) &&
+					!(this.getTarget() instanceof PlantEntity plantEntity && plantEntity.getLowProfile()) &&
 					!((PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying")))) {
 				if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 					float sound = 0.75f;

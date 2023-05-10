@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
@@ -37,7 +36,6 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -312,7 +310,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
+			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && !(plantEntity.getLowProfile())) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
 		}));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -345,7 +343,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	public boolean tryAttack(Entity target) {
 		int i = this.attackTicksLeft;
 		if (this.getTarget() != null &&
-				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying"))) && !((LivingEntity) target).hasStatusEffect(StatusEffects.RESISTANCE)) {
+				(!(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("ground")) && !(this.getTarget() instanceof PlantEntity plantEntity && plantEntity.getLowProfile()) && !(PLANT_LOCATION.get(this.getTarget().getType()).orElse("normal").equals("flying"))) && !((LivingEntity) target).hasStatusEffect(StatusEffects.RESISTANCE)) {
 			if (!(this.getPassengerList().contains(target))) {
 				if (!this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE)) {
 					if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {
@@ -405,7 +403,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) != null){
+			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(1f));
 			}

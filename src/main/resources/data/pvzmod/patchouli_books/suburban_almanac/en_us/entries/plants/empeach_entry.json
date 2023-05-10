@@ -2,7 +2,7 @@
   "name": "E.M.Peach",
   "icon": "pvzmod:empeach_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 54,
+  "sortnum": 62,
   "advancement": "pvzmod:make_gravebuster",
   "pages": [
     {

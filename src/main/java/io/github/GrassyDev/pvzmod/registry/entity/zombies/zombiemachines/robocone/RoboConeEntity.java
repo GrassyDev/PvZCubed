@@ -9,10 +9,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.su
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.MachinePvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -54,7 +51,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable {
     private MobEntity owner;
@@ -177,7 +175,7 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
+			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && !(plantEntity.getLowProfile())) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
 		}));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -198,7 +196,7 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 			--disableTicks;
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) != null){
+			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(1f));
 				this.world.sendEntityStatus(this, (byte) 117);

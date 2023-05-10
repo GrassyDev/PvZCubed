@@ -324,7 +324,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
+			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && !(plantEntity.getLowProfile())) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
 		}));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));
@@ -380,7 +380,8 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		}
 		if (!this.world.isClient()) {
 			if ((this.getVariant().equals(PharaohVariants.UNDYING) || this.getVariant().equals(PharaohVariants.UNDYINGHYPNO)) && sarcophagusEntity != null) {
-				if (this.CollidesWithPlant(3.5f) != null || this.CollidesWithPlant(2.5f) != null || this.CollidesWithPlant(1.5f) != null || this.CollidesWithPlant(0.5f) != null) {
+				if ((this.CollidesWithPlant(3.5f) != null || this.CollidesWithPlant(2.5f) != null || this.CollidesWithPlant(1.5f) != null || this.CollidesWithPlant(0.5f) != null)
+					&& !this.hasStatusEffect(PvZCubed.BOUNCED)) {
 					this.setSummoning(IsSummoning.TRUE);
 				} else {
 					this.setSummoning(IsSummoning.FALSE);
@@ -439,7 +440,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		}
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) != null){
+			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(1f));
 			}

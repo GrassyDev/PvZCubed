@@ -59,6 +59,7 @@ public class PvZCubed implements ModInitializer {
 	public static final StatusEffect ICE = new Ice();
 	public static final StatusEffect FROZEN = new Frozen();
 	public static final StatusEffect STUN = new Stun();
+	public static final StatusEffect BOUNCED = new Bounced();
 	public static final StatusEffect DISABLE = new Disable();
 	public static final StatusEffect WARM = new Warm();
 	public static final StatusEffect WET = new Wet();
@@ -144,6 +145,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.BREEZESHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BLOOMERANG_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.ICEBERGLETTUCE_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.SPRINGBEAN_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.COCONUTCANNON_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.LIGHTNINGREED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEAPOD_SEED_PACKET));
@@ -324,6 +326,7 @@ public class PvZCubed implements ModInitializer {
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "ice"), ICE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "frozen"), FROZEN);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "stun"), STUN);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "bounced"), BOUNCED);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "disable"), DISABLE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "warm"), WARM);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("pvzmod", "wet"), WET);

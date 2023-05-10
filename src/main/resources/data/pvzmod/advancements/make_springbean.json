@@ -1,16 +1,16 @@
 {
   "display": {
     "icon": {
-      "item": "pvzmod:gravebuster_seed_packet"
+      "item": "pvzmod:springbean_seed_packet"
     },
-    "title": "The Tricky",
-    "description": "Craft a Grave Buster",
+    "title": "Spring has sprung",
+    "description": "Craft a Spring Bean",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "pvzmod:start_pvz",
+  "parent": "pvzmod:make_gravebuster",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "pvzmod:gravebuster_seed_packet"
+              "pvzmod:springbean_seed_packet"
             ],
             "count": {
               "min": 1,
@@ -31,10 +31,6 @@
   },
   "rewards": {
     "recipes": [
-      "pvzmod:plants/enchant/hypnoshroom",
-      "pvzmod:plants/winter/chillypepper",
-      "pvzmod:plants/filament/empeach",
-      "pvzmod:plants/contain/springbean"
     ],
     "experience": 25
   }

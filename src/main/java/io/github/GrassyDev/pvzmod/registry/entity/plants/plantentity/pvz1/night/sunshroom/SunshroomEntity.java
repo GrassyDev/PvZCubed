@@ -18,7 +18,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
@@ -255,7 +254,7 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 			} while (this.squaredDistanceTo(livingEntity) > 225);
 
 			if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-				if (livingEntity.getY() < (this.getY() + 4) && livingEntity.getY() > (this.getY() - 4)) {
+				if (livingEntity.getY() < (this.getY() + 2) && livingEntity.getY() > (this.getY() - 2)) {
 					if ((this.prevZombie == null || zombieList.get(0) != prevZombie) && !zombieList.isEmpty()) {
 						prevZombie = zombieList.get(0);
 						this.zombieSunCheck = true;

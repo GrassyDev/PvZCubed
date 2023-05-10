@@ -3,7 +3,7 @@
   "icon": "pvzmod:goldleaf_seed_packet",
   "category": "pvzmod:plant_category",
   "advancement": "pvzmod:make_sunflower",
-  "sortnum": 64,
+  "sortnum": 80,
   "pages": [
     {
       "type": "text",

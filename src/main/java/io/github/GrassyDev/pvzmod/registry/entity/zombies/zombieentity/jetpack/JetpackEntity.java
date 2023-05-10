@@ -272,7 +272,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 				this.addVelocity(0, 0.3, 0);
 			}
 			if (firstPos != null) {
-				if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0) {
+				if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0) {
 					this.setVelocity(0, 0, 0);
 					this.addVelocity(0, 0.3, 0);
 				}
@@ -288,13 +288,13 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 				this.addVelocity(0, 0.005, 0);
 				this.hovering = true;
 			}
-			else if (this.hovering) {
+			else if (this.hovering && !this.hasStatusEffect(PvZCubed.BOUNCED)) {
 				this.setVelocity(0, 0, 0);
 				this.hovering = false;
 			}
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) != null && (PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("maintarget") ||
+			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED) && (PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("maintarget") ||
 					PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(this.CollidesWithPlant(1f).getType()).orElse("normal").equals("flying"))){
 				this.setTarget(CollidesWithPlant(1f));
 			}
