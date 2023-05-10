@@ -178,6 +178,7 @@ public class PvZConfigModel {
 		public float icebergpultS = 12.5f;
 		public float iceshroomS = 25.0f;
 		public float jalapenoS = 35.0f;
+		public float jumpingbeanS = 20f;
 		public float lightningreedS = 12.5f;
 		public float lilypadS = 0f;
 		public float loquatS = 2.5f;

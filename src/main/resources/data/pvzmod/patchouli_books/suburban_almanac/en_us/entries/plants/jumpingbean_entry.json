@@ -1,0 +1,42 @@
+{
+  "name": "Jumping Bean",
+  "icon": "pvzmod:jumpingbean_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 311,
+  "advancement": "pvzmod:start_pvz",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)22 ",
+        "$(#bd951a)Range: $()$(#ff0000)10 ",
+        "$(#bd951a)Bounce Area: $()$(#ff0000)1.75 Blocks ",
+        "$(#bd951a)Bounce: $()$(#ff0000)~7 Blocks Backwards",
+        "$(br)$(#bd951a)Tired Time: $()$(#ff0000)15s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Shakes the ground in a straight line and bounces every non-flying Zombie near the Zombie it hits, then gets tired.",
+        "$(br)$(#bd951a)Jumping Bean is attempting to improve his stamina, but he can't even last a 20 seconds training montage."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/jumpingbean.png"
+      ],
+      "title": "⏳ Contain Family",
+      "border": "true",
+      "text": "$(#25228d)Jumping Beans bounce back zombies from the ground."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/contain/jumpingbean"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: Heroes: $()$(#ff0000)Jumping Bean"
+      ]
+    }
+  ]
+}

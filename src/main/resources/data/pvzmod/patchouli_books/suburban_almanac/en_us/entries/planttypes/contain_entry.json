@@ -15,7 +15,9 @@
       "type": "relations",
       "entries": [
         "pvzmod:plants/gravebuster_entry",
-        "pvzmod:plants/saucer_entry"
+        "pvzmod:plants/saucer_entry",
+        "pvzmod:plants/springbean_entry",
+        "pvzmod:plants/jumpingbean_entry"
       ],
       "title": "⏳ Contain Plants:"
     }

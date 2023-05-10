@@ -45,6 +45,7 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
+        "pvzmod:plants/springbean_entry",
         "pvzmod:plants/narcissus_entry",
         "pvzmod:plants/breezeshroom_entry",
         "pvzmod:plants/coconutcannon_entry",

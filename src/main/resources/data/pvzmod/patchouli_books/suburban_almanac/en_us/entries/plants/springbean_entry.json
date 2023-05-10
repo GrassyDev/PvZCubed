@@ -14,7 +14,7 @@
         "$(br)$(#bd951a)Bounce: $()$(#ff0000)~7 Blocks Backwards",
         "$(br)$(#bd951a)Sleep Time: $()$(#ff0000)10s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)15s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile when Preparing. Bounces back every Zombie nearby, then sleeps after.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Low Profile when Preparing. Bounces back every non-flying Zombie nearby, then sleeps after.",
         "$(br)$(#bd951a)He's the strong, silent type and little is known about Spring Bean."
       ]
     },

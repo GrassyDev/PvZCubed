@@ -47,6 +47,7 @@
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
+        "pvzmod:plants/jumpingbean_entry",
         "pvzmod:plants/firepea_entry",
         "pvzmod:plants/tulimpeter_entry",
         "pvzmod:plants/admiralnavybean_entry",

@@ -109,6 +109,7 @@
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.icebergpultS": "Iceberg-pult Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.iceshroomS": "Ice-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.jalapenoS": "Jalapeno Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.jumpingbeanS": "Jumping Bean Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.lightningreedS": "Lightning Reed Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.lilypadS": "Lily Pad Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.loquatS": "Loquat Seed",
@@ -631,6 +632,11 @@
   "item.pvzmod.admiralnavybean_seed_packet": "\uD83D\uDDE1 Admiral Navy Bean Seed Packet",
   "item.pvzmod.admiralnavybean_seed_packet.flavour": "\"Heavy is the weight of my command.",
   "item.pvzmod.admiralnavybean_seed_packet.flavour2": "And my cap. Heavy is the cap.\"",
+
+  "entity.pvzmod.jumpingbean": "Jumping Bean",
+  "item.pvzmod.jumpingbean_seed_packet": "⏳ Jumping Bean Seed Packet",
+  "item.pvzmod.jumpingbean_seed_packet.flavour": "\"I'm more than just a jumper...",
+  "item.pvzmod.jumpingbean_seed_packet.flavour2": " I can also leap and vault!\"",
 
   "entity.pvzmod.sunflowerseed": "Sunflower Seed",
   "item.pvzmod.sunflowerseed_seed_packet": "☀ Sunflower Seed Seed Packet",

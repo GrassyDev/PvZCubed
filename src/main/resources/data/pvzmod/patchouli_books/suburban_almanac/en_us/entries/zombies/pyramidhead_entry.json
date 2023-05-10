@@ -39,13 +39,14 @@
         "pvzmod:plants/torchwood_entry",
         "pvzmod:plants/cherrybomb_entry",
         "pvzmod:plants/potatomine_entry",
-        "pvzmod:plants/coconutcannon_entry"
+        "pvzmod:plants/springbean_entry"
       ]
     },
     {
       "type": "relations",
       "title": "Recommended Plants",
       "entries": [
+        "pvzmod:plants/coconutcannon_entry",
         "pvzmod:plants/dropea_entry",
         "pvzmod:plants/narcissus_entry"
       ]

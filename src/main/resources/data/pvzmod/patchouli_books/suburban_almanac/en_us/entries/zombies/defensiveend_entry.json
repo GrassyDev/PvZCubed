@@ -47,7 +47,8 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/charmshroom_entry",
-        "pvzmod:plants/perfoomshroom_entry"
+        "pvzmod:plants/perfoomshroom_entry",
+        "pvzmod:plants/jumpingbean_entry"
       ]
     },
     {
