@@ -86,8 +86,14 @@ public class GroundBounceEntity extends ThrownItemEntity implements IAnimatable 
     }
 
 	private boolean canBounce;
+	private int airTicks = 10;
 
-    public void tick() {
+	@Override
+	protected float getGravity() {
+		return (this.age > 1)? 1 : super.getGravity();
+	}
+
+	public void tick() {
         super.tick();
 		if (this.isInsideWaterOrBubbleColumn()){
 			this.remove(RemovalReason.DISCARDED);
@@ -100,9 +106,12 @@ public class GroundBounceEntity extends ThrownItemEntity implements IAnimatable 
 		if (!this.world.getBlockState(blockPos2).isAir() && !this.world.getBlockState(blockPos2).getMaterial().isLiquid()) {
 			this.setVelocity(this.getVelocity().getX(), 0, this.getVelocity().getZ());
 			this.canBounce = true;
+			this.airTicks = 10;
 		}
 		else {
-			this.canBounce = false;
+			if (--airTicks <= 0) {
+				this.canBounce = false;
+			}
 		}
 		for(int i = 0; i < 4; ++i) {
 			double d = this.getX() + (double) MathHelper.nextBetween(randomGenerator, -0.7F, 0.7F);
