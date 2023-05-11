@@ -26,6 +26,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Style;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -76,8 +78,7 @@ public class BloomerangSeeds extends SeedItem implements FabricItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.spear.family")
-				.formatted(Formatting.GRAY));
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.spear.family").setStyle(Style.EMPTY.withColor(4210752)));
 
 		tooltip.add(Text.translatable("item.pvzmod.bloomerang_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));

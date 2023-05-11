@@ -23,6 +23,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -72,8 +73,7 @@ public class SmallnutSeeds extends SeedItem implements FabricItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.reinforce.family")
-				.formatted(Formatting.DARK_BLUE));
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.reinforce.family").setStyle(Style.EMPTY.withColor(11567676)));
 
 		tooltip.add(Text.translatable("item.pvzmod.smallnut_seed_packet.flavour")
 				.formatted(Formatting.DARK_GRAY));

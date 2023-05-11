@@ -4,10 +4,10 @@ import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.Style;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -55,8 +55,7 @@ public class CattailSeeds extends SeedItem implements FabricItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.spear.family")
-				.formatted(Formatting.GRAY));
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.spear.family").setStyle(Style.EMPTY.withColor(4210752)));
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.upgrade.tooltip")
 				.formatted(Formatting.UNDERLINE));

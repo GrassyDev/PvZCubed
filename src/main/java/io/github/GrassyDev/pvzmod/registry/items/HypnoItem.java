@@ -8,6 +8,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Style;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;

@@ -26,6 +26,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Style;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -75,8 +77,7 @@ public class PuffshroomSeeds extends SeedItem implements FabricItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.ailment.family")
-				.formatted(Formatting.DARK_PURPLE));
+		tooltip.add(Text.translatable("item.pvzmod.seed_packet.ailment.family").setStyle(Style.EMPTY.withColor(9188263)));
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.nocturnal.tooltip")
 				.formatted(Formatting.UNDERLINE));
