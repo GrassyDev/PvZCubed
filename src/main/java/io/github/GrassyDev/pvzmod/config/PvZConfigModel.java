@@ -271,6 +271,13 @@ public class PvZConfigModel {
 
 	@SectionHeader("zombieVar")
 	@Nest
+	public PvZZombieGeneral nestedGeneralZombie = new PvZZombieGeneral();
+	public static class PvZZombieGeneral {
+		public float zombieStep = 3.5F;
+		public int zombieBlockJump = 4;
+	}
+
+	@Nest
 	public PvZZombieHealth nestedZombieHealth = new PvZZombieHealth();
 	public static class PvZZombieHealth {
 		@RestartRequired
