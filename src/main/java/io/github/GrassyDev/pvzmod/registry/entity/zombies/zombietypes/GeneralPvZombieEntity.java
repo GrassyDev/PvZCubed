@@ -46,7 +46,6 @@ import static io.github.GrassyDev.pvzmod.registry.PvZSounds.*;
 public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
-		this.stepHeight = 3.5f;
 		this.setPathfindingPenalty(PathNodeType.RAIL, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.UNPASSABLE_RAIL, 0.0F);
 		this.getNavigation().setCanSwim(true);
@@ -57,7 +56,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.BLOCKED, 0.0F);
 	}
 
 	protected int animationMultiplier = 1;
@@ -541,32 +539,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected float frzPitch;
 	protected float frzBodyYaw;
 	protected float frzHeadYaw;
-	protected int hoverTicks = 20;
 
-
-	protected Vec3d firstPos;
-
-	protected int attackingTick;
 
 	public void tick() {
-		if (this.getTarget() != null) {
-			if (this.isAttacking() && this.squaredDistanceTo(this.getTarget()) < 1) {
-				attackingTick = 40;
-			} else {
-				--attackingTick;
-			}
-		}
-		Vec3d lastPos = this.getPos();
-		if (firstPos != null) {
-			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0) {
-				this.setVelocity(0, 0, 0);
-				this.addVelocity(0, 0.3, 0);
-			}
-		}
-		if (--hoverTicks <= 0){
-			this.hoverTicks = 20;
-			this.firstPos = this.getPos();
-		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.removeStatusEffect(STUN);
 		}

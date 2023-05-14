@@ -309,14 +309,13 @@ public class JumpingBeanEntity extends PlantEntity implements IAnimatable, Range
 		}
 
 		public boolean shouldContinue() {
-			return super.shouldContinue() && !this.plantEntity.getIsAsleep() && plantEntity.isFiring;
+			return super.shouldContinue() && !this.plantEntity.getIsAsleep();
 		}
 
 		public void start() {
-			this.plantEntity.isFiring = true;
 			this.bounced = false;
 			this.beamTicks = -10;
-			this.animationTicks = -20;
+			this.animationTicks = -15;
 			this.plantEntity.getNavigation().stop();
 			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
 			this.plantEntity.velocityDirty = true;
@@ -339,10 +338,9 @@ public class JumpingBeanEntity extends PlantEntity implements IAnimatable, Range
 				this.plantEntity.setTarget((LivingEntity) null);
 			} else {
 				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
-				this.plantEntity.isFiring = true;
 				++this.beamTicks;
 				++this.animationTicks;
-				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
+				if (this.beamTicks >= 0 && this.animationTicks <= -3) {
 					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						GroundBounceEntity proj = new GroundBounceEntity(PvZEntity.GROUNDBOUNCE, this.plantEntity.world);
 						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
@@ -355,7 +353,7 @@ public class JumpingBeanEntity extends PlantEntity implements IAnimatable, Range
 						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
 						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
-						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.25D, this.plantEntity.getZ());
+						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
 						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.beamTicks = -7;
@@ -368,8 +366,6 @@ public class JumpingBeanEntity extends PlantEntity implements IAnimatable, Range
 				}
 				else if (this.animationTicks >= 0)
 				{
-					this.plantEntity.isFiring = false;
-					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
 					this.plantEntity.setIsAsleep(IsAsleep.TRUE);
 				}
 				super.tick();
