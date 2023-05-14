@@ -553,28 +553,28 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	public void setHeadYaw(float headYaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying()) {
+		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying() || this instanceof ZombiePropEntity) {
 			super.setHeadYaw(headYaw);
 		}
 	}
 
 	@Override
 	public void setBodyYaw(float bodyYaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying()) {
+		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying() || this instanceof ZombiePropEntity) {
 			super.setBodyYaw(bodyYaw);
 		}
 	}
 
 	@Override
 	public void setYaw(float yaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying()) {
+		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying() || this instanceof ZombiePropEntity) {
 			super.setYaw(yaw);
 		}
 	}
 
 	@Override
 	protected void setRotation(float yaw, float pitch) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying()) {
+		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying() || this instanceof ZombiePropEntity) {
 			super.setRotation(yaw, pitch);
 		}
 	}
@@ -588,9 +588,11 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			jumpOverGap();
 			jumpDelay = 20;
 		}
-		this.canJump = this.onGround;
-		if (!this.canJump && !this.isFlying() && !this.world.isClient()){
-			this.getNavigation().stop();
+		if (!(this instanceof ZombiePropEntity)) {
+			this.canJump = this.onGround;
+			if (!this.canJump && !this.isFlying()) {
+				this.getNavigation().stop();
+			}
 		}
 		if (this.getTarget() != null) {
 			if (this.isAttacking() && this.squaredDistanceTo(this.getTarget()) < 1) {
