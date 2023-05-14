@@ -176,7 +176,7 @@ public class SpringbeanEntity extends PlantEntity implements IAnimatable, Ranged
 			}
 			hostileEntity = (HostileEntity) var9.next();
 
-			if (!(hostileEntity instanceof ZombiePropEntity) && !(hostileEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno())) {
+			if (!(hostileEntity instanceof ZombiePropEntity)) {
 				if (this.squaredDistanceTo(hostileEntity) < distance || !list3.isEmpty()) {
 					if (hostileEntity.getY() < (this.getY() + 2) && hostileEntity.getY() > (this.getY() - 2)) {
 						list2.add(hostileEntity);
@@ -203,7 +203,7 @@ public class SpringbeanEntity extends PlantEntity implements IAnimatable, Ranged
 				hostileEntity = (HostileEntity) var9.next();
 			} while (this.squaredDistanceTo(hostileEntity) > 3.0625);
 
-			if (!(hostileEntity instanceof ZombiePropEntity) && !(hostileEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno())) {
+			if (!(hostileEntity instanceof ZombiePropEntity)) {
 				if (hostileEntity.getY() < (this.getY() + 2) && hostileEntity.getY() > (this.getY() - 2) &&
 						!(hostileEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying())) {
 					Vec3d vec3d = new Vec3d((double) -1, +0.5, 0).rotateY(-hostileEntity.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
@@ -247,9 +247,6 @@ public class SpringbeanEntity extends PlantEntity implements IAnimatable, Ranged
 		if (this.animationScare > 0 && this.isAfraid) {
 			--this.animationScare;
 		}
-		if (!this.checkForZombies(0.04f).isEmpty() && !this.onlyFlying && !this.getIsAsleep()){
-			this.animationScare = 0;
-		}
 		super.tick();
 		if (!this.checkForZombies(6.25f).isEmpty() && !this.bounced && !this.getIsAsleep()){
 			this.isAfraid = true;
@@ -282,6 +279,9 @@ public class SpringbeanEntity extends PlantEntity implements IAnimatable, Ranged
 				this.world.sendEntityStatus(this, (byte) 112);
 				this.bounced = true;
 			}
+		}
+		if (!this.checkForZombies(0.2025f).isEmpty() && !this.isFiring && !this.onlyFlying && !this.getIsAsleep()) {
+			this.bounceAnimation = 28;
 		}
 		else if (bounced && this.bounceAnimation <= 0 && !this.getIsAsleep()) {
 			this.setLowprof(LowProf.FALSE);

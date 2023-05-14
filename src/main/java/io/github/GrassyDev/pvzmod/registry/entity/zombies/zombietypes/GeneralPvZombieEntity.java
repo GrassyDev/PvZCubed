@@ -688,10 +688,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && this.isInsideWaterOrBubbleColumn()){
 			this.kill();
 		}
-		if (this.hasStatusEffect(BOUNCED) && ZOMBIE_SIZE.get(this.getType()).orElse("normal").equals("small") && this.isAlive()){
-			this.addVelocity(0, 1, 0);
-			this.kill();
-		}
 
 		if (this.world.isClient) {
 

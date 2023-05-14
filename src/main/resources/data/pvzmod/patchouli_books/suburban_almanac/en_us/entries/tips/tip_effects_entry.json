@@ -100,13 +100,6 @@
     {
       "type": "text",
       "text": [
-        "$(br2)Bounce",
-        "$(br2)Knocks Zombies back. Small Zombies instantly die."
-      ]
-    },
-    {
-      "type": "text",
-      "text": [
         "$(br2)Hypno",
         "$(br2)Transforms the Zombie into a Hypnotized version of itself.",
         "$(br2)Most of the time they have their abilities, save a few exceptions.",
