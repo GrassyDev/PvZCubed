@@ -543,7 +543,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected float frzPitch;
 	protected float frzBodyYaw;
 	protected float frzHeadYaw;
-	protected int hoverTicks = 20;
 
 
 	protected Vec3d firstPos;
@@ -554,40 +553,45 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	public void setHeadYaw(float headYaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn()) {
+		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying()) {
 			super.setHeadYaw(headYaw);
 		}
 	}
 
 	@Override
 	public void setBodyYaw(float bodyYaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn()) {
+		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying()) {
 			super.setBodyYaw(bodyYaw);
 		}
 	}
 
 	@Override
 	public void setYaw(float yaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn()) {
+		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying()) {
 			super.setYaw(yaw);
 		}
 	}
 
 	@Override
 	protected void setRotation(float yaw, float pitch) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn()) {
+		if (this.onGround || this.isInsideWaterOrBubbleColumn() || this.isFlying()) {
 			super.setRotation(yaw, pitch);
 		}
 	}
 
 	private int unstuckDelay;
+	private int jumpDelay;
 
 	public void tick() {
 		this.stepHeight = PVZCONFIG.nestedGeneralZombie.zombieStep();
-		if (canJump && !this.world.isClient()) {
+		if (canJump && !this.world.isClient() && !this.isFlying() && --jumpDelay <= 0 && this.age > 40) {
 			jumpOverGap();
+			jumpDelay = 20;
 		}
 		this.canJump = this.onGround;
+		if (!this.canJump && !this.isFlying() && !this.world.isClient()){
+			this.getNavigation().stop();
+		}
 		if (this.getTarget() != null) {
 			if (this.isAttacking() && this.squaredDistanceTo(this.getTarget()) < 1) {
 				attackingTick = 40;
@@ -596,20 +600,17 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			}
 		}
 		Vec3d lastPos = this.getPos();
-		if (firstPos != null) {
+		if (this.firstPos != null && !this.isFlying()) {
 			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0 && --this.unstuckDelay <= 0) {
 				this.setVelocity(0, 0, 0);
 				this.addVelocity(0, 0.3, 0);
-				this.stuckTimes += stuckTimes;
+				++this.stuckTimes;
 				this.unstuckDelay = 20;
 			}
 		}
-		if (stuckTimes > 2) {
+		if (stuckTimes > 2 && this.getPathfindingPenalty(PathNodeType.BLOCKED) == 0 && !this.isFlying()) {
+			this.setTarget(null);
 			this.setPathfindingPenalty(PathNodeType.BLOCKED, PathNodeType.BLOCKED.getDefaultPenalty());
-		}
-		if (--hoverTicks <= 0){
-			this.hoverTicks = 20;
-			this.firstPos = this.getPos();
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.removeStatusEffect(STUN);
