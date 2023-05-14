@@ -192,11 +192,6 @@
   "text.config.pvz3-config.option.nestedProjDMG.basketBallDMG": "Basketball Damage",
 
   "text.config.pvz3-config.section.zombieVar": "Zombie Settings",
-
-  "text.config.pvz3-config.category.nestedGeneralZombie": "General Zombie Settings",
-  "text.config.pvz3-config.option.nestedGeneralZombie.zombieStep": "Zombie Step Height",
-  "text.config.pvz3-config.option.nestedGeneralZombie.zombieBlockJump": "Zombie Block Gap Jump",
-
   "text.config.pvz3-config.category.nestedZombieHealth": "Zombie Health Settings (Restart)",
   "text.config.pvz3-config.option.nestedZombieHealth.basicGraveH": "Basic Gravestone Health",
   "text.config.pvz3-config.option.nestedZombieHealth.nightGraveH": "Night Gravestone Health",

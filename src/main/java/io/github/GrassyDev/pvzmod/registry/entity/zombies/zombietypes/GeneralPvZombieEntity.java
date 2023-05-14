@@ -46,7 +46,7 @@ import static io.github.GrassyDev.pvzmod.registry.PvZSounds.*;
 public abstract class GeneralPvZombieEntity extends HostileEntity {
 	protected GeneralPvZombieEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
-		this.stepHeight = PVZCONFIG.nestedGeneralZombie.zombieStep();
+		this.stepHeight = 3.5f;
 		this.setPathfindingPenalty(PathNodeType.RAIL, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.UNPASSABLE_RAIL, 0.0F);
 		this.getNavigation().setCanSwim(true);
@@ -550,44 +550,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	protected int attackingTick;
 
-	private boolean canJump;
-
-	@Override
-	public void setHeadYaw(float headYaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn()) {
-			super.setHeadYaw(headYaw);
-		}
-	}
-
-	@Override
-	public void setBodyYaw(float bodyYaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn()) {
-			super.setBodyYaw(bodyYaw);
-		}
-	}
-
-	@Override
-	public void setYaw(float yaw) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn()) {
-			super.setYaw(yaw);
-		}
-	}
-
-	@Override
-	protected void setRotation(float yaw, float pitch) {
-		if (this.onGround || this.isInsideWaterOrBubbleColumn()) {
-			super.setRotation(yaw, pitch);
-		}
-	}
-
-	private int unstuckDelay;
-
 	public void tick() {
-		this.stepHeight = PVZCONFIG.nestedGeneralZombie.zombieStep();
-		if (canJump && !this.world.isClient()) {
-			jumpOverGap();
-		}
-		this.canJump = this.onGround;
 		if (this.getTarget() != null) {
 			if (this.isAttacking() && this.squaredDistanceTo(this.getTarget()) < 1) {
 				attackingTick = 40;
@@ -597,11 +560,10 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		Vec3d lastPos = this.getPos();
 		if (firstPos != null) {
-			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0 && --this.unstuckDelay <= 0) {
+			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0) {
 				this.setVelocity(0, 0, 0);
 				this.addVelocity(0, 0.3, 0);
 				this.stuckTimes += stuckTimes;
-				this.unstuckDelay = 20;
 			}
 		}
 		if (stuckTimes > 2) {
@@ -764,32 +726,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			this.world.sendEntityStatus(this, (byte) 80);
 		}
 		--fireSplashTicks;
-	}
-
-	protected void jumpOverGap(){
-		int airBlocks = 0;
-		boolean hasBlockAtEnd = false;
-		for (int x = 1; x < PVZCONFIG.nestedGeneralZombie.zombieBlockJump() + 2; ++x) {
-			Vec3d vec3d2 = new Vec3d((double) x, -0.25, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-			int l = MathHelper.floor(this.getPos().x + vec3d2.x);
-			int m = MathHelper.floor(this.getPos().y + vec3d2.y);
-			int n = MathHelper.floor(this.getPos().z + vec3d2.z);
-			BlockPos blockPos2 = new BlockPos(l, m, n);
-			if (!this.world.getBlockState(blockPos2).isAir()) {
-				hasBlockAtEnd = true;
-				break;
-			} else {
-				++airBlocks;
-			}
-		}
-		if (airBlocks > 0 && hasBlockAtEnd) {
-			Vec3d vec3d2 = new Vec3d((double) airBlocks / (Math.pow(2, (float) -airBlocks / 2) * 10), 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-			if (airBlocks == 1){
-				vec3d2 = new Vec3d(0.2, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-			}
-			this.setVelocity(vec3d2.x, 0.5, vec3d2.z);
-			this.canJump = false;
-		}
 	}
 
 	@Override
