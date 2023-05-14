@@ -458,6 +458,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	boolean pop = true;
 
+	int stuckTimes;
+
 	@Override
 	protected void mobTick() {
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
@@ -561,7 +563,11 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0) {
 				this.setVelocity(0, 0, 0);
 				this.addVelocity(0, 0.3, 0);
+				this.stuckTimes += stuckTimes;
 			}
+		}
+		if (stuckTimes > 2) {
+			this.setPathfindingPenalty(PathNodeType.BLOCKED, PathNodeType.BLOCKED.getDefaultPenalty());
 		}
 		if (--hoverTicks <= 0){
 			this.hoverTicks = 20;
