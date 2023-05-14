@@ -36,7 +36,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -218,7 +217,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public boolean hovering;
-	protected int hoverTicks = 20;
 
 	@Override
 	public void setOnGround(boolean onGround) {
@@ -247,7 +245,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			this.setTarget(null);
 		}
 		if (target != null){
-			Vec3d lastPos = this.getPos();
 			if (target.squaredDistanceTo(this) > 2.25) {
 				if (this.getVariant().equals(JetpackVariants.BLASTRONAUT) ||
 						this.getVariant().equals(JetpackVariants.BLASTRONAUTHYPNO)){
@@ -260,16 +257,6 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 			this.setFlying(Flying.TRUE);
 			if (this.isInsideWaterOrBubbleColumn()) {
 				this.addVelocity(0, 0.3, 0);
-			}
-			if (firstPos != null) {
-				if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0) {
-					this.setVelocity(0, 0, 0);
-					this.addVelocity(0, 0.3, 0);
-				}
-			}
-			if (--hoverTicks <= 0){
-				this.hoverTicks = 20;
-				this.firstPos = this.getPos();
 			}
 			if (this.getY() > target.getY() + 0.125){
 				this.addVelocity(0, -0.004, 0);
