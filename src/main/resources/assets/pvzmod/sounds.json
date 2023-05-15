@@ -94,6 +94,16 @@
       "pvzmod:boomerang_ambient"
     ]
   },
+  "magichat.appear": {
+    "sounds": [
+      "pvzmod:magichat_appear"
+    ]
+  },
+  "magichat.zombie": {
+    "sounds": [
+      "pvzmod:magichat_zombie"
+    ]
+  },
   "cherrybomb.explosion": {
     "sounds": [
       "pvzmod:cherrybomb_explosion"

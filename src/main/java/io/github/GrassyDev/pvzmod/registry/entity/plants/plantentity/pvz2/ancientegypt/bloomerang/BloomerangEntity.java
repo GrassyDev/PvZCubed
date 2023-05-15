@@ -321,7 +321,6 @@ public class BloomerangEntity extends PlantEntity implements IAnimatable, Ranged
 				++this.beamTicks;
 				++this.animationTicks;
 				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
 					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						ShootingBoomerangEntity proj = new ShootingBoomerangEntity(PvZEntity.BOOMERANGPROJ, this.plantEntity.world);
 						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;

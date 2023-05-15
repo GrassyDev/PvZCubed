@@ -247,6 +247,7 @@ public class PvZConfigModel {
 		public float boomerangDMG = 3.5f;
 		public float bubblesDMG = 2f;
 		public float cabbageDMG = 4f;
+		public float cardDMG = 1f;
 		public float coconutDMG = 90f;
 		public float dropDMG = 1.5f;
 		public float flamingPeaDMG = 4f;

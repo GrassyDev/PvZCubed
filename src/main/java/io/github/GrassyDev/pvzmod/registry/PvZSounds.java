@@ -50,6 +50,12 @@ public class PvZSounds {
 	public static final Identifier BOOMERANGAMBIENT = new Identifier("pvzmod:boomerang.ambient");
 	public static SoundEvent BOOMERANGAMBIENTEVENT = new SoundEvent(BOOMERANGAMBIENT);
 
+	public static final Identifier MAGICHATAPPEAR = new Identifier("pvzmod:magichat.appear");
+	public static SoundEvent MAGICHATAPPEAREVENT = new SoundEvent(MAGICHATAPPEAR);
+
+	public static final Identifier MAGICHATZOMBIE = new Identifier("pvzmod:magichat.zombie");
+	public static SoundEvent MAGICHATZOMBIEEVENT = new SoundEvent(MAGICHATZOMBIE);
+
 	public static final Identifier CHERRYBOMBEXPLOSION = new Identifier("pvzmod:cherrybomb.explosion");
 	public static SoundEvent CHERRYBOMBEXPLOSIONEVENT = new SoundEvent(CHERRYBOMBEXPLOSION);
 	public static final Identifier JALAPENOEXPLOSION = new Identifier("pvzmod:jalapeno.explosion");
@@ -152,7 +158,11 @@ public class PvZSounds {
 		Registry.register(Registry.SOUND_EVENT, PvZSounds.SNOWPEAHIT, SNOWPEAHITEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZSounds.MUSHROOMSHOOT, MUSHROOMSHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZSounds.FUMESHROOMSHOOT, FUMESHROOMSHOOTEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZSounds.BLOOMERANGSHOOT, BLOOMERANGSHOOTEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZSounds.LIGHTNINGSHOOT, LIGHTNINGSHOOTEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZSounds.BOOMERANGAMBIENT, BOOMERANGAMBIENTEVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZSounds.MAGICHATAPPEAR, MAGICHATAPPEAREVENT);
+		Registry.register(Registry.SOUND_EVENT, PvZSounds.MAGICHATZOMBIE, MAGICHATZOMBIEEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZSounds.CHERRYBOMBEXPLOSION, CHERRYBOMBEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZSounds.JALAPENOEXPLOSION, JALAPENOEXPLOSIONEVENT);
 		Registry.register(Registry.SOUND_EVENT, PvZSounds.POTATOMINEEXPLOSION, POTATOMINEEXPLOSIONEVENT);
