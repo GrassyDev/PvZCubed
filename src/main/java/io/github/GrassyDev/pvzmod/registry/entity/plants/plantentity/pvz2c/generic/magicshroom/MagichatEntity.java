@@ -156,7 +156,7 @@ public class MagichatEntity extends PlantEntity implements IAnimatable, RangedAt
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.TULIMPETER_SEED_PACKET.getDefaultStack();
+		return ModItems.MAGICSHROOM_SEED_PACKET.getDefaultStack();
 	}
 
 

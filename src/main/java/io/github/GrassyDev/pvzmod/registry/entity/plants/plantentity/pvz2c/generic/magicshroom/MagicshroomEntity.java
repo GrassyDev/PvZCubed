@@ -235,7 +235,7 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
-					this.dropItem(ModItems.TULIMPETER_SEED_PACKET);
+					this.dropItem(ModItems.MAGICSHROOM_SEED_PACKET);
 				}
 				this.discard();
 			}
@@ -315,7 +315,7 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
-			dropItem(ModItems.TULIMPETER_SEED_PACKET);
+			dropItem(ModItems.MAGICSHROOM_SEED_PACKET);
 			if (!player.getAbilities().creativeMode) {
 				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 					itemStack.decrement(1);
@@ -330,7 +330,7 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.TULIMPETER_SEED_PACKET.getDefaultStack();
+		return ModItems.MAGICSHROOM_SEED_PACKET.getDefaultStack();
 	}
 
 

@@ -183,6 +183,7 @@ public class PvZConfigModel {
 		public float lilypadS = 0f;
 		public float loquatS = 2.5f;
 		public float saucerS = 30f;
+		public float magicshroomS = 15f;
 		public float narcissusS = 7.5f;
 		public float navybeanS = 5.0f;
 		public float peapodS = 3.75f;
@@ -247,7 +248,7 @@ public class PvZConfigModel {
 		public float boomerangDMG = 3.5f;
 		public float bubblesDMG = 2f;
 		public float cabbageDMG = 4f;
-		public float cardDMG = 1f;
+		public float cardDMG = 2f;
 		public float coconutDMG = 90f;
 		public float dropDMG = 1.5f;
 		public float flamingPeaDMG = 4f;

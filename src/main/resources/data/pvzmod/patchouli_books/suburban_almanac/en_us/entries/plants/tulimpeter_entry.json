@@ -10,7 +10,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)12 ",
         "$(#bd951a)Jingle Damage: $()$(#ff0000)7 DMG/1.5s (Pierce) ",
-        "$(#bd951a)Hypno Damage: $()$(#ff0000)16 DMG/1.5s ",
+        "$(#bd951a)Hypno Damage: $()$(#ff0000)8 DMG/1.5s ",
         "$(#bd951a)Heal: $()$(#ff0000)2 HP/1.5s ",
         "$(#bd951a)Range: $()$(#ff0000)11-15 Blocks (Jingle), 7-10 (Hypno), 6 (Heal), 4 (Heal Area) ",
         "$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s ",

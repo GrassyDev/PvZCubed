@@ -214,7 +214,19 @@ public class ShootingCardEntity extends ThrownItemEntity implements IAnimatable 
 			if (entity == entityStore || entity == entityStoreVehicle ||
 					entity == entityStore2 || entity == entityStoreVehicle2 ||
 					entity == entityStore3 || entity == entityStoreVehicle3) {
+				boolean hasHelmet = false;
 				float damage = PVZCONFIG.nestedProjDMG.cardDMG();
+				for (Entity entity1 : entity.getPassengerList()) {
+					if (entity1 instanceof ZombiePropEntity zpe && !(zpe instanceof ZombieShieldEntity)){
+						hasHelmet = true;
+					}
+				}
+				if (entity instanceof ZombiePropEntity zpe && !(zpe instanceof ZombieShieldEntity)){
+					hasHelmet = true;
+				}
+				if (hasHelmet || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())){
+					damage = damage/2;
+				}
 				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
@@ -229,7 +241,7 @@ public class ShootingCardEntity extends ThrownItemEntity implements IAnimatable 
 					entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 					if (damage > ((LivingEntity) entity).getHealth() &&
 							!(entity instanceof ZombieShieldEntity) &&
-							entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+							entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) && !generalPvZombieEntity.isFlying()) {
 						float damage2 = damage - ((LivingEntity) entity).getHealth();
 						entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 						generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
@@ -275,7 +287,7 @@ public class ShootingCardEntity extends ThrownItemEntity implements IAnimatable 
 			}
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
-				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno()) && generalPvZombieEntity.isFlying()) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!this.getReturning() && !this.retuningStart) {
 			if (entity != entityStore && entityStoreVehicle != entity &&
@@ -293,12 +305,24 @@ public class ShootingCardEntity extends ThrownItemEntity implements IAnimatable 
 			}
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
-				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno()) && generalPvZombieEntity.isFlying()) &&
 				!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!this.getReturning() && !this.retuningStart) {
 			Entity entity2 = entityHitResult.getEntity();
+			boolean hasHelmet = false;
 			float damage = PVZCONFIG.nestedProjDMG.cardDMG();
+			for (Entity entity1 : entity.getPassengerList()) {
+				if (entity1 instanceof ZombiePropEntity zpe && !(zpe instanceof ZombieShieldEntity)){
+					hasHelmet = true;
+				}
+			}
+			if (entity instanceof ZombiePropEntity zpe && !(zpe instanceof ZombieShieldEntity)){
+				hasHelmet = true;
+			}
+			if (hasHelmet || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())){
+				damage = damage/2;
+			}
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
@@ -311,7 +335,7 @@ public class ShootingCardEntity extends ThrownItemEntity implements IAnimatable 
 				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
-						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) && !generalPvZombieEntity.isFlying()) {
 					float damage2 = damage - ((LivingEntity) entity).getHealth();
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);

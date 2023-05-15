@@ -117,7 +117,7 @@
       "type": "text",
       "text": [
         "$(br2)Magic",
-        "$(br2)Deals half the damage against Zombies with headgear and Covered Zombies"
+        "$(br2)Deals double the damage against Zombies without headgear and aren't Covered"
       ]
     },
     {
