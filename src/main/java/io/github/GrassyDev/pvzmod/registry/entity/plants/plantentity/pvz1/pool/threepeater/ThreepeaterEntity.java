@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -25,7 +24,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
@@ -352,15 +350,16 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 						}
 						// Right Pea
 						ShootingPeaEntity proj3 = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
-						Vec3d vec3d3 = this.plantEntity.getRotationVec(1.0F).rotateY(-90);
+						Vec3d vec3d2 = new Vec3d((double) 0.0, 0.0, 0.5).rotateY(-this.plantEntity.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+						Vec3d vec3d4 = new Vec3d((double) 10, 0.0, 1.5).rotateY(-this.plantEntity.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 						double d3 = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df3 = (float) d3;
 						double e3 = predictedPos.getX() - this.plantEntity.getX();
 						double f3 = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 						double g3 = predictedPos.getZ() - this.plantEntity.getZ();
 						float h3 = MathHelper.sqrt(MathHelper.sqrt(df3)) * 0.5F;
-						proj3.setVelocity(e3 + vec3d3.x * 1.125, f3 * (double) h3, g3 + vec3d3.z * 1.125, 0.33F, 0F);
-						proj3.updatePosition(this.plantEntity.getX() + vec3d3.x * 0.55, this.plantEntity.getY() + 0.5, this.plantEntity.getZ() + vec3d3.z * 0.55);
+						proj3.setVelocity(e3 * (double) h + vec3d4.x, f3 * (double) h3, g3 * (double) h +vec3d4.z, 0.33F, 0F);
+						proj3.updatePosition(this.plantEntity.getX() + vec3d2.x, this.plantEntity.getY() + 0.5, this.plantEntity.getZ() + vec3d2.z);
 						proj3.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
@@ -369,15 +368,16 @@ public class ThreepeaterEntity extends PlantEntity implements IAnimatable, Range
 						}
 						// Left Pea
 						ShootingPeaEntity proj2 = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
-						Vec3d vec3d2 = this.plantEntity.getRotationVec(1.0F).rotateY(90);
+						Vec3d vec3d5 = new Vec3d((double) 0.0, 0.0, -0.5).rotateY(-this.plantEntity.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+						Vec3d vec3d6 = new Vec3d((double) 10.0, 0.0, -1.5).rotateY(-this.plantEntity.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 						double d2 = this.plantEntity.squaredDistanceTo(predictedPos);
 						float df2 = (float) d2;
 						double e2 = predictedPos.getX() - this.plantEntity.getX();
 						double f2 = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 						double g2 = predictedPos.getZ() - this.plantEntity.getZ();
 						float h2 = MathHelper.sqrt(MathHelper.sqrt(df2)) * 0.5F;
-						proj2.setVelocity(e2 + vec3d2.x * 1.125, f2 * (double) h2, g2 + vec3d2.z * 1.125, 0.33F, 0);
-						proj2.updatePosition(this.plantEntity.getX() + vec3d2.x * 0.55, this.plantEntity.getY() + 0.5, this.plantEntity.getZ() + vec3d2.z * 0.55);
+						proj2.setVelocity(e2 * (double) h + vec3d6.x, f2 * (double) h2, g2 * (double) h + vec3d6.z, 0.33F, 0);
+						proj2.updatePosition(this.plantEntity.getX() + vec3d5.x, this.plantEntity.getY() + 0.5, this.plantEntity.getZ() + vec3d5.z);
 						proj2.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
 							this.plantEntity.playSound(PvZSounds.PEASHOOTEVENT, 0.2F, 1);

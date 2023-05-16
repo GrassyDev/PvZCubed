@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildw
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -32,7 +31,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -527,7 +525,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 						if (plantEntity.getCount().getId() >= 1) {
 							// Right Pea
 							ShootingPeaEntity proj3 = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
-							Vec3d vec3d3 = this.plantEntity.getRotationVec(1.0F).rotateY(-90);
+							Vec3d vec3d3 = new Vec3d((double) 0.0, 0.0, 0.8).rotateY(-this.plantEntity.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 							double d3 = this.plantEntity.squaredDistanceTo(predictedPos);
 							float df3 = (float) d3;
 							double e3 = predictedPos.getX() - this.plantEntity.getX();
@@ -535,7 +533,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 							double g3 = predictedPos.getZ() - this.plantEntity.getZ();
 							float h3 = MathHelper.sqrt(MathHelper.sqrt(df3)) * 0.5F;
 							proj3.setVelocity(e3 * (double) h3, f3 * (double) h3, g3 * (double) h3, 0.33F, 0F);
-							proj3.updatePosition(this.plantEntity.getX() + vec3d3.x * 0.9, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d3.z * 0.9);
+							proj3.updatePosition(this.plantEntity.getX() + vec3d3.x, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d3.z);
 							proj3.setOwner(this.plantEntity);
 							if (livingEntity.isAlive()) {
 								if (this.plantEntity.getVariant().equals(PeapodVariants.PLURAL)){
@@ -549,7 +547,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 						if (plantEntity.getCount().getId() >= 2) {
 							// Left Pea
 							ShootingPeaEntity proj2 = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
-							Vec3d vec3d2 = this.plantEntity.getRotationVec(1.0F).rotateY(90);
+							Vec3d vec3d2 = new Vec3d((double) 0.0, 0.0, -0.8).rotateY(-this.plantEntity.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 							double d2 = this.plantEntity.squaredDistanceTo(predictedPos);
 							float df2 = (float) d2;
 							double e2 = predictedPos.getX() - this.plantEntity.getX();
@@ -557,7 +555,7 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 							double g2 = predictedPos.getZ() - this.plantEntity.getZ();
 							float h2 = MathHelper.sqrt(MathHelper.sqrt(df2)) * 0.5F;
 							proj2.setVelocity(e2 * (double) h2, f2 * (double) h2, g2 * (double) h2, 0.33F, 0);
-							proj2.updatePosition(this.plantEntity.getX() + vec3d2.x * 0.9, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d2.z * 0.9);
+							proj2.updatePosition(this.plantEntity.getX() + vec3d2.x, this.plantEntity.getY() + 0.3, this.plantEntity.getZ() + vec3d2.z);
 							proj2.setOwner(this.plantEntity);
 							if (livingEntity.isAlive()) {
 								if (this.plantEntity.getVariant().equals(PeapodVariants.PLURAL)){
