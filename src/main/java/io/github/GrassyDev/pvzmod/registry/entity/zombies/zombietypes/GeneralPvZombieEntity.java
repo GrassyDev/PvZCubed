@@ -57,7 +57,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.BLOCKED, 0.0F);
 	}
 
 	protected int animationMultiplier = 1;

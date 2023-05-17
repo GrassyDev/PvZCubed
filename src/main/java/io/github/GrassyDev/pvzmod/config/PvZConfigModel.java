@@ -162,6 +162,7 @@ public class PvZConfigModel {
 		public float cattailS = 35.0f;
 		public float charmshroomS = 25.0f;
 		public float cherrybombS = 35.0f;
+		public float chillypepperS = 25.0f;
 		public float chomperS = 20.0f;
 		public float coconutS = 35.0f;
 		public float dandelionweedS = 7.5f;
@@ -194,10 +195,10 @@ public class PvZConfigModel {
 		public float potatomineS = 20.0f;
 		public float puffshroomS = 2.5f;
 		public float repeaterS = 7.5f;
+		public float retrogatlingS = 35.0f;
 		public float scaredyshroomS = 5.0f;
 		public float seashroomS = 10.0f;
 		public float shamrockS = 5.0f;
-		public float chillypepperS = 25.0f;
 		public float smackadamiaS = 50.0f;
 		public float smallnutS = 10.0f;
 		public float snowpeaS = 7.5f;
@@ -251,6 +252,7 @@ public class PvZConfigModel {
 		public float cardDMG = 2f;
 		public float coconutDMG = 90f;
 		public float dropDMG = 1.5f;
+		public float firepiercepeaDMG = 3f;
 		public float flamingPeaDMG = 4f;
 		public float fumeDMG = 2.5f;
 		public float hypnoprojDMG = 16f;
@@ -260,6 +262,7 @@ public class PvZConfigModel {
 		public float jingleDMGv2 = 7f;
 		public float peaDMG = 4f;
 		public float pepperDMG = 3f;
+		public float piercepeaDMG = 3f;
 		public float plasmaPeaDMG = 12f;
 		public float rainbowBulletDMG = 4f;
 		public float snowPeaDMG = 4f;

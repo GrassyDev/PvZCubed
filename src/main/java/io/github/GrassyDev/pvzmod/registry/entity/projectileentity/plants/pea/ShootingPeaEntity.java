@@ -19,7 +19,6 @@ import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -61,6 +60,8 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
 	public boolean canHitFlying;
+
+	public int maxAge = 60;
 
 	protected void initDataTracker() {
 		super.initDataTracker();
@@ -163,7 +164,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!this.world.isClient && this.age >= 60) {
+        if (!this.world.isClient && this.age >= maxAge) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
@@ -173,6 +174,7 @@ public class ShootingPeaEntity extends ThrownItemEntity implements IAnimatable {
 				shootingFlamingPeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 				shootingFlamingPeaEntity.setVelocity(this.getVelocity());
 				shootingFlamingPeaEntity.age = this.age;
+				shootingFlamingPeaEntity.maxAge = this.maxAge;
 				shootingFlamingPeaEntity.setOwner(this.getOwner());
 				shootingFlamingPeaEntity.canHitFlying = this.canHitFlying;
 				world.spawnEntity(shootingFlamingPeaEntity);

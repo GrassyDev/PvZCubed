@@ -72,6 +72,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzadventur
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.acidshroom.AcidshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.dandelionweed.DandelionWeedEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.perfoomshroom.PerfoomshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.retrogatling.RetroGatlingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.guardian.smackadamia.SmackadamiaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.guardian.smallnut.SmallNutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.kabloom.bombseedling.BombSeedlingEntity;
@@ -105,6 +106,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.icespi
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.jingle.JingleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pepper.ShootingPepperEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.piercingpea.FirePiercePeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.piercingpea.PiercePeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.rainbowbullet.RainbowBulletEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.snowpea.ShootingSnowPeaEntity;
@@ -393,6 +396,12 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<SnowqueenpeaEntity>create(SpawnGroup.CREATURE, SnowqueenpeaEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
 	);
 
+	public static final EntityType<RetroGatlingEntity> RETROGATLING = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "retrogatling"),
+			QuiltEntityTypeBuilder.<RetroGatlingEntity>create(SpawnGroup.CREATURE, RetroGatlingEntity::new).setDimensions(EntityDimensions.fixed(0.99f, 0.8f)).build()
+	);
+
 	public static final EntityType <AcidshroomEntity> ACIDSHROOM = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "acidshroom"),
@@ -622,6 +631,18 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "coconutproj"),
 			QuiltEntityTypeBuilder.<CoconutEntity>create(SpawnGroup.MISC, CoconutEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<PiercePeaEntity> PIERCEPEA = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "piercepea"),
+			QuiltEntityTypeBuilder.<PiercePeaEntity>create(SpawnGroup.MISC, PiercePeaEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+	);
+
+	public static final EntityType<FirePiercePeaEntity> FIREPIERCEPEA = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "firepiercepea"),
+			QuiltEntityTypeBuilder.<FirePiercePeaEntity>create(SpawnGroup.MISC, FirePiercePeaEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingSpikeEntity> SPIKEPROJ = Registry.register(
@@ -1537,6 +1558,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BEESHOOTER, BeeshooterEntity.createBeeshooterAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.SNOWQUEENPEA, SnowqueenpeaEntity.createSnowqueenpeaAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.RETROGATLING, RetroGatlingEntity.createRetroGatlingAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ACIDSHROOM, AcidshroomEntity.createAcidshroomAttributes().build());
 

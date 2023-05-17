@@ -34,7 +34,8 @@
       "pvzmod:plants/appease/gatlingpea",
       "pvzmod:plants/appease/threepeater",
       "pvzmod:plants/pepper/firepea",
-      "pvzmod:plants/ailment/beeshooter"
+      "pvzmod:plants/ailment/beeshooter",
+      "pvzmod:plants/spear/retrogatling"
     ],
     "experience": 25
   }

@@ -1,18 +1,15 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.peashooter;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.retrogatling;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.gatlingpea.GatlingpeaEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzgw.retrogatling.RetroGatlingEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.ShootingPeaEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.piercingpea.PiercePeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
-import io.github.GrassyDev.pvzmod.registry.items.seedpackets.GatlingpeaSeeds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -26,21 +23,15 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -53,12 +44,10 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.EnumSet;
-import java.util.List;
-import java.util.Objects;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class PeashooterEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
+public class RetroGatlingEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
     private String controllerName = "peacontroller";
 
@@ -68,7 +57,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-    public PeashooterEntity(EntityType<? extends PeashooterEntity> entityType, World world) {
+    public RetroGatlingEntity(EntityType<? extends RetroGatlingEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
 
@@ -106,24 +95,25 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		if (this.isFiring) {
-			event.getController().setAnimation(new AnimationBuilder().playOnce("peashooter.shoot"));
+			event.getController().setAnimation(new AnimationBuilder().playOnce("peashooter.gatling.shoot.retro"));
 		}
 		else {
 			event.getController().setAnimation(new AnimationBuilder().loop("peashooter.idle"));
 		}
-        return PlayState.CONTINUE;
-    }
+		return PlayState.CONTINUE;
+	}
 
 
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new PeashooterEntity.FireBeamGoal(this));
-        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
+		this.goalSelector.add(1, new RetroGatlingEntity.FireBeamGoal(this));
+		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isFlying())) &&
+			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
+					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+					!(generalPvZombieEntity.isFlying());
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
@@ -135,6 +125,8 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
 		}));
 	}
+
+
 
 
 	@Override
@@ -157,7 +149,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 			BlockState blockState = this.getLandingBlockState();
 			if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
 				if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
-					this.dropItem(ModItems.PEASHOOTER_SEED_PACKET);
+					this.dropItem(ModItems.RETROGATLING_SEED_PACKET);
 				}
 				this.discard();
 			}
@@ -179,7 +171,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 				this.setTarget(null);
 				snorkelGoal();
 			}
-			if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
+			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
 				this.setTarget(null);
 			}
 		}
@@ -192,13 +184,12 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 		}
 	}
 
-
 	/** /~*~//~*INTERACTION*~//~*~/ **/
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.isOf(ModItems.GARDENINGGLOVE)) {
-			dropItem(ModItems.PEASHOOTER_SEED_PACKET);
+			dropItem(ModItems.RETROGATLING_SEED_PACKET);
 			if (!player.getAbilities().creativeMode) {
 				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 					itemStack.decrement(1);
@@ -207,81 +198,56 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 			this.discard();
 			return ActionResult.SUCCESS;
 		}
-		Item item = itemStack.getItem();
-		if (itemStack.isOf(ModItems.RETROGATLING_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item)) {
-			this.playSound(PvZSounds.PLANTPLANTEDEVENT);
-			if ((this.world instanceof ServerWorld)) {
-				ServerWorld serverWorld = (ServerWorld) this.world;
-				RetroGatlingEntity plantEntity = (RetroGatlingEntity) PvZEntity.RETROGATLING.create(world);
-				plantEntity.setTarget(this.getTarget());
-				plantEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-				plantEntity.initialize(serverWorld, world.getLocalDifficulty(plantEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
-				plantEntity.setAiDisabled(this.isAiDisabled());
-				if (this.hasCustomName()) {
-					plantEntity.setCustomName(this.getCustomName());
-					plantEntity.setCustomNameVisible(this.isCustomNameVisible());
-				}
-				if (this.hasVehicle()){
-					plantEntity.startRiding(this.getVehicle(), true);
-				}
-
-				plantEntity.setPersistent();
-				serverWorld.spawnEntityAndPassengers(plantEntity);
-				this.remove(RemovalReason.DISCARDED);
-			}
-			if (!player.getAbilities().creativeMode) {
-				if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
-					itemStack.decrement(1);
-				}
-				;
-				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
-					player.getItemCooldownManager().set(ModItems.GATLINGPEA_SEED_PACKET, GatlingpeaSeeds.cooldown);
-				}
-			}
-			return ActionResult.SUCCESS;
-		}
 		return super.interactMob(player, hand);
 	}
 
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.PEASHOOTER_SEED_PACKET.getDefaultStack();
+		return ModItems.RETROGATLING_SEED_PACKET.getDefaultStack();
 	}
-
 
 	/** /~*~//~*ATTRIBUTES*~//~*~/ **/
 
-	public static DefaultAttributeContainer.Builder createPeashooterAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15.0D);
-    }
+	public static DefaultAttributeContainer.Builder createRetroGatlingAttributes() {
+		return MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 15D);
+	}
 
-	protected boolean canClimb() {return false;}
+	protected boolean canClimb() {
+		return false;
+	}
 
-	public boolean collides() {return true;}
+	public boolean collides() {
+		return true;
+	}
 
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
 		return 0.60F;
 	}
 
 	@Nullable
-	protected SoundEvent getHurtSound(DamageSource source) {return PvZSounds.SILENCEVENET;}
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return PvZSounds.SILENCEVENET;
+	}
 
 	@Nullable
-	protected SoundEvent getDeathSound() {return PvZSounds.PLANTPLANTEDEVENT;}
+	protected SoundEvent getDeathSound() {
+		return PvZSounds.PLANTPLANTEDEVENT;
+	}
 
-	public boolean hurtByWater() {return false;}
+	public boolean hurtByWater() {
+		return false;
+	}
 
 	public boolean isPushable() {
 		return false;
 	}
 
 	protected void pushAway(Entity entity) {
-
 	}
 
 	public boolean startRiding(Entity entity, boolean force) {
@@ -316,34 +282,17 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 	}
 
 
-	/** /~*~//~*SPAWNING*~//~*~/ **/
-
-	public static boolean canPeashooterSpawn(EntityType<? extends PeashooterEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
-		BlockPos blockPos = pos.down();
-		return checkVillager(Vec3d.ofCenter(pos), world) && !checkPeashooter(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
-	}
-
-	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {
-		List<VillagerEntity> list = world.getNonSpectatingEntities(VillagerEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(pos).expand(20));
-		return !list.isEmpty();
-	}
-
-	public static boolean checkPeashooter(Vec3d pos, ServerWorldAccess world) {
-		List<PeashooterEntity> list = world.getNonSpectatingEntities(PeashooterEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(pos).expand(20));
-		return !list.isEmpty();
-	}
-
-
 	/** /~*~//~*GOALS*~//~*~/ **/
 
 	static class FireBeamGoal extends Goal {
-		private final PeashooterEntity plantEntity;
+		private final RetroGatlingEntity plantEntity;
 		private int beamTicks;
 		private int animationTicks;
+		private int numShots;
 
-		public FireBeamGoal(PeashooterEntity plantEntity) {
+		public FireBeamGoal(RetroGatlingEntity plantEntity) {
 			this.plantEntity = plantEntity;
-			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
 		}
 
 		public boolean canStart() {
@@ -356,8 +305,9 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 		}
 
 		public void start() {
-			this.beamTicks = -7;
+			this.beamTicks = -6;
 			this.animationTicks = -16;
+			this.numShots = 0;
 			this.plantEntity.getNavigation().stop();
 			this.plantEntity.getLookControl().lookAt(this.plantEntity.getTarget(), 90.0F, 90.0F);
 			this.plantEntity.velocityDirty = true;
@@ -379,10 +329,9 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 				this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 				++this.beamTicks;
 				++this.animationTicks;
-				if (this.beamTicks >= 0 && this.animationTicks <= -7) {
-					// Huge thanks to pluiedev (Leah) for being cute and helping me with the code to predict trajectory
+				if (this.beamTicks >= 0 && this.animationTicks <= -6 && numShots <= 2) {
 					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
-						ShootingPeaEntity proj = new ShootingPeaEntity(PvZEntity.PEA, this.plantEntity.world);
+						PiercePeaEntity proj = new PiercePeaEntity(PvZEntity.PIERCEPEA, this.plantEntity.world);
 						double time = (this.plantEntity.squaredDistanceTo(livingEntity) > 36) ? 50 : 1;
 						Vec3d targetPos = livingEntity.getPos();
 						Vec3d predictedPos = targetPos.add(livingEntity.getVelocity().multiply(time));
@@ -392,22 +341,23 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 						double f = (livingEntity.isInsideWaterOrBubbleColumn()) ? livingEntity.getY() - this.plantEntity.getY() + 0.3595 : livingEntity.getY() - this.plantEntity.getY();
 						double g = predictedPos.getZ() - this.plantEntity.getZ();
 						float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-						proj.setVelocity(e * (double)h, f * (double)h, g * (double)h, 0.33F, 0F);
+						proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.33F, 0F);
 						proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
 						proj.setOwner(this.plantEntity);
 						if (livingEntity.isAlive()) {
-							this.beamTicks = -7;
+							this.beamTicks = -2;
+							++this.numShots;
 							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 							this.plantEntity.playSound(PvZSounds.PEASHOOTEVENT, 0.2F, 1);
 							this.plantEntity.world.spawnEntity(proj);
 						}
 					}
 				}
-				else if (this.animationTicks >= 0)
-				{
+				else if (this.animationTicks >= 0) {
 					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 110);
-					this.beamTicks = -7;
+					this.beamTicks = -6;
 					this.animationTicks = -16;
+					this.numShots = 0;
 				}
 				super.tick();
 			}

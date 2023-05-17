@@ -123,6 +123,7 @@ public class ShootingSpikeEntity extends ThrownItemEntity implements IAnimatable
 			powerSpike.setVelocity(this.getVelocity());
 			powerSpike.age = this.age;
 			powerSpike.setOwner(this.getOwner());
+			powerSpike.damageCounter = this.damageCounter;
 			world.spawnEntity(powerSpike);
 			this.remove(RemovalReason.DISCARDED);
 		}

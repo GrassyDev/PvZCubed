@@ -48,6 +48,7 @@ public class ModItems {
 		SEED_PACKET_LIST.add(ModItems.SEASHROOM_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.CABBAGEPULT_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.GATLINGPEA_SEED_PACKET);
+		SEED_PACKET_LIST.add(ModItems.RETROGATLING_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.GLOOMSHROOM_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.CATTAIL_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.TWINSUNFLOWER_SEED_PACKET);
@@ -109,7 +110,9 @@ public class ModItems {
     public static final Item SPORE = new SporeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(64).rarity(Rarity.COMMON));
     public static final Item FUME = new FumeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
 	public static final Item BREEZE = new BreezeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
-	public static final Item ACIDFUME = new AcidFumeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32	).rarity(Rarity.UNCOMMON));
+	public static final Item ACIDFUME = new AcidFumeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
+	public static final Item PIERCEPEA = new PiercePeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
+	public static final Item FIREPIERCEPEA = new FirePiercePeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.EPIC));
 	public static final Item HYPNO = new HypnoItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.EPIC));
 	public static final Item ACIDSPORE = new AcidSporeItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
     public static final Item SNOWPEAPROJ = new SnowPeaItem(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(32).rarity(Rarity.UNCOMMON));
@@ -169,6 +172,7 @@ public class ModItems {
 	public static final Item SEASHROOM_SEED_PACKET = new SeashroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
 	public static final Item CABBAGEPULT_SEED_PACKET = new CabbagepultSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
 	public static final Item GATLINGPEA_SEED_PACKET = new GatlingpeaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
+	public static final Item RETROGATLING_SEED_PACKET = new RetroGatlingSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item TWINSUNFLOWER_SEED_PACKET = new TwinSunflowerSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item GLOOMSHROOM_SEED_PACKET = new GloomshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
 	public static final Item CATTAIL_SEED_PACKET = new CattailSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
@@ -331,6 +335,8 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"spore"), SPORE);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"fume"), FUME);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"breeze"), BREEZE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"piercepea"), PIERCEPEA);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"firepiercepea"), FIREPIERCEPEA);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"acidfume"), ACIDFUME);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"hypno"), HYPNO);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"acidspore"), ACIDSPORE);
@@ -416,6 +422,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"seashroom_seed_packet"), SEASHROOM_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cabbagepult_seed_packet"), CABBAGEPULT_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gatlingpea_seed_packet"), GATLINGPEA_SEED_PACKET);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"retrogatling_seed_packet"), RETROGATLING_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gloomshroom_seed_packet"), GLOOMSHROOM_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cattail_seed_packet"), CATTAIL_SEED_PACKET);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"twinsunflower_seed_packet"), TWINSUNFLOWER_SEED_PACKET);

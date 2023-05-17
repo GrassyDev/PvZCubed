@@ -15,7 +15,6 @@ import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
@@ -117,6 +116,7 @@ public class ShootingBeeSpikeEntity extends ThrownItemEntity implements IAnimata
 			powerSpike.setVelocity(this.getVelocity());
 			powerSpike.age = this.age;
 			powerSpike.setOwner(this.getOwner());
+			powerSpike.damageCounter = this.damageCounter;
 			world.spawnEntity(powerSpike);
 			this.remove(RemovalReason.DISCARDED);
 		}

@@ -63,6 +63,8 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 
 	public boolean lowProfile;
 
+	public int maxAge = 60;
+
 	@Override
 	public void registerControllers(AnimationData animationData) {
 		AnimationController controller = new AnimationController(this, controllerName, 0, this::predicate);
@@ -131,7 +133,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!this.world.isClient && this.age >= 60) {
+        if (!this.world.isClient && this.age >= maxAge) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
@@ -152,6 +154,7 @@ public class ShootingFlamingPeaEntity extends ThrownItemEntity implements IAnima
 			shootingPeaEntity.canHitFlying = this.canHitFlying;
 			world.spawnEntity(shootingPeaEntity);
 			shootingPeaEntity.age = this.age;
+			shootingPeaEntity.maxAge = this.maxAge;
 			this.remove(RemovalReason.DISCARDED);
 		}
     }
