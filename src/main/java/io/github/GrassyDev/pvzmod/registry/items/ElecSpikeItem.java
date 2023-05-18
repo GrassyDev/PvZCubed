@@ -41,7 +41,7 @@ public class ElecSpikeItem extends Item {
 
         if (!world.isClient) {
             ShootingPowerSpikeEntity proj = new ShootingPowerSpikeEntity(PvZEntity.POWERSPIKE, world);
-            proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
+            proj.setPos(user.getX(), user.getY() + 1f, user.getZ());
             proj.setOwner(user);
             proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.9f, 0);
             ((ServerWorld) world).spawnEntityAndPassengers(proj);

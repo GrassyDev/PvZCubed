@@ -1,18 +1,14 @@
 package io.github.GrassyDev.pvzmod.registry.items;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pepper.ShootingPepperEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Style;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -41,7 +37,7 @@ public class PepperItem extends Item {
 
         if (!world.isClient) {
             ShootingPepperEntity proj = new ShootingPepperEntity(PvZEntity.PEPPERPROJ, world);
-            proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
+            proj.setPos(user.getX(), user.getY() + 2f, user.getZ());
             proj.setOwner(user);
             proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 1f, 0);
             ((ServerWorld) world).spawnEntityAndPassengers(proj);

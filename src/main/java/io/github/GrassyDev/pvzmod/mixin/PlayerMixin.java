@@ -30,7 +30,8 @@ public abstract class PlayerMixin extends LivingEntity {
 	@Inject(method = "tick", at = @At("HEAD"))
     public void pvzmod$tick(CallbackInfo ci) {
 		if ((this.getInventory().getMainHandStack().getItem() instanceof SeedItem
-				|| this.getInventory().getMainHandStack().getItem() instanceof ShovelItem) && this.getOffHandStack().isEmpty() && !this.getAttributes().hasModifierForAttribute(ReachEntityAttributes.REACH, MAX_REACH_UUID)){
+				|| this.getInventory().getMainHandStack().getItem() instanceof ShovelItem) && this.getOffHandStack().isEmpty() &&
+				!this.getAttributes().hasModifierForAttribute(ReachEntityAttributes.REACH, MAX_REACH_UUID)){
 			EntityAttributeInstance maxReachAttribute = this.getAttributeInstance(ReachEntityAttributes.REACH);
 			assert maxReachAttribute != null;
 			maxReachAttribute.removeModifier(MAX_REACH_UUID);

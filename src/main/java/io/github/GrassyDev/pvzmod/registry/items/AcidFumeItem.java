@@ -1,17 +1,13 @@
 package io.github.GrassyDev.pvzmod.registry.items;
 
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.acidfume.AcidFumeEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Style;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -40,7 +36,7 @@ public class AcidFumeItem extends Item {
 
         if (!world.isClient) {
             AcidFumeEntity proj = new AcidFumeEntity(PvZEntity.ACIDFUME, world);
-            proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
+            proj.setPos(user.getX(), user.getY() + 1f, user.getZ());
             proj.setOwner(user);
             proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.85F, 0);
             world.spawnEntity(proj);

@@ -6,8 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZ
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,9 +27,10 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "damage", at = @At("HEAD"))
     public void pvzmod$getOutAnnoyingIFrames(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
 
-        if (source.getAttacker() instanceof PlantEntity ||
+        if ((source.getAttacker() instanceof PlantEntity ||
 				source.getAttacker() instanceof GeneralPvZombieEntity ||
-				source == PvZCubed.HYPNO_DAMAGE)
-            timeUntilRegen = 0;
+				source == PvZCubed.HYPNO_DAMAGE) || (source.isProjectile() && source.getAttacker() instanceof PlayerEntity)) {
+			timeUntilRegen = 0;
+		}
     }
 }

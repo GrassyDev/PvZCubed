@@ -40,7 +40,7 @@ public class SnowPeaItem extends Item {
 
         if (!world.isClient) {
             ShootingSnowPeaEntity proj = new ShootingSnowPeaEntity(PvZEntity.SNOWPEAPROJ, world);
-            proj.setPos(user.getX(), user.getY() + 1.5f, user.getZ());
+            proj.setPos(user.getX(), user.getY() + 1f, user.getZ());
             proj.setOwner(user);
             proj.setProperties(user, user.getPitch(), user.getYaw(), 0, 0.33f, 0);
             world.spawnEntity(proj);
