@@ -139,6 +139,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.J
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.newspaper.NewspaperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pharaoh.PharaohEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.polevaulting.PoleVaultingEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pumpkinzombie.PumpkinZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiegrave.ZombieGraveEntity;
@@ -147,6 +148,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metalliche
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicobstacle.MetalObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallicshield.MetalShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.papershield.NewspaperShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.planthelmet.PlantHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.plastichelmet.PlasticHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.stonehelmet.StoneHelmetEntity;
 import net.minecraft.entity.EntityDimensions;
@@ -998,6 +1000,17 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<PeasantEntity>create(SpawnGroup.MONSTER, PeasantEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
 	);
 
+	public static final EntityType<PumpkinZombieEntity> PUMPKINZOMBIE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "pumpkinzombie"),
+			QuiltEntityTypeBuilder.<PumpkinZombieEntity>create(SpawnGroup.MONSTER, PumpkinZombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+	public static final EntityType<PumpkinZombieEntity> PUMPKINZOMBIEHYPNO = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "pumpkinzombie_hypnotized"),
+			QuiltEntityTypeBuilder.<PumpkinZombieEntity>create(SpawnGroup.MONSTER, PumpkinZombieEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1.8f)).build()
+	);
+
 	public static final EntityType<PlasticHelmetEntity> CONEHEADGEAR = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "coneheadgear"),
@@ -1063,6 +1076,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "blastronautgear"),
 			QuiltEntityTypeBuilder.<MetalHelmetEntity>create(SpawnGroup.MONSTER, MetalHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.9f, 2.55f)).build()
+	);
+
+	public static final EntityType<PlantHelmetEntity> PUMPKINGEAR = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "pumpkingear"),
+			QuiltEntityTypeBuilder.<PlantHelmetEntity>create(SpawnGroup.MONSTER, PlantHelmetEntity::new).setDimensions(EntityDimensions.fixed(0.8f, 1.95f)).build()
 	);
 
     public static final EntityType<FlagzombieEntity> FLAGZOMBIE = Registry.register(
@@ -1706,6 +1725,8 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TRASHCANHYPNO, BrowncoatEntity.createBrowncoatAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.TRASHCANBIN, MetalObstacleEntity.createTrashCanBinObstacleAttributes().build());
 
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PUMPKINGEAR, PlantHelmetEntity.createPumpkinGearAttributes().build());
+
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DANCINGZOMBIE, DancingZombieEntity.createDancingZombieAttributes().build());
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DANCINGZOMBIEHYPNO, DancingZombieEntity.createDancingZombieAttributes().build());
 
@@ -1798,6 +1819,10 @@ public class PvZEntity implements ModInitializer {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEASANTKNIGHT, PeasantEntity.createPeasantAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEASANTKNIGHTHYPNO, PeasantEntity.createPeasantAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PUMPKINZOMBIE, PumpkinZombieEntity.createPumpkinAttributes().build());
+
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PUMPKINZOMBIEHYPNO, PumpkinZombieEntity.createPumpkinAttributes().build());
 
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.BULLY, BullyEntity.createBullyAttributes().build());

@@ -37,11 +37,11 @@
       "type": "text",
       "text": [
         "$(br2)Fire",
-        "$(br)Sets Zombies on fire, unless they are wet. Wet and Zombies immune to Fire prevent Fire Splash or don't take damage from it, halving direct damage as well.",
-        "$(br)Zombies on fire take 1 DMG/sec if they are not being attacked.",
-        "$(br)Zombies get Warm, which prevents Chill from being applied. ",
+        "$(br)Sets Zombies on fire, unless they are wet. Wet and Zombies immune to Fire prevent Fire Splash or don't take damage from it, halving direct damage as well. ",
+        "Zombies on fire take 1 DMG/sec if they are not being attacked. ",
+        "Zombies get Warm, which prevents Chill from being applied. ",
         "Thaws Chilled or Frozen Zombies.",
-        "$(br)Deals double the damage against Paper."
+        "$(br)Deals double the damage against Paper and Plant."
       ]
     },
     {
@@ -49,7 +49,7 @@
       "text": [
         "$(br2)Water",
         "$(br2)Wet Zombies, extinguishing and preventing Fire for a short time.",
-        "$(br2)Deals double the damage against Paper and Stone."
+        "$(br2)Deals double the damage against Paper and Stone, and half against Plant."
       ]
     },
     {
@@ -65,7 +65,7 @@
       "text": [
         "$(br2)Electricity",
         "$(br)Chains damage between Zombies, the chain damage is the base damage. Chain's range is by the Electric Radius, that is based on the location of the hit Zombie.",
-        "$(br)Electricity chains by the number of Electric Chains. Metallic doesn't count towards the number. Plastic/Rubber cost 2 Electric Chains when hit.",
+        "$(br)Electricity chains by the number of Electric Chains. Metallic doesn't count towards the number. Plastic/Plant cost 2 Electric Chains when hit.",
         "$(br)Electric damage doubles if the target is Wet."
       ]
     },

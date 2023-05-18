@@ -393,6 +393,9 @@ public class PvZConfigModel {
 		public double sarcophagusH = 212D;
 
 		@RestartRequired
+		public double pumpkinH = 84D;
+
+		@RestartRequired
 		public double screendoorShieldH = 153D;
 
 		@RestartRequired

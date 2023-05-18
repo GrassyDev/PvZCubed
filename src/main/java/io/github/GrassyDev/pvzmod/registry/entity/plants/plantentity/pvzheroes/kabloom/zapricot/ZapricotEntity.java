@@ -500,7 +500,7 @@ public class ZapricotEntity extends PlantEntity implements IAnimatable, RangedAt
 				damaged.damage(DamageSource.thrownProjectile(this, this), 0);
 				setSparkTarget(damaged.getId());
 				this.world.sendEntityStatus(this, (byte) 121);
-				if (zombieMaterial.equals("plastic")){
+				if (zombieMaterial.equals("plastic") || zombieMaterial.equals("plant")){
 					this.lightningCounter -= 2;
 				}
 				else if (!zombieMaterial.equals("metallic")){
@@ -998,7 +998,7 @@ public class ZapricotEntity extends PlantEntity implements IAnimatable, RangedAt
 							}
 							damaged.damage(DamageSource.thrownProjectile(this.plantEntity, this.plantEntity), 0);
 							this.plantEntity.lightningCounter = 3;
-							if (zombieMaterial.equals("plastic")){
+							if (zombieMaterial.equals("plastic") || zombieMaterial.equals("plant")){
 								this.plantEntity.lightningCounter = 2;
 							}
 							this.plantEntity.lightning(damaged);

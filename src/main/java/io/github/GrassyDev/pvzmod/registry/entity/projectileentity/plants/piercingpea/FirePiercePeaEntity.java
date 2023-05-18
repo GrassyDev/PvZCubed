@@ -185,11 +185,11 @@ public class FirePiercePeaEntity extends ThrownItemEntity implements IAnimatable
 			};
 			if (entity2 != entityStore) {
 				if ((entity instanceof ZombieShieldEntity || entity.isWet() || ((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) ||
-						(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) && !"paper".equals(zombieMaterial)){
+						(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) && !"paper".equals(zombieMaterial) || "plant".equals(zombieMaterial)){
 					entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				}
 				entity.playSound(PvZSounds.FIREPEAHITEVENT, 0.2F, 1F);
-				if ("paper".equals(zombieMaterial)) {
+				if ("paper".equals(zombieMaterial) || "plant".equals(zombieMaterial)) {
 					if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET)) {
 						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 						entity.setOnFireFor(4);
@@ -258,6 +258,9 @@ public class FirePiercePeaEntity extends ThrownItemEntity implements IAnimatable
 									float damageSplash = PVZCONFIG.nestedProjDMG.firepiercepeaDMG();
 									String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 									if ("paper".equals(zombieMaterial2)) {
+										damageSplash = damageSplash * 2;
+									}
+									else if ("plant".equals(zombieMaterial2)) {
 										damageSplash = damageSplash * 2;
 									}
 									if (zombiePropEntity3 == null) {

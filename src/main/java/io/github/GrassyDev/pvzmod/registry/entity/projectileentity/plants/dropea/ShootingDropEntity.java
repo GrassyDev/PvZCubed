@@ -18,7 +18,6 @@ import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
@@ -197,6 +196,9 @@ public class ShootingDropEntity extends ThrownItemEntity implements IAnimatable 
 			if ("paper".equals(zombieMaterial) || "stone".equals(zombieMaterial)) {
 				damage = damage * 2;
 			}
+			else if ("plant".equals(zombieMaterial)) {
+				damage = damage / 2;
+			}
 			if (damage > ((LivingEntity) entity).getHealth() &&
 					!(entity instanceof ZombieShieldEntity) &&
 					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
@@ -244,6 +246,9 @@ public class ShootingDropEntity extends ThrownItemEntity implements IAnimatable 
 							String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
 							if ("paper".equals(zombieMaterial2) || "stone".equals(zombieMaterial2)) {
 								damage3 = damage3 * 2;
+							}
+							else if ("plant".equals(zombieMaterial2)){
+								damage3 = damage3 / 2;
 							}
 							ZombiePropEntity zombiePropEntity3 = null;
 							for (Entity entity1 : livingEntity.getPassengerList()) {

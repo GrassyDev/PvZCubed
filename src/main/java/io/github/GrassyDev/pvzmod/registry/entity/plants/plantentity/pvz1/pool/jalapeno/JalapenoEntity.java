@@ -286,7 +286,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 						}
 					}
 					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
-					if ("paper".equals(zombieMaterial)) {
+					if ("paper".equals(zombieMaterial) || "plant".equals(zombieMaterial)) {
 						damage = damage * 2;
 					}
 					if (damage > livingEntity.getHealth() &&

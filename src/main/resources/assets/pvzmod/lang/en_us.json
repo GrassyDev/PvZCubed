@@ -253,6 +253,7 @@
   "text.config.pvz3-config.option.nestedZombieHealth.pyramidH": "Pyramid Gear Health",
   "text.config.pvz3-config.option.nestedZombieHealth.sarcophagusH": "Sarcophagus Gear Health",
   "text.config.pvz3-config.option.nestedZombieHealth.brickH": "Brick Gear Health",
+  "text.config.pvz3-config.option.nestedZombieHealth.pumpkinH": "Pumpkin Gear Health",
   "text.config.pvz3-config.option.nestedZombieHealth.screendoorShieldH": "Screendoor Shield Health",
   "text.config.pvz3-config.option.nestedZombieHealth.newspaperShieldH": "Newspaper Shield Health",
   "text.config.pvz3-config.option.nestedZombieHealth.sundayShieldH": "Sunday Edition Shield Health",
@@ -845,6 +846,11 @@
   "item.pvzmod.sundayedition_egg": "Sunday Edition Zombie",
   "entity.pvzmod.sundayeditionshield": "Sunday Edition Shield",
   "entity.pvzmod.sundayedition_hypnotized": "Hypnotized Sunday Edition Zombie",
+
+  "entity.pvzmod.pumpkinzombie": "Pumpkin Zombie",
+  "item.pvzmod.pumpkinzombie_egg": "Pumpkin Zombie",
+  "entity.pvzmod.pumpkingear": "Pumpkin",
+  "entity.pvzmod.pumpkinzombie_hypnotized": "Hypnotized Pumpkin Zombie",
 
   "entity.pvzmod.newyearimp": "New Years Imp",
   "item.pvzmod.newyearimp_egg": "New Years Imp",

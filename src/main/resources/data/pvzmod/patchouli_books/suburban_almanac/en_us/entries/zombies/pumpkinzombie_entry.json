@@ -1,0 +1,49 @@
+{
+  "name": "Pumpkin Zombie",
+  "icon": "pvzmod:pumpkinzombie_egg",
+  "category": "pvzmod:zombie_category",
+  "sortnum": 190,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)27, 84 (Plant Pumpkin)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4, 30 (Explosion)",
+        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)3.5 Blocks",
+        "$(br)$(#bd951a)Speed: $()$(#ff0000)Decent",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Explodes when they lose their Pumpkin helmet.",
+        "$(br2)$(#bd951a)As the only Zombie vegan, the Pumpkin Zombie refuses to partake in the eating of brains."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/pumpkinzombie.png"
+      ],
+      "title": "Dark Ages Zombie",
+      "border": "true",
+      "text": "$(#25228d)Pumpkin Zombies explode when they lose their hat."
+    },
+    {
+      "type": "relations",
+      "title": "Recommended Plants",
+      "entries": [
+        "pvzmod:plants/torchwood_entry",
+        "pvzmod:plants/snowpea_entry",
+        "pvzmod:plants/icebergpult_entry",
+        "pvzmod:plants/scaredyshroom_entry",
+        "pvzmod:plants/pepperpult_entry",
+        "pvzmod:plants/springbean_entry",
+        "pvzmod:plants/jumpingbean_entry"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br)$(#bd951a)Plants vs. Zombies: Garden Warfare: $()$(#ff0000)Pumpkin Browncoat",
+        "$(br)$(#bd951a)Plants vs. Zombies 2 (Chinese version): $()$(#ff0000)Pumpkin Witch"
+      ]
+    }
+  ]
+}

@@ -128,6 +128,9 @@ public class AcidFumeEntity extends ThrownItemEntity implements IAnimatable {
 			if ("paper".equals(zombieMaterial) || "stone".equals(zombieMaterial)) {
 				damage = damage * 2;
 			}
+			else if ("plant".equals(zombieMaterial)) {
+				damage = damage / 2;
+			}
 			SoundEvent sound;
 			sound = switch (zombieMaterial) {
 				case "metallic" -> PvZSounds.BUCKETHITEVENT;

@@ -47,6 +47,7 @@
       "title": "Recommended Plants",
       "entries": [
         "pvzmod:plants/jumpingbean_entry",
+        "pvzmod:plants/magicshroom_entry",
         "pvzmod:plants/firepea_entry",
         "pvzmod:plants/tulimpeter_entry",
         "pvzmod:plants/charmshroom_entry",

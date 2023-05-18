@@ -16,7 +16,6 @@ import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
@@ -153,6 +152,9 @@ public class ArmorBubbleEntity extends ThrownItemEntity implements IAnimatable {
 			float damage = PVZCONFIG.nestedProjDMG.armorBubbleDMG();
 			if ("paper".equals(zombieMaterial) || "stone".equals(zombieMaterial)) {
 				damage = damage * 2;
+			}
+			else if ("plant".equals(zombieMaterial)) {
+				damage = damage / 2;
 			}
 			if (entity instanceof ZombiePropEntity && !(entity instanceof ZombieShieldEntity)){
 				entity.kill();

@@ -433,14 +433,13 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 				this.currentFuseTime = 0;
 			}
 
-			if (this.currentFuseTime >= this.fuseTime) {
+			if (this.currentFuseTime >= this.fuseTime && this.isAlive()) {
 				this.currentFuseTime = this.fuseTime;
 				this.world.sendEntityStatus(this, (byte) 106);
 				this.raycastExplode();
 				this.playSound(PvZSounds.CHERRYBOMBEXPLOSIONEVENT, 1F, 1F);
 				this.spawnEffectsCloud();
-				this.dead = true;
-				this.remove(RemovalReason.DISCARDED);
+				this.kill();
 			}
 		}
 	}

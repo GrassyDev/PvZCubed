@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2.wildw
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -25,7 +24,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -490,7 +488,7 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 				damaged.damage(DamageSource.thrownProjectile(this, this), 0);
 				setSparkTarget(damaged.getId());
 				this.world.sendEntityStatus(this, (byte) 121);
-				if (zombieMaterial.equals("plastic")){
+				if (zombieMaterial.equals("plastic") || zombieMaterial.equals("plant")){
 					this.lightningCounter -= 2;
 				}
 				else if (!zombieMaterial.equals("metallic")){
@@ -985,7 +983,7 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 							}
 							damaged.damage(DamageSource.thrownProjectile(this.plantEntity, this.plantEntity), 0);
 							this.plantEntity.lightningCounter = 5;
-							if (zombieMaterial.equals("plastic")){
+							if (zombieMaterial.equals("plastic") || zombieMaterial.equals("plant")){
 								this.plantEntity.lightningCounter -= 2;
 							}
 							this.plantEntity.lightning(damaged);

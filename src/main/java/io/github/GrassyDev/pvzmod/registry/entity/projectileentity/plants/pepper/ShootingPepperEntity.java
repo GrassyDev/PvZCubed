@@ -194,7 +194,7 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 				entity.playSound(PvZSounds.FIREPEAHITEVENT, 0.2F, 1F);
 			}
 			float damage = PVZCONFIG.nestedProjDMG.pepperDMG();
-			if ("paper".equals(zombieMaterial)) {
+			if ("paper".equals(zombieMaterial) || "plant".equals(zombieMaterial)) {
 				if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET)) {
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 					entity.setOnFireFor(4);
@@ -264,6 +264,9 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 							if ("paper".equals(zombieMaterial2)) {
 								damageSplash = damageSplash * 2;
 							}
+							else if ("plant".equals(zombieMaterial2)) {
+								damageSplash = damageSplash * 2;
+							}
 							if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
 								if (damageSplash > livingEntity.getHealth() &&
 										!(livingEntity instanceof ZombieShieldEntity ) &&
@@ -285,7 +288,7 @@ public class ShootingPepperEntity extends ThrownItemEntity implements IAnimatabl
 										livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
 										livingEntity.setOnFireFor(4);
 									}
-									else if (livingEntity instanceof ZombieShieldEntity && PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh").equals("paper")) {
+									else if (livingEntity instanceof ZombieShieldEntity && (PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh").equals("paper") || PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh").equals("plant"))) {
 										livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
 										livingEntity.setOnFireFor(4);
 									}
