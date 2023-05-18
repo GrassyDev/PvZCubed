@@ -20,12 +20,12 @@ public class PlantKillingMaterial implements ToolMaterial {
 
     @Override
     public float getMiningSpeedMultiplier() {
-        return 5.0F;
+        return 1.0F;
     }
 
     @Override
     public int getMiningLevel() {
-        return 2;
+        return 0;
     }
 
     @Override

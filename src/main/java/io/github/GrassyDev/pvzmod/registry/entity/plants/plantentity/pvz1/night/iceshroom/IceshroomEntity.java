@@ -25,7 +25,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -328,7 +327,7 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 	@Override
 	protected void applyDamage(DamageSource source, float amount) {
 		int i = this.getFuseSpeed();
-		if (i <= 0 || source.getAttacker() instanceof PlayerEntity) {
+		if (i <= 0 || source.getAttacker() instanceof PlayerEntity || source.isOutOfWorld()) {
 			super.applyDamage(source, amount);
 		}
 	}

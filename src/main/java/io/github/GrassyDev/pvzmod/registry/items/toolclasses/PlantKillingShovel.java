@@ -1,16 +1,19 @@
 package io.github.GrassyDev.pvzmod.registry.items.toolclasses;
 
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.text.Style;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -32,5 +35,18 @@ public class PlantKillingShovel extends ShovelItem {
 
 	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
 		return false;
+	}
+
+	@Override
+	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+		if (entity instanceof PlantEntity) {
+			entity.damage(DamageSource.player(user), Float.MAX_VALUE);
+		}
+		return super.useOnEntity(stack, user, entity, hand);
+	}
+
+	@Override
+	public ActionResult useOnBlock(ItemUsageContext context) {
+		return ActionResult.PASS;
 	}
 }

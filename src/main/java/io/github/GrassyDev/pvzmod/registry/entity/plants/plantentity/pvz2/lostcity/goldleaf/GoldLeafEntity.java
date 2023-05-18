@@ -215,7 +215,7 @@ public class GoldLeafEntity extends PlantEntity implements IAnimatable {
 
 	@Override
 	protected void applyDamage(DamageSource source, float amount) {
-		if (this.turningTicks < 0 || source.getAttacker() instanceof PlayerEntity) {
+		if (this.turningTicks < 0 || source.getAttacker() instanceof PlayerEntity || source.isOutOfWorld()) {
 			super.applyDamage(source, amount);
 		}
 	}

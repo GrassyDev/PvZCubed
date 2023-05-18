@@ -3,7 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.c
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
@@ -28,7 +27,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -194,7 +192,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 
 	@Override
 	protected void applyDamage(DamageSource source, float amount) {
-		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity || (this.getTarget() != null && this.squaredDistanceTo(this.getTarget()) > 4) || this.attackTicksLeft > 0) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity || source.isOutOfWorld() || (this.getTarget() != null && this.squaredDistanceTo(this.getTarget()) > 4) || this.attackTicksLeft > 0) {
 			super.applyDamage(source, amount);
 		}
 	}

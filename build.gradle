@@ -15,6 +15,12 @@ repositories {
 		url = "https://maven.terraformersmc.com/"
 	}
 	maven { url 'https://maven.wispforest.io' }
+	maven {
+		url "https://maven.jamieswhiteshirt.com/libs-release"
+		content {
+			includeGroup "com.jamieswhiteshirt"
+		}
+	}
 }
 dependencies {
 	minecraft libs.minecraft
@@ -35,6 +41,7 @@ dependencies {
 	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
 	include "io.wispforest:owo-sentinel:${project.owo_version}"
 	annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_version}")
+	include modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_version}")
 }
 
 processResources {

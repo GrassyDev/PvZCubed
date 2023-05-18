@@ -514,7 +514,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 	@Override
 	protected void applyDamage(DamageSource source, float amount) {
 		int i = this.getFuseSpeed();
-		if (i <= 0 || source.getAttacker() instanceof PlayerEntity) {
+		if (i <= 0 || source.getAttacker() instanceof PlayerEntity || source.isOutOfWorld()) {
 			super.applyDamage(source, amount);
 		}
 	}

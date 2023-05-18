@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
@@ -25,6 +26,9 @@ import org.quiltmc.qsl.registry.attachment.api.RegistryEntryAttachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
+
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 public class PvZCubed implements ModInitializer {
 
@@ -86,6 +90,17 @@ public class PvZCubed implements ModInitializer {
 			GameRuleRegistry.register("pvzplantsGlow", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(true));
 
 	public static final String MOD_ID = "pvzmod";
+
+	public static final UUID MAX_REACH_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
+
+	public static EntityAttributeModifier createReachModifier(double amount) {
+		return new EntityAttributeModifier(
+				MAX_REACH_UUID,
+				MOD_ID,
+				amount,
+				EntityAttributeModifier.Operation.ADDITION
+		);
+	}
 
 	public static final ItemGroup PVZPLANTS = FabricItemGroupBuilder.create(
 					new Identifier(MOD_ID, "plants"))

@@ -322,7 +322,7 @@ public class EMPeachEntity extends PlantEntity implements IAnimatable {
 
 	@Override
 	protected void applyDamage(DamageSource source, float amount) {
-		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity || source.isOutOfWorld()) {
 			super.applyDamage(source, amount);
 		}
 	}
