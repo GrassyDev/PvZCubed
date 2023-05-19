@@ -9,17 +9,11 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.Sh
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodCountVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.PeapodVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.projectiles.ShootingPeaVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.PeaPodSeeds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -29,7 +23,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -222,28 +215,6 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new PeapodEntity.FireBeamGoal(this));
-		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& (!generalPvZombieEntity.isFlying());
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-		snorkelGoal();
-	}
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
-	}
-
-	protected void flyingGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying() && !(generalPvZombieEntity.getHypno());
-		}));
 	}
 
 
@@ -280,23 +251,9 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 
 	public void tick() {
 		super.tick();
-		if (this.age == 2){
-			if (this.getCount().equals(PeapodCountVariants.FIVE)){
-				flyingGoal();
-			}
-		}
+		this.targetZombies(this.getPos(), 7, false, this.getCount().equals(PeapodCountVariants.FIVE));
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
-		}
-		LivingEntity target = this.getTarget();
-		if (target != null){
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				this.setTarget(null);
-				snorkelGoal();
-			}
-			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying() && !(this.getCount().equals(PeapodCountVariants.FIVE))){
-				this.setTarget(null);
-			}
 		}
 	}
 
@@ -325,9 +282,6 @@ public class PeapodEntity extends PlantEntity implements RangedAttackMob, IAnima
 		}
 		Item item = itemStack.getItem();
 		if (itemStack.isOf(ModItems.PEAPOD_SEED_PACKET) && !player.getItemCooldownManager().isCoolingDown(item) && !this.getCount().equals(PeapodCountVariants.FIVE)) {
-			if (this.getCount().equals(PeapodCountVariants.FOUR)){
-				flyingGoal();
-			}
 			this.playSound(PvZSounds.PLANTPLANTEDEVENT);
 			this.addCount();
 			EntityAttributeInstance maxHealthAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);

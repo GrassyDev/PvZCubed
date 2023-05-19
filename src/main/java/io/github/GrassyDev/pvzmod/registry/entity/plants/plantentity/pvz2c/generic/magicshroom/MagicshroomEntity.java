@@ -6,18 +6,13 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.card.ShootingCardEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -26,7 +21,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -174,25 +168,7 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-	}
-
-	protected void awakeGoals() {
 		this.goalSelector.add(1, new MagicshroomEntity.FireBeamGoal(this));
-		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno()) && !(generalPvZombieEntity.isFlying())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel());
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-		snorkelGoal();
-	}
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
 	}
 
 	@Override
@@ -245,9 +221,6 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	/** /~*~//~**TICKING**~//~*~/ **/
 
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
 	private int hatTicks;
 
 
@@ -255,42 +228,23 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 		if (!this.world.isClient) {
 			if ((this.world.getAmbientDarkness() >= 2 ||
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-					&& !awakeSwitch) {
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))) {
 				this.setIsAsleep(IsAsleep.FALSE);
-				this.awakeGoals();
-				sleepSwitch = false;
-				awakeSwitch = true;
 			} else if (this.world.getAmbientDarkness() < 2 &&
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-					&& !sleepSwitch) {
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))) {
 				this.setIsAsleep(IsAsleep.TRUE);
-				for (Goal goal : this.goalSelector.getGoals()) {
-					if (!(goal instanceof MagicshroomEntity.FireBeamGoal fireBeamGoal)) {
-						this.goalSelector.remove(goal);
-					}
-					else {
-						fireBeamGoal.stop();
-					}
-				}
-				sleepSwitch = true;
-				awakeSwitch = false;
 			}
+		}
+		if (this.getIsAsleep()){
+			this.setTarget(null);
+		}
+		else {
+			this.targetZombies(this.getPos(), 5, false, true);
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
-		}
-		LivingEntity target = this.getTarget();
-		if (target != null){
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				this.setTarget(null);
-				snorkelGoal();
-			}
-			if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
-				this.setTarget(null);
-			}
 		}
 		if (this.hasHat()){
 			this.hatTicks = 400;

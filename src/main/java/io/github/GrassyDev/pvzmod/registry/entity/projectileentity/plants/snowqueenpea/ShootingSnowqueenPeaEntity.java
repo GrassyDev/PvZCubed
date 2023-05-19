@@ -181,7 +181,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 			if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !entity.isOnFire() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
 				if (!(entity instanceof ZombieShieldEntity)) {
-					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));
 				}
 			}
 			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
@@ -256,7 +256,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 									}
 									if (!livingEntity.hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
 										if (!(livingEntity instanceof ZombieShieldEntity)) {
-											livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+											livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));
 										}
 									}
 								}
@@ -269,7 +269,7 @@ public class ShootingSnowqueenPeaEntity extends ThrownItemEntity implements IAni
 			}
 			else if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity instanceof ZombieShieldEntity)){
 				if (!generalPvZombieEntity.hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
-					generalPvZombieEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+					generalPvZombieEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));
 				}
 				this.world.sendEntityStatus(this, (byte) 3);
 				this.remove(RemovalReason.DISCARDED);

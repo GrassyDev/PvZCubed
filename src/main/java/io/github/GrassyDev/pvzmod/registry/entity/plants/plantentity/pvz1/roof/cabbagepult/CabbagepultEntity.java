@@ -2,29 +2,21 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.roof.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.cabbage.ShootingCabbageEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
@@ -61,7 +53,7 @@ public class CabbagepultEntity extends PlantEntity implements IAnimatable, Range
     public CabbagepultEntity(EntityType<? extends CabbagepultEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-
+		this.lobbedTarget = true;
     }
 
 	static {
@@ -109,25 +101,6 @@ public class CabbagepultEntity extends PlantEntity implements IAnimatable, Range
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new CabbagepultEntity.FireBeamGoal(this));
-        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !(snorkelEntity.getHypno());
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()
-					&& !(generalPvZombieEntity.getHypno());
-		}));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getFirstPassenger() != null &&
-					generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity
-					&& !(generalPvZombieEntity.getHypno());
-		}));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno());
-		}));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
 	}
 
 	@Override
@@ -166,6 +139,7 @@ public class CabbagepultEntity extends PlantEntity implements IAnimatable, Range
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
+		this.targetZombies(this.getPos(), 10, true, true);
 		LivingEntity target = this.getTarget();
 		if (target != null){
 			if (target.getHealth() <= 0) {

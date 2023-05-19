@@ -1,22 +1,18 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.hypnoshroom;
 
-import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -93,10 +89,6 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 	protected void initGoals() {
 	}
 
-	protected void awakeGoals(){
-		this.goalSelector.add(1, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 15.0F));
-	}
-
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 	}
@@ -136,27 +128,16 @@ public class HypnoshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	/** /~*~//~*TICKING*~//~*~/ **/
 
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
 	public void tick() {
 		if (!this.world.isClient) {
 			if ((this.world.getAmbientDarkness() >= 2 ||
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-					&& !awakeSwitch) {
-				this.awakeGoals();
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))) {
 				this.setIsAsleep(IsAsleep.FALSE);
-				sleepSwitch = false;
-				awakeSwitch = true;
 			} else if (this.world.getAmbientDarkness() < 2 &&
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-					&& !sleepSwitch) {
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))) {
 				this.setIsAsleep(IsAsleep.TRUE);
-				this.clearGoalsAndTasks();
-				sleepSwitch = true;
-				awakeSwitch = false;
 			}
 		}
 		super.tick();

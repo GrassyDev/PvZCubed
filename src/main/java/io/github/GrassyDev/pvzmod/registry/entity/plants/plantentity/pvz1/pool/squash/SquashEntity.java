@@ -11,10 +11,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -23,7 +20,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
@@ -51,7 +47,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
 import static io.github.GrassyDev.pvzmod.registry.PvZSounds.SILENCEVENET;
 import static io.github.GrassyDev.pvzmod.registry.PvZSounds.SQUASHHUMEVENT;
 
@@ -63,7 +59,6 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 	public boolean firstAttack;
 	public boolean inAnimation;
 	public boolean attackLock;
-	public boolean statusSwitch = true;
 	private String controllerName = "chompcontroller";
 	public static final UUID MAX_RANGE_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
 	private boolean stopAnimation;
@@ -73,6 +68,7 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 	public SquashEntity(EntityType<? extends SquashEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
+		this.targetStrength = true;
     }
 
 	static {
@@ -129,96 +125,8 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~// **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new SquashEntity.AttackGoal());
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25  &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 11);
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-			(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 10);
-		}));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
-		}));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
-		}));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
-		}));
-		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
-		}));
-		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
-		}));
-		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
-		}));
-		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
-		}));
-		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
-		}));
-		this.targetSelector.add(11, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
-		}));
-		this.targetSelector.add(12, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					!(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
-		}));
-		this.targetSelector.add(13, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
 	}
 
-	//Smash
-	public boolean tryAttack(Entity target) {
-		if (!this.hasStatusEffect(PvZCubed.FROZEN)) {
-			if (this.firstAttack && this.animationTicksLeft <= 0 && (target.isOnGround() || target.isInsideWaterOrBubbleColumn())) {
-				this.animationTicksLeft = 55;
-				if (!attackLock){
-					this.playSound(SQUASHHUMEVENT);
-				}
-				this.firstAttack = false;
-			}
-		}
-		return false;
-	}
 	List<LivingEntity> checkList = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().shrink(0.5, 0, 0));
 
 	protected void splashDamage() {
@@ -291,14 +199,14 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 		}
 
 		if (this.age != 0) {
-			if (this.animationTicksLeft <= 0) {
+			if (this.animationTicksLeft <= 0 && !this.world.isClient()) {
 				BlockPos blockPos2 = this.getBlockPos();
 				BlockState blockState = this.getLandingBlockState();
 				if ((!blockPos2.equals(blockPos) || !blockState.hasSolidTopSurface(world, this.getBlockPos(), this)) && !this.hasVehicle()) {
-					if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead){
+					if (!this.world.isClient && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT) && !this.naturalSpawn && this.age <= 10 && !this.dead) {
 						this.dropItem(ModItems.SQUASH_SEED_PACKET);
 					}
-				this.discard();
+					this.discard();
 				}
 			}
 		}
@@ -308,13 +216,20 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		LivingEntity target = this.getTarget();
+		if (!this.hasStatusEffect(PvZCubed.FROZEN) && target != null) {
+			if (this.firstAttack && this.animationTicksLeft <= 0) {
+				this.animationTicksLeft = 55;
+				this.playSound(SQUASHHUMEVENT);
+				this.firstAttack = false;
+			}
+		}
+		this.targetZombies(originalVec3d, 5, true, false);
+		if (this.age <= 1){
+			this.setTarget(null);
+		}
 		if (age <= 5){
 			this.originalVec3d = this.getPos();
-		}
-		if (statusSwitch) {
-			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
-			maxRangeAttribute.removeModifier(MAX_RANGE_UUID);
-			statusSwitch = false;
 		}
 		if (this.animationTicksLeft > 0 && this.animationTicksLeft <= 25 && !this.attackLock) {
 			Entity entity = this.getTarget();
@@ -340,9 +255,6 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 				this.stopAnimation = true;
 			}
 		}
-		if (this.getTarget() != null){
-			this.tryAttack(getTarget());
-		}
 	}
 
 	public void mobTick() {
@@ -353,18 +265,12 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 		if (this.animationTicksLeft == 9 && !this.isInsideWaterOrBubbleColumn()) {
 			this.attackLock = true;
 			this.playSound(PvZSounds.GARGANTUARSMASHEVENT, 1F, 1.0F);
-			if (getTarget() != null) {
-				this.firstAttack = true;
-			}
 			this.splashDamage();
 		}
 		else if (this.animationTicksLeft == 9 && this.isInsideWaterOrBubbleColumn()) {
 			world.sendEntityStatus(this, (byte) 107);
 			this.attackLock = true;
 			this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 1.5F, 1.0F);
-			if (getTarget() != null) {
-				this.firstAttack = true;
-			}
 			this.splashDamage();
 			this.discard();
 		}
@@ -380,10 +286,6 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 		else{
 			this.removeStatusEffect(StatusEffects.RESISTANCE);
 			this.world.sendEntityStatus(this, (byte) 112);
-		}
-		if (this.age == 3) {
-			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
-			maxRangeAttribute.addPersistentModifier(createRangeAttribute(4.0D));
 		}
 	}
 
@@ -417,11 +319,11 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 
 	public static DefaultAttributeContainer.Builder createSquashAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 0D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D);
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 4D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 180D);
 	}
 
 	protected boolean canClimb() {
@@ -494,19 +396,5 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 		}
 		this.playBlockFallSound();
 		return true;
-	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	private class AttackGoal extends MeleeAttackGoal {
-		public AttackGoal() {
-			super(SquashEntity.this, 1.0, true);
-		}
-
-		protected double getSquaredMaxAttackDistance(LivingEntity entity) {
-			float f = SquashEntity.this.getWidth() - 0.1F;
-			return (double)(f * 2F * f * 2F + entity.getWidth());
-		}
 	}
 }

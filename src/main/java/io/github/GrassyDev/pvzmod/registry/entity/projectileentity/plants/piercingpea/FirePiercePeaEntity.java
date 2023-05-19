@@ -208,7 +208,6 @@ public class FirePiercePeaEntity extends ThrownItemEntity implements IAnimatable
 				} else {
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 				}
-				System.out.println("test");
 				if (entity2 != entityStore && !entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) &&
 						!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn()) &&
 						(!(entity instanceof ZombieShieldEntity))) {
@@ -294,8 +293,6 @@ public class FirePiercePeaEntity extends ThrownItemEntity implements IAnimatable
 										if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity) {
 											generalPvZombieEntity.fireSplashTicks = 10;
 										}
-										System.out.println(damage);
-										System.out.println(damageSplash);
 									}
 								}
 							}

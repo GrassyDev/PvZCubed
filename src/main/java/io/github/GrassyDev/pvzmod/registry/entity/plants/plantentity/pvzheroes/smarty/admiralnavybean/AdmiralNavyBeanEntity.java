@@ -2,13 +2,10 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit.SpitEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -17,12 +14,10 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -149,33 +144,17 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 	protected void initGoals() {
 		this.goalSelector.add(1, new AdmiralNavyBeanEntity.FireBeamGoal(this));
 		this.goalSelector.add(1, new ProjectileAttackGoal(this, 0D, 30, 15.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-					!generalPvZombieEntity.isFlying();
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-		snorkelGoal();
-	}
-
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
 	}
 
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {
 		if (target.squaredDistanceTo(this) <= 25) {
-			this.tryAttack(target);
+			this.smack(target);
 		}
 	}
 
-	public boolean tryAttack(Entity target) {
+	public void smack(Entity target) {
 		int i = this.attackTicksLeft;
 		ZombiePropEntity passenger = null;
 		for (Entity entity1 : target.getPassengerList()) {
@@ -204,9 +183,6 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 			};
 			target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 			this.chomperAudioDelay = 3;
-			return bl;
-		} else {
-			return false;
 		}
 	}
 
@@ -247,13 +223,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		LivingEntity target = this.getTarget();
-		if (target != null) {
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				this.setTarget(null);
-				snorkelGoal();
-			}
-		}
+		this.targetZombies(this.getPos(), 2, false, false);
 		BlockPos blockPos = this.getBlockPos();
 		if (--amphibiousRaycastDelay >= 0) {
 			amphibiousRaycastDelay = 60;

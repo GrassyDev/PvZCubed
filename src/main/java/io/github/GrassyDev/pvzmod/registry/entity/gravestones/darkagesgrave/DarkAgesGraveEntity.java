@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.darkagesgrave;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
@@ -11,12 +10,12 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.darkages.FlagPeasantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.announcer.AnnouncerImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.modernday.ImpEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pumpkinzombie.PumpkinZombieEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -508,6 +507,36 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 						coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 						coneheadEntity.setOwner(DarkAgesGraveEntity.this);
 						serverWorld.spawnEntityAndPassengers(coneheadEntity);
+					}
+				}
+				if (probability7 <= 0.15 / halfModifier) { // 15% x1 Pumpkin Zombie
+					for (int h = 0; h < 1; ++h) {
+						if (!DarkAgesGraveEntity.this.is1x1()) {
+							zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
+							zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
+						}
+						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+						PumpkinZombieEntity pumpkinZombieEntity = (PumpkinZombieEntity) PvZEntity.PUMPKINZOMBIE.create(DarkAgesGraveEntity.this.world);
+						pumpkinZombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						pumpkinZombieEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						pumpkinZombieEntity.setOwner(DarkAgesGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(pumpkinZombieEntity);
+					}
+				}
+				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+					if (probability8 <= 0.15 / halfModifier) { // 15% x2 Pumpkin Zombie
+						for (int h = 0; h < 2 / halfModifier; ++h) {
+							if (!DarkAgesGraveEntity.this.is1x1()) {
+								zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
+								zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							PumpkinZombieEntity pumpkinZombieEntity = (PumpkinZombieEntity) PvZEntity.PUMPKINZOMBIE.create(DarkAgesGraveEntity.this.world);
+							pumpkinZombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							pumpkinZombieEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							pumpkinZombieEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(pumpkinZombieEntity);
+						}
 					}
 				}
 				if (probability2 <= 0.10 / halfModifier) { // 10% x1 Peasant Knight

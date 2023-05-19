@@ -6,22 +6,17 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.beespike.ShootingBeeSpikeEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
@@ -46,7 +41,6 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.EnumSet;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
-import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_STRENGTH;
 
 public class BeeshooterEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
@@ -61,7 +55,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
     public BeeshooterEntity(EntityType<? extends BeeshooterEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-
+		this.targetHelmet = true;
     }
 
 	static {
@@ -109,116 +103,6 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new BeeshooterEntity.FireBeamGoal(this));
-        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
-					generalPvZombieEntity.isFlying() &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno());
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getFirstPassenger() != null &&
-					generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno());
-		}));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 11);
-		}));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 10);
-		}));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
-		}));
-		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
-		}));
-		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
-		}));
-		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
-		}));
-		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
-		}));
-		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
-		}));
-		this.targetSelector.add(11, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
-		}));
-		this.targetSelector.add(12, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
-		}));
-		this.targetSelector.add(13, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
-		}));
-		this.targetSelector.add(14, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getFirstPassenger() != null &&
-					!(generalPvZombieEntity.getFirstPassenger() instanceof ZombieShieldEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel())
-					&& !(generalPvZombieEntity.getHypno()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
-		}));
-		this.targetSelector.add(15, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-					&& !(generalPvZombieEntity.getHypno());
-		}));
-		this.targetSelector.add(16, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-		snorkelGoal();
-	}
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
 	}
 
 
@@ -258,16 +142,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		LivingEntity target = this.getTarget();
-		if (target != null){
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				this.setTarget(null);
-				snorkelGoal();
-			}
-			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
-				this.setTarget(null);
-			}
-		}
+		this.targetZombies(this.getPos(), 10, false, true);
 	}
 
 	public void tickMovement() {

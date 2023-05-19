@@ -7,7 +7,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
@@ -16,7 +15,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -27,7 +25,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -205,21 +202,6 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new GloomshroomEntity.FireBeamGoal(this));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-					!(generalPvZombieEntity.isFlying());
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-		snorkelGoal();
-	}
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
 	}
 
 
@@ -327,20 +309,28 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 	/** /~*~//~*TICKING*~//~*~/ **/
 
 	public void tick() {
+		if (!this.world.isClient) {
+			if ((this.world.getAmbientDarkness() >= 2 ||
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))) {
+				this.setIsAsleep(IsAsleep.FALSE);
+			} else if (this.world.getAmbientDarkness() < 2 &&
+					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))) {
+				this.setIsAsleep(IsAsleep.TRUE);
+			}
+		}
+		if (this.getIsAsleep()){
+			this.setTarget(null);
+		}
+		else {
+			this.targetZombies(this.getPos(), 3, false, false);
+		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		LivingEntity target = this.getTarget();
-		if (target != null){
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				this.setTarget(null);
-				snorkelGoal();
-			}
-			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
-				this.setTarget(null);
-			}
-		}
+		this.targetZombies(this.getPos(), 2, false, false);
 	}
 
 	public void tickMovement() {
@@ -350,31 +340,7 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 		}
 	}
 
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
 	protected void mobTick() {
-		//ambient darkness: daytime = 0, rain = 2, thunder/night > 2
-		//skylight is the light of the sky hitting the block. Allows for mushrooms to stay awake underground while preventing light from torches making them asleep
-		//we need this switch to prevent high server lag because of the goals
-		if ((this.world.getAmbientDarkness() >= 2 ||
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-				this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-				&& !awakeSwitch) {
-			this.world.sendEntityStatus(this, (byte) 112);
-			this.initGoals();
-			sleepSwitch = false;
-			awakeSwitch = true;
-		}
-		else if (this.world.getAmbientDarkness() < 2 &&
-				this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-				!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-				&& !sleepSwitch) {
-			this.world.sendEntityStatus(this, (byte) 113);
-			this.clearGoalsAndTasks();
-			sleepSwitch = true;
-			awakeSwitch = false;
-		}
 		super.mobTick();
 	}
 

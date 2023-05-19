@@ -1,13 +1,21 @@
 package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -23,7 +31,10 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_STRENGTH;
 
 public abstract class PlantEntity extends GolemEntity {
 
@@ -82,7 +93,7 @@ public abstract class PlantEntity extends GolemEntity {
 	}
 
 
-	//Flying Tag
+	//Low Profile Tag
 
 	protected static final TrackedData<Boolean> DATA_ID_LOWPROF =
 			DataTracker.registerData(PlantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -167,6 +178,192 @@ public abstract class PlantEntity extends GolemEntity {
 	}
 
 	/** ----------------------------------------------------------------------- **/
+
+	public boolean targetStrength;
+	public boolean lobbedTarget;
+	public boolean targetPoison;
+	public boolean targetIce;
+	public boolean targetHelmet;
+	public boolean targetNoHelmet;
+	public boolean targetChilled;
+
+	protected void targetZombies(Vec3d pos, int yDiff, boolean canHitSnorkel, boolean canHitFlying){
+		List<HostileEntity> list = world.getNonSpectatingEntities(HostileEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getPos()).expand(this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE) + 1));
+		int zombieStrength = 0;
+		int prioritizedStrength = 0;
+		Vec3d prevZombiePosition = Vec3d.ZERO;
+		boolean isIced;
+		boolean isPoisoned;
+		boolean prevIced = false;
+		boolean hasHelmet = false;
+		boolean hasShield = false;
+		boolean prevHelmet = false;
+		LivingEntity targeted = null;
+		LivingEntity prioritizedTarget = null;
+		if (!this.world.isClient()) {
+			for (HostileEntity hostileEntity : list) {
+				if (!(hostileEntity instanceof ZombiePropEntity && !(hostileEntity instanceof ZombieObstacleEntity))) {
+					if (hostileEntity.squaredDistanceTo(pos) <= Math.pow(this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE), 2) &&
+							(hostileEntity.getY() < (this.getY() + yDiff) && hostileEntity.getY() > (this.getY() - yDiff)) && hostileEntity.isAlive()) {
+						if (hostileEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+								!(generalPvZombieEntity.getHypno())) {
+							int currentStrength = ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0);
+							isIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+							isPoisoned = hostileEntity.hasStatusEffect(PvZCubed.PVZPOISON);
+							if (hasHelmet){
+								prevHelmet = true;
+								hasHelmet = false;
+							}
+							if (hasShield){
+								prevHelmet = true;
+								hasShield = false;
+							}
+							for (Entity zombiePropEntity : hostileEntity.getPassengerList()) {
+								hasHelmet = zombiePropEntity instanceof ZombiePropEntity && !(zombiePropEntity instanceof ZombieShieldEntity);
+								hasShield = zombiePropEntity instanceof ZombieShieldEntity;
+							}
+							if (currentStrength > 0) {
+								if (zombieStrength < currentStrength && this.targetStrength) {
+									if (canHitFlying && generalPvZombieEntity.isFlying()) {
+										zombieStrength = currentStrength;
+										prevZombiePosition = hostileEntity.getPos();
+										targeted = hostileEntity;
+										prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+									} else if (!canHitFlying && !generalPvZombieEntity.isFlying()) {
+										if (canHitSnorkel && generalPvZombieEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+											zombieStrength = currentStrength;
+											prevZombiePosition = hostileEntity.getPos();
+											targeted = hostileEntity;
+											prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+										} else if (canHitSnorkel && generalPvZombieEntity instanceof SnorkelEntity snorkelEntity) {
+											zombieStrength = currentStrength;
+											prevZombiePosition = hostileEntity.getPos();
+											targeted = hostileEntity;
+											prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+										} else if (!canHitSnorkel && (generalPvZombieEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel()) ||
+												!(generalPvZombieEntity instanceof SnorkelEntity)) {
+											zombieStrength = currentStrength;
+											prevZombiePosition = hostileEntity.getPos();
+											targeted = hostileEntity;
+											prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+										}
+									}
+									else if (canHitFlying) {
+										if (canHitSnorkel && generalPvZombieEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+											zombieStrength = currentStrength;
+											prevZombiePosition = hostileEntity.getPos();
+											targeted = hostileEntity;
+											prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+										} else if (canHitSnorkel && generalPvZombieEntity instanceof SnorkelEntity snorkelEntity) {
+											zombieStrength = currentStrength;
+											prevZombiePosition = hostileEntity.getPos();
+											targeted = hostileEntity;
+											prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+										} else if (!canHitSnorkel && (generalPvZombieEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel()) ||
+												!(generalPvZombieEntity instanceof SnorkelEntity)) {
+											zombieStrength = currentStrength;
+											prevZombiePosition = hostileEntity.getPos();
+											targeted = hostileEntity;
+											prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+										}
+									}
+								} else if ((zombieStrength == currentStrength || !this.targetStrength) &&
+										this.squaredDistanceTo(prevZombiePosition) > this.squaredDistanceTo(hostileEntity.getPos())) {
+									if (!(targetChilled && prevIced && !isIced)) {
+										if (canHitFlying && generalPvZombieEntity.isFlying()) {
+											zombieStrength = currentStrength;
+											prevZombiePosition = hostileEntity.getPos();
+											targeted = hostileEntity;
+											prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+										} else if (!canHitFlying && !generalPvZombieEntity.isFlying()) {
+											if (canHitSnorkel && generalPvZombieEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+												zombieStrength = currentStrength;
+												prevZombiePosition = hostileEntity.getPos();
+												targeted = hostileEntity;
+												prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+											} else if (canHitSnorkel && generalPvZombieEntity instanceof SnorkelEntity snorkelEntity) {
+												zombieStrength = currentStrength;
+												prevZombiePosition = hostileEntity.getPos();
+												targeted = hostileEntity;
+												prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+											} else if (!canHitSnorkel && (generalPvZombieEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel()) ||
+													!(generalPvZombieEntity instanceof SnorkelEntity)) {
+												zombieStrength = currentStrength;
+												prevZombiePosition = hostileEntity.getPos();
+												targeted = hostileEntity;
+												prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+											}
+										}
+										else if (canHitFlying) {
+											if (canHitSnorkel && generalPvZombieEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
+												zombieStrength = currentStrength;
+												prevZombiePosition = hostileEntity.getPos();
+												targeted = hostileEntity;
+												prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+											} else if (canHitSnorkel && generalPvZombieEntity instanceof SnorkelEntity snorkelEntity) {
+												zombieStrength = currentStrength;
+												prevZombiePosition = hostileEntity.getPos();
+												targeted = hostileEntity;
+												prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+											} else if (!canHitSnorkel && (generalPvZombieEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel()) ||
+													!(generalPvZombieEntity instanceof SnorkelEntity)) {
+												zombieStrength = currentStrength;
+												prevZombiePosition = hostileEntity.getPos();
+												targeted = hostileEntity;
+												prevIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
+											}
+										}
+									}
+								}
+								if (prioritizedTarget != null && lobbedTarget && this.squaredDistanceTo(prioritizedTarget) < this.squaredDistanceTo(hostileEntity.getPos())) {
+									if (lobbedTarget && hasShield) {
+										prioritizedTarget = hostileEntity;
+									}
+								}
+								else if (lobbedTarget && hasShield) {
+									prioritizedTarget = hostileEntity;
+								}
+								if (prioritizedTarget != null && targetIce && this.squaredDistanceTo(prioritizedTarget) > this.squaredDistanceTo(hostileEntity.getPos())) {
+									if (targetIce && !isIced) {
+										prioritizedTarget = hostileEntity;
+									}
+								}
+								else if (targetIce && !isIced) {
+									prioritizedTarget = hostileEntity;
+								}
+								if (targetPoison && !isPoisoned) {
+									prioritizedTarget = hostileEntity;
+								}
+								if (targetNoHelmet && hasHelmet && prioritizedTarget == hostileEntity){
+									prioritizedTarget = null;
+								}
+								if (targetNoHelmet && !hasHelmet && prioritizedStrength < currentStrength) {
+									prioritizedStrength = currentStrength;
+								    prioritizedTarget = hostileEntity;
+								}
+								if (targetHelmet && hasHelmet && prioritizedTarget == hostileEntity){
+									prioritizedTarget = null;
+								}
+								if (targetHelmet && hasHelmet && prioritizedStrength < currentStrength) {
+									prioritizedStrength = currentStrength;
+									prioritizedTarget = hostileEntity;
+								}
+							}
+						}
+						if (targeted == null && prioritizedTarget == null && !(hostileEntity instanceof GeneralPvZombieEntity)){
+							targeted = hostileEntity;
+						}
+					}
+				}
+			}
+			if (prioritizedTarget != null){
+				this.setTarget(prioritizedTarget);
+			}
+			else {
+				this.setTarget(targeted);
+			}
+		}
+	}
 
 	public void tick() {
 		if (this.getFireImmune()){

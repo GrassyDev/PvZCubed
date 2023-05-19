@@ -2,16 +2,11 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -19,7 +14,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -30,7 +24,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
@@ -67,6 +60,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
     public PuffshroomEntity(EntityType<? extends PuffshroomEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
+		this.targetPoison = true;
     }
 
 	protected void initDataTracker() {
@@ -179,23 +173,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-	}
-
-	protected void awakeGoals(){
 		this.goalSelector.add(1, new PuffshroomEntity.FireBeamGoal(this));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-					!(generalPvZombieEntity.isFlying());
-		}));
-		snorkelGoal();
-	}
-
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
 	}
 
 
@@ -238,42 +216,23 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 		if (!this.world.isClient) {
 			if ((this.world.getAmbientDarkness() >= 2 ||
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-					&& !awakeSwitch) {
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))) {
 				this.setIsAsleep(IsAsleep.FALSE);
-				this.awakeGoals();
-				sleepSwitch = false;
-				awakeSwitch = true;
 			} else if (this.world.getAmbientDarkness() < 2 &&
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-					&& !sleepSwitch) {
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))) {
 				this.setIsAsleep(IsAsleep.TRUE);
-				for (Goal goal : this.goalSelector.getGoals()) {
-					if (!(goal instanceof FireBeamGoal fireBeamGoal)) {
-						this.goalSelector.remove(goal);
-					}
-					else {
-						fireBeamGoal.stop();
-					}
-				}
-				sleepSwitch = true;
-				awakeSwitch = false;
 			}
+		}
+		if (this.getIsAsleep()){
+			this.setTarget(null);
+		}
+		else {
+			this.targetZombies(this.getPos(), 3, false, false);
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
-		}
-		LivingEntity target = this.getTarget();
-		if (target != null){
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				this.setTarget(null);
-				snorkelGoal();
-			}
-			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
-				this.setTarget(null);
-			}
 		}
 		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();

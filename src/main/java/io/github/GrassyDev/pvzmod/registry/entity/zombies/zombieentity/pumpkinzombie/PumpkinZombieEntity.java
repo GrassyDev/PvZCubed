@@ -303,7 +303,7 @@ public class PumpkinZombieEntity extends PvZombieEntity implements IAnimatable {
 
 	private void raycastExplode() {
 		double squaredDist;
-		squaredDist = 12.25;
+		squaredDist = 4;
 		Vec3d vec3d = this.getPos();
 		List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5));
 		Iterator var9 = list.iterator();

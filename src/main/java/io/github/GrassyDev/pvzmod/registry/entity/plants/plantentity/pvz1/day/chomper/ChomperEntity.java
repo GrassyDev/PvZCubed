@@ -6,8 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -15,9 +13,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -25,7 +20,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -68,6 +62,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
         super(entityType, world);
 		this.attackTicksLeft = 0;
         this.ignoreCameraFrustum = true;
+		this.targetStrength = true;
     }
 
 	protected void initDataTracker() {
@@ -162,7 +157,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
         else if (this.notEating) {
             event.getController().setAnimation(new AnimationBuilder().playOnce("chomper.chomp2"));
         }
-        else if (i > 0) {
+        else {
             event.getController().setAnimation(new AnimationBuilder().playOnce("chomper.chomp"));
         }
         return PlayState.CONTINUE;
@@ -171,44 +166,16 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~// **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new ChomperEntity.AttackGoal());
-		this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 5.0F));
-		this.goalSelector.add(2, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 15.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-		snorkelGoal();
-	}
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
 	}
 
 	@Override
 	protected void applyDamage(DamageSource source, float amount) {
-		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity || source.isOutOfWorld() || (this.getTarget() != null && this.squaredDistanceTo(this.getTarget()) > 4) || this.attackTicksLeft > 0) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity || source.isOutOfWorld() || this.attackTicksLeft > 0) {
 			super.applyDamage(source, amount);
 		}
 	}
 
-	private class AttackGoal extends MeleeAttackGoal {
-		public AttackGoal() {
-			super(ChomperEntity.this, 1.0, true);
-		}
-
-		protected double getSquaredMaxAttackDistance(LivingEntity entity) {
-			float f = ChomperEntity.this.getWidth() - 0.1F;
-			return (double)(f * 2.8F * f * 2.8F + entity.getWidth());
-		}
-	}
-
-	public boolean tryAttack(Entity target) {
+	public void chomp(Entity target) {
 		int i = this.attackTicksLeft;
 		ZombiePropEntity passenger = null;
 		for (Entity entity1 : target.getPassengerList()) {
@@ -234,9 +201,6 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				};
 				passenger.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
-				return bl;
-			} else {
-				return false;
 			}
 		}
 		else if (target instanceof GraveEntity ||
@@ -265,9 +229,6 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				};
 				target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
-				return bl;
-			} else {
-				return false;
 			}
 		}
 		else if ((passenger instanceof ZombieShieldEntity zombieShieldEntity && !(zombieShieldEntity instanceof ZombieObstacleEntity)) || (passenger != null && passenger.isCovered())) {
@@ -288,9 +249,6 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				};
 				passenger.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
-				return bl;
-			} else {
-				return false;
 			}
 		}
 		else if (ZOMBIE_SIZE.get(target.getType()).orElse("medium").equals("small")) {
@@ -303,9 +261,6 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				}
 				target.kill();
 				this.chomperAudioDelay = 3;
-				return bl;
-			} else {
-				return false;
 			}
 		}
 		else {
@@ -317,9 +272,6 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 					this.applyDamageEffects(this, target);
 				}
 				this.chomperAudioDelay = 3;
-				return bl;
-			} else {
-				return false;
 			}
 		}
 	}
@@ -355,19 +307,16 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		if (this.getTarget() != null){
+			this.chomp(this.getTarget());
+		}
 		if (--this.chomperAudioDelay == 0){
 			this.playSound(PvZSounds.CHOMPERBITEVENT, 1.0F, 1.0F);
 		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		LivingEntity target = this.getTarget();
-		if (target != null){
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				this.setTarget(null);
-				snorkelGoal();
-			}
-		}
+		this.targetZombies(this.getPos(), 2, false, true);
 	}
 
 	public void tickMovement() {
@@ -449,7 +398,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 36.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3.5D)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 999.0D);
 	}
 

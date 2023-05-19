@@ -2,26 +2,20 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvzheroes.
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -130,41 +124,9 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 	/** /~*~//~*AIT*~//~*~// **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new SmackadamiaEntity.AttackGoal());
-		this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 5.0F));
-		this.goalSelector.add(2, new LookAtEntityGoal(this, GeneralPvZombieEntity.class, 15.0F));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(generalPvZombieEntity.isFlying() || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")|| ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall"));
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
-		}));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-		snorkelGoal();
-	}
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
 	}
 
-	private class AttackGoal extends MeleeAttackGoal {
-		public AttackGoal() {
-			super(SmackadamiaEntity.this, 1.0, true);
-		}
-
-		protected double getSquaredMaxAttackDistance(LivingEntity entity) {
-			float f = SmackadamiaEntity.this.getWidth() - 0.1F;
-			return (double)(f * 3.5F * f * 3.5F + entity.getWidth());
-		}
-	}
-
-	public boolean tryAttack(Entity target) {
+	public void smack(Entity target) {
 		int i = this.attackTicksLeft;
 		if ((target instanceof GeneralPvZombieEntity generalPvZombieEntity &&
 				(generalPvZombieEntity.isFlying() || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")|| ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall"))
@@ -197,12 +159,7 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 				};
 				target.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 				this.chomperAudioDelay = 3;
-				return bl;
-			} else {
-				return false;
 			}
-		} else {
-			return false;
 		}
 	}
 
@@ -237,11 +194,15 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		this.targetZombies(this.getPos(), 2, false, true);
 		if (!(this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity &&
 				(generalPvZombieEntity.isFlying() || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")|| ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall")))){
 			if (this.getTarget() != null && this.getTarget().squaredDistanceTo(this) > 1.5625){
 				this.setTarget(null);
 			}
+		}
+		if (this.getTarget() != null){
+			this.smack(this.getTarget());
 		}
 		if (--this.chomperAudioDelay == 0){
 			this.playSound(PvZSounds.PEASHOOTEVENT, 1.0F, 1.0F);

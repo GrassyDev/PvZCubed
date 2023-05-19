@@ -2,15 +2,11 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spore.SporeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ScaredyshroomVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,7 +14,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -27,9 +22,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -76,6 +69,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
         this.ignoreCameraFrustum = true;
 
         this.animationScare = 30;
+		this.targetPoison = true;
     }
 
 	protected void initDataTracker() {
@@ -180,38 +174,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-	}
-
-	protected void awakeGoals() {
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
 		this.goalSelector.add(1, new ScaredyshroomEntity.FireBeamGoal(this));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-					!(generalPvZombieEntity.isFlying()) && !(livingEntity.hasStatusEffect(PvZCubed.PVZPOISON));
-		}));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity)) &&
-					!(livingEntity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
-					!(generalPvZombieEntity.isFlying());
-		}));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity) && !(livingEntity.hasStatusEffect(PvZCubed.PVZPOISON));
-		}));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
-		snorkelGoal();
-	}
-
-	protected void snorkelGoal() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, true, false, (livingEntity) -> {
-			return livingEntity instanceof SnorkelEntity snorkelEntity && !snorkelEntity.isInvisibleSnorkel() && !(snorkelEntity.getHypno());
-		}));
 	}
 
 
@@ -267,50 +230,34 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 
 	/** /~*~//~**TICKING**~//~*~/ **/
 
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
 	public void tick() {
 		if (!this.world.isClient) {
 			if ((this.world.getAmbientDarkness() >= 2 ||
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-					&& !awakeSwitch) {
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))) {
 				this.setIsAsleep(IsAsleep.FALSE);
-				this.awakeGoals();
-				sleepSwitch = false;
-				awakeSwitch = true;
 			} else if (this.world.getAmbientDarkness() < 2 &&
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-					&& !sleepSwitch) {
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))) {
 				this.setIsAsleep(IsAsleep.TRUE);
-				for (Goal goal : this.goalSelector.getGoals()) {
-					if (!(goal instanceof FireBeamGoal fireBeamGoal)) {
-						this.goalSelector.remove(goal);
-					}
-					else {
-						fireBeamGoal.stop();
-					}
-				}
-				sleepSwitch = true;
-				awakeSwitch = false;
 			}
+		}
+		if (this.getIsAsleep() || !this.checkForZombies().isEmpty()){
+			this.setTarget(null);
+		}
+		else {
+			this.targetZombies(this.getPos(), 10, false, false);
+		}
+		if (!this.checkForZombies().isEmpty()){
+			this.world.sendEntityStatus(this, (byte) 104);
+		}
+		else {
+			this.world.sendEntityStatus(this, (byte) 14);
 		}
 		super.tick();
 		this.checkForZombies();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
-		}
-		LivingEntity target = this.getTarget();
-		if (target != null){
-			if (target instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) {
-				this.setTarget(null);
-				snorkelGoal();
-			}
-			else if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
-				this.setTarget(null);
-			}
 		}
 	}
 
@@ -501,14 +448,6 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 					this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 111);
 					++this.animationTicks;
 					++this.beamTicks;
-					if (this.beamTicks >= 0 && this.animationTicks >= -7){
-						if (!(this.plantEntity.checkForZombies().isEmpty())){
-							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 104);
-						}
-						else {
-							this.plantEntity.world.sendEntityStatus(this.plantEntity, (byte) 14);
-						}
-					}
 					if (this.plantEntity.checkForZombies().isEmpty())  {
 						if (this.beamTicks >= 0 && this.animationTicks >= -7) {
 							if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {

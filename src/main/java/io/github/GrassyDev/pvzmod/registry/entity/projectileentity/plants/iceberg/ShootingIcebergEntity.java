@@ -245,7 +245,7 @@ public class ShootingIcebergEntity extends ThrownItemEntity implements IAnimatab
 							}
 							if (!livingEntity.hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
 								if (!(livingEntity instanceof ZombieShieldEntity )) {
-									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 60, 1)));
+									livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));
 								}
 							}
 							this.world.sendEntityStatus(this, (byte) 3);

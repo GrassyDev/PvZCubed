@@ -13,7 +13,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -100,7 +99,12 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 				}
 				if (zombiePropEntity2 == null ||
 				zombiePropEntity2 instanceof ZombieShieldEntity) {
-					livingEntity.damage(DamageSource.thrownProjectile(this, this), 2);
+					int damage = 2;
+					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(livingEntity.getType()).orElse("flesh");
+					if ("paper".equals(zombieMaterial) || "plant".equals(zombieMaterial)) {
+						damage = damage * 2;
+					}
+					livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 					if (!(livingEntity instanceof ZombieShieldEntity)) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);

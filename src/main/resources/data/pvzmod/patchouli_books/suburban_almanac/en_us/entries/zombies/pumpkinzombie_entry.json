@@ -9,7 +9,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27, 84 (Plant Pumpkin)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4, 30 (Explosion)",
-        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)3.5 Blocks",
+        "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)2 Blocks",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Decent",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Explodes when they lose their Pumpkin helmet.",
         "$(br2)$(#bd951a)As the only Zombie vegan, the Pumpkin Zombie refuses to partake in the eating of brains."

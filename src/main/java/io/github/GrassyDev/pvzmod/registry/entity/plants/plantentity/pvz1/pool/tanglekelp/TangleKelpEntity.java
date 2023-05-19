@@ -5,24 +5,16 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -49,7 +41,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.*;
+import static io.github.GrassyDev.pvzmod.PvZCubed.MOD_ID;
 import static io.github.GrassyDev.pvzmod.registry.PvZSounds.SILENCEVENET;
 
 public class TangleKelpEntity extends PlantEntity implements IAnimatable {
@@ -63,7 +55,6 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 	public boolean firstAttack;
 	public boolean inAnimation;
 	public boolean attackLock;
-	public boolean statusSwitch = true;
 	private boolean stopAnimation;
 	private int amphibiousRaycastDelay;
 	public static final UUID MAX_RANGE_UUID = UUID.nameUUIDFromBytes(MOD_ID.getBytes(StandardCharsets.UTF_8));
@@ -72,7 +63,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 
 
 
-	public Vec3d originalVec3d;
+	public Vec3d originalVec3d = this.getPos();
 
     public TangleKelpEntity(EntityType<? extends TangleKelpEntity> entityType, World world) {
         super(entityType, world);
@@ -155,120 +146,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.goalSelector.add(1, new TangleKelpEntity.AttackGoal());
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 11);
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 10);
-		}));
-		this.targetSelector.add(3, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 9);
-		}));
-		this.targetSelector.add(4, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 8);
-		}));
-		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 7);
-		}));
-		this.targetSelector.add(6, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 6);
-		}));
-		this.targetSelector.add(7, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 5);
-		}));
-		this.targetSelector.add(8, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 4);
-		}));
-		this.targetSelector.add(9, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 3);
-		}));
-		this.targetSelector.add(10, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 2);
-		}));
-		this.targetSelector.add(11, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 1);
-		}));
-		this.targetSelector.add(12, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && livingEntity.isInsideWaterOrBubbleColumn() && !(generalPvZombieEntity.getHypno())
-					&& !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar")) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")) && (!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity))
-					&& generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					!(generalPvZombieEntity.isFlying()) &&
-					generalPvZombieEntity.squaredDistanceTo(originalVec3d) <= 25 &&
-					(ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0) == 0);
-		}));
-		this.targetSelector.add(13, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && livingEntity.isInsideWaterOrBubbleColumn() && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
     }
-
-
-	//Smash
-	public boolean tryAttack(Entity target) {
-		if (!this.hasStatusEffect(PvZCubed.FROZEN) && target != null) {
-			if (this.firstAttack && this.animationTicksLeft <= 0 && (target.isInsideWaterOrBubbleColumn() && !this.dryLand)) {
-				this.animationTicksLeft = 65;
-				if (!attackLock){
-					this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH);
-					world.sendEntityStatus(this, (byte) 100);
-				}
-				this.firstAttack = false;
-			}
-		}
-		return false;
-	}
 
 
 	/** /~*~//~*POSITION*~//~*~/ **/
@@ -281,7 +159,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 			super.setPosition((double) MathHelper.floor(x) + 0.5, (double)MathHelper.floor(y + 0.5), (double)MathHelper.floor(z) + 0.5);
 		}
 
-		if (this.age != 0) {
+		if (this.age != 0 && !this.world.isClient()) {
 			if (this.animationTicksLeft <= 0) {
 				BlockPos blockPos2 = this.getBlockPos();
 				if (!this.world.isClient()) {
@@ -299,21 +177,19 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		LivingEntity target = this.getTarget();
-		if (target != null){
-			if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
-				this.setTarget(null);
-			}
-			else {
-				this.tryAttack(getTarget());
+		if (!this.hasStatusEffect(PvZCubed.FROZEN) && target != null) {
+			if (this.firstAttack && this.animationTicksLeft <= 0 && (target.isInsideWaterOrBubbleColumn() && !this.dryLand)) {
+				this.animationTicksLeft = 65;
+				if (!attackLock){
+					this.playSound(SoundEvents.ENTITY_PLAYER_SPLASH);
+					world.sendEntityStatus(this, (byte) 100);
+				}
+				this.firstAttack = false;
 			}
 		}
+		this.targetZombies(originalVec3d, 2, true, false);
 		if (age <= 5){
 			this.originalVec3d = this.getPos();
-		}
-		if (statusSwitch) {
-			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
-			maxRangeAttribute.removeModifier(MAX_RANGE_UUID);
-			statusSwitch = false;
 		}
 		if (this.animationTicksLeft > 0 && this.animationTicksLeft <= 35 && !this.attackLock) {
 			Entity entity = this.getTarget();
@@ -419,10 +295,6 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 		else{
 			this.world.sendEntityStatus(this, (byte) 112);
 		}
-		if (this.age == 3) {
-			EntityAttributeInstance maxRangeAttribute = this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
-			maxRangeAttribute.addPersistentModifier(createRangeAttribute(3.0D));
-		}
 	}
 
 	@Override
@@ -458,7 +330,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23D)
 				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 0D)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 4D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0D);
     }
 
@@ -517,19 +389,5 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 		}
 		this.playBlockFallSound();
 		return true;
-	}
-
-
-	/** /~*~//~*GOALS*~//~*~/ **/
-
-	private class AttackGoal extends MeleeAttackGoal {
-		public AttackGoal() {
-			super(TangleKelpEntity.this, 1.0, true);
-		}
-
-		protected double getSquaredMaxAttackDistance(LivingEntity entity) {
-			float f = TangleKelpEntity.this.getWidth() - 0.1F;
-			return (double)(f * 2F * f * 2F + entity.getWidth());
-		}
 	}
 }

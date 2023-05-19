@@ -9,7 +9,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -124,10 +123,6 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 	protected void initGoals() {
 	}
 
-	protected void awakeGoals() {
-		this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 50.0F));
-	}
-
 
 	/** /~*~//~*POSITION*~//~*~/ **/
 
@@ -165,27 +160,16 @@ public class SunshroomEntity extends PlantEntity implements IAnimatable {
 		return (Integer)this.dataTracker.get(SUN_SPEED);
 	}
 
-	boolean sleepSwitch = false;
-	boolean awakeSwitch = false;
-
 	public void tick() {
 		if (!this.world.isClient) {
 			if ((this.world.getAmbientDarkness() >= 2 ||
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) < 2 ||
-					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))
-					&& !awakeSwitch) {
-				this.awakeGoals();
+					this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS)))) {
 				this.setIsAsleep(IsAsleep.FALSE);
-				sleepSwitch = false;
-				awakeSwitch = true;
 			} else if (this.world.getAmbientDarkness() < 2 &&
 					this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 2 &&
-					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))
-					&& !sleepSwitch) {
+					!this.world.getBiome(this.getBlockPos()).getKey().equals(Optional.ofNullable(BiomeKeys.MUSHROOM_FIELDS))) {
 				this.setIsAsleep(IsAsleep.TRUE);
-				this.clearGoalsAndTasks();
-				sleepSwitch = true;
-				awakeSwitch = false;
 			}
 		}
 		super.tick();

@@ -100,7 +100,6 @@ public class SolarWinds extends TileEntity {
 		this.addAlive();
 		List<ItemEntity> list = world.getNonSpectatingEntities(ItemEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
 		for (ItemEntity item : list) {
-			System.out.println(item);
 			if (item.getStack().isItemEqual(ModItems.PLANTFOOD.getDefaultStack())) {
 				item.discard();
 				this.playSound(PvZSounds.SUNDROPEVENT, 0.5F, (this.random.nextFloat() - this.random.nextFloat()) + 0.75F);

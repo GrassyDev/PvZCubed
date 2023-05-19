@@ -5,15 +5,12 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -233,14 +230,6 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 
 	protected void initGoals() {
 		this.goalSelector.add(2, new PotatoIgniteGoal(this));
-		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) &&
-					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
-		}));
-		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
-		}));
 	}
 
 
@@ -388,15 +377,19 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		LivingEntity target = this.getTarget();
-		if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
-			this.setTarget(null);
-		}
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
 		if (this.isAlive() && this.potatoPreparingTime > 0){
 			--this.potatoPreparingTime;
+		}
+		if (this.getPotatoStage()){
+			this.targetZombies(this.getPos(), 2, false, false);
+			this.setLowprof(LowProf.TRUE);
+		}
+		else {
+			this.setTarget(null);
+			this.setLowprof(LowProf.FALSE);
 		}
 		if (this.isAlive() && this.potatoPreparingTime <= 0 && this.potatoAnimationTime > 0 && !this.getPotatoStage()) {
 			--this.potatoAnimationTime;
@@ -481,7 +474,7 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 1.5D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 0.66D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 180);
     }
 

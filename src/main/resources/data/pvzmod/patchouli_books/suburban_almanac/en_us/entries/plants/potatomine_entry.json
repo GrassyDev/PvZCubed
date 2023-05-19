@@ -10,7 +10,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)10",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)180",
-        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)1.5 Blocks",
+        "$(br)$(#bd951a)Activation Range: $()$(#ff0000)0.66 Blocks",
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)2.5 Blocks",
         "$(br)$(#bd951a)Preparation Time: $()$(#ff0000)60s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
