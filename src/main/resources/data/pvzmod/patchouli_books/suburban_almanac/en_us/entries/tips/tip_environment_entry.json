@@ -18,7 +18,7 @@
         "$(br)Solar Winds convert Plant Food that lands on them into Petal Plant Food or Sun",
         "$(br2)Plant Food, Mushroom PF, and Tough PF convert to 1 Petal PF",
         "$(br)Air PF and Elec PF convert to 2 Petal PF",
-        "$(br)Cold PF and Fire PF convert to 3 Petal PF",
+        "$(br)Cold PF and Blazing PF convert to 3 Petal PF",
         "$(br)Aquatic PF converts to 1 Large Sun",
         "$(br)Petal PF converts to 3 Large Suns"
 
