@@ -48,7 +48,7 @@
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.weeniebeanieSP": "Weenie Beanie Weight",
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.weeniebeanieSPmin": "Weenie Beanie Group Min",
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.weeniebeanieSPmax": "Weenie Beanie Group Max",
-  "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.sunflowerseedSP": "Sunflower Seed Weight",
+  "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.sunflowerseedSPv2": "Sunflower Seed Weight",
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.sunflowerseedSPmin": "Sunflower Seed Group Min",
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.sunflowerseedSPmax": "Sunflower Seed Group Max",
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.lilypadSP": "Lily Pad Weight",
@@ -72,6 +72,9 @@
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.buttonshroomSP": "Button-shroom Weight",
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.buttonshroomSPmin": "Button-shroom Group Min",
   "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.buttonshroomSPmax": "Button-shroom Group Max",
+  "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.solarwindsSP": "Solar Winds Weight",
+  "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.solarwindsSPmin": "Solar Winds Group Min",
+  "text.config.pvz3-config.option.nestedSpawns.nestedPlantSpawns.solarwindsSPmax": "Solar Winds Group Max",
 
   "text.config.pvz3-config.section.plants": "Plant Settings",
 
@@ -919,6 +922,8 @@
 
   "entity.pvzmod.darkagesgrave": "Dark Ages Gravestone",
   "item.pvzmod.darkagesgrave_spawn": "Dark Ages Gravestone",
+
+  "entity.pvzmod.solarwinds": "Solar Winds",
 
   "entity.pvzmod.scorchedtile": "Scorched Tile",
   "entity.pvzmod.icetile": "Ice Tile",

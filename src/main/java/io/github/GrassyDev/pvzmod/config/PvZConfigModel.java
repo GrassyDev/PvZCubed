@@ -89,7 +89,7 @@ public class PvZConfigModel {
 		@RestartRequired
 		public int weeniebeanieSPmax = 4;
 		@RestartRequired
-		public int sunflowerseedSP = 17;
+		public int sunflowerseedSPv2 = 15;
 		@RestartRequired
 		public int sunflowerseedSPmin = 3;
 		@RestartRequired
@@ -136,6 +136,12 @@ public class PvZConfigModel {
 		public int buttonshroomSPmin = 2;
 		@RestartRequired
 		public int buttonshroomSPmax = 2;
+		@RestartRequired
+		public int solarwindSP = 6;
+		@RestartRequired
+		public int solarwindSPmin = 1;
+		@RestartRequired
+		public int solarwindSPmax = 1;
 	}
 
 	@SectionHeader("plants")

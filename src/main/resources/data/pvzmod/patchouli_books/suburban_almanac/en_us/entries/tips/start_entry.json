@@ -70,6 +70,14 @@
     {
       "type": "text",
       "text": [
+        "$(br2)When gathering resouces you may notice a cloud of smoke with purple and yellow particles in the middle, that's a Solar Wind!",
+        "$(br)Solar Winds are great to convert resources you might not want into more Petal Plant Food or Sun!",
+        "$(br)Simply throw any type of Plant Food in the middle of the smoke and it will spit out the items!"
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
         "$(br2)The Zombies will spawn from Graves. At first the Graves will vanish the moment they spawn a wave of zombies, ",
         "but later on they will spawn more waves before vanishing. ",
         "Difficulty influences this. Strong Zombies will not spawn on the first days on Normal and below.",
