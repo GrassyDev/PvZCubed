@@ -294,9 +294,11 @@ public class PoleVaultingEntity extends PvZombieEntity implements IAnimatable {
 			else if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED) && ((this.onGround && !this.getPoleStage()) || this.isInsideWaterOrBubbleColumn())){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(1f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
 				this.setTarget(CollidesWithPlayer(1.5f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 		}
 	}

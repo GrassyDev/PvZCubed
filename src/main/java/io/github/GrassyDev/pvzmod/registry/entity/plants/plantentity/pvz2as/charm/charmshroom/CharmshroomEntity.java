@@ -208,7 +208,7 @@ public class CharmshroomEntity extends PlantEntity implements IAnimatable, Range
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 5, true, true);
+			this.targetZombies(this.getPos(), 5, true, true, true);
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {

@@ -194,7 +194,7 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		this.targetZombies(this.getPos(), 2, false, true);
+		this.targetZombies(this.getPos(), 2, false, true, true);
 		if (!(this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity &&
 				(generalPvZombieEntity.isFlying() || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big")|| ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall")))){
 			if (this.getTarget() != null && this.getTarget().squaredDistanceTo(this) > 1.5625){

@@ -418,6 +418,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 				impEntity.setHypno(IsHypno.TRUE);
 			}
 			impEntity.initialize((ServerWorldAccess) world, world.getLocalDifficulty(impEntity.getBlockPos()), SpawnReason.CONVERSION, (EntityData)null, (NbtCompound) null);
+			impEntity.setStealthTag(Stealth.TRUE);
 			this.world.spawnEntity(impEntity);
 		}
 	}
@@ -431,13 +432,16 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 			if (this.CollidesWithPlant(0f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(0f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlant(2f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(2f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(2f) != null && !this.CollidesWithPlayer(2f).isCreative()){
 				this.setTarget(CollidesWithPlayer(2f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 		}
 	}

@@ -228,7 +228,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 3, false, false);
+			this.targetZombies(this.getPos(), 3, false, false, false);
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {

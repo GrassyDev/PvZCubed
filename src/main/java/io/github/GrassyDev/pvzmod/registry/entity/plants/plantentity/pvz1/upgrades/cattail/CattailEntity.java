@@ -166,7 +166,7 @@ public class CattailEntity extends PlantEntity implements IAnimatable, RangedAtt
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 10, false, true);
+		this.targetZombies(this.getPos(), 10, false, true, false);
 		BlockPos blockPos = this.getBlockPos();
 		if (--amphibiousRaycastDelay >= 0) {
 			amphibiousRaycastDelay = 60;

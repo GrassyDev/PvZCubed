@@ -322,7 +322,7 @@ public class ZapricotEntity extends PlantEntity implements IAnimatable, RangedAt
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 3, true, true);
+		this.targetZombies(this.getPos(), 3, true, true, false);
 		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}

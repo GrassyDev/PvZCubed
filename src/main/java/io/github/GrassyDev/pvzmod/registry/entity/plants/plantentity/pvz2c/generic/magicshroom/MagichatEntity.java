@@ -64,6 +64,7 @@ public class MagichatEntity extends PlantEntity implements IAnimatable, RangedAt
 		if (status == 117){
 			for(int i = 0; i < 32; ++i) {
 				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(0, 3)), this.getZ() + (this.random.range(-1, 1)), 0, 0.2, 0);
+				this.world.addParticle(ParticleTypes.POOF, this.getX() + (this.random.range(-1, 1)), this.getY() + (this.random.range(0, 3)), this.getZ() + (this.random.range(-1, 1)), 0, 0.2, 0);
 			}
 		}
 	}

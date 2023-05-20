@@ -302,7 +302,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		this.targetZombies(this.getPos(), 6, true, false);
+		this.targetZombies(this.getPos(), 6, true, false, true);
 		RandomGenerator randomGenerator = this.getRandom();
 		if (this.isWet()){
 			this.setTarget(null);

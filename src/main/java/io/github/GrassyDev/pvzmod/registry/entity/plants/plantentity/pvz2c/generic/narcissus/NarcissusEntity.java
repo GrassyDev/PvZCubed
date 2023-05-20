@@ -163,7 +163,7 @@ public class NarcissusEntity extends PlantEntity implements IAnimatable, RangedA
 
 	public void tick() {
 		super.tick();
-		this.targetZombies(this.getPos(), 5, false, false);
+		this.targetZombies(this.getPos(), 5, false, false, true);
 		BlockPos blockPos = this.getBlockPos();
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());

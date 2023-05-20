@@ -220,9 +220,11 @@ public class BackupDancerEntity extends PvZombieEntity implements IAnimatable {
 			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(1f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
 				this.setTarget(CollidesWithPlayer(1.5f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 		}
 	}

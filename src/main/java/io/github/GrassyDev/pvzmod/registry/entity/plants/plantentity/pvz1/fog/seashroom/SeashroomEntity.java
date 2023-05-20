@@ -162,7 +162,7 @@ public class SeashroomEntity extends PlantEntity implements IAnimatable, RangedA
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 2, false, false);
+			this.targetZombies(this.getPos(), 2, false, false, false);
 		}
 		super.tick();
 		BlockPos blockPos = this.getBlockPos();

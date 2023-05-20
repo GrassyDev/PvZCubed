@@ -139,7 +139,7 @@ public class CabbagepultEntity extends PlantEntity implements IAnimatable, Range
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 10, true, true);
+		this.targetZombies(this.getPos(), 10, true, true, false);
 		LivingEntity target = this.getTarget();
 		if (target != null){
 			if (target.getHealth() <= 0) {

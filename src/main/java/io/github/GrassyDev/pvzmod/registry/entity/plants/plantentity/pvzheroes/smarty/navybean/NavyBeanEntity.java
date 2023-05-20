@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit.SpitEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -17,6 +18,7 @@ import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -41,7 +43,10 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
@@ -224,7 +229,7 @@ public class NavyBeanEntity extends PlantEntity implements IAnimatable, RangedAt
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 2, false, false);
+		this.targetZombies(this.getPos(), 2, false, false, !checkForZombiesMelee().isEmpty());
 		BlockPos blockPos = this.getBlockPos();
 		if (--amphibiousRaycastDelay >= 0) {
 			amphibiousRaycastDelay = 60;
@@ -261,6 +266,25 @@ public class NavyBeanEntity extends PlantEntity implements IAnimatable, RangedAt
 
 		if (this.attackTicksLeft > 0) {
 			--this.attackTicksLeft;
+		}
+	}
+
+	protected List<HostileEntity> checkForZombiesMelee() {
+		List<HostileEntity> list = this.world.getNonSpectatingEntities(HostileEntity.class, this.getBoundingBox().expand(6));
+		List<HostileEntity> list2 = new ArrayList<>();
+		Iterator var9 = list.iterator();
+		while (true) {
+			HostileEntity hostileEntity;
+			if (!var9.hasNext()) {
+				return list2;
+			}
+			hostileEntity = (HostileEntity) var9.next();
+
+			if (hostileEntity.squaredDistanceTo(this) <= 25) {
+				if (!(hostileEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno())) {
+					list2.add(hostileEntity);
+				}
+			}
 		}
 	}
 

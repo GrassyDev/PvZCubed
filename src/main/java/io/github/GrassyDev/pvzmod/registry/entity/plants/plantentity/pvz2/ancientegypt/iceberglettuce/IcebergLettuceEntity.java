@@ -368,7 +368,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
-		this.targetZombies(this.getPos(), 3, false, false);
+		this.targetZombies(this.getPos(), 3, false, false, false);
 		LivingEntity target = this.getTarget();
 		if (target instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isFlying()){
 			this.setTarget(null);

@@ -142,7 +142,7 @@ public class GatlingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 7, false, false);
+		this.targetZombies(this.getPos(), 7, false, false, false);
 	}
 
 	public void tickMovement() {

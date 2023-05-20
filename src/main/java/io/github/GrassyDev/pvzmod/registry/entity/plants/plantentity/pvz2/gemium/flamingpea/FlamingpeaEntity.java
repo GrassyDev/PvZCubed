@@ -52,6 +52,7 @@ public class FlamingpeaEntity extends PlantEntity implements IAnimatable, Ranged
         super(entityType, world);
 		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
+		this.illuminate = true;
     }
 
 	static {
@@ -148,7 +149,7 @@ public class FlamingpeaEntity extends PlantEntity implements IAnimatable, Ranged
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 7, false, false);
+		this.targetZombies(this.getPos(), 7, false, false, false);
 	}
 
 	public void tickMovement() {

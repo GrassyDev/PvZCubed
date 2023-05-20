@@ -76,6 +76,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.dataTracker.startTracking(CANHYPNO_TAG, true);
 		this.dataTracker.startTracking(CANBURN_TAG, true);
 		this.dataTracker.startTracking(COVERED_TAG, false);
+		this.dataTracker.startTracking(STEALTH_TAG, false);
 		this.dataTracker.startTracking(DATA_ID_HYPNOTIZED, false);
 	}
 
@@ -86,6 +87,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		tag.putBoolean("canHypno", this.canHypno());
 		tag.putBoolean("canBurn", this.canBurn());
 		tag.putBoolean("isCovered", this.isCovered());
+		tag.putBoolean("isStealth", this.isStealth());
 		tag.putBoolean("Hypnotized", this.getHypno());
 	}
 
@@ -95,6 +97,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.dataTracker.set(CANHYPNO_TAG, tag.getBoolean("canHypno"));
 		this.dataTracker.set(CANBURN_TAG, tag.getBoolean("canBurn"));
 		this.dataTracker.set(COVERED_TAG, tag.getBoolean("isCovered"));
+		this.dataTracker.set(STEALTH_TAG, tag.getBoolean("isStealth"));
 		this.dataTracker.set(DATA_ID_HYPNOTIZED, tag.getBoolean("Hypnotized"));
 	}
 
@@ -204,6 +207,36 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void setCoveredTag(GeneralPvZombieEntity.Covered coveredTag) {
 		this.dataTracker.set(COVERED_TAG, coveredTag.getId());
+	}
+
+
+	//Stealth Tag
+
+	protected static final TrackedData<Boolean> STEALTH_TAG =
+			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum Stealth {
+		FALSE(false),
+		TRUE(true);
+
+		Stealth(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isStealth() {
+		return this.dataTracker.get(STEALTH_TAG);
+	}
+
+	public void setStealthTag(GeneralPvZombieEntity.Stealth stealthTag) {
+		this.dataTracker.set(STEALTH_TAG, stealthTag.getId());
 	}
 
 	// Hypno Tag
@@ -583,6 +616,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	public void tick() {
 		this.stepHeight = PVZCONFIG.nestedGeneralZombie.zombieStep();
+		if (this.isOnFire() || this.hasStatusEffect(WARM)){
+			this.setStealthTag(Stealth.FALSE);
+		}
 		if (canJump && !this.world.isClient() && !this.isFlying() && --jumpDelay <= 0 && this.age > 40) {
 			jumpOverGap();
 			jumpDelay = 20;
@@ -812,6 +848,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 						sound = 0.33f;
 					}
 					target.playSound(PvZSounds.ZOMBIEBITEEVENT, sound, 1f);
+					this.setStealthTag(Stealth.FALSE);
 					if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep() && !this.isCovered()){
 						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
 							hypnoshroomEntity.kill();
@@ -830,6 +867,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 						sound = 0.33f;
 					}
 					target.playSound(PvZSounds.ZOMBIEBITEEVENT, sound, 1f);
+					this.setStealthTag(Stealth.FALSE);
 					if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep() && !this.isCovered()){
 						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
 							hypnoshroomEntity.kill();

@@ -240,7 +240,12 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 5, false, true);
+			if (!this.checkForZombiesHAT().isEmpty() && this.hasHat()) {
+				this.targetZombies(this.getPos(), 5, false, true, true);
+			}
+			else{
+				this.targetZombies(this.getPos(), 5, false, false, true);
+			}
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {

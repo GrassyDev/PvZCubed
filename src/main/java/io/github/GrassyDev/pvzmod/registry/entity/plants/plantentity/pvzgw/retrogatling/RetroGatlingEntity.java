@@ -142,7 +142,7 @@ public class RetroGatlingEntity extends PlantEntity implements IAnimatable, Rang
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 7, false, false);
+		this.targetZombies(this.getPos(), 7, false, false, false);
 	}
 
 	public void tickMovement() {

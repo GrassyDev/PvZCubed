@@ -316,7 +316,7 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 2, false, true);
+		this.targetZombies(this.getPos(), 2, false, true, true);
 	}
 
 	public void tickMovement() {

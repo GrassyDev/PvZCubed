@@ -163,7 +163,7 @@ public class CoconutCannonEntity extends PlantEntity implements IAnimatable, Ran
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 10, false, false);
+		this.targetZombies(this.getPos(), 10, false, false, false);
 		--rechargeTime;
 		if (rechargeTime <= 0){
 			this.world.sendEntityStatus(this, (byte) 88);

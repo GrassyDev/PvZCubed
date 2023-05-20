@@ -156,7 +156,7 @@ public class BreezeshroomEntity extends PlantEntity implements IAnimatable, Rang
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 5, false, true);
+			this.targetZombies(this.getPos(), 5, false, true, false);
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {

@@ -276,7 +276,7 @@ public class ShootingBoomerangEntity extends ThrownItemEntity implements IAnimat
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
 				!this.getReturning() && !this.retuningStart) {
 			if (entity != entityStore && entityStoreVehicle != entity &&
 				entity != entityStore2 && entityStoreVehicle2 != entity &&
@@ -295,7 +295,7 @@ public class ShootingBoomerangEntity extends ThrownItemEntity implements IAnimat
 		if (!world.isClient && entity instanceof Monster monster &&
 				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 				!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
+				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
 				!this.getReturning() && !this.retuningStart) {
 			Entity entity2 = entityHitResult.getEntity();
 			float damage = PVZCONFIG.nestedProjDMG.boomerangDMG();

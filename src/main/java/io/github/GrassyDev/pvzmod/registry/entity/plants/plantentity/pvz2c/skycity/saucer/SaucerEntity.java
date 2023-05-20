@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.skyc
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -21,7 +20,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -68,6 +66,7 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 		amphibiousRaycastDelay = 1;
 
 		this.setNoGravity(true);
+		this.illuminate = true;
 	}
 
 	public SaucerEntity(World world, double x, double y, double z) {
@@ -229,6 +228,7 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		targetZombies(this.getPos(), 4, true, false, true);
 		if (attacking) {
 			this.world.sendEntityStatus(this, (byte) 106);
 			if (--tickPermanency <= 0) {

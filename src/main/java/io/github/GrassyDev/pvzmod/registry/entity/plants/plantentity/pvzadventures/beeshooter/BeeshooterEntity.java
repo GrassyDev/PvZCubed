@@ -142,7 +142,7 @@ public class BeeshooterEntity extends PlantEntity implements IAnimatable, Ranged
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 10, false, true);
+		this.targetZombies(this.getPos(), 10, false, true, false);
 	}
 
 	public void tickMovement() {

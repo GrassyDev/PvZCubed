@@ -246,7 +246,7 @@ public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, Ran
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 10, false, false);
+			this.targetZombies(this.getPos(), 10, false, false, false);
 		}
 		if (!this.checkForZombies().isEmpty()){
 			this.world.sendEntityStatus(this, (byte) 104);

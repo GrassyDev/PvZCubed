@@ -350,7 +350,7 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 5, false, false);
+			this.targetZombies(this.getPos(), 5, false, false, true);
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {

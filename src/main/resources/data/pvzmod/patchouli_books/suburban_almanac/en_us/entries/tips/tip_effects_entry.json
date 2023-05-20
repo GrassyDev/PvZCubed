@@ -30,7 +30,7 @@
         "$(br2)Frozen Zombies can't attack.",
         "$(br2)Frozen Zombies can't do their abilities.",
         "$(br2)Frozen instantly kills zombies that swim and aren't Gargantuars and flying Zombies.",
-        "$(br2)Machines can't be Frozen."
+        "$(br)Machines can't be Frozen."
       ]
     },
     {
@@ -40,7 +40,8 @@
         "$(br)Sets Zombies on fire, unless they are wet. Wet and Zombies immune to Fire prevent Fire Splash or don't take damage from it, halving direct damage as well. ",
         "Zombies on fire take 1 DMG/sec if they are not being attacked. ",
         "Zombies get Warm, which prevents Chill from being applied. ",
-        "Thaws Chilled or Frozen Zombies.",
+        "Thaws Chilled or Frozen Zombies. ",
+        "Uncloaks Stealthing Zombies. ",
         "$(br)Deals double the damage against Paper and Plant."
       ]
     },
@@ -63,9 +64,10 @@
     {
       "type": "text",
       "text": [
-        "$(br2)Electricity",
-        "$(br)Chains damage between Zombies, the chain damage is the base damage. Chain's range is by the Electric Radius, that is based on the location of the hit Zombie.",
+        "Electricity",
+        "$(br2)Chains damage between Zombies, the chain damage is the base damage. Chain's range is by the Electric Radius, that is based on the location of the hit Zombie.",
         "$(br)Electricity chains by the number of Electric Chains. Metallic doesn't count towards the number. Plastic/Plant cost 2 Electric Chains when hit.",
+        "$(br)Electricity chains can hit Stealthing Zombies.",
         "$(br)Electric damage doubles if the target is Wet."
       ]
     },
@@ -117,14 +119,26 @@
       "type": "text",
       "text": [
         "$(br2)Magic",
-        "$(br2)Deals double the damage against Zombies without headgear and aren't Covered"
+        "$(br2)Deals double the damage against Zombies without headgear and aren't Covered",
+        "$(br2)Hits Stealthing Zombies."
       ]
     },
     {
       "type": "text",
       "text": [
         "$(br2)Sound",
-        "$(br2)Has a 25% chance to make the the projectile or other means of attack \"critical\", which increases the damage by 50%."
+        "$(br2)Has a 25% chance to make the the projectile or other means of attack \"critical\", which increases the damage by 50%.",
+        "$(br2)Hits Stealthing Zombies."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br)Stealth",
+        "$(br)Makes the Zombie invulnerable to most projectiles and prevents it from being targeted by most plants.",
+        "$(br)They are not immune to splash, explosions, electric chains, melee, etc.",
+        "$(br)They can still be targeted by \"close-range\" Plants, Instant-Use Plants, and Magic or Sound damaging Plants.",
+        "$(br)A Zombie is uncloaked if it's on fire, gets 6 blocks near an Illuminating Plant, or starts eating a plant."
       ]
     },
     {

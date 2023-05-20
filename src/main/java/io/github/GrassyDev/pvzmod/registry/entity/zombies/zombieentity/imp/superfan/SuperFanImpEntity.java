@@ -404,6 +404,9 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		if (age > 20){
+			this.setStealthTag(Stealth.FALSE);
+		}
 		if (this.isBeingRainedOn() || this.hasStatusEffect(PvZCubed.ICE) || this.hasStatusEffect(PvZCubed.FROZEN) || this.hasStatusEffect(PvZCubed.WET) || this.isSubmergedInWater()){
 			this.setFireStage(FireStage.EXTINGUISHED);
 		}

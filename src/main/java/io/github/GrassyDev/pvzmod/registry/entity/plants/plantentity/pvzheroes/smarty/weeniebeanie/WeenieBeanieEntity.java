@@ -253,7 +253,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 2, false, false);
+		this.targetZombies(this.getPos(), 2, false, false, true);
 		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}

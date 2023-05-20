@@ -187,7 +187,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 				this.firstAttack = false;
 			}
 		}
-		this.targetZombies(originalVec3d, 2, true, false);
+		this.targetZombies(originalVec3d, 2, true, false, true);
 		if (age <= 5){
 			this.originalVec3d = this.getPos();
 		}

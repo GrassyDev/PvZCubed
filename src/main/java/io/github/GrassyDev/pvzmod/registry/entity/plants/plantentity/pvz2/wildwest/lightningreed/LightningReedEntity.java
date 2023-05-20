@@ -92,6 +92,7 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 		amphibiousRaycastDelay = 1;
 
 		this.setNoGravity(true);
+		this.illuminate = true;
 	}
 
 	public LightningReedEntity(World world, double x, double y, double z) {
@@ -278,7 +279,7 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		this.targetZombies(this.getPos(), 7, true, true);
+		this.targetZombies(this.getPos(), 7, true, true, false);
 		BlockPos blockPos = this.getBlockPos();
 		if (--amphibiousRaycastDelay >= 0) {
 			amphibiousRaycastDelay = 60;

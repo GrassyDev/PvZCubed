@@ -236,7 +236,7 @@ public class ShamrockEntity extends PlantEntity implements IAnimatable, RangedAt
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 10, false, true);
+			this.targetZombies(this.getPos(), 10, false, true, false);
 		}
 	}
 

@@ -50,6 +50,7 @@ public class TorchwoodEntity extends PlantEntity implements IAnimatable {
         super(entityType, world);
 		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
+		this.illuminate = true;
     }
 
 	static {
@@ -165,6 +166,7 @@ public class TorchwoodEntity extends PlantEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		targetZombies(this.getPos(), 4, true, false, true);
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}

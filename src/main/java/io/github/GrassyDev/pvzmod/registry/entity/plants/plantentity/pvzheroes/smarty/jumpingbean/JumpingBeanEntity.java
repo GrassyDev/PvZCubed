@@ -146,7 +146,7 @@ public class JumpingBeanEntity extends PlantEntity implements IAnimatable, Range
 			if (this.getIsAsleep()) {
 				--asleepTicks;
 			} else {
-				this.targetZombies(this.getPos(), 6, false, false);
+				this.targetZombies(this.getPos(), 6, false, false, false);
 				asleepTicks = 400;
 			}
 		}

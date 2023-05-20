@@ -55,6 +55,7 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 		this.setFireImmune(FireImmune.TRUE);
         this.ignoreCameraFrustum = true;
 		this.lobbedTarget = true;
+		this.illuminate = true;
     }
 
 	static {
@@ -137,7 +138,7 @@ public class PepperpultEntity extends PlantEntity implements IAnimatable, Ranged
 
 	public void tick() {
 		super.tick();
-		this.targetZombies(this.getPos(), 10, true, true);
+		this.targetZombies(this.getPos(), 10, true, true, false);
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}

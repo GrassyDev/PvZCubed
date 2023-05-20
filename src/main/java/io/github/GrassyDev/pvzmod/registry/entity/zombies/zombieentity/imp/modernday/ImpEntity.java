@@ -297,6 +297,9 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 
 	public void tick() {
 		super.tick();
+		if (age > 30){
+			this.setStealthTag(Stealth.FALSE);
+		}
 		if (this.getAttacking() == null && !(this.getHypno())){
 			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED) && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				if (this.isOnGround() || this.isInsideWaterOrBubbleColumn()){
@@ -306,9 +309,11 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 					this.setVelocity(0, -1, 0);
 				}
 				this.setTarget(CollidesWithPlant(1f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
 				this.setTarget(CollidesWithPlayer(1.5f));
+				this.setStealthTag(Stealth.FALSE);
 			}
 		}
 	}

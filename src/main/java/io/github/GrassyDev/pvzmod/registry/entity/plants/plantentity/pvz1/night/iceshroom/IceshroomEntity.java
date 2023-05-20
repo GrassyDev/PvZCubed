@@ -338,7 +338,7 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 			this.setTarget(null);
 		}
 		else {
-			this.targetZombies(this.getPos(), 10, true, true);
+			this.targetZombies(this.getPos(), 10, true, true, true);
 		}
 		super.tick();
 		if (!this.isAiDisabled() && this.isAlive()) {

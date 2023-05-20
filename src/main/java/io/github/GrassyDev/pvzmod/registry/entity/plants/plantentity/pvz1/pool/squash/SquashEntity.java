@@ -224,7 +224,7 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 				this.firstAttack = false;
 			}
 		}
-		this.targetZombies(originalVec3d, 5, true, false);
+		this.targetZombies(originalVec3d, 5, true, false, true);
 		if (this.age <= 1){
 			this.setTarget(null);
 		}

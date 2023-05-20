@@ -287,7 +287,8 @@ public class ShootingCardEntity extends ThrownItemEntity implements IAnimatable 
 			}
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
-				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno()) && generalPvZombieEntity.isFlying()) &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity2 && (generalPvZombieEntity2.isFlying())) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!this.getReturning() && !this.retuningStart) {
 			if (entity != entityStore && entityStoreVehicle != entity &&
@@ -305,7 +306,8 @@ public class ShootingCardEntity extends ThrownItemEntity implements IAnimatable 
 			}
 		}
 		if (!world.isClient && entity instanceof Monster monster &&
-				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno()) && generalPvZombieEntity.isFlying()) &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
+				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity2 && (generalPvZombieEntity2.isFlying())) &&
 				!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
 				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) &&
 				!this.getReturning() && !this.retuningStart) {
