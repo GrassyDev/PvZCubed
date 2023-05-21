@@ -440,7 +440,7 @@ public class ShamrockEntity extends PlantEntity implements IAnimatable, RangedAt
 								}
 								double g = predictedPos.getZ() - this.plantEntity.getZ();
 								float h = MathHelper.sqrt(MathHelper.sqrt(df)) * 0.5F;
-								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.9F, 0F);
+								proj.setVelocity(e * (double) h, f * (double) h, g * (double) h, 0.66F, 0F);
 								proj.updatePosition(this.plantEntity.getX(), this.plantEntity.getY() + 0.75D, this.plantEntity.getZ());
 								proj.setOwner(this.plantEntity);
 								if (livingEntity.isAlive()) {

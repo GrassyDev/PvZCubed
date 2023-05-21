@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.boome
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -26,7 +27,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -41,30 +41,24 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class ShootingBoomerangEntity extends ThrownItemEntity implements IAnimatable {
+public class ShootingBoomerangEntity extends PvZProjectileEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-	public int maxAge = 80;
+	public int maxAge = 90;
 	public int returnAge = 28;
-
-	public LivingEntity entityStore = null;
-	public LivingEntity entityStoreVehicle = null;
-
-	public LivingEntity entityStore2 = null;
-	public LivingEntity entityStoreVehicle2 = null;
-
-	public LivingEntity entityStore3 = null;
-	public LivingEntity entityStoreVehicle3 = null;
 
 	private int returningTicks = 7;
 	private boolean retuningStart;
 
 	public float ownerYaw;
-	public int damageCounter = 0;
 
 	protected void initDataTracker() {
 		super.initDataTracker();
@@ -176,7 +170,12 @@ public class ShootingBoomerangEntity extends ThrownItemEntity implements IAnimat
 			this.remove(RemovalReason.DISCARDED);
 		}
 		if (!this.world.isClient && this.age >= returnAge || this.damageCounter >= 3) {
-			this.retuningStart = true;
+			if (this.age >= returnAge + returnAge / 2){
+				this.retuningStart = true;
+			}
+			if (this.damageCounter >= 3 && returningTicks <= 0){
+				this.retuningStart = true;
+			}
 			if (--returningTicks <= 0) {
 				this.setReturning(Returning.TRUE);
 				Vec3d vec3d = new Vec3d((double) -0.04, 0.0, 0.0).rotateY(-this.ownerYaw * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
@@ -195,37 +194,43 @@ public class ShootingBoomerangEntity extends ThrownItemEntity implements IAnimat
     protected Item getDefaultItem() {
         return null;
     }
+	public List<Entity> entityStore = new ArrayList<>();
+	public List<Entity> entityStoreVehicle = new ArrayList<>();
 
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-		super.onEntityHit(entityHitResult);
-		Entity entity = entityHitResult.getEntity();
-		if (this.getReturning()){
-			if (entity == this.getOwner()){
-				this.remove(RemovalReason.DISCARDED);
+	protected int damageCounter = 0;
+
+	@Override
+	public void hitEntities() {
+		super.hitEntities();
+		Iterator var9 = hitEntities.iterator();
+		while (true) {
+			Entity entity;
+				if (!var9.hasNext()) {
+					return;
+				}
+
+				entity = (Entity) var9.next();
+
+			ZombiePropEntity zombiePropEntity = null;
+			for (Entity entity1 : entity.getPassengerList()) {
+				if (entity1 instanceof ZombiePropEntity zpe) {
+					zombiePropEntity = zpe;
+				}
 			}
-		}
-		ZombiePropEntity zombiePropEntity = null;
-		for (Entity entity1 : entity.getPassengerList()) {
-			if (entity1 instanceof ZombiePropEntity zpe) {
-				zombiePropEntity = zpe;
+			if (entityStoreVehicle.contains(entity) && zombiePropEntity == null && !entityStore.contains(entity)) {
+				entityStore.add(entity);
 			}
-		}
-		if (!world.isClient && this.getReturning()){
-			if (entity == entityStore || entity == entityStoreVehicle ||
-					entity == entityStore2 || entity == entityStoreVehicle2 ||
-					entity == entityStore3 || entity == entityStoreVehicle3) {
-				float damage = PVZCONFIG.nestedProjDMG.boomerangDMG();
-				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
-				SoundEvent sound;
-				sound = switch (zombieMaterial) {
-					case "metallic" -> PvZSounds.BUCKETHITEVENT;
-					case "plastic" -> PvZSounds.CONEHITEVENT;
-					case "stone" -> PvZSounds.STONEHITEVENT;
-					default -> PvZSounds.PEAHITEVENT;
-				};
-				if (entity == entityStore || entity == entityStoreVehicle ||
-						entity == entityStore2 || entity == entityStoreVehicle2 ||
-						entity == entityStore3 || entity == entityStoreVehicle3) {
+			if (!world.isClient && this.getReturning()) {
+				if (entityStore.contains(entity) && this.retuningStart) {
+					float damage = PVZCONFIG.nestedProjDMG.boomerangDMG();
+					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+					SoundEvent sound;
+					sound = switch (zombieMaterial) {
+						case "metallic" -> PvZSounds.BUCKETHITEVENT;
+						case "plastic" -> PvZSounds.CONEHITEVENT;
+						case "stone" -> PvZSounds.STONEHITEVENT;
+						default -> PvZSounds.PEAHITEVENT;
+					};
 					entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
 					if (damage > ((LivingEntity) entity).getHealth() &&
 							!(entity instanceof ZombieShieldEntity) &&
@@ -236,123 +241,46 @@ public class ShootingBoomerangEntity extends ThrownItemEntity implements IAnimat
 					} else {
 						entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 					}
-					if (entityStore == entity || entityStoreVehicle == entity){
-						entityStore = null;
-						entityStoreVehicle = null;
-					}
-					else if (entityStore2 == entity || entityStoreVehicle2 == entity){
-						entityStore2 = null;
-						entityStoreVehicle2 = null;
-					}
-					else if (entityStore3 == entity || entityStoreVehicle3 == entity) {
-						entityStore3 = null;
-						entityStoreVehicle3 = null;
+					entityStore.remove(entity);
+					entityStoreVehicle.remove(entity);
+					if (!(entity instanceof ZombieShieldEntity)) {
+						entityStoreVehicle.remove(entity.getVehicle());
 					}
 				}
-				if (entity.getVehicle() != null && (entityStoreVehicle == entity.getVehicle() || entityStoreVehicle2 == entity.getVehicle() || entityStoreVehicle3 == entity.getVehicle())){
-					String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(entity.getVehicle().getType()).orElse("flesh");
-					sound = switch (zombieMaterial2) {
-						case "metallic" -> PvZSounds.BUCKETHITEVENT;
-						case "plastic" -> PvZSounds.CONEHITEVENT;
-						case "stone" -> PvZSounds.STONEHITEVENT;
-						default -> PvZSounds.PEAHITEVENT;
-					};
-					entity.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-					entity.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-				}
-				if (entityStore == entity){
-					entityStore = null;
-					entityStoreVehicle = null;
-				}
-				else if (entityStore2 == entity){
-					entityStore2 = null;
-					entityStoreVehicle2 = null;
-				}
-				else if (entityStore3 == entity) {
-					entityStore3 = null;
-					entityStoreVehicle3 = null;
-				}
 			}
-		}
-		if (!world.isClient && entity instanceof Monster monster &&
-				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
-				!this.getReturning() && !this.retuningStart) {
-			if (entity != entityStore && entityStoreVehicle != entity &&
-				entity != entityStore2 && entityStoreVehicle2 != entity &&
-						entity != entityStore3 && entityStoreVehicle3 != entity){
-				if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered()){
-					this.damageCounter = this.damageCounter + 2;
-				}
-				else {
-					++this.damageCounter;
-				}
-			}
-			else if (entity != entityStore && entity != entityStore2 && entity != entityStore3 && zombiePropEntity instanceof ZombieShieldEntity){
-				++this.damageCounter;
-			}
-		}
-		if (!world.isClient && entity instanceof Monster monster &&
-				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
-				!this.getReturning() && !this.retuningStart) {
-			Entity entity2 = entityHitResult.getEntity();
-			float damage = PVZCONFIG.nestedProjDMG.boomerangDMG();
-			String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
-			SoundEvent sound;
-			sound = switch (zombieMaterial) {
-				case "metallic" -> PvZSounds.BUCKETHITEVENT;
-				case "plastic" -> PvZSounds.CONEHITEVENT;
-				case "stone" -> PvZSounds.STONEHITEVENT;
-				default -> PvZSounds.PEAHITEVENT;
-			};
-			if (entity2 != entityStore && entity2 != entityStore2 && entity2 != entityStore3) {
-				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-				if (damage > ((LivingEntity) entity).getHealth() &&
-						!(entity instanceof ZombieShieldEntity) &&
-						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-					float damage2 = damage - ((LivingEntity) entity).getHealth();
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
-				} else {
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-				}
-				if (entityStore == null){
-					entityStore = (LivingEntity) entityHitResult.getEntity();
-					entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
-				}
-				else if (entityStore2 == null && entityStore != entity2){
-					entityStore2 = (LivingEntity) entityHitResult.getEntity();
-					entityStoreVehicle2 = (LivingEntity) entityStore2.getVehicle();
-				}
-				else if (entityStore3 == null && entityStore != entity2  && entityStore2 != entity2) {
-					entityStore3 = (LivingEntity) entityHitResult.getEntity();
-					entityStoreVehicle3 = (LivingEntity) entityStore3.getVehicle();
-				}
-			}
-			if (entity2.getVehicle() != null && entityStoreVehicle != entity2.getVehicle() && entityStoreVehicle2 != entity2.getVehicle() && entityStoreVehicle3 != entity2.getVehicle()){
-				String zombieMaterial2 = PvZCubed.ZOMBIE_MATERIAL.get(entity2.getVehicle().getType()).orElse("flesh");
-				sound = switch (zombieMaterial2) {
+			if (!world.isClient && entity instanceof Monster monster &&
+					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
+					!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
+					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
+					!this.getReturning() && !this.retuningStart && damageCounter <= 2 && !entityStore.contains(entity) && !entityStoreVehicle.contains(entity)) {
+				float damage = PVZCONFIG.nestedProjDMG.boomerangDMG();
+				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+				SoundEvent sound;
+				sound = switch (zombieMaterial) {
 					case "metallic" -> PvZSounds.BUCKETHITEVENT;
 					case "plastic" -> PvZSounds.CONEHITEVENT;
 					case "stone" -> PvZSounds.STONEHITEVENT;
 					default -> PvZSounds.PEAHITEVENT;
 				};
-				entity2.getVehicle().playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-				entity2.getVehicle().damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				++this.damageCounter;
+				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+				if (damage > ((LivingEntity) entity).getHealth() &&
+						!(entity instanceof ZombieShieldEntity) &&
+						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+					float damage2 = damage - ((LivingEntity) entity).getHealth();
+					entityStore.add(entity.getVehicle());
+					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+				} else {
+					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+					entityStore.add(entity);
+					if (!(entity instanceof ZombieShieldEntity)) {
+						entityStoreVehicle.add(entity.getVehicle());
+					}
+				}
 			}
-			if (entityStore == null){
-				entityStore = (LivingEntity) entityHitResult.getEntity();
-				entityStoreVehicle = (LivingEntity) entityStore.getVehicle();
-			}
-			else if (entityStore2 == null && entityStore != entity2){
-				entityStore2 = (LivingEntity) entityHitResult.getEntity();
-				entityStoreVehicle2 = (LivingEntity) entityStore2.getVehicle();
-			}
-			else if (entityStore3 == null && entityStore != entity2  && entityStore2 != entity2) {
-				entityStore3 = (LivingEntity) entityHitResult.getEntity();
-				entityStoreVehicle3 = (LivingEntity) entityStore3.getVehicle();
+			if (this.getReturning() && entity == this.getOwner()){
+				this.remove(RemovalReason.DISCARDED);
 			}
 		}
 	}

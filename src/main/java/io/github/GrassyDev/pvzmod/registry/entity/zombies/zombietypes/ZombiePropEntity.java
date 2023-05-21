@@ -86,6 +86,12 @@ public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements 
 		else if (this.hasStatusEffect(PvZCubed.ICE) && vehicle != null && !vehicle.hasStatusEffect(PvZCubed.ICE) && !(this instanceof ZombieShieldEntity)){
 			this.removeStatusEffect(PvZCubed.ICE);
 		}
+		if (this.hasStatusEffect(PvZCubed.WET) && vehicle != null && !(this instanceof ZombieShieldEntity)){
+			vehicle.addStatusEffect((new StatusEffectInstance(PvZCubed.WET, Objects.requireNonNull(this.getStatusEffect(PvZCubed.WET)).getDuration(), Objects.requireNonNull(this.getStatusEffect(PvZCubed.WET)).getAmplifier())));
+		}
+		else if (this.hasStatusEffect(PvZCubed.WET) && vehicle != null && !vehicle.hasStatusEffect(PvZCubed.WET) && !(this instanceof ZombieShieldEntity)){
+			this.removeStatusEffect(PvZCubed.WET);
+		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN) && vehicle != null && !(this instanceof ZombieShieldEntity)){
 			vehicle.removeStatusEffect(PvZCubed.STUN);
 			vehicle.addStatusEffect((new StatusEffectInstance(PvZCubed.FROZEN, Objects.requireNonNull(this.getStatusEffect(PvZCubed.FROZEN)).getDuration(), Objects.requireNonNull(this.getStatusEffect(PvZCubed.FROZEN)).getAmplifier())));

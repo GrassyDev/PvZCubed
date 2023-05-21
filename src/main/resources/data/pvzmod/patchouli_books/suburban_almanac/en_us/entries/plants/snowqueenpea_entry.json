@@ -9,7 +9,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)28 ",
-        "$(#bd951a)Damage: $()$(#ff0000)8 DMG/1.5s, 4 DMG (Splash)",
+        "$(#bd951a)Damage: $()$(#ff0000)9 DMG/1.5s, 3 DMG (Splash)",
         "$(br)$(#bd951a)Splash Radius: $()$(#ff0000)1.5 Blocks",
         "$(br)$(#bd951a)Ice Spike DMG: $()$(#ff0000)2 DMG/1.5s (Spike), 4 DMG/1.5s (Spike, Chill/Frozen Target)",
         "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",

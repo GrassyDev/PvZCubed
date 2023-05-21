@@ -9,7 +9,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)36",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)180 (Direct), 90 (Explosion)",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)180 (Direct), 100 (Explosion)",
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)3.5 Blocks",
         "$(br)$(#bd951a)Range: $()$(#ff0000)30 Blocks",
         "$(br)$(#bd951a)Recharge Time: $()$(#ff0000)15s",

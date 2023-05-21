@@ -9,14 +9,11 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Style;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -51,27 +48,24 @@ public class ConeheadEgg extends SeedItem {
 		ItemStack itemStack = context.getStack();
 		Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
 		Box box = PvZEntity.CONEHEAD.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
-		if (world.isSpaceEmpty((Entity)null, box) && world.getOtherEntities((Entity) null, box).isEmpty()) {
-			if (world instanceof ServerWorld) {
-				ServerWorld serverWorld = (ServerWorld) world;
-				BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-				if (coneheadEntity == null) {
+		if (world.isSpaceEmpty((Entity) null, box) && world instanceof ServerWorld serverWorld) {
+				BrowncoatEntity zombieEntity = (BrowncoatEntity) PvZEntity.CONEHEAD.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+				if (zombieEntity == null) {
 					return ActionResult.FAIL;
 				}
 
 				float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-				coneheadEntity.refreshPositionAndAngles(coneheadEntity.getX(), coneheadEntity.getY(), coneheadEntity.getZ(), f, 0.0F);
-				coneheadEntity.setPersistent();
-				((ServerWorld) world).spawnEntityAndPassengers(coneheadEntity);
-				world.playSound((PlayerEntity) null, coneheadEntity.getX(), coneheadEntity.getY(), coneheadEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
-			}
+				zombieEntity.refreshPositionAndAngles(zombieEntity.getX(), zombieEntity.getY(), zombieEntity.getZ(), f, 0.0F);
+				zombieEntity.setPersistent();
+				((ServerWorld) world).spawnEntityAndPassengers(zombieEntity);
+				world.playSound((PlayerEntity) null, zombieEntity.getX(), zombieEntity.getY(), zombieEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
 			if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
 				itemStack.decrement(1);
-			};
+			}
 			return ActionResult.success(world.isClient);
 		} else {
-			return ActionResult.FAIL;
+			return ActionResult.PASS;
 		}
 	}
 }

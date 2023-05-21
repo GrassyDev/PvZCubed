@@ -426,7 +426,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<BloomerangEntity> BLOOMERANG = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "bloomerang"),
-			QuiltEntityTypeBuilder.<BloomerangEntity>create(SpawnGroup.CREATURE, BloomerangEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			QuiltEntityTypeBuilder.<BloomerangEntity>create(SpawnGroup.CREATURE, BloomerangEntity::new).setDimensions(EntityDimensions.fixed(1f, 1f)).build()
 	);
 
 	public static final EntityType<IcebergLettuceEntity> ICEBERGLETTUCE = Registry.register(
@@ -486,7 +486,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<MagicshroomEntity> MAGICSHROOM = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "magicshroom"),
-			QuiltEntityTypeBuilder.<MagicshroomEntity>create(SpawnGroup.CREATURE, MagicshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 0.8f)).build()
+			QuiltEntityTypeBuilder.<MagicshroomEntity>create(SpawnGroup.CREATURE, MagicshroomEntity::new).setDimensions(EntityDimensions.fixed(1f, 1f)).build()
 	);
 
 	public static final EntityType<MagichatEntity> MAGICHAT = Registry.register(

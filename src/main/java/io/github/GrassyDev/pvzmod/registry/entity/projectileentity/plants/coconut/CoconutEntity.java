@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.coconut;
 
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
@@ -24,7 +25,6 @@ import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -46,7 +46,7 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
+public class CoconutEntity extends PvZProjectileEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -117,84 +117,96 @@ public class CoconutEntity extends ThrownItemEntity implements IAnimatable {
         return null;
     }
 
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-		super.onEntityHit(entityHitResult);
-		Entity entity = entityHitResult.getEntity();
-		ZombiePropEntity zombiePropEntity2 = null;
-		for (Entity entity1 : entity.getPassengerList()) {
-			if (entity1 instanceof ZombiePropEntity zpe) {
-				zombiePropEntity2 = zpe;
-			}
-		}
-		if (!world.isClient && entity instanceof Monster monster &&
-				!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-				!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
-				!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
-				!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
-			entity.playSound(PvZSounds.POTATOMINEEXPLOSIONEVENT, 0.8F, 1F);
-			float damage = PVZCONFIG.nestedProjDMG.coconutDMG();
-			if (damage > ((LivingEntity) entity).getHealth() &&
-					!(entity instanceof ZombieShieldEntity) &&
-					entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
-				float damage2 = damage - ((LivingEntity) entity).getHealth();
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-				generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
-			}
-			else {
-				entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-			}
-			this.world.sendEntityStatus(this, (byte) 3);
-			this.remove(RemovalReason.DISCARDED);
-			Vec3d vec3d = this.getPos();
-			List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
-			Iterator var9 = list.iterator();
-			while (true) {
-				LivingEntity livingEntity;
-				do {
-					do {
-						if (!var9.hasNext()) {
-							return;
-						}
 
-						livingEntity = (LivingEntity) var9.next();
-					} while (livingEntity == this.getOwner());
-				} while (this.squaredDistanceTo(livingEntity) > 6);
-
-				boolean bl = false;
-
-				for (int i = 0; i < 2; ++i) {
-					Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
-					HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-					if (hitResult.getType() == HitResult.Type.MISS) {
-						bl = true;
-						break;
-					}
+	@Override
+	public void hitEntities() {
+		super.hitEntities();
+		Iterator var9 = hitEntities.iterator();
+		while (true) {
+			Entity entity;
+			do {
+				if (!var9.hasNext()) {
+					return;
 				}
 
-				if (bl) {
-					if (livingEntity instanceof Monster &&
-							!(livingEntity instanceof ZombieShieldEntity ) &&
-							!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-									&& (generalPvZombieEntity.getHypno()))) {
-						ZombiePropEntity zombiePropEntity3 = null;
-						for (Entity entity1 : livingEntity.getPassengerList()) {
-							if (entity1 instanceof ZombiePropEntity zpe) {
-								zombiePropEntity3 = zpe;
+				entity = (Entity) var9.next();
+			} while (entity == this.getOwner());
+			ZombiePropEntity zombiePropEntity2 = null;
+			for (Entity entity1 : entity.getPassengerList()) {
+				if (entity1 instanceof ZombiePropEntity zpe) {
+					zombiePropEntity2 = zpe;
+				}
+			}
+			if (!world.isClient && entity instanceof Monster monster &&
+					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
+					!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
+					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
+					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
+				entity.playSound(PvZSounds.POTATOMINEEXPLOSIONEVENT, 0.8F, 1F);
+				float damage = PVZCONFIG.nestedProjDMG.coconutDMGv2();
+				if (damage > ((LivingEntity) entity).getHealth() &&
+						!(entity instanceof ZombieShieldEntity) &&
+						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+					float damage2 = damage - ((LivingEntity) entity).getHealth();
+					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+				} else {
+					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+				}
+				this.world.sendEntityStatus(this, (byte) 3);
+				this.remove(RemovalReason.DISCARDED);
+				Vec3d vec3d = this.getPos();
+				List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
+				Iterator var10 = list.iterator();
+				while (true) {
+					LivingEntity livingEntity;
+					do {
+						do {
+							if (!var10.hasNext()) {
+								return;
 							}
+
+							livingEntity = (LivingEntity) var10.next();
+						} while (livingEntity == this.getOwner());
+					} while (this.squaredDistanceTo(livingEntity) > 6);
+
+					boolean bl = false;
+
+					for (int i = 0; i < 2; ++i) {
+						Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+						HitResult hitResult = this.world.raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+						if (hitResult.getType() == HitResult.Type.MISS) {
+							bl = true;
+							break;
 						}
-						if (zombiePropEntity3 instanceof ZombieShieldEntity){
-							zombiePropEntity3.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-						}
-						else if (!(zombiePropEntity3 != null && !(zombiePropEntity3 instanceof ZombieShieldEntity))) {
-							if (damage > livingEntity.getHealth() &&
-									!(livingEntity instanceof ZombieShieldEntity ) &&
-									livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())){
-								float damage2 = damage - livingEntity.getHealth();
-								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-								generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
-							}
-							else {
-								livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+					}
+
+					if (bl) {
+						if (livingEntity instanceof Monster &&
+								!(livingEntity instanceof ZombieShieldEntity) &&
+								!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
+										&& (generalPvZombieEntity.getHypno()))) {
+							if (livingEntity != entity) {
+								float damage3 = PVZCONFIG.nestedProjDMG.coconutSDMG();
+								ZombiePropEntity zombiePropEntity3 = null;
+								for (Entity entity1 : livingEntity.getPassengerList()) {
+									if (entity1 instanceof ZombiePropEntity zpe) {
+										zombiePropEntity3 = zpe;
+									}
+								}
+								if (!(zombiePropEntity3 instanceof ZombieShieldEntity)) {
+									if (zombiePropEntity3 == null) {
+										if (damage3 > livingEntity.getHealth() &&
+												!(livingEntity instanceof ZombieShieldEntity) &&
+												livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+											float damage2 = damage3 - livingEntity.getHealth();
+											livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage3);
+											generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+										} else {
+											livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage3);
+										}
+									}
+								}
 							}
 							this.world.sendEntityStatus(this, (byte) 3);
 							this.remove(RemovalReason.DISCARDED);

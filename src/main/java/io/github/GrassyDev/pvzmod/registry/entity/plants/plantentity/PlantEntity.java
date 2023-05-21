@@ -375,7 +375,7 @@ public abstract class PlantEntity extends GolemEntity {
 										}
 									}
 								}
-								if (prioritizedTarget != null && lobbedTarget && this.squaredDistanceTo(prioritizedTarget) < this.squaredDistanceTo(hostileEntity.getPos())) {
+								if (prioritizedTarget != null && lobbedTarget && this.squaredDistanceTo(prioritizedTarget) > this.squaredDistanceTo(hostileEntity.getPos())) {
 									if (lobbedTarget && hasShield) {
 										if (canHitFlying && generalPvZombieEntity.isFlying()) {
 											prioritizedTarget = hostileEntity;
