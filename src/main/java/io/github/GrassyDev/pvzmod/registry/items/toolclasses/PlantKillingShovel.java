@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.items.toolclasses;
 
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -39,7 +40,7 @@ public class PlantKillingShovel extends ShovelItem {
 
 	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-		if (entity instanceof PlantEntity) {
+		if (entity instanceof PlantEntity && !(entity instanceof GardenChallengeEntity)) {
 			entity.damage(DamageSource.player(user), Float.MAX_VALUE);
 		}
 		return super.useOnEntity(stack, user, entity, hand);

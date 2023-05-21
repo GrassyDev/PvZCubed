@@ -12,7 +12,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.futuregrave.Future
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave.RoofGraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.cherrybomb.CherrybombEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.peashooter.PeashooterEntity;
@@ -170,6 +171,12 @@ public class PvZEntity implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "garden"),
 			QuiltEntityTypeBuilder.<GardenEntity>create(SpawnGroup.CREATURE, GardenEntity::new).setDimensions(EntityDimensions.fixed(1f, 1.0f)).build()
+	);
+
+	public static final EntityType<GardenChallengeEntity> GARDENCHALLENGE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier(ModID, "gardenchallenge"),
+			QuiltEntityTypeBuilder.<GardenChallengeEntity>create(SpawnGroup.CREATURE, GardenChallengeEntity::new).setDimensions(EntityDimensions.fixed(3f, 5f)).build()
 	);
 
     public static final EntityType<PeashooterEntity> PEASHOOTER = Registry.register(
@@ -1488,13 +1495,13 @@ public class PvZEntity implements ModInitializer {
 			QuiltEntityTypeBuilder.<RoofGraveEntity>create(SpawnGroup.MONSTER, RoofGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
 	);
 
-	public static final EntityType<EgyptGraveEntity> EGYPTGRAVE = Registry.register(
+	public static final EntityType<EgyptGraveEntity> EGYPTGRAVESTONE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "egyptgrave"),
 			QuiltEntityTypeBuilder.<EgyptGraveEntity>create(SpawnGroup.MONSTER, EgyptGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
 	);
 
-	public static final EntityType<FutureGraveEntity> FUTUREGRAVE = Registry.register(
+	public static final EntityType<FutureGraveEntity> FUTUREGRAVESTONE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "futuregrave"),
 			QuiltEntityTypeBuilder.<FutureGraveEntity>create(SpawnGroup.MONSTER, FutureGraveEntity::new).setDimensions(EntityDimensions.fixed(0.5f, 1f)).build()
@@ -1509,6 +1516,7 @@ public class PvZEntity implements ModInitializer {
 	@Override
 	public void onInitialize(ModContainer mod) {
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GARDEN, GardenEntity.createGardenAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.GARDENCHALLENGE, GardenChallengeEntity.createGardenAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.PEASHOOTER, PeashooterEntity.createPeashooterAttributes().build());
 
@@ -1864,9 +1872,9 @@ public class PvZEntity implements ModInitializer {
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.ROOFGRAVESTONE, RoofGraveEntity.createRoofGraveAttributes().build());
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.EGYPTGRAVE, EgyptGraveEntity.createEgyptGraveAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.EGYPTGRAVESTONE, EgyptGraveEntity.createEgyptGraveAttributes().build());
 
-		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUTUREGRAVE, FutureGraveEntity.createFutureGraveAttributes().build());
+		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.FUTUREGRAVESTONE, FutureGraveEntity.createFutureGraveAttributes().build());
 
 		DefaultAttributeRegistry.DEFAULT_ATTRIBUTE_REGISTRY.put(PvZEntity.DARKAGESGRAVESTONE, DarkAgesGraveEntity.createDarkAgesGraveAttributes().build());
 

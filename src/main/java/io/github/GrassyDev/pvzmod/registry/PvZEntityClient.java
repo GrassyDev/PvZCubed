@@ -12,7 +12,8 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.futuregrave.Future
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave.RoofGraveRenderer;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.GardenEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntityRenderer;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.cherrybomb.CherrybombEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntityRenderer;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.peashooter.PeashooterEntityRenderer;
@@ -166,6 +167,8 @@ public class PvZEntityClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 
 		EntityRendererRegistry.register(PvZEntity.GARDEN, GardenEntityRenderer::new);
+
+		EntityRendererRegistry.register(PvZEntity.GARDENCHALLENGE, GardenChallengeEntityRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.PEASHOOTER, PeashooterEntityRenderer::new);
 
@@ -553,9 +556,9 @@ public class PvZEntityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(PvZEntity.ROOFGRAVESTONE, RoofGraveRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.EGYPTGRAVE, EgyptGraveRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.EGYPTGRAVESTONE, EgyptGraveRenderer::new);
 
-		EntityRendererRegistry.register(PvZEntity.FUTUREGRAVE, FutureGraveRenderer::new);
+		EntityRendererRegistry.register(PvZEntity.FUTUREGRAVESTONE, FutureGraveRenderer::new);
 
 		EntityRendererRegistry.register(PvZEntity.DARKAGESGRAVESTONE, DarkAgesGraveRenderer::new);
 

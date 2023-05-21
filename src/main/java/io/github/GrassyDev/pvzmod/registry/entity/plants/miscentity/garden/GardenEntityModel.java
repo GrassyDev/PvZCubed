@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden;
 
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

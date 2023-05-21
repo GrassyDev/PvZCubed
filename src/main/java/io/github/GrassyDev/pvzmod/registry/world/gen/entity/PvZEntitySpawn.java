@@ -43,14 +43,14 @@ public class PvZEntitySpawn {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.POOLGRAVESTONE, PVZCONFIG.nestedSpawns.nestedGraveSpawns.poolG(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.poolGmin(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.poolGmax());
 		SpawnRestriction.register(PvZEntity.POOLGRAVESTONE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PoolGraveEntity::canPoolGraveSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.EGYPTGRAVE, PVZCONFIG.nestedSpawns.nestedGraveSpawns.egyptG(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.egyptGmin(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.egyptGmax());
-		SpawnRestriction.register(PvZEntity.EGYPTGRAVE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EgyptGraveEntity::canEgyptGraveSpawn);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.EGYPTGRAVESTONE, PVZCONFIG.nestedSpawns.nestedGraveSpawns.egyptG(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.egyptGmin(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.egyptGmax());
+		SpawnRestriction.register(PvZEntity.EGYPTGRAVESTONE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EgyptGraveEntity::canEgyptGraveSpawn);
 
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.ROOFGRAVESTONE, PVZCONFIG.nestedSpawns.nestedGraveSpawns.roofG(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.roofGmin(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.roofGmax());
 		SpawnRestriction.register(PvZEntity.ROOFGRAVESTONE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, RoofGraveEntity::canRoofGraveSpawn);
 
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.FUTUREGRAVE, PVZCONFIG.nestedSpawns.nestedGraveSpawns.futureG(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.futureGmin(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.futureGmax());
-		SpawnRestriction.register(PvZEntity.FUTUREGRAVE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FutureGraveEntity::canFutureGraveSpawn);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.FUTUREGRAVESTONE, PVZCONFIG.nestedSpawns.nestedGraveSpawns.futureG(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.futureGmin(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.futureGmax());
+		SpawnRestriction.register(PvZEntity.FUTUREGRAVESTONE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FutureGraveEntity::canFutureGraveSpawn);
 
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, PvZEntity.DARKAGESGRAVESTONE, PVZCONFIG.nestedSpawns.nestedGraveSpawns.darkagesG(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.darkagesGmin(), PVZCONFIG.nestedSpawns.nestedGraveSpawns.darkagesGmax());
 		SpawnRestriction.register(PvZEntity.DARKAGESGRAVESTONE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DarkAgesGraveEntity::canDarkAgesGraveSpawn);

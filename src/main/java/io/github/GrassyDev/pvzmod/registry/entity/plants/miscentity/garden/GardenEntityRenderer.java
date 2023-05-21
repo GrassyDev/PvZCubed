@@ -1,4 +1,4 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;

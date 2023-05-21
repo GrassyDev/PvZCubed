@@ -1,22 +1,18 @@
-package io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity;
+package io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden;
 
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -36,10 +32,6 @@ public class GardenEntity extends PlantEntity implements IAnimatable, RangedAtta
 
     private String controllerName = "gardencontroller";
 
-
-
-	public boolean isFiring;
-
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public GardenEntity(EntityType<? extends GardenEntity> entityType, World world) {
@@ -55,11 +47,6 @@ public class GardenEntity extends PlantEntity implements IAnimatable, RangedAtta
 	public void handleStatus(byte status) {
 		if (status != 2 && status != 60){
 			super.handleStatus(status);
-		}
-		if (status == 111) {
-			this.isFiring = true;
-		} else if (status == 110) {
-			this.isFiring = false;
 		}
 	}
 
@@ -87,9 +74,6 @@ public class GardenEntity extends PlantEntity implements IAnimatable, RangedAtta
 	/** /~*~//~*AI*~//~*~/ **/
 
 	protected void initGoals() {
-		this.targetSelector.add(1, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return (livingEntity instanceof GraveEntity);
-		}));
 	}
 
 

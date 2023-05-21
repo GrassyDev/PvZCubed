@@ -9,14 +9,11 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Style;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -50,9 +47,9 @@ public class FutureGraveSpawn extends SeedItem {
         BlockPos blockPos = itemPlacementContext.getBlockPos();
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-		Box box = PvZEntity.FUTUREGRAVE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+		Box box = PvZEntity.FUTUREGRAVESTONE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 		if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
-                    FutureGraveEntity basicGraveEntity = (FutureGraveEntity) PvZEntity.FUTUREGRAVE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+                    FutureGraveEntity basicGraveEntity = (FutureGraveEntity) PvZEntity.FUTUREGRAVESTONE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (basicGraveEntity == null) {
                         return ActionResult.FAIL;
                     }
