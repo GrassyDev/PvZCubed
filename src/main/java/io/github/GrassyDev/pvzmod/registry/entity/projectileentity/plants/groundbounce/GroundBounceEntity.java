@@ -141,6 +141,7 @@ public class GroundBounceEntity extends PvZProjectileEntity implements IAnimatab
 	@Override
 	public void hitEntities() {
 		super.hitEntities();
+		boolean hit = false;
 		Iterator var9 = hitEntities.iterator();
 		while (true) {
 			Entity entity;
@@ -161,9 +162,10 @@ public class GroundBounceEntity extends PvZProjectileEntity implements IAnimatab
 					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 					!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
-					(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) && this.canBounce) {
+					(!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) && this.canBounce && !hit) {
 				splashDamage();
 				bounceZombies(entity.getPos());
+				hit = true;
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}

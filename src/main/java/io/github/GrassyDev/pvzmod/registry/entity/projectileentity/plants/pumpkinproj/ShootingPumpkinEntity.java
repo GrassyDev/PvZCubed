@@ -1,33 +1,28 @@
-package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit;
+package io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pumpkinproj;
 
-import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectileEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pumpkinzombie.PumpkinZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.EndGatewayBlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.*;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -44,30 +39,14 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.Iterator;
 import java.util.UUID;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
 
-public class SpitEntity extends PvZProjectileEntity implements IAnimatable {
+public class ShootingPumpkinEntity extends PvZProjectileEntity implements IAnimatable {
 
 	private String controllerName = "projectilecontroller";
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-	public SpitEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
-		super(entityType, world);
-		this.setNoGravity(true);
-	}
-
-	public SpitEntity(World world, LivingEntity owner) {
-		super(EntityType.SNOWBALL, owner, world);
-	}
-
-	@Environment(EnvType.CLIENT)
-	public SpitEntity(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
-		super(PvZEntity.SPIT, world);
-		updatePosition(x, y, z);
-		updateTrackedPositionAndAngles(x, y, z, yaw, pitch, interpolation, interpolate);
-		setId(id);
-		setUuid(uuid);
-	}
+	private LivingEntity target;
 
 	@Override
 	public void registerControllers(AnimationData animationData) {
@@ -82,8 +61,30 @@ public class SpitEntity extends PvZProjectileEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(new AnimationBuilder().loop("spit.idle"));
+		event.getController().setAnimation(new AnimationBuilder().loop("cabbage.idle"));
 		return PlayState.CONTINUE;
+	}
+
+    public ShootingPumpkinEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+        super(entityType, world);
+		this.setNoGravity(false);
+    }
+
+    public ShootingPumpkinEntity(World world, LivingEntity owner) {
+        super(EntityType.SNOWBALL, owner, world);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public ShootingPumpkinEntity(World world, double x, double y, double z, float yaw, float pitch, int interpolation, boolean interpolate, int id, UUID uuid) {
+        super(PvZEntity.PUMPKINPROJ, world);
+        updatePosition(x, y, z);
+        updateTrackedPositionAndAngles(x, y, z, yaw, pitch, interpolation, interpolate);
+		setId(id);
+        setUuid(uuid);
+    }
+
+	public LivingEntity getTarget (LivingEntity target){
+		return this.target = target;
 	}
 
     public void tick() {
@@ -115,10 +116,23 @@ public class SpitEntity extends PvZProjectileEntity implements IAnimatable {
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!this.world.isClient && this.age >= 60) {
+        if (!this.world.isClient && this.age >= 120) {
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
+		if (!this.world.isClient && this.age > 50 && target != null) {
+			if (target.getHealth() > 0) {
+				this.setVelocity(0,this.getVelocity().getY(), 0);
+				this.setPosition(target.getPos().getX(), this.getY() - 0.0005, target.getZ());
+			}
+		}
+		if (target != null){
+			if ((target.getHealth() > 0 && (this.getPos().getX() <= target.getPos().getX() + 0.2 && this.getPos().getX() >= target.getPos().getX() - 0.2) &&
+					this.getPos().getZ() <= target.getPos().getZ() + 0.2 && this.getPos().getZ() >= target.getPos().getZ() - 0.2)){
+				this.setVelocity(0,this.getVelocity().getY(), 0);
+				this.setPosition(target.getPos().getX(), this.getY() - 0.0005, target.getZ());
+			}
+		}
     }
 
     @Override
@@ -148,46 +162,46 @@ public class SpitEntity extends PvZProjectileEntity implements IAnimatable {
 			}
 			if (!world.isClient && entity instanceof Monster monster &&
 					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
-					!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
-					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
-					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
-				float damage = PVZCONFIG.nestedProjDMG.spitDMG();
-				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
-				if ("paper".equals(zombieMaterial) || "stone".equals(zombieMaterial)) {
-					damage = damage * 2;
-				} else if ("plant".equals(zombieMaterial)) {
-					damage = damage / 2;
+					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity1 && (generalPvZombieEntity1.isCovered())) &&
+					!(entity instanceof ZombiePropEntity) && ZOMBIE_SIZE.get(entity.getType()).orElse("medium").equals("medium")) {
+				if (this.world instanceof ServerWorld serverWorld) {
+					this.playSound(PvZSounds.HYPNOTIZINGEVENT, 1.5F, 1.0F);
+					PumpkinZombieEntity hypnotizedZombie = (PumpkinZombieEntity) PvZEntity.PUMPKINZOMBIEHYPNO.create(world);
+					hypnotizedZombie.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), entity.getYaw(), entity.getPitch());
+					hypnotizedZombie.initialize(serverWorld, world.getLocalDifficulty(hypnotizedZombie.getBlockPos()), SpawnReason.CONVERSION, (EntityData) null, (NbtCompound) null);
+					if (entity.hasCustomName()) {
+						hypnotizedZombie.setCustomName(entity.getCustomName());
+						hypnotizedZombie.setCustomNameVisible(entity.isCustomNameVisible());
+					}
+					for (Entity entity1 : entity.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							zpe.discard();
+						}
+					}
+
+					hypnotizedZombie.setPersistent();
+
+					hypnotizedZombie.setHeadYaw(entity.getHeadYaw());
+					entity.remove(RemovalReason.DISCARDED);
+					hypnotizedZombie.createPumpkinProp();
+					serverWorld.spawnEntityAndPassengers(hypnotizedZombie);
+					for (Entity entity1 : hypnotizedZombie.getPassengerList()) {
+						if (entity1 instanceof ZombiePropEntity zpe) {
+							zpe.setHypno(GeneralPvZombieEntity.IsHypno.TRUE);
+						}
+					}
+					this.world.sendEntityStatus(this, (byte) 3);
+					this.remove(RemovalReason.DISCARDED);
+					break;
 				}
-				SoundEvent sound;
-				sound = switch (zombieMaterial) {
-					case "metallic" -> PvZSounds.BUCKETHITEVENT;
-					case "plastic" -> PvZSounds.CONEHITEVENT;
-					case "stone" -> PvZSounds.STONEHITEVENT;
-					default -> PvZSounds.PEAHITEVENT;
-				};
-				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-				if (damage > ((LivingEntity) entity).getHealth() &&
-						!(entity instanceof ZombieShieldEntity) &&
-						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-					float damage2 = damage - ((LivingEntity) entity).getHealth();
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
-				} else {
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-				}
-				((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WET, 100, 1)));
-				entity.extinguish();
-				this.world.sendEntityStatus(this, (byte) 3);
-				this.remove(RemovalReason.DISCARDED);
-				break;
 			}
 		}
-	}
+    }
 
     @Environment(EnvType.CLIENT)
     private ParticleEffect getParticleParameters() {
         ItemStack itemStack = this.getItem();
-        return (ParticleEffect)(itemStack.isEmpty() ? ParticleTypes.WATER_SPLASH : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
+        return (ParticleEffect)(itemStack.isEmpty() ? ParticleTypes.ITEM_SLIME : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
     }
 
 
@@ -199,7 +213,7 @@ public class SpitEntity extends PvZProjectileEntity implements IAnimatable {
         if (status == 3) {
             ParticleEffect particleEffect = this.getParticleParameters();
 
-            for(int i = 0; i < 32; ++i) {
+            for(int i = 0; i < 8; ++i) {
                 this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
         }

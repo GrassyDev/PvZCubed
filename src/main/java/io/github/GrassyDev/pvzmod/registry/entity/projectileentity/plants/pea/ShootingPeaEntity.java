@@ -248,6 +248,7 @@ public class ShootingPeaEntity extends PvZProjectileEntity implements IAnimatabl
 				}
 				this.world.sendEntityStatus(this, (byte) 3);
 				this.remove(RemovalReason.DISCARDED);
+				break;
 			}
 		}
 	}

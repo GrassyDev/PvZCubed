@@ -731,7 +731,6 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 
 		if (this.world.isClient) {
-
 			if (zombiePropEntity.isPresent()) {
 				var e = zombiePropEntity.get();
 				this.geardmg = e.getHealth() < e.getMaxHealth() / 2;
@@ -763,7 +762,17 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.getTarget() instanceof ZombieObstacleEntity zombieObstacleEntity && !zombieObstacleEntity.getHypno() && !this.getHypno()){
 			this.setTarget(null);
 		}
-
+		if (this.getTarget() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(this instanceof ZombieKingEntity)){
+			var targetPropEntity = generalPvZombieEntity.getPassengerList()
+					.stream()
+					.filter(e -> e instanceof ZombiePropEntity)
+					.map(e -> (ZombiePropEntity) e)
+					.findFirst();
+			if (targetPropEntity.isPresent()){
+				var e = targetPropEntity.get();
+				this.setTarget(e);
+			}
+		}
 		if (this.submergedInWater){
 			this.jump();
 		}

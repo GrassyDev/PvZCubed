@@ -163,6 +163,7 @@ public class ShootingIcebergEntity extends PvZProjectileEntity implements IAnima
 	@Override
 	public void hitEntities() {
 		super.hitEntities();
+		boolean hit = false;
 		Iterator var9 = hitEntities.iterator();
 		while (true) {
 			Entity entity;
@@ -183,7 +184,7 @@ public class ShootingIcebergEntity extends PvZProjectileEntity implements IAnima
 					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 					!(zombiePropEntity2 instanceof ZombiePropEntity && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 					!(entity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.hasVehicle()) &&
-					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth())) {
+					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) && !hit) {
 				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 				SoundEvent sound;
 				sound = switch (zombieMaterial) {
@@ -211,6 +212,7 @@ public class ShootingIcebergEntity extends PvZProjectileEntity implements IAnima
 						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));
 					}
 				}
+				hit = true;
 				Vec3d vec3d = this.getPos();
 				List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
 				Iterator var10 = list.iterator();

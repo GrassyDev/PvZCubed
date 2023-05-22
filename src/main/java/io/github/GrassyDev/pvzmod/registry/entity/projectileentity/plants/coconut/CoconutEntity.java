@@ -121,6 +121,7 @@ public class CoconutEntity extends PvZProjectileEntity implements IAnimatable {
 	@Override
 	public void hitEntities() {
 		super.hitEntities();
+		boolean hit = false;
 		Iterator var9 = hitEntities.iterator();
 		while (true) {
 			Entity entity;
@@ -141,7 +142,7 @@ public class CoconutEntity extends PvZProjectileEntity implements IAnimatable {
 					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 					!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
-					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
+					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) && !hit) {
 				entity.playSound(PvZSounds.POTATOMINEEXPLOSIONEVENT, 0.8F, 1F);
 				float damage = PVZCONFIG.nestedProjDMG.coconutDMGv2();
 				if (damage > ((LivingEntity) entity).getHealth() &&
@@ -153,6 +154,7 @@ public class CoconutEntity extends PvZProjectileEntity implements IAnimatable {
 				} else {
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 				}
+				hit = true;
 				this.world.sendEntityStatus(this, (byte) 3);
 				this.remove(RemovalReason.DISCARDED);
 				Vec3d vec3d = this.getPos();

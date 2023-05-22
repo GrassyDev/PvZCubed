@@ -168,6 +168,7 @@ public class ShootingSnowqueenPeaEntity extends PvZProjectileEntity implements I
 	@Override
 	public void hitEntities() {
 		super.hitEntities();
+		boolean hit = false;
 		Iterator var9 = hitEntities.iterator();
 		while (true) {
 			Entity entity;
@@ -189,7 +190,7 @@ public class ShootingSnowqueenPeaEntity extends PvZProjectileEntity implements I
 					!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
 					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
 					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())
-					&& !(entity instanceof ZombieShieldEntity && !entity.hasVehicle())) {
+					&& !(entity instanceof ZombieShieldEntity && !entity.hasVehicle()) && !hit) {
 				if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !entity.isOnFire() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
 					if (!(entity instanceof ZombieShieldEntity)) {
 						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));
@@ -217,6 +218,7 @@ public class ShootingSnowqueenPeaEntity extends PvZProjectileEntity implements I
 				} else {
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 				}
+				hit = true;
 				if (!(entity instanceof ZombieShieldEntity)) {
 					if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
 						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));

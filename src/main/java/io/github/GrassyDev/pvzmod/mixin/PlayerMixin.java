@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.mixin;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import io.github.GrassyDev.pvzmod.interfaces.nearChallenge;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.SeedItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -18,9 +17,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.MAX_REACH_UUID;
 import static io.github.GrassyDev.pvzmod.PvZCubed.createReachModifier;
@@ -51,11 +47,6 @@ public abstract class PlayerMixin extends LivingEntity implements nearChallenge 
 	@Final
 	private PlayerAbilities abilities;
 
-	@Inject(method = "canModifyBlocks", at = @At("RETURN"), cancellable = true)
-	private void pvzmod$canModify(CallbackInfoReturnable<Boolean> cir) {
-		cir.setReturnValue(false);
-	}
-
 	@Inject(method = "tick", at = @At("HEAD"))
     public void pvzmod$tick(CallbackInfo ci) {
 		if ((this.getInventory().getMainHandStack().getItem() instanceof SeedItem
@@ -71,16 +62,6 @@ public abstract class PlayerMixin extends LivingEntity implements nearChallenge 
 			EntityAttributeInstance maxReachAttribute = this.getAttributeInstance(ReachEntityAttributes.REACH);
 			assert maxReachAttribute != null;
 			maxReachAttribute.removeModifier(MAX_REACH_UUID);
-		}
-
-		List<GardenChallengeEntity> checkEntities = this.world.getNonSpectatingEntities(GardenChallengeEntity.class, this.getBoundingBox().expand(20, 6, 20));
-		for (GardenChallengeEntity gardenChallengeEntity : checkEntities) {
-			if (!this.isCreative()){
-				this.setNearChallenge(true);
-			}
-		}
-		if (checkEntities.isEmpty()){
-			this.setNearChallenge(false);
 		}
     }
 }

@@ -9,7 +9,7 @@
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)100",
         "$(br)$(#bd951a)Despawn Time: $()$(#ff0000)2 minutes.",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)20%/second to transform a Peasant Zombie into a Peasant Knight Zombie.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Big. 20%/second to transform a Peasant Zombie into a Peasant Knight Zombie.",
         "$(br2)$(#bd951a)As Shakespeare once wrote, \"Uneasy lies the head that wears a crown.\" And Zombie King couldn't agree more. It is incredibly difficult to get a good night's sleep with a crown on your head. That thing is all kinds of uncomfortable."
       ]
     },

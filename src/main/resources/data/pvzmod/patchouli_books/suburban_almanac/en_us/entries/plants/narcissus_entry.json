@@ -2,7 +2,7 @@
   "name": "Narcissus",
   "icon": "pvzmod:narcissus_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 101,
+  "sortnum": 102,
   "advancement": "pvzmod:make_bellflower",
   "pages": [
     {

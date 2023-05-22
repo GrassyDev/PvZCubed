@@ -179,6 +179,7 @@ public class ArmorBubbleEntity extends PvZProjectileEntity implements IAnimatabl
 				entity.extinguish();
 				this.world.sendEntityStatus(this, (byte) 3);
 				this.remove(RemovalReason.DISCARDED);
+				break;
 			}
 		}
 	}

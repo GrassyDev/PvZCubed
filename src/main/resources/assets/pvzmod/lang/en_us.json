@@ -127,6 +127,7 @@
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.goldleafS": "Gold Leaf Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.potatomineS": "Potato Mine Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.puffshroomS": "Puff-shroom Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.pumpkinwitchS": "Pumpkin Witch Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.repeaterS": "Repeater Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.scaredyshroomS": "Scaredy-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.seashroomS": "Sea-shroom Seed",
@@ -603,6 +604,12 @@
   "item.pvzmod.saucer_seed_packet": "⏳ Saucer Seed Packet",
   "item.pvzmod.saucer_seed_packet.flavour": "\"I may be called Saucer, but I beg you,",
   "item.pvzmod.saucer_seed_packet.flavour2": "I don't taste good in sauce!\"",
+
+  "entity.pvzmod.pumpkinwitch": "Pumpkin Witch",
+  "item.pvzmod.pumpkinwitch_seed_packet": "⭐ Pumpkin Witch Seed Packet",
+  "item.pvzmod.pumpkinwitch_seed_packet.flavour": "One Imp's leg, one Gargantuar's teeth and a ",
+  "item.pvzmod.pumpkinwitch_seed_packet.flavour2": "zombie Bat's wing. The ingredients for my perfume.",
+  "item.pvzmod.pumpkinproj": "Pumpkin",
 
   "entity.pvzmod.tulimpeter": "Tulimpeter",
   "item.pvzmod.tulimpeter_seed_packet": "⭐ Tulimpeter Seed Packet",

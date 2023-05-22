@@ -351,12 +351,22 @@ public class SuperFanImpEntity extends ImpEntity implements IAnimatable {
 			if (bl) {
 				if (this.getHypno()){
 					if (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-						livingEntity.damage(DamageSource.explosion(this), 30);
+						if (livingEntity.getFirstPassenger() != null){
+							livingEntity.getFirstPassenger().damage(DamageSource.explosion(this), 30);
+						}
+						else {
+							livingEntity.damage(DamageSource.explosion(this), 30);
+						}
 					}
 				}
 				else {
 					if (livingEntity instanceof PlantEntity || (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.getHypno())) {
-						livingEntity.damage(DamageSource.explosion(this), 30);
+						if (livingEntity.getFirstPassenger() != null && livingEntity instanceof GeneralPvZombieEntity){
+							livingEntity.getFirstPassenger().damage(DamageSource.explosion(this), 30);
+						}
+						else {
+							livingEntity.damage(DamageSource.explosion(this), 30);
+						}
 					}
 				}
 			}

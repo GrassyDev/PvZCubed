@@ -2,7 +2,7 @@
   "name": "Dropea",
   "icon": "pvzmod:dropea_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 102,
+  "sortnum": 103,
   "advancement": "pvzmod:make_peashooter",
   "pages": [
     {

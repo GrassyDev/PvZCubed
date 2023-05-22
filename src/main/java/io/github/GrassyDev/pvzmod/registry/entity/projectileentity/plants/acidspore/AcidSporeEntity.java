@@ -199,6 +199,7 @@ public class AcidSporeEntity extends PvZProjectileEntity implements IAnimatable 
 				}
 				this.world.sendEntityStatus(this, (byte) 3);
 				this.remove(RemovalReason.DISCARDED);
+				break;
 			}
 		}
     }

@@ -185,6 +185,7 @@ public class RainbowBulletEntity extends PvZProjectileEntity implements IAnimata
 				}
 				this.world.sendEntityStatus(this, (byte) 3);
 				this.remove(RemovalReason.DISCARDED);
+				break;
 			}
 		}
 	}

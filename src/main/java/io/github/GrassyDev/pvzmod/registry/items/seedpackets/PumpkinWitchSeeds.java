@@ -8,7 +8,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.environment.cratertile.CraterT
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.generic.magicshroom.MagicshroomEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz2c.generic.pumpkinwitch.PumpkinWitchEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -36,9 +36,11 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class MagicshroomSeeds extends SeedItem implements FabricItem {
-	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.magicshroomS() * 20);
-    public MagicshroomSeeds(Settings settings) {
+public class PumpkinWitchSeeds extends SeedItem implements FabricItem {
+    public boolean used;
+	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.pumpkinwitchS() * 20);
+
+    public PumpkinWitchSeeds(Settings settings) {
         super(settings);
     }
 
@@ -75,10 +77,10 @@ public class MagicshroomSeeds extends SeedItem implements FabricItem {
 
 		tooltip.add(Text.translatable("item.pvzmod.seed_packet.enchant.family").setStyle(Style.EMPTY.withColor(16399550)));
 
-		tooltip.add(Text.translatable("item.pvzmod.seed_packet.nocturnal.tooltip")
-				.formatted(Formatting.UNDERLINE));
+		tooltip.add(Text.translatable("item.pvzmod.pumpkinwitch_seed_packet.flavour")
+				.formatted(Formatting.DARK_GRAY));
 
-		tooltip.add(Text.translatable("item.pvzmod.magicshroom_seed_packet.flavour")
+		tooltip.add(Text.translatable("item.pvzmod.pumpkinwitch_seed_packet.flavour2")
 				.formatted(Formatting.DARK_GRAY));
 	}
 
@@ -100,20 +102,20 @@ public class MagicshroomSeeds extends SeedItem implements FabricItem {
             return ActionResult.FAIL;
         }
         else {
-            World world = context.getWorld();
-            ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
-            BlockPos blockPos = itemPlacementContext.getBlockPos();
-            ItemStack itemStack = context.getStack();
+			World world = context.getWorld();
+			ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
+			BlockPos blockPos = itemPlacementContext.getBlockPos();
+			ItemStack itemStack = context.getStack();
 			Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-			Box box = PvZEntity.MAGICSHROOM.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			Box box = PvZEntity.PUMPKINWITCH.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 			if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
-				MagicshroomEntity plantEntity = (MagicshroomEntity) PvZEntity.MAGICSHROOM.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.MAGICSHROOM.getDimensions().getBoxAt(plantEntity.getPos()));
+				PumpkinWitchEntity plantEntity = (PumpkinWitchEntity) PvZEntity.PUMPKINWITCH.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+				List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PUMPKINWITCH.getDimensions().getBoxAt(plantEntity.getPos()));
 				if (list.isEmpty()) {
-                    float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-                    plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
-                    world.spawnEntity(plantEntity);
-                    world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZSounds.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
+					float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					plantEntity.refreshPositionAndAngles(plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), f, 0.0F);
+					world.spawnEntity(plantEntity);
+					world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZSounds.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
 
 					PlayerEntity user = context.getPlayer();
 					if (!user.getAbilities().creativeMode) {
@@ -142,8 +144,8 @@ public class MagicshroomSeeds extends SeedItem implements FabricItem {
 		PlantEntity plantEntity = null;
 		List<PlantEntity> list = null;
 		if (world instanceof ServerWorld serverWorld) {
-			plantEntity = PvZEntity.MAGICSHROOM.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
-			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.MAGICSHROOM.getDimensions().getBoxAt(plantEntity.getPos()));
+			plantEntity = PvZEntity.PUMPKINWITCH.create(serverWorld, stack.getNbt(), (Text) null, user, blockPos, SpawnReason.SPAWN_EGG, true, true);
+			list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PUMPKINWITCH.getDimensions().getBoxAt(plantEntity.getPos()));
 		}
 		if (world instanceof ServerWorld serverWorld && entity instanceof TileEntity
 				&& !(entity instanceof ScorchedTile)
@@ -196,4 +198,3 @@ public class MagicshroomSeeds extends SeedItem implements FabricItem {
 		}
 	}
 }
-

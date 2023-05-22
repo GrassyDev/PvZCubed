@@ -221,6 +221,7 @@ public class ShootingSnowPeaEntity extends PvZProjectileEntity implements IAnima
 				}
 				this.world.sendEntityStatus(this, (byte) 3);
 				this.remove(RemovalReason.DISCARDED);
+				break;
 			}
 		}
 	}

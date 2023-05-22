@@ -1,0 +1,40 @@
+{
+  "name": "Pumpkin Witch",
+  "icon": "pvzmod:pumpkinwitch_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 100,
+  "advancement": "pvzmod:make_charmshroom",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)32",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks (Lobbed)",
+        "$(br)$(#bd951a)Pumpkin Recharge: $()$(#ff0000)25 Seconds",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Projectile converts a Zombie into a Pumpkin Zombie, then needs to recharge. Can only convert non-Covered medium Zombies.",
+        "$(br)$(#bd951a)Pumpkin Witch is a powerful arcane mage. For example, it can control its broom to clean the floor, cook, do the dishes..."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/pumpkinwitch.png"
+      ],
+      "title": "⭐ Enchant Family",
+      "border": "true",
+      "text": "$(#25228d)Throws a pumpkin that transforms normal Zombies into explosive ones."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/enchant/pumpkinwitch"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br2)$(#bd951a)Plants vs. Zombies 2 (Chinese Version): $()$(#ff0000)Pumpkin Witch"
+      ]
+    }
+  ]
+}

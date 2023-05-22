@@ -200,6 +200,7 @@ public class PvZConfigModel {
 		public float perfoomshroomS = 25.0f;
 		public float potatomineS = 20.0f;
 		public float puffshroomS = 2.5f;
+		public float pumpkinwitchS = 20.0f;
 		public float repeaterS = 7.5f;
 		public float retrogatlingS = 35.0f;
 		public float scaredyshroomS = 5.0f;
