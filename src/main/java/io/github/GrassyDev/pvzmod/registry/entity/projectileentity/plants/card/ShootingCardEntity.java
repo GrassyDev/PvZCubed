@@ -204,19 +204,20 @@ public class ShootingCardEntity extends PvZProjectileEntity implements IAnimatab
 		Iterator var9 = hitEntities.iterator();
 		while (true) {
 			Entity entity;
-			do {
 				if (!var9.hasNext()) {
 					return;
 				}
 
 				entity = (Entity) var9.next();
-			} while (entity == this.getOwner());
 
 			ZombiePropEntity zombiePropEntity = null;
 			for (Entity entity1 : entity.getPassengerList()) {
 				if (entity1 instanceof ZombiePropEntity zpe) {
 					zombiePropEntity = zpe;
 				}
+			}
+			if (entity == this.getOwner() && this.getReturning()){
+				this.remove(RemovalReason.DISCARDED);
 			}
 			if (entityStoreVehicle.contains(entity) && zombiePropEntity == null && !entityStore.contains(entity)) {
 				entityStore.add(entity);

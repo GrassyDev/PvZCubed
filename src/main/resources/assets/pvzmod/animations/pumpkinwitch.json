@@ -95,8 +95,8 @@
 							"vector": [-4, 5, -4],
 							"easing": "easeInBack"
 						},
-						"0.7917": {
-							"vector": [4, 24, -7]
+						"0.8333": {
+							"vector": [5.86, 26.29, -5.57]
 						}
 					},
 					"scale": {
@@ -119,10 +119,10 @@
 							"vector": [1, 1.2, 1],
 							"easing": "easeOutElastic"
 						},
-						"0.7083": {
+						"0.7917": {
 							"vector": [1, 1, 1]
 						},
-						"0.75": {
+						"0.8333": {
 							"vector": [0, 0, 0],
 							"easing": "step",
 							"easingArgs": [2]

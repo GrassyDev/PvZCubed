@@ -221,7 +221,7 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 
 	/** /~*~//~**TICKING**~//~*~/ **/
 
-	private int hatTicks;
+	private int hatTicks = 600;
 
 
 	public void tick() {
@@ -252,7 +252,7 @@ public class MagicshroomEntity extends PlantEntity implements IAnimatable, Range
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
 		if (this.hasHat()){
-			this.hatTicks = 400;
+			this.hatTicks = 600;
 		}
 		else {
 			if (--this.hatTicks <= 0){

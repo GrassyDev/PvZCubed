@@ -11,7 +11,7 @@
         "$(#bd951a)HP: $()$(#ff0000)12 ",
         "$(#bd951a)DMG: $()$(#ff0000)x6 1 DMG/1.5s (3 Pierce) ",
         "$(#bd951a)Range: $()$(#ff0000)15 Blocks ",
-        "$(#bd951a)Hat: $()$(#ff0000)10(Range),20s(Recharge),32HP ",
+        "$(#bd951a)Hat: $()$(#ff0000)10(Range),30s(Recharge),32HP ",
         "$(#bd951a)Seed: $()$(#ff0000)15s ",
         "$(#bd951a)Special: $()$(#ff0000)Nocturnal. Magic Damage. Pierces up to 3 Zombies, then the projectile comes back dealing damage to the Zombies it pierced. Can spawn a Hat (Tall) if a Zombie is in range. The hat spawns either an Hypnotized Browncoat, Conehead, or Buckethead when destroyed.",
         "$(br)$(#bd951a)He's fun at parties."

@@ -750,13 +750,13 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<ShootingCabbageEntity> CABBAGE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "cabbage"),
-			QuiltEntityTypeBuilder.<ShootingCabbageEntity>create(SpawnGroup.MISC, ShootingCabbageEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+			QuiltEntityTypeBuilder.<ShootingCabbageEntity>create(SpawnGroup.MISC, ShootingCabbageEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingIcebergEntity> ICEBERG = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "iceberg"),
-			QuiltEntityTypeBuilder.<ShootingIcebergEntity>create(SpawnGroup.MISC, ShootingIcebergEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+			QuiltEntityTypeBuilder.<ShootingIcebergEntity>create(SpawnGroup.MISC, ShootingIcebergEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingBoomerangEntity> BOOMERANGPROJ = Registry.register(
@@ -774,13 +774,13 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<ShootingPepperEntity> PEPPERPROJ = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "pepperproj"),
-			QuiltEntityTypeBuilder.<ShootingPepperEntity>create(SpawnGroup.MISC, ShootingPepperEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+			QuiltEntityTypeBuilder.<ShootingPepperEntity>create(SpawnGroup.MISC, ShootingPepperEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingPumpkinEntity> PUMPKINPROJ = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "pumpkinproj"),
-			QuiltEntityTypeBuilder.<ShootingPumpkinEntity>create(SpawnGroup.MISC, ShootingPumpkinEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
+			QuiltEntityTypeBuilder.<ShootingPumpkinEntity>create(SpawnGroup.MISC, ShootingPumpkinEntity::new).setDimensions(EntityDimensions.fixed(1f,.5f)).build()
 	);
 
 	public static final EntityType<HypnoProjEntity> HYPNOPROJ = Registry.register(

@@ -215,6 +215,9 @@ public class ShootingPepperEntity extends PvZProjectileEntity implements IAnimat
 					}
 					damage = damage * 2;
 				}
+				if (((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) || entity.isWet() || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())){
+					damage = damage / 2;
+				}
 				if (damage > ((LivingEntity) entity).getHealth() &&
 						!(entity instanceof ZombieShieldEntity) &&
 						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
@@ -259,7 +262,7 @@ public class ShootingPepperEntity extends PvZProjectileEntity implements IAnimat
 						if (bl) {
 							if (livingEntity instanceof Monster &&
 									!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
-											&& (generalPvZombieEntity.getHypno()))) {
+											&& (generalPvZombieEntity.getHypno())) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && !generalPvZombieEntity1.canBurn())) {
 								if (livingEntity != entity) {
 									ZombiePropEntity zombiePropEntity3 = null;
 									for (Entity entity1 : livingEntity.getPassengerList()) {
