@@ -16,6 +16,6 @@ public class DoomshroomEntityRenderer extends GeoEntityRenderer<DoomshroomEntity
     }
 
 	protected int getBlockLight(DoomshroomEntity plantEntity, BlockPos blockPos) {
-		return 6;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 6, 15);
 	}
 }

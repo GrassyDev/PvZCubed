@@ -15,6 +15,6 @@ public class TorchwoodEntityRenderer extends GeoEntityRenderer<TorchwoodEntity> 
     }
 
 	protected int getBlockLight(TorchwoodEntity plantEntity, BlockPos blockPos) {
-		return plantEntity.isWet()? 0 : 15;
+		return plantEntity.isWet()? super.getBlockLight(plantEntity, blockPos) : 15;
 	}
 }

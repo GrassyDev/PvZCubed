@@ -15,7 +15,7 @@ public class SeashroomEntityRenderer extends GeoEntityRenderer<SeashroomEntity> 
     }
 
 	protected int getBlockLight(SeashroomEntity plantEntity, BlockPos blockPos) {
-		return 3;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 3, 15);
 	}
 
 }

@@ -15,7 +15,7 @@ public class DarkAgesGraveRenderer extends GeoEntityRenderer<DarkAgesGraveEntity
     }
 
 	protected int getBlockLight(DarkAgesGraveEntity graveEntity, BlockPos blockPos) {
-		return 6;
+		return Math.min(super.getBlockLight(graveEntity, blockPos) + 6, 15);
 	}
 
 }

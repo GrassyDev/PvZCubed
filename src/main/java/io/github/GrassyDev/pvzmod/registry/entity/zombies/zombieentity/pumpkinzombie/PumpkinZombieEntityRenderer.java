@@ -21,7 +21,7 @@ public class PumpkinZombieEntityRenderer extends GeoEntityRenderer<PumpkinZombie
     }
 
 	protected int getBlockLight(PumpkinZombieEntity zombie, BlockPos blockPos) {
-		return 12;
+		return Math.min(super.getBlockLight(zombie, blockPos) + 12, 15);
 	}
 
 

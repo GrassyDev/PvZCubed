@@ -15,7 +15,7 @@ public class ChillyPepperEntityRenderer extends GeoEntityRenderer<ChillyPepperEn
     }
 
 	protected int getBlockLight(ChillyPepperEntity plantEntity, BlockPos blockPos) {
-		return plantEntity.getFuseSpeed() > 0 ? 4 : 0;
+		return plantEntity.getFuseSpeed() > 0 ? Math.min(super.getBlockLight(plantEntity, blockPos) + 4, 15) : super.getBlockLight(plantEntity, blockPos);
 	}
 
 }

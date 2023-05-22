@@ -15,7 +15,7 @@ public class GoldTileRenderer extends GeoEntityRenderer<GoldTile> {
     }
 
 	protected int getBlockLight(GoldTile tile, BlockPos blockPos) {
-		return tile.powered? 15 : 0;
+		return tile.powered? 15 : super.getBlockLight(tile, blockPos);
 	}
 
 }

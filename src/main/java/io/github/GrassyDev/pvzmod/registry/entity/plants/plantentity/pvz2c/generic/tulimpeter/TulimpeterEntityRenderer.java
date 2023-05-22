@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.TulipVariants;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import java.util.Map;
@@ -34,4 +35,7 @@ public class TulimpeterEntityRenderer extends GeoEntityRenderer<TulimpeterEntity
         this.shadowRadius = 0.7F; //change 0.7 to the desired shadow size.
     }
 
+	protected int getBlockLight(TulimpeterEntity plantEntity, BlockPos blockPos) {
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 3, 15);
+	}
 }

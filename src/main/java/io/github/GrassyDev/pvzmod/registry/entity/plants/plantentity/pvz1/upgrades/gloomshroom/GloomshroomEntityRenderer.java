@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.FumeshroomVari
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import java.util.Map;
@@ -33,5 +34,9 @@ public class GloomshroomEntityRenderer extends GeoEntityRenderer<GloomshroomEnti
 		super(ctx, new GloomshroomEntityModel());
         this.shadowRadius = 0.85F; //change 0.7 to the desired shadow size.
     }
+
+	protected int getBlockLight(GloomshroomEntity plantEntity, BlockPos blockPos) {
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 3, 15);
+	}
 
 }

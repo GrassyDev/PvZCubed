@@ -16,7 +16,7 @@ public class BeautyshroomEntityRenderer extends GeoEntityRenderer<BeautyshroomEn
     }
 
 	protected int getBlockLight(BeautyshroomEntity plantEntity, BlockPos blockPos) {
-		return 6;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 6, 15);
 	}
 
 }

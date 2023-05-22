@@ -15,7 +15,7 @@ public class ZombieGraveRenderer extends GeoEntityRenderer<ZombieGraveEntity> {
     }
 
 	protected int getBlockLight(ZombieGraveEntity graveEntity, BlockPos blockPos) {
-		return 12;
+		return Math.min(super.getBlockLight(graveEntity, blockPos) + 12, 15);
 	}
 
 }

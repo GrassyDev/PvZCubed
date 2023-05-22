@@ -15,7 +15,7 @@ public class HypnoshroomEntityRenderer extends GeoEntityRenderer<HypnoshroomEnti
     }
 
 	protected int getBlockLight(HypnoshroomEntity plantEntity, BlockPos blockPos) {
-		return 13;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 13, 15);
 	}
 
 }

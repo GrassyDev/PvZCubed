@@ -15,7 +15,7 @@ public class CherrybombEntityRenderer extends GeoEntityRenderer<CherrybombEntity
     }
 
 	protected int getBlockLight(CherrybombEntity plantEntity, BlockPos blockPos) {
-		return plantEntity.getFuseSpeed() > 0 ? 8 : 0;
+		return plantEntity.getFuseSpeed() > 0 ? Math.min(super.getBlockLight(plantEntity, blockPos) + 8, 15) : super.getBlockLight(plantEntity, blockPos);
 	}
 
 }

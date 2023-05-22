@@ -11,6 +11,6 @@ public class ShootingIceSpikeEntityRenderer extends GeoProjectilesRenderer {
 		this.shadowRadius = 0.3F; //change 0.7 to the desired shadow size.
 	}
 	protected int getBlockLight(ShootingIcespikeEntity plantEntity, BlockPos blockPos) {
-		return 1;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 3, 15);
 	}
 }

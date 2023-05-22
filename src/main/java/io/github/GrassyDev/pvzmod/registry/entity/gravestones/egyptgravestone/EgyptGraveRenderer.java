@@ -15,7 +15,7 @@ public class EgyptGraveRenderer extends GeoEntityRenderer<EgyptGraveEntity> {
     }
 
 	protected int getBlockLight(EgyptGraveEntity graveEntity, BlockPos blockPos) {
-		return 6;
+		return Math.min(super.getBlockLight(graveEntity, blockPos) + 6, 15);
 	}
 
 }

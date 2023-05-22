@@ -15,7 +15,7 @@ public class ZapricotEntityRenderer extends GeoEntityRenderer<ZapricotEntity> {
     }
 
 	protected int getBlockLight(ZapricotEntity plantEntity, BlockPos blockPos) {
-		return 1;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 1, 15);
 	}
 
 }

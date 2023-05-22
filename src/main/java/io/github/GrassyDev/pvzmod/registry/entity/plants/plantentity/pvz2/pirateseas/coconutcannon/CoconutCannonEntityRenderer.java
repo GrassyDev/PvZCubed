@@ -15,7 +15,7 @@ public class CoconutCannonEntityRenderer extends GeoEntityRenderer<CoconutCannon
     }
 
 	protected int getBlockLight(CoconutCannonEntity plantEntity, BlockPos blockPos) {
-		return 15;
+		return (plantEntity.isFiring) ? Math.min(super.getBlockLight(plantEntity, blockPos) + 7, 15) : 0;
 	}
 
 }

@@ -15,7 +15,7 @@ public class IceshroomEntityRenderer extends GeoEntityRenderer<IceshroomEntity> 
     }
 
 	protected int getBlockLight(IceshroomEntity plantEntity, BlockPos blockPos) {
-		return 3;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 3, 15);
 	}
 
 }

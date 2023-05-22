@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ScaredyshroomV
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import java.util.Map;
@@ -34,5 +35,9 @@ public class ScaredyshroomEntityRenderer extends GeoEntityRenderer<Scaredyshroom
 		super(ctx, new ScaredyshroomEntityModel());
         this.shadowRadius = 0.5F; //change 0.7 to the desired shadow size.
     }
+
+	protected int getBlockLight(ScaredyshroomEntity plantEntity, BlockPos blockPos) {
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 4, 15);
+	}
 
 }

@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.ImpVariants;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.explorer.ExplorerEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -40,8 +39,8 @@ public class SuperFanImpEntityRenderer extends GeoEntityRenderer<SuperFanImpEnti
 		return LOCATION_BY_VARIANT.get(object.getVariant());
 	}
 
-	protected int getBlockLight(ExplorerEntity zombie, BlockPos blockPos) {
-		return zombie.getFireStage()? 15 : 0;
+	protected int getBlockLight(SuperFanImpEntity zombie, BlockPos blockPos) {
+		return zombie.getFireStage()? 15 : super.getBlockLight(zombie, blockPos);
 	}
 
 	@Override

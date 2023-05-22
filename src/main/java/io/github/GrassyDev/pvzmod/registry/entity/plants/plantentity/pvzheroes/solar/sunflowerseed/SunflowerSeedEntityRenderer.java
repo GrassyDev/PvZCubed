@@ -15,7 +15,6 @@ public class SunflowerSeedEntityRenderer extends GeoEntityRenderer<SunflowerSeed
     }
 
 	protected int getBlockLight(SunflowerSeedEntity plantEntity, BlockPos blockPos) {
-		return 2;
+		return (plantEntity.isFiring) ? Math.min(super.getBlockLight(plantEntity, blockPos) + 12, 15) : Math.min(super.getBlockLight(plantEntity, blockPos) + 3, 15);
 	}
-
 }

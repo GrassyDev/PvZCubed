@@ -15,7 +15,7 @@ public class PumpkinWitchEntityRenderer extends GeoEntityRenderer<PumpkinWitchEn
     }
 
 	protected int getBlockLight(PumpkinWitchEntity plantEntity, BlockPos blockPos) {
-		return 13;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 13, 15);
 	}
 
 }

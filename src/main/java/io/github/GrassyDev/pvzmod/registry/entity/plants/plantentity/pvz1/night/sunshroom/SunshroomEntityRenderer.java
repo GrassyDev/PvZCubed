@@ -15,7 +15,7 @@ public class SunshroomEntityRenderer extends GeoEntityRenderer<SunshroomEntity> 
     }
 
 	protected int getBlockLight(SunshroomEntity plantEntity, BlockPos blockPos) {
-		return 7;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 7, 15);
 	}
 
 }

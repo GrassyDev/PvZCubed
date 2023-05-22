@@ -15,6 +15,6 @@ public class FlamingpeaEntityRenderer extends GeoEntityRenderer<FlamingpeaEntity
     }
 
 	protected int getBlockLight(FlamingpeaEntity plantEntity, BlockPos blockPos) {
-		return plantEntity.isWet()? 0 : 15;
+		return plantEntity.isWet()? super.getBlockLight(plantEntity, blockPos) : 15;
 	}
 }

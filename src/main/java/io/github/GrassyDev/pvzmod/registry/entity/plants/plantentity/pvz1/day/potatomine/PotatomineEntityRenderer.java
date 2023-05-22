@@ -15,7 +15,7 @@ public class PotatomineEntityRenderer extends GeoEntityRenderer<PotatomineEntity
     }
 
 	protected int getBlockLight(PotatomineEntity plantEntity, BlockPos blockPos) {
-		return plantEntity.getPotatoStage()? 8 : 0;
+		return plantEntity.getPotatoStage()? Math.min(super.getBlockLight(plantEntity, blockPos) + 8, 15) : super.getBlockLight(plantEntity, blockPos);
 	}
 
 }

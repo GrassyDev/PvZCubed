@@ -15,7 +15,7 @@ public class PoolGraveRenderer extends GeoEntityRenderer<PoolGraveEntity> {
     }
 
 	protected int getBlockLight(PoolGraveEntity graveEntity, BlockPos blockPos) {
-		return 6;
+		return Math.min(super.getBlockLight(graveEntity, blockPos) + 6, 15);
 	}
 
 }

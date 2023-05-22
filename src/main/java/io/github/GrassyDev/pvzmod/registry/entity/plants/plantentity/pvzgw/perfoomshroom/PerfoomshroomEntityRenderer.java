@@ -16,7 +16,7 @@ public class PerfoomshroomEntityRenderer extends GeoEntityRenderer<Perfoomshroom
     }
 
 	protected int getBlockLight(PerfoomshroomEntity plantEntity, BlockPos blockPos) {
-		return 3;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 3, 15);
 	}
 
 }

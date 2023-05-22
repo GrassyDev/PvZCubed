@@ -43,7 +43,7 @@ public class ExplorerEntityRenderer extends GeoEntityRenderer<ExplorerEntity> {
 	}
 
 	protected int getBlockLight(ExplorerEntity zombie, BlockPos blockPos) {
-		return zombie.getFireStage()? 15 : 0;
+		return zombie.getFireStage()? 15 : super.getBlockLight(zombie, blockPos);
 	}
 
 	@Override

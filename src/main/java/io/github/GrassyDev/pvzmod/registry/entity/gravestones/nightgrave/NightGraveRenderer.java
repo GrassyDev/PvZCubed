@@ -15,7 +15,7 @@ public class NightGraveRenderer extends GeoEntityRenderer<NightGraveEntity> {
     }
 
 	protected int getBlockLight(NightGraveEntity graveEntity, BlockPos blockPos) {
-		return 6;
+		return Math.min(super.getBlockLight(graveEntity, blockPos) + 6, 15);
 	}
 
 }

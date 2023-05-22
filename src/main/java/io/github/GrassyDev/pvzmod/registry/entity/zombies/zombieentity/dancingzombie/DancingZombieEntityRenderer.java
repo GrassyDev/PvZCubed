@@ -21,7 +21,7 @@ public class DancingZombieEntityRenderer extends GeoEntityRenderer<DancingZombie
     }
 
 	protected int getBlockLight(DancingZombieEntity zombieEntity, BlockPos blockPos) {
-		return 7;
+		return Math.min(super.getBlockLight(zombieEntity, blockPos) + 7, 15);
 	}
 
 	@Override

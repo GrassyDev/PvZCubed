@@ -15,7 +15,7 @@ public class PepperpultEntityRenderer extends GeoEntityRenderer<PepperpultEntity
     }
 
 	protected int getBlockLight(PepperpultEntity plantEntity, BlockPos blockPos) {
-		return plantEntity.isWet()? 0 : 9;
+		return plantEntity.isWet()? super.getBlockLight(plantEntity, blockPos) : Math.min(super.getBlockLight(plantEntity, blockPos) + 9, 15);
 	}
 
 }

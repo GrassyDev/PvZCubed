@@ -38,7 +38,7 @@ public class TwinSunflowerEntityRenderer extends GeoEntityRenderer<TwinSunflower
     }
 
 	protected int getBlockLight(TwinSunflowerEntity plantEntity, BlockPos blockPos) {
-		return 5;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 7, 15);
 	}
 
 }

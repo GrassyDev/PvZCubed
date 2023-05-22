@@ -15,7 +15,7 @@ public class AcidshroomEntityRenderer extends GeoEntityRenderer<AcidshroomEntity
     }
 
 	protected int getBlockLight(AcidshroomEntity plantEntity, BlockPos blockPos) {
-		return 3;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 6, 15);
 	}
 
 }

@@ -15,7 +15,7 @@ public class CharmshroomEntityRenderer extends GeoEntityRenderer<CharmshroomEnti
     }
 
 	protected int getBlockLight(CharmshroomEntity plantEntity, BlockPos blockPos) {
-		return 11;
+		return Math.min(super.getBlockLight(plantEntity, blockPos) + 11, 15);
 	}
 
 }
