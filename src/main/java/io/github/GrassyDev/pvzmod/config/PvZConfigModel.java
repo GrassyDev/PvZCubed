@@ -21,25 +21,25 @@ public class PvZConfigModel {
 
 	public static class PvZSpawnNestGrave {
 		@RestartRequired
-		public int basicG = 12;
+		public int basicGv2 = 10;
 		@RestartRequired
 		public int basicGmin = 1;
 		@RestartRequired
 		public int basicGmax = 1;
 		@RestartRequired
-		public int nightG = 12;
+		public int nightGv2 = 10;
 		@RestartRequired
 		public int nightGmin = 1;
 		@RestartRequired
 		public int nightGmax = 1;
 		@RestartRequired
-		public int poolG = 8;
+		public int poolGv2 = 7;
 		@RestartRequired
 		public int poolGmin = 1;
 		@RestartRequired
 		public int poolGmax = 1;
 		@RestartRequired
-		public int roofG = 8;
+		public int roofGv2 = 7;
 		@RestartRequired
 		public int roofGmin = 1;
 		@RestartRequired
@@ -51,13 +51,13 @@ public class PvZConfigModel {
 		@RestartRequired
 		public int egyptGmax = 1;
 		@RestartRequired
-		public int futureG = 10;
+		public int futureGv2 = 8;
 		@RestartRequired
 		public int futureGmin = 1;
 		@RestartRequired
 		public int futureGmax = 1;
 		@RestartRequired
-		public int darkagesG = 12;
+		public int darkagesGv2 = 8;
 		@RestartRequired
 		public int darkagesGmin = 1;
 		@RestartRequired

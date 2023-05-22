@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
@@ -16,7 +15,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -445,7 +443,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(coneheadEntity);
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.539 + difficultymodifier || isUnlock()) {
 					if (probability2 <= 0.25 / halfModifier) { // 25% x1 Buckethead
 						for (int u = 0; u < 1; ++u) {
 							if (!PoolGraveEntity.this.is1x1()) {
@@ -475,7 +473,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(snorkelEntity);
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.549 + difficultymodifier || isUnlock()) {
 					if (probability21 <= 0.15 / halfModifier) { // 15% x4 SnorkelZombie
 						for (int p = 0; p < 4 / halfModifier; ++p) {
 							if (!PoolGraveEntity.this.is1x1()) {
@@ -491,7 +489,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.589 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.4 / halfModifier) { // 40% x1 Dolphin Rider Zombie
 						for (int h = 0; h < 1; ++h) {
 							if (!PoolGraveEntity.this.is1x1()) {
@@ -523,7 +521,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie
 						for (int g = 0; g < 1; ++g) {
 							if (!PoolGraveEntity.this.is1x1()) {
@@ -576,7 +574,7 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				/**if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
+				/**if (difficulty >= 2.29 + difficultymodifier || isUnlock()) {
 				 if (probability7 <= 0.085) { // 8.5% x1 Zomboni
 				 for (int h = 0; h < 1; ++h) {
 				 if (!PoolGraveEntity.this.is1x1()) {

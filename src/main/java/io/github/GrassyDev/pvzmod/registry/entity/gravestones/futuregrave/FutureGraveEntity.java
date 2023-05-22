@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.futuregrave;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
@@ -16,7 +15,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -487,7 +485,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(jetpackEntity);
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability5 <= 0.15 / halfModifier) { // 15% x2 Flag Zombie
 						for (int f = 0; f < 2 / halfModifier; ++f) {
 							if (!FutureGraveEntity.this.is1x1()) {
@@ -533,7 +531,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.659 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.50 / halfModifier) { // 50% x1 Robo-Cone Zombie
 						for (int p = 0; p < 1; ++p) {
 							if (!FutureGraveEntity.this.is1x1()) {
@@ -549,7 +547,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.689 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.40 / halfModifier) { // 50% x1 Blastronaut Zombie
 						for (int p = 0; p < 1; ++p) {
 							if (!FutureGraveEntity.this.is1x1()) {

@@ -2,7 +2,6 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
@@ -17,7 +16,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -521,7 +519,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability5 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							if (!RoofGraveEntity.this.is1x1()) {
@@ -581,7 +579,7 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 2.29 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.6 / halfModifier) { // 70% x2 Basketball Carrier Zombie
 						for (int p = 0; p < 2 / halfModifier; ++p) {
 							if (!RoofGraveEntity.this.is1x1()) {
@@ -597,10 +595,10 @@ public class RoofGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.89 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 2.29 + difficultymodifier || isUnlock()) {
 					if (probability7 <= 0.35 / halfModifier) { // 35% x1/x2 Gargantuar
 						int xx = 1;
-						if (difficulty >= 2.09) {
+						if (difficulty >= 2.49 + difficultymodifier) {
 							xx = (int) Math.floor(2 / halfModifier);
 						}
 						for (int g = 0; g < xx; ++g) {

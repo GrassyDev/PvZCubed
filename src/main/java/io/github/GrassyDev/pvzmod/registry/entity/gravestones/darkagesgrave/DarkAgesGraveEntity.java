@@ -238,7 +238,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 		if (cavespawn <= 0.66) {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
 					!world.getBlockState(pos).getMaterial().isLiquid() &&
-					world.toServerWorld().getTime() > 24000  &&
+					world.toServerWorld().getTime() > 60000  &&
 					pos.getY() > 50 &&
 					(world.getAmbientDarkness() >= 2 ||
 							world.getLightLevel(LightType.SKY, pos) < 2) &&
@@ -249,7 +249,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 		else {
 			return world.getDifficulty() != Difficulty.PEACEFUL &&
 					!world.getBlockState(pos).getMaterial().isLiquid() &&
-					world.toServerWorld().getTime() > 24000 &&
+					world.toServerWorld().getTime() > 60000 &&
 					(world.getAmbientDarkness() >= 2 ||
 							world.getLightLevel(LightType.SKY, pos) < 2) &&
 					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() &&
@@ -457,7 +457,7 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 				}
 			}
 			if (serverWorld.toServerWorld().getTime() > 24000) {
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability5 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							if (!DarkAgesGraveEntity.this.is1x1()) {
@@ -509,21 +509,23 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(coneheadEntity);
 					}
 				}
-				if (probability7 <= 0.15 / halfModifier) { // 15% x1 Pumpkin Zombie
-					for (int h = 0; h < 1; ++h) {
-						if (!DarkAgesGraveEntity.this.is1x1()) {
-							zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
-							zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
+					if (probability7 <= 0.15 / halfModifier) { // 15% x1 Pumpkin Zombie
+						for (int h = 0; h < 1; ++h) {
+							if (!DarkAgesGraveEntity.this.is1x1()) {
+								zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
+								zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							PumpkinZombieEntity pumpkinZombieEntity = (PumpkinZombieEntity) PvZEntity.PUMPKINZOMBIE.create(DarkAgesGraveEntity.this.world);
+							pumpkinZombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							pumpkinZombieEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							pumpkinZombieEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(pumpkinZombieEntity);
 						}
-						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
-						PumpkinZombieEntity pumpkinZombieEntity = (PumpkinZombieEntity) PvZEntity.PUMPKINZOMBIE.create(DarkAgesGraveEntity.this.world);
-						pumpkinZombieEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						pumpkinZombieEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						pumpkinZombieEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(pumpkinZombieEntity);
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.709 + difficultymodifier || isUnlock()) {
 					if (probability8 <= 0.15 / halfModifier) { // 15% x2 Pumpkin Zombie
 						for (int h = 0; h < 2 / halfModifier; ++h) {
 							if (!DarkAgesGraveEntity.this.is1x1()) {
@@ -539,56 +541,62 @@ public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (probability2 <= 0.10 / halfModifier) { // 10% x1 Peasant Knight
-					for (int c = 0; c < 1; ++c) {
-						if (!DarkAgesGraveEntity.this.is1x1()) {
-							zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
-							zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
-						}
-						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
-						BrowncoatEntity peasantKnight = (BrowncoatEntity) PvZEntity.PEASANTKNIGHT.create(DarkAgesGraveEntity.this.world);
-						peasantKnight.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						peasantKnight.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						peasantKnight.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(peasantKnight);
+				if (difficulty >= 1.559 + difficultymodifier || isUnlock()) {
+					if (probability2 <= 0.2 / halfModifier) { // 20% x1 Peasant Knight
+						for (int c = 0; c < 1; ++c) {
+							if (!DarkAgesGraveEntity.this.is1x1()) {
+								zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
+								zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							BrowncoatEntity peasantKnight = (BrowncoatEntity) PvZEntity.PEASANTKNIGHT.create(DarkAgesGraveEntity.this.world);
+							peasantKnight.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							peasantKnight.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							peasantKnight.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(peasantKnight);
 
-						BlockPos blockPos2 = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
-						BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANT.create(DarkAgesGraveEntity.this.world);
-						coneheadEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
-						coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						coneheadEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(coneheadEntity);
-					}
-				}
-				if (probability10 <= 0.3 / halfModifier) { // 30% x2 Imp Dragons
-					for (int h = 0; h < 2 / halfModifier; ++h) {
-						if (!DarkAgesGraveEntity.this.is1x1()) {
-							zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
-							zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
+							BlockPos blockPos2 = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							BrowncoatEntity coneheadEntity = (BrowncoatEntity) PvZEntity.PEASANT.create(DarkAgesGraveEntity.this.world);
+							coneheadEntity.refreshPositionAndAngles(blockPos2, 0.0F, 0.0F);
+							coneheadEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							coneheadEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(coneheadEntity);
 						}
-						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
-						ImpEntity impEntity = (ImpEntity) PvZEntity.IMPDRAGON.create(DarkAgesGraveEntity.this.world);
-						impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						impEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						impEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(impEntity);
-					}
-				}
-				if (probability4 <= 0.3 / halfModifier) { // 30% x2 Imp Dragons
-					for (int i = 0; i < Math.round(3 / halfModifier); ++i) {
-						if (!DarkAgesGraveEntity.this.is1x1()) {
-							zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
-							zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
-						}
-						BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
-						ImpEntity impEntity = (ImpEntity) PvZEntity.IMPDRAGON.create(DarkAgesGraveEntity.this.world);
-						impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-						impEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						impEntity.setOwner(DarkAgesGraveEntity.this);
-						serverWorld.spawnEntityAndPassengers(impEntity);
 					}
 				}
 				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
+					if (probability10 <= 0.3 / halfModifier) { // 30% x1 Imp Dragons
+						for (int h = 0; h < 1; ++h) {
+							if (!DarkAgesGraveEntity.this.is1x1()) {
+								zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
+								zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							ImpEntity impEntity = (ImpEntity) PvZEntity.IMPDRAGON.create(DarkAgesGraveEntity.this.world);
+							impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							impEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							impEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(impEntity);
+						}
+					}
+				}
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
+					if (probability4 <= 0.3 / halfModifier) { // 30% x2 Imp Dragons
+						for (int i = 0; i < Math.round(3 / halfModifier); ++i) {
+							if (!DarkAgesGraveEntity.this.is1x1()) {
+								zombiePosZ = DarkAgesGraveEntity.this.random.range(-1, 1);
+								zombiePos = DarkAgesGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = DarkAgesGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							ImpEntity impEntity = (ImpEntity) PvZEntity.IMPDRAGON.create(DarkAgesGraveEntity.this.world);
+							impEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							impEntity.initialize(serverWorld, DarkAgesGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							impEntity.setOwner(DarkAgesGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(impEntity);
+						}
+					}
+				}
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.2 / halfModifier) { // 20% x1 Announcer Imp
 						for (int f = 0; f < 1; ++f) {
 							if (!DarkAgesGraveEntity.this.is1x1()) {

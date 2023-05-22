@@ -458,7 +458,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.539 + difficultymodifier || isUnlock()) {
 					if (probability21 <= 0.10 / halfModifier) { // 10% x2 Buckethead
 						for (int u = 0; u < 2 / halfModifier; ++u) {
 							if (!BasicGraveEntity.this.is1x1()) {
@@ -488,7 +488,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.549 + difficultymodifier || isUnlock()) {
 					if (probability13 <= 0.30 / halfModifier) { // 30% x2 Pole Vaulting Zombie
 						for (int p = 0; p < 2; ++p) {
 							if (!BasicGraveEntity.this.is1x1()) {
@@ -504,7 +504,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.549 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.569 + difficultymodifier || isUnlock()) {
 					if (probability12 <= 0.30 / halfModifier) { // 30% x3 Pole Vaulting Zombie
 						for (int p = 0; p < 3; ++p) {
 							if (!BasicGraveEntity.this.is1x1()) {
@@ -520,7 +520,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.529 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
 					if (probability4 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							if (!BasicGraveEntity.this.is1x1()) {
@@ -566,7 +566,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.509 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.539 + difficultymodifier || isUnlock()) {
 					if (probability5 <= 0.20 / halfModifier) { // 20% x2 Pole Vaulting Zombie
 						for (int p = 0; p < 2 / halfModifier; ++p) {
 							if (!BasicGraveEntity.this.is1x1()) {
