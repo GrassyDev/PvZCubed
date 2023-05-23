@@ -188,6 +188,7 @@ public abstract class PlantEntity extends GolemEntity {
 	public boolean illuminate;
 	public boolean targetMedium;
 	public boolean targetNotCovered;
+	public boolean targetNotObstacle;
 
 	protected void targetZombies(Vec3d pos, int yDiff, boolean canHitSnorkel, boolean canHitFlying, boolean canHitStealth){
 		List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getPos()).expand(this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE) + 1));
@@ -219,7 +220,8 @@ public abstract class PlantEntity extends GolemEntity {
 									!(generalPvZombieEntity.getHypno())) {
 								int currentStrength = ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0);
 								if (!(!ZOMBIE_SIZE.get(hostileEntity.getType()).orElse("medium").equals("medium") && targetMedium) &&
-										!(generalPvZombieEntity.isCovered() && targetNotCovered)) {
+										!(generalPvZombieEntity.isCovered() && targetNotCovered) &&
+										!(generalPvZombieEntity instanceof ZombieObstacleEntity && targetNotObstacle)) {
 									isIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
 									isPoisoned = hostileEntity.hasStatusEffect(PvZCubed.PVZPOISON);
 									if (hasHelmet) {

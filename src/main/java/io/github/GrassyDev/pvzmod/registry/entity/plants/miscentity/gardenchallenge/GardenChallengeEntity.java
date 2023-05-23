@@ -261,7 +261,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		if (this.getWaveInProgress() && this.getWaveTicks() >= 60){
 			this.setWaveinprogress(WaveInProgress.FALSE);
 		}
-		System.out.println(this.getWaveTicks());
 		if (this.getWaveInProgress() && this.world instanceof ServerWorld serverWorld){
 			if (getWaveTicks() == 20 && this.getTier().equals(ChallengeTiers.ONE)){
 				GraveEntity graveEntity = (GraveEntity) PvZEntity.BASICGRAVESTONE.create(this.world);
