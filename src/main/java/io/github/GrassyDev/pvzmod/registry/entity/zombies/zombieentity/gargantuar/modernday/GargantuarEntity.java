@@ -353,7 +353,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 						bl = true;
 					}
 					else if (this.squaredDistanceTo(target) < 16D) {
-						target.kill();
+						target.damage(DamageSource.mob(this), Integer.MAX_VALUE);
 						return true;
 					}
 				}

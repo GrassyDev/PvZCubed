@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.challenge.ChallengeTiers;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -18,6 +19,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -203,6 +205,11 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		for (GraveEntity graveEntity : currentWorlds){
 			graveEntity.discard();
 		}
+		if (source.getAttacker() instanceof GeneralPvZombieEntity || source.getAttacker() == this) {
+			for (int i = 0; i < this.getTierCount(); ++i) {
+				this.dropItem(Items.DIAMOND);
+			}
+		}
 		super.onDeath(source);
 	}
 
@@ -245,6 +252,10 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 	public void checkEntities(){
 		currentWorlds = this.world.getNonSpectatingEntities(GraveEntity.class, this.getBoundingBox());
 		checkEntities = this.world.getNonSpectatingEntities(Entity.class, this.getBoundingBox().expand(20, 6, 20));
+		for (GraveEntity graveEntity : currentWorlds){
+			graveEntity.decorative = true;
+			graveEntity.setAiDisabled(true);
+		}
 		Iterator var9 = checkEntities.iterator();
 		while (true) {
 			Entity entity;
@@ -258,6 +269,40 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 	}
 
 	public void waveManager(){
+		System.out.println(this.getTier());
+		System.out.println(this.getWaveCount());
+		int maxWaves = switch (getTier()) {
+			case ONE -> maxWaves = 3;
+			case TWO -> maxWaves = 4;
+			case THREE -> maxWaves = 5;
+			case FOUR -> maxWaves = 3;
+			case FIVE -> maxWaves = 3;
+			case SIX -> maxWaves = 4;
+			case SEVEN -> maxWaves = 5;
+			case EIGHT -> maxWaves = 6;
+			default -> maxWaves = 1;
+		};
+		if (this.getWaveCount() > maxWaves && !this.getTier().equals(ChallengeTiers.EIGHT)){
+			if (!currentWorlds.isEmpty()) {
+				EntityType<?> entityType;
+				List<EntityType<?>> list = new ArrayList<>();
+				list.add(PvZEntity.BASICGRAVESTONE);
+				list.add(PvZEntity.NIGHTGRAVESTONE);
+				list.add(PvZEntity.POOLGRAVESTONE);
+				list.add(PvZEntity.ROOFGRAVESTONE);
+				list.add(PvZEntity.EGYPTGRAVESTONE);
+				list.add(PvZEntity.FUTUREGRAVESTONE);
+				list.add(PvZEntity.DARKAGESGRAVESTONE);
+				entityType = list.get(random.range(0, list.size() - 1));
+				this.addWorld(entityType);
+				this.setTier(ChallengeTiers.byId(this.getTierCount() + 1));
+			}
+			this.setWave(0);
+		}
+		else if (this.getWaveCount() > maxWaves && this.getTier().equals(ChallengeTiers.EIGHT)){
+			this.damage(DamageSource.mob(this), Integer.MAX_VALUE);
+		}
+		/**
 		if (this.getWaveInProgress() && this.getWaveTicks() >= 60){
 			this.setWaveinprogress(WaveInProgress.FALSE);
 		}
@@ -276,7 +321,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 				graveEntity.initialize(serverWorld, this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				serverWorld.spawnEntityAndPassengers(graveEntity);
 			}
-		}
+		}**/
 	}
 
 	@Override
@@ -286,20 +331,8 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			if (currentWorlds.isEmpty()) {
 				this.addWorld(PvZEntity.BASICGRAVESTONE);
 			}
-			if (!currentWorlds.isEmpty()) {
-				EntityType<?> entityType = PvZEntity.BASICGRAVESTONE;
-				List<EntityType<?>> list = new ArrayList<>();
-				list.add(PvZEntity.BASICGRAVESTONE);
-				list.add(PvZEntity.NIGHTGRAVESTONE);
-				list.add(PvZEntity.POOLGRAVESTONE);
-				list.add(PvZEntity.ROOFGRAVESTONE);
-				list.add(PvZEntity.EGYPTGRAVESTONE);
-				list.add(PvZEntity.FUTUREGRAVESTONE);
-				list.add(PvZEntity.DARKAGESGRAVESTONE);
-				entityType = list.get(random.range(0, list.size() - 1));
-				this.addWorld(entityType);
-				this.setTier(ChallengeTiers.byId(this.getTierCount() + 1));
-			}
+			this.addWave();
+			this.setWaveinprogress(WaveInProgress.TRUE);
 		}
 		return super.interactMob(player, hand);
 	}
@@ -341,8 +374,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 				graveEntity.initialize(serverWorld, this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 				graveEntity.setAiDisabled(true);
 				serverWorld.spawnEntityAndPassengers(graveEntity);
-				this.addWave();
-				this.setWaveinprogress(WaveInProgress.TRUE);
 			}
 		}
 	}

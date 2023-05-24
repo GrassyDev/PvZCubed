@@ -50,6 +50,8 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	public boolean beingEaten = false;
 
+	public boolean decorative;
+
 	private static final TrackedData<Byte> SPELL;
 	private GraveEntity.Spell spell;
 

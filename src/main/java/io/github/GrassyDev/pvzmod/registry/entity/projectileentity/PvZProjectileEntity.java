@@ -1,5 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.entity.projectileentity;
 
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -33,6 +34,14 @@ public abstract class PvZProjectileEntity extends ThrownItemEntity {
 	protected List<Entity> hitEntities = new ArrayList<>();
 
 	public void hitEntities(){
-		hitEntities = this.world.getNonSpectatingEntities(Entity.class, this.getBoundingBox());
+		List<Entity> hit = this.world.getNonSpectatingEntities(Entity.class, this.getBoundingBox());
+		for (Entity entity : hit){
+			if (entity instanceof GraveEntity graveEntity && graveEntity.decorative){
+
+			}
+			else {
+				hitEntities.add(entity);
+			}
+		}
 	}
 }
