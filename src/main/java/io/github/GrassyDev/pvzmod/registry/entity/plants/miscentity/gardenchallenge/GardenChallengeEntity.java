@@ -38,9 +38,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class GardenChallengeEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
@@ -247,14 +245,50 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 	}
 
 	protected List<GraveEntity> currentWorlds = new ArrayList<>();
+	protected List<GraveEntity> firsWorldCheck = new ArrayList<>();
 	protected List<Entity> checkEntities = new ArrayList<>();
 
 	public void checkEntities(){
-		currentWorlds = this.world.getNonSpectatingEntities(GraveEntity.class, this.getBoundingBox());
+		firsWorldCheck = this.world.getNonSpectatingEntities(GraveEntity.class, this.getBoundingBox());
+		currentWorlds.clear();
+		for (int u = 0; u < 8; ++u){
+			currentWorlds.add(null);
+		}
+		for (GraveEntity graveEntity : firsWorldCheck) {
+			if (Objects.equals(graveEntity.getBlockPos(), new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY(), this.getBlockPos().getZ() + 1))) {
+				currentWorlds.set(0, graveEntity);
+			}
+			else if (Objects.equals(graveEntity.getBlockPos(), new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY(), this.getBlockPos().getZ()))){
+				currentWorlds.set(1, graveEntity);
+			}
+			else if (Objects.equals(graveEntity.getBlockPos(), new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY(), this.getBlockPos().getZ() - 1))){
+				currentWorlds.set(2, graveEntity);
+			}
+			else if (Objects.equals(graveEntity.getBlockPos(),  new BlockPos(new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ() - 1)))){
+				currentWorlds.set(3, graveEntity);
+			}
+			else if (Objects.equals(graveEntity.getBlockPos(), new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY(), this.getBlockPos().getZ() - 1))){
+				currentWorlds.set(4, graveEntity);
+			}
+			else if (Objects.equals(graveEntity.getBlockPos(), new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY(), this.getBlockPos().getZ()))) {
+				currentWorlds.set(5, graveEntity);
+			}
+			else if (Objects.equals(graveEntity.getBlockPos(), new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY(), this.getBlockPos().getZ() + 1))){
+				currentWorlds.set(6, graveEntity);
+			}
+			else if (Objects.equals(graveEntity.getBlockPos(), new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ() + 1))){
+				currentWorlds.set(7, graveEntity);
+			}
+		}
+		System.out.println(currentWorlds);
+
+
 		checkEntities = this.world.getNonSpectatingEntities(Entity.class, this.getBoundingBox().expand(20, 6, 20));
 		for (GraveEntity graveEntity : currentWorlds){
-			graveEntity.decorative = true;
-			graveEntity.setAiDisabled(true);
+			if (graveEntity != null) {
+				graveEntity.decorative = true;
+				graveEntity.setAiDisabled(true);
+			}
 		}
 		Iterator var9 = checkEntities.iterator();
 		while (true) {
@@ -283,7 +317,8 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			default -> maxWaves = 1;
 		};
 		if (this.getWaveCount() > maxWaves && !this.getTier().equals(ChallengeTiers.EIGHT)){
-			if (!currentWorlds.isEmpty()) {
+			if (currentWorlds.get(0) != null) {
+				this.setTier(ChallengeTiers.byId(this.getTierCount() + 1));
 				EntityType<?> entityType;
 				List<EntityType<?>> list = new ArrayList<>();
 				list.add(PvZEntity.BASICGRAVESTONE);
@@ -293,9 +328,40 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 				list.add(PvZEntity.EGYPTGRAVESTONE);
 				list.add(PvZEntity.FUTUREGRAVESTONE);
 				list.add(PvZEntity.DARKAGESGRAVESTONE);
+				if (this.getTier().equals(ChallengeTiers.TWO)){
+					list.remove(PvZEntity.BASICGRAVESTONE);
+				}
+				else if (this.getTier().equals(ChallengeTiers.THREE)){
+					double random = Math.random();
+					if (random <= 0.5){
+						list.clear();
+						list.add(currentWorlds.get(1).getType());
+					}
+					else {
+						list.remove(currentWorlds.get(1).getType());
+					}
+				}
+				else if (this.getTier().equals(ChallengeTiers.FOUR)){
+					list.remove(currentWorlds.get(0).getType());
+					list.remove(currentWorlds.get(1).getType());
+					list.remove(currentWorlds.get(2).getType());
+				}
+				else if (this.getTier().equals(ChallengeTiers.SEVEN)){
+					List<EntityType<?>> list2 = new ArrayList<>();
+					list2.add(currentWorlds.get(0).getType());
+					list2.add(currentWorlds.get(1).getType());
+					list2.add(currentWorlds.get(2).getType());
+					list2.add(currentWorlds.get(3).getType());
+					list2.add(currentWorlds.get(4).getType());
+					list2.add(currentWorlds.get(5).getType());
+					list.clear();
+					Set<EntityType<?>> set = new HashSet<>(list2);
+					list.addAll(set);
+					System.out.println(list);
+					System.out.println(set);
+				}
 				entityType = list.get(random.range(0, list.size() - 1));
 				this.addWorld(entityType);
-				this.setTier(ChallengeTiers.byId(this.getTierCount() + 1));
 			}
 			this.setWave(0);
 		}
@@ -327,8 +393,8 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 	@Override
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
 		if (cooldown <= 0) {
-			this.cooldown = 20;
-			if (currentWorlds.isEmpty()) {
+			this.cooldown = 5;
+			if (currentWorlds.get(0)== null) {
 				this.addWorld(PvZEntity.BASICGRAVESTONE);
 			}
 			this.addWave();
@@ -342,28 +408,28 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			GraveEntity graveEntity = (GraveEntity) entityType.create(this.world);
 			BlockPos blockPos = this.getBlockPos();
 			boolean bl = true;
-			if (currentWorlds.isEmpty()) {
+			if (currentWorlds.get(0) == null) {
 				blockPos = new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY(), this.getBlockPos().getZ() + 1);
 			}
-			else if (currentWorlds.size() == 1) {
+			else if (currentWorlds.get(1) == null) {
 				blockPos = new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY(), this.getBlockPos().getZ());
 			}
-			else if (currentWorlds.size() == 2) {
+			else if (currentWorlds.get(2) == null) {
 				blockPos = new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY(), this.getBlockPos().getZ() - 1);
 			}
-			else if (currentWorlds.size() == 3) {
+			else if (currentWorlds.get(3) == null) {
 				blockPos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ() - 1);
 			}
-			else if (currentWorlds.size() == 4) {
+			else if (currentWorlds.get(4) == null) {
 				blockPos = new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY(), this.getBlockPos().getZ() - 1);
 			}
-			else if (currentWorlds.size() == 5) {
+			else if (currentWorlds.get(5) == null) {
 				blockPos = new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY(), this.getBlockPos().getZ());
 			}
-			else if (currentWorlds.size() == 6) {
+			else if (currentWorlds.get(6) == null) {
 				blockPos = new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY(), this.getBlockPos().getZ() + 1);
 			}
-			else if (currentWorlds.size() == 7) {
+			else if (currentWorlds.get(7) == null) {
 				blockPos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ() + 1);
 			}
 			else {
