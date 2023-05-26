@@ -14,6 +14,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGrav
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave.RoofGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.cherrybomb.CherrybombEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.chomper.ChomperEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.peashooter.PeashooterEntity;
@@ -720,7 +721,7 @@ public class PvZEntity implements ModInitializer {
     public static final EntityType<SporeEntity> SPORE = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(ModID, "spore"),
-            QuiltEntityTypeBuilder.<SporeEntity>create(SpawnGroup.MISC, SporeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.25f)).build()
+            QuiltEntityTypeBuilder.<SporeEntity>create(SpawnGroup.MISC, SporeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
     );
 
 	public static final EntityType<FumeEntity> FUME = Registry.register(
@@ -744,7 +745,7 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<AcidSporeEntity> ACIDSPORE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "acidspore"),
-			QuiltEntityTypeBuilder.<AcidSporeEntity>create(SpawnGroup.MISC, AcidSporeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.25f)).build()
+			QuiltEntityTypeBuilder.<AcidSporeEntity>create(SpawnGroup.MISC, AcidSporeEntity::new).setDimensions(EntityDimensions.fixed(.5f,.5f)).build()
 	);
 
 	public static final EntityType<ShootingCabbageEntity> CABBAGE = Registry.register(
@@ -1302,62 +1303,62 @@ public class PvZEntity implements ModInitializer {
 	public static final EntityType<ImpEntity> IMP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "imp"),
-			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<ImpEntity> IMPHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "imp_hypnotized"),
-			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.CREATURE, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.CREATURE, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<ImpEntity> IMPDRAGON = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "impdragon"),
-			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.MONSTER, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<ImpEntity> IMPDRAGONHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "impdragon_hypnotized"),
-			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.CREATURE, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<ImpEntity>create(SpawnGroup.CREATURE, ImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<SuperFanImpEntity> SUPERFANIMP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "superfanimp"),
-			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<SuperFanImpEntity> SUPERFANIMPHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "superfanimp_hypnotized"),
-			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<SuperFanImpEntity> NEWYEARIMP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "newyearimp"),
-			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<SuperFanImpEntity> NEWYEARIMPHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "newyearimp_hypnotized"),
-			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<SuperFanImpEntity>create(SpawnGroup.MONSTER, SuperFanImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 
 	public static final EntityType<AnnouncerImpEntity> ANNOUNCERIMP = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "announcerimp"),
-			QuiltEntityTypeBuilder.<AnnouncerImpEntity>create(SpawnGroup.MONSTER, AnnouncerImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<AnnouncerImpEntity>create(SpawnGroup.MONSTER, AnnouncerImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<AnnouncerImpEntity> ANNOUNCERIMPHYPNO = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier(ModID, "announcerimp_hypnotized"),
-			QuiltEntityTypeBuilder.<AnnouncerImpEntity>create(SpawnGroup.CREATURE, AnnouncerImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 0.95f)).build()
+			QuiltEntityTypeBuilder.<AnnouncerImpEntity>create(SpawnGroup.CREATURE, AnnouncerImpEntity::new).setDimensions(EntityDimensions.fixed(0.625f, 1f)).build()
 	);
 
 	public static final EntityType<ZombieKingEntity> ZOMBIEKING = Registry.register(

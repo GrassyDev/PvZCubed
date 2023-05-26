@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
@@ -192,6 +193,7 @@ public class JetpackEntity extends PvZombieEntity implements IAnimatable {
 		this.targetSelector.add(2, new TargetGoal<>(this, IronGolemEntity.class, false, true));
 
 		////////// Must-Protect Plants ///////
+		this.targetSelector.add(3, new TargetGoal<>(this, GardenChallengeEntity.class, false, true));
 		this.targetSelector.add(3, new TargetGoal<>(this, GardenEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, SunflowerEntity.class, false, true));
 		this.targetSelector.add(4, new TargetGoal<>(this, TwinSunflowerEntity.class, false, true));

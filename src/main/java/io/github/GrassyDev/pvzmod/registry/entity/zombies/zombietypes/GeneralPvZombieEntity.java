@@ -619,13 +619,13 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		if (this.isOnFire() || this.hasStatusEffect(WARM)){
 			this.setStealthTag(Stealth.FALSE);
 		}
-		if (canJump && !this.world.isClient() && !this.isFlying() && --jumpDelay <= 0 && this.age > 40) {
+		if (canJump && !this.world.isClient() && !this.isFlying() && !this.isInsideWaterOrBubbleColumn() && --jumpDelay <= 0 && this.age > 40) {
 			jumpOverGap();
 			jumpDelay = 20;
 		}
 		if (!(this instanceof ZombiePropEntity)) {
 			this.canJump = this.onGround;
-			if (!this.canJump && !this.isFlying()) {
+			if (!this.canJump && !this.isFlying() && !this.isInsideWaterOrBubbleColumn()) {
 				this.getNavigation().stop();
 			}
 		}
@@ -638,16 +638,12 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		Vec3d lastPos = this.getPos();
 		if (this.firstPos != null && !this.isFlying()) {
-			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0 && --this.unstuckDelay <= 0) {
+			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0 && --this.unstuckDelay <= 0 && !this.isInsideWaterOrBubbleColumn()) {
 				this.setVelocity(0, 0, 0);
 				this.addVelocity(0, 0.3, 0);
 				++this.stuckTimes;
 				this.unstuckDelay = 20;
 			}
-		}
-		if (stuckTimes > 2 && this.getPathfindingPenalty(PathNodeType.BLOCKED) == 0 && !this.isFlying()) {
-			this.setTarget(null);
-			this.setPathfindingPenalty(PathNodeType.BLOCKED, PathNodeType.BLOCKED.getDefaultPenalty());
 		}
 		if (this.hasStatusEffect(PvZCubed.FROZEN)){
 			this.removeStatusEffect(STUN);

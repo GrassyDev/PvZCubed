@@ -2,9 +2,11 @@ package io.github.GrassyDev.pvzmod.registry.entity.gravestones;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.graves.GraveDifficulty;
@@ -34,6 +36,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZPOISON;
@@ -352,8 +355,15 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		return livingEntity;
 	}
 
-	public static List<GardenEntity> checkGarden(Vec3d pos, ServerWorldAccess world) {
-		return world.getNonSpectatingEntities(GardenEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(50));
+	public static List<LivingEntity> checkGarden(Vec3d pos, ServerWorldAccess world) {
+		List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, PvZEntity.BASICGRAVESTONE.getDimensions().getBoxAt(pos).expand(50));
+		List<LivingEntity> list1 = new ArrayList<>();
+		for (LivingEntity livingEntity : list){
+			if (livingEntity instanceof GardenEntity || livingEntity instanceof GardenChallengeEntity){
+				list1.add(livingEntity);
+			}
+		}
+		return list1;
 	}
 
 	public void tick() {

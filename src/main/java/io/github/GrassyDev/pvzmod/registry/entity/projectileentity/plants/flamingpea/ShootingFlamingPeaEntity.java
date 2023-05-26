@@ -137,11 +137,11 @@ public class ShootingFlamingPeaEntity extends PvZProjectileEntity implements IAn
             this.world.sendEntityStatus(this, (byte) 3);
             this.remove(RemovalReason.DISCARDED);
         }
-		double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
-		double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
-		double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
 
 		for (int j = 0; j < 1; ++j) {
+			double d = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);
+			double e = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
+			double f = (double) MathHelper.nextBetween(randomGenerator, -0.1F, 0.1F);;
 			this.world.addParticle(ParticleTypes.SMALL_FLAME, this.getX(), this.getY(), this.getZ(), d, e, f);
 			this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), d, e * -1, f);
 		}
