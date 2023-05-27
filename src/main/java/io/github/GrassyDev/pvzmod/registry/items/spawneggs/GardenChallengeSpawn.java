@@ -3,8 +3,6 @@ package io.github.GrassyDev.pvzmod.registry.items.spawneggs;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
-import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.SeedItem;
 import net.minecraft.client.item.TooltipContext;
@@ -21,7 +19,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -30,8 +27,8 @@ import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
-public class GardenSpawn extends SeedItem {
-    public GardenSpawn(Settings settings) {
+public class GardenChallengeSpawn extends SeedItem {
+    public GardenChallengeSpawn(Settings settings) {
         super(settings);
     }
 
@@ -39,11 +36,8 @@ public class GardenSpawn extends SeedItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 
-		tooltip.add(Text.translatable("item.pvzmod.creative")
-				.formatted(Formatting.UNDERLINE));
-
-		tooltip.add(Text.translatable("item.pvzmod.garden_spawn.flavour")
-				.formatted(Formatting.GRAY));
+		tooltip.add(Text.translatable("item.pvzmod.gardenchallenge_spawn.flavour")
+				.formatted(Formatting.LIGHT_PURPLE));
 	}
 
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -52,26 +46,33 @@ public class GardenSpawn extends SeedItem {
         BlockPos blockPos = itemPlacementContext.getBlockPos();
         ItemStack itemStack = context.getStack();
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
-		Box box = PvZEntity.GARDEN.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+		Box box = PvZEntity.GARDENCHALLENGE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 		if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
-                    GardenEntity gardenEntity = (GardenEntity) PvZEntity.GARDEN.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-                    if (gardenEntity == null) {
-                        return ActionResult.FAIL;
-                    }
+                    GardenChallengeEntity gardenEntity = (GardenChallengeEntity) PvZEntity.GARDENCHALLENGE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+					List<GardenChallengeEntity> list = world.getNonSpectatingEntities(GardenChallengeEntity.class, PvZEntity.GARDENCHALLENGE.getDimensions().getBoxAt(gardenEntity.getPos()).expand(50, 20, 50));
+					if (list.isEmpty()) {
 
-                    float f = (float) MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-			gardenEntity.refreshPositionAndAngles(gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), f, 0.0F);
-                    ((ServerWorld) world).spawnEntityAndPassengers(gardenEntity);
-			gardenEntity.setPersistent();
-                    world.playSound((PlayerEntity) null, gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+						gardenEntity.refreshPositionAndAngles(gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), 0, 0.0F);
+						gardenEntity.setBodyYaw(0);
+						gardenEntity.setHeadYaw(0);
+						gardenEntity.setYaw(0);
+						((ServerWorld) world).spawnEntityAndPassengers(gardenEntity);
+						gardenEntity.setPersistent();
+						world.playSound((PlayerEntity) null, gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
-                if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
-				itemStack.decrement(1);
-			};
-                return ActionResult.success(world.isClient);
-            }
-		else {
+
+						PlayerEntity user = context.getPlayer();
+						if (!user.getAbilities().creativeMode) {
+							if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+								itemStack.decrement(1);
+							}
+						}
+						return ActionResult.success(world.isClient);
+					} else {
+						return ActionResult.FAIL;
+					}
+		} else {
 			return ActionResult.PASS;
 		}
-    }
+	}
 }

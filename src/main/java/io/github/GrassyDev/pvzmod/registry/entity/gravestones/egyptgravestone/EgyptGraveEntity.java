@@ -60,7 +60,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 
 	private int spawnCounter;
 
-    private MobEntity owner;
+
 
 	double tiltchance = this.random.nextDouble();
 
@@ -220,13 +220,9 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 		return SoundEvents.BLOCK_BASALT_HIT;
 	}
 
-	public MobEntity getOwner() {
-		return this.owner;
-	}
 
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
-	}
+
+
 
 
 	/** /~*~//~*SPAWNING*~//~*~/ **/
@@ -476,8 +472,8 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.539 + difficultymodifier || isUnlock()) {
-					if (probability3 <= 0.15 / halfModifier) { // 15% x1 Explorer
+				if (difficulty >= 1.629 + difficultymodifier || isUnlock() || isUnlockSpecial()) {
+					if (probability3 <= 0.15 / halfModifier) { // 15% x2 Explorer
 						for (int p = 0; p < 1; ++p) {
 							if (!EgyptGraveEntity.this.is1x1()) {
 								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
@@ -492,7 +488,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock() || isUnlockSpecial()) {
 					if (probability4 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							if (!EgyptGraveEntity.this.is1x1()) {
@@ -529,9 +525,9 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.659 + difficultymodifier || isUnlock()) {
-					if (probability5 <= 0.25 / halfModifier) { // 25% x2 Explorer
-						for (int p = 0; p < 2 / halfModifier; ++p) {
+				if (isUnlock() || isUnlockSpecial()) {
+					if (probability5 <= 0.25 / halfModifier) { // 25% x1 Explorer
+						for (int p = 0; p < 1 / halfModifier; ++p) {
 							if (!EgyptGraveEntity.this.is1x1()) {
 								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
 								zombiePos = EgyptGraveEntity.this.random.range(-1, 1);
@@ -545,7 +541,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.809 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.909 + difficultymodifier || isUnlock()) {
 					if (probability6 <= 0.4 / halfModifier) { // 40% x1 Undying Zombie
 						for (int g = 0; g < 2 / halfModifier; ++g) {
 							if (!EgyptGraveEntity.this.is1x1()) {
@@ -619,7 +615,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.809 + difficultymodifier || isUnlock()) {
+				if ((difficulty >= 1.909 + difficultymodifier && isUnlockSpecial()) || isUnlock()) {
 					if (probability8 <= 0.3 / halfModifier) { // 30% x1 Torchlight Zombie
 						for (int g = 0; g < 1; ++g) {
 							if (!EgyptGraveEntity.this.is1x1()) {
@@ -649,8 +645,8 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 2.09 + difficultymodifier || isUnlock()) {
-					if (probability9 <= 0.3 / halfModifier) { // 30% x2 Torchlight Zombie
+				if ((difficulty >= 1.909 + difficultymodifier && isUnlockSpecial()) || isUnlock()) {
+					if (probability9 <= 0.10 / halfModifier) { // 10% x2 Torchlight Zombie
 						for (int g = 0; g < Math.round(3 / halfModifier); ++g) {
 							if (!EgyptGraveEntity.this.is1x1()) {
 								zombiePosZ = EgyptGraveEntity.this.random.range(-1, 1);
@@ -691,7 +687,7 @@ public class EgyptGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.709 + difficultymodifier || isUnlock()) {
 					if (probability10 <= 0.4 / halfModifier) { // 40% x1 Pyramid Zombie
 						if (difficulty >= 1.709) {
 							if (!EgyptGraveEntity.this.is1x1()) {

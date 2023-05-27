@@ -21,6 +21,7 @@ public class ModItems {
 	// REMEMBER TO REGISTER NEW PLANT SEEDS HERE TOO
 	public static void setSeedPacketList(){
 		SEED_PACKET_LIST.add(ModItems.GARDENINGGLOVE);
+		SEED_PACKET_LIST.add(ModItems.FERTILIZER);
 		SEED_PACKET_LIST.add(ModItems.SUNFLOWER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.PEASHOOTER_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.CHERRYBOMB_SEED_PACKET);
@@ -93,6 +94,17 @@ public class ModItems {
 		SEED_PACKET_LIST.add(ModItems.SUNFLOWERSEED_SEED_PACKET);
 		SEED_PACKET_LIST.add(ModItems.BELLFLOWER_SEED_PACKET);
 	}
+	public static void setPlantfoodList(){
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD);
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD_AIR);
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD_AQUATIC);
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD_COLD);
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD_FIRE);
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD_FLOWER);
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD_ELEC);
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD_MUSHROOM);
+		PLANTFOOD_LIST.add(ModItems.PLANTFOOD_TOUGH);
+	}
 
     public static final Item ALMANAC = new Item(new Item.Settings().maxCount(1));
 
@@ -147,6 +159,7 @@ public class ModItems {
 
     //Plant Spawn
 	public static final Item GARDENINGGLOVE = new GardeningGloves(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(1).rarity(Rarity.RARE));
+	public static final Item FERTILIZER = new Fertilizer(new Item.Settings().group(PvZCubed.PVZGRAVES).maxCount(64).rarity(Rarity.EPIC));
     public static final Item SUNFLOWER_SEED_PACKET = new SunflowerSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item PEASHOOTER_SEED_PACKET = new PeashooterSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item CHERRYBOMB_SEED_PACKET = new CherryBombSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
@@ -219,6 +232,7 @@ public class ModItems {
 	public static final Item SUNFLOWERSEED_SEED_PACKET = new SunflowerSeedSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item BELLFLOWER_SEED_PACKET = new BellflowerSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
 	public static final Item GARDEN_SPAWN = new GardenSpawn(new Item.Settings().group(PvZCubed.PVZPLANTS).rarity(Rarity.EPIC));
+	public static final Item GARDENCHALLENGE_SPAWN = new GardenChallengeSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC));
 
     //Zombie Spawn
     public static final Item BROWNCOATEGG = new BrowncoatEgg(new Item.Settings().group(PvZCubed.PVZZOMBIES).rarity(Rarity.COMMON));
@@ -280,6 +294,7 @@ public class ModItems {
 	public static final Item HALF = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
 	public static final Item INFINITE = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
 	public static final Item UNLOCK = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item UNLOCKSPECIAL = new Item(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.EPIC).maxCount(1));
 	public static final Item ZOMBIEGRAVESPAWN = new ZombieGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.COMMON).maxCount(8));
     public static final Item BASICGRAVESPAWN = new BasicGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.COMMON));
     public static final Item NIGHTGRAVESPAWN = new NightGraveSpawn(new Item.Settings().group(PvZCubed.PVZGRAVES).rarity(Rarity.UNCOMMON));
@@ -321,6 +336,7 @@ public class ModItems {
     public static ToolItem DAVES_SHOVEL = new PlantKillingShovel(PlantKillingMaterial.INSTANCE, 2, 0F, new Item.Settings().group(PvZCubed.PVZPLANTS).rarity(Rarity.EPIC));
 
 	public static List<Item> SEED_PACKET_LIST = new ArrayList<>();
+	public static List<Item> PLANTFOOD_LIST = new ArrayList<>();
 
     //addItem
     //addBlock
@@ -399,6 +415,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"skycity_tile"), SKYCITY_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"dark_skycity_tile"), DARK_SKYCITY_TILE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gardeningglove"), GARDENINGGLOVE);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"fertilizer"), FERTILIZER);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"sunflower_seed_packet"), SUNFLOWER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"peashooter_seed_packet"), PEASHOOTER_SEED_PACKET);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"cherrybomb_seed_packet"), CHERRYBOMB_SEED_PACKET);
@@ -527,6 +544,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"half"), HALF);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"infinite"), INFINITE);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"unlock"), UNLOCK);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"unlockspecial"), UNLOCKSPECIAL);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"zombiegrave_spawn"), ZOMBIEGRAVESPAWN);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"basicgrave_spawn"), BASICGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"nightgrave_spawn"), NIGHTGRAVESPAWN);
@@ -537,5 +555,6 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"darkagesgrave_spawn"), DARKAGESGRAVESPAWN);
         Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"daves_shovel"), DAVES_SHOVEL);
 		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"garden_spawn"), GARDEN_SPAWN);
+		Registry.register(Registry.ITEM, new Identifier(PvZCubed.MOD_ID,"gardenchallenge_spawn"), GARDENCHALLENGE_SPAWN);
     }
 }

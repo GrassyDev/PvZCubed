@@ -3,6 +3,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiemachines.roboco
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -56,7 +57,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable {
-    private MobEntity owner;
+
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
 
@@ -276,9 +277,7 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 		return EntityGroup.UNDEAD;
 	}
 
-	public MobEntity getOwner() {
-		return this.owner;
-	}
+
 
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
@@ -287,9 +286,7 @@ public class RoboConeEntity extends MachinePvZombieEntity implements IAnimatable
 		this.playSound(this.getStepSound(), 0.15F, 1.0F);
 	}
 
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
-	}
+
 
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/

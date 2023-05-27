@@ -41,7 +41,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class BasketballCarrierEntity extends BullyEntity implements IAnimatable {
-    private MobEntity owner;
+
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
 

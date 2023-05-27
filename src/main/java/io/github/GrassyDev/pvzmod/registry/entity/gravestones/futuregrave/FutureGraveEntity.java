@@ -61,7 +61,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 
 	private int spawnCounter;
 
-    private MobEntity owner;
+
 
 	double tiltchance = this.random.nextDouble();
 
@@ -221,13 +221,9 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 		return SoundEvents.BLOCK_BASALT_HIT;
 	}
 
-	public MobEntity getOwner() {
-		return this.owner;
-	}
 
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
-	}
+
+
 
 
 	/** /~*~//~*SPAWNING*~//~*~/ **/
@@ -471,8 +467,8 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(bucketheadEntity);
 					}
 				}
-				if (probability3 <= 0.4 / halfModifier) { // 40% x2 Jetpack Zombie
-					for (int p = 0; p < 2 / halfModifier; ++p) {
+				if (probability3 <= 0.4 / halfModifier) { // 40% x1 Jetpack Zombie
+					for (int p = 0; p < 1 / halfModifier; ++p) {
 						if (!FutureGraveEntity.this.is1x1()) {
 							zombiePosZ = FutureGraveEntity.this.random.range(-1, 1);
 							zombiePos = FutureGraveEntity.this.random.range(-1, 1);
@@ -485,7 +481,21 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						serverWorld.spawnEntityAndPassengers(jetpackEntity);
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
+				if (isUnlock() || isUnlockSpecial()) { // 40% x3 Jetpack Zombie
+					for (int p = 0; p < 3 / halfModifier; ++p) {
+						if (!FutureGraveEntity.this.is1x1()) {
+							zombiePosZ = FutureGraveEntity.this.random.range(-1, 1);
+							zombiePos = FutureGraveEntity.this.random.range(-1, 1);
+						}
+						BlockPos blockPos = FutureGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+						JetpackEntity jetpackEntity = (JetpackEntity) PvZEntity.JETPACK.create(FutureGraveEntity.this.world);
+						jetpackEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+						jetpackEntity.initialize(serverWorld, FutureGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+						jetpackEntity.setOwner(FutureGraveEntity.this);
+						serverWorld.spawnEntityAndPassengers(jetpackEntity);
+					}
+				}
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock() || isUnlockSpecial()) {
 					if (probability5 <= 0.15 / halfModifier) { // 15% x2 Flag Zombie
 						for (int f = 0; f < 2 / halfModifier; ++f) {
 							if (!FutureGraveEntity.this.is1x1()) {
@@ -531,7 +541,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.659 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.659 + difficultymodifier || isUnlock() || isUnlockSpecial()) {
 					if (probability4 <= 0.50 / halfModifier) { // 50% x1 Robo-Cone Zombie
 						for (int p = 0; p < 1; ++p) {
 							if (!FutureGraveEntity.this.is1x1()) {
@@ -547,7 +557,7 @@ public class FutureGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.689 + difficultymodifier || isUnlock()) {
+				if ((difficulty >= 1.689 + difficultymodifier && isUnlockSpecial()) || isUnlock()) {
 					if (probability4 <= 0.40 / halfModifier) { // 50% x1 Blastronaut Zombie
 						for (int p = 0; p < 1; ++p) {
 							if (!FutureGraveEntity.this.is1x1()) {

@@ -6,7 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.graves.GraveDifficulty;
@@ -90,18 +89,22 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	protected void initDataTracker() {
 		super.initDataTracker();
+		this.dataTracker.startTracking(CHALLENGE_TAG, false);
 		this.dataTracker.startTracking(ONE_TAG, false);
 		this.dataTracker.startTracking(HALF_TAG, false);
 		this.dataTracker.startTracking(INFINITE_TAG, false);
+		this.dataTracker.startTracking(UNLOCKSPECIAL_TAG, false);
 		this.dataTracker.startTracking(UNLOCK_TAG, false);
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 		this.dataTracker.startTracking(SPELL, (byte)0);
 	}
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
+		this.dataTracker.set(CHALLENGE_TAG, tag.getBoolean("isChallenge"));
 		this.dataTracker.set(ONE_TAG, tag.getBoolean("is1x1"));
 		this.dataTracker.set(HALF_TAG, tag.getBoolean("half"));
 		this.dataTracker.set(INFINITE_TAG, tag.getBoolean("isInfinite"));
+		this.dataTracker.set(UNLOCKSPECIAL_TAG, tag.getBoolean("isUnlocked"));
 		this.dataTracker.set(UNLOCK_TAG, tag.getBoolean("isUnlocked"));
 		//Variant//
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
@@ -110,6 +113,7 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
+		tag.putBoolean("isChallenge", this.isChallengeGrave());
 		tag.putBoolean("is1x1", this.is1x1());
 		tag.putBoolean("half", this.isHalf());
 		tag.putBoolean("isInfinite", this.isInfinite());
@@ -145,6 +149,36 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 
 	public void setVariant(GraveDifficulty variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+
+	//Challenge Tag
+
+	protected static final TrackedData<Boolean> CHALLENGE_TAG =
+			DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum Challenge {
+		FALSE(false),
+		TRUE(true);
+
+		Challenge(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isChallengeGrave() {
+		return this.dataTracker.get(CHALLENGE_TAG);
+	}
+
+	public void setChallenge(GraveEntity.Challenge challenge) {
+		this.dataTracker.set(CHALLENGE_TAG, challenge.getId());
 	}
 
 
@@ -238,6 +272,36 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 	}
 
 
+	//Unlock Special Tag
+
+	protected static final TrackedData<Boolean> UNLOCKSPECIAL_TAG =
+			DataTracker.registerData(GraveEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum UnlockSpecial {
+		FALSE(false),
+		TRUE(true);
+
+		UnlockSpecial(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isUnlockSpecial() {
+		return this.dataTracker.get(UNLOCKSPECIAL_TAG);
+	}
+
+	public void setUnlockSpecial(GraveEntity.UnlockSpecial unlock) {
+		this.dataTracker.set(UNLOCKSPECIAL_TAG, unlock.getId());
+	}
+
+
 	//Unlock Tag
 
 	protected static final TrackedData<Boolean> UNLOCK_TAG =
@@ -321,6 +385,10 @@ public abstract class GraveEntity extends PathAwareEntity implements Monster {
 		}
 		else if (itemStack.isOf(ModItems.UNLOCK)) {
 			setUnlock(Unlock.TRUE);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.UNLOCKSPECIAL)) {
+			setUnlockSpecial(UnlockSpecial.TRUE);
 			return ActionResult.SUCCESS;
 		}
 		else {

@@ -22,6 +22,8 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -31,12 +33,15 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -64,7 +69,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
     public GardenChallengeEntity(EntityType<? extends GardenChallengeEntity> entityType, World world) {
         super(entityType, world);
         this.ignoreCameraFrustum = true;
-
     }
 
 	protected void initDataTracker() {
@@ -117,8 +121,8 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 	public void readCustomDataFromNbt(NbtCompound tag) {
 		super.readCustomDataFromNbt(tag);
 		this.dataTracker.set(TIERS, tag.getInt("tiers"));
-		this.dataTracker.set(WAVES, tag.getInt("graves"));
-		this.dataTracker.set(GRAVESSPAWNED, tag.getInt("waves"));
+		this.dataTracker.set(WAVES, tag.getInt("waves"));
+		this.dataTracker.set(GRAVESSPAWNED, tag.getInt("graves"));
 		this.dataTracker.set(WAVEINPROGRESS, tag.getBoolean("waveInProgress"));
 		this.dataTracker.set(WAVETICKS, tag.getInt("waveTicks"));
 		this.dataTracker.set(WORLD1, tag.getInt("world1"));
@@ -135,10 +139,25 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		this.dataTracker.set(MINEGYPT, tag.getInt("minEgypt"));
 		this.dataTracker.set(MINDARKAGES, tag.getInt("minDarkAges"));
 		this.dataTracker.set(LOCKMINCHECK, tag.getBoolean("lockMinCheck"));
+		if (this.hasCustomName()) {
+			this.bossBar.setName(this.getDisplayName());
+		}
+	}
+
+	@Override
+	public void setCustomName(@Nullable Text name) {
+		super.setCustomName(name);
+		this.bossBar.setName(this.getDisplayName());
+		this.waveBar.setName(Text.of("Waves"));
 	}
 
 	static {
 	}
+
+	private final ServerBossBar bossBar = (ServerBossBar)new ServerBossBar(this.getDisplayName(), BossBar.Color.GREEN, BossBar.Style.PROGRESS)
+			.setDarkenSky(true);
+
+	private final ServerBossBar waveBar = (ServerBossBar)new ServerBossBar(Text.of("Waves"), BossBar.Color.RED, BossBar.Style.PROGRESS);
 
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
@@ -484,8 +503,37 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			}
 		}
 		if (source.getAttacker() instanceof GeneralPvZombieEntity || source.getAttacker() == this) {
-			for (int i = 0; i < this.getTierCount(); ++i) {
+			for (int i = 0; i < this.getTierCount() - 1; ++i) {
 				this.dropItem(Items.DIAMOND);
+				for (int u = 0; u < 4; ++u){
+					this.dropItem(ModItems.FERTILIZER);
+				}
+				for (int u = 0; u < 12; ++u){
+					this.dropItem(Items.GOLD_NUGGET);
+				}
+				for (int u = 0; u < 18; ++u){
+					this.dropItem(Items.IRON_NUGGET);
+				}
+				for (int u = 0; u < 3; ++u){
+					Item item = ModItems.SEED_PACKET_LIST.get(getRandom().nextInt(ModItems.SEED_PACKET_LIST.size()));
+					this.dropItem(item);
+				}
+			}
+			if (this.getTierCount() >= 6){
+				for (int i = 0; i < this.getTierCount() - 1; ++i) {
+					this.dropItem(Items.DIAMOND);
+				}
+				for (int i = 0; i < this.getTierCount() - 5; ++i) {
+					this.dropItem(Items.NETHERITE_SCRAP);
+				}
+			}
+			List<HostileEntity> list = this.world.getNonSpectatingEntities(HostileEntity.class, this.getBoundingBox().expand(25, 5, 25));
+			List<GraveEntity> list2 = this.world.getNonSpectatingEntities(GraveEntity.class, this.getBoundingBox().expand(25, 5, 25));
+			for (HostileEntity hostileEntity : list){
+				hostileEntity.discard();
+			}
+			for (GraveEntity graveEntity : list2){
+				graveEntity.discard();
 			}
 		}
 		super.onDeath(source);
@@ -498,6 +546,22 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 	int blockBreakCooldown;
 
 	public void tick() {
+		this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
+		float maxWaves = switch (getTier()) {
+			case ONE -> maxWaves = 3;
+			case TWO -> maxWaves = 4;
+			case THREE -> maxWaves = 5;
+			case FOUR -> maxWaves = 3;
+			case FIVE -> maxWaves = 3;
+			case SIX -> maxWaves = 4;
+			case SEVEN -> maxWaves = 5;
+			case EIGHT -> maxWaves = 6;
+			default -> maxWaves = 1;
+		};
+		this.waveBar.setPercent(this.getWaveCount() / maxWaves);
+		System.out.println(this.getWaveCount());
+		System.out.println(this.getTier());
+		System.out.println(this.getTierCount());
 		if (this.getY() <= this.world.getBottomY() + 10){
 			this.discard();
 		}
@@ -529,6 +593,25 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		}
 	}
 
+	@Override
+	protected void mobTick() {
+		super.mobTick();
+	}
+
+	@Override
+	public void onStartedTrackingBy(ServerPlayerEntity player) {
+		super.onStartedTrackingBy(player);
+		this.bossBar.addPlayer(player);
+		this.waveBar.addPlayer(player);
+	}
+
+	@Override
+	public void onStoppedTrackingBy(ServerPlayerEntity player) {
+		super.onStoppedTrackingBy(player);
+		this.bossBar.removePlayer(player);
+		this.waveBar.removePlayer(player);
+	}
+
 	public void tickMovement() {
 		super.tickMovement();
 	}
@@ -536,7 +619,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return ModItems.GARDEN_SPAWN.getDefaultStack();
+		return ModItems.GARDENCHALLENGE_SPAWN.getDefaultStack();
 	}
 
 	protected List<GraveEntity> currentWorlds = new ArrayList<>();
@@ -585,7 +668,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 				currentWorlds.set(7, graveEntity);
 			}
 		}
-		System.out.println(currentWorlds);
 
 		for (Entity entity : check2Remove){
 			if (entity instanceof HostileEntity && !(entity instanceof GeneralPvZombieEntity)){
@@ -617,8 +699,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 
 	public void waveManager(){
 		this.addedWorld = TypeOfWorld.BASIC;
-		System.out.println(this.getTier());
-		System.out.println(this.getWaveCount());
 		int maxWaves = switch (getTier()) {
 			case ONE -> maxWaves = 3;
 			case TWO -> maxWaves = 4;
@@ -692,8 +772,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 					list.clear();
 					Set<EntityType<?>> set = new HashSet<>(list2);
 					list.addAll(set);
-					System.out.println(list);
-					System.out.println(set);
 				}
 				entityType = list.get(random.range(0, list.size() - 1));
 				if (entityType.equals(PvZEntity.NIGHTGRAVESTONE)){
@@ -731,7 +809,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 					if (currentWorld instanceof NightGraveEntity) {
 						setMinnight(getMinNight() + 3);
 					} else if (currentWorld instanceof PoolGraveEntity) {
-						setMinpool(getMinPool() + 3);
+						setMinpool(getMinPool() + 5);
 					}
 					if (currentWorld instanceof RoofGraveEntity) {
 						setMinroof(getMinRoof() + 3);
@@ -747,6 +825,9 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			}
 			int numOfGraves = 3;
 			numOfGraves = numOfGraves + getWaveCount() + getTierCount();
+			if (this.getTierCount() >= 3 && !this.getTier().equals(ChallengeTiers.EIGHT)){
+				numOfGraves = numOfGraves - 3;
+			}
 			float timeofWave = 60 * 20;
 			timeofWave = timeofWave + (getTierCount() * 30 * 20);
 			if (this.getGravesSpawned() >= numOfGraves){
@@ -793,7 +874,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 					}
 				}
 			}
-			System.out.println(getMinRoof());
 			if (this.getWaveTicks() >= waveInterval){
 				this.setWaveticks(0);
 				this.addGravesSpawned();
@@ -804,23 +884,47 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 					graveEntity.initialize(serverWorld, this.world.getLocalDifficulty(getPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
 					if (this.getTierCount() >= 3){
 						graveEntity.setVariant(GraveDifficulty.HARD);
-						graveEntity.setUnlock(GraveEntity.Unlock.TRUE);
+						graveEntity.setUnlockSpecial(GraveEntity.UnlockSpecial.TRUE);
 					}
 					else {
 						graveEntity.setVariant(GraveDifficulty.MED);
+						graveEntity.setUnlockSpecial(GraveEntity.UnlockSpecial.TRUE);
 					}
+					graveEntity.setChallenge(GraveEntity.Challenge.TRUE);
 					serverWorld.spawnEntityAndPassengers(graveEntity);
 					if (!graveEntities.isEmpty()) {
+						if (graveEntities.contains(PvZEntity.POOLGRAVESTONE)) {
+							BlockPos getPos2 = spawnableSpots.get(this.random.range(0, spawnableSpots.size() - 1));
+							GraveEntity graveEntity2 = (GraveEntity) PvZEntity.POOLGRAVESTONE.create(this.world);
+							graveEntity2.refreshPositionAndAngles(getPos2, 0.0F, 0.0F);
+							graveEntity2.initialize(serverWorld, this.world.getLocalDifficulty(getPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							if (this.getTierCount() >= 3){
+								graveEntity2.setVariant(GraveDifficulty.HARD);
+								graveEntity2.setUnlockSpecial(GraveEntity.UnlockSpecial.TRUE);
+							}
+							else {
+								graveEntity2.setVariant(GraveDifficulty.MED);
+								graveEntity2.setUnlockSpecial(GraveEntity.UnlockSpecial.TRUE);
+							}
+							graveEntity2.setChallenge(GraveEntity.Challenge.TRUE);
+							serverWorld.spawnEntityAndPassengers(graveEntity2);
+							this.setMinpool(this.getMinPool() - 1);
+						}
+						System.out.println(graveEntities);
 						EntityType<?> entityType = graveEntities.get(random.range(0, graveEntities.size() - 1));
 						BlockPos getPos2 = spawnableSpots.get(this.random.range(0, spawnableSpots.size() - 1));
 						GraveEntity graveEntity2 = (GraveEntity) entityType.create(this.world);
 						graveEntity2.refreshPositionAndAngles(getPos2, 0.0F, 0.0F);
 						graveEntity2.initialize(serverWorld, this.world.getLocalDifficulty(getPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						if (this.getTierCount() >= 3) {
+						if (this.getTierCount() >= 3){
 							graveEntity2.setVariant(GraveDifficulty.HARD);
-						} else {
-							graveEntity2.setVariant(GraveDifficulty.MED);
+							graveEntity2.setUnlockSpecial(GraveEntity.UnlockSpecial.TRUE);
 						}
+						else {
+							graveEntity2.setVariant(GraveDifficulty.MED);
+							graveEntity2.setUnlockSpecial(GraveEntity.UnlockSpecial.TRUE);
+						}
+						graveEntity2.setChallenge(GraveEntity.Challenge.TRUE);
 						serverWorld.spawnEntityAndPassengers(graveEntity2);
 						if (entityType == PvZEntity.NIGHTGRAVESTONE) {
 							this.setMinnight(this.getMinNight() - 1);
@@ -833,19 +937,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 						} else if (entityType == PvZEntity.DARKAGESGRAVESTONE) {
 							this.setMindarkages(this.getMinDarkAges() - 1);
 						}
-					}
-					if (graveEntities.contains(PvZEntity.POOLGRAVESTONE)) {
-						BlockPos getPos2 = spawnableSpots.get(this.random.range(0, spawnableSpots.size() - 1));
-						GraveEntity graveEntity2 = (GraveEntity) PvZEntity.POOLGRAVESTONE.create(this.world);
-						graveEntity2.refreshPositionAndAngles(getPos2, 0.0F, 0.0F);
-						graveEntity2.initialize(serverWorld, this.world.getLocalDifficulty(getPos2), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-						if (this.getTierCount() >= 3) {
-							graveEntity2.setVariant(GraveDifficulty.HARD);
-						} else {
-							graveEntity2.setVariant(GraveDifficulty.MED);
-						}
-						serverWorld.spawnEntityAndPassengers(graveEntity2);
-						this.setMinpool(this.getMinPool() - 1);
 					}
 				}
 			}
@@ -874,15 +965,21 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 
 	@Override
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-		if (cooldown <= 0 && this.getWaveInProgress().equals(Boolean.FALSE)) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (currentWorlds.get(0)== null) {
+			this.addWorld(PvZEntity.BASICGRAVESTONE);
+			return ActionResult.SUCCESS;
+		}
+		else if (itemStack.isOf(ModItems.FERTILIZER) && this.getWaveInProgress().equals(Boolean.FALSE)) {
+			this.addWave();
+			itemStack.decrement(1);
+			return ActionResult.SUCCESS;
+		}
+		else if (cooldown <= 0 && this.getWaveInProgress().equals(Boolean.FALSE)) {
 			this.cooldown = 10;
-			if (currentWorlds.get(0)== null) {
-				this.addWorld(PvZEntity.BASICGRAVESTONE);
-			}
-			else {
-				this.addWave();
-				this.setWaveinprogress(WaveInProgress.TRUE);
-			}
+			this.addWave();
+			this.setWaveinprogress(WaveInProgress.TRUE);
+			return ActionResult.SUCCESS;
 		}
 		return super.interactMob(player, hand);
 	}
@@ -1050,8 +1147,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			world8BlockDark = ModBlocks.DARK_NIGHT_TILE;
 		}
 
-
-		for (int x = -26; x < 26; ++x) {
+		for (int x = -26; x < 27; ++x) {
 			int l = MathHelper.floor(this.getPos().x + x);
 			int m = MathHelper.floor(this.getPos().y);
 			int n = MathHelper.floor(this.getPos().z);
@@ -1061,7 +1157,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			BlockPos blockPos5 = new BlockPos(l, m + 3, n);
 			BlockPos blockPos6 = new BlockPos(l, m + 4, n);
 			BlockPos blockPos22 = new BlockPos(l, m - 1, n);
-			for (int z = -26; z < 26; ++z) {
+			for (int z = -26; z < 27; ++z) {
 				BlockPos blockPos7 = new BlockPos(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ() + z);
 				BlockPos blockPos8 = new BlockPos(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ() + z);
 				BlockPos blockPos9 = new BlockPos(blockPos4.getX(), blockPos4.getY(), blockPos4.getZ() + z);
@@ -1706,6 +1802,55 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			BlockPos blockPos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
 			if (!this.world.getBlockState(blockPos).equals(Blocks.RED_WOOL.getDefaultState())) {
 				this.world.setBlockState(blockPos, Blocks.RED_WOOL.getDefaultState());
+			}
+			BlockPos blockPosr2 = new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
+			if (!this.world.getBlockState(blockPosr2).equals(Blocks.RED_WOOL.getDefaultState())) {
+				this.world.setBlockState(blockPosr2, Blocks.RED_WOOL.getDefaultState());
+			}
+			BlockPos blockPosr3 = new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY() - 1, this.getBlockPos().getZ() + 1);
+			if (!this.world.getBlockState(blockPosr3).equals(Blocks.RED_WOOL.getDefaultState())) {
+				this.world.setBlockState(blockPosr3, Blocks.RED_WOOL.getDefaultState());
+			}
+			BlockPos blockPosr4 = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ() + 1);
+			if (!this.world.getBlockState(blockPosr4).equals(Blocks.RED_WOOL.getDefaultState())) {
+				this.world.setBlockState(blockPosr4, Blocks.RED_WOOL.getDefaultState());
+			}
+			BlockPos blockPosr5 = new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
+			if (!this.world.getBlockState(blockPosr5).equals(Blocks.RED_WOOL.getDefaultState())) {
+				this.world.setBlockState(blockPosr5, Blocks.RED_WOOL.getDefaultState());
+			}
+			BlockPos blockPosr6 = new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY() - 1, this.getBlockPos().getZ() - 1);
+			if (!this.world.getBlockState(blockPosr6).equals(Blocks.RED_WOOL.getDefaultState())) {
+				this.world.setBlockState(blockPosr6, Blocks.RED_WOOL.getDefaultState());
+			}
+			BlockPos blockPosr7 = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ() - 1);
+			if (!this.world.getBlockState(blockPosr7).equals(Blocks.RED_WOOL.getDefaultState())) {
+				this.world.setBlockState(blockPosr7, Blocks.RED_WOOL.getDefaultState());
+			}
+			BlockPos blockPosr8 = new BlockPos(this.getBlockPos().getX() + 1, this.getBlockPos().getY() - 1, this.getBlockPos().getZ() - 1);
+			if (!this.world.getBlockState(blockPosr8).equals(Blocks.RED_WOOL.getDefaultState())) {
+				this.world.setBlockState(blockPosr8, Blocks.RED_WOOL.getDefaultState());
+			}
+			BlockPos blockPosr9 = new BlockPos(this.getBlockPos().getX() - 1, this.getBlockPos().getY() - 1, this.getBlockPos().getZ() + 1);
+			if (!this.world.getBlockState(blockPosr9).equals(Blocks.RED_WOOL.getDefaultState())) {
+				this.world.setBlockState(blockPosr9, Blocks.RED_WOOL.getDefaultState());
+			}
+
+			BlockPos blockPosTop = new BlockPos(this.getBlockPos().getX() + 2, this.getBlockPos().getY() -1, this.getBlockPos().getZ() + 2);
+			BlockPos blockPosTop2 = new BlockPos(this.getBlockPos().getX() + 2, this.getBlockPos().getY() -1, this.getBlockPos().getZ() - 2);
+			BlockPos blockPosTop3 = new BlockPos(this.getBlockPos().getX() - 2, this.getBlockPos().getY() -1, this.getBlockPos().getZ() + 2);
+			BlockPos blockPosTop4 = new BlockPos(this.getBlockPos().getX() - 2, this.getBlockPos().getY() -1, this.getBlockPos().getZ() - 2);
+			if (!this.world.getBlockState(blockPosTop).equals(Blocks.CRAFTING_TABLE.getDefaultState())) {
+				this.world.setBlockState(blockPosTop, Blocks.CRAFTING_TABLE.getDefaultState());
+			}
+			if (!this.world.getBlockState(blockPosTop2).equals(Blocks.CRAFTING_TABLE.getDefaultState())) {
+				this.world.setBlockState(blockPosTop2, Blocks.CRAFTING_TABLE.getDefaultState());
+			}
+			if (!this.world.getBlockState(blockPosTop3).equals(Blocks.CRAFTING_TABLE.getDefaultState())) {
+				this.world.setBlockState(blockPosTop3, Blocks.CRAFTING_TABLE.getDefaultState());
+			}
+			if (!this.world.getBlockState(blockPosTop4).equals(Blocks.CRAFTING_TABLE.getDefaultState())) {
+				this.world.setBlockState(blockPosTop4, Blocks.CRAFTING_TABLE.getDefaultState());
 			}
 		}
 	}

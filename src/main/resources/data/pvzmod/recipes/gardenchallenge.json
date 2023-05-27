@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#D#",
+    "DOD",
+    "#D#"
+  ],
+  "key": {
+    "#": {
+      "item": "pvzmod:largesun"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "O": {
+      "item": "pvzmod:plantfood_flower"
+    }
+  },
+  "result": {
+    "item": "pvzmod:gardenchallenge_spawn",
+    "count": 1
+  }
+}

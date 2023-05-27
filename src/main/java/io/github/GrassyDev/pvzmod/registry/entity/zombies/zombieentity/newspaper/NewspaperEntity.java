@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -67,7 +68,7 @@ import static io.github.GrassyDev.pvzmod.registry.PvZSounds.NEWSPAPERANGRYEVENT;
 
 public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 
-    private MobEntity owner;
+
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
 	private boolean speedUp;
@@ -302,7 +303,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity) && !(livingEntity instanceof GraveEntity);
 		}));
 	}
 
@@ -448,9 +449,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		return EntityGroup.UNDEAD;
 	}
 
-	public MobEntity getOwner() {
-		return this.owner;
-	}
+
 
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
@@ -459,9 +458,7 @@ public class NewspaperEntity extends PvZombieEntity implements IAnimatable {
 		this.playSound(this.getStepSound(), 0.15F, 1.0F);
 	}
 
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
-	}
+
 
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/

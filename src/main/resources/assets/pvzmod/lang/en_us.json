@@ -907,10 +907,17 @@
   "item.pvzmod.half": "Half Spawn Chance and Amount",
   "item.pvzmod.infinite": "Infinite Spawns",
   "item.pvzmod.unlock": "Unlock All Zombies",
+  "item.pvzmod.unlockspecial": "Unlock Special Zombies",
 
   "entity.pvzmod.garden": "Garden",
   "item.pvzmod.garden_spawn": "Garden",
   "item.pvzmod.garden_spawn.flavour": "Attracts Zombies and Gravestones",
+
+  "entity.pvzmod.gardenchallenge": "Garden",
+  "item.pvzmod.gardenchallenge_spawn": "Challenge Mode",
+  "item.pvzmod.gardenchallenge_spawn.flavour": "WARNING! This will destroy everything in a 25x7x25 area! Right Click to begin waves!",
+  "item.pvzmod.fertilizer": "Fertilizer",
+  "item.pvzmod.fertilizer.flavour": "Increases number of defeated Waves by 1 in Challenge Mode.",
 
   "entity.pvzmod.zombiegrave": "Zombie Gravestone",
   "item.pvzmod.zombiegrave_spawn": "Zombie Gravestone",

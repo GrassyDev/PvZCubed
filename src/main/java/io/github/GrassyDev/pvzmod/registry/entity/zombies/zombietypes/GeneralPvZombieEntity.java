@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
@@ -22,6 +23,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -59,6 +61,16 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 	}
 
+	private MobEntity owner;
+
+	public MobEntity getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(MobEntity owner) {
+		this.owner = owner;
+	}
+
 	protected int animationMultiplier = 1;
 
 	public boolean armless;
@@ -77,6 +89,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.dataTracker.startTracking(CANBURN_TAG, true);
 		this.dataTracker.startTracking(COVERED_TAG, false);
 		this.dataTracker.startTracking(STEALTH_TAG, false);
+		this.dataTracker.startTracking(CHALLENGE_TAG, false);
 		this.dataTracker.startTracking(DATA_ID_HYPNOTIZED, false);
 	}
 
@@ -88,6 +101,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		tag.putBoolean("canBurn", this.canBurn());
 		tag.putBoolean("isCovered", this.isCovered());
 		tag.putBoolean("isStealth", this.isStealth());
+		tag.putBoolean("isChallenge", this.isChallengeZombie());
 		tag.putBoolean("Hypnotized", this.getHypno());
 	}
 
@@ -98,6 +112,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.dataTracker.set(CANBURN_TAG, tag.getBoolean("canBurn"));
 		this.dataTracker.set(COVERED_TAG, tag.getBoolean("isCovered"));
 		this.dataTracker.set(STEALTH_TAG, tag.getBoolean("isStealth"));
+		this.dataTracker.set(CHALLENGE_TAG, tag.getBoolean("isChallenge"));
 		this.dataTracker.set(DATA_ID_HYPNOTIZED, tag.getBoolean("Hypnotized"));
 	}
 
@@ -239,6 +254,36 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		this.dataTracker.set(STEALTH_TAG, stealthTag.getId());
 	}
 
+
+	//Challenge Tag
+
+	protected static final TrackedData<Boolean> CHALLENGE_TAG =
+			DataTracker.registerData(GeneralPvZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+
+	public enum Challenge {
+		FALSE(false),
+		TRUE(true);
+
+		Challenge(boolean id) {
+			this.id = id;
+		}
+
+		private final boolean id;
+
+		public boolean getId() {
+			return this.id;
+		}
+	}
+
+	public Boolean isChallengeZombie() {
+		return this.dataTracker.get(CHALLENGE_TAG);
+	}
+
+	public void setChallengeZombie(GeneralPvZombieEntity.Challenge challenge) {
+		this.dataTracker.set(CHALLENGE_TAG, challenge.getId());
+	}
+
 	// Hypno Tag
 
 	protected static final TrackedData<Boolean> DATA_ID_HYPNOTIZED =
@@ -353,27 +398,38 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 	@Override
 	public void onDeath(DamageSource source) {
-		if (this.world.getGameRules().getBoolean(PvZCubed.SHOULD_ZOMBIE_DROP)) {
-			if (!(this instanceof ZombiePropEntity)) {
-				double random = Math.random();
-				float multiplier = ZOMBIE_STRENGTH.get(this.getType()).orElse(1);
-				if (multiplier > 9) {
-					multiplier = 10;
-				}
-				double multiplierFinal = Math.pow(multiplier / 5, 2);
-				Item item = ModItems.SEED_PACKET_LIST.get(getRandom().nextInt(ModItems.SEED_PACKET_LIST.size()));
-				if (random <= 0.05 * multiplierFinal) {
-					dropItem(item);
-					playSound(LOOTGIFTDEVENT);
-				} else if (random <= 0.10 * multiplierFinal) {
-					dropItem(Items.DIAMOND);
-					playSound(LOOTDIAMONDEVENT);
-				} else if (random <= 0.30 * multiplierFinal) {
-					dropItem(Items.GOLD_NUGGET);
-					playSound(LOOTNUGGETEVENT);
-				} else if (random <= 0.70 * multiplierFinal) {
-					dropItem(Items.IRON_NUGGET);
-					playSound(LOOTNUGGETEVENT);
+		double randomChallenge = 0;
+		if (this.isChallengeZombie()){
+			randomChallenge = Math.random();
+		}
+		if (randomChallenge <= 0.33333) {
+			if (this.world.getGameRules().getBoolean(PvZCubed.SHOULD_ZOMBIE_DROP)) {
+				if (!(this instanceof ZombiePropEntity)) {
+					double random = Math.random();
+					float multiplier = ZOMBIE_STRENGTH.get(this.getType()).orElse(1);
+					if (multiplier > 9) {
+						multiplier = 10;
+					}
+					double multiplierFinal = Math.pow(multiplier / 5, 2);
+					Item item = ModItems.SEED_PACKET_LIST.get(getRandom().nextInt(ModItems.SEED_PACKET_LIST.size()));
+					if (random <= 0.05 * multiplierFinal) {
+						dropItem(item);
+						playSound(LOOTGIFTDEVENT);
+					} else if (random <= 0.10 * multiplierFinal) {
+						dropItem(Items.DIAMOND);
+						playSound(LOOTDIAMONDEVENT);
+					} else if (random <= 0.30 * multiplierFinal) {
+						dropItem(Items.GOLD_NUGGET);
+						playSound(LOOTNUGGETEVENT);
+					} else if (random <= 0.70 * multiplierFinal) {
+						dropItem(Items.IRON_NUGGET);
+						playSound(LOOTNUGGETEVENT);
+					}
+					double random2 = Math.random();
+					if (random2 <= 0.2 && this.isChallengeZombie()) {
+						Item item2 = ModItems.PLANTFOOD_LIST.get(getRandom().nextInt(ModItems.PLANTFOOD_LIST.size()));
+						dropItem(item2);
+					}
 				}
 			}
 		}
@@ -615,6 +671,9 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 	private int jumpDelay;
 
 	public void tick() {
+		if (this.getOwner() instanceof GraveEntity graveEntity && graveEntity.isChallengeGrave()){
+			this.setChallengeZombie(Challenge.TRUE);
+		}
 		this.stepHeight = PVZCONFIG.nestedGeneralZombie.zombieStep();
 		if (this.isOnFire() || this.hasStatusEffect(WARM)){
 			this.setStealthTag(Stealth.FALSE);

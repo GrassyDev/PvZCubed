@@ -54,7 +54,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.FROZEN;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
-    private MobEntity owner;
+
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private String controllerName = "walkingcontroller";
 
@@ -349,9 +349,7 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		return EntityGroup.UNDEAD;
 	}
 
-	public MobEntity getOwner() {
-		return this.owner;
-	}
+
 
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
@@ -360,9 +358,7 @@ public class ZombieKingEntity extends PvZombieEntity implements IAnimatable {
 		this.playSound(this.getStepSound(), 0.15F, 1.0F);
 	}
 
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
-	}
+
 
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/

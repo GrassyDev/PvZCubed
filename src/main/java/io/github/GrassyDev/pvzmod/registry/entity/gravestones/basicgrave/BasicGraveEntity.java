@@ -60,7 +60,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
 	private int spawnCounter;
 
-    private MobEntity owner;
+
 
 	double tiltchance = this.random.nextDouble();
 
@@ -215,14 +215,6 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return SoundEvents.BLOCK_BASALT_HIT;
-	}
-
-	public MobEntity getOwner() {
-		return this.owner;
-	}
-
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
 	}
 
 
@@ -489,7 +481,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 					}
 				}
 				if (difficulty >= 1.549 + difficultymodifier || isUnlock()) {
-					if (probability13 <= 0.30 / halfModifier) { // 30% x2 Pole Vaulting Zombie
+					if (probability13 <= 0.10 / halfModifier) { // 10% x2 Pole Vaulting Zombie
 						for (int p = 0; p < 2; ++p) {
 							if (!BasicGraveEntity.this.is1x1()) {
 								zombiePosZ = BasicGraveEntity.this.random.range(-1, 1);
@@ -504,8 +496,8 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.569 + difficultymodifier || isUnlock()) {
-					if (probability12 <= 0.30 / halfModifier) { // 30% x3 Pole Vaulting Zombie
+				if (difficulty >= 1.569 + difficultymodifier || isUnlock() || isUnlockSpecial()) {
+					if (probability12 <= 0.20 / halfModifier) { // 20% x3 Pole Vaulting Zombie
 						for (int p = 0; p < 3; ++p) {
 							if (!BasicGraveEntity.this.is1x1()) {
 								zombiePosZ = BasicGraveEntity.this.random.range(-1, 1);
@@ -520,7 +512,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock() || isUnlockSpecial()) {
 					if (probability4 <= 0.15 / halfModifier) { // 15% x1 Flag Zombie
 						for (int f = 0; f < 1; ++f) {
 							if (!BasicGraveEntity.this.is1x1()) {
@@ -566,24 +558,8 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.539 + difficultymodifier || isUnlock()) {
-					if (probability5 <= 0.20 / halfModifier) { // 20% x2 Pole Vaulting Zombie
-						for (int p = 0; p < 2 / halfModifier; ++p) {
-							if (!BasicGraveEntity.this.is1x1()) {
-								zombiePosZ = BasicGraveEntity.this.random.range(-1, 1);
-								zombiePos = BasicGraveEntity.this.random.range(-1, 1);
-							}
-							BlockPos blockPos = BasicGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
-							PoleVaultingEntity poleVaultingEntity = (PoleVaultingEntity) PvZEntity.POLEVAULTING.create(BasicGraveEntity.this.world);
-							poleVaultingEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-							poleVaultingEntity.initialize(serverWorld, BasicGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-							poleVaultingEntity.setOwner(BasicGraveEntity.this);
-							serverWorld.spawnEntityAndPassengers(poleVaultingEntity);
-						}
-					}
-				}
-				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
-					if (probability6 <= 0.4 / halfModifier) { // 40% x2 Bully Zombie
+				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
+					if (probability6 <= 0.25 / halfModifier) { // 25% x2 Bully Zombie
 						for (int g = 0; g < 2 / halfModifier; ++g) {
 							if (!BasicGraveEntity.this.is1x1()) {
 								zombiePosZ = BasicGraveEntity.this.random.range(-1, 1);
@@ -598,8 +574,8 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.519 + difficultymodifier || isUnlock()) {
-					if (probability7 <= 0.15 / halfModifier) { // 15% x2 Bully Zombie
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock() || isUnlockSpecial()) {
+					if (probability7 <= 0.2 / halfModifier) { // 20% x2 Bully Zombie
 						for (int h = 0; h < 2 / halfModifier; ++h) {
 							if (!BasicGraveEntity.this.is1x1()) {
 								zombiePosZ = BasicGraveEntity.this.random.range(-1, 1);
@@ -635,7 +611,7 @@ public class BasicGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				if (difficulty >= 1.609 + difficultymodifier || isUnlock()) {
+				if (difficulty >= 1.609 + difficultymodifier || isUnlock() || isUnlockSpecial()) {
 					if (probability8 <= 0.4 / halfModifier) { // 50% x1 Trash Can Zombie
 						for (int g = 0; g < 1; ++g) {
 							if (!BasicGraveEntity.this.is1x1()) {

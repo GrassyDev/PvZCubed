@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
@@ -69,7 +70,7 @@ import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 public class FootballEntity extends PvZombieEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";
-    private MobEntity owner;
+
     private int attackTicksLeft;
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -338,7 +339,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 					(!(livingEntity instanceof ZombiePropEntity) || (livingEntity instanceof ZombieObstacleEntity));
 		}));
 		this.targetSelector.add(2, new TargetGoal<>(this, MobEntity.class, 0, true, true, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity);
+			return livingEntity instanceof Monster && !(livingEntity instanceof GeneralPvZombieEntity) && !(livingEntity instanceof GraveEntity);
 		}));
 	}
 
@@ -522,9 +523,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		return EntityGroup.UNDEAD;
 	}
 
-	public MobEntity getOwner() {
-		return this.owner;
-	}
+
 
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
@@ -533,9 +532,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		this.playSound(this.getStepSound(), 0.15F, 1.0F);
 	}
 
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
-	}
+
 
 	private float getAttackDamage(){
 		return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);

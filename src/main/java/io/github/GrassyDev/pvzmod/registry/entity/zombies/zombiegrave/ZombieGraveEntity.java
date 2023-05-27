@@ -2,6 +2,7 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiegrave;
 
 import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
@@ -49,7 +50,7 @@ public class ZombieGraveEntity extends ZombieObstacleEntity implements IAnimatab
 
 	public int sunProducingTime;
 
-	private MobEntity owner;
+
 
 	double tiltchance = this.random.nextDouble();
 
@@ -218,13 +219,9 @@ public class ZombieGraveEntity extends ZombieObstacleEntity implements IAnimatab
 		return SoundEvents.BLOCK_BASALT_HIT;
 	}
 
-	public MobEntity getOwner() {
-		return this.owner;
-	}
 
-	public void setOwner(MobEntity owner) {
-		this.owner = owner;
-	}
+
+
 
 
 

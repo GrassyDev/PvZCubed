@@ -293,6 +293,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.NIGHTMARE));
 				stacks.add(new ItemStack(ModItems.CRAAAAZY));
 				stacks.add(new ItemStack(ModItems.INFINITE));
+				stacks.add(new ItemStack(ModItems.UNLOCKSPECIAL));
 				stacks.add(new ItemStack(ModItems.UNLOCK));
 				stacks.add(new ItemStack(ModItems.ONEBYONE));
 				stacks.add(new ItemStack(ModItems.HALF));
@@ -303,6 +304,8 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.EGYPTGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.FUTUREGRAVESPAWN));
 				stacks.add(new ItemStack(ModItems.DARKAGESGRAVESPAWN));
+				stacks.add(new ItemStack(ModItems.GARDENCHALLENGE_SPAWN));
+				stacks.add(new ItemStack(ModItems.FERTILIZER));
 			}).build();
 
 	public static final ItemGroup PVZBLOCKS = FabricItemGroupBuilder.create(
@@ -343,6 +346,7 @@ public class PvZCubed implements ModInitializer {
 
 		ModItems.registerItems();
 		ModItems.setSeedPacketList();
+		ModItems.setPlantfoodList();
 		ModBlocks.registerBlocks();
 		GeckoLib.initialize();
 		PvZEntitySpawn.addEntitySpawn();
