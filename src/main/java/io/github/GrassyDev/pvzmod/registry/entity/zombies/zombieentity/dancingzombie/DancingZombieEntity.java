@@ -268,7 +268,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 			}
 		}
 		if (!this.world.isClient) {
-			if (this.age > 2400 && this.getTarget() == null && this.getHypno()) {
+			if (this.age > 2400) {
 				this.discard();
 			}
 		}

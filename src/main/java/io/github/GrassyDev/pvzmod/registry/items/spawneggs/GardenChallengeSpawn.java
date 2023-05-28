@@ -4,6 +4,7 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.SeedItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -48,29 +49,35 @@ public class GardenChallengeSpawn extends SeedItem {
         Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
 		Box box = PvZEntity.GARDENCHALLENGE.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 		if (world.isSpaceEmpty((Entity)null, box) && world instanceof ServerWorld serverWorld) {
-                    GardenChallengeEntity gardenEntity = (GardenChallengeEntity) PvZEntity.GARDENCHALLENGE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
-					List<GardenChallengeEntity> list = world.getNonSpectatingEntities(GardenChallengeEntity.class, PvZEntity.GARDENCHALLENGE.getDimensions().getBoxAt(gardenEntity.getPos()).expand(50, 20, 50));
-					if (list.isEmpty()) {
+			GardenChallengeEntity gardenEntity = (GardenChallengeEntity) PvZEntity.GARDENCHALLENGE.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
+			List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.GARDENCHALLENGE.getDimensions().getBoxAt(gardenEntity.getPos()));
+			if (list.isEmpty()) {
+				List<GardenChallengeEntity> list2 = world.getNonSpectatingEntities(GardenChallengeEntity.class, PvZEntity.GARDENCHALLENGE.getDimensions().getBoxAt(gardenEntity.getPos()).expand(50, 20, 50));
+				if (list2.isEmpty()) {
 
-						gardenEntity.refreshPositionAndAngles(gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), 0, 0.0F);
-						gardenEntity.setBodyYaw(0);
-						gardenEntity.setHeadYaw(0);
-						gardenEntity.setYaw(0);
-						((ServerWorld) world).spawnEntityAndPassengers(gardenEntity);
-						gardenEntity.setPersistent();
-						world.playSound((PlayerEntity) null, gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
+					gardenEntity.refreshPositionAndAngles(gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), 0, 0.0F);
+					gardenEntity.setBodyYaw(0);
+					gardenEntity.setHeadYaw(0);
+					gardenEntity.setYaw(0);
+					((ServerWorld) world).spawnEntityAndPassengers(gardenEntity);
+					gardenEntity.setPersistent();
+					world.playSound((PlayerEntity) null, gardenEntity.getX(), gardenEntity.getY(), gardenEntity.getZ(), PvZSounds.ENTITYRISINGEVENT, SoundCategory.BLOCKS, 0.75F, 0.8F);
 
 
-						PlayerEntity user = context.getPlayer();
-						if (!user.getAbilities().creativeMode) {
-							if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
-								itemStack.decrement(1);
-							}
+					PlayerEntity user = context.getPlayer();
+					if (!user.getAbilities().creativeMode) {
+						if (!PVZCONFIG.nestedSeeds.infiniteSeeds() && !world.getGameRules().getBoolean(PvZCubed.INFINITE_SEEDS)) {
+							itemStack.decrement(1);
 						}
-						return ActionResult.success(world.isClient);
-					} else {
-						return ActionResult.FAIL;
 					}
+					return ActionResult.success(world.isClient);
+				} else {
+					return ActionResult.FAIL;
+				}
+			}
+			else {
+				return ActionResult.PASS;
+			}
 		} else {
 			return ActionResult.PASS;
 		}

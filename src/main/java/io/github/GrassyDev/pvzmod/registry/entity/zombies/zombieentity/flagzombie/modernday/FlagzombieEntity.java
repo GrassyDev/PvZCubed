@@ -278,7 +278,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 			}
 		}
 		if (!this.world.isClient) {
-			if (this.age > 2400 && this.getTarget() == null && this.getHypno()) {
+			if (this.age > 2400) {
 				this.discard();
 			}
 		}
@@ -524,7 +524,7 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 		}
 
 		protected int startTimeDelay() {
-			return 320;
+			return 1180;
 		}
 
         protected void castSpell() {

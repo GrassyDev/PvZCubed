@@ -9,7 +9,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)90",
-        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)50s",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)25s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Can use Large Sun to heal health to full.",
         "$(br2)$(#bd951a)\"People wonder how I feel about getting constantly chewed on by Zombies,\" says Wall-nut. \"What they don't realize is that with my limited senses all I can feel is a kind of tingling, like a relaxing back rub.\""
       ]

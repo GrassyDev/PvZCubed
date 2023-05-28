@@ -12,10 +12,13 @@
     },
     {
       "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:sun"
     }
   ],
   "result": {
     "item": "pvzmod:tallnut_seed_packet",
-    "count": 1
+    "count": 2
   }
 }

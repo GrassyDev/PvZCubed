@@ -206,7 +206,7 @@ public class PvZConfigModel {
 		public float scaredyshroomS = 5.0f;
 		public float seashroomS = 10.0f;
 		public float shamrockS = 5.0f;
-		public float smackadamiaS = 50.0f;
+		public float smackadamiaSv2 = 30.0f;
 		public float smallnutS = 10.0f;
 		public float snowpeaS = 7.5f;
 		public float snowqueenpeaS = 35f;
@@ -217,13 +217,13 @@ public class PvZConfigModel {
 		public float sunflowerS = 2.5f;
 		public float sunflowerseedS = 2.5f;
 		public float sunshroomS = 5.0f;
-		public float tallnutS = 50.0f;
+		public float tallnutSv2 = 25.0f;
 		public float tanglekelpS = 25.0f;
 		public float threepeaterS = 7.5f;
 		public float torchwoodS = 37.5f;
 		public float tulimpeterS = 20.0f;
 		public float twinsunflowerS = 35.0f;
-		public float wallnutS = 50.0f;
+		public float wallnutSv2 = 25.0f;
 		public float weeniebeanieS = 2.5f;
 		public float zapricotS = 7.5f;
 	}

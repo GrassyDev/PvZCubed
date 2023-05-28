@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)50",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
-        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)60s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Immune to Poison. Summons x2 Buckethead Peasants, x1 Peasant Knight, x3 Conehead Peasants, and x6 Peasants behind them.",
         "$(br)$(#bd951a)The King tells him that there is no greater reward than carrying the banner into battle. He thinks that maybe the King is making that up."
       ]

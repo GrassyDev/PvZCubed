@@ -10,7 +10,7 @@
         "$(#bd951a)Health: $()$(#ff0000)50 (Paper)",
         "$(br)$(#bd951a)Damage: $()$(#ff0000)4",
         "$(br)$(#bd951a)Speed: $()$(#ff0000)Hungry",
-        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)17s",
+        "$(br)$(#bd951a)Zombie Spawn Rate: $()$(#ff0000)60s",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Summons x2 Buckethead Mummies, x1 Pyramid Head, x3 Conehead Mummies, and x6 Mummies behind them.",
         "$(br)$(#bd951a)Egyptian Flag Zombie is so far behind he thinks he's in first place. He's clearly living in de-Nile."
       ]

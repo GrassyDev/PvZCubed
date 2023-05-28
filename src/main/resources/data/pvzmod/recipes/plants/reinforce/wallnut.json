@@ -6,10 +6,13 @@
     },
     {
       "item": "pvzmod:sun"
+    },
+    {
+      "item": "pvzmod:smallsun"
     }
   ],
   "result": {
     "item": "pvzmod:wallnut_seed_packet",
-    "count": 1
+    "count": 3
   }
 }
