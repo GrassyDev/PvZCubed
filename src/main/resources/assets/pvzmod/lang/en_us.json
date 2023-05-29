@@ -1,6 +1,6 @@
 {
-  "gamerule.pvzdoPlantSpawn": "[PVZ] Plants Spawn (Turn off for Superflat)",
-  "gamerule.pvzdoGraveSpawn": "[PVZ] Graves Spawn (Turn off for Superflat)",
+  "gamerule.pvzdoPlantSpawn": "[PVZ] Plants Spawn",
+  "gamerule.pvzdoGraveSpawn": "[PVZ] Graves Spawn",
   "gamerule.pvzdoPlantDrop": "[PVZ] Plants Drop Loot",
   "gamerule.pvzdoZombieDrop": "[PVZ] Zombies Drop Loot",
   "gamerule.pvzinfiniteSeeds": "[PVZ] Infinite Seeds",
@@ -10,7 +10,10 @@
   "text.config.pvz3-config.title": "Plants vs. Zombies: Cubed",
 
   "text.config.pvz3-config.section.spawns": "Spawns",
-  "text.config.pvz3-config.category.nestedSpawns": "Spawn Settings (Restart)",
+  "text.config.pvz3-config.category.nestedSpawns": "Spawn Settings",
+  "text.config.pvz3-config.option.nestedSpawns.spawnPlants": "Plants Spawn",
+  "text.config.pvz3-config.option.nestedSpawns.hoeAlternative": "Tilling soil gives Plant Food",
+  "text.config.pvz3-config.option.nestedSpawns.hoeBreak": "Hoe durability loss when finding PF",
 
   "text.config.pvz3-config.category.nestedSpawns.nestedGraveSpawns": "Grave Spawn Settings",
   "text.config.pvz3-config.option.nestedSpawns.nestedGraveSpawns.basicGv2": "Basic Grave Weight",
@@ -90,10 +93,11 @@
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bellflowerS": "Bellflower Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bloomerangS": "Bloomerang Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.bombseedlingS": "Bomb Seedling Seed",
-  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.breezeshroomS": "Breeze-shroom Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.breezesroomS": "Breeze-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.buttonshroomS": "Button-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.cabbagepultS": "Cabbage-pult Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.cattailS": "Cattail Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.charmshroomS": "Charm-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.cherrybombS": "Cherry Bomb Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.chillypepperS": "Chilly Pepper Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.chomperS": "Chomper Seed",
@@ -129,6 +133,7 @@
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.puffshroomS": "Puff-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.pumpkinwitchS": "Pumpkin Witch Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.repeaterS": "Repeater Seed",
+  "text.config.pvz3-config.option.nestedSeeds.moreSeeds.retrogatlingS": "Retro Gatling Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.scaredyshroomS": "Scaredy-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.seashroomS": "Sea-shroom Seed",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.shamrockS": "Shamrock Seed",
@@ -915,7 +920,7 @@
 
   "entity.pvzmod.gardenchallenge": "Garden",
   "item.pvzmod.gardenchallenge_spawn": "Challenge Mode",
-  "item.pvzmod.gardenchallenge_spawn.flavour": "WARNING! This will destroy everything in a 25x7x25 area! Right Click to begin waves!",
+  "item.pvzmod.gardenchallenge_spawn.flavour": "WARNING! This will destroy everything in a 53x7x53 area! Right Click to begin waves!",
   "item.pvzmod.fertilizer": "Fertilizer",
   "item.pvzmod.fertilizer.flavour": "Increases number of defeated Waves by 1 in Challenge Mode.",
 

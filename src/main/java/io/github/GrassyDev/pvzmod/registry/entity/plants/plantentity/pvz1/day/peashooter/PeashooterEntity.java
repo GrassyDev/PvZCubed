@@ -50,6 +50,8 @@ import java.util.Objects;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class PeashooterEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
     private String controllerName = "peacontroller";
@@ -288,7 +290,7 @@ public class PeashooterEntity extends PlantEntity implements IAnimatable, Ranged
 
 	public static boolean canPeashooterSpawn(EntityType<? extends PeashooterEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
-		return checkVillager(Vec3d.ofCenter(pos), world) && !checkPeashooter(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+		return checkVillager(Vec3d.ofCenter(pos), world) && !checkPeashooter(Vec3d.ofCenter(pos), world) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN) && PVZCONFIG.nestedSpawns.spawnPlants();
 	}
 
 	public static boolean checkVillager(Vec3d pos, ServerWorldAccess world) {

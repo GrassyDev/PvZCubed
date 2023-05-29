@@ -37,6 +37,11 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.List;
 import java.util.Objects;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity.checkPlant;
+
 public class SolarWinds extends TileEntity {
 	public SolarWinds(EntityType<? extends TileEntity> entityType, World world) {
 		super(entityType, world);
@@ -228,6 +233,7 @@ public class SolarWinds extends TileEntity {
 	public static boolean canSolarWindsSpawn(EntityType<? extends SolarWinds> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
 		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR) &&
-		world.isSkyVisible(pos) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+					!checkPlant(Vec3d.ofCenter(pos), world, type) &&
+		world.isSkyVisible(pos) && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN) && PVZCONFIG.nestedSpawns.spawnPlants();
 	}
 }

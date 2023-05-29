@@ -53,6 +53,8 @@ import java.util.Objects;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class DarkAgesGraveEntity extends GraveEntity implements IAnimatable {
 
 	private String controllerName = "walkingcontroller";

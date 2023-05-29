@@ -43,6 +43,8 @@ import java.util.EnumSet;
 import java.util.Optional;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
 
 public class CharmshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {

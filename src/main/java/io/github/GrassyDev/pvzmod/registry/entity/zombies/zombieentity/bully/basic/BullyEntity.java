@@ -228,7 +228,7 @@ public class BullyEntity extends PvZombieEntity implements IAnimatable {
 
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
 			return livingEntity instanceof PlantEntity plantEntity &&
-					!(plantEntity instanceof GravebusterEntity) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && !(plantEntity.getLowProfile()));
+					!(plantEntity instanceof GravebusterEntity) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(plantEntity.getLowProfile());
 		}));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));

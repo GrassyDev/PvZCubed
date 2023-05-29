@@ -44,6 +44,8 @@ import java.util.Optional;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class SunshroomEntity extends PlantEntity implements IAnimatable {
 
 	private static final TrackedData<Integer> SUN_SPEED;

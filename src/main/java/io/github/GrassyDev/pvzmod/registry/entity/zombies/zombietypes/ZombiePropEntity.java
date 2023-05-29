@@ -20,6 +20,8 @@ import net.minecraft.world.World;
 
 import java.util.Objects;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public abstract class ZombiePropEntity extends GeneralPvZombieEntity implements Monster {
 
 	/** For Hypnotized Zombies **/

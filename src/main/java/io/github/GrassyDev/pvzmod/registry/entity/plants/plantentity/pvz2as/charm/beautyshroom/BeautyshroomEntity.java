@@ -48,6 +48,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 import static io.github.GrassyDev.pvzmod.PvZCubed.DISABLE;
 import static io.github.GrassyDev.pvzmod.PvZCubed.FROZEN;
 

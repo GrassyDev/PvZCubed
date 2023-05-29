@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.darkagesgrave.DarkAgesGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.egyptgravestone.EgyptGraveEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.gravestones.futuregrave.FutureGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.nightgrave.NightGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.poolgrave.PoolGraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.roofgrave.RoofGraveEntity;
@@ -91,6 +92,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		this.dataTracker.startTracking(MINROOF, 0);
 		this.dataTracker.startTracking(MINEGYPT, 0);
 		this.dataTracker.startTracking(MINDARKAGES, 0);
+		this.dataTracker.startTracking(MINFUTURE, 0);
 		this.dataTracker.startTracking(LOCKMINCHECK, false);
 	}
 
@@ -115,6 +117,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		tag.putInt("minRoof", this.getMinRoof());
 		tag.putInt("minEgypt", this.getMinEgypt());
 		tag.putInt("minDarkAges", this.getMinDarkAges());
+		tag.putInt("minFuture", this.getMinFuture());
 		tag.putBoolean("lockMinCheck", this.getLockMinCheck());
 	}
 
@@ -138,6 +141,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		this.dataTracker.set(MINROOF, tag.getInt("minRoof"));
 		this.dataTracker.set(MINEGYPT, tag.getInt("minEgypt"));
 		this.dataTracker.set(MINDARKAGES, tag.getInt("minDarkAges"));
+		this.dataTracker.set(MINFUTURE, tag.getInt("minFuture"));
 		this.dataTracker.set(LOCKMINCHECK, tag.getBoolean("lockMinCheck"));
 		if (this.hasCustomName()) {
 			this.bossBar.setName(this.getDisplayName());
@@ -216,6 +220,9 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			DataTracker.registerData(GardenChallengeEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	private static final TrackedData<Integer> MINDARKAGES =
+			DataTracker.registerData(GardenChallengeEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	private static final TrackedData<Integer> MINFUTURE =
 			DataTracker.registerData(GardenChallengeEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	private int getTierCount() {
@@ -448,6 +455,14 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		this.dataTracker.set(MINDARKAGES, count);
 	}
 
+	private int getMinFuture() {
+		return this.dataTracker.get(MINFUTURE);
+	}
+
+	public void setMinfuture(Integer count) {
+		this.dataTracker.set(MINFUTURE, count);
+	}
+
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
 
@@ -559,9 +574,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			default -> maxWaves = 1;
 		};
 		this.waveBar.setPercent(this.getWaveCount() / maxWaves);
-		System.out.println(this.getWaveCount());
-		System.out.println(this.getTier());
-		System.out.println(this.getTierCount());
 		if (this.getY() <= this.world.getBottomY() + 10){
 			this.discard();
 		}
@@ -721,6 +733,9 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 				list.add(PvZEntity.ROOFGRAVESTONE);
 				list.add(PvZEntity.EGYPTGRAVESTONE);
 				list.add(PvZEntity.DARKAGESGRAVESTONE);
+				if (this.getTierCount() >= 2){
+					list.add(PvZEntity.FUTUREGRAVESTONE);
+				}
 				if (this.getTier().equals(ChallengeTiers.TWO)){
 					list.remove(PvZEntity.BASICGRAVESTONE);
 				}
@@ -789,6 +804,9 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 				if (entityType.equals(PvZEntity.DARKAGESGRAVESTONE)){
 					this.addedWorld = TypeOfWorld.DARKAGES;
 				}
+				if (entityType.equals(PvZEntity.FUTUREGRAVESTONE)){
+					this.addedWorld = TypeOfWorld.FUTURE;
+				}
 				this.addWorld(entityType);
 			}
 			this.setWave(0);
@@ -802,13 +820,15 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			setMinroof(0);
 			setMinegypt(0);
 			setMindarkages(0);
+			setMinfuture(0);
 		}
 		if (this.getWaveInProgress()){
 			if (!this.getLockMinCheck()) {
 				for (GraveEntity currentWorld : currentWorlds) {
 					if (currentWorld instanceof NightGraveEntity) {
 						setMinnight(getMinNight() + 3);
-					} else if (currentWorld instanceof PoolGraveEntity) {
+					}
+					if (currentWorld instanceof PoolGraveEntity) {
 						setMinpool(getMinPool() + 5);
 					}
 					if (currentWorld instanceof RoofGraveEntity) {
@@ -819,6 +839,9 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 					}
 					if (currentWorld instanceof DarkAgesGraveEntity) {
 						setMindarkages(getMinDarkAges() + 3);
+					}
+					if (currentWorld instanceof FutureGraveEntity) {
+						setMinfuture(getMinFuture() + 3);
 					}
 				}
 				this.setLockMinCheck(LockMinCheck.TRUE);
@@ -873,6 +896,13 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 						}
 					}
 				}
+				if (graveEntity instanceof FutureGraveEntity){
+					if (getMinFuture() > 0){
+						for (int x = 0; x <= getMinFuture() - 1; ++x){
+							graveEntities.add(PvZEntity.FUTUREGRAVESTONE);
+						}
+					}
+				}
 			}
 			if (this.getWaveTicks() >= waveInterval){
 				this.setWaveticks(0);
@@ -910,7 +940,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 							serverWorld.spawnEntityAndPassengers(graveEntity2);
 							this.setMinpool(this.getMinPool() - 1);
 						}
-						System.out.println(graveEntities);
 						EntityType<?> entityType = graveEntities.get(random.range(0, graveEntities.size() - 1));
 						BlockPos getPos2 = spawnableSpots.get(this.random.range(0, spawnableSpots.size() - 1));
 						GraveEntity graveEntity2 = (GraveEntity) entityType.create(this.world);
@@ -936,6 +965,8 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 							this.setMinegypt(this.getMinEgypt() - 1);
 						} else if (entityType == PvZEntity.DARKAGESGRAVESTONE) {
 							this.setMindarkages(this.getMinDarkAges() - 1);
+						} else if (entityType == PvZEntity.FUTUREGRAVESTONE) {
+							this.setMinfuture(this.getMinFuture() - 1);
 						}
 					}
 				}
@@ -1062,6 +1093,10 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			world2Block = ModBlocks.NIGHT_TILE;
 			world2BlockDark = ModBlocks.DARK_NIGHT_TILE;
 		}
+		if (this.getWorld2().equals(TypeOfWorld.FUTURE)){
+			world2Block = ModBlocks.FUTURE_TILE;
+			world2BlockDark = ModBlocks.DARK_FUTURE_TILE;
+		}
 
 
 		if (this.getWorld3().equals(TypeOfWorld.ROOF)){
@@ -1075,6 +1110,10 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		if (this.getWorld3().equals(TypeOfWorld.DARKAGES)){
 			world3Block = ModBlocks.NIGHT_TILE;
 			world3BlockDark = ModBlocks.DARK_NIGHT_TILE;
+		}
+		if (this.getWorld3().equals(TypeOfWorld.FUTURE)){
+			world3Block = ModBlocks.FUTURE_TILE;
+			world3BlockDark = ModBlocks.DARK_FUTURE_TILE;
 		}
 
 
@@ -1090,6 +1129,10 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			world4Block = ModBlocks.NIGHT_TILE;
 			world4BlockDark = ModBlocks.DARK_NIGHT_TILE;
 		}
+		if (this.getWorld4().equals(TypeOfWorld.FUTURE)){
+			world4Block = ModBlocks.FUTURE_TILE;
+			world4BlockDark = ModBlocks.DARK_FUTURE_TILE;
+		}
 
 
 		if (this.getWorld5().equals(TypeOfWorld.ROOF)){
@@ -1103,6 +1146,10 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		if (this.getWorld5().equals(TypeOfWorld.DARKAGES)){
 			world5Block = ModBlocks.NIGHT_TILE;
 			world5BlockDark = ModBlocks.DARK_NIGHT_TILE;
+		}
+		if (this.getWorld5().equals(TypeOfWorld.FUTURE)){
+			world5Block = ModBlocks.FUTURE_TILE;
+			world5BlockDark = ModBlocks.DARK_FUTURE_TILE;
 		}
 
 
@@ -1118,6 +1165,10 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			world6Block = ModBlocks.NIGHT_TILE;
 			world6BlockDark = ModBlocks.DARK_NIGHT_TILE;
 		}
+		if (this.getWorld6().equals(TypeOfWorld.FUTURE)){
+			world6Block = ModBlocks.FUTURE_TILE;
+			world6BlockDark = ModBlocks.DARK_FUTURE_TILE;
+		}
 
 
 		if (this.getWorld7().equals(TypeOfWorld.ROOF)){
@@ -1132,6 +1183,10 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			world7Block = ModBlocks.NIGHT_TILE;
 			world7BlockDark = ModBlocks.DARK_NIGHT_TILE;
 		}
+		if (this.getWorld7().equals(TypeOfWorld.FUTURE)){
+			world7Block = ModBlocks.FUTURE_TILE;
+			world7BlockDark = ModBlocks.DARK_FUTURE_TILE;
+		}
 
 
 		if (this.getWorld8().equals(TypeOfWorld.ROOF)){
@@ -1145,6 +1200,10 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 		if (this.getWorld8().equals(TypeOfWorld.DARKAGES)){
 			world8Block = ModBlocks.NIGHT_TILE;
 			world8BlockDark = ModBlocks.DARK_NIGHT_TILE;
+		}
+		if (this.getWorld8().equals(TypeOfWorld.FUTURE)){
+			world8Block = ModBlocks.FUTURE_TILE;
+			world8BlockDark = ModBlocks.DARK_FUTURE_TILE;
 		}
 
 		for (int x = -26; x < 27; ++x) {

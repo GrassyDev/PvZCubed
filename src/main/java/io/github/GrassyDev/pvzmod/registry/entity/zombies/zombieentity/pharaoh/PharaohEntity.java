@@ -326,7 +326,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		this.goalSelector.add(1, new PvZombieAttackGoal(this, 1.0D, true));
 
 		this.targetSelector.add(5, new TargetGoal<>(this, MobEntity.class, 0, false, false, (livingEntity) -> {
-			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground") && !(plantEntity.getLowProfile())) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
+			return livingEntity instanceof PlantEntity plantEntity && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("ground")) && !(plantEntity.getLowProfile()) && !(PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"));
 		}));
 
 		this.targetSelector.add(4, new TargetGoal<>(this, MerchantEntity.class, false, true));

@@ -33,6 +33,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Optional;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 import static io.github.GrassyDev.pvzmod.PvZCubed.ZOMBIE_SIZE;
 
 public class HypnoshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {

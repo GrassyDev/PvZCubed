@@ -12,7 +12,10 @@ public class PvZConfigModel {
 	@Nest
 	public PvZSpawnNest nestedSpawns = new PvZSpawnNest();
 	public static class PvZSpawnNest {
-		public String dummy = "dummy setting";
+		@RestartRequired
+		public boolean spawnPlants = true;
+		public boolean hoeAlternative = false;
+		public int hoeBreak = 25;
 		@Nest
 		public PvZSpawnNestGrave nestedGraveSpawns = new PvZSpawnNestGrave();
 		@Nest
@@ -155,76 +158,147 @@ public class PvZConfigModel {
 	}
 
 	public static class PvZMoreSeeds {
+		@RestartRequired
 		public float acidshrooomS = 15.0f;
+		@RestartRequired
 		public float admiralnavybeanS = 10.0f;
+		@RestartRequired
 		public float beautyshroomS = 12.5f;
+		@RestartRequired
 		public float beeshooterS = 15.0f;
+		@RestartRequired
 		public float bellflowerS = 2.5f;
+		@RestartRequired
 		public float bloomerangS = 15f;
+		@RestartRequired
 		public float bombseedlingS = 2.5f;
+		@RestartRequired
 		public float breezesroomS = 15f;
+		@RestartRequired
 		public float buttonshroomS = 2.5f;
+		@RestartRequired
 		public float cabbagepultS = 5.0f;
+		@RestartRequired
 		public float cattailS = 35.0f;
+		@RestartRequired
 		public float charmshroomS = 25.0f;
+		@RestartRequired
 		public float cherrybombS = 35.0f;
+		@RestartRequired
 		public float chillypepperS = 25.0f;
+		@RestartRequired
 		public float chomperS = 20.0f;
+		@RestartRequired
 		public float coconutS = 35.0f;
+		@RestartRequired
 		public float dandelionweedS = 7.5f;
+		@RestartRequired
 		public float doomshroomS = 25.0f;
+		@RestartRequired
 		public float dropeaS = 10f;
+		@RestartRequired
 		public float firepeaS = 15.0f;
+		@RestartRequired
 		public float fumeshroomS = 7.5f;
+		@RestartRequired
 		public float gatlingpeaS = 35.0f;
+		@RestartRequired
 		public float gloomshroomS = 35.0f;
+		@RestartRequired
 		public float goldleafS = 20.0f;
+		@RestartRequired
 		public float gravebusterS = 5.0f;
+		@RestartRequired
 		public float hypnoshroomS = 20.0f;
+		@RestartRequired
 		public float iceberglettuceS = 20.0f;
+		@RestartRequired
 		public float icebergpultS = 12.5f;
+		@RestartRequired
 		public float iceshroomS = 25.0f;
+		@RestartRequired
 		public float jalapenoS = 35.0f;
+		@RestartRequired
 		public float jumpingbeanS = 20f;
+		@RestartRequired
 		public float lightningreedS = 12.5f;
+		@RestartRequired
 		public float lilypadS = 0f;
+		@RestartRequired
 		public float loquatS = 2.5f;
+		@RestartRequired
 		public float saucerS = 30f;
+		@RestartRequired
 		public float magicshroomS = 15f;
+		@RestartRequired
 		public float narcissusS = 7.5f;
+		@RestartRequired
 		public float navybeanS = 5.0f;
+		@RestartRequired
 		public float peapodS = 3.75f;
+		@RestartRequired
 		public float empeachS = 25.0f;
+		@RestartRequired
 		public float peashooterS = 5.0f;
+		@RestartRequired
 		public float pepperpultS = 20.0f;
+		@RestartRequired
 		public float perfoomshroomS = 25.0f;
+		@RestartRequired
 		public float potatomineS = 20.0f;
+		@RestartRequired
 		public float puffshroomS = 2.5f;
+		@RestartRequired
 		public float pumpkinwitchS = 20.0f;
+		@RestartRequired
 		public float repeaterS = 7.5f;
+		@RestartRequired
 		public float retrogatlingS = 35.0f;
+		@RestartRequired
 		public float scaredyshroomS = 5.0f;
+		@RestartRequired
 		public float seashroomS = 10.0f;
+		@RestartRequired
 		public float shamrockS = 5.0f;
+		@RestartRequired
 		public float smackadamiaSv2 = 30.0f;
+		@RestartRequired
 		public float smallnutS = 10.0f;
+		@RestartRequired
 		public float snowpeaS = 7.5f;
+		@RestartRequired
 		public float snowqueenpeaS = 35f;
+		@RestartRequired
 		public float spikerockS = 35.0f;
+		@RestartRequired
 		public float spikeweedS = 5.0f;
+		@RestartRequired
 		public float springbeanS = 15f;
+		@RestartRequired
 		public float squashS = 25.0f;
+		@RestartRequired
 		public float sunflowerS = 2.5f;
+		@RestartRequired
 		public float sunflowerseedS = 2.5f;
+		@RestartRequired
 		public float sunshroomS = 5.0f;
+		@RestartRequired
 		public float tallnutSv2 = 25.0f;
+		@RestartRequired
 		public float tanglekelpS = 25.0f;
+		@RestartRequired
 		public float threepeaterS = 7.5f;
+		@RestartRequired
 		public float torchwoodS = 37.5f;
+		@RestartRequired
 		public float tulimpeterS = 20.0f;
+		@RestartRequired
 		public float twinsunflowerS = 35.0f;
+		@RestartRequired
 		public float wallnutSv2 = 25.0f;
+		@RestartRequired
 		public float weeniebeanieS = 2.5f;
+		@RestartRequired
 		public float zapricotS = 7.5f;
 	}
 

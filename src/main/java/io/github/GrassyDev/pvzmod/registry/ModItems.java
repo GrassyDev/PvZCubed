@@ -163,7 +163,7 @@ public class ModItems {
     public static final Item SUNFLOWER_SEED_PACKET = new SunflowerSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item PEASHOOTER_SEED_PACKET = new PeashooterSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item CHERRYBOMB_SEED_PACKET = new CherryBombSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
-    public static final Item WALLNUT_SEED_PACKET = new wallnutSv2eeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
+    public static final Item WALLNUT_SEED_PACKET = new WallnutSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item POTATOMINE_SEED_PACKET = new PotatoMineSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
     public static final Item SNOW_PEA_SEED_PACKET = new SnowpeaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
     public static final Item CHOMPER_SEED_PACKET = new ChomperSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
@@ -183,7 +183,7 @@ public class ModItems {
 	public static final Item JALAPENO_SEED_PACKET = new JalapenoSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item SPIKEWEED_SEED_PACKET = new SpikeweedSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
 	public static final Item TORCHWOOD_SEED_PACKET = new TorchwoodSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.RARE));
-	public static final Item TALLNUT_SEED_PACKET = new tallnutSv2eeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
+	public static final Item TALLNUT_SEED_PACKET = new TallnutSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item SEASHROOM_SEED_PACKET = new SeashroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
 	public static final Item CABBAGEPULT_SEED_PACKET = new CabbagepultSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.COMMON));
 	public static final Item GATLINGPEA_SEED_PACKET = new GatlingpeaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(2).rarity(Rarity.EPIC));
@@ -221,7 +221,7 @@ public class ModItems {
 	public static final Item BEAUTYSHROOM_SEED_PACKET = new BeautyshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item CHARMSHROOM_SEED_PACKET = new CharmshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.RARE));
 	public static final Item SMALLNUT_SEED_PACKET = new SmallnutSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
-	public static final Item SMACKADAMIA_SEED_PACKET = new smackadamiaSv2eeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
+	public static final Item SMACKADAMIA_SEED_PACKET = new SmackadamiaSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(8).rarity(Rarity.UNCOMMON));
 	public static final Item BUTTONSHROOM_SEED_PACKET = new ButtonshroomSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item BOMBSEEDLING_SEED_PACKET = new BombSeedlingSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));
 	public static final Item ZAPRICOT_SEED_PACKET = new ZapricotSeeds(new Item.Settings().group(PvZCubed.PVZPLANTS).maxCount(16).rarity(Rarity.COMMON));

@@ -51,6 +51,8 @@ import java.util.Optional;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class ScaredyshroomEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);

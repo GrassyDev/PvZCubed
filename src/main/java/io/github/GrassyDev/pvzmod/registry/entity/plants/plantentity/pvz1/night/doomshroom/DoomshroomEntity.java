@@ -52,6 +52,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class DoomshroomEntity extends PlantEntity implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);

@@ -55,6 +55,8 @@ import java.util.Objects;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
 	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -418,8 +420,9 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 	public static boolean canSunflowerSeedSpawn(EntityType<? extends SunflowerSeedEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
 		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR) &&
+					!checkPlant(Vec3d.ofCenter(pos), world, type) &&
 					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && world.getAmbientDarkness() < 4 &&
-				world.getLightLevel(LightType.SKY, pos) > 10 && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+				world.getLightLevel(LightType.SKY, pos) > 10 && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN) && PVZCONFIG.nestedSpawns.spawnPlants();
 	}
 
 

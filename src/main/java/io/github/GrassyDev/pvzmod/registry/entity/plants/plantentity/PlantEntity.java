@@ -32,6 +32,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.*;
@@ -728,6 +729,17 @@ public abstract class PlantEntity extends GolemEntity {
 		Vec3d vec3d1 = this.getPos();
 		Vec3d vec3d2 = new Vec3d(vec3d1.x, vec3d1.y - maxDistance, vec3d1.z);
 		return this.world.raycast(new RaycastContext(vec3d1, vec3d2, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.ANY, this));
+	}
+
+	public static boolean checkPlant(Vec3d pos, ServerWorldAccess world, EntityType<?> type) {
+		List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(pos).expand(20));
+		List<PlantEntity> list1 = new ArrayList<>();
+		for (PlantEntity plantEntity : list){
+			if (plantEntity.getType() != type){
+				list1.add(plantEntity);
+			}
+		}
+		return !list1.isEmpty();
 	}
 
 	public static class PlantData implements EntityData {

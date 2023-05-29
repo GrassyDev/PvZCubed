@@ -29,6 +29,7 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
@@ -43,6 +44,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.List;
 import java.util.Objects;
+
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, RangedAttackMob {
 
@@ -372,7 +375,8 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 	public static boolean canWeenieBeanieSpawn(EntityType<? extends WeenieBeanieEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, RandomGenerator random) {
 		BlockPos blockPos = pos.down();
 		return !world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR) &&
+					!checkPlant(Vec3d.ofCenter(pos), world, type) &&
 					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && world.getAmbientDarkness() < 4 &&
-				world.getLightLevel(LightType.SKY, pos) > 10 && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+				world.getLightLevel(LightType.SKY, pos) > 10 && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN) && PVZCONFIG.nestedSpawns.spawnPlants();
 	}
 }

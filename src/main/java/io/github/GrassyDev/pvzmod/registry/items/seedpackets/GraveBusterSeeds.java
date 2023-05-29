@@ -111,9 +111,19 @@ public class GraveBusterSeeds extends SeedItem implements FabricItem {
             Vec3d vec3d = Vec3d.ofBottomCenter(blockPos);
             Box box = PvZEntity.GRAVEBUSTER.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 			List<LivingEntity> list = new ArrayList<>();
+			List<LivingEntity> list2 = new ArrayList<>();
 			list.addAll(world.getNonSpectatingEntities(GraveEntity.class, box.expand(0)));
 			list.addAll(world.getNonSpectatingEntities(ZombieObstacleEntity.class, box.expand(0)));
-			if (world instanceof ServerWorld && !list.isEmpty()) {
+			for (LivingEntity livingEntity : list){
+				if (livingEntity instanceof GraveEntity graveEntity && graveEntity.isChallengeGrave()){
+					list2.clear();
+					break;
+				}
+				else {
+					list2.add(livingEntity);
+				}
+			}
+			if (world instanceof ServerWorld && !list2.isEmpty()) {
                     ServerWorld serverWorld = (ServerWorld) world;
                     GravebusterEntity plantEntity = (GravebusterEntity) PvZEntity.GRAVEBUSTER.create(serverWorld, itemStack.getNbt(), (Text) null, context.getPlayer(), blockPos, SpawnReason.SPAWN_EGG, true, true);
                     if (plantEntity == null) {

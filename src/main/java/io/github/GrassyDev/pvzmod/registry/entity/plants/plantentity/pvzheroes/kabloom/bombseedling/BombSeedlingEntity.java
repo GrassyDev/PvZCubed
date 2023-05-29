@@ -49,6 +49,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -498,12 +500,14 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 		float nightchance = random.nextFloat();
 		if (nightchance <= 0.5){
 			return !world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR) &&
-					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+					!checkPlant(Vec3d.ofCenter(pos), world, type) &&
+					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN) && PVZCONFIG.nestedSpawns.spawnPlants();
 		}
 		else {
 			return !world.getBlockState(blockPos).isOf(Blocks.AIR) && !world.getBlockState(blockPos).isOf(Blocks.CAVE_AIR) &&
+					!checkPlant(Vec3d.ofCenter(pos), world, type) &&
 					!world.getBlockState(blockPos).getBlock().hasDynamicBounds() && world.getAmbientDarkness() < 4 &&
-					world.getLightLevel(LightType.SKY, pos) > 10 && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN);
+					world.getLightLevel(LightType.SKY, pos) > 10 && Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(PvZCubed.SHOULD_PLANT_SPAWN) && PVZCONFIG.nestedSpawns.spawnPlants();
 		}
 	}
 }
