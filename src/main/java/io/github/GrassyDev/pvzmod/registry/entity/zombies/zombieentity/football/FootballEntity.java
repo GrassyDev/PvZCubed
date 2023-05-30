@@ -16,6 +16,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.FootballVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieprops.metallichelmet.MetalHelmetEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.minecraft.block.BlockState;
@@ -48,6 +49,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -407,6 +409,22 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
+			LivingEntity zombie = this.CollidesWithZombie(1f);
+			if (this.CollidesWithZombie(1f) instanceof SuperFanImpEntity superFanImpEntity && superFanImpEntity.CollidesWithPlant(1f) == null && superFanImpEntity.isOnGround() && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTackleStage()){
+				this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+				if (this.getVariant().equals(FootballVariants.DEFAULT) || this.getVariant().equals(FootballVariants.FOOTBALLHYPNO)) {
+					this.setTackleStage(TackleStage.EATING);
+				}
+				Vec3d vec3d = new Vec3d(1.25, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+				superFanImpEntity.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			}
+			else if (zombie instanceof GeneralPvZombieEntity generalPvZombieEntity && ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("small") && generalPvZombieEntity.CollidesWithPlant(1f) == null && generalPvZombieEntity.isOnGround() && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTackleStage()) {
+				if (this.getVariant().equals(FootballVariants.BERSERKERHYPNO) || this.getVariant().equals(FootballVariants.BERSERKER)) {
+					this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
+					Vec3d vec3d = new Vec3d(1.25, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+					generalPvZombieEntity.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+				}
+			}
 			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
 				this.setTarget(CollidesWithPlant(1f));

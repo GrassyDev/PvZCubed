@@ -11,7 +11,9 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.hypnoshroom.HypnoshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.jalapeno.FireTrailEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.football.FootballEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.imp.superfan.SuperFanImpEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PowderSnowBlock;
@@ -483,6 +485,22 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 			}
 		}
 		return setPlant;
+	}
+
+	public LivingEntity CollidesWithZombie(Float colliderOffset){
+		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+		List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
+		LivingEntity setZombie = null;
+		for (LivingEntity zombieEntity : list) {
+			if (zombieEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.getHypno()) {
+				setZombie = zombieEntity;
+			}
+			if (zombieEntity instanceof SuperFanImpEntity && this instanceof FootballEntity){
+				setZombie = zombieEntity;
+				break;
+			}
+		}
+		return setZombie;
 	}
 
 	public TileEntity HasTile(BlockPos blockPos){

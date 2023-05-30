@@ -56,6 +56,9 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static io.github.GrassyDev.pvzmod.PvZCubed.PLANT_LOCATION;
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
@@ -304,20 +307,28 @@ public class ImpEntity extends PvZombieEntity implements IAnimatable {
 			this.setStealthTag(Stealth.FALSE);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED) && !this.hasStatusEffect(PvZCubed.BOUNCED)){
+			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				if (this.isOnGround() || this.isInsideWaterOrBubbleColumn()){
 					this.setVelocity(0, -0.3, 0);
+					this.setTarget(CollidesWithPlant(1f));
 				}
-				else if (!this.hasStatusEffect(PvZCubed.BOUNCED)) {
-					this.setVelocity(0, -1, 0);
-				}
-				this.setTarget(CollidesWithPlant(1f));
 				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
 				this.setTarget(CollidesWithPlayer(1.5f));
 				this.setStealthTag(Stealth.FALSE);
 			}
+		}
+		List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, PvZEntity.IMP.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()).expand(0.25));
+		List<PlantEntity> list1 = new ArrayList<>();
+		for (LivingEntity livingEntity : list){
+			if (livingEntity instanceof PlantEntity plantEntity && (PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("tall") || PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying"))){
+				list1.add(plantEntity);
+			}
+		}
+		if (!list1.isEmpty() && !this.hasStatusEffect(PvZCubed.BOUNCED) && !this.onGround && !this.isInsideWaterOrBubbleColumn()){
+			this.setVelocity(0, -0.3, 0);
+			this.setTarget(list1.get(0));
 		}
 	}
 
