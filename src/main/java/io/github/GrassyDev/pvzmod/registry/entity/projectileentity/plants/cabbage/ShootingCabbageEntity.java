@@ -6,6 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -166,29 +168,34 @@ public class ShootingCabbageEntity extends PvZProjectileEntity implements IAnima
 			if (!world.isClient && entity instanceof Monster monster &&
 					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 					!(zombiePropEntity2 != null && !(zombiePropEntity2 instanceof ZombieShieldEntity)) &&
-					!(entity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.hasVehicle())) {
-				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
-				SoundEvent sound;
-				sound = switch (zombieMaterial) {
-					case "metallic" -> PvZSounds.BUCKETHITEVENT;
-					case "plastic" -> PvZSounds.CONEHITEVENT;
-					case "stone" -> PvZSounds.STONEHITEVENT;
-					default -> PvZSounds.PEAHITEVENT;
-				};
-				entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
-				float damage = PVZCONFIG.nestedProjDMG.cabbageDMG();
-				if (damage > ((LivingEntity) entity).getHealth() &&
-						!(entity instanceof ZombieShieldEntity) &&
-						entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
-					float damage2 = damage - ((LivingEntity) entity).getHealth();
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
-					generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+					!(entity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.hasVehicle() && !(entity instanceof ZombieRiderEntity))) {
+				if (zombiePropEntity2 instanceof ZombieRiderEntity) {
+
 				} else {
-					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+					System.out.println(entity);
+					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
+					SoundEvent sound;
+					sound = switch (zombieMaterial) {
+						case "metallic" -> PvZSounds.BUCKETHITEVENT;
+						case "plastic" -> PvZSounds.CONEHITEVENT;
+						case "stone" -> PvZSounds.STONEHITEVENT;
+						default -> PvZSounds.PEAHITEVENT;
+					};
+					entity.playSound(sound, 0.2F, (float) (0.5F + Math.random()));
+					float damage = PVZCONFIG.nestedProjDMG.cabbageDMG();
+					if (damage > ((LivingEntity) entity).getHealth() &&
+							!(entity instanceof ZombieShieldEntity) &&
+							entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
+						float damage2 = damage - ((LivingEntity) entity).getHealth();
+						entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+						generalPvZombieEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage2);
+					} else {
+						entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
+					}
+					this.world.sendEntityStatus(this, (byte) 3);
+					this.remove(RemovalReason.DISCARDED);
+					break;
 				}
-				this.world.sendEntityStatus(this, (byte) 3);
-				this.remove(RemovalReason.DISCARDED);
-				break;
 			}
 		}
     }

@@ -31,10 +31,13 @@ public abstract class PvZProjectileEntity extends ThrownItemEntity {
 		this.hitEntities.clear();
 	}
 
-	protected List<Entity> hitEntities = new ArrayList<>();
+	public List<Entity> hitEntities = new ArrayList<>();
+
+	public List<Entity> moreEntities = new ArrayList<>();
 
 	public void hitEntities(){
 		List<Entity> hit = this.world.getNonSpectatingEntities(Entity.class, this.getBoundingBox().stretch(0, -0.5, 0));
+		hit.addAll(moreEntities);
 		for (Entity entity : hit){
 			if (entity instanceof GraveEntity graveEntity && graveEntity.decorative){
 

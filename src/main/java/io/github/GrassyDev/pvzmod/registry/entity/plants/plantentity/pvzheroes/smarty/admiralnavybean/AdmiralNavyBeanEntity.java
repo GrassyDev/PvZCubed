@@ -8,6 +8,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.spit.SpitEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -168,7 +169,7 @@ public class AdmiralNavyBeanEntity extends PlantEntity implements IAnimatable, R
 			}
 		}
 		Entity damaged = target;
-		if (passenger != null) {
+		if (passenger != null && !(passenger instanceof ZombieRiderEntity)){
 			damaged = passenger;
 		}
 		if (i <= 0) {

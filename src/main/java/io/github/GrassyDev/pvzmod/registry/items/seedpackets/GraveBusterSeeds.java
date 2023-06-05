@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.gravebuster.GravebusterEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -118,6 +119,9 @@ public class GraveBusterSeeds extends SeedItem implements FabricItem {
 				if (livingEntity instanceof GraveEntity graveEntity && graveEntity.isChallengeGrave()){
 					list2.clear();
 					break;
+				}
+				else if (livingEntity instanceof ZombieRiderEntity){
+					list2.remove(livingEntity);
 				}
 				else {
 					list2.add(livingEntity);

@@ -48,8 +48,6 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
 
     private String controllerName = "kelpcontroller";
 
-
-
 	public boolean isFiring;
 	private int animationTicksLeft;
 	public boolean firstAttack;
@@ -70,6 +68,7 @@ public class TangleKelpEntity extends PlantEntity implements IAnimatable {
         this.ignoreCameraFrustum = true;
 		amphibiousRaycastDelay = 1;
 		this.setNoGravity(true);
+		this.noBiggie = true;
     }
 
 	public TangleKelpEntity(World world, double x, double y, double z) {

@@ -5,10 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -191,6 +188,7 @@ public abstract class PlantEntity extends GolemEntity {
 	public boolean targetMedium;
 	public boolean targetNotCovered;
 	public boolean targetNotObstacle;
+	public boolean noBiggie;
 
 	protected void targetZombies(Vec3d pos, int yDiff, boolean canHitSnorkel, boolean canHitFlying, boolean canHitStealth){
 		List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getPos()).expand(this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE) + 1));
@@ -216,14 +214,18 @@ public abstract class PlantEntity extends GolemEntity {
 						}
 					}
 					if (!(hostileEntity instanceof ZombiePropEntity && !(hostileEntity instanceof ZombieObstacleEntity))) {
-						if (hostileEntity.squaredDistanceTo(pos) <= Math.pow(this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE), 2) &&
+						if (this.noBiggie && (ZOMBIE_SIZE.get(hostileEntity.getType()).orElse("medium").equals("big") || ZOMBIE_SIZE.get(hostileEntity.getType()).orElse("medium").equals("gargantuar"))){
+
+						}
+						else if (hostileEntity.squaredDistanceTo(pos) <= Math.pow(this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE), 2) &&
 								(hostileEntity.getY() < (this.getY() + yDiff) && hostileEntity.getY() > (this.getY() - yDiff)) && hostileEntity.isAlive()) {
 							if (hostileEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
 									!(generalPvZombieEntity.getHypno())) {
 								int currentStrength = ZOMBIE_STRENGTH.get(generalPvZombieEntity.getType()).orElse(0);
 								if (!(!ZOMBIE_SIZE.get(hostileEntity.getType()).orElse("medium").equals("medium") && targetMedium) &&
 										!(generalPvZombieEntity.isCovered() && targetNotCovered) &&
-										!(generalPvZombieEntity instanceof ZombieObstacleEntity && targetNotObstacle)) {
+										!(generalPvZombieEntity instanceof ZombieVehicleEntity && targetNotCovered) &&
+										!((generalPvZombieEntity instanceof ZombieObstacleEntity && !(generalPvZombieEntity instanceof ZombieRiderEntity zombieRiderEntity && !(zombieRiderEntity.hasVehicle()))) && targetNotObstacle)) {
 									isIced = hostileEntity.hasStatusEffect(PvZCubed.ICE) || hostileEntity.hasStatusEffect(PvZCubed.FROZEN);
 									isPoisoned = hostileEntity.hasStatusEffect(PvZCubed.PVZPOISON);
 									if (hasHelmet) {

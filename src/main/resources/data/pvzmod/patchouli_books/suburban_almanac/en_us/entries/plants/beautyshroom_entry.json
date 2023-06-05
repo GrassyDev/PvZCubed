@@ -13,7 +13,7 @@
         "$(br)$(#bd951a)Blast Radius: $()$(#ff0000)5 Blocks",
         "$(br)$(#bd951a)Fuse Time: $()$(#ff0000)0.75s",
         "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)12.5s",
-        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Magic Damage. Stuns Zombies for 5 seconds. 16.66% chance to Hypnotize.",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Nocturnal. Low Profile Explosion. Magic Damage. Stuns Zombies for 5 seconds. 16.66% chance to Hypnotize.",
         "$(br2)$(#bd951a)\"Lip Gloss. Check. Eyeliners. Check. Metformin. Check. My beauty is too sweet even for me.\""
       ]
     },

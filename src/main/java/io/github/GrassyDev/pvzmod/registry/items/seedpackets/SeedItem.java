@@ -28,6 +28,60 @@ public abstract class SeedItem extends Item {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		NbtCompound nbtCompound = stack.getOrCreateNbt();
 		if (entity instanceof PlayerEntity player) {
+			if (selected){
+				int smallSuns = 0;
+				int firstSmallSun = -1;
+				int largeSunSlot = -1;
+				int smallSunSlot = -1;
+				if (player.isSneaking()){
+					for (int x = 0; x < player.getInventory().size() -1; ++x){
+						for (int u = 0; u < player.getInventory().size() -1; ++u){
+							if (player.getInventory().getStack(u).isItemEqual(ModItems.SUN.getDefaultStack())){
+								if (player.getInventory().getStack(u).getCount() <= player.getInventory().getStack(u).getMaxCount() - 2){
+									largeSunSlot = u;
+								}
+								if (player.getInventory().getStack(u).getCount() < player.getInventory().getStack(u).getMaxCount()){
+									smallSunSlot = u;
+								}
+							}
+							if (largeSunSlot != -1) {
+								if (player.getInventory().getStack(largeSunSlot).getCount() > player.getInventory().getStack(largeSunSlot).getMaxCount() - 2) {
+									largeSunSlot = -1;
+								}
+							}
+							if (smallSunSlot != -1) {
+								if (player.getInventory().getStack(smallSunSlot).getCount() == player.getInventory().getStack(smallSunSlot).getMaxCount()) {
+									smallSunSlot = -1;
+								}
+							}
+						}
+						if (player.getInventory().getStack(x).isItemEqual(ModItems.SMALLSUN.getDefaultStack()) && (player.getInventory().getEmptySlot() != -1 || largeSunSlot != -1)){
+							if (player.getInventory().getStack(x).getCount() >=2){
+								player.getInventory().removeStack(x, 2);
+								player.getInventory().insertStack(ModItems.SUN.getDefaultStack());
+							}
+							else {
+								++smallSuns;
+							}
+							if (smallSuns >= 2){
+								player.getInventory().removeStack(firstSmallSun, 1);
+								player.getInventory().removeStack(x, 1);
+								smallSuns = 0;
+								firstSmallSun = -1;
+								player.getInventory().insertStack(ModItems.SUN.getDefaultStack());
+							}
+							else if (firstSmallSun == -1) {
+								firstSmallSun = x;
+							}
+						}
+						if (player.getInventory().getStack(x).isItemEqual(ModItems.LARGESUN.getDefaultStack()) && (player.getInventory().getEmptySlot() != -1 || largeSunSlot != -1)){
+							player.getInventory().removeStack(x, 1);
+							player.getInventory().insertStack(ModItems.SUN.getDefaultStack());
+							player.getInventory().insertStack(ModItems.SUN.getDefaultStack());
+						}
+					}
+				}
+			}
 			if (player.isCreative()){
 				nbtCompound.putFloat("Cooldown", 0);
 				player.getItemCooldownManager().set(stack.getItem(), 0);

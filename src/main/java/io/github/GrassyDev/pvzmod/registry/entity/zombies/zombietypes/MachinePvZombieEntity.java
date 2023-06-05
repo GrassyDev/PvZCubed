@@ -12,6 +12,7 @@ public class MachinePvZombieEntity extends GeneralPvZombieEntity{
 
 	@Override
 	public void tick() {
+		this.setCanBurn(CanBurn.TRUE);
 		if (this.hasStatusEffect(PvZCubed.ICE)) {
 			this.removeStatusEffect(PvZCubed.ICE);
 		}

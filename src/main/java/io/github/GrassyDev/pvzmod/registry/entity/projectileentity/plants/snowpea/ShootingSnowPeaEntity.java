@@ -9,6 +9,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.pea.Sh
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -192,7 +193,7 @@ public class ShootingSnowPeaEntity extends PvZProjectileEntity implements IAnima
 					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
 					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 				if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WARM) && !entity.isOnFire() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.FROZEN)) {
-					if (!(entity instanceof ZombieShieldEntity)) {
+					if (!(entity instanceof ZombieShieldEntity) || (entity instanceof ZombieRiderEntity)) {
 						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));
 					}
 				}
@@ -204,7 +205,7 @@ public class ShootingSnowPeaEntity extends PvZProjectileEntity implements IAnima
 					case "stone" -> PvZSounds.STONEHITEVENT;
 					default -> PvZSounds.PEAHITEVENT;
 				};
-				if (entity instanceof ZombieShieldEntity || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())) {
+				if ((entity instanceof ZombieShieldEntity && !(entity instanceof ZombieRiderEntity)) || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())) {
 					entity.playSound(sound, 0.2F, 1F);
 				} else {
 					entity.playSound(PvZSounds.SNOWPEAHITEVENT, 0.2F, 1F);

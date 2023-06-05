@@ -77,14 +77,18 @@ public class PvZCubed implements ModInitializer {
 
 	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_PLANT_DROP =
 			GameRuleRegistry.register("pvzdoPlantDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
+	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_SUNFLOWER_DROP =
+			GameRuleRegistry.register("pvzdoSunflowerDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
 
 	public static final GameRules.Key<GameRules.BooleanRule> SHOULD_ZOMBIE_DROP =
 			GameRuleRegistry.register("pvzdoZombieDrop", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(true));
 
 	public static final GameRules.Key<GameRules.BooleanRule> INFINITE_SEEDS =
-			GameRuleRegistry.register("pvzinfiniteSeeds", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(false));
+			GameRuleRegistry.register("pvzinfiniteSeeds", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(false));
 	public static final GameRules.Key<GameRules.BooleanRule> INSTANT_RECHARGE =
-			GameRuleRegistry.register("pvzinstantRecharge", GameRules.Category.DROPS, GameRuleFactory.createBooleanRule(false));
+			GameRuleRegistry.register("pvzinstantRecharge", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(false));
+	public static final GameRules.Key<GameRules.BooleanRule> COSTS_SUN =
+			GameRuleRegistry.register("pvzseedCostSun", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(false));
 
 	public static final GameRules.Key<GameRules.BooleanRule> PLANTS_GLOW =
 			GameRuleRegistry.register("pvzplantsGlow", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(true));
@@ -245,6 +249,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.BACKUPDANCEREGG));
 				stacks.add(new ItemStack(ModItems.SNORKELEGG));
 				stacks.add(new ItemStack(ModItems.DOLPHINRIDEREGG));
+				stacks.add(new ItemStack(ModItems.ZOMBONIEGG));
 				stacks.add(new ItemStack(ModItems.GARGANTUAREGG));
 				stacks.add(new ItemStack(ModItems.IMPEGG));
 				stacks.add(new ItemStack(ModItems.TRASHCANEGG));

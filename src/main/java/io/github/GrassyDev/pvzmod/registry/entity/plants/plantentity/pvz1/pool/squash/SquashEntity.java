@@ -6,6 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -161,8 +163,8 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 				if (((livingEntity instanceof Monster &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity) &&
-						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
-								generalPvZombieEntity.isFlying()))) {
+						(!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+								generalPvZombieEntity.isFlying()) || livingEntity instanceof ZombieRiderEntity))) {
 					if (damage > livingEntity.getHealth() &&
 							!(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
@@ -213,6 +215,14 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 	}
 
 	/** /~*~//~*TICKING*~//~*~/ **/
+
+	@Override
+	protected void applyDamage(DamageSource source, float amount) {
+		if (this.getTarget() == null || source.getAttacker() instanceof PlayerEntity) {
+			super.applyDamage(source, amount);
+		}
+	}
+
 
 	public void tick() {
 		super.tick();

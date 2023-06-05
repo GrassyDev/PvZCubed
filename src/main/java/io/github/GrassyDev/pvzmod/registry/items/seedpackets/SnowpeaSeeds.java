@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
@@ -24,8 +25,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Style;
-import net.minecraft.text.Style;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -130,6 +129,18 @@ public class SnowpeaSeeds extends SeedItem implements FabricItem {
 						if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 							user.getItemCooldownManager().set(this, cooldown);
 						}
+						if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+							int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
+							int slot2 = user.getInventory().getSlotWithStack(ModItems.SMALLSUN.getDefaultStack());
+							if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 3 && slot2 != -1) {
+								user.getInventory().removeStack(slot, 3);
+								user.getInventory().removeStack(slot2, 1);
+							}
+							else if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 4){
+								user.getInventory().removeStack(slot, 4);
+								user.getInventory().insertStack(ModItems.SMALLSUN.getDefaultStack());
+							}
+						}
 					}
 					return ActionResult.success(world.isClient);
 				} else {
@@ -179,6 +190,18 @@ public class SnowpeaSeeds extends SeedItem implements FabricItem {
 					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 						user.getItemCooldownManager().set(this, cooldown);
 					}
+					if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+						int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
+						int slot2 = user.getInventory().getSlotWithStack(ModItems.SMALLSUN.getDefaultStack());
+						if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 3 && slot2 != -1) {
+							user.getInventory().removeStack(slot, 3);
+							user.getInventory().removeStack(slot2, 1);
+						}
+						else if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 4){
+							user.getInventory().removeStack(slot, 4);
+							user.getInventory().insertStack(ModItems.SMALLSUN.getDefaultStack());
+						}
+					}
 				}
 				return ActionResult.success(world.isClient);
 			} else {
@@ -214,6 +237,18 @@ public class SnowpeaSeeds extends SeedItem implements FabricItem {
 				}
 				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 					user.getItemCooldownManager().set(this, cooldown);
+				}
+				if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+					int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
+					int slot2 = user.getInventory().getSlotWithStack(ModItems.SMALLSUN.getDefaultStack());
+					if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 3 && slot2 != -1) {
+						user.getInventory().removeStack(slot, 3);
+						user.getInventory().removeStack(slot2, 1);
+					}
+					else if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 4){
+						user.getInventory().removeStack(slot, 4);
+						user.getInventory().insertStack(ModItems.SMALLSUN.getDefaultStack());
+					}
 				}
 			}
 			return ActionResult.success(world.isClient);

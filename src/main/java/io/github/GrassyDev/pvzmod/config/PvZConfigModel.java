@@ -452,6 +452,8 @@ public class PvZConfigModel {
 		public double snorkelH = 50D;
 		@RestartRequired
 		public double zombiekingH = 100D;
+		@RestartRequired
+		public double zomboniH = 65D;
 
 		@RestartRequired
 		public double coneH = 37D;
@@ -495,5 +497,8 @@ public class PvZConfigModel {
 		public double trashcanObstH = 225D;
 		@RestartRequired
 		public double basketballObstH = 120D;
+
+		@RestartRequired
+		public double zomboniVH = 135D;
 	}
 }

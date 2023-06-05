@@ -1,6 +1,7 @@
 package io.github.GrassyDev.pvzmod.mixin;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
+import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.SeedItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -34,15 +35,15 @@ public abstract class PlayerMixin extends LivingEntity {
 	@Inject(method = "tick", at = @At("HEAD"))
     public void pvzmod$tick(CallbackInfo ci) {
 		if ((this.getInventory().getMainHandStack().getItem() instanceof SeedItem
-				|| this.getInventory().getMainHandStack().getItem() instanceof ShovelItem) && this.getOffHandStack().isEmpty() &&
+				|| this.getInventory().getMainHandStack().getItem() instanceof ShovelItem) && (this.getOffHandStack().isEmpty() || this.getOffHandStack().isItemEqual(ModItems.SUN.getDefaultStack())) &&
 				!this.getAttributes().hasModifierForAttribute(ReachEntityAttributes.REACH, MAX_REACH_UUID)){
 			EntityAttributeInstance maxReachAttribute = this.getAttributeInstance(ReachEntityAttributes.REACH);
 			assert maxReachAttribute != null;
 			maxReachAttribute.removeModifier(MAX_REACH_UUID);
 			maxReachAttribute.addPersistentModifier(createReachModifier(15D));
 		}
-		if ((!(this.getInventory().getMainHandStack().getItem() instanceof SeedItem) && !(this.getInventory().getMainHandStack().getItem() instanceof ShovelItem)) ||
-		!this.getOffHandStack().isEmpty() && this.getAttributes().hasModifierForAttribute(ReachEntityAttributes.REACH, MAX_REACH_UUID)) {
+		if ((!(this.getInventory().getMainHandStack().getItem() instanceof SeedItem) && !(this.getInventory().getMainHandStack().getItem() instanceof ShovelItem))  ||
+				(!this.getOffHandStack().isEmpty() && !this.getOffHandStack().isItemEqual(ModItems.SUN.getDefaultStack())) && this.getAttributes().hasModifierForAttribute(ReachEntityAttributes.REACH, MAX_REACH_UUID)) {
 			EntityAttributeInstance maxReachAttribute = this.getAttributeInstance(ReachEntityAttributes.REACH);
 			assert maxReachAttribute != null;
 			maxReachAttribute.removeModifier(MAX_REACH_UUID);

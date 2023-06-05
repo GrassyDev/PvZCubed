@@ -6,6 +6,8 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -193,7 +195,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 			}
 		}
 		Entity damaged = target;
-		if (passenger != null) {
+		if (passenger != null && !(passenger instanceof ZombieRiderEntity)){
 			damaged = passenger;
 		}
 		if (i <= 0) {

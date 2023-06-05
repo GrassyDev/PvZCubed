@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": {
-    "pvzmod:robocone": true
+    "pvzmod:robocone": true,
+    "pvzmod:zombonivehicle": true
   }
 }

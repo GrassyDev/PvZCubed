@@ -5,9 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -243,7 +241,7 @@ public class ShootingBoomerangEntity extends PvZProjectileEntity implements IAni
 					}
 					entityStore.remove(entity);
 					entityStoreVehicle.remove(entity);
-					if (!(entity instanceof ZombieShieldEntity)) {
+					if (!(entity instanceof ZombieShieldEntity) || (entity instanceof ZombieRiderEntity)) {
 						entityStoreVehicle.remove(entity.getVehicle());
 					}
 				}
@@ -251,7 +249,8 @@ public class ShootingBoomerangEntity extends PvZProjectileEntity implements IAni
 			if (!world.isClient && entity instanceof Monster monster &&
 					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 					!(zombiePropEntity != null && !(zombiePropEntity instanceof ZombieShieldEntity)) &&
-					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
+					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth())
+					&& !(entity instanceof ZombieVehicleEntity && (zombiePropEntity instanceof ZombieObstacleEntity)) &&
 					!this.getReturning() && !this.retuningStart && damageCounter <= 2 && !entityStore.contains(entity) && !entityStoreVehicle.contains(entity)) {
 				float damage = PVZCONFIG.nestedProjDMG.boomerangDMG();
 				String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
@@ -274,7 +273,7 @@ public class ShootingBoomerangEntity extends PvZProjectileEntity implements IAni
 				} else {
 					entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 					entityStore.add(entity);
-					if (!(entity instanceof ZombieShieldEntity)) {
+					if (!(entity instanceof ZombieShieldEntity) || (entity instanceof ZombieRiderEntity)) {
 						entityStoreVehicle.add(entity.getVehicle());
 					}
 				}

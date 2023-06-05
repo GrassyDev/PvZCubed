@@ -406,7 +406,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		if (randomChallenge <= 0.33333) {
 			if (this.world.getGameRules().getBoolean(PvZCubed.SHOULD_ZOMBIE_DROP)) {
-				if (!(this instanceof ZombiePropEntity)) {
+				if (!(this instanceof ZombiePropEntity && !(this instanceof ZombieRiderEntity))) {
 					double random = Math.random();
 					float multiplier = ZOMBIE_STRENGTH.get(this.getType()).orElse(1);
 					if (multiplier > 9) {

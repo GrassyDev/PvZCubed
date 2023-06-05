@@ -2,9 +2,11 @@
   "gamerule.pvzdoPlantSpawn": "[PVZ] Plants Spawn",
   "gamerule.pvzdoGraveSpawn": "[PVZ] Graves Spawn",
   "gamerule.pvzdoPlantDrop": "[PVZ] Plants Drop Loot",
+  "gamerule.pvzdoSunflowerDrop": "[PVZ] Sunflowers drop Sun when Planted",
   "gamerule.pvzdoZombieDrop": "[PVZ] Zombies Drop Loot",
   "gamerule.pvzinfiniteSeeds": "[PVZ] Infinite Seeds",
   "gamerule.pvzinstantRecharge": "[PVZ] Instant Seed Packet Recharge",
+  "gamerule.pvzseedCostSun": "[PVZ] Seeds Cost Sun",
   "gamerule.pvzplantsGlow": "[PVZ] Natural Spawned Plants Glow",
 
   "text.config.pvz3-config.title": "Plants vs. Zombies: Cubed",
@@ -256,6 +258,7 @@
   "text.config.pvz3-config.option.nestedZombieHealth.roboconeH": "Robo-Cone Health",
   "text.config.pvz3-config.option.nestedZombieHealth.snorkelH": "Snorkel Zombie Health",
   "text.config.pvz3-config.option.nestedZombieHealth.zombiekingH": "Zombie King Health",
+  "text.config.pvz3-config.option.nestedZombieHealth.zomboniH": "Zomboni Pilot Health",
 
   "text.config.pvz3-config.option.nestedZombieHealth.coneH": "Cone Gear Health",
   "text.config.pvz3-config.option.nestedZombieHealth.bucketH": "Bucket Gear Health",
@@ -275,6 +278,7 @@
   "text.config.pvz3-config.option.nestedZombieHealth.sundayShieldH": "Sunday Edition Shield Health",
   "text.config.pvz3-config.option.nestedZombieHealth.trashcanObstH": "Trash Can Obstacle Health",
   "text.config.pvz3-config.option.nestedZombieHealth.basketballObstH": "Basketball Obstacle Health",
+  "text.config.pvz3-config.option.nestedZombieHealth.zomboniVH": "Zomboni Vehicle Health",
 
 
   "itemGroup.pvzmod.plants": "Plants",
@@ -753,6 +757,11 @@
   "entity.pvzmod.dolphinrider": "Dolphin Rider Zombie",
   "item.pvzmod.dolphinrider_egg": "Dolphin Rider Zombie",
   "entity.pvzmod.dolphinrider_hypnotized": "Hypnotized Dolphin Rider Zombie",
+
+  "entity.pvzmod.zomboni": "Zomboni Pilot Zombie",
+  "item.pvzmod.zomboni_egg": "Zomboni",
+  "entity.pvzmod.zomboni_hypnotized": "Hypnotized Zomboni Pilot Zombie",
+  "entity.pvzmod.zombonivehicle": "Zomboni Vehicle",
 
   "entity.pvzmod.gargantuar": "Gargantuar",
   "item.pvzmod.gargantuar_egg": "Gargantuar",

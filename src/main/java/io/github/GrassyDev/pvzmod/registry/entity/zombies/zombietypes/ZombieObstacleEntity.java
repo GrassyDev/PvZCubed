@@ -20,8 +20,11 @@ public abstract class ZombieObstacleEntity extends ZombieShieldEntity{
 	@Override
 	public void tick() {
 		super.tick();
-		List<GravebusterEntity> list = world.getNonSpectatingEntities(GravebusterEntity.class, entityBox.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
-		this.beingEaten = !list.isEmpty();
+		this.setCanBurn(CanBurn.TRUE);
+		if (!(this instanceof ZombieRiderEntity)) {
+			List<GravebusterEntity> list = world.getNonSpectatingEntities(GravebusterEntity.class, entityBox.getDimensions().getBoxAt(this.getX(), this.getY(), this.getZ()));
+			this.beingEaten = !list.isEmpty();
+		}
 		if (!this.hasVehicle() && this.getHypno()){
 			this.setHypno(IsHypno.FALSE);
 		}

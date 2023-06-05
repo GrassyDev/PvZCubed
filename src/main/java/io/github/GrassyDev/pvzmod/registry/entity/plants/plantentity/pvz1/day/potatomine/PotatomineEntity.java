@@ -4,9 +4,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantuar.modernday.GargantuarEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -284,7 +282,7 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 			if (bl) {
 				float damage = 180;
 				if (((livingEntity instanceof Monster &&
-						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying()) &&
+						(!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) &&
 						!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 								&& (generalPvZombieEntity.getHypno()))) && checkList != null && !checkList.contains(livingEntity))) {
 					ZombiePropEntity zombiePropEntity2 = null;
@@ -302,11 +300,17 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 						checkList.add(livingEntity);
 						checkList.add(generalPvZombieEntity);
 					} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
+						if (zombieShieldEntity instanceof ZombieRiderEntity){
+							zombieShieldEntity.getVehicle().damage(DamageSource.thrownProjectile(this, this), damage);
+						}
 						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
 						checkList.add(zombieShieldEntity);
 					}
 					else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {
+						if (zombieShieldEntity instanceof ZombieRiderEntity){
+							livingEntity.getVehicle().damage(DamageSource.thrownProjectile(this, this), damage);
+						}
 						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 						checkList.add(livingEntity);
 						checkList.add(zombieShieldEntity);
@@ -316,6 +320,10 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
+						}
+						else if (livingEntity instanceof ZombieVehicleEntity) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add(livingEntity);
 						}
 						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);

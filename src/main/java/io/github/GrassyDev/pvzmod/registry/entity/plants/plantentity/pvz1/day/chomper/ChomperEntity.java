@@ -8,6 +8,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.variants.plants.ChomperVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieObstacleEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -204,12 +205,12 @@ public class ChomperEntity extends PlantEntity implements IAnimatable {
 			}
 		}
 		else if (target instanceof GraveEntity ||
-				target instanceof ZombieObstacleEntity ||
+				(target instanceof ZombieObstacleEntity && !(target instanceof ZombieRiderEntity)) ||
 				IS_MACHINE.get(target.getType()).orElse(false).equals(true) ||
 				ZOMBIE_SIZE.get(target.getType()).orElse("medium").equals("gargantuar") ||
 				ZOMBIE_SIZE.get(target.getType()).orElse("medium").equals("big")) {
 			Entity damaged = target;
-			if (passenger != null){
+			if (passenger != null && !(passenger instanceof ZombieRiderEntity)){
 				damaged = passenger;
 			}
 			if (i <= 0) {

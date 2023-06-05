@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -139,7 +140,7 @@ public class SmackadamiaEntity extends PlantEntity implements IAnimatable {
 				}
 			}
 			Entity damaged = target;
-			if (passenger != null && !(passenger instanceof ZombieShieldEntity)) {
+			if (passenger != null && (!(passenger instanceof ZombieShieldEntity) || passenger instanceof ZombieRiderEntity)) {
 				damaged = passenger;
 			}
 			if (i <= 0) {

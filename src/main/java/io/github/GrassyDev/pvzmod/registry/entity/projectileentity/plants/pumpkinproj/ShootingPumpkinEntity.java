@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectile
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.pumpkinzombie.PumpkinZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -163,7 +164,7 @@ public class ShootingPumpkinEntity extends PvZProjectileEntity implements IAnima
 			if (!world.isClient && entity instanceof Monster monster &&
 					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHypno())) &&
 					!(monster instanceof GeneralPvZombieEntity generalPvZombieEntity1 && (generalPvZombieEntity1.isCovered())) &&
-					!(entity instanceof ZombiePropEntity) && ZOMBIE_SIZE.get(entity.getType()).orElse("medium").equals("medium")) {
+					(!(entity instanceof ZombiePropEntity) || entity instanceof ZombieRiderEntity) && ZOMBIE_SIZE.get(entity.getType()).orElse("medium").equals("medium")) {
 				if (this.world instanceof ServerWorld serverWorld) {
 					this.playSound(PvZSounds.HYPNOTIZINGEVENT, 1.5F, 1.0F);
 					PumpkinZombieEntity hypnotizedZombie = (PumpkinZombieEntity) PvZEntity.PUMPKINZOMBIEHYPNO.create(world);

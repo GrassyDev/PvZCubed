@@ -42,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.SHOULD_SUNFLOWER_DROP;
 
 public class SunflowerSeeds extends SeedItem implements FabricItem {
 	public static int cooldown = (int) (PVZCONFIG.nestedSeeds.moreSeeds.sunflowerS() * 20);
@@ -54,7 +55,6 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 	public boolean allowNbtUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
 		return false;
 	}
-
 
 	public static final String COOL_KEY = "Cooldown";
 
@@ -145,7 +145,7 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 					 }
 					plantEntity.sunProducingTime = (int) (PVZCONFIG.nestedSun.sunflowerSecInitial() * 20);
                     world.playSound((PlayerEntity) null, plantEntity.getX(), plantEntity.getY(), plantEntity.getZ(), PvZSounds.PLANTPLANTEDEVENT, SoundCategory.BLOCKS, 0.6f, 0.8F);
-					if (PVZCONFIG.nestedSun.sunflowerDropSun()){
+					if (PVZCONFIG.nestedSun.sunflowerDropSun() && world.getGameRules().getBoolean(SHOULD_SUNFLOWER_DROP)){
 						plantEntity.playSound(PvZSounds.SUNDROPEVENT, 0.5F, 1F);
 						plantEntity.dropItem(ModItems.SUN);
 						plantEntity.dropItem(ModItems.SUN);
@@ -158,6 +158,12 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 			};
 						if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 							user.getItemCooldownManager().set(this, cooldown);
+						}
+						if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+							int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
+							if (slot != -1) {
+								user.getInventory().removeStack(slot, 1);
+							}
 						}
 					}
 					return ActionResult.success(world.isClient);
@@ -216,6 +222,12 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 						user.getItemCooldownManager().set(this, cooldown);
 					}
+					if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+						int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
+						if (slot != -1) {
+							user.getInventory().removeStack(slot, 1);
+						}
+					}
 				}
 				return ActionResult.success(world.isClient);
 			} else {
@@ -263,6 +275,12 @@ public class SunflowerSeeds extends SeedItem implements FabricItem {
 				}
 				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 					user.getItemCooldownManager().set(this, cooldown);
+				}
+				if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+					int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
+					if (slot != -1) {
+						user.getInventory().removeStack(slot, 1);
+					}
 				}
 			}
 			return ActionResult.success(world.isClient);

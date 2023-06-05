@@ -7,6 +7,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -193,7 +194,13 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 					zombiePropEntity2 = zpe;
 				}
 			}
-			if ((livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && (ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("small") || (zombiePropEntity2 == null || zombiePropEntity2 instanceof ZombieShieldEntity))) && !(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big") || ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall")) && !generalPvZombieEntity.isFlying() && !(livingEntity instanceof ZombiePropEntity) && !generalPvZombieEntity.isCovered()){
+			if ((livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
+					(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("small") ||
+							(zombiePropEntity2 == null || zombiePropEntity2 instanceof ZombieShieldEntity))) &&
+					!(ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("gargantuar") ||
+							ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("big") ||
+							ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("tall")) &&
+					(!generalPvZombieEntity.isFlying() || generalPvZombieEntity instanceof ZombieRiderEntity) && !(livingEntity instanceof ZombiePropEntity && !(livingEntity instanceof ZombieRiderEntity)) && !generalPvZombieEntity.isCovered()){
 				livingEntity.setVelocity(0, 0, 0);
 				livingEntity.addVelocity(0, 0.5, 0);
 				livingEntity.kill();
