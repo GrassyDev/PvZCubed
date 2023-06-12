@@ -172,7 +172,6 @@ public class ShootingCabbageEntity extends PvZProjectileEntity implements IAnima
 				if (zombiePropEntity2 instanceof ZombieRiderEntity) {
 
 				} else {
-					System.out.println(entity);
 					String zombieMaterial = PvZCubed.ZOMBIE_MATERIAL.get(entity.getType()).orElse("flesh");
 					SoundEvent sound;
 					sound = switch (zombieMaterial) {

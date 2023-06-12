@@ -6,6 +6,7 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.snowtile.SnowTile;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.hypnoshroom.HypnoshroomEntity;
@@ -447,8 +448,8 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 	}
 
-	public LivingEntity CollidesWithPlant(Float colliderOffset){
-		Vec3d vec3d = new Vec3d((double)colliderOffset, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
+	public LivingEntity CollidesWithPlant(Float colliderOffsetx, Float colliderOffsetz){
+		Vec3d vec3d = new Vec3d((double)colliderOffsetx, 0.0, colliderOffsetz).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 		List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, entityBox.getDimensions().getBoxAt(this.getX() + vec3d.x, this.getY(), this.getZ() + vec3d.z));
 		LivingEntity setPlant = null;
 		for (LivingEntity plantEntity : list) {
@@ -558,6 +559,35 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 
 			tile.setPersistent();
 			serverWorld.spawnEntityAndPassengers(tile);
+		}
+	}
+
+	public void createSnowTile(BlockPos blockPos){
+		if (this.world instanceof ServerWorld serverWorld) {
+			SnowTile tile = (SnowTile) PvZEntity.SNOWTILE.create(world);
+			tile.refreshPositionAndAngles(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0);
+			tile.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_EGG, (EntityData) null, (NbtCompound) null);
+
+			Vec3d vec3d = Vec3d.ofCenter(blockPos).add(0, -0.5, 0);
+
+			List<PlantEntity> list = world.getNonSpectatingEntities(PlantEntity.class, entityBox.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ()));
+			List<TileEntity> tileCheck = world.getNonSpectatingEntities(TileEntity.class, entityBox.getDimensions().getBoxAt(vec3d.getX(), vec3d.getY(), vec3d.getZ()));
+
+			if (tileCheck.isEmpty()) {
+				if (!list.isEmpty()) {
+					for (PlantEntity plantEntity : list) {
+						if (!PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("pepper") &&
+								!PLANT_TYPE.get(plantEntity.getType()).orElse("appease").equals("winter") &&
+								!PLANT_LOCATION.get(plantEntity.getType()).orElse("normal").equals("flying")) {
+							damage(DamageSource.GENERIC, plantEntity.getMaxHealth() * 5);
+						}
+					}
+				}
+				tile.setHeadYaw(0);
+
+				tile.setPersistent();
+				serverWorld.spawnEntityAndPassengers(tile);
+			}
 		}
 	}
 
@@ -715,7 +745,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		Vec3d lastPos = this.getPos();
 		if (this.firstPos != null && !this.isFlying()) {
-			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0 && --this.unstuckDelay <= 0 && !this.isInsideWaterOrBubbleColumn()) {
+			if (lastPos.squaredDistanceTo(firstPos) < 0.0001 && this.CollidesWithPlant(1f, 0f) == null && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTarget() != null && !this.hasStatusEffect(PvZCubed.FROZEN) && !this.hasStatusEffect(PvZCubed.STUN) && !this.hasStatusEffect(PvZCubed.DISABLE) && !this.hasStatusEffect(PvZCubed.ICE) && this.age >= 30 && this.attackingTick <= 0 && --this.unstuckDelay <= 0 && !this.isInsideWaterOrBubbleColumn()) {
 				this.setVelocity(0, 0, 0);
 				this.addVelocity(0, 0.3, 0);
 				++this.stuckTimes;
@@ -933,7 +963,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 					this.setStealthTag(Stealth.FALSE);
 					if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep() && !this.isCovered()){
 						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
-							hypnoshroomEntity.kill();
+							hypnoshroomEntity.damage(DamageSource.mob(this), hypnoshroomEntity.getMaxHealth() * 5);
 						}
 						this.damage(HYPNO_DAMAGE, 0);
 					}
@@ -952,7 +982,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 					this.setStealthTag(Stealth.FALSE);
 					if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep() && !this.isCovered()){
 						if (!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small")) {
-							hypnoshroomEntity.kill();
+							hypnoshroomEntity.damage(DamageSource.mob(this), hypnoshroomEntity.getMaxHealth() * 5);
 						}
 						this.damage(HYPNO_DAMAGE, 0);
 					}

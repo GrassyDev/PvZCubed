@@ -9,7 +9,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.jetpack.J
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -255,7 +254,7 @@ public class EMPeachEntity extends PlantEntity implements IAnimatable {
 						}
 					}
 					if (damage > livingEntity.getHealth() &&
-							!(livingEntity instanceof ZombieShieldEntity) &&
+							(!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity)) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 						float damage2 = damage - livingEntity.getHealth();
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);

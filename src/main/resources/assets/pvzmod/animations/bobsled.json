@@ -1,0 +1,18 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"bobsled.idle": {
+			"loop": true
+		},
+		"bobsled.fast": {
+			"loop": true,
+			"bones": {
+				"sled": {
+					"rotation": {
+						"vector": [-90, 72.5, -90]
+					}
+				}
+			}
+		}
+	}
+}

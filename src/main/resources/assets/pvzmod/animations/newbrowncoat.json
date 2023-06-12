@@ -6336,6 +6336,170 @@
 					}
 				}
 			}
+		},
+		"bobsled.sit": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"position": {
+						"vector": [0, -9, 0]
+					}
+				},
+				"torso": {
+					"position": {
+						"vector": [0, -9, 0]
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"vector": [0, 0, -25]
+					}
+				},
+				"leftforearm": {
+					"rotation": {
+						"vector": [0, 0, 10]
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"vector": [0, 0, 17.5]
+					}
+				},
+				"rightforearm": {
+					"rotation": {
+						"vector": [0, 0, -10]
+					}
+				},
+				"hip": {
+					"position": {
+						"vector": [0, -8, 0]
+					}
+				},
+				"ducky": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lefthigh": {
+					"rotation": {
+						"vector": [105, 0, 0]
+					}
+				},
+				"leftcalf": {
+					"position": {
+						"vector": [0, 8, 4.5]
+					}
+				},
+				"leftshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"righthigh": {
+					"rotation": {
+						"vector": [112.5, 0, 0]
+					}
+				},
+				"rightcalf": {
+					"position": {
+						"vector": [0, 9, 5]
+					}
+				},
+				"rightshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"bobsled.slide": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"position": {
+						"vector": [0, -9, 2]
+					}
+				},
+				"torso": {
+					"rotation": {
+						"vector": [-10, 0, 0]
+					},
+					"position": {
+						"vector": [0, -9, 0]
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"vector": [-175.68163, -6.13784, 29.76837]
+					}
+				},
+				"leftforearm": {
+					"rotation": {
+						"vector": [0, 0, 10]
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"vector": [-182.10886, -1.34295, -14.97528]
+					}
+				},
+				"rightforearm": {
+					"rotation": {
+						"vector": [0, 0, -10]
+					}
+				},
+				"hip": {
+					"position": {
+						"vector": [0, -8, 0]
+					},
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"ducky": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lefthigh": {
+					"rotation": {
+						"vector": [125, 0, 0]
+					}
+				},
+				"leftcalf": {
+					"position": {
+						"vector": [0, 10, 4.5]
+					}
+				},
+				"leftshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"righthigh": {
+					"rotation": {
+						"vector": [112.5, 0, 0]
+					}
+				},
+				"rightcalf": {
+					"position": {
+						"vector": [0, 9, 5]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"rightshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"jaw": {
+					"rotation": {
+						"vector": [5, 0, 0]
+					}
+				}
+			}
 		}
 	}
 }

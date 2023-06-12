@@ -9,7 +9,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.S
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -54,8 +53,6 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
@@ -275,7 +272,7 @@ public class GloomshroomEntity extends PlantEntity implements IAnimatable, Range
 							} else {
 								livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							}
-							if (!(livingEntity instanceof ZombieShieldEntity)) {
+							if ((!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity))) {
 								livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.PVZPOISON, 60, 6)));
 							}
 						}

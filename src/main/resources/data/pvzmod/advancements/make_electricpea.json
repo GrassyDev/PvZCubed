@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "pvzmod:electropea_seed_packet"
+    },
+    "title": "Pea Clone 2: Electric Boogaloo",
+    "description": "Craft an Electro Peashooter",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "pvzmod:make_repeater",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pvzmod:electropea_seed_packet"
+            ],
+            "count": {
+              "min": 1,
+              "max": 9999
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

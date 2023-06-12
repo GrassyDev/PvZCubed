@@ -46,6 +46,17 @@
     {
       "type": "text",
       "text": [
+        "$(br)Snow Tile",
+        "$(br)They prevent non-flying Plants and Plants that are not icy or fiery from being able to be planted on them. ",
+        "Fire attacks that damage the field (e.g. Jalapeno, Cherry Bomb, etc.) destroy them. ",
+        "Planting Pepper family Plants on top of them instantly destroys them. Pepper Plants emit heat around them that destroys the tiles.",
+        "They last for 2 minutes."
+
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
         "$(br)Ice Tile",
         "$(br)They apply Chill to non-flying Zombies that are close to them. ",
         "$(br)They are destroyed by fire attacks that damage the field (e.g. Cherry Bomb, Jalapeno, etc.)."

@@ -10,6 +10,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.dolphinrider.DolphinRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzombie.modernday.FlagzombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiemachines.metallicvehicle.MetalVehicleEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityData;
@@ -25,7 +26,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -52,8 +52,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.Objects;
-
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 
@@ -390,6 +388,8 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 			double probability5 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
 			double probability6 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
 			double probability7 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability8 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
+			double probability9 = random.nextDouble() * Math.pow(difficulty / 2, -1 * (difficulty / 2));
 
 			int zombiePos = -2 + PoolGraveEntity.this.random.nextInt(5);
 			int zombiePosZ = -2 + PoolGraveEntity.this.random.nextInt(5);
@@ -572,22 +572,52 @@ public class PoolGraveEntity extends GraveEntity implements IAnimatable {
 						}
 					}
 				}
-				/**if (difficulty >= 2.29 + difficultymodifier || isUnlock()) {
-				 if (probability7 <= 0.085) { // 8.5% x1 Zomboni
-				 for (int h = 0; h < 1; ++h) {
-				 if (!PoolGraveEntity.this.is1x1()) {
-				 zombiePosZ = PoolGraveEntity.this.random.range(-1, 1);
-				 zombiePos = PoolGraveEntity.this.random.range(-1, 1);
-				 }
-				 BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
-				 GargantuarEntity gargantuarEntity = (GargantuarEntity) PvZEntity.GARGANTUAR.create(PoolGraveEntity.this.world);
-				 gargantuarEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-				 gargantuarEntity.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-				 gargantuarEntity.setOwner(PoolGraveEntity.this);
-				 serverWorld.spawnEntityAndPassengers(gargantuarEntity);
-				 }
-				 }
-				 }**/
+				if (isUnlock() || isUnlockSpecial()) {
+					if (probability7 <= 0.1 / halfModifier) { // 10% x1 Zomboni
+						for (int h = 0; h < 1; ++h) {
+							if (!PoolGraveEntity.this.is1x1()) {
+								zombiePosZ = PoolGraveEntity.this.random.range(-1, 1);
+								zombiePos = PoolGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							MetalVehicleEntity zomboni = (MetalVehicleEntity) PvZEntity.ZOMBONIVEHICLE.create(PoolGraveEntity.this.world);
+							zomboni.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							zomboni.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							zomboni.setOwner(PoolGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(zomboni);
+						}
+					}
+					if (probability8 <= 0.15 / halfModifier) { // 15% x1 Zomboni
+						for (int h = 0; h < 1; ++h) {
+							if (!PoolGraveEntity.this.is1x1()) {
+								zombiePosZ = PoolGraveEntity.this.random.range(-1, 1);
+								zombiePos = PoolGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							MetalVehicleEntity zomboni = (MetalVehicleEntity) PvZEntity.ZOMBONIVEHICLE.create(PoolGraveEntity.this.world);
+							zomboni.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							zomboni.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							zomboni.setOwner(PoolGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(zomboni);
+						}
+					}
+				}
+				if (isUnlock() || isUnlockSpecial()) {
+					if (probability9 <= 0.25 / halfModifier) { // 25% x1 Bobsled
+						for (int h = 0; h < 1; ++h) {
+							if (!PoolGraveEntity.this.is1x1()) {
+								zombiePosZ = PoolGraveEntity.this.random.range(-1, 1);
+								zombiePos = PoolGraveEntity.this.random.range(-1, 1);
+							}
+							BlockPos blockPos = PoolGraveEntity.this.getBlockPos().add(zombiePos, 0.1, zombiePosZ);
+							MetalVehicleEntity bobsled = (MetalVehicleEntity) PvZEntity.BOBSLEDVEHICLE.create(PoolGraveEntity.this.world);
+							bobsled.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
+							bobsled.initialize(serverWorld, PoolGraveEntity.this.world.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+							bobsled.setOwner(PoolGraveEntity.this);
+							serverWorld.spawnEntityAndPassengers(bobsled);
+						}
+					}
+				}
 			}
 			++this.poolGraveEntity.spawnCounter;
 			WorldChunk chunk1 = this.poolGraveEntity.world.getWorldChunk(this.poolGraveEntity.getBlockPos());

@@ -7,7 +7,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectile
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -233,7 +232,7 @@ public class ShootingPepperEntity extends PvZProjectileEntity implements IAnimat
 						entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damage);
 					}
 					hit = true;
-					if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn()) && !(entity instanceof ZombieShieldEntity)) {
+					if (!entity.isWet() && !((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn()) && (!(entity instanceof ZombieShieldEntity) || (entity instanceof ZombieRiderEntity))) {
 						((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 						((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
 						entity.setOnFireFor(4);

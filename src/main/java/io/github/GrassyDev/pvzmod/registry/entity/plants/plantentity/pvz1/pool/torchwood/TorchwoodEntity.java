@@ -121,7 +121,7 @@ public class TorchwoodEntity extends PlantEntity implements IAnimatable {
 						damage = damage * 2;
 					}
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-					if (!(livingEntity instanceof ZombieShieldEntity) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
+					if ((!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity)) && !livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));

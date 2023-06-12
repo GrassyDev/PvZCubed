@@ -4,7 +4,6 @@ import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -107,7 +106,7 @@ public class FireTrailEntity extends PathAwareEntity implements IAnimatable {
 						damage = damage * 2;
 					}
 					livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-					if (!(livingEntity instanceof ZombieShieldEntity)) {
+					if ((!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity))) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));

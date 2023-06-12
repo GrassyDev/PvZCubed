@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public abstract class ZombieVehicleEntity extends MachinePvZombieEntity{
@@ -23,11 +22,7 @@ public abstract class ZombieVehicleEntity extends MachinePvZombieEntity{
 				zombiePassenger = (GeneralPvZombieEntity) entity;
 			}
 		}
-		if (zombiePassenger == null){
-			Vec3d vec3d2 = new Vec3d((double) 0.08, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
-			this.setVelocity(vec3d2);
-		}
-		else {
+		if (zombiePassenger != null){
 			if (zombiePassenger.getTarget() != null) {
 				this.setTarget(zombiePassenger.getTarget());
 			}
@@ -41,6 +36,10 @@ public abstract class ZombieVehicleEntity extends MachinePvZombieEntity{
 		super.tick();
 	}
 
+	@Override
+	public boolean tryAttack(Entity target) {
+		return false;
+	}
 
 	public boolean canWalkOnFluid(FluidState state) {
 		return state.isIn(FluidTags.WATER);

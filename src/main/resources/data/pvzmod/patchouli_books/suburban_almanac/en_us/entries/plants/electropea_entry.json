@@ -1,0 +1,43 @@
+{
+  "name": "Electro Pea",
+  "icon": "pvzmod:electropea_seed_packet",
+  "category": "pvzmod:plant_category",
+  "sortnum": 90,
+  "advancement": "pvzmod:make_repeater",
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "$(#bd951a)Health: $()$(#ff0000)16",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)4 DMG/1.5s",
+        "$(br)$(#bd951a)Electric Radius: $()$(#ff0000)5 Blocks",
+        "$(br)$(#bd951a)Electric Chains: $()$(#ff0000)3 Chains",
+        "$(br)$(#bd951a)Range: $()$(#ff0000)15 Blocks",
+        "$(br)$(#bd951a)Seed Recharge Time: $()$(#ff0000)20s",
+        "$(br)$(#bd951a)Special: $()$(#ff0000)Illuminating. Electrocutes Zombies. Can target any Zombie.",
+        "$(br2)$(#bd951a)Electric Peashooter expects resistance, but he doesn't want to ohm anybody."
+      ]
+    },
+    {
+      "type": "image",
+      "images": [
+        "pvzmod:textures/gui/entries/electropea.png"
+      ],
+      "title": "⚡ Filament Family",
+      "border": "true",
+      "text": "$(#25228d)Electro Peas fire orbs that pass through zombies and crackle with electrical power."
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:plants/filament/electropea"
+    },
+    {
+      "type": "text",
+      "title": "References",
+      "text": [
+        "$(br2)$(#bd951a)Plants vs. Zombies 2: $()$(#ff0000)Electric Peashooter",
+        "$(br2)$(#bd951a)Plants vs. Zombies: Garden Warfare 2: $()$(#ff0000)Electro Pea"
+      ]
+    }
+  ]
+}

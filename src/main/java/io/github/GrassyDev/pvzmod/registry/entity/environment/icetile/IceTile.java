@@ -3,10 +3,10 @@ package io.github.GrassyDev.pvzmod.registry.entity.environment.icetile;
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.world.World;
@@ -41,7 +41,7 @@ public class IceTile extends TileEntity {
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
 							generalPvZombieEntity.isFlying())) {
 				if (!livingEntity.hasStatusEffect(PvZCubed.WARM) && !livingEntity.isOnFire() && !livingEntity.hasStatusEffect(PvZCubed.FROZEN)){
-					if (!(livingEntity instanceof ZombieShieldEntity)) {
+					if ((!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity))) {
 						livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.ICE, 120, 1)));
 					}
 				}

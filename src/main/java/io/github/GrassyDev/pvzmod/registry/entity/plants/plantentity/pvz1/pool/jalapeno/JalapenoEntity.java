@@ -5,6 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.icetile.IceTile;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.snowtile.SnowTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
@@ -200,7 +201,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 
 				float damage = 0;
 
-				if (livingEntity instanceof IceTile){
+				if (livingEntity instanceof IceTile || livingEntity instanceof SnowTile){
 					livingEntity.discard();
 				}
 
@@ -237,7 +238,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 						if (livingEntity instanceof ZombiePropEntity zombiePropEntity && livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
-							if (!(livingEntity instanceof ZombieShieldEntity)) {
+							if ((livingEntity instanceof ZombieShieldEntity)) {
 								checkList.add(generalPvZombieEntity);
 							}
 						} else if ((zombiePropEntity2 == null)
@@ -252,7 +253,7 @@ public class JalapenoEntity extends PlantEntity implements IAnimatable {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						livingEntity.setOnFireFor(4);
-						if (!(livingEntity instanceof ZombieShieldEntity)) {
+						if ((!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity))) {
 							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));
 						}
 					}

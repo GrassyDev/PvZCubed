@@ -2,6 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.environment.snowtile.SnowTile;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.SnorkelEntity;
@@ -693,6 +695,8 @@ public abstract class PlantEntity extends GolemEntity {
 		}
 	}
 
+	protected int heatTicks = 40;
+
 	public void tick() {
 		if (this.getFireImmune()){
 			this.setFireTicks(0);
@@ -701,6 +705,17 @@ public abstract class PlantEntity extends GolemEntity {
 		Entity vehicle = this.getVehicle();
 		if (vehicle instanceof LilyPadEntity){
 			vehicle.setBodyYaw(this.bodyYaw);
+		}
+		if (PLANT_TYPE.get(this.getType()).orElse("appease").equals("pepper")){
+			if (--heatTicks <= 0) {
+				List<TileEntity> list = world.getNonSpectatingEntities(TileEntity.class, PvZEntity.PEASHOOTER.getDimensions().getBoxAt(this.getPos()).expand(1.5));
+				for (TileEntity tileEntity : list) {
+					if (tileEntity instanceof SnowTile) {
+						tileEntity.discard();
+					}
+				}
+				heatTicks = 40;
+			}
 		}
 	}
 

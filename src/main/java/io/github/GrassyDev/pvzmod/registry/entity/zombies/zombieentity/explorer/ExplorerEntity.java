@@ -328,7 +328,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 			this.setFireStage(FireStage.FIRE);
 		}
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) instanceof PlantEntity plantEntity && !this.hasStatusEffect(PvZCubed.BOUNCED)) {
+			if (this.CollidesWithPlant(1f, 0f) instanceof PlantEntity plantEntity && !this.hasStatusEffect(PvZCubed.BOUNCED)) {
 				if (!plantEntity.onWater && !plantEntity.getFireImmune() && this.getFireStage()) {
 					BlockPos blockPos = plantEntity.getBlockPos();
 					boolean bl = plantEntity.hasVehicle();
@@ -347,23 +347,23 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 					if (vehicle != null) {
 						vehicle.damage(DamageSource.mob(this), vehicle.getMaxHealth() * 5);
 					}
-					if (this.CollidesWithPlant(1f) == null) {
+					if (this.CollidesWithPlant(1f, 0f) == null) {
 						this.world.sendEntityStatus(this, (byte) 115);
 					}
-					if (!bl2 && !bl3 && this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.CollidesWithPlant(1f) == null) {
+					if (!bl2 && !bl3 && this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.CollidesWithPlant(1f, 0f) == null) {
 						if (this.world instanceof ServerWorld) {
 							createScorchedTile(blockPos);
 						}
 					}
 				} else if (!this.hasStatusEffect(PvZCubed.BOUNCED)) {
 					this.setVelocity(0, -0.3, 0);
-					this.setTarget(CollidesWithPlant(1f));
+					this.setTarget(CollidesWithPlant(1f, 0f));
 				this.setStealthTag(Stealth.FALSE);
 				}
 			}
-			else if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)) {
+			else if (this.CollidesWithPlant(1f, 0f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)) {
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant(1f));
+				this.setTarget(CollidesWithPlant(1f, 0f));
 				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){

@@ -9,7 +9,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import io.github.GrassyDev.pvzmod.registry.items.seedpackets.GatlingpeaSeeds;
 import net.fabricmc.api.EnvType;
@@ -121,7 +120,7 @@ public class SpikeweedEntity extends PlantEntity implements IAnimatable {
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 							&& (generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 &&
-							generalPvZombieEntity1.isFlying())) && !livingEntity.isInsideWaterOrBubbleColumn() && !(livingEntity instanceof ZombieShieldEntity)) {
+							generalPvZombieEntity1.isFlying())) && !livingEntity.isInsideWaterOrBubbleColumn() && (!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity))) {
 				ZombiePropEntity zombiePropEntity2 = null;
 				for (Entity entity1 : livingEntity.getPassengerList()) {
 					if (entity1 instanceof ZombiePropEntity zpe) {

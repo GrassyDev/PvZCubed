@@ -383,7 +383,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		}
 		if (!this.world.isClient()) {
 			if ((this.getVariant().equals(PharaohVariants.UNDYING) || this.getVariant().equals(PharaohVariants.UNDYINGHYPNO)) && sarcophagusEntity != null) {
-				if ((this.CollidesWithPlant(3.5f) != null || this.CollidesWithPlant(2.5f) != null || this.CollidesWithPlant(1.5f) != null || this.CollidesWithPlant(0.5f) != null)
+				if ((this.CollidesWithPlant(3.5f, 0f) != null || this.CollidesWithPlant(2.5f, 0f) != null || this.CollidesWithPlant(1.5f, 0f) != null || this.CollidesWithPlant(0.5f, 0f) != null)
 					&& !this.hasStatusEffect(PvZCubed.BOUNCED)) {
 					this.setSummoning(IsSummoning.TRUE);
 				} else {
@@ -443,9 +443,9 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		}
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
+			if (this.CollidesWithPlant(1f, 0f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant(1f));
+				this.setTarget(CollidesWithPlant(1f, 0f));
 				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){

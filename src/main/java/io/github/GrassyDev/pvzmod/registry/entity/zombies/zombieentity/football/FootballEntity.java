@@ -354,12 +354,9 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 					if (this.getTackleStage() && !this.isInsideWaterOrBubbleColumn()) {
 						if (i <= 0) {
 							this.attackTicksLeft = 20;
-							float f = 9999f;
+							float f = 180f;
 							if (target instanceof TallnutEntity || target instanceof GargantuarEntity) {
 								f = 45;
-								if (this.getType().equals(PvZEntity.BERSERKER)) {
-									f = 90;
-								}
 							}
 							boolean bl = target.damage(DamageSource.mob(this), f);
 							if (bl) {
@@ -383,7 +380,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 								this.applyDamageEffects(this, target);
 							}
 							if (target instanceof HypnoshroomEntity hypnoshroomEntity && !hypnoshroomEntity.getIsAsleep()){
-								hypnoshroomEntity.kill();
+								hypnoshroomEntity.damage(DamageSource.mob(this), hypnoshroomEntity.getMaxHealth() * 5);
 								this.damage(HYPNO_DAMAGE, 0);
 							}
 							return bl;
@@ -410,7 +407,7 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
 			LivingEntity zombie = this.CollidesWithZombie(1f);
-			if (this.CollidesWithZombie(1f) instanceof SuperFanImpEntity superFanImpEntity && superFanImpEntity.CollidesWithPlant(1f) == null && superFanImpEntity.isOnGround() && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTackleStage()){
+			if (this.CollidesWithZombie(1f) instanceof SuperFanImpEntity superFanImpEntity && superFanImpEntity.CollidesWithPlant(1f, 0f) == null && superFanImpEntity.isOnGround() && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTackleStage()){
 				this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
 				if (this.getVariant().equals(FootballVariants.DEFAULT) || this.getVariant().equals(FootballVariants.FOOTBALLHYPNO)) {
 					this.setTackleStage(TackleStage.EATING);
@@ -418,16 +415,16 @@ public class FootballEntity extends PvZombieEntity implements IAnimatable {
 				Vec3d vec3d = new Vec3d(1.25, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				superFanImpEntity.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 			}
-			else if (zombie instanceof GeneralPvZombieEntity generalPvZombieEntity && ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("small") && generalPvZombieEntity.CollidesWithPlant(1f) == null && generalPvZombieEntity.isOnGround() && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTackleStage()) {
+			else if (zombie instanceof GeneralPvZombieEntity generalPvZombieEntity && ZOMBIE_SIZE.get(generalPvZombieEntity.getType()).orElse("medium").equals("small") && generalPvZombieEntity.CollidesWithPlant(1f, 0f) == null && generalPvZombieEntity.isOnGround() && !this.hasStatusEffect(PvZCubed.BOUNCED) && this.getTackleStage()) {
 				if (this.getVariant().equals(FootballVariants.BERSERKERHYPNO) || this.getVariant().equals(FootballVariants.BERSERKER)) {
 					this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1F, 1.0F);
 					Vec3d vec3d = new Vec3d(1.25, 0.8, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 					generalPvZombieEntity.addVelocity(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 				}
 			}
-			if (this.CollidesWithPlant(1f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
+			if (this.CollidesWithPlant(1f, 0f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant(1f));
+				this.setTarget(CollidesWithPlant(1f, 0f));
 				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){

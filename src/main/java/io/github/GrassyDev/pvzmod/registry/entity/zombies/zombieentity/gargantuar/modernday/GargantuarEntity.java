@@ -356,7 +356,7 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 						bl = true;
 					}
 					else if (this.squaredDistanceTo(target) < 16D) {
-						target.damage(DamageSource.mob(this), Integer.MAX_VALUE);
+						target.damage(DamageSource.mob(this), 360);
 						return true;
 					}
 				}
@@ -432,14 +432,14 @@ public class GargantuarEntity extends PvZombieEntity implements IAnimatable {
 	public void tick() {
 		super.tick();
 		if (this.getAttacking() == null && !(this.getHypno())){
-			if (this.CollidesWithPlant(0f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
+			if (this.CollidesWithPlant(0f, 0f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant(0f));
+				this.setTarget(CollidesWithPlant(0f, 0f));
 				this.setStealthTag(Stealth.FALSE);
 			}
-			else if (this.CollidesWithPlant(2f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
+			else if (this.CollidesWithPlant(2f, 0f) != null && !this.hasStatusEffect(PvZCubed.BOUNCED)){
 				this.setVelocity(0, -0.3, 0);
-				this.setTarget(CollidesWithPlant(2f));
+				this.setTarget(CollidesWithPlant(2f, 0f));
 				this.setStealthTag(Stealth.FALSE);
 			}
 			else if (this.CollidesWithPlayer(2f) != null && !this.CollidesWithPlayer(2f).isCreative()){

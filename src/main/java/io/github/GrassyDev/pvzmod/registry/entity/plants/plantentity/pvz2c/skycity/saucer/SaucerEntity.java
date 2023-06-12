@@ -210,7 +210,7 @@ public class SaucerEntity extends PlantEntity implements IAnimatable {
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 							&& (generalPvZombieEntity.getHypno())) &&
 					!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity1 &&
-							generalPvZombieEntity1.isFlying())) && !livingEntity.isInsideWaterOrBubbleColumn() && !(livingEntity instanceof ZombieShieldEntity) &&
+							generalPvZombieEntity1.isFlying())) && !livingEntity.isInsideWaterOrBubbleColumn() && (!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity)) &&
 					!(ZOMBIE_SIZE.get(livingEntity.getType()).orElse("medium").equals("gargantuar") || ZOMBIE_SIZE.get(livingEntity.getType()).orElse("medium").equals("big"))) {
 				if (zombiePropEntity2 == null ||
 						zombiePropEntity2 instanceof ZombieShieldEntity) {

@@ -288,7 +288,7 @@ public class PerfoomshroomEntity extends PlantEntity implements IAnimatable {
 						}
 					}
 					if (damage > livingEntity.getHealth() &&
-							!(livingEntity instanceof ZombieShieldEntity) &&
+							(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 						float damage2 = damage - livingEntity.getHealth();
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);

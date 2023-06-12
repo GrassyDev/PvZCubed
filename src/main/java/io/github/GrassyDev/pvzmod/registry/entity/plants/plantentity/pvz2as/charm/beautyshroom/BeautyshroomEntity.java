@@ -227,7 +227,7 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 					}
 
 					if (damage > livingEntity.getHealth() &&
-							!(livingEntity instanceof ZombieShieldEntity) &&
+							(livingEntity instanceof ZombieShieldEntity) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && !(generalPvZombieEntity.getHypno())) {
 						float damage2 = damage - livingEntity.getHealth();
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
@@ -286,7 +286,7 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 							checkList.add(livingEntity);
 						}
 					}
-					if (!(livingEntity instanceof ZombieShieldEntity) && !(zombiePropEntity2 instanceof ZombieShieldEntity)) {
+					if ((!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity)) && !(zombiePropEntity2 instanceof ZombieShieldEntity)) {
 						if (!livingEntity.hasStatusEffect(FROZEN) && !livingEntity.hasStatusEffect(DISABLE) && random > 0.166){
 							livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.STUN, 100, 5)));
 						}

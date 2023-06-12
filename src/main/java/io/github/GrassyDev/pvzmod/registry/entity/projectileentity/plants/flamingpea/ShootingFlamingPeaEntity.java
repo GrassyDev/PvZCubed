@@ -291,7 +291,7 @@ public class ShootingFlamingPeaEntity extends PvZProjectileEntity implements IAn
 											} else {
 												livingEntity.damage(DamageSource.thrownProjectile(this, this.getOwner()), damageSplash);
 											}
-											if (!livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn()) && !(livingEntity instanceof ZombieShieldEntity)) {
+											if (!livingEntity.hasStatusEffect(PvZCubed.WET) && !livingEntity.isWet() && !(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn()) && (!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity))) {
 												livingEntity.setOnFireFor(4);
 												if (!(livingEntity instanceof ZombieShieldEntity)) {
 													livingEntity.addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 40, 1)));

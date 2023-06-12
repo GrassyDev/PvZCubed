@@ -8,7 +8,7 @@
       "type": "text",
       "text": [
         "$(#bd951a)Health: $()$(#ff0000)27, 140(Metal Helmet)",
-        "$(br)$(#bd951a)Damage: $()$(#ff0000)360(Tackle, Movement/Throw), 4(normal) ",
+        "$(br)$(#bd951a)Damage: $()$(#ff0000)180(Tackle, Movement/Throw), 4(normal) ",
         "$(#bd951a)Speed: $()$(#ff0000)Hungry",
         "$(br)$(#bd951a)Special: $()$(#ff0000)Tackles the first Plant or Super-Fan/New Years Imp it sees. Can't tackle if the helmet is destroyed.",
         "$(br)$(#bd951a)Football Zombie gives 110 percent whenever he's on the field. He's a team player who delivers both offensively and defensively. He has no idea what a football is."

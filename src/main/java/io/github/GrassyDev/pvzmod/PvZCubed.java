@@ -172,6 +172,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PEPPERPULT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.FIRE_PEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.GOLDLEAF_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.ELECTROPEA_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.MAGICSHROOM_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.LOQUAT_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.SAUCER_SEED_PACKET));
@@ -216,6 +217,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.PEPPER));
 				stacks.add(new ItemStack(ModItems.PLASMAPEA));
 				stacks.add(new ItemStack(ModItems.POWERSPIKE));
+				stacks.add(new ItemStack(ModItems.ELECTRICPEA));
 				stacks.add(new ItemStack(ModItems.ICESPIKE));
 				stacks.add(new ItemStack(ModItems.POWERICESPIKE));
 				stacks.add(new ItemStack(ModItems.CARDPROJ));
@@ -250,6 +252,7 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.SNORKELEGG));
 				stacks.add(new ItemStack(ModItems.DOLPHINRIDEREGG));
 				stacks.add(new ItemStack(ModItems.ZOMBONIEGG));
+				stacks.add(new ItemStack(ModItems.BOBSLEDEGG));
 				stacks.add(new ItemStack(ModItems.GARGANTUAREGG));
 				stacks.add(new ItemStack(ModItems.IMPEGG));
 				stacks.add(new ItemStack(ModItems.TRASHCANEGG));

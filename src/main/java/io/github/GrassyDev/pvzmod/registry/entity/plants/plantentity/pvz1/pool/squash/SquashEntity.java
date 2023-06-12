@@ -7,7 +7,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -166,7 +165,7 @@ public class SquashEntity extends PlantEntity implements IAnimatable {
 						(!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity &&
 								generalPvZombieEntity.isFlying()) || livingEntity instanceof ZombieRiderEntity))) {
 					if (damage > livingEntity.getHealth() &&
-							!(livingEntity instanceof ZombieShieldEntity) &&
+							(!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity)) &&
 							livingEntity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
 						float damage2 = damage - livingEntity.getHealth();
 						livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);

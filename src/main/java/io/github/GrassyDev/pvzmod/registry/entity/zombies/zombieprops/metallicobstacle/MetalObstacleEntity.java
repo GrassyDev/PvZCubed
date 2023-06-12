@@ -67,33 +67,33 @@ public class MetalObstacleEntity extends ZombieObstacleEntity implements IAnimat
 		if (this.hasVehicle() && this.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity && (generalPvZombieEntity.getHealth() <= 0 || generalPvZombieEntity.isDead())){
 			this.dismountVehicle();
 		}
-		if (this.CollidesWithPlant(0f) != null){
-			if (this.CollidesWithPlant(0f) instanceof SpikerockEntity) {
+		if (this.CollidesWithPlant(0f, 0f) != null){
+			if (this.CollidesWithPlant(0f, 0f) instanceof SpikerockEntity) {
 				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()) {
-					this.CollidesWithPlant(0f).damage(DamageSource.thrownProjectile(this, this), 90);
+					this.CollidesWithPlant(0f, 0f).damage(DamageSource.thrownProjectile(this, this), 90);
 					this.kill();
 				}
 				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
-					this.CollidesWithPlant(0f).damage(DamageSource.thrownProjectile(this, this), 90);
+					this.CollidesWithPlant(0f, 0f).damage(DamageSource.thrownProjectile(this, this), 90);
 					this.kill();
 				}
 			}
-			else if (this.CollidesWithPlant(0f) instanceof SpikeweedEntity) {
+			else if (this.CollidesWithPlant(0f, 0f) instanceof SpikeweedEntity) {
 				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()) {
-					this.CollidesWithPlant(0f).kill();
+					this.CollidesWithPlant(0f, 0f).kill();
 					this.kill();
 				}
 				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
-					this.CollidesWithPlant(0f).kill();
+					this.CollidesWithPlant(0f, 0f).kill();
 					this.kill();
 				}
 			}
-			else if (this.CollidesWithPlant(0f) != null && !(this.CollidesWithPlant(0f) instanceof GravebusterEntity)) {
+			else if (this.CollidesWithPlant(0f, 0f) != null && !(this.CollidesWithPlant(0f, 0f) instanceof GravebusterEntity)) {
 				if (this.getType().equals(PvZEntity.TRASHCANBIN) && !this.hasVehicle()){
-					this.CollidesWithPlant(0f).kill();
+					this.CollidesWithPlant(0f, 0f).kill();
 				}
 				else if (!(this.getType().equals(PvZEntity.TRASHCANBIN))) {
-					this.CollidesWithPlant(0f).kill();
+					this.CollidesWithPlant(0f, 0f).kill();
 				}
 			}
 		}

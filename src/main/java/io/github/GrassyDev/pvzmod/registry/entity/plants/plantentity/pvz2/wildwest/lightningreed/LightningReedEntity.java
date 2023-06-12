@@ -947,7 +947,6 @@ public class LightningReedEntity extends PlantEntity implements IAnimatable, Ran
 					if (!this.plantEntity.isInsideWaterOrBubbleColumn()) {
 						this.plantEntity.setElectricBeamTargetId(this.plantEntity.getId());
 						this.plantEntity.setHypnoBeamTarget(this.plantEntity.getTarget().getId());
-						this.plantEntity.setElectricBeamTargetId3(this.plantEntity.getTarget().getId());
 						if (livingEntity != null && livingEntity.isAlive()) {
 							ZombiePropEntity passenger = null;
 							for (Entity entity1 : livingEntity.getPassengerList()) {

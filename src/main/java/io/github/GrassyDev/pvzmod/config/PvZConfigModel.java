@@ -197,6 +197,10 @@ public class PvZConfigModel {
 		@RestartRequired
 		public float dropeaS = 10f;
 		@RestartRequired
+		public float electropeaS = 20.0f;
+		@RestartRequired
+		public float empeachS = 25.0f;
+		@RestartRequired
 		public float firepeaS = 15.0f;
 		@RestartRequired
 		public float fumeshroomS = 7.5f;
@@ -227,8 +231,6 @@ public class PvZConfigModel {
 		@RestartRequired
 		public float loquatS = 2.5f;
 		@RestartRequired
-		public float saucerS = 30f;
-		@RestartRequired
 		public float magicshroomS = 15f;
 		@RestartRequired
 		public float narcissusS = 7.5f;
@@ -236,8 +238,6 @@ public class PvZConfigModel {
 		public float navybeanS = 5.0f;
 		@RestartRequired
 		public float peapodS = 3.75f;
-		@RestartRequired
-		public float empeachS = 25.0f;
 		@RestartRequired
 		public float peashooterS = 5.0f;
 		@RestartRequired
@@ -254,6 +254,8 @@ public class PvZConfigModel {
 		public float repeaterS = 7.5f;
 		@RestartRequired
 		public float retrogatlingS = 35.0f;
+		@RestartRequired
+		public float saucerS = 30f;
 		@RestartRequired
 		public float scaredyshroomS = 5.0f;
 		@RestartRequired
@@ -335,6 +337,7 @@ public class PvZConfigModel {
 		public float coconutSDMG = 100f;
 		public float dropDMGv2 = 2.5f;
 		public float dropSDMG = 2.5f;
+		public float electricPeaDMG = 4f;
 		public float firepiercepeaDMG = 6f;
 		public float firepiercepeaSDMG = 3f;
 		public float flamingPeaDMGv2 = 8f;
@@ -394,6 +397,8 @@ public class PvZConfigModel {
 		public double backupH = 27D;
 		@RestartRequired
 		public double browncoatH = 27D;
+		@RestartRequired
+		public double bobsledH = 65D;
 		@RestartRequired
 		public double peasantH = 27D;
 		@RestartRequired
@@ -500,5 +505,7 @@ public class PvZConfigModel {
 
 		@RestartRequired
 		public double zomboniVH = 135D;
+		@RestartRequired
+		public double bobsledVH = 65D;
 	}
 }

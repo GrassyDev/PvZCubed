@@ -10,7 +10,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.gargantua
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -322,7 +321,7 @@ public class IcebergLettuceEntity extends PlantEntity implements IAnimatable {
 							checkList.add(livingEntity);
 						}
 					}
-					if (!(livingEntity instanceof ZombieShieldEntity) && !(zombiePropEntity2 instanceof ZombieShieldEntity)) {
+					if ((!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity)) && !(zombiePropEntity2 instanceof ZombieShieldEntity)) {
 						livingEntity.removeStatusEffect(PvZCubed.FROZEN);
 						livingEntity.removeStatusEffect(PvZCubed.ICE);
 						if (livingEntity.hasStatusEffect(PvZCubed.WARM) || livingEntity.isOnFire()) {
