@@ -259,7 +259,7 @@ public class WeenieBeanieEntity extends PlantEntity implements IAnimatable, Rang
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
 		this.targetZombies(this.getPos(), 2, false, false, true);
-		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 900 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();

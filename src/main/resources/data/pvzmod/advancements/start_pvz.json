@@ -31,6 +31,7 @@
   },
   "rewards": {
     "recipes": [
+      "pvzmod:gardenchallenge",
       "pvzmod:plants/ailment/buttonshroom",
       "pvzmod:plants/ailment/puffshroom",
       "pvzmod:plants/ailment/scaredyshroom",

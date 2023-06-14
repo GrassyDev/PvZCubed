@@ -3,6 +3,7 @@
   "icon": "pvzmod:bobsled_egg",
   "category": "pvzmod:zombie_category",
   "sortnum": 15,
+  "advancement": "pvzmod:make_challenge",
   "pages": [
     {
       "type": "text",
@@ -21,7 +22,7 @@
       "images": [
         "pvzmod:textures/gui/entries/bobsled.png"
       ],
-      "title": "Pool Zombie",
+      "title": "Hard Pool Zombie",
       "border": "true",
       "text": "$(#25228d)Slides on snow, shielding and damaging 3 lanes at once."
     },

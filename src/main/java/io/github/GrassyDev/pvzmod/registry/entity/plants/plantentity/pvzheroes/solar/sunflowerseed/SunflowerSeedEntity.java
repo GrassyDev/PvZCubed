@@ -302,7 +302,7 @@ public class SunflowerSeedEntity extends PlantEntity implements IAnimatable, Ran
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 900 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 		this.targetZombies(this.getPos(), 3, false, false, true);

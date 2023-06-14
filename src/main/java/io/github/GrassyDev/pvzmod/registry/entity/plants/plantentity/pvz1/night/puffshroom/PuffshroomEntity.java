@@ -238,7 +238,7 @@ public class PuffshroomEntity extends PlantEntity implements IAnimatable, Ranged
 		if (!this.isAiDisabled() && this.isAlive()) {
 			setPosition(this.getX(), this.getY(), this.getZ());
 		}
-		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 900 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();

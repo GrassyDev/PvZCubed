@@ -281,7 +281,7 @@ public class LilyPadEntity extends PlantEntity implements IAnimatable {
 		else {
 			this.setLowprof(LowProf.FALSE);
 		}
-		if (this.age >= 600 && !this.getPuffshroomPermanency() && !this.hasPassengers()) {
+		if (this.age >= 900 && !this.getPuffshroomPermanency() && !this.hasPassengers()) {
 			this.discard();
 		}
 		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();

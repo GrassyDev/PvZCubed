@@ -3,6 +3,7 @@
   "icon": "pvzmod:pumpkinzombie_egg",
   "category": "pvzmod:zombie_category",
   "sortnum": 190,
+  "advancement": "pvzmod:make_challenge",
   "pages": [
     {
       "type": "text",
@@ -20,7 +21,7 @@
       "images": [
         "pvzmod:textures/gui/entries/pumpkinzombie.png"
       ],
-      "title": "Dark Ages Zombie",
+      "title": "Hard Dark Ages Zombie",
       "border": "true",
       "text": "$(#25228d)Pumpkin Zombies explode when they lose their hat."
     },

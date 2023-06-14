@@ -394,7 +394,7 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}
-		if (this.age >= 600 && !this.getPuffshroomPermanency()) {
+		if (this.age >= 900 && !this.getPuffshroomPermanency()) {
 			this.discard();
 		}
 		float time = 200 / this.world.getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();

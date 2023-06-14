@@ -3,6 +3,7 @@
   "icon": "pvzmod:berserker_egg",
   "category": "pvzmod:zombie_category",
   "sortnum": 32,
+  "advancement": "pvzmod:make_challenge",
   "pages": [
     {
       "type": "text",
@@ -19,7 +20,7 @@
       "images": [
         "pvzmod:textures/gui/entries/berserker.png"
       ],
-      "title": "Night Zombie",
+      "title": "Hard Night Zombie",
       "border": "true",
       "text": "$(#25228d)A Football Zombie, but double the health and blindingly fast."
     },

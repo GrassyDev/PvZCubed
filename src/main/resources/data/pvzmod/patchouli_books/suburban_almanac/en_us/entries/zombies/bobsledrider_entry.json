@@ -3,6 +3,7 @@
   "icon": "pvzmod:bobsled_egg",
   "category": "pvzmod:zombie_category",
   "sortnum": 15,
+  "advancement": "pvzmod:make_challenge",
   "pages": [
     {
       "type": "text",
@@ -19,7 +20,7 @@
       "images": [
         "pvzmod:textures/gui/entries/bobsledrider.png"
       ],
-      "title": "Pool Zombie",
+      "title": "Hard Pool Zombie",
       "border": "true",
       "text": "$(#25228d)These zombies appear in sets of four."
     },

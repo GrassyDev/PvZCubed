@@ -534,11 +534,14 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 					this.dropItem(item);
 				}
 			}
-			if (this.getTierCount() >= 6){
+			if (this.getTierCount() >= 5){
 				for (int i = 0; i < this.getTierCount() - 1; ++i) {
 					this.dropItem(Items.DIAMOND);
 				}
-				for (int i = 0; i < this.getTierCount() - 5; ++i) {
+				for (int i = 0; i < this.getTierCount() - 4; ++i) {
+					this.dropItem(Items.NETHERITE_SCRAP);
+					this.dropItem(Items.NETHERITE_SCRAP);
+					this.dropItem(Items.NETHERITE_SCRAP);
 					this.dropItem(Items.NETHERITE_SCRAP);
 				}
 			}
@@ -1966,15 +1969,6 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 
 
 	/** /~*~//~*DAMAGE HANDLER*~//~*~/ **/
-
-	public boolean handleAttack(Entity attacker) {
-		if (attacker instanceof PlayerEntity) {
-			PlayerEntity playerEntity = (PlayerEntity) attacker;
-			return this.damage(DamageSource.player(playerEntity), 9999.0F);
-		} else {
-			return false;
-		}
-	}
 
 	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
 		if (fallDistance > 0F) {

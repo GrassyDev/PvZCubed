@@ -1,0 +1,94 @@
+{
+  "name": "Challenge Mode",
+  "icon": "pvzmod:gardenchallenge_spawn",
+  "category": "pvzmod:tutorial_category",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": [
+        "Plenty of Zombies can't be found normally, requiring the player to play a special mode called \"Challenge Mode\" to find them.",
+        "$(br2)Challenge Mode exists to allow the main experience of the mod to be easier and require less special Zombie countering, ",
+        "leaving the harder and more strategic aspects of the mod for experienced players seeking it."
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "pvzmod:gardenchallenge",
+      "text": [
+        "To begin you need to craft the item for the Challenge Mode, then you find somewhere you don't mind being destroyed ",
+        "in a 53x7x53 radius and use the item on a block you want to be the middle of the Challenge Mode (where you will have to defend)."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)When placed, Challenge Mode will activate and every block in the said area will be destroyed and a flat floor will be built.",
+        "$(br2)Any block not part of the Challenge will be destroyed and hostile mobs near it will vanish, this is a pure PvZ experience."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br2)To begin the Challenge, build a strong defense (strong enough to deal with plenty of high difficulty Basic Gravestones), ",
+        "then right click the Garden (or anywhere inside the red wool area), spawning a decorative Basic Gravestone near it, then right click again, ",
+        "starting the first wave."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br)Wave System",
+        "$(br2)When a Wave is in progress, Graves spawn in the dirt area around the Garden, a Wave ends when the last Grave of the Wave spawns.",
+        "$(br)The amount of Graves spawned depends on how many Worlds you have and how many Waves passed inside that world, ",
+        "increasing the amount for every World until the Fourth world, where it reduces a bit and every other World increases from that."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br)World System",
+        "$(br2)The Challenge has maximum of 8 Worlds, and beating the eighth World will end the Challenge.",
+        "$(br2)Each World is represented by a decorative Grave around the Garden, and the Grave's position represents the position of the World in the checkerboard lawn, ",
+        "which will change that part of the lawn to reflect the World."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "$(br)You start with the Basic World, which spawns Basic Gravestones. After a set amount of Waves are defeated you advance to the next World, the required amount being shown by the \"Waves\" bar on top.",
+        "$(br)From the fourth World onwards the difficulty of the Graves will increase a lot and more special Zombies will begin to spawn.",
+        "$(br)The Worlds are represented by the available Gravestones in the mod."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "The World chosen will depend on these rules:",
+        "$(br)1st World: Always Basic Gravestone",
+        "$(br)2nd World: Any Random Gravestone that is not Basic",
+        "$(br)3rd World: 50% Chance to either be the same World as the 2nd World or any Random World",
+        "$(br)4th World: Any Random World that you don't already have",
+        "$(br)5th and 6th World: Any Random World",
+        "$(br)7th World: Any Random World that you have",
+        "$(br)8th World: Any Random World"
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "The Graves that spawn depends on the Worlds you have. Graves spawn in a set of two, the first being a Basic Gravestone and the other being a World Gravestone.",
+        "$(br)World Gravestones are any non-basic Gravestone that spawns a matching Gravestone from one of the Worlds you have, the more of the same World you have the more likely that World will be chosen.",
+        "$(br)In addition, Water-based Worlds will add a third (matching) Gravestone to spawn together with the other two."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
+        "The Challenge ends by either the Garden being destroyed by the Zombies or by defeating the last Wave of the eighth World.",
+        "$(br)When the Challenge ends, every remaining Zombie disappears and it will drop loot that increases by the number of Worlds you have. Netherite Scrap will drop if the Challenge ends in World 6 or higher. ",
+        "If the Garden is not destroyed by a Zombie from this mod, the Garden will drop nothing and the Zombies will remain."
+      ]
+    }
+  ]
+}

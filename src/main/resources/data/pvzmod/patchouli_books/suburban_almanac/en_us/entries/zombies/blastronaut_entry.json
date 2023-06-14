@@ -3,6 +3,7 @@
   "icon": "pvzmod:blastronaut_egg",
   "category": "pvzmod:zombie_category",
   "sortnum": 82,
+  "advancement": "pvzmod:make_challenge",
   "pages": [
     {
       "type": "text",
@@ -20,7 +21,7 @@
       "images": [
         "pvzmod:textures/gui/entries/blastronaut.png"
       ],
-      "title": "Future Zombie",
+      "title": "Hard Future Zombie",
       "border": "true",
       "text": "$(#25228d)Boosts to float over all but the tallest plants."
     },
