@@ -83,18 +83,21 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 		super.initDataTracker();
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 		this.dataTracker.startTracking(DATA_ID_SUMMON, false);
+		this.dataTracker.startTracking(SUMMON_TIMES, 0);
 	}
 
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("Variant", this.getTypeVariant());
 		nbt.putBoolean("Summoning", this.getSummoning());
+		nbt.putInt("Count", this.getTypeCount());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
 		this.dataTracker.set(DATA_ID_SUMMON, nbt.getBoolean("Summoning"));
+		this.dataTracker.set(SUMMON_TIMES, nbt.getInt("Count"));
 	}
 
 
@@ -141,6 +144,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
 								 @Nullable NbtCompound entityNbt) {
+		setCount(0);
 		if (this.getType().equals(PvZEntity.UNDYINGPHARAOH)){
 			setVariant(PharaohVariants.UNDYING);
 			createSarcophagusProp();
@@ -175,6 +179,25 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 	public void setVariant(PharaohVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
+
+	//Charm Counter
+
+	private static final TrackedData<Integer> SUMMON_TIMES =
+			DataTracker.registerData(PharaohEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public int getTypeCount() {
+		return this.dataTracker.get(SUMMON_TIMES);
+	}
+
+	public void setCount(Integer count) {
+		this.dataTracker.set(SUMMON_TIMES, count);
+	}
+
+	public void addCount(){
+		int count = getTypeCount();
+		this.dataTracker.set(SUMMON_TIMES, count + 1);
+	}
+
 
 	public void createSarcophagusProp(){
 		if (world instanceof ServerWorld serverWorld) {
@@ -382,14 +405,20 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 			this.setCoveredTag(Covered.FALSE);
 		}
 		if (!this.world.isClient()) {
-			if ((this.getVariant().equals(PharaohVariants.UNDYING) || this.getVariant().equals(PharaohVariants.UNDYINGHYPNO)) && sarcophagusEntity != null) {
-				if ((this.CollidesWithPlant(3.5f, 0f) != null || this.CollidesWithPlant(2.5f, 0f) != null || this.CollidesWithPlant(1.5f, 0f) != null || this.CollidesWithPlant(0.5f, 0f) != null)
-					&& !this.hasStatusEffect(PvZCubed.BOUNCED)) {
-					this.setSummoning(IsSummoning.TRUE);
+			System.out.println(this.getTypeCount());
+			if (this.getTypeCount() < 13) {
+				if ((this.getVariant().equals(PharaohVariants.UNDYING) || this.getVariant().equals(PharaohVariants.UNDYINGHYPNO)) && sarcophagusEntity != null) {
+					if ((this.CollidesWithPlant(3.5f, 0f) != null || this.CollidesWithPlant(2.5f, 0f) != null || this.CollidesWithPlant(1.5f, 0f) != null || this.CollidesWithPlant(0.5f, 0f) != null)
+							&& !this.hasStatusEffect(PvZCubed.BOUNCED)) {
+						this.setSummoning(IsSummoning.TRUE);
+					} else {
+						this.setSummoning(IsSummoning.FALSE);
+					}
 				} else {
 					this.setSummoning(IsSummoning.FALSE);
 				}
-			} else {
+			}
+			else {
 				this.setSummoning(IsSummoning.FALSE);
 			}
 		}
@@ -415,6 +444,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 					} else {
 						createPharaoh();
 					}
+					this.addCount();
 					summonTicks = 160 * animationMultiplier;
 				}
 			}
@@ -425,6 +455,7 @@ public class PharaohEntity extends PvZombieEntity implements IAnimatable {
 					} else {
 						createPharaoh();
 					}
+					this.addCount();
 					summonTicks = 160 * animationMultiplier;
 				}
 			}

@@ -5,7 +5,9 @@ import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.torchwood.TorchwoodEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.plants.plasmapea.ShootingPlasmaPeaEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
@@ -36,6 +38,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -148,6 +151,8 @@ public class ShootingElectricPeaEntity extends PvZProjectileEntity implements IA
 		ELECTRIC_BEAM_TARGET_ID4 = DataTracker.registerData(ShootingElectricPeaEntity.class, TrackedDataHandlerRegistry.INTEGER);
 		SPARK_TARGET = DataTracker.registerData(ShootingElectricPeaEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	}
+
+	public LivingEntity torchwoodMemory;
 
 	@Override
 	public void registerControllers(AnimationData animationData) {
@@ -336,7 +341,28 @@ public class ShootingElectricPeaEntity extends PvZProjectileEntity implements IA
 				}
 			}
 		}
+		if (!this.world.isClient && checkTorchwood(this.getPos()) != null) {
+			if (checkTorchwood(this.getPos()) != torchwoodMemory && !checkTorchwood(this.getPos()).isWet()) {
+				ShootingPlasmaPeaEntity plasmaPeaEntity = (ShootingPlasmaPeaEntity) PvZEntity.PLASMAPEA.create(world);
+				plasmaPeaEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+				plasmaPeaEntity.setVelocity(this.getVelocity());
+				plasmaPeaEntity.age = this.age;
+				plasmaPeaEntity.setOwner(this.getOwner());
+				world.spawnEntity(plasmaPeaEntity);
+				this.remove(RemovalReason.DISCARDED);
+			}
+		}
     }
+
+	public TorchwoodEntity checkTorchwood(Vec3d pos) {
+		List<TorchwoodEntity> list = world.getNonSpectatingEntities(TorchwoodEntity.class, PvZEntity.PEA.getDimensions().getBoxAt(pos));
+		if (!list.isEmpty()){
+			return list.get(0);
+		}
+		else {
+			return null;
+		}
+	}
 
 	protected int lightningCounter;
 

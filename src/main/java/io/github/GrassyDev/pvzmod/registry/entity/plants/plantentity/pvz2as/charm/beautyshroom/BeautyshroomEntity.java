@@ -223,7 +223,7 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 						hasHelmet = true;
 					}
 					if (hasHelmet || (livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity && generalPvZombieEntity.isCovered())){
-						damage = damage/2;
+						damage = damage / 2;
 					}
 
 					if (damage > livingEntity.getHealth() &&
@@ -243,11 +243,10 @@ public class BeautyshroomEntity extends PlantEntity implements IAnimatable {
 						checkList.add(livingEntity);
 						checkList.add(generalPvZombieEntity);
 					} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
-						if (zombieShieldEntity instanceof ZombieRiderEntity){
-							zombieShieldEntity.getVehicle().damage(DamageSource.thrownProjectile(this, this), damage);
-						}
 						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-						checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
+						if (!(zombieShieldEntity instanceof ZombieRiderEntity)){
+							checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
+						}
 						checkList.add(zombieShieldEntity);
 					}
 					else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {

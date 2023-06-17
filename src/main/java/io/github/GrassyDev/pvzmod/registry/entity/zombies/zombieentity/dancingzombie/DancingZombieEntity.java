@@ -267,11 +267,6 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 				this.setStealthTag(Stealth.FALSE);
 			}
 		}
-		if (!this.world.isClient) {
-			if (this.age > 2400) {
-				this.discard();
-			}
-		}
 	}
 
 	protected void mobTick() {
@@ -433,7 +428,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 				if (DancingZombieEntity.this.isSpellcasting()) {
 					return false;
 				} else {
-					return DancingZombieEntity.this.age >= this.startTime;
+					return DancingZombieEntity.this.age >= this.startTime && DancingZombieEntity.this.getTypeCount() < 4;
 				}
 			} else {
 				return false;
@@ -442,7 +437,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean shouldContinue() {
 			LivingEntity livingEntity = DancingZombieEntity.this.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.STUN);
+			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !DancingZombieEntity.this.hasStatusEffect(PvZCubed.STUN) && DancingZombieEntity.this.getTypeCount() < 4;
 		}
 
 		public void start() {
@@ -573,6 +568,7 @@ public class DancingZombieEntity extends SummonerEntity implements IAnimatable {
 				}
                 serverWorld.spawnEntityAndPassengers(backupDancerEntity);
             }
+			DancingZombieEntity.this.addCount();
         }
 
         protected SoundEvent getSoundPrepare() {

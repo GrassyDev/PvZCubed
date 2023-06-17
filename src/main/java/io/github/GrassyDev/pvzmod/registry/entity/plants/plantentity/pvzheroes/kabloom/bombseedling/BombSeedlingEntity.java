@@ -5,11 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.lilypad.LilyPadEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -279,11 +275,10 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 						checkList.add(livingEntity);
 						checkList.add(generalPvZombieEntity);
 					} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
-						if (zombieShieldEntity instanceof ZombieRiderEntity){
-							zombieShieldEntity.getVehicle().damage(DamageSource.thrownProjectile(this, this), damage);
-						}
 						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-						checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
+						if (!(zombieShieldEntity instanceof ZombieRiderEntity)){
+							checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
+						}
 						checkList.add(zombieShieldEntity);
 					}
 					else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {
@@ -301,6 +296,10 @@ public class BombSeedlingEntity extends PlantEntity implements IAnimatable {
 							checkList.add(generalPvZombieEntity);
 						}
 						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add(livingEntity);
+						}
+						else if (livingEntity instanceof ZombieVehicleEntity && !checkList.contains(livingEntity)){
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 						}

@@ -5,10 +5,7 @@ import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.scorchedtile.ScorchedTile;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -262,6 +259,10 @@ public class IceshroomEntity extends PlantEntity implements IAnimatable {
 							checkList.add(livingEntity);
 							checkList.add(generalPvZombieEntity);
 						} else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add(livingEntity);
+						}
+						else if (livingEntity instanceof ZombieVehicleEntity && !checkList.contains(livingEntity)){
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 						}

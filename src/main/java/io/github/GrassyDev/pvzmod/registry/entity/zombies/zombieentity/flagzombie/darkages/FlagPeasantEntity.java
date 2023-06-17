@@ -432,7 +432,7 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 				if (FlagPeasantEntity.this.isSpellcasting()) {
 					return false;
 				} else {
-					return FlagPeasantEntity.this.age >= this.startTime;
+					return FlagPeasantEntity.this.age >= this.startTime && FlagPeasantEntity.this.getTypeCount() < 4;
 				}
 			} else {
 				return false;
@@ -441,7 +441,7 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean shouldContinue() {
 			LivingEntity livingEntity = FlagPeasantEntity.this.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !FlagPeasantEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !FlagPeasantEntity.this.hasStatusEffect(PvZCubed.STUN);
+			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !FlagPeasantEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !FlagPeasantEntity.this.hasStatusEffect(PvZCubed.STUN) && FlagPeasantEntity.this.getTypeCount() < 4;
 		}
 
 		public void start() {
@@ -591,6 +591,7 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
                 browncoatEntity.setOwner(FlagPeasantEntity.this);
 				((ServerWorld) world).spawnEntityAndPassengers(browncoatEntity);
             }
+			FlagPeasantEntity.this.addCount();
         }
 
         protected SoundEvent getSoundPrepare() {

@@ -9,6 +9,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.s
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.pool.tallnut.TallnutEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.spikerock.SpikerockEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.projectileentity.PvZProjectileEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BobsledPersonalityVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.bobsledteam.BobsledRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zomboni.ZomboniEntity;
@@ -52,7 +53,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.List;
 
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+import static io.github.GrassyDev.pvzmod.PvZCubed.*;
 
 public class MetalVehicleEntity extends ZombieVehicleEntity implements IAnimatable {
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
@@ -130,7 +131,7 @@ public class MetalVehicleEntity extends ZombieVehicleEntity implements IAnimatab
 					zombiePassenger = (GeneralPvZombieEntity) entity;
 				}
 			}
-			if (zombiePassenger == null && this.isAlive()){
+			if (zombiePassenger == null && this.isAlive() && !this.hasStatusEffect(FROZEN) && !this.hasStatusEffect(DISABLE)){
 				Vec3d vec3d2 = new Vec3d((double) 0.08, 0.0, 0).rotateY(-this.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				this.setVelocity(vec3d2);
 			}
@@ -153,7 +154,7 @@ public class MetalVehicleEntity extends ZombieVehicleEntity implements IAnimatab
 				projectileEntity.moreEntities.add(this);
 				projectileEntity.hitEntities();
 			}
-			if (age >= 150){
+			if (age >= 150 && !this.hasStatusEffect(FROZEN) && !this.hasStatusEffect(DISABLE)){
 				Vec3d vec3d2 = new Vec3d((double) -1, 0.0, 0.0).rotateY(-this.getYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				BlockPos blockPos = new BlockPos(Vec3d.ofCenter(new Vec3i(this.getX() + vec3d2.x, this.getY() + vec3d2.y, this.getZ() + vec3d2.z)));
 				this.createSnowTile(blockPos);
@@ -407,25 +408,29 @@ public class MetalVehicleEntity extends ZombieVehicleEntity implements IAnimatab
 
 	public void createBobsledPassenger() {
 		if (world instanceof ServerWorld serverWorld) {
-			BobsledRiderEntity zomboniEntity = new BobsledRiderEntity(PvZEntity.BOBSLED, this.world);
-			zomboniEntity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-			zomboniEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-			zomboniEntity.startRiding(this, true);
+			BobsledRiderEntity bobsledEntity = new BobsledRiderEntity(PvZEntity.BOBSLED, this.world);
+			bobsledEntity.setPersonality(BobsledPersonalityVariants.LEADER);
+			bobsledEntity.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			bobsledEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			bobsledEntity.startRiding(this, true);
 
-			BobsledRiderEntity zomboniEntity2 = new BobsledRiderEntity(PvZEntity.BOBSLED, this.world);
-			zomboniEntity2.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-			zomboniEntity2.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-			zomboniEntity2.startRiding(this, true);
+			BobsledRiderEntity bobsledEntity2 = new BobsledRiderEntity(PvZEntity.BOBSLED, this.world);
+			bobsledEntity2.setPersonality(BobsledPersonalityVariants.MOVER);
+			bobsledEntity2.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			bobsledEntity2.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			bobsledEntity2.startRiding(this, true);
 
-			BobsledRiderEntity zomboniEntity3 = new BobsledRiderEntity(PvZEntity.BOBSLED, this.world);
-			zomboniEntity3.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-			zomboniEntity3.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-			zomboniEntity3.startRiding(this, true);
+			BobsledRiderEntity bobsledEntity3 = new BobsledRiderEntity(PvZEntity.BOBSLED, this.world);
+			bobsledEntity3.setPersonality(BobsledPersonalityVariants.YOUNG);
+			bobsledEntity3.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			bobsledEntity3.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			bobsledEntity3.startRiding(this, true);
 
-			BobsledRiderEntity zomboniEntity4 = new BobsledRiderEntity(PvZEntity.BOBSLED, this.world);
-			zomboniEntity4.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
-			zomboniEntity4.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
-			zomboniEntity4.startRiding(this, true);
+			BobsledRiderEntity bobsledEntity4 = new BobsledRiderEntity(PvZEntity.BOBSLED, this.world);
+			bobsledEntity4.setPersonality(BobsledPersonalityVariants.DEFAULT);
+			bobsledEntity4.initialize(serverWorld, this.world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, (EntityData) null, (NbtCompound) null);
+			bobsledEntity4.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.bodyYaw, 0.0F);
+			bobsledEntity4.startRiding(this, true);
 		}
 	}
 

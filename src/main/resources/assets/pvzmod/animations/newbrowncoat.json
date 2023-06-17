@@ -6412,6 +6412,362 @@
 				}
 			}
 		},
+		"bobsled.sit.young": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"rotation": {
+						"vector": [0, 0, 12.5]
+					},
+					"position": {
+						"vector": [2.4, -9, 0]
+					}
+				},
+				"torso": {
+					"rotation": {
+						"vector": [0, 0, 12.5]
+					},
+					"position": {
+						"vector": [0, -9, 0]
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"vector": [0, 0, -25]
+					}
+				},
+				"leftforearm": {
+					"rotation": {
+						"vector": [0, 0, 10]
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"vector": [0, 0, 17.5]
+					}
+				},
+				"rightforearm": {
+					"rotation": {
+						"vector": [0, 0, -10]
+					}
+				},
+				"hip": {
+					"position": {
+						"vector": [0, -8, 0]
+					}
+				},
+				"ducky": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lefthigh": {
+					"rotation": {
+						"vector": [105, 0, 0]
+					}
+				},
+				"leftcalf": {
+					"position": {
+						"vector": [0, 8, 4.5]
+					}
+				},
+				"leftshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"righthigh": {
+					"rotation": {
+						"vector": [112.5, 0, 0]
+					}
+				},
+				"rightcalf": {
+					"position": {
+						"vector": [0, 9, 5]
+					}
+				},
+				"rightshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"bobsled.sit.mover": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"head": {
+					"position": {
+						"0.0": {
+							"vector": [0, -9, 0]
+						},
+						"0.5": {
+							"vector": [0, -11, -2],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, -9, 0],
+							"easing": "easeOutElastic"
+						}
+					}
+				},
+				"torso": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [7.5, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutElastic"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, -9, 0]
+						},
+						"0.5": {
+							"vector": [0, -11, 0],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, -9, 0],
+							"easing": "easeOutElastic"
+						}
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -25]
+						},
+						"0.5": {
+							"vector": [-37.5, 0, -25],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, 0, -25],
+							"easing": "easeOutElastic"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, -0.8, -1],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutElastic"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1, 1.1, 1],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [1, 1, 1],
+							"easing": "easeOutElastic"
+						}
+					}
+				},
+				"leftforearm": {
+					"rotation": {
+						"vector": [0, 0, 10]
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 20]
+						},
+						"0.5": {
+							"vector": [-32.88527, 18.04123, 15.47545],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, 0, 20],
+							"easing": "easeOutElastic"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, -0.8, -1],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutElastic"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1, 1.1, 1],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [1, 1, 1],
+							"easing": "easeOutElastic"
+						}
+					}
+				},
+				"rightforearm": {
+					"rotation": {
+						"vector": [0, 0, -10]
+					}
+				},
+				"hip": {
+					"position": {
+						"vector": [0, -8, 0]
+					}
+				},
+				"ducky": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lefthigh": {
+					"rotation": {
+						"vector": [105, 0, 0]
+					}
+				},
+				"leftcalf": {
+					"position": {
+						"vector": [0, 8, 4.5]
+					}
+				},
+				"leftshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"righthigh": {
+					"rotation": {
+						"vector": [112.5, 0, 0]
+					}
+				},
+				"rightcalf": {
+					"position": {
+						"vector": [0, 9, 5]
+					}
+				},
+				"rightshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"bobsled.sit.leader": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"head": {
+					"position": {
+						"vector": [0, -9, -1.3]
+					}
+				},
+				"torso": {
+					"rotation": {
+						"vector": [7.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -9, 0]
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"vector": [0, 0, -25]
+					}
+				},
+				"leftforearm": {
+					"rotation": {
+						"vector": [0, 0, 10]
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"vector": [-110.49807, 30.82594, 6.6552]
+					}
+				},
+				"rightforearm": {
+					"rotation": {
+						"vector": [0, 0, -30]
+					}
+				},
+				"hip": {
+					"position": {
+						"vector": [0, -8, 0]
+					}
+				},
+				"ducky": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lefthigh": {
+					"rotation": {
+						"vector": [105, 0, 0]
+					}
+				},
+				"leftcalf": {
+					"position": {
+						"vector": [0, 8, 4.5]
+					}
+				},
+				"leftshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"righthigh": {
+					"rotation": {
+						"vector": [112.5, 0, 0]
+					}
+				},
+				"rightcalf": {
+					"position": {
+						"vector": [0, 9, 5]
+					}
+				},
+				"rightshoe": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"jaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [5, 0, 0],
+							"easing": "easeInElastic"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutElastic"
+						}
+					}
+				}
+			}
+		},
 		"bobsled.slide": {
 			"loop": true,
 			"bones": {

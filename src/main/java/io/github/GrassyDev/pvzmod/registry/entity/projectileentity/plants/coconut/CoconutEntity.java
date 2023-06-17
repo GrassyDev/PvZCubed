@@ -6,7 +6,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.S
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -187,7 +186,7 @@ public class CoconutEntity extends PvZProjectileEntity implements IAnimatable {
 
 					if (bl) {
 						if (livingEntity instanceof Monster &&
-								!(livingEntity instanceof ZombieShieldEntity) &&
+								(!(livingEntity instanceof ZombieShieldEntity) || (livingEntity instanceof ZombieRiderEntity)) &&
 								!(livingEntity instanceof GeneralPvZombieEntity generalPvZombieEntity
 										&& (generalPvZombieEntity.getHypno()))) {
 							if (livingEntity != entity) {

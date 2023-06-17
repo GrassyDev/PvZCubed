@@ -11,6 +11,7 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.day.sunflower.SunflowerEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.night.sunshroom.SunshroomEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrades.twinsunflower.TwinSunflowerEntity;
+import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.BobsledPersonalityVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombiemachines.metallicvehicle.MetalVehicleEntity;
@@ -72,16 +73,19 @@ public class BobsledRiderEntity extends ZombieRiderEntity implements IAnimatable
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+		this.dataTracker.startTracking(PERSONALITY, 0);
 	}
 
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("Variant", this.getTypeVariant());
+		nbt.putInt("Personality", this.getTypePersonality());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+		this.dataTracker.set(PERSONALITY, nbt.getInt("Personality"));
 	}
 
 	@Override
@@ -120,6 +124,21 @@ public class BobsledRiderEntity extends ZombieRiderEntity implements IAnimatable
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
 	}
 
+	private static final TrackedData<Integer> PERSONALITY =
+			DataTracker.registerData(BobsledRiderEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	private int getTypePersonality() {
+		return this.dataTracker.get(PERSONALITY);
+	}
+
+	public BobsledPersonalityVariants getPersonality() {
+		return BobsledPersonalityVariants.byId(this.getTypePersonality() & 255);
+	}
+
+	public void setPersonality(BobsledPersonalityVariants variant) {
+		this.dataTracker.set(PERSONALITY, variant.getId() & 255);
+	}
+
 
 
 	/** /~*~//~*GECKOLIB ANIMATION*~//~*~/ **/
@@ -142,7 +161,18 @@ public class BobsledRiderEntity extends ZombieRiderEntity implements IAnimatable
 				event.getController().setAnimation(new AnimationBuilder().loop("bobsled.slide"));
 			}
 			else {
-				event.getController().setAnimation(new AnimationBuilder().loop("bobsled.sit"));
+				if (this.getPersonality().equals(BobsledPersonalityVariants.LEADER)){
+					event.getController().setAnimation(new AnimationBuilder().loop("bobsled.sit.leader"));
+				}
+				else if (this.getPersonality().equals(BobsledPersonalityVariants.MOVER)){
+					event.getController().setAnimation(new AnimationBuilder().loop("bobsled.sit.mover"));
+				}
+				else if (this.getPersonality().equals(BobsledPersonalityVariants.YOUNG)){
+					event.getController().setAnimation(new AnimationBuilder().loop("bobsled.sit.young"));
+				}
+				else {
+					event.getController().setAnimation(new AnimationBuilder().loop("bobsled.sit"));
+				}
 			}
 			if (this.isIced) {
 				event.getController().setAnimationSpeed(0.5);

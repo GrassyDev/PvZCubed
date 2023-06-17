@@ -300,11 +300,7 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 						checkList.add(livingEntity);
 						checkList.add(generalPvZombieEntity);
 					} else if (livingEntity instanceof ZombieShieldEntity zombieShieldEntity && zombieShieldEntity.getVehicle() != null){
-						if (zombieShieldEntity instanceof ZombieRiderEntity){
-							zombieShieldEntity.getVehicle().damage(DamageSource.thrownProjectile(this, this), damage);
-						}
 						zombieShieldEntity.damage(DamageSource.thrownProjectile(this, this), damage);
-						checkList.add((LivingEntity) zombieShieldEntity.getVehicle());
 						checkList.add(zombieShieldEntity);
 					}
 					else if (livingEntity.getVehicle() instanceof ZombieShieldEntity zombieShieldEntity) {
@@ -326,6 +322,10 @@ public class PotatomineEntity extends PlantEntity implements IAnimatable {
 							checkList.add(livingEntity);
 						}
 						else if (zombiePropEntity2 == null && !checkList.contains(livingEntity)) {
+							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
+							checkList.add(livingEntity);
+						}
+						else if (livingEntity instanceof ZombieVehicleEntity && !checkList.contains(livingEntity)){
 							livingEntity.damage(DamageSource.thrownProjectile(this, this), damage);
 							checkList.add(livingEntity);
 						}

@@ -85,6 +85,12 @@
     {
       "type": "text",
       "text": [
+        "$(br2)Zombies spawned by the Challenge will have a 20% chance to drop a random type of Plant Food when killed, allowing you to quickly expand your defenses to keep up with the increasing difficulty."
+      ]
+    },
+    {
+      "type": "text",
+      "text": [
         "The Challenge ends by either the Garden being destroyed by the Zombies or by defeating the last Wave of the eighth World.",
         "$(br)When the Challenge ends, every remaining Zombie disappears and it will drop loot that increases by the number of Worlds you have. Netherite Scrap will drop if the Challenge ends in World 6 or higher. ",
         "If the Garden is not destroyed by a Zombie from this mod, the Garden will drop nothing and the Zombies will remain."

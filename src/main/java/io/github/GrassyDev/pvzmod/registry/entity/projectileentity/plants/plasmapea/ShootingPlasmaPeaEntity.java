@@ -8,7 +8,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.snorkel.S
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.GeneralPvZombieEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombiePropEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieRiderEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.ZombieShieldEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -182,8 +181,8 @@ public class ShootingPlasmaPeaEntity extends PvZProjectileEntity implements IAni
 					!(entity instanceof SnorkelEntity snorkelEntity && snorkelEntity.isInvisibleSnorkel()) && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity3 && generalPvZombieEntity3.isStealth()) &&
 					!(entity instanceof GeneralPvZombieEntity generalPvZombieEntity1 && generalPvZombieEntity1.isFlying())) {
 				float damage = PVZCONFIG.nestedProjDMG.plasmaPeaDMG();
-				if (!((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) && !entity.isWet() && !(entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
-					damage = PVZCONFIG.nestedProjDMG.plasmaPeaDMG() / 2;
+				if (((LivingEntity) entity).hasStatusEffect(PvZCubed.WET) || entity.isWet() || (entity instanceof GeneralPvZombieEntity generalPvZombieEntity && !generalPvZombieEntity.canBurn())) {
+					damage = damage / 2;
 				}
 				if (et == null) {
 					entity.playSound(PvZSounds.FIREPEAHITEVENT, 0.2F, (float) (0.5F + Math.random()));

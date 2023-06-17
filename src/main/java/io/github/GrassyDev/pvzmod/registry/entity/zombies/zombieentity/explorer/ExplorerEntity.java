@@ -79,18 +79,21 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 		super.initDataTracker();
 		this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
 		this.dataTracker.startTracking(DATA_ID_TYPE_COUNT, true);
+		this.dataTracker.startTracking(SUMMON_TIMES, 0);
 	}
 
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("Variant", this.getTypeVariant());
 		nbt.putBoolean("Fire", this.getFireStage());
+		nbt.putInt("Count", this.getTypeCount());
 	}
 
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 		this.dataTracker.set(DATA_ID_TYPE_COUNT, nbt.getBoolean("Fire"));
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+		this.dataTracker.set(SUMMON_TIMES, nbt.getInt("Count"));
 	}
 
 
@@ -198,6 +201,24 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 
 	public void setVariant(ExplorerVariants variant) {
 		this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+	}
+
+	//Charm Counter
+
+	private static final TrackedData<Integer> SUMMON_TIMES =
+			DataTracker.registerData(ExplorerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+	public int getTypeCount() {
+		return this.dataTracker.get(SUMMON_TIMES);
+	}
+
+	public void setCount(Integer count) {
+		this.dataTracker.set(SUMMON_TIMES, count);
+	}
+
+	public void addCount(){
+		int count = getTypeCount();
+		this.dataTracker.set(SUMMON_TIMES, count + 1);
 	}
 
 
@@ -315,8 +336,9 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 		if (this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.getFireStage()) {
 			double random = Math.random();
 			if (--createTileTicks <= 0) {
-				if (random <= 0.5 && HasTile(this.getBlockPos()) == null && this.getTarget() != null && this.onGround && !this.isInsideWaterOrBubbleColumn()) {
+				if (random <= 0.5 && HasTile(this.getBlockPos()) == null && this.getTarget() != null && this.onGround && !this.isInsideWaterOrBubbleColumn() && this.getTypeCount() <= 3) {
 					createScorchedTile(this.getBlockPos());
+					this.addCount();
 				}
 				createTileTicks = 100;
 			}
@@ -353,6 +375,7 @@ public class ExplorerEntity extends PvZombieEntity implements IAnimatable {
 					if (!bl2 && !bl3 && this.getVariant().equals(ExplorerVariants.TORCHLIGHT) && this.CollidesWithPlant(1f, 0f) == null) {
 						if (this.world instanceof ServerWorld) {
 							createScorchedTile(blockPos);
+							this.addCount();
 						}
 					}
 				} else if (!this.hasStatusEffect(PvZCubed.BOUNCED)) {

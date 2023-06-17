@@ -2,8 +2,8 @@ package io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.flagzomb
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
 import io.github.GrassyDev.pvzmod.registry.ModItems;
-import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
+import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.gravestones.GraveEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.garden.GardenEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.plants.miscentity.gardenchallenge.GardenChallengeEntity;
@@ -427,7 +427,7 @@ public class FlagMummyEntity extends SummonerEntity implements IAnimatable {
 				if (FlagMummyEntity.this.isSpellcasting()) {
 					return false;
 				} else {
-					return FlagMummyEntity.this.age >= this.startTime;
+					return FlagMummyEntity.this.age >= this.startTime && FlagMummyEntity.this.getTypeCount() < 4;
 				}
 			} else {
 				return false;
@@ -436,7 +436,7 @@ public class FlagMummyEntity extends SummonerEntity implements IAnimatable {
 
 		public boolean shouldContinue() {
 			LivingEntity livingEntity = FlagMummyEntity.this.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !FlagMummyEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !FlagMummyEntity.this.hasStatusEffect(PvZCubed.STUN);
+			return livingEntity != null && livingEntity.isAlive() && this.spellCooldown > 0 && !FlagMummyEntity.this.hasStatusEffect(PvZCubed.FROZEN) && !FlagMummyEntity.this.hasStatusEffect(PvZCubed.STUN) && FlagMummyEntity.this.getTypeCount() < 4;
 		}
 
 		public void start() {
@@ -586,6 +586,7 @@ public class FlagMummyEntity extends SummonerEntity implements IAnimatable {
                 browncoatEntity.setOwner(FlagMummyEntity.this);
 				((ServerWorld) world).spawnEntityAndPassengers(browncoatEntity);
             }
+			FlagMummyEntity.this.addCount();
         }
 
         protected SoundEvent getSoundPrepare() {

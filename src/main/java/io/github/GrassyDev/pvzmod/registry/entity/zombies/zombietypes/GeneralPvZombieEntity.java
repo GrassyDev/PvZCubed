@@ -847,7 +847,7 @@ public abstract class GeneralPvZombieEntity extends HostileEntity {
 		}
 		if (this.getHealth() < this.getMaxHealth() / 2 && !(this instanceof ZombiePropEntity) &&
 				!ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("gargantuar") && !ZOMBIE_SIZE.get(this.getType()).orElse("medium").equals("small") &&
-				!(this instanceof ZombieKingEntity) && IS_MACHINE.get(this.getType()).orElse(false).equals(false)) {
+				!(this instanceof ZombieKingEntity) && !(this instanceof ZombieVehicleEntity) && IS_MACHINE.get(this.getType()).orElse(false).equals(false)) {
 			if (this.pop && !this.dead) {
 				playSound(PvZSounds.POPLIMBEVENT, 0.75f, (float) (0.5F + Math.random()));
 				pop = false;
