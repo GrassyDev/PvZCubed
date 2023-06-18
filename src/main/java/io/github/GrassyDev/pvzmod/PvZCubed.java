@@ -87,8 +87,8 @@ public class PvZCubed implements ModInitializer {
 			GameRuleRegistry.register("pvzinfiniteSeeds", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(false));
 	public static final GameRules.Key<GameRules.BooleanRule> INSTANT_RECHARGE =
 			GameRuleRegistry.register("pvzinstantRecharge", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(false));
-	public static final GameRules.Key<GameRules.BooleanRule> COSTS_SUN =
-			GameRuleRegistry.register("pvzseedCostSun", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(false));
+	/**public static final GameRules.Key<GameRules.BooleanRule> COSTS_SUN =
+			GameRuleRegistry.register("pvzseedCostSun", GameRules.Category.SPAWNING, GameRuleFactory.createBooleanRule(false));**/
 
 	public static final GameRules.Key<GameRules.BooleanRule> PLANTS_GLOW =
 			GameRuleRegistry.register("pvzplantsGlow", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(true));
@@ -195,8 +195,8 @@ public class PvZCubed implements ModInitializer {
 				stacks.add(new ItemStack(ModItems.WEENIEBEANIE_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.NAVYBEAN_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.JUMPINGBEAN_SEED_PACKET));
-				stacks.add(new ItemStack(ModItems.SUNFLOWERSEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.BELLFLOWER_SEED_PACKET));
+				stacks.add(new ItemStack(ModItems.SUNFLOWERSEED_SEED_PACKET));
 				stacks.add(new ItemStack(ModItems.PEA));
 				stacks.add(new ItemStack(ModItems.SNOWPEAPROJ));
 				stacks.add(new ItemStack(ModItems.SPORE));

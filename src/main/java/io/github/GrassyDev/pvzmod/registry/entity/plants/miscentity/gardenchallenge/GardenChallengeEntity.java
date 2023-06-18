@@ -815,6 +815,7 @@ public class GardenChallengeEntity extends PlantEntity implements IAnimatable, R
 			this.setWave(0);
 		}
 		else if (this.getWaveCount() > maxWaves && this.getTier().equals(ChallengeTiers.EIGHT)){
+			this.setTier(ChallengeTiers.NINE);
 			this.damage(DamageSource.mob(this), Integer.MAX_VALUE);
 		}
 		if (!this.getWaveInProgress()){

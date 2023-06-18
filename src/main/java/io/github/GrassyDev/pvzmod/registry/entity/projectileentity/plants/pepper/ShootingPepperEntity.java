@@ -236,6 +236,15 @@ public class ShootingPepperEntity extends PvZProjectileEntity implements IAnimat
 						((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 						((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
 						entity.setOnFireFor(4);
+						if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+							generalPvZombieEntity.fireSplashTicks = 10;
+						}
+						if (entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+							generalPvZombieEntity.fireSplashTicks = 10;
+						}
+						if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+							generalPvZombieEntity.fireSplashTicks = 10;
+						}
 						((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 						Vec3d vec3d = this.getPos();
 						List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));

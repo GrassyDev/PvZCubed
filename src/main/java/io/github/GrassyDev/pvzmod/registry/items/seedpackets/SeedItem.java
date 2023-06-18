@@ -18,6 +18,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
+
 public abstract class SeedItem extends Item {
 	public SeedItem(Item.Settings settings) {
 		super(settings);
@@ -86,7 +88,7 @@ public abstract class SeedItem extends Item {
 				nbtCompound.putFloat("Cooldown", 0);
 				player.getItemCooldownManager().set(stack.getItem(), 0);
 			}
-			if (player.getStackInHand(player.getActiveHand()).isItemEqual(stack) && player.getInventory().getEmptySlot() != -1) {
+			if (player.getStackInHand(player.getActiveHand()).isItemEqual(stack) && player.getInventory().getEmptySlot() != -1 && PVZCONFIG.nestedSeeds.attractSun()) {
 				Vec3d vec3d = new Vec3d(10, 0.0, 0).rotateY(-entity.getHeadYaw() * (float) (Math.PI / 180.0) - ((float) (Math.PI / 2)));
 				HitResult hitResult = world.raycast(new RaycastContext(entity.getPos(), entity.getPos().add(vec3d), RaycastContext.ShapeType.VISUAL, RaycastContext.FluidHandling.NONE, entity));
 				if (hitResult.getType().equals(HitResult.Type.MISS)) {

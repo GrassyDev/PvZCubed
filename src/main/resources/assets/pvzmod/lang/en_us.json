@@ -86,6 +86,7 @@
   "text.config.pvz3-config.category.nestedSeeds": "Seed Packet Settings",
   "text.config.pvz3-config.option.nestedSeeds.infiniteSeeds": "Infinite Seeds",
   "text.config.pvz3-config.option.nestedSeeds.instantRecharge": "Instant Seed Packet Recharge",
+  "text.config.pvz3-config.option.nestedSeeds.attractSun": "Seed Packets absorb nearby Sun",
 
   "text.config.pvz3-config.category.nestedSeeds.moreSeeds": "Seed Packet Recharge Settings (Restart)",
   "text.config.pvz3-config.option.nestedSeeds.moreSeeds.acidshrooomS": "Acid Goop-shroom Seed",

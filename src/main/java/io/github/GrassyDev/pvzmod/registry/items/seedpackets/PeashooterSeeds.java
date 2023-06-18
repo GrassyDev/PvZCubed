@@ -1,7 +1,6 @@
 package io.github.GrassyDev.pvzmod.registry.items.seedpackets;
 
 import io.github.GrassyDev.pvzmod.PvZCubed;
-import io.github.GrassyDev.pvzmod.registry.ModItems;
 import io.github.GrassyDev.pvzmod.registry.PvZEntity;
 import io.github.GrassyDev.pvzmod.registry.PvZSounds;
 import io.github.GrassyDev.pvzmod.registry.entity.environment.TileEntity;
@@ -138,12 +137,12 @@ public class PeashooterSeeds extends SeedItem implements FabricItem {
 						if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 							user.getItemCooldownManager().set(this, cooldown);
 						}
-						if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+						/**if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
 							int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
 							if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 2) {
 								user.getInventory().removeStack(slot, 2);
 							}
-						}
+						}**/
 					}
 					return ActionResult.success(world.isClient);
 				} else {
@@ -179,12 +178,12 @@ public class PeashooterSeeds extends SeedItem implements FabricItem {
 					if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 						user.getItemCooldownManager().set(this, cooldown);
 					}
-					if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+					/**if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
 						int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
 						if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 2) {
 							user.getInventory().removeStack(slot, 2);
 						}
-					}
+					}**/
 				}
 				return ActionResult.success(world.isClient);
 			} else {
@@ -214,12 +213,12 @@ public class PeashooterSeeds extends SeedItem implements FabricItem {
 				if (!PVZCONFIG.nestedSeeds.instantRecharge() && !world.getGameRules().getBoolean(PvZCubed.INSTANT_RECHARGE)) {
 					user.getItemCooldownManager().set(this, cooldown);
 				}
-				if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
+				/**if (world.getGameRules().getBoolean(PvZCubed.COSTS_SUN)) {
 					int slot = user.getInventory().getSlotWithStack(ModItems.SUN.getDefaultStack());
 					if (slot != -1 && user.getInventory().getStack(slot).getCount() >= 2) {
 						user.getInventory().removeStack(slot, 2);
 					}
-				}
+				}**/
 			}
 			return ActionResult.success(world.isClient);
 		} else {

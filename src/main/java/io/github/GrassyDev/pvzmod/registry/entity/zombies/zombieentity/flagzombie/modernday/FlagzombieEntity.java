@@ -277,11 +277,6 @@ public class FlagzombieEntity extends SummonerEntity implements IAnimatable {
 				this.setStealthTag(Stealth.FALSE);
 			}
 		}
-		if (!this.world.isClient) {
-			if (this.age > 2400) {
-				this.discard();
-			}
-		}
 	}
 
 	protected void mobTick() {

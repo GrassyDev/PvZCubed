@@ -14,7 +14,6 @@ import io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.pvz1.upgrad
 import io.github.GrassyDev.pvzmod.registry.entity.variants.zombies.DefaultAndHypnoVariants;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.PvZombieAttackGoal;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.browncoat.darkages.PeasantEntity;
-import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombieentity.zombieking.ZombieKingEntity;
 import io.github.GrassyDev.pvzmod.registry.entity.zombies.zombietypes.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -114,7 +113,7 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 	/** /~*~//~*VARIANTS*~//~*~/ **/
 
 	private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
-			DataTracker.registerData(ZombieKingEntity.class, TrackedDataHandlerRegistry.INTEGER);
+			DataTracker.registerData(FlagPeasantEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
 								 SpawnReason spawnReason, @Nullable EntityData entityData,
@@ -264,11 +263,6 @@ public class FlagPeasantEntity extends SummonerEntity implements IAnimatable {
 			else if (this.CollidesWithPlayer(1.5f) != null && !this.CollidesWithPlayer(1.5f).isCreative()){
 				this.setTarget(CollidesWithPlayer(1.5f));
 				this.setStealthTag(Stealth.FALSE);
-			}
-		}
-		if (!this.world.isClient) {
-			if (this.age > 2400) {
-				this.discard();
 			}
 		}
 	}

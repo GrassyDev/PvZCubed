@@ -234,6 +234,15 @@ public class ShootingFlamingPeaEntity extends PvZProjectileEntity implements IAn
 						(!(entity instanceof ZombieShieldEntity) || (entity instanceof ZombieRiderEntity))) {
 					((LivingEntity) entity).addStatusEffect((new StatusEffectInstance(PvZCubed.WARM, 60, 1)));
 					entity.setOnFireFor(4);
+					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+						generalPvZombieEntity.fireSplashTicks = 10;
+					}
+					if (entity.getVehicle() instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+						generalPvZombieEntity.fireSplashTicks = 10;
+					}
+					if (entity instanceof GeneralPvZombieEntity generalPvZombieEntity) {
+						generalPvZombieEntity.fireSplashTicks = 10;
+					}
 					((LivingEntity) entity).removeStatusEffect(PvZCubed.FROZEN);
 					((LivingEntity) entity).removeStatusEffect(PvZCubed.ICE);
 					Vec3d vec3d = this.getPos();

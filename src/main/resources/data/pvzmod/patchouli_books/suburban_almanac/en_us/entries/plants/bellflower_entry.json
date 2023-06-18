@@ -2,7 +2,7 @@
   "name": "Bellflower",
   "icon": "pvzmod:bellflower_seed_packet",
   "category": "pvzmod:plant_category",
-  "sortnum": 313,
+  "sortnum": 312,
   "advancement": "pvzmod:start_pvz",
   "pages": [
     {

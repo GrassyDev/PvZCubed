@@ -153,6 +153,7 @@ public class PvZConfigModel {
 	public static class PvZSeedNest {
 		public boolean infiniteSeeds = false;
 		public boolean instantRecharge = false;
+		public boolean attractSun = true;
 		@Nest
 		public PvZMoreSeeds moreSeeds = new PvZMoreSeeds();
 	}

@@ -38,8 +38,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
-
-import static io.github.GrassyDev.pvzmod.PvZCubed.PVZCONFIG;
 import static io.github.GrassyDev.pvzmod.registry.entity.plants.plantentity.PlantEntity.checkPlant;
 
 public class SolarWinds extends TileEntity {
@@ -188,7 +186,7 @@ public class SolarWinds extends TileEntity {
 					particlePos.getY() + (double) MathHelper.nextBetween(randomGenerator, 0F, 1.5F),
 					particlePos.getZ() + (double) MathHelper.nextBetween(randomGenerator, -1.5F, 1.5F), d, e, f);
 		}
-		for(int i = 0; i < 64; ++i) {
+		for(int i = 0; i < 32; ++i) {
 			Vec3d particlePos = Vec3d.ofCenter(this.getBlockPos());
 			double d = this.random.nextDouble() / 10 * this.random.range(-1, 1);
 			double e = this.random.nextDouble() / 30 * this.random.range(-1, 1);
